@@ -32,6 +32,11 @@ Environment:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string, notnull: true }
 
+Habitat:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string, notnull: true }
+
 Role:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
@@ -60,6 +65,7 @@ Sample:
     latitude_minutes:   { type: float }
     longitude_minutes:  { type: float }
     environment_id:     { type: integer, notnull: true }
+    habitat_id:         { type: integer, notnull: true }
     ph:                 { type: float }
     conductivity:       { type: float }
     temperature:        { type: float }
@@ -71,4 +77,5 @@ Sample:
   relations:
     Ecosystem:          { foreignAlias: Samples }
     Environment:        { foreignAlias: Samples }
+    Habitat:            { foreignAlias: Samples }
     Collector:          { class: User, local: collector_id, foreignType: one, foreignAlias: Samples }
