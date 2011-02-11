@@ -1,0 +1,11 @@
+Habitat:
+  plankton:
+    name: "Plankton"
+  sediment:
+    name: "Sediment"
+  rock:
+    name: "Rock"
+  tree leaf:
+    name: "Tree leaf"
+  epiphytic:
+    name: "Epiphytic"
