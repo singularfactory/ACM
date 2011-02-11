@@ -90,9 +90,11 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('ecosystem_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('location', 'string', null, array(
              'type' => 'string',
+             'notnull' => true,
              ));
         $this->hasColumn('latitude_degrees', 'integer', null, array(
              'type' => 'integer',
@@ -108,6 +110,7 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('environment_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('ph', 'float', null, array(
              'type' => 'float',
@@ -129,9 +132,11 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('collector_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('collection_date', 'timestamp', null, array(
              'type' => 'timestamp',
+             'notnull' => true,
              ));
 
         $this->option('type', 'INNODB');

@@ -39,9 +39,11 @@ abstract class BaseProvince extends sfDoctrineRecord
              ));
         $this->hasColumn('name', 'string', null, array(
              'type' => 'string',
+             'notnull' => true,
              ));
         $this->hasColumn('country_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
 
         $this->option('type', 'INNODB');

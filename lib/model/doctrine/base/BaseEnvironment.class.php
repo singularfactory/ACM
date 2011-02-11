@@ -33,6 +33,7 @@ abstract class BaseEnvironment extends sfDoctrineRecord
              ));
         $this->hasColumn('name', 'string', null, array(
              'type' => 'string',
+             'notnull' => true,
              ));
 
         $this->option('type', 'INNODB');

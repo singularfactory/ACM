@@ -71,6 +71,7 @@ abstract class BaseUser extends sfDoctrineRecord
              ));
         $this->hasColumn('role_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
 
         $this->option('type', 'INNODB');

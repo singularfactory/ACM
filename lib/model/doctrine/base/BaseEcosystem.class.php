@@ -45,12 +45,15 @@ abstract class BaseEcosystem extends sfDoctrineRecord
              ));
         $this->hasColumn('name', 'string', null, array(
              'type' => 'string',
+             'notnull' => true,
              ));
         $this->hasColumn('city', 'string', null, array(
              'type' => 'string',
+             'notnull' => true,
              ));
         $this->hasColumn('province_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('lanscape_picture', 'string', null, array(
              'type' => 'string',
