@@ -1,3 +1,12 @@
+dev:
+  doctrine:
+    class: sfDoctrineDatabase
+
+test:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=bna_green_house_test'
 all:
   doctrine:
     class: sfDoctrineDatabase
