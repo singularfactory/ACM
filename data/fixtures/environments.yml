@@ -1,0 +1,10 @@
+Environment:
+  freshwater:
+    name: "Freshwater"
+  brackish:
+    name: "Brackish"
+  marine:
+    name: "Marine"
+  hypersaline:
+    name: "Hypersaline"
+  
