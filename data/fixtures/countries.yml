@@ -1,0 +1,497 @@
+Country:  
+  Afghanistan:
+    name:  "Afghanistan"
+  Åland Islands:
+    name:  "Åland Islands"
+  Albania:
+    name:  "Albania"
+  Algeria:
+    name:  "Algeria"
+  American Samoa:
+    name:  "American Samoa"
+  Andorra:
+    name:  "Andorra"
+  Angola:
+    name:  "Angola"
+  Anguilla:
+    name:  "Anguilla"
+  Antarctica:
+    name:  "Antarctica"
+  Antigua and Barbuda:
+    name:  "Antigua and Barbuda"
+  Argentina:
+    name:  "Argentina"
+  Armenia:
+    name:  "Armenia"
+  Aruba:
+    name:  "Aruba"
+  Australia:
+    name:  "Australia"
+  Austria:
+    name:  "Austria"
+  Azerbaijan:
+    name:  "Azerbaijan"
+  Bahamas:
+    name:  "Bahamas"
+  Bahrain:
+    name:  "Bahrain"
+  Bangladesh:
+    name:  "Bangladesh"
+  Barbados:
+    name:  "Barbados"
+  Belarus:
+    name:  "Belarus"
+  Belgium:
+    name:  "Belgium"
+  Belize:
+    name:  "Belize"
+  Benin:
+    name:  "Benin"
+  Bermuda:
+    name:  "Bermuda"
+  Bhutan:
+    name:  "Bhutan"
+  Bolivia, Plurinational State of:
+    name:  "Bolivia, Plurinational State of"
+  Bonaire, Saint Eustatius and Saba:
+    name:  "Bonaire, Saint Eustatius and Saba"
+  Bosnia and Herzegovina:
+    name:  "Bosnia and Herzegovina"
+  Botswana:
+    name:  "Botswana"
+  Bouvet Island:
+    name:  "Bouvet Island"
+  Brazil:
+    name:  "Brazil"
+  British Indian Ocean Territory:
+    name:  "British Indian Ocean Territory"
+  Brunei Darussalam:
+    name:  "Brunei Darussalam"
+  Bulgaria:
+    name:  "Bulgaria"
+  Burkina Faso:
+    name:  "Burkina Faso"
+  Burundi:
+    name:  "Burundi"
+  Cambodia:
+    name:  "Cambodia"
+  Cameroon:
+    name:  "Cameroon"
+  Canada:
+    name:  "Canada"
+  Cape Verde:
+    name:  "Cape Verde"
+  Cayman Islands:
+    name:  "Cayman Islands"
+  Central African Republic:
+    name:  "Central African Republic"
+  Chad:
+    name:  "Chad"
+  Chile:
+    name:  "Chile"
+  China:
+    name:  "China"
+  Christmas Island:
+    name:  "Christmas Island"
+  Cocos (Keeling) Islands:
+    name:  "Cocos (Keeling) Islands"
+  Colombia:
+    name:  "Colombia"
+  Comoros:
+    name:  "Comoros"
+  Congo:
+    name:  "Congo"
+  Congo, the Democratic Republic of the:
+    name:  "Congo, the Democratic Republic of the"
+  Cook Islands:
+    name:  "Cook Islands"
+  Costa Rica:
+    name:  "Costa Rica"
+  Côte D'ivoire:
+    name:  "Côte D'ivoire"
+  Croatia:
+    name:  "Croatia"
+  Cuba:
+    name:  "Cuba"
+  Curaçao:
+    name:  "Curaçao"
+  Cyprus:
+    name:  "Cyprus"
+  Czech Republic:
+    name:  "Czech Republic"
+  Denmark:
+    name:  "Denmark"
+  Djibouti:
+    name:  "Djibouti"
+  Dominica:
+    name:  "Dominica"
+  Dominican Republic:
+    name:  "Dominican Republic"
+  Ecuador:
+    name:  "Ecuador"
+  Egypt:
+    name:  "Egypt"
+  El Salvador:
+    name:  "El Salvador"
+  Equatorial Guinea:
+    name:  "Equatorial Guinea"
+  Eritrea:
+    name:  "Eritrea"
+  Estonia:
+    name:  "Estonia"
+  Ethiopia:
+    name:  "Ethiopia"
+  Falkland Islands (Malvinas):
+    name:  "Falkland Islands (Malvinas)"
+  Faroe Islands:
+    name:  "Faroe Islands"
+  Fiji:
+    name:  "Fiji"
+  Finland:
+    name:  "Finland"
+  France:
+    name:  "France"
+  French Guiana:
+    name:  "French Guiana"
+  French Polynesia:
+    name:  "French Polynesia"
+  French Southern Territories:
+    name:  "French Southern Territories"
+  Gabon:
+    name:  "Gabon"
+  Gambia:
+    name:  "Gambia"
+  Georgia:
+    name:  "Georgia"
+  Germany:
+    name:  "Germany"
+  Ghana:
+    name:  "Ghana"
+  Gibraltar:
+    name:  "Gibraltar"
+  Greece:
+    name:  "Greece"
+  Greenland:
+    name:  "Greenland"
+  Grenada:
+    name:  "Grenada"
+  Guadeloupe:
+    name:  "Guadeloupe"
+  Guam:
+    name:  "Guam"
+  Guatemala:
+    name:  "Guatemala"
+  Guernsey:
+    name:  "Guernsey"
+  Guinea:
+    name:  "Guinea"
+  Guinea-Bissau:
+    name:  "Guinea-Bissau"
+  Guyana:
+    name:  "Guyana"
+  Haiti:
+    name:  "Haiti"
+  Heard Island and Mcdonald Islands:
+    name:  "Heard Island and Mcdonald Islands"
+  Holy See (Vatican City State):
+    name:  "Holy See (Vatican City State)"
+  Honduras:
+    name:  "Honduras"
+  Hong Kong:
+    name:  "Hong Kong"
+  Hungary:
+    name:  "Hungary"
+  Iceland:
+    name:  "Iceland"
+  India:
+    name:  "India"
+  Indonesia:
+    name:  "Indonesia"
+  Iran, Islamic Republic of:
+    name:  "Iran, Islamic Republic of"
+  Iraq:
+    name:  "Iraq"
+  Ireland:
+    name:  "Ireland"
+  Isle of Man:
+    name:  "Isle of Man"
+  Israel:
+    name:  "Israel"
+  Italy:
+    name:  "Italy"
+  Jamaica:
+    name:  "Jamaica"
+  Japan:
+    name:  "Japan"
+  Jersey:
+    name:  "Jersey"
+  Jordan:
+    name:  "Jordan"
+  Kazakhstan:
+    name:  "Kazakhstan"
+  Kenya:
+    name:  "Kenya"
+  Kiribati:
+    name:  "Kiribati"
+  Korea, Democratic People's Republic of:
+    name:  "Korea, Democratic People's Republic of"
+  Korea, Republic of:
+    name:  "Korea, Republic of"
+  Kuwait:
+    name:  "Kuwait"
+  Kyrgyzstan:
+    name:  "Kyrgyzstan"
+  Lao People's Democratic Republic:
+    name:  "Lao People's Democratic Republic"
+  Latvia:
+    name:  "Latvia"
+  Lebanon:
+    name:  "Lebanon"
+  Lesotho:
+    name:  "Lesotho"
+  Liberia:
+    name:  "Liberia"
+  Libyan Arab Jamahiriya:
+    name:  "Libyan Arab Jamahiriya"
+  Liechtenstein:
+    name:  "Liechtenstein"
+  Lithuania:
+    name:  "Lithuania"
+  Luxembourg:
+    name:  "Luxembourg"
+  Macao:
+    name:  "Macao"
+  Macedonia, the Former Yugoslav Republic of:
+    name:  "Macedonia, the Former Yugoslav Republic of"
+  Madagascar:
+    name:  "Madagascar"
+  Malawi:
+    name:  "Malawi"
+  Malaysia:
+    name:  "Malaysia"
+  Maldives:
+    name:  "Maldives"
+  Mali:
+    name:  "Mali"
+  Malta:
+    name:  "Malta"
+  Marshall Islands:
+    name:  "Marshall Islands"
+  Martinique:
+    name:  "Martinique"
+  Mauritania:
+    name:  "Mauritania"
+  Mauritius:
+    name:  "Mauritius"
+  Mayotte:
+    name:  "Mayotte"
+  Mexico:
+    name:  "Mexico"
+  Micronesia, Federated States of:
+    name:  "Micronesia, Federated States of"
+  Moldova, Republic of:
+    name:  "Moldova, Republic of"
+  Monaco:
+    name:  "Monaco"
+  Mongolia:
+    name:  "Mongolia"
+  Montenegro:
+    name:  "Montenegro"
+  Montserrat:
+    name:  "Montserrat"
+  Morocco:
+    name:  "Morocco"
+  Mozambique:
+    name:  "Mozambique"
+  Myanmar:
+    name:  "Myanmar"
+  Namibia:
+    name:  "Namibia"
+  Nauru:
+    name:  "Nauru"
+  Nepal:
+    name:  "Nepal"
+  Netherlands:
+    name:  "Netherlands"
+  New Caledonia:
+    name:  "New Caledonia"
+  New Zealand:
+    name:  "New Zealand"
+  Nicaragua:
+    name:  "Nicaragua"
+  Niger:
+    name:  "Niger"
+  Nigeria:
+    name:  "Nigeria"
+  Niue:
+    name:  "Niue"
+  Norfolk Island:
+    name:  "Norfolk Island"
+  Northern Mariana Islands:
+    name:  "Northern Mariana Islands"
+  Norway:
+    name:  "Norway"
+  Oman:
+    name:  "Oman"
+  Pakistan:
+    name:  "Pakistan"
+  Palau:
+    name:  "Palau"
+  Palestinian Territory, Occupied:
+    name:  "Palestinian Territory, Occupied"
+  Panama:
+    name:  "Panama"
+  Papua New Guinea:
+    name:  "Papua New Guinea"
+  Paraguay:
+    name:  "Paraguay"
+  Peru:
+    name:  "Peru"
+  Philippines:
+    name:  "Philippines"
+  Pitcairn:
+    name:  "Pitcairn"
+  Poland:
+    name:  "Poland"
+  Portugal:
+    name:  "Portugal"
+  Puerto Rico:
+    name:  "Puerto Rico"
+  Qatar:
+    name:  "Qatar"
+  Réunion:
+    name:  "Réunion"
+  Romania:
+    name:  "Romania"
+  Russian Federation:
+    name:  "Russian Federation"
+  Rwanda:
+    name:  "Rwanda"
+  Saint Barthélemy:
+    name:  "Saint Barthélemy"
+  Saint Helena, Ascension and Tristan Da Cunha:
+    name:  "Saint Helena, Ascension and Tristan Da Cunha"
+  Saint Kitts and Nevis:
+    name:  "Saint Kitts and Nevis"
+  Saint Lucia:
+    name:  "Saint Lucia"
+  Saint Martin (French Part):
+    name:  "Saint Martin (French Part)"
+  Saint Pierre and Miquelon:
+    name:  "Saint Pierre and Miquelon"
+  Saint Vincent and the Grenadines:
+    name:  "Saint Vincent and the Grenadines"
+  Samoa:
+    name:  "Samoa"
+  San Marino:
+    name:  "San Marino"
+  Sao Tome and Principe:
+    name:  "Sao Tome and Principe"
+  Saudi Arabia:
+    name:  "Saudi Arabia"
+  Senegal:
+    name:  "Senegal"
+  Serbia:
+    name:  "Serbia"
+  Seychelles:
+    name:  "Seychelles"
+  Sierra Leone:
+    name:  "Sierra Leone"
+  Singapore:
+    name:  "Singapore"
+  Sint Maarten (Dutch Part):
+    name:  "Sint Maarten (Dutch Part)"
+  Slovakia:
+    name:  "Slovakia"
+  Slovenia:
+    name:  "Slovenia"
+  Solomon Islands:
+    name:  "Solomon Islands"
+  Somalia:
+    name:  "Somalia"
+  South Africa:
+    name:  "South Africa"
+  South Georgia and the South Sandwich Islands:
+    name:  "South Georgia and the South Sandwich Islands"
+  Spain:
+    name:  "Spain"
+  Sri Lanka:
+    name:  "Sri Lanka"
+  Sudan:
+    name:  "Sudan"
+  Suriname:
+    name:  "Suriname"
+  Svalbard and Jan Mayen:
+    name:  "Svalbard and Jan Mayen"
+  Swaziland:
+    name:  "Swaziland"
+  Sweden:
+    name:  "Sweden"
+  Switzerland:
+    name:  "Switzerland"
+  Syrian Arab Republic:
+    name:  "Syrian Arab Republic"
+  Taiwan, Province of China:
+    name:  "Taiwan, Province of China"
+  Tajikistan:
+    name:  "Tajikistan"
+  Tanzania, United Republic of:
+    name:  "Tanzania, United Republic of"
+  Thailand:
+    name:  "Thailand"
+  Timor-Leste:
+    name:  "Timor-Leste"
+  Togo:
+    name:  "Togo"
+  Tokelau:
+    name:  "Tokelau"
+  Tonga:
+    name:  "Tonga"
+  Trinidad and Tobago:
+    name:  "Trinidad and Tobago"
+  Tunisia:
+    name:  "Tunisia"
+  Turkey:
+    name:  "Turkey"
+  Turkmenistan:
+    name:  "Turkmenistan"
+  Turks and Caicos Islands:
+    name:  "Turks and Caicos Islands"
+  Tuvalu:
+    name:  "Tuvalu"
+  Uganda:
+    name:  "Uganda"
+  Ukraine:
+    name:  "Ukraine"
+  United Arab Emirates:
+    name:  "United Arab Emirates"
+  United Kingdom:
+    name:  "United Kingdom"
+  United States:
+    name:  "United States"
+  United States Minor Outlying Islands:
+    name:  "United States Minor Outlying Islands"
+  Uruguay:
+    name:  "Uruguay"
+  Uzbekistan:
+    name:  "Uzbekistan"
+  Vanuatu:
+    name:  "Vanuatu"
+  Venezuela, Bolivarian Republic of:
+    name:  "Venezuela, Bolivarian Republic of"
+  Viet Nam:
+    name:  "Viet Nam"
+  Virgin Islands, British:
+    name:  "Virgin Islands, British"
+  Virgin Islands, U.S.:
+    name:  "Virgin Islands, U.S."
+  Wallis and Futuna:
+    name:  "Wallis and Futuna"
+  Western Sahara:
+    name:  "Western Sahara"
+  Yemen:
+    name:  "Yemen"
+  Zambia:
+    name:  "Zambia"
+  Zimbabwe:
+    name:  "Zimbabwe"
