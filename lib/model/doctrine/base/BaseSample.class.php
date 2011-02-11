@@ -14,6 +14,7 @@
  * @property float $latitude_minutes
  * @property float $longitude_minutes
  * @property integer $environment_id
+ * @property integer $habitat_id
  * @property float $ph
  * @property float $conductivity
  * @property float $temperature
@@ -24,6 +25,7 @@
  * @property timestamp $collection_date
  * @property Ecosystem $Ecosystem
  * @property Environment $Environment
+ * @property Habitat $Habitat
  * @property User $Collector
  * 
  * @method integer     getId()                 Returns the current record's "id" value
@@ -35,6 +37,7 @@
  * @method float       getLatitudeMinutes()    Returns the current record's "latitude_minutes" value
  * @method float       getLongitudeMinutes()   Returns the current record's "longitude_minutes" value
  * @method integer     getEnvironmentId()      Returns the current record's "environment_id" value
+ * @method integer     getHabitatId()          Returns the current record's "habitat_id" value
  * @method float       getPh()                 Returns the current record's "ph" value
  * @method float       getConductivity()       Returns the current record's "conductivity" value
  * @method float       getTemperature()        Returns the current record's "temperature" value
@@ -45,6 +48,7 @@
  * @method timestamp   getCollectionDate()     Returns the current record's "collection_date" value
  * @method Ecosystem   getEcosystem()          Returns the current record's "Ecosystem" value
  * @method Environment getEnvironment()        Returns the current record's "Environment" value
+ * @method Habitat     getHabitat()            Returns the current record's "Habitat" value
  * @method User        getCollector()          Returns the current record's "Collector" value
  * @method Sample      setId()                 Sets the current record's "id" value
  * @method Sample      setNumber()             Sets the current record's "number" value
@@ -55,6 +59,7 @@
  * @method Sample      setLatitudeMinutes()    Sets the current record's "latitude_minutes" value
  * @method Sample      setLongitudeMinutes()   Sets the current record's "longitude_minutes" value
  * @method Sample      setEnvironmentId()      Sets the current record's "environment_id" value
+ * @method Sample      setHabitatId()          Sets the current record's "habitat_id" value
  * @method Sample      setPh()                 Sets the current record's "ph" value
  * @method Sample      setConductivity()       Sets the current record's "conductivity" value
  * @method Sample      setTemperature()        Sets the current record's "temperature" value
@@ -65,6 +70,7 @@
  * @method Sample      setCollectionDate()     Sets the current record's "collection_date" value
  * @method Sample      setEcosystem()          Sets the current record's "Ecosystem" value
  * @method Sample      setEnvironment()        Sets the current record's "Environment" value
+ * @method Sample      setHabitat()            Sets the current record's "Habitat" value
  * @method Sample      setCollector()          Sets the current record's "Collector" value
  * 
  * @package    bna_green_house
@@ -112,6 +118,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
+        $this->hasColumn('habitat_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
         $this->hasColumn('ph', 'float', null, array(
              'type' => 'float',
              ));
@@ -151,6 +161,10 @@ abstract class BaseSample extends sfDoctrineRecord
 
         $this->hasOne('Environment', array(
              'local' => 'environment_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Habitat', array(
+             'local' => 'habitat_id',
              'foreign' => 'id'));
 
         $this->hasOne('User as Collector', array(
