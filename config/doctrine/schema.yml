@@ -1,0 +1,74 @@
+# Global options common to every model
+actAs: [Timestampable]
+options:
+  type: INNODB
+
+
+Country:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string }
+
+Province:
+  columns:
+    id:         { type: integer, primary: true, autoincrement: true }
+    name:       { type: string }
+    country_id: { type: integer }
+  relations:
+    Country:    { foreignAlias: Provinces }  # A country has many provinces
+    
+Ecosystem:
+  columns:
+    id:               { type: integer, primary: true, autoincrement: true }
+    name:             { type: string }
+    city:             { type: string }
+    province_id:      { type: integer }
+    lanscape_picture: { type: string }
+  relations:
+    Province:         { foreignAlias: Ecosystems }  # A province has many ecosystems
+
+Environment:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string }
+
+Role:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type:string }
+
+User:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    username: { type:string, notnull: true }
+    password: { type:string, notnull: true }
+    name:     { type:string, notnull: true }
+    surname:  { type:string, notnull: true }
+    email:    { type:string, notnull:true }
+    role_id:  { type:integer }
+  relations:
+    Role:     { foreignAlias: Users }
+    
+Sample:
+  columns:
+    id:                 { type: integer, primary: true, autoincrement: true }
+    number:             { type: integer, notnull: true, unique: true, unsigned: true }
+    ecosystem_id:       { type: integer }
+    location:           { type: string }
+    latitude_degrees:   { type: integer }
+    longitude_degrees:  { type: integer }
+    latitude_minutes:   { type: float }
+    longitude_minutes:  { type: float }
+    environment_id:     { type: integer }
+    ph:                 { type: float }
+    conductivity:       { type: float }
+    temperature:        { type: float }
+    salinity:           { type: float }
+    close_picture:      { type: string }
+    laboratory_picture: { type: string }
+    collector_id:       { type: integer }
+    collection_date:    { type: timestamp }
+  relations:
+    Ecosystem:          { foreignAlias: Samples }
+    Environment:        { foreignAlias: Samples }
+    Collector:          { class: User, local: collector_id, foreignType: one, foreignAlias: Samples }
