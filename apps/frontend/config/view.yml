@@ -6,11 +6,11 @@ default:
     content-type: text/html
 
   metas:
-    #title:        symfony project
-    #description:  symfony project
-    #keywords:     symfony, project
-    #language:     en
-    #robots:       index, follow
+    title:        Marine Biotechnology
+    description:  Algae cultures management of Banco Español de Algas
+    keywords:     algae, bna, bea, banco, nacional, algas, español, marine, biotechnology, strains, culture
+    language:     en
+    robots:       index, follow
 
   stylesheets:    [main.css]
 
