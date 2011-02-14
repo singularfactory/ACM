@@ -1,4 +1,4 @@
 ./symfony doctrine:generate-migrations-diff
 ./symfony doctrine:migrate
 ./symfony doctrine:migrate --env=test
-./symfony doc:build --all-classes
+./symfony doctrine:build --all-classes

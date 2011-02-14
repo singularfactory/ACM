@@ -7,12 +7,12 @@ options:
 Country:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string, notnull: true }
+    name: { type: string(255), notnull: true }
 
 Province:
   columns:
     id:         { type: integer, primary: true, autoincrement: true }
-    name:       { type: string, notnull: true }
+    name:       { type: string(255), notnull: true }
     country_id: { type: integer, notnull: true }
   relations:
     Country:    { foreignAlias: Provinces }  # A country has many provinces
@@ -20,36 +20,36 @@ Province:
 Ecosystem:
   columns:
     id:               { type: integer, primary: true, autoincrement: true }
-    name:             { type: string, notnull: true }
-    city:             { type: string, notnull: true }
+    name:             { type: string(255), notnull: true }
+    city:             { type: string(255), notnull: true }
     province_id:      { type: integer, notnull: true }
-    lanscape_picture: { type: string }
+    lanscape_picture: { type: string(255) }
   relations:
     Province:         { foreignAlias: Ecosystems }  # A province has many ecosystems
 
 Environment:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string, notnull: true }
+    name: { type: string(255), notnull: true }
 
 Habitat:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string, notnull: true }
+    name: { type: string(255), notnull: true }
 
 Role:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type:string, notnull: true }
+    name: { type:string(255), notnull: true }
 
 User:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
-    username: { type:string, notnull: true }
-    password: { type:string, notnull: true }
-    name:     { type:string, notnull: true }
-    surname:  { type:string, notnull: true }
-    email:    { type:string, notnull:true }
+    username: { type:string(30), notnull: true }
+    password: { type:string(30), notnull: true }
+    name:     { type:string(255), notnull: true }
+    surname:  { type:string(255), notnull: true }
+    email:    { type:string(255), notnull:true }
     role_id:  { type:integer, notnull: true }
   relations:
     Role:     { foreignAlias: Users }
@@ -59,7 +59,7 @@ Sample:
     id:                 { type: integer, primary: true, autoincrement: true }
     number:             { type: integer, notnull: true, unique: true, unsigned: true }
     ecosystem_id:       { type: integer, notnull: true }
-    location:           { type: string, notnull: true }
+    location:           { type: string(255), notnull: true }
     latitude_degrees:   { type: integer }
     longitude_degrees:  { type: integer }
     latitude_minutes:   { type: float }
@@ -70,8 +70,8 @@ Sample:
     conductivity:       { type: float }
     temperature:        { type: float }
     salinity:           { type: float }
-    close_picture:      { type: string }
-    laboratory_picture: { type: string }
+    close_picture:      { type: string(255) }
+    laboratory_picture: { type: string(255) }
     collector_id:       { type: integer, notnull: true }
     collection_date:    { type: timestamp, notnull: true }
   relations:

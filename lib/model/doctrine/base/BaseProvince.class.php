@@ -37,9 +37,10 @@ abstract class BaseProvince extends sfDoctrineRecord
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('name', 'string', null, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
         $this->hasColumn('country_id', 'integer', null, array(
              'type' => 'integer',

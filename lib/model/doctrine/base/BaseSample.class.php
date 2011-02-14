@@ -98,9 +98,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('location', 'string', null, array(
+        $this->hasColumn('location', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
         $this->hasColumn('latitude_degrees', 'integer', null, array(
              'type' => 'integer',
@@ -134,11 +135,13 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->hasColumn('salinity', 'float', null, array(
              'type' => 'float',
              ));
-        $this->hasColumn('close_picture', 'string', null, array(
+        $this->hasColumn('close_picture', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
              ));
-        $this->hasColumn('laboratory_picture', 'string', null, array(
+        $this->hasColumn('laboratory_picture', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
              ));
         $this->hasColumn('collector_id', 'integer', null, array(
              'type' => 'integer',

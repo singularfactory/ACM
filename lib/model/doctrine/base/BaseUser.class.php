@@ -49,25 +49,30 @@ abstract class BaseUser extends sfDoctrineRecord
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('username', 'string', null, array(
+        $this->hasColumn('username', 'string', 30, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 30,
              ));
-        $this->hasColumn('password', 'string', null, array(
+        $this->hasColumn('password', 'string', 30, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 30,
              ));
-        $this->hasColumn('name', 'string', null, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
-        $this->hasColumn('surname', 'string', null, array(
+        $this->hasColumn('surname', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
-        $this->hasColumn('email', 'string', null, array(
+        $this->hasColumn('email', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
         $this->hasColumn('role_id', 'integer', null, array(
              'type' => 'integer',

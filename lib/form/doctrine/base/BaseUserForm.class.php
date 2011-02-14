@@ -16,11 +16,11 @@ abstract class BaseUserForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'username'   => new sfWidgetFormTextarea(),
-      'password'   => new sfWidgetFormTextarea(),
-      'name'       => new sfWidgetFormTextarea(),
-      'surname'    => new sfWidgetFormTextarea(),
-      'email'      => new sfWidgetFormTextarea(),
+      'username'   => new sfWidgetFormInputText(),
+      'password'   => new sfWidgetFormInputText(),
+      'name'       => new sfWidgetFormInputText(),
+      'surname'    => new sfWidgetFormInputText(),
+      'email'      => new sfWidgetFormInputText(),
       'role_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Role'), 'add_empty' => false)),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
@@ -28,11 +28,11 @@ abstract class BaseUserForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'username'   => new sfValidatorString(),
-      'password'   => new sfValidatorString(),
-      'name'       => new sfValidatorString(),
-      'surname'    => new sfValidatorString(),
-      'email'      => new sfValidatorString(),
+      'username'   => new sfValidatorString(array('max_length' => 30)),
+      'password'   => new sfValidatorString(array('max_length' => 30)),
+      'name'       => new sfValidatorString(array('max_length' => 255)),
+      'surname'    => new sfValidatorString(array('max_length' => 255)),
+      'email'      => new sfValidatorString(array('max_length' => 255)),
       'role_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Role'))),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),

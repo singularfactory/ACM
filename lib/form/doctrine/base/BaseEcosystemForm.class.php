@@ -16,20 +16,20 @@ abstract class BaseEcosystemForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),
-      'name'             => new sfWidgetFormTextarea(),
-      'city'             => new sfWidgetFormTextarea(),
+      'name'             => new sfWidgetFormInputText(),
+      'city'             => new sfWidgetFormInputText(),
       'province_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Province'), 'add_empty' => false)),
-      'lanscape_picture' => new sfWidgetFormTextarea(),
+      'lanscape_picture' => new sfWidgetFormInputText(),
       'created_at'       => new sfWidgetFormDateTime(),
       'updated_at'       => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'             => new sfValidatorString(),
-      'city'             => new sfValidatorString(),
+      'name'             => new sfValidatorString(array('max_length' => 255)),
+      'city'             => new sfValidatorString(array('max_length' => 255)),
       'province_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Province'))),
-      'lanscape_picture' => new sfValidatorString(array('required' => false)),
+      'lanscape_picture' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'       => new sfValidatorDateTime(),
       'updated_at'       => new sfValidatorDateTime(),
     ));

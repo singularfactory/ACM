@@ -43,20 +43,23 @@ abstract class BaseEcosystem extends sfDoctrineRecord
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('name', 'string', null, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
-        $this->hasColumn('city', 'string', null, array(
+        $this->hasColumn('city', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
         $this->hasColumn('province_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('lanscape_picture', 'string', null, array(
+        $this->hasColumn('lanscape_picture', 'string', 255, array(
              'type' => 'string',
+             'length' => 255,
              ));
 
         $this->option('type', 'INNODB');
