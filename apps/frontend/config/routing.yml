@@ -1,16 +1,11 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
+sample:
+  class:   sfDoctrineRouteCollection
+  options: { model: Sample }
 
-# default rules
+ecosystem:
+  class:   sfDoctrineRouteCollection
+  options: { model: Ecosystem }
+
 homepage:
   url:   /
-  param: { module: default, action: index }
-
-# generic rules
-# please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
-
-default:
-  url:   /:module/:action/*
+  param: { module: sample, action: index }
