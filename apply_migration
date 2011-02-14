@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ./symfony doctrine:generate-migrations-diff
 ./symfony doctrine:migrate
 ./symfony doctrine:migrate --env=test
