@@ -12,5 +12,12 @@ class EcosystemForm extends BaseEcosystemForm
 {
   public function configure()
   {
+		$this->useFields(array(
+			'id',
+      'name',
+      'city',
+      'province_id',
+      'lanscape_picture',
+		));
   }
 }
