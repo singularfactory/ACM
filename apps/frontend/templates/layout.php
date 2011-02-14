@@ -11,7 +11,26 @@
 	<body>
 		<div id="main">
 			<div id="header">
-
+				<div id="header_title_group">
+					<h1 id="header_title">Banco Español de Algas</h1>
+					<h2 id="header_subtitle">Green House</h2>
+				</div>
+				
+				<div id="header_shortcuts">
+					<span>Eliezer Talón</span> |
+					<span><a href="#">About me</a></span> |
+					<span><a href="#">Sign out</a></span>
+				</div>
+				
+				<div id="header_menu">
+					<ul id="header_menu_tabs">
+						<li><a href="<?php echo url_for('sample') ?>" class="header_menu_current_tab">Samples</a></li>
+						<li><a href="<?php echo url_for('ecosystem') ?>">Ecosystems</a></li>
+						<li class="header_menu_right_tab"><a id="header_menu_last_tab" href="<?php echo url_for('search') ?>">Search</a></li>
+						<li class="header_menu_right_tab"><a href="<?php echo url_for('user') ?>">People</a></li>
+						<li class="header_menu_right_tab"><a href="<?php echo url_for('settings') ?>">Settings</a></li>
+					</ul>
+				</div>
 			</div>
 
 			<div id="content">
@@ -19,7 +38,7 @@
 			</div>
 
 			<div id="footer">
-
+				
 			</div>
 		</div>
 	</body>

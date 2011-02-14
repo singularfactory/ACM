@@ -6,6 +6,18 @@ ecosystem:
   class:   sfDoctrineRouteCollection
   options: { model: Ecosystem }
 
+user:
+  class:   sfDoctrineRouteCollection
+  options: { model: User }
+
+settings:
+  url:    /settings
+  param:  { module: sample, action: index }
+
+search:
+  url:    /
+  param:  { module: sample, action: index }
+
 homepage:
-  url:   /
-  param: { module: sample, action: index }
+  url:    /
+  param:  { module: sample, action: index }
