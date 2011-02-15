@@ -1,0 +1,17 @@
+#ecosystems_list_name_column {
+	width: 30%;
+}
+
+#ecosystems_list_city_column {
+	width: 30%;
+}
+
+#ecosystems_list_picture_column {
+	width: 15%;
+	text-align: center;
+}
+
+#ecosystems_list_count_column {
+	width: 18%;
+	text-align: center;
+}

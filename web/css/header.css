@@ -88,7 +88,7 @@
 
 .header_menu_right_tab { float: right; }
 
-#header_menu_tabs a#header_menu_last_tab { border: 0; }
+#header_menu_tabs #header_menu_last_tab { border: 0; }
 
 
 
@@ -98,6 +98,7 @@
 	clear: both;
 	overflow: auto;
 	color: #444;
+	padding: 1em 1.5em;
 }
 
 

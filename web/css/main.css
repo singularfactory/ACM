@@ -5,7 +5,6 @@
 
 body {
 	background: #f0f0f0;
-	margin: 0;
 	height: 100%;
 	width: 100%;
 	font: normal normal 0.9em Helvetica, "Lucida Grande", Lucida, Verdana, sans-serif;
@@ -13,10 +12,16 @@ body {
 	color: #036;
 }
 
+
+
+/* Default styles for headers */
 h1, h2, h3, h4 {
 	font-weight: normal;
 }
 
+
+
+/* Default styles for links */
 a {
 	color: #036;
 	text-decoration: underline;
@@ -25,10 +30,24 @@ a {
 
 a:hover {
 	color: #367889;
-	text-decoration:none;
 }
 
-a img {
-	border:none;
+
+
+/* Default styles for tables */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-bottom: 2em;
+	font-size: 1.1em;
 }
 
+table th {
+	border-bottom: 0.3em solid #999;
+	padding: 0.5em 0.5em;
+}
+
+table td {
+	padding: 0.4em;
+}
