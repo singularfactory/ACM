@@ -26,7 +26,7 @@ class EcosystemForm extends BaseEcosystemForm
 		'remarks',
 	));
 	
-	
+	// Set default country to Spain
 	$q = Doctrine_Query::create()
 		->from('Country c')
 		->where('c.name = ?', 'Spain');
@@ -39,6 +39,21 @@ class EcosystemForm extends BaseEcosystemForm
 	else
 	{
 		$this->setDefault('country_id', 208);
+	}
+	
+	// Set default province to Las Palmas
+	$q = Doctrine_Query::create()
+		->from('Province p')
+		->where('p.name = ?', 'Las Palmas');
+	$provinces = $q->execute();
+		
+	if ( !empty($provinces) )
+	{
+		$this->setDefault('province_id', $provinces[0]->getId());
+	}
+	else
+	{
+		$this->setDefault('province_id', 28);
 	}
 	
 	$this->setWidget('picture', new sfWidgetFormInputFile());
