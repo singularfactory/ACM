@@ -73,6 +73,10 @@
       <td><?php echo $sample->getCollectionDate() ?></td>
     </tr>
     <tr>
+      <th>Remarks:</th>
+      <td><?php echo $sample->getRemarks() ?></td>
+    </tr>
+    <tr>
       <th>Created at:</th>
       <td><?php echo $sample->getCreatedAt() ?></td>
     </tr>
