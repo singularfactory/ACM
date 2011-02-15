@@ -5,7 +5,7 @@
 <?php if (!$form->getObject()->isNew()): ?>
 	<input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
-<table id="ecosystems_form">
+<table id="form">
 	<tfoot>
 		<tr>
 			<td colspan="2">
@@ -32,7 +32,7 @@
 			<td>
 				<?php echo $form['latitude_degrees']->renderError() ?>
 				<?php echo $form['latitude_degrees'] ?>
-				<span class="ecosystems_form_field_tip">(e.g. 15)</span>
+				<span class="form_field_tip">(e.g. 15)</span>
 			</td>
 		</tr>
 		<tr>
@@ -40,7 +40,7 @@
 			<td>
 				<?php echo $form['latitude_minutes']->renderError() ?>
 				<?php echo $form['latitude_minutes'] ?>
-				<span class="ecosystems_form_field_tip">(e.g. 20.43)</span>
+				<span class="form_field_tip">(e.g. 20.43)</span>
 			</td>
 		</tr>
 		<tr>
@@ -48,7 +48,7 @@
 			<td>
 				<?php echo $form['longitude_degrees']->renderError() ?>
 				<?php echo $form['longitude_degrees'] ?>
-				<span class="ecosystems_form_field_tip">(e.g. 15)</span>
+				<span class="form_field_tip">(e.g. 15)</span>
 			</td>
 		</tr>
 		<tr>
@@ -56,7 +56,7 @@
 			<td>
 				<?php echo $form['longitude_minutes']->renderError() ?>
 				<?php echo $form['longitude_minutes'] ?>
-				<span class="ecosystems_form_field_tip">(e.g. 18.43)</span>
+				<span class="form_field_tip">(e.g. 18.43)</span>
 			</td>
 		</tr>
 		<tr>

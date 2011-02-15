@@ -1,0 +1,37 @@
+#samples_list_number_column {
+	width: 4%;
+	text-align: center;
+}
+
+#samples_list_ecosystem_column {
+	width: 20%;
+}
+
+#samples_list_location_column {
+	width: 20%;
+}
+
+#samples_list_collector_column {
+	width: 10%;
+}
+
+#samples_list_date_column {
+	width: 10%;
+	text-align: center;
+}
+
+#samples_list_count_column {
+	width: 10%;
+	text-align: center;
+}
+
+
+#samples_form  {
+	width: 60%;
+	margin: auto;
+}
+
+#samples_form th {
+	border: 0;
+	padding: 0;
+}

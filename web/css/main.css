@@ -44,10 +44,18 @@ table {
 }
 
 table th {
-	border-bottom: 0.3em solid #999;
+	border-bottom: 0.15em solid #999;
 	padding: 0.5em 0.5em;
 }
 
 table td {
 	padding: 0.4em;
+}
+
+
+
+/* Default styles for forms */
+.form_field_tip {
+	font-size: 0.8em;
+	margin-left: 0.3em;
 }
