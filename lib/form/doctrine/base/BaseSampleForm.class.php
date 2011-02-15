@@ -17,7 +17,6 @@ abstract class BaseSampleForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                 => new sfWidgetFormInputHidden(),
       'number'             => new sfWidgetFormInputText(),
-      'ecosystem_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'), 'add_empty' => false)),
       'location'           => new sfWidgetFormInputText(),
       'latitude_degrees'   => new sfWidgetFormInputText(),
       'longitude_degrees'  => new sfWidgetFormInputText(),
@@ -29,6 +28,7 @@ abstract class BaseSampleForm extends BaseFormDoctrine
       'conductivity'       => new sfWidgetFormInputText(),
       'temperature'        => new sfWidgetFormInputText(),
       'salinity'           => new sfWidgetFormInputText(),
+      'landscape_picture'  => new sfWidgetFormInputText(),
       'close_picture'      => new sfWidgetFormInputText(),
       'laboratory_picture' => new sfWidgetFormInputText(),
       'collector_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Collector'), 'add_empty' => false)),
@@ -40,7 +40,6 @@ abstract class BaseSampleForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'number'             => new sfValidatorInteger(),
-      'ecosystem_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'))),
       'location'           => new sfValidatorString(array('max_length' => 255)),
       'latitude_degrees'   => new sfValidatorInteger(array('required' => false)),
       'longitude_degrees'  => new sfValidatorInteger(array('required' => false)),
@@ -52,6 +51,7 @@ abstract class BaseSampleForm extends BaseFormDoctrine
       'conductivity'       => new sfValidatorNumber(array('required' => false)),
       'temperature'        => new sfValidatorNumber(array('required' => false)),
       'salinity'           => new sfValidatorNumber(array('required' => false)),
+      'landscape_picture'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'close_picture'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'laboratory_picture' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'collector_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Collector'))),
