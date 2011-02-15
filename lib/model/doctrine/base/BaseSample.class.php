@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property integer $number
+ * @property integer $ecosystem_id
  * @property string $location
  * @property integer $latitude_degrees
  * @property integer $longitude_degrees
@@ -18,17 +19,19 @@
  * @property float $conductivity
  * @property float $temperature
  * @property float $salinity
- * @property string $landscape_picture
  * @property string $close_picture
  * @property string $laboratory_picture
  * @property integer $collector_id
  * @property timestamp $collection_date
+ * @property string $remarks
+ * @property Ecosystem $Ecosystem
  * @property Environment $Environment
  * @property Habitat $Habitat
  * @property User $Collector
  * 
  * @method integer     getId()                 Returns the current record's "id" value
  * @method integer     getNumber()             Returns the current record's "number" value
+ * @method integer     getEcosystemId()        Returns the current record's "ecosystem_id" value
  * @method string      getLocation()           Returns the current record's "location" value
  * @method integer     getLatitudeDegrees()    Returns the current record's "latitude_degrees" value
  * @method integer     getLongitudeDegrees()   Returns the current record's "longitude_degrees" value
@@ -40,16 +43,18 @@
  * @method float       getConductivity()       Returns the current record's "conductivity" value
  * @method float       getTemperature()        Returns the current record's "temperature" value
  * @method float       getSalinity()           Returns the current record's "salinity" value
- * @method string      getLandscapePicture()   Returns the current record's "landscape_picture" value
  * @method string      getClosePicture()       Returns the current record's "close_picture" value
  * @method string      getLaboratoryPicture()  Returns the current record's "laboratory_picture" value
  * @method integer     getCollectorId()        Returns the current record's "collector_id" value
  * @method timestamp   getCollectionDate()     Returns the current record's "collection_date" value
+ * @method string      getRemarks()            Returns the current record's "remarks" value
+ * @method Ecosystem   getEcosystem()          Returns the current record's "Ecosystem" value
  * @method Environment getEnvironment()        Returns the current record's "Environment" value
  * @method Habitat     getHabitat()            Returns the current record's "Habitat" value
  * @method User        getCollector()          Returns the current record's "Collector" value
  * @method Sample      setId()                 Sets the current record's "id" value
  * @method Sample      setNumber()             Sets the current record's "number" value
+ * @method Sample      setEcosystemId()        Sets the current record's "ecosystem_id" value
  * @method Sample      setLocation()           Sets the current record's "location" value
  * @method Sample      setLatitudeDegrees()    Sets the current record's "latitude_degrees" value
  * @method Sample      setLongitudeDegrees()   Sets the current record's "longitude_degrees" value
@@ -61,11 +66,12 @@
  * @method Sample      setConductivity()       Sets the current record's "conductivity" value
  * @method Sample      setTemperature()        Sets the current record's "temperature" value
  * @method Sample      setSalinity()           Sets the current record's "salinity" value
- * @method Sample      setLandscapePicture()   Sets the current record's "landscape_picture" value
  * @method Sample      setClosePicture()       Sets the current record's "close_picture" value
  * @method Sample      setLaboratoryPicture()  Sets the current record's "laboratory_picture" value
  * @method Sample      setCollectorId()        Sets the current record's "collector_id" value
  * @method Sample      setCollectionDate()     Sets the current record's "collection_date" value
+ * @method Sample      setRemarks()            Sets the current record's "remarks" value
+ * @method Sample      setEcosystem()          Sets the current record's "Ecosystem" value
  * @method Sample      setEnvironment()        Sets the current record's "Environment" value
  * @method Sample      setHabitat()            Sets the current record's "Habitat" value
  * @method Sample      setCollector()          Sets the current record's "Collector" value
@@ -90,6 +96,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'notnull' => true,
              'unique' => true,
              'unsigned' => true,
+             ));
+        $this->hasColumn('ecosystem_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('location', 'string', 255, array(
              'type' => 'string',
@@ -128,10 +138,6 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->hasColumn('salinity', 'float', null, array(
              'type' => 'float',
              ));
-        $this->hasColumn('landscape_picture', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
         $this->hasColumn('close_picture', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
@@ -148,6 +154,9 @@ abstract class BaseSample extends sfDoctrineRecord
              'type' => 'timestamp',
              'notnull' => true,
              ));
+        $this->hasColumn('remarks', 'string', null, array(
+             'type' => 'string',
+             ));
 
         $this->option('type', 'INNODB');
     }
@@ -155,6 +164,10 @@ abstract class BaseSample extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Ecosystem', array(
+             'local' => 'ecosystem_id',
+             'foreign' => 'id'));
+
         $this->hasOne('Environment', array(
              'local' => 'environment_id',
              'foreign' => 'id'));

@@ -14,6 +14,7 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'number'             => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'ecosystem_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'), 'add_empty' => true)),
       'location'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'latitude_degrees'   => new sfWidgetFormFilterInput(),
       'longitude_degrees'  => new sfWidgetFormFilterInput(),
@@ -25,17 +26,18 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
       'conductivity'       => new sfWidgetFormFilterInput(),
       'temperature'        => new sfWidgetFormFilterInput(),
       'salinity'           => new sfWidgetFormFilterInput(),
-      'landscape_picture'  => new sfWidgetFormFilterInput(),
       'close_picture'      => new sfWidgetFormFilterInput(),
       'laboratory_picture' => new sfWidgetFormFilterInput(),
       'collector_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Collector'), 'add_empty' => true)),
       'collection_date'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'remarks'            => new sfWidgetFormFilterInput(),
       'created_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
       'number'             => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'ecosystem_id'       => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Ecosystem'), 'column' => 'id')),
       'location'           => new sfValidatorPass(array('required' => false)),
       'latitude_degrees'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'longitude_degrees'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -47,11 +49,11 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
       'conductivity'       => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'temperature'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'salinity'           => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'landscape_picture'  => new sfValidatorPass(array('required' => false)),
       'close_picture'      => new sfValidatorPass(array('required' => false)),
       'laboratory_picture' => new sfValidatorPass(array('required' => false)),
       'collector_id'       => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Collector'), 'column' => 'id')),
       'collection_date'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'remarks'            => new sfValidatorPass(array('required' => false)),
       'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -75,6 +77,7 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                 => 'Number',
       'number'             => 'Number',
+      'ecosystem_id'       => 'ForeignKey',
       'location'           => 'Text',
       'latitude_degrees'   => 'Number',
       'longitude_degrees'  => 'Number',
@@ -86,11 +89,11 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
       'conductivity'       => 'Number',
       'temperature'        => 'Number',
       'salinity'           => 'Number',
-      'landscape_picture'  => 'Text',
       'close_picture'      => 'Text',
       'laboratory_picture' => 'Text',
       'collector_id'       => 'ForeignKey',
       'collection_date'    => 'Date',
+      'remarks'            => 'Text',
       'created_at'         => 'Date',
       'updated_at'         => 'Date',
     );
