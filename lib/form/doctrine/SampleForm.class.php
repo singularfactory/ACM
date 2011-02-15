@@ -15,6 +15,7 @@ class SampleForm extends BaseSampleForm
 		$this->useFields(array(
 			'id',
 			'number',
+			'ecosystem_id',
 			'location',
 			'latitude_degrees',
 			'latitude_minutes',
@@ -26,18 +27,16 @@ class SampleForm extends BaseSampleForm
 			'conductivity',
 			'temperature',
 			'salinity',
-			'landscape_picture',
 			'close_picture',
 			'laboratory_picture',
 			'collector_id',
 			'collection_date',
-			));
+			'remarks',
+		));
 		
-		$this->setWidget('landscape_picture', new sfWidgetFormInputFile());
 		$this->setWidget('close_picture', new sfWidgetFormInputFile());
 		$this->setWidget('laboratory_picture', new sfWidgetFormInputFile());
 		
-		$this->setValidator('landscape_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		$this->setValidator('close_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		$this->setValidator('laboratory_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 	}

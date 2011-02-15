@@ -15,6 +15,7 @@
  * @property integer $province_id
  * @property string $city
  * @property string $picture
+ * @property string $remarks
  * @property Country $Country
  * @property Province $Province
  * @property Doctrine_Collection $Samples
@@ -29,6 +30,7 @@
  * @method integer             getProvinceId()        Returns the current record's "province_id" value
  * @method string              getCity()              Returns the current record's "city" value
  * @method string              getPicture()           Returns the current record's "picture" value
+ * @method string              getRemarks()           Returns the current record's "remarks" value
  * @method Country             getCountry()           Returns the current record's "Country" value
  * @method Province            getProvince()          Returns the current record's "Province" value
  * @method Doctrine_Collection getSamples()           Returns the current record's "Samples" collection
@@ -42,6 +44,7 @@
  * @method Ecosystem           setProvinceId()        Sets the current record's "province_id" value
  * @method Ecosystem           setCity()              Sets the current record's "city" value
  * @method Ecosystem           setPicture()           Sets the current record's "picture" value
+ * @method Ecosystem           setRemarks()           Sets the current record's "remarks" value
  * @method Ecosystem           setCountry()           Sets the current record's "Country" value
  * @method Ecosystem           setProvince()          Sets the current record's "Province" value
  * @method Ecosystem           setSamples()           Sets the current record's "Samples" collection
@@ -93,6 +96,9 @@ abstract class BaseEcosystem extends sfDoctrineRecord
         $this->hasColumn('picture', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
+             ));
+        $this->hasColumn('remarks', 'string', null, array(
+             'type' => 'string',
              ));
 
         $this->option('type', 'INNODB');

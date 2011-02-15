@@ -28,6 +28,7 @@ Ecosystem:
     province_id:        { type: integer }
     city:               { type: string(255), notnull: true }
     picture:            { type: string(255) }
+    remarks:            { type:string }
   relations:
     Country:            { foreignAlias: Ecosystems }
     Province:           { foreignAlias: Ecosystems }

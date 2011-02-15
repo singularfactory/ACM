@@ -25,6 +25,7 @@ abstract class BaseEcosystemForm extends BaseFormDoctrine
       'province_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Province'), 'add_empty' => true)),
       'city'              => new sfWidgetFormInputText(),
       'picture'           => new sfWidgetFormInputText(),
+      'remarks'           => new sfWidgetFormTextarea(),
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
     ));
@@ -40,6 +41,7 @@ abstract class BaseEcosystemForm extends BaseFormDoctrine
       'province_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Province'), 'required' => false)),
       'city'              => new sfValidatorString(array('max_length' => 255)),
       'picture'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'remarks'           => new sfValidatorString(array('required' => false)),
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
     ));

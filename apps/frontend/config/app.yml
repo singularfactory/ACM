@@ -1,3 +1,4 @@
 all:
   .general:
-    sample_pictures_directory:      /sample_pictures
+    sample_pictures_directory:    /sample_pictures
+    ecosystem_pictures_directory: /ecosystem_pictures
