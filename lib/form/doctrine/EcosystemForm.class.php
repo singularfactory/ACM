@@ -26,6 +26,21 @@ class EcosystemForm extends BaseEcosystemForm
 		'remarks',
 	));
 	
+	
+	$q = Doctrine_Query::create()
+		->from('Country c')
+		->where('c.name = ?', 'Spain');
+	$countries = $q->execute();
+		
+	if ( !empty($countries) )
+	{
+		$this->setDefault('country_id', $countries[0]->getId());
+	}
+	else
+	{
+		$this->setDefault('country_id', 208);
+	}
+	
 	$this->setWidget('picture', new sfWidgetFormInputFile());
 	$this->setValidator('picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'), 'required' => false)));
   }
