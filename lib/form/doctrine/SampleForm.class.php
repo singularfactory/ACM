@@ -32,5 +32,11 @@ class SampleForm extends BaseSampleForm
 			'collector_id',
 			'collection_date',
 			));
+		
+		$this->setWidget('close_picture', new sfWidgetFormInputFile());
+		$this->setWidget('laboratory_picture', new sfWidgetFormInputFile());
+		
+		$this->setValidator('close_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
+		$this->setValidator('laboratory_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 	}
 }
