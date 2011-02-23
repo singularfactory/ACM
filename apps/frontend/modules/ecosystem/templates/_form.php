@@ -81,10 +81,38 @@
 			</td>
 		</tr>
 		<tr>
-			<th><?php echo $form['picture']->renderLabel() ?></th>
+			<th><?php echo $form['picture_1']->renderLabel() ?></th>
 			<td>
-				<?php echo $form['picture']->renderError() ?>
-				<?php echo $form['picture'] ?>
+				<?php echo $form['picture_1']->renderError() ?>
+				<?php echo $form['picture_1'] ?>
+			</td>
+		</tr>
+		<tr>
+			<th><?php echo $form['picture_2']->renderLabel() ?></th>
+			<td>
+				<?php echo $form['picture_2']->renderError() ?>
+				<?php echo $form['picture_2'] ?>
+			</td>
+		</tr>
+		<tr>
+			<th><?php echo $form['picture_3']->renderLabel() ?></th>
+			<td>
+				<?php echo $form['picture_3']->renderError() ?>
+				<?php echo $form['picture_3'] ?>
+			</td>
+		</tr>
+		<tr>
+			<th><?php echo $form['picture_4']->renderLabel() ?></th>
+			<td>
+				<?php echo $form['picture_4']->renderError() ?>
+				<?php echo $form['picture_4'] ?>
+			</td>
+		</tr>
+		<tr>
+			<th><?php echo $form['picture_5']->renderLabel() ?></th>
+			<td>
+				<?php echo $form['picture_5']->renderError() ?>
+				<?php echo $form['picture_5'] ?>
 			</td>
 		</tr>
 		<tr>

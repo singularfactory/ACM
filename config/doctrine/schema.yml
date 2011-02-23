@@ -27,7 +27,11 @@ Ecosystem:
     country_id:         { type: integer, notnull: true }
     province_id:        { type: integer }
     city:               { type: string(255), notnull: true }
-    picture:            { type: string(255) }
+    picture_1:          { type: string(255) }
+    picture_2:          { type: string(255) }
+    picture_3:          { type: string(255) }
+    picture_4:          { type: string(255) }
+    picture_5:          { type: string(255) }
     remarks:            { type:string }
   relations:
     Country:            { foreignAlias: Ecosystems }

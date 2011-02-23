@@ -12,7 +12,7 @@
 			<tr>
 				<td id="ecosystems_list_name_column"><a href="<?php echo url_for('ecosystem/edit?id='.$ecosystem->getId()) ?>"><?php echo $ecosystem->getName() ?></a></td>
 				<td id="ecosystems_list_city_column"><a href="<?php echo url_for('ecosystem/edit?id='.$ecosystem->getId()) ?>"><?php echo $ecosystem->getCity() ?></a></td>
-				<td id="ecosystems_list_picture_column"><a href="<?php echo url_for('ecosystem/edit?id='.$ecosystem->getId()) ?>"><?php echo ($ecosystem->getPicture())?'yes':'no' ?></a></td>
+				<td id="ecosystems_list_picture_column"><a href="<?php echo url_for('ecosystem/edit?id='.$ecosystem->getId()) ?>"><?php echo ($ecosystem->getPicture_1())?'yes':'no' ?></a></td>
 				<td id="ecosystems_list_count_column"><a href="<?php echo url_for('ecosystem/edit?id='.$ecosystem->getId()) ?>"><?php echo count($ecosystem->getSamples()) ?></a></td>
 			</tr>
 		<?php endforeach; ?>
