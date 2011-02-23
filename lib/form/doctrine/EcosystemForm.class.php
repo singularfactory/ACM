@@ -22,11 +22,6 @@ class EcosystemForm extends BaseEcosystemForm
 	    'country_id',
 	    'province_id',
 	    'city',
-	    'picture_1',
-		'picture_2',
-		'picture_3',
-		'picture_4',
-		'picture_5',
 		'remarks',
 	));
 	
@@ -58,18 +53,6 @@ class EcosystemForm extends BaseEcosystemForm
 	else
 	{
 		$this->setDefault('province_id', 28);
-	}
-	
-	$this->setWidget('picture_1', new sfWidgetFormInputFile());
-	$this->setWidget('picture_2', new sfWidgetFormInputFile());
-	$this->setWidget('picture_3', new sfWidgetFormInputFile());
-	$this->setWidget('picture_4', new sfWidgetFormInputFile());
-	$this->setWidget('picture_5', new sfWidgetFormInputFile());
-	
-	$this->setValidator('picture_1', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'), 'required' => false)));
-	$this->setValidator('picture_2', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'), 'required' => false)));
-	$this->setValidator('picture_3', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'), 'required' => false)));
-	$this->setValidator('picture_4', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'), 'required' => false)));
-	$this->setValidator('picture_5', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'), 'required' => false)));
+	}	
   }
 }

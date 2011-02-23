@@ -16,6 +16,14 @@ Province:
   relations:
     Country:    { foreignAlias: Provinces }
 
+Picture:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+    ecosystem_id: { type: integer, notnull: true }
+  relations:
+    Ecosystem:    { foreignAlias: Pictures }
+
 Ecosystem:
   columns:
     id:                 { type: integer, primary: true, autoincrement: true }
@@ -27,11 +35,6 @@ Ecosystem:
     country_id:         { type: integer, notnull: true }
     province_id:        { type: integer }
     city:               { type: string(255), notnull: true }
-    picture_1:          { type: string(255) }
-    picture_2:          { type: string(255) }
-    picture_3:          { type: string(255) }
-    picture_4:          { type: string(255) }
-    picture_5:          { type: string(255) }
     remarks:            { type:string }
   relations:
     Country:            { foreignAlias: Ecosystems }

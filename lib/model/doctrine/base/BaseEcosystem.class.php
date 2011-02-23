@@ -14,14 +14,10 @@
  * @property integer $country_id
  * @property integer $province_id
  * @property string $city
- * @property string $picture_1
- * @property string $picture_2
- * @property string $picture_3
- * @property string $picture_4
- * @property string $picture_5
  * @property string $remarks
  * @property Country $Country
  * @property Province $Province
+ * @property Doctrine_Collection $Pictures
  * @property Doctrine_Collection $Samples
  * 
  * @method integer             getId()                Returns the current record's "id" value
@@ -33,14 +29,10 @@
  * @method integer             getCountryId()         Returns the current record's "country_id" value
  * @method integer             getProvinceId()        Returns the current record's "province_id" value
  * @method string              getCity()              Returns the current record's "city" value
- * @method string              getPicture1()          Returns the current record's "picture_1" value
- * @method string              getPicture2()          Returns the current record's "picture_2" value
- * @method string              getPicture3()          Returns the current record's "picture_3" value
- * @method string              getPicture4()          Returns the current record's "picture_4" value
- * @method string              getPicture5()          Returns the current record's "picture_5" value
  * @method string              getRemarks()           Returns the current record's "remarks" value
  * @method Country             getCountry()           Returns the current record's "Country" value
  * @method Province            getProvince()          Returns the current record's "Province" value
+ * @method Doctrine_Collection getPictures()          Returns the current record's "Pictures" collection
  * @method Doctrine_Collection getSamples()           Returns the current record's "Samples" collection
  * @method Ecosystem           setId()                Sets the current record's "id" value
  * @method Ecosystem           setName()              Sets the current record's "name" value
@@ -51,14 +43,10 @@
  * @method Ecosystem           setCountryId()         Sets the current record's "country_id" value
  * @method Ecosystem           setProvinceId()        Sets the current record's "province_id" value
  * @method Ecosystem           setCity()              Sets the current record's "city" value
- * @method Ecosystem           setPicture1()          Sets the current record's "picture_1" value
- * @method Ecosystem           setPicture2()          Sets the current record's "picture_2" value
- * @method Ecosystem           setPicture3()          Sets the current record's "picture_3" value
- * @method Ecosystem           setPicture4()          Sets the current record's "picture_4" value
- * @method Ecosystem           setPicture5()          Sets the current record's "picture_5" value
  * @method Ecosystem           setRemarks()           Sets the current record's "remarks" value
  * @method Ecosystem           setCountry()           Sets the current record's "Country" value
  * @method Ecosystem           setProvince()          Sets the current record's "Province" value
+ * @method Ecosystem           setPictures()          Sets the current record's "Pictures" collection
  * @method Ecosystem           setSamples()           Sets the current record's "Samples" collection
  * 
  * @package    bna_green_house
@@ -105,26 +93,6 @@ abstract class BaseEcosystem extends sfDoctrineRecord
              'notnull' => true,
              'length' => 255,
              ));
-        $this->hasColumn('picture_1', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
-        $this->hasColumn('picture_2', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
-        $this->hasColumn('picture_3', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
-        $this->hasColumn('picture_4', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
-        $this->hasColumn('picture_5', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
-             ));
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',
              ));
@@ -142,6 +110,10 @@ abstract class BaseEcosystem extends sfDoctrineRecord
         $this->hasOne('Province', array(
              'local' => 'province_id',
              'foreign' => 'id'));
+
+        $this->hasMany('Picture as Pictures', array(
+             'local' => 'id',
+             'foreign' => 'ecosystem_id'));
 
         $this->hasMany('Sample as Samples', array(
              'local' => 'id',
