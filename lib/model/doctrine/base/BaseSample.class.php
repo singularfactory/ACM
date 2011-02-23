@@ -19,8 +19,8 @@
  * @property float $conductivity
  * @property float $temperature
  * @property float $salinity
- * @property string $close_picture
- * @property string $laboratory_picture
+ * @property string $field_picture
+ * @property string $detailed_picture
  * @property integer $collector_id
  * @property timestamp $collection_date
  * @property string $remarks
@@ -29,52 +29,52 @@
  * @property Habitat $Habitat
  * @property User $Collector
  * 
- * @method integer     getId()                 Returns the current record's "id" value
- * @method integer     getNumber()             Returns the current record's "number" value
- * @method integer     getEcosystemId()        Returns the current record's "ecosystem_id" value
- * @method string      getLocation()           Returns the current record's "location" value
- * @method integer     getLatitudeDegrees()    Returns the current record's "latitude_degrees" value
- * @method integer     getLongitudeDegrees()   Returns the current record's "longitude_degrees" value
- * @method float       getLatitudeMinutes()    Returns the current record's "latitude_minutes" value
- * @method float       getLongitudeMinutes()   Returns the current record's "longitude_minutes" value
- * @method integer     getEnvironmentId()      Returns the current record's "environment_id" value
- * @method integer     getHabitatId()          Returns the current record's "habitat_id" value
- * @method float       getPh()                 Returns the current record's "ph" value
- * @method float       getConductivity()       Returns the current record's "conductivity" value
- * @method float       getTemperature()        Returns the current record's "temperature" value
- * @method float       getSalinity()           Returns the current record's "salinity" value
- * @method string      getClosePicture()       Returns the current record's "close_picture" value
- * @method string      getLaboratoryPicture()  Returns the current record's "laboratory_picture" value
- * @method integer     getCollectorId()        Returns the current record's "collector_id" value
- * @method timestamp   getCollectionDate()     Returns the current record's "collection_date" value
- * @method string      getRemarks()            Returns the current record's "remarks" value
- * @method Ecosystem   getEcosystem()          Returns the current record's "Ecosystem" value
- * @method Environment getEnvironment()        Returns the current record's "Environment" value
- * @method Habitat     getHabitat()            Returns the current record's "Habitat" value
- * @method User        getCollector()          Returns the current record's "Collector" value
- * @method Sample      setId()                 Sets the current record's "id" value
- * @method Sample      setNumber()             Sets the current record's "number" value
- * @method Sample      setEcosystemId()        Sets the current record's "ecosystem_id" value
- * @method Sample      setLocation()           Sets the current record's "location" value
- * @method Sample      setLatitudeDegrees()    Sets the current record's "latitude_degrees" value
- * @method Sample      setLongitudeDegrees()   Sets the current record's "longitude_degrees" value
- * @method Sample      setLatitudeMinutes()    Sets the current record's "latitude_minutes" value
- * @method Sample      setLongitudeMinutes()   Sets the current record's "longitude_minutes" value
- * @method Sample      setEnvironmentId()      Sets the current record's "environment_id" value
- * @method Sample      setHabitatId()          Sets the current record's "habitat_id" value
- * @method Sample      setPh()                 Sets the current record's "ph" value
- * @method Sample      setConductivity()       Sets the current record's "conductivity" value
- * @method Sample      setTemperature()        Sets the current record's "temperature" value
- * @method Sample      setSalinity()           Sets the current record's "salinity" value
- * @method Sample      setClosePicture()       Sets the current record's "close_picture" value
- * @method Sample      setLaboratoryPicture()  Sets the current record's "laboratory_picture" value
- * @method Sample      setCollectorId()        Sets the current record's "collector_id" value
- * @method Sample      setCollectionDate()     Sets the current record's "collection_date" value
- * @method Sample      setRemarks()            Sets the current record's "remarks" value
- * @method Sample      setEcosystem()          Sets the current record's "Ecosystem" value
- * @method Sample      setEnvironment()        Sets the current record's "Environment" value
- * @method Sample      setHabitat()            Sets the current record's "Habitat" value
- * @method Sample      setCollector()          Sets the current record's "Collector" value
+ * @method integer     getId()                Returns the current record's "id" value
+ * @method integer     getNumber()            Returns the current record's "number" value
+ * @method integer     getEcosystemId()       Returns the current record's "ecosystem_id" value
+ * @method string      getLocation()          Returns the current record's "location" value
+ * @method integer     getLatitudeDegrees()   Returns the current record's "latitude_degrees" value
+ * @method integer     getLongitudeDegrees()  Returns the current record's "longitude_degrees" value
+ * @method float       getLatitudeMinutes()   Returns the current record's "latitude_minutes" value
+ * @method float       getLongitudeMinutes()  Returns the current record's "longitude_minutes" value
+ * @method integer     getEnvironmentId()     Returns the current record's "environment_id" value
+ * @method integer     getHabitatId()         Returns the current record's "habitat_id" value
+ * @method float       getPh()                Returns the current record's "ph" value
+ * @method float       getConductivity()      Returns the current record's "conductivity" value
+ * @method float       getTemperature()       Returns the current record's "temperature" value
+ * @method float       getSalinity()          Returns the current record's "salinity" value
+ * @method string      getFieldPicture()      Returns the current record's "field_picture" value
+ * @method string      getDetailedPicture()   Returns the current record's "detailed_picture" value
+ * @method integer     getCollectorId()       Returns the current record's "collector_id" value
+ * @method timestamp   getCollectionDate()    Returns the current record's "collection_date" value
+ * @method string      getRemarks()           Returns the current record's "remarks" value
+ * @method Ecosystem   getEcosystem()         Returns the current record's "Ecosystem" value
+ * @method Environment getEnvironment()       Returns the current record's "Environment" value
+ * @method Habitat     getHabitat()           Returns the current record's "Habitat" value
+ * @method User        getCollector()         Returns the current record's "Collector" value
+ * @method Sample      setId()                Sets the current record's "id" value
+ * @method Sample      setNumber()            Sets the current record's "number" value
+ * @method Sample      setEcosystemId()       Sets the current record's "ecosystem_id" value
+ * @method Sample      setLocation()          Sets the current record's "location" value
+ * @method Sample      setLatitudeDegrees()   Sets the current record's "latitude_degrees" value
+ * @method Sample      setLongitudeDegrees()  Sets the current record's "longitude_degrees" value
+ * @method Sample      setLatitudeMinutes()   Sets the current record's "latitude_minutes" value
+ * @method Sample      setLongitudeMinutes()  Sets the current record's "longitude_minutes" value
+ * @method Sample      setEnvironmentId()     Sets the current record's "environment_id" value
+ * @method Sample      setHabitatId()         Sets the current record's "habitat_id" value
+ * @method Sample      setPh()                Sets the current record's "ph" value
+ * @method Sample      setConductivity()      Sets the current record's "conductivity" value
+ * @method Sample      setTemperature()       Sets the current record's "temperature" value
+ * @method Sample      setSalinity()          Sets the current record's "salinity" value
+ * @method Sample      setFieldPicture()      Sets the current record's "field_picture" value
+ * @method Sample      setDetailedPicture()   Sets the current record's "detailed_picture" value
+ * @method Sample      setCollectorId()       Sets the current record's "collector_id" value
+ * @method Sample      setCollectionDate()    Sets the current record's "collection_date" value
+ * @method Sample      setRemarks()           Sets the current record's "remarks" value
+ * @method Sample      setEcosystem()         Sets the current record's "Ecosystem" value
+ * @method Sample      setEnvironment()       Sets the current record's "Environment" value
+ * @method Sample      setHabitat()           Sets the current record's "Habitat" value
+ * @method Sample      setCollector()         Sets the current record's "Collector" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -138,11 +138,11 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->hasColumn('salinity', 'float', null, array(
              'type' => 'float',
              ));
-        $this->hasColumn('close_picture', 'string', 255, array(
+        $this->hasColumn('field_picture', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
              ));
-        $this->hasColumn('laboratory_picture', 'string', 255, array(
+        $this->hasColumn('detailed_picture', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
              ));

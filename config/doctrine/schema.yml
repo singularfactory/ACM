@@ -76,8 +76,8 @@ Sample:
     conductivity:       { type: float }
     temperature:        { type: float }
     salinity:           { type: float }
-    close_picture:      { type: string(255) }
-    laboratory_picture: { type: string(255) }
+    field_picture:      { type: string(255) }
+    detailed_picture:   { type: string(255) }
     collector_id:       { type: integer, notnull: true }
     collection_date:    { type: timestamp, notnull: true }
     remarks:            { type: string }

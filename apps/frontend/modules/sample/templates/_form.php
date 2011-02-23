@@ -120,17 +120,17 @@
 			</td>
 		</tr>
 		<tr>
-			<th><?php echo $form['close_picture']->renderLabel() ?></th>
+			<th><?php echo $form['field_picture']->renderLabel() ?></th>
 			<td>
-				<?php echo $form['close_picture']->renderError() ?>
-				<?php echo $form['close_picture'] ?>
+				<?php echo $form['field_picture']->renderError() ?>
+				<?php echo $form['field_picture'] ?>
 			</td>
 		</tr>
 		<tr>
-			<th><?php echo $form['laboratory_picture']->renderLabel() ?></th>
+			<th><?php echo $form['detailed_picture']->renderLabel() ?></th>
 			<td>
-				<?php echo $form['laboratory_picture']->renderError() ?>
-				<?php echo $form['laboratory_picture'] ?>
+				<?php echo $form['detailed_picture']->renderError() ?>
+				<?php echo $form['detailed_picture'] ?>
 			</td>
 		</tr>
 		<tr>
