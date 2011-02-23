@@ -12,47 +12,26 @@ class EcosystemForm extends BaseEcosystemForm
 {
   public function configure()
   {
-	$this->useFields(array(
-		'id',
-	    'name',
-	    'latitude_degrees',
-	    'longitude_degrees',
-	    'latitude_minutes',
-	    'longitude_minutes',
-	    'country_id',
-	    'province_id',
-	    'city',
-		'remarks',
-	));
+	// Create an embedded form to add pictures
+	$pictureForm = new sfForm();
+	for ($i = 0; $i < sfConfig::get('app_max_ecosystem_pictures'); $i++)
+	{
+		$ecosystemPicture = new EcosystemPicture();
+	    $ecosystemPicture->Ecosystem = $this->getObject();
 	
-	// Set default country to Spain
-	$q = Doctrine_Query::create()
-		->from('Country c')
-		->where('c.name = ?', 'Spain');
-	$countries = $q->execute();
-		
-	if ( !empty($countries) )
-	{
-		$this->setDefault('country_id', $countries[0]->getId());
+		$form = new EcosystemPictureForm($ecosystemPicture);
+
+	    $pictureForm->embedForm($i, $form);
 	}
-	else
-	{
-		$this->setDefault('country_id', 208);
-	}
+	$this->embedForm('Pictures', $pictureForm);
 	
-	// Set default province to Las Palmas
-	$q = Doctrine_Query::create()
-		->from('Province p')
-		->where('p.name = ?', 'Las Palmas');
-	$provinces = $q->execute();
-		
-	if ( !empty($provinces) )
-	{
-		$this->setDefault('province_id', $provinces[0]->getId());
-	}
-	else
-	{
-		$this->setDefault('province_id', 28);
-	}	
+	// Hide widgets
+	unset($this['created_at'], $this['updated_at']);
+	
+	// Configure help messages
+	$this->widgetSchema->setHelp('latitude_degrees', '<span class="ecosystem_form_help">Integer value for the latitude degrees (N) of GPS coordinates (e.g. 15)</span>');
+	$this->widgetSchema->setHelp('longitude_degrees', '<span class="ecosystem_form_help">Integer value for the longitude degrees (E) of GPS coordinates (e.g. 42)</span>');
+	$this->widgetSchema->setHelp('latitude_minutes', '<span class="ecosystem_form_help">Decimal value for the latitude minutes of GPS coordinates (e.g. 15.3423)</span>');
+	$this->widgetSchema->setHelp('longitude_minutes', '<span class="ecosystem_form_help">Introduce a decimal value for the longitude minutes of GPS coordinates (e.g. 38.2832)</span>');	
   }
 }
