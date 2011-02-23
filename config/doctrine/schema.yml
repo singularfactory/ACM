@@ -19,7 +19,7 @@ Province:
 EcosystemPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    filename:         { type: string(255), notnull: true }
     ecosystem_id: { type: integer, notnull: true }
   relations:
     Ecosystem:    { foreignAlias: Pictures, onDelete: cascade }

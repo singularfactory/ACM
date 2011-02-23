@@ -16,7 +16,7 @@ abstract class BaseEcosystemPictureForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'           => new sfWidgetFormInputHidden(),
-      'name'         => new sfWidgetFormInputText(),
+      'filename'     => new sfWidgetFormInputText(),
       'ecosystem_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'), 'add_empty' => false)),
       'created_at'   => new sfWidgetFormDateTime(),
       'updated_at'   => new sfWidgetFormDateTime(),
@@ -24,7 +24,7 @@ abstract class BaseEcosystemPictureForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'           => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'         => new sfValidatorString(array('max_length' => 255)),
+      'filename'     => new sfValidatorString(array('max_length' => 255)),
       'ecosystem_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'))),
       'created_at'   => new sfValidatorDateTime(),
       'updated_at'   => new sfValidatorDateTime(),
