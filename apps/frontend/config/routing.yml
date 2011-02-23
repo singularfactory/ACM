@@ -12,7 +12,7 @@ user:
 
 settings:
   url:    /settings
-  param:  { module: sample, action: index }
+  param:  { module: country, action: list }
 
 search:
   url:    /
