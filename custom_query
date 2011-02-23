@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [[ -z $1 ]];then
+	echo "Missing SQL file. Usage: `basename $0` file"
+	exit -1
+fi
+
+if [[ ! -f $1 ]];then
+	echo "Bad SQL file. Usage: `basename $0` file"
+	exit -1
+fi
+
+mysql5 -ubna_green_house -pcocoloco bna_green_house < $1
