@@ -13,16 +13,7 @@ class EcosystemForm extends BaseEcosystemForm
   public function configure()
   {
 	// Create an embedded form to add pictures
-	$pictureForm = new sfForm();
-	for ($i = 0; $i < sfConfig::get('app_max_ecosystem_pictures'); $i++)
-	{
-		$ecosystemPicture = new EcosystemPicture();
-	    $ecosystemPicture->Ecosystem = $this->getObject();
-	
-		$form = new EcosystemPictureForm($ecosystemPicture);
-
-	    $pictureForm->embedForm($i, $form);
-	}
+	$pictureForm = new EcosystemPictureCollectionForm(null, array('ecosystem' => $this->getObject()));
 	$this->embedForm('Pictures', $pictureForm);
 	
 	// Hide widgets
