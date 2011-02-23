@@ -39,5 +39,8 @@ class SampleForm extends BaseSampleForm
 		
 		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		$this->setValidator('detailed_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
+		
+		// Configure labels
+		$this->widgetSchema->setLabel('collector_id', 'User');
 	}
 }

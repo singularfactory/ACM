@@ -5,7 +5,7 @@
 			<th>Number</th>
 			<th>Ecosystem</th>
 			<th>Location</th>
-			<th>Collector</th>
+			<th>User</th>
 			<th>Date</th>
 			<th>Number of strains</th>
 		</tr>
