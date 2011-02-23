@@ -16,7 +16,6 @@ abstract class BaseSampleForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
-      'number'            => new sfWidgetFormInputText(),
       'ecosystem_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'), 'add_empty' => false)),
       'location'          => new sfWidgetFormInputText(),
       'latitude_degrees'  => new sfWidgetFormInputText(),
@@ -40,7 +39,6 @@ abstract class BaseSampleForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'number'            => new sfValidatorInteger(),
       'ecosystem_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'))),
       'location'          => new sfValidatorString(array('max_length' => 255)),
       'latitude_degrees'  => new sfValidatorInteger(array('required' => false)),
@@ -61,10 +59,6 @@ abstract class BaseSampleForm extends BaseFormDoctrine
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
     ));
-
-    $this->validatorSchema->setPostValidator(
-      new sfValidatorDoctrineUnique(array('model' => 'Sample', 'column' => array('number')))
-    );
 
     $this->widgetSchema->setNameFormat('sample[%s]');
 

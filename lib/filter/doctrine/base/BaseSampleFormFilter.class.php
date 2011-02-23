@@ -13,7 +13,6 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'number'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'ecosystem_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Ecosystem'), 'add_empty' => true)),
       'location'          => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'latitude_degrees'  => new sfWidgetFormFilterInput(),
@@ -36,7 +35,6 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'number'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'ecosystem_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Ecosystem'), 'column' => 'id')),
       'location'          => new sfValidatorPass(array('required' => false)),
       'latitude_degrees'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -76,7 +74,6 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                => 'Number',
-      'number'            => 'Number',
       'ecosystem_id'      => 'ForeignKey',
       'location'          => 'Text',
       'latitude_degrees'  => 'Number',

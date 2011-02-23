@@ -21,13 +21,6 @@
 	<tbody>
 		<?php echo $form->renderGlobalErrors() ?>
 		<tr>
-			<th><?php echo $form['number']->renderLabel() ?></th>
-			<td>
-				<?php echo $form['number']->renderError() ?>
-				<?php echo $form['number'] ?>
-			</td>
-		</tr>
-		<tr>
 			<th><?php echo $form['ecosystem_id']->renderLabel() ?></th>
 			<td>
 				<?php echo $form['ecosystem_id']->renderError() ?>

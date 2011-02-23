@@ -70,7 +70,6 @@ User:
 Sample:
   columns:
     id:                 { type: integer, primary: true, autoincrement: true }
-    number:             { type: integer, notnull: true, unique: true, unsigned: true }
     ecosystem_id:       { type: integer, notnull: true }
     location:           { type: string(255), notnull: true }
     latitude_degrees:   { type: integer }

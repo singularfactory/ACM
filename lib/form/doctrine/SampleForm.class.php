@@ -14,7 +14,6 @@ class SampleForm extends BaseSampleForm
 	{
 		$this->useFields(array(
 			'id',
-			'number',
 			'ecosystem_id',
 			'location',
 			'latitude_degrees',
