@@ -111,7 +111,7 @@ abstract class BaseEcosystem extends sfDoctrineRecord
              'local' => 'province_id',
              'foreign' => 'id'));
 
-        $this->hasMany('Picture as Pictures', array(
+        $this->hasMany('EcosystemPicture as Pictures', array(
              'local' => 'id',
              'foreign' => 'ecosystem_id'));
 
