@@ -85,7 +85,7 @@ Sample:
     field_picture:      { type: string(255) }
     detailed_picture:   { type: string(255) }
     collector_id:       { type: integer, notnull: true }
-    collection_date:    { type: timestamp, notnull: true }
+    collection_date:    { type: date, notnull: true }
     remarks:            { type: string }
   relations:
     Ecosystem:          { foreignAlias: Samples }

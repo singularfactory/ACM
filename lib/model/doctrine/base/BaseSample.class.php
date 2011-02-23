@@ -21,7 +21,7 @@
  * @property string $field_picture
  * @property string $detailed_picture
  * @property integer $collector_id
- * @property timestamp $collection_date
+ * @property date $collection_date
  * @property string $remarks
  * @property Ecosystem $Ecosystem
  * @property Environment $Environment
@@ -44,7 +44,7 @@
  * @method string      getFieldPicture()      Returns the current record's "field_picture" value
  * @method string      getDetailedPicture()   Returns the current record's "detailed_picture" value
  * @method integer     getCollectorId()       Returns the current record's "collector_id" value
- * @method timestamp   getCollectionDate()    Returns the current record's "collection_date" value
+ * @method date        getCollectionDate()    Returns the current record's "collection_date" value
  * @method string      getRemarks()           Returns the current record's "remarks" value
  * @method Ecosystem   getEcosystem()         Returns the current record's "Ecosystem" value
  * @method Environment getEnvironment()       Returns the current record's "Environment" value
@@ -141,8 +141,8 @@ abstract class BaseSample extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('collection_date', 'timestamp', null, array(
-             'type' => 'timestamp',
+        $this->hasColumn('collection_date', 'date', null, array(
+             'type' => 'date',
              'notnull' => true,
              ));
         $this->hasColumn('remarks', 'string', null, array(
