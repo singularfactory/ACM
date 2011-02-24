@@ -12,9 +12,6 @@ Province:
   columns:
     id:         { type: integer, primary: true, autoincrement: true }
     name:       { type: string(255) }
-    country_id: { type:integer, notnull:true }
-  relations:
-    Country:    { foreignAlias: Provinces }
 
 EcosystemPicture:
   columns:
