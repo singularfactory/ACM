@@ -1,3 +1,5 @@
+<?php slot('content_title', 'All ecosystems') ?>
+
 <table id="ecosystems_list">
 	<thead>
 		<tr>
@@ -19,4 +21,4 @@
 	</tbody>
 </table>
 
-<a href="<?php echo url_for('ecosystem/new') ?>">New</a>
+<a href="<?php echo url_for('ecosystem/new') ?>">Add a new ecosystem</a>

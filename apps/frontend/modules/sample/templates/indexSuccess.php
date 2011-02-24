@@ -26,4 +26,4 @@
 	</tbody>
 </table>
 
-<a href="<?php echo url_for('sample/new') ?>">Register a new sample</a>
+<a href="<?php echo url_for('sample/new') ?>">Add a new sample</a>
