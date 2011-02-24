@@ -1,4 +1,6 @@
 <?php use_helper('Date') ?>
+<?php slot('content_title', 'All samples') ?>
+
 <table id="samples_list">
 	<thead>
 		<tr>
@@ -24,4 +26,4 @@
 	</tbody>
 </table>
 
-<a href="<?php echo url_for('sample/new') ?>">New</a>
+<a href="<?php echo url_for('sample/new') ?>">Register a new sample</a>

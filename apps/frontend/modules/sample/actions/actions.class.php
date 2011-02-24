@@ -10,6 +10,7 @@
  */
 class sampleActions extends sfActions
 {
+	
   public function executeIndex(sfWebRequest $request)
   {
     $this->samples = Doctrine_Core::getTable('Sample')

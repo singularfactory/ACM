@@ -1,4 +1,7 @@
 <?php use_helper('Date') ?>
+<?php slot('content_title') ?>
+<a href="<?php echo url_for('sample/index') ?>">All samples</a>')
+<?php end_slot() ?>
 <table>
 	<tbody>
 		<tr>
@@ -72,5 +75,3 @@
 <hr />
 
 <a href="<?php echo url_for('sample/edit?id='.$sample->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('sample/index') ?>">List</a>
