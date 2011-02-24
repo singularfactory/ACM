@@ -7,19 +7,13 @@
  * 
  * @property integer $id
  * @property string $name
- * @property integer $country_id
- * @property Country $Country
  * @property Doctrine_Collection $Ecosystems
  * 
  * @method integer             getId()         Returns the current record's "id" value
  * @method string              getName()       Returns the current record's "name" value
- * @method integer             getCountryId()  Returns the current record's "country_id" value
- * @method Country             getCountry()    Returns the current record's "Country" value
  * @method Doctrine_Collection getEcosystems() Returns the current record's "Ecosystems" collection
  * @method Province            setId()         Sets the current record's "id" value
  * @method Province            setName()       Sets the current record's "name" value
- * @method Province            setCountryId()  Sets the current record's "country_id" value
- * @method Province            setCountry()    Sets the current record's "Country" value
  * @method Province            setEcosystems() Sets the current record's "Ecosystems" collection
  * 
  * @package    bna_green_house
@@ -41,10 +35,6 @@ abstract class BaseProvince extends sfDoctrineRecord
              'type' => 'string',
              'length' => 255,
              ));
-        $this->hasColumn('country_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
 
         $this->option('type', 'INNODB');
     }
@@ -52,10 +42,6 @@ abstract class BaseProvince extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Country', array(
-             'local' => 'country_id',
-             'foreign' => 'id'));
-
         $this->hasMany('Ecosystem as Ecosystems', array(
              'local' => 'id',
              'foreign' => 'province_id'));

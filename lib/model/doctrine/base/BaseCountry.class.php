@@ -7,16 +7,13 @@
  * 
  * @property integer $id
  * @property string $name
- * @property Doctrine_Collection $Provinces
  * @property Doctrine_Collection $Ecosystems
  * 
  * @method integer             getId()         Returns the current record's "id" value
  * @method string              getName()       Returns the current record's "name" value
- * @method Doctrine_Collection getProvinces()  Returns the current record's "Provinces" collection
  * @method Doctrine_Collection getEcosystems() Returns the current record's "Ecosystems" collection
  * @method Country             setId()         Sets the current record's "id" value
  * @method Country             setName()       Sets the current record's "name" value
- * @method Country             setProvinces()  Sets the current record's "Provinces" collection
  * @method Country             setEcosystems() Sets the current record's "Ecosystems" collection
  * 
  * @package    bna_green_house
@@ -45,10 +42,6 @@ abstract class BaseCountry extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Province as Provinces', array(
-             'local' => 'id',
-             'foreign' => 'country_id'));
-
         $this->hasMany('Ecosystem as Ecosystems', array(
              'local' => 'id',
              'foreign' => 'country_id'));
