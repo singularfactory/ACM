@@ -27,5 +27,7 @@ class EcosystemPictureCollectionForm extends sfForm
 
 			$this->embedForm($i, $form);
 		}
+		
+		$this->mergePostValidator(new EcosystemPictureValidatorSchema());
 	}
 }
