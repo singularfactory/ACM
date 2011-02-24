@@ -18,6 +18,7 @@ class EcosystemPictureForm extends BaseEcosystemPictureForm
 	$this->setValidator('filename', new sfValidatorFile(array(
 		'mime_types' => 'web_images',
 		'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_ecosystem_pictures_directory'),
+		'required' => false,
 	)));
   }
 }
