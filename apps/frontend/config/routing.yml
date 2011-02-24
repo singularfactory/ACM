@@ -30,7 +30,7 @@ settings_habitats:
   url:    /settings/habitats
   param:  { module: habitat, action: index }
 
-settings_environment:
+settings_environments:
   url:    /settings/environments
   param:  { module: environment, action: index }
 
