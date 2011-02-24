@@ -17,18 +17,19 @@
 				</div>
 				
 				<div id="header_shortcuts">
-					<span>Eliezer Talón</span> |
+					<span>Inventiaplus</span> |
 					<span><a href="#">About me</a></span> |
 					<span><a href="#">Sign out</a></span>
 				</div>
 				
 				<div id="header_menu">
 					<ul id="header_menu_tabs">
-						<li><a href="<?php echo url_for('sample') ?>" class="header_menu_current_tab">Samples</a></li>
-						<li><a href="<?php echo url_for('ecosystem') ?>">Ecosystems</a></li>
-						<li class="header_menu_right_tab"><a id="header_menu_last_tab" href="<?php echo url_for('search') ?>">Search</a></li>
-						<li class="header_menu_right_tab"><a href="<?php echo url_for('user') ?>">People</a></li>
-						<li class="header_menu_right_tab"><a href="<?php echo url_for('settings') ?>">Settings</a></li>
+						<?php $currentRoute = sfContext::getInstance()->getRouting()->getCurrentRouteName(); ?>
+						<li><a href="<?php echo url_for('sample') ?>" <?php if ( $currentRoute === 'sample' ) echo 'class="header_menu_current_tab"'?>>Samples</a></li>
+						<li><a href="<?php echo url_for('ecosystem') ?>" <?php if ( $currentRoute === 'ecosystem' ) echo 'class="header_menu_current_tab"'?>>Ecosystems</a></li>
+						<li class="header_menu_right_tab"><a id="header_menu_last_tab" href="<?php echo url_for('search') ?>" <?php if ( $currentRoute === 'search' ) echo 'class="header_menu_current_tab"'?>>Search</a></li>
+						<li class="header_menu_right_tab"><a href="<?php echo url_for('user') ?>" <?php if ( $currentRoute === 'people' ) echo 'class="header_menu_current_tab"'?>>People</a></li>
+						<li class="header_menu_right_tab"><a href="<?php echo url_for('settings') ?>" <?php if ( $currentRoute === 'settings' ) echo 'class="header_menu_current_tab"'?>>Settings</a></li>
 					</ul>
 				</div>
 			</div>
