@@ -12,5 +12,9 @@ class CountryForm extends BaseCountryForm
 {
   public function configure()
   {
+	// Hide widgets
+	unset($this['created_at'], $this['updated_at']);
+	
+	
   }
 }
