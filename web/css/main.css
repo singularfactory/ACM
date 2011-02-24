@@ -178,6 +178,14 @@ div#content {
 	position: relative;
 }
 
+#settings_menu {
+	font-size: 13px;
+	margin-bottom: 20px;
+	background: #ddd;
+	padding: 6px;
+	display: inline-block;
+}
+
 #content_title {
 	clear:both;
 	font-size: 1.3em;

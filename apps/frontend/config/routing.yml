@@ -14,13 +14,29 @@ province:
   class:   sfDoctrineRouteCollection
   options: { model: Province }
 
-user:
-  url:  /
-  param:  { module: sample, action: index }
-
 settings:
   url:    /settings
   param:  { module: country, action: index }
+
+settings_countries:
+  url:    /settings/countries
+  param:  { module: country, action: index }
+
+settings_provinces:
+  url:    /settings/provinces
+  param:  { module: province, action: index }
+
+settings_habitats:
+  url:    /settings/habitats
+  param:  { module: habitat, action: index }
+
+settings_environment:
+  url:    /settings/environments
+  param:  { module: environment, action: index }
+
+user:
+  url:  /
+  param:  { module: sample, action: index }
 
 search:
   url:    /

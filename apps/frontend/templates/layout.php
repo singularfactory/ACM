@@ -44,6 +44,14 @@
 		</div>
 
 		<div id="content">
+			<?php if( preg_match('/^settings\/?/', $currentRoute) ): ?>
+			<div id="settings_menu">
+				<a href="/settings/countries">Countries and regions</a> |
+				<a href="/settings/provinces">Provinces and islands</a> |
+				<a href="/settings/habitats">Habitats</a> |
+				<a href="/settings/environments">Environments</a>
+			</div>
+			<?php endif; ?>
 			<div id="content_title">
 					<?php if ( has_slot('content_title') ) include_slot('content_title') ?>
 				</div>
