@@ -6,9 +6,17 @@ ecosystem:
   class:   sfDoctrineRouteCollection
   options: { model: Ecosystem }
 
-user:
+country:
   class:   sfDoctrineRouteCollection
-  options: { model: User }
+  options: { model: Country }
+
+province:
+  class:   sfDoctrineRouteCollection
+  options: { model: Province }
+
+user:
+  class:  /
+  param:  { module: sample, action: index }
 
 settings:
   url:    /settings
