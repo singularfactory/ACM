@@ -15,7 +15,7 @@ province:
   options: { model: Province }
 
 user:
-  class:  /
+  url:  /
   param:  { module: sample, action: index }
 
 settings:
