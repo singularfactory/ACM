@@ -46,21 +46,6 @@ settings_module_action:
 
 
 
-# Routes for sfDoctrineGuard plugin
-sf_guard_signin:
-  url:   /login
-  param: { module: sfGuardAuth, action: signin }
-
-sf_guard_signout:
-  url:   /logout
-  param: { module: sfGuardAuth, action: signout }
-
-sf_guard_password:
-  url:   /request_password
-  param: { module: sfGuardAuth, action: password }
-
-
-
 # Default rules (catch all)
 homepage:
   url:    /

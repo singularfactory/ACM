@@ -32,7 +32,8 @@ all:
     use_database:           true
     
     # Plugin configuration
-    enabled_modules:        [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission]
+    enabled_modules:        [default, sfGuardAuth, sfGuardGroup, sfGuardPermission, sfGuardUser]
+    
   .actions:
     login_module:           sfGuardAuth
     login_action:           signin
