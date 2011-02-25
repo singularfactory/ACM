@@ -28,17 +28,57 @@
 			<div id="header_shortcuts">
 				<span>inventiaplus</span> |
 				<span><a href="#">About me</a></span> |
-				<span><a href="#">Sign out</a></span>
+				<span><?php echo link_to('Sign out', '/logout') ?></span>
 			</div>
 				
 			<div id="header_menu">
 				<ul id="header_menu_tabs">
 					<?php $currentRoute = sfContext::getInstance()->getRouting()->getCurrentRouteName(); ?>
-					<li><a href="<?php echo url_for('sample') ?>" <?php if ( preg_match('/^sample\/?/', $currentRoute) ) echo 'class="header_menu_current_tab"'?>>Samples</a></li>
-					<li><a href="<?php echo url_for('ecosystem') ?>" <?php if ( preg_match('/^ecosystem\/?/', $currentRoute) ) echo 'class="header_menu_current_tab"'?>>Ecosystems</a></li>
-					<li class="header_menu_right_tab"><a id="header_menu_last_tab" href="<?php echo url_for('search') ?>" <?php if ( preg_match('/^search\/?/', $currentRoute) ) echo 'class="header_menu_current_tab"'?>>Search</a></li>
-					<li class="header_menu_right_tab"><a href="<?php echo url_for('user') ?>" <?php if ( preg_match('/^people\/?/', $currentRoute) ) echo 'class="header_menu_current_tab"'?>>People</a></li>
-					<li class="header_menu_right_tab"><a href="<?php echo url_for('settings') ?>" <?php if ( preg_match('/^settings\/?/', $currentRoute) ) echo 'class="header_menu_current_tab"'?>>Settings</a></li>
+					
+					<li>
+						<?php
+						if ( !preg_match('/^((sample|homepage)\/?)$/', $currentRoute) )
+							echo link_to('Samples', '/sample');
+						else
+							echo link_to('Samples', '/sample', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
+					<li>
+						<?php
+						if ( !preg_match('/^ecosystem\/?/', $currentRoute) )
+							echo link_to('Ecosystems', '/ecosystem');
+						else
+							echo link_to('Ecosystems', '/ecosystem', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
+					<li class="header_menu_right_tab">
+						<?php
+						if ( !preg_match('/^search\/?/', $currentRoute) )
+							echo link_to('Search', '/');
+						else
+							echo link_to('Search', '/', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
+					<li class="header_menu_right_tab">
+						<?php
+						if ( !preg_match('/^people\/?/', $currentRoute) )
+							echo link_to('People', '/');
+						else
+							echo link_to('People', '/', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
+					<li class="header_menu_right_tab">
+						<?php
+						if ( !preg_match('/^settings\/?/', $currentRoute) )
+							echo link_to('Settings', '/settings');
+						else
+							echo link_to('Settings', '/settings', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>					
 				</ul>
 			</div>
 		</div>
@@ -46,12 +86,13 @@
 		<div id="content">
 			<?php if( preg_match('/^settings\/?/', $currentRoute) ): ?>
 			<div id="settings_menu">
-				<a href="/settings/countries">Countries and regions</a> |
-				<a href="/settings/provinces">Provinces and islands</a> |
-				<a href="/settings/habitats">Habitats</a> |
-				<a href="/settings/environments">Environments</a>
+				<?php echo link_to('Countries and regions', '/settings/country') ?> |
+				<?php echo link_to('Provinces and islands', '/settings/province') ?> |
+				<?php echo link_to('Habitats', '/settings/habitat') ?> |
+				<?php echo link_to('Environments', '/settings/environment') ?>
 			</div>
 			<?php endif; ?>
+			
 			<div id="content_title">
 					<?php if ( has_slot('content_title') ) include_slot('content_title') ?>
 				</div>

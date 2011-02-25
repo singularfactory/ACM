@@ -57,7 +57,7 @@ class environmentActions extends sfActions
     $this->forward404Unless($environment = Doctrine_Core::getTable('Environment')->find(array($request->getParameter('id'))), sprintf('Object environment does not exist (%s).', $request->getParameter('id')));
     $environment->delete();
 
-    $this->redirect('environment/index');
+    $this->redirect('/settings/environment/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -67,7 +67,7 @@ class environmentActions extends sfActions
     {
       $environment = $form->save();
 
-      $this->redirect('environment/edit?id='.$environment->getId());
+      $this->redirect('/settings/environment/edit?id='.$environment->getId());
     }
   }
 }

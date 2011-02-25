@@ -57,7 +57,7 @@ class countryActions extends sfActions
     $this->forward404Unless($country = Doctrine_Core::getTable('Country')->find(array($request->getParameter('id'))), sprintf('Object country does not exist (%s).', $request->getParameter('id')));
     $country->delete();
 
-    $this->redirect('country/index');
+    $this->redirect('(/settings/country/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -67,7 +67,7 @@ class countryActions extends sfActions
     {
       $country = $form->save();
 
-      $this->redirect('country/edit?id='.$country->getId());
+      $this->redirect('/settings/country/edit?id='.$country->getId());
     }
   }
 }

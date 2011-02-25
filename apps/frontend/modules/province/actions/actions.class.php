@@ -57,7 +57,7 @@ class provinceActions extends sfActions
     $this->forward404Unless($province = Doctrine_Core::getTable('Province')->find(array($request->getParameter('id'))), sprintf('Object province does not exist (%s).', $request->getParameter('id')));
     $province->delete();
 
-    $this->redirect('province/index');
+    $this->redirect('/settings/province/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -67,7 +67,7 @@ class provinceActions extends sfActions
     {
       $province = $form->save();
 
-      $this->redirect('province/edit?id='.$province->getId());
+      $this->redirect('/settings/province/edit?id='.$province->getId());
     }
   }
 }

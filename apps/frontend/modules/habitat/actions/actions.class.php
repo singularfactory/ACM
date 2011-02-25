@@ -57,7 +57,7 @@ class habitatActions extends sfActions
     $this->forward404Unless($habitat = Doctrine_Core::getTable('Habitat')->find(array($request->getParameter('id'))), sprintf('Object habitat does not exist (%s).', $request->getParameter('id')));
     $habitat->delete();
 
-    $this->redirect('habitat/index');
+    $this->redirect('/settings/habitat/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
@@ -67,7 +67,7 @@ class habitatActions extends sfActions
     {
       $habitat = $form->save();
 
-      $this->redirect('habitat/edit?id='.$habitat->getId());
+      $this->redirect('/settings/habitat/edit?id='.$habitat->getId());
     }
   }
 }

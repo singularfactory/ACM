@@ -1,18 +1,20 @@
 <?php slot('content_title', 'All environments') ?>
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($environments as $environment): ?>
-    <tr>
-      <td><a href="<?php echo url_for('environment/edit?id='.$environment->getId()) ?>"><?php echo $environment->getName() ?></a></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+	<thead>
+		<tr>
+			<th>Name</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($environments as $environment): ?>
+			<tr>
+				<td>
+					<?php echo link_to($environment->getName(), '/settings/environment/edit?id='.$environment->getId()) ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
 </table>
 
-<a href="<?php echo url_for('environment/new') ?>">Add a new environment</a>
+<?php echo link_to('Add a new environment', '/settings/environment/new') ?>

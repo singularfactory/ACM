@@ -1,51 +1,52 @@
+# Routes for Sample module
 sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }
 
+# Routes for Ecosystem model
 ecosystem:
   class:   sfDoctrineRouteCollection
   options: { model: Ecosystem }
 
+# Routes for Country module
 country:
   class:   sfDoctrineRouteCollection
   options: { model: Country }
 
+# Routes for Province module
 province:
   class:   sfDoctrineRouteCollection
   options: { model: Province }
 
+# Routes for Habitat module
 habitat:
   class:   sfDoctrineRouteCollection
   options: { model: Habitat }
 
+# Routes for Environment module
 environment:
   class:   sfDoctrineRouteCollection
   options: { model: Environment }
 
+
+
+# Routes for settings module
 settings:
   url:    /settings
   param:  { module: country, action: index }
 
-settings_countries:
-  url:    /settings/countries
-  param:  { module: country, action: index }
+settings_module:
+  url:          /settings/:module
+  param:        { action: index }
+  requirements: { module: country|province|habitat|environment }
 
-settings_provinces:
-  url:    /settings/provinces
-  param:  { module: province, action: index }
+settings_module_action:
+  url:    /settings/:module/:action/*
+  requirements: { module: country|province|habitat|environment }
 
-settings_habitats:
-  url:    /settings/habitats
-  param:  { module: habitat, action: index }
 
-settings_environments:
-  url:    /settings/environments
-  param:  { module: environment, action: index }
 
-user:
-  url:  /
-  param:  { module: sample, action: index }
-  
+# Routes for sfDoctrineGuard plugin
 sf_guard_signin:
   url:   /login
   param: { module: sfGuardAuth, action: signin }
@@ -58,10 +59,16 @@ sf_guard_password:
   url:   /request_password
   param: { module: sfGuardAuth, action: password }
 
-search:
+
+
+# Default rules (catch all)
+homepage:
   url:    /
   param:  { module: sample, action: index }
 
-homepage:
-  url:    /
-  param:  { module: sfGuardAuth, action: signin }
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

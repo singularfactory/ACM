@@ -6,9 +6,9 @@
     <tfoot>
       <tr>
         <td colspan="2">
-          &nbsp;<a href="<?php echo url_for('province/index') ?>">Back to list</a>
+			<?php echo link_to('Back to all provinces and islands', '/settings/province/index') ?>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'province/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Delete', '/settings/province/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
           <input type="submit" value="Save" />
         </td>
