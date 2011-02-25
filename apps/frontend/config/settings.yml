@@ -30,6 +30,13 @@ all:
 
     # Enable the database manager
     use_database:           true
+    
+    # Plugin configuration
+    enabled_modules:        [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission]
   .actions:
-    login_module: default
-    login_action: login
+    login_module:           sfGuardAuth
+    login_action:           signin
+
+    secure_module:          sfGuardAuth
+    secure_action:          secure
+  

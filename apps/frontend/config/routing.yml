@@ -45,6 +45,18 @@ settings_environments:
 user:
   url:  /
   param:  { module: sample, action: index }
+  
+sf_guard_signin:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }
+
+sf_guard_password:
+  url:   /request_password
+  param: { module: sfGuardAuth, action: password }
 
 search:
   url:    /
@@ -52,4 +64,4 @@ search:
 
 homepage:
   url:    /
-  param:  { module: default, action: login }
+  param:  { module: sfGuardAuth, action: signin }
