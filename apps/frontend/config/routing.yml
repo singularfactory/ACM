@@ -52,4 +52,4 @@ search:
 
 homepage:
   url:    /
-  param:  { module: sample, action: index }
+  param:  { module: default, action: login }

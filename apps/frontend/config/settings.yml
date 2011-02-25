@@ -1,6 +1,3 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/04-Settings
-
 prod:
   .settings:
     no_script_name:         true
@@ -33,3 +30,6 @@ all:
 
     # Enable the database manager
     use_database:           true
+  .actions:
+    login_module: default
+    login_action: login
