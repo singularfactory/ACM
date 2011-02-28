@@ -1,5 +1,0 @@
-Role:
-  admin:
-    name: "Administrator"
-  collector:
-    name: "Collector"
