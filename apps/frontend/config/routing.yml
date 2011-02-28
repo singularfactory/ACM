@@ -47,11 +47,11 @@ settings_module_action:
 
 
 # Routes for authentication
-sf_guard_signin:
+login:
   url:   /login
   param: { module: sfGuardAuth, action: signin }
 
-sf_guard_signout:
+logout:
   url:   /logout
   param: { module: sfGuardAuth, action: signout }
 

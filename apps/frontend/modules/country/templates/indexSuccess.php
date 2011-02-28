@@ -9,10 +9,10 @@
   <tbody>
     <?php foreach ($countrys as $country): ?>
     <tr>
-      <td><?php echo link_to($country->getName(), '/settings/country/edit?id='.$country->getId()) ?></td>
+      <td><?php echo link_to($country->getName(), 'settings/country/edit?id='.$country->getId()) ?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
 
-<?php echo link_to('Add a new country or region', '/settings/country/new')?>
+<?php echo link_to('Add a new country or region', 'settings/country/new')?>

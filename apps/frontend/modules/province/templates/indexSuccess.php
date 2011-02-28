@@ -10,7 +10,7 @@
 		<?php foreach ($provinces as $province): ?>
 			<tr>
 				<td>
-					<?php echo link_to($province->getName(), '/settings/province/edit?id='.$province->getId()) ?>
+					<?php echo link_to($province->getName(), 'settings/province/edit?id='.$province->getId()) ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

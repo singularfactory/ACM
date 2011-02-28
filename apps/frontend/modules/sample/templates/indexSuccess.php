@@ -15,15 +15,15 @@
 	<tbody>
 		<?php foreach ($samples as $sample): ?>
 			<tr>
-				<td id="samples_list_number_column"><a href="<?php echo url_for('sample/show?id='.$sample->getId()) ?>"><?php echo $sample->getId() ?></a></td>
-				<td id="samples_list_ecosystem_column"><a href="<?php echo url_for('sample/show?id='.$sample->getId()) ?>"><?php echo $sample->getEcosystem()->getName() ?></a></td>
-				<td id="samples_list_location_column"><a href="<?php echo url_for('sample/show?id='.$sample->getId()) ?>"><?php echo $sample->getLocation() ?></a></td>
-				<td id="samples_list_collector_column"><a href="<?php echo url_for('sample/show?id='.$sample->getId()) ?>"><?php echo $sample->getCollector()->getName() ?></a></td>
-				<td id="samples_list_date_column"><a href="<?php echo url_for('sample/show?id='.$sample->getId()) ?>"><?php echo format_date($sample->getCollectionDate(), 'p') ?></a></td>
-				<td id="samples_list_count_column"><a href="<?php echo url_for('sample/show?id='.$sample->getId()) ?>"><?php echo '0' ?></a></td>
+				<td id="samples_list_number_column"><?php echo link_to($sample->getId(), 'sample/show?id='.$sample->getId()) ?></td>
+				<td id="samples_list_ecosystem_column"><?php echo link_to($sample->getEcosystem()->getName(), 'sample/show?id='.$sample->getId()) ?></td>
+				<td id="samples_list_location_column"><?php echo link_to($sample->getLocation(), 'sample/show?id='.$sample->getId()) ?></td>
+				<td id="samples_list_collector_column"><?php echo link_to($sample->getCollector()->getName(), 'sample/show?id='.$sample->getId()) ?></td>
+				<td id="samples_list_date_column"><?php echo link_to(format_date($sample->getCollectionDate(), 'p'), 'sample/show?id='.$sample->getId()) ?></td>
+				<td id="samples_list_count_column"><?php echo link_to(0, 'sample/show?id='.$sample->getId()) ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
 
-<a href="<?php echo url_for('sample/new') ?>">Add a new sample</a>
+<?php echo link_to('Add a new sample', 'sample/new') ?>

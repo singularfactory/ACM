@@ -6,9 +6,9 @@
     <tfoot>
       <tr>
         <td colspan="2">
-          &nbsp;<?php echo link_to('Back to all countries and regions', '/settings/country') ?>
+          &nbsp;<?php echo link_to('Back to all countries and regions', 'settings/country') ?>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', '/settings/country/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Delete', 'settings/country/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
           <input type="submit" value="Save" />
         </td>
