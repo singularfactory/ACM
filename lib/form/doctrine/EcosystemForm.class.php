@@ -23,7 +23,7 @@ class EcosystemForm extends BaseEcosystemForm
 		$this->widgetSchema->setHelp('latitude_degrees', '<span class="ecosystem_form_help">Integer value for the latitude degrees (N) of GPS coordinates (e.g. 15)</span>');
 		$this->widgetSchema->setHelp('longitude_degrees', '<span class="ecosystem_form_help">Integer value for the longitude degrees (E) of GPS coordinates (e.g. 42)</span>');
 		$this->widgetSchema->setHelp('latitude_minutes', '<span class="ecosystem_form_help">Decimal value for the latitude minutes of GPS coordinates (e.g. 15.3423)</span>');
-		$this->widgetSchema->setHelp('longitude_minutes', '<span class="ecosystem_form_help">Introduce a decimal value for the longitude minutes of GPS coordinates (e.g. 38.2832)</span>');
+		$this->widgetSchema->setHelp('longitude_minutes', '<span class="ecosystem_form_help">Decimal value for the longitude minutes of GPS coordinates (e.g. 38.2832)</span>');
 
 		// Configure labels
 		$this->widgetSchema->setLabel('country_id', 'Country / Region');

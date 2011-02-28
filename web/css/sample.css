@@ -26,12 +26,16 @@
 }
 
 
-#samples_form  {
+#sample_form  {
 	width: 60%;
 	margin: auto;
 }
 
-#samples_form th {
+#sample_form th {
 	border: 0;
 	padding: 0;
+}
+
+.sample_form_help {
+	font-size: 0.7em;
 }
