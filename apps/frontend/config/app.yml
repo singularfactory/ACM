@@ -3,3 +3,5 @@ all:
     sample_pictures_directory:    /sample_pictures
     ecosystem_pictures_directory: /ecosystem_pictures
     max_ecosystem_pictures:       5
+  sf_guard_plugin:
+    routes_register: true

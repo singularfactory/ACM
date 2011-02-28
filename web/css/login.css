@@ -1,0 +1,63 @@
+/* GLOBAL PAGE STYLE */
+body {
+	margin: 0 auto;
+	padding: 0;
+	background: #f0f0f0;
+	min-width: 870px;
+	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
+	color: #222;
+}
+
+
+
+/* DEFAULT STYLES */
+form { margin: 0; padding: 0; }
+
+p { font-size: 12px; line-height: 16px; }
+
+td, th { padding: 3px; text-align: left; }
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-bottom: 2em;
+}
+
+table th {
+	border-bottom: 0.15em solid #999;
+	padding: 0.5em 0.5em;
+}
+
+
+/* JAVASCRIPT DISABLED NOTIFICATION */
+div.javascript_disabled_notification {
+  width: 520px;
+  margin: 30px auto;
+  background: #fff;
+}
+
+div.javascript_disabled_notification div.inner {
+  padding: 20px;
+  text-align: left;
+}
+
+div.javascript_disabled_notification h1 {
+  font-size: 18px;
+  margin: 0 0 18px 0;
+}
+
+div.javascript_disabled_notification p {
+  margin: 0 0 14px 0;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+
+
+/* PAGE STRUCTURE */
+#content {
+	width: 70%;
+	margin: 0 auto;
+	position: relative;
+}
