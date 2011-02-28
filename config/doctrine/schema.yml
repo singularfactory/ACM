@@ -92,3 +92,14 @@ Sample:
     Habitat:              { foreignAlias: Samples }
     Radiation:            { foreignAlias: Samples }
     Collector:            { class: sfGuardUser, local: collector_id, foreignAlias: Samples }
+
+Event:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    timestamp:    { type: datetime, notnull: true }
+    user_id:      { type: integer, notnull: true }
+    ip_address:   { type: string(15), notnull: true }
+    action:       { type: string(40), notnull: true }
+    description:  { type: string(255), notnull: true }
+  relations:
+    User:         { class: sfGuardUser, local: user_id, foreignType: one, foreignAlias: Events }
