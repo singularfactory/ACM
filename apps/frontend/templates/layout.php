@@ -86,16 +86,16 @@
 		<div id="content">
 			<?php if( preg_match('/^settings\/?/', $currentRoute) ): ?>
 			<div id="settings_menu">
-				<?php echo link_to('Countries and regions', 'settings/country') ?> |
-				<?php echo link_to('Provinces and islands', 'settings/province') ?> |
-				<?php echo link_to('Habitats', 'settings/habitat') ?> |
-				<?php echo link_to('Environments', 'settings/environment') ?>
+				<?php echo link_to('Countries and regions', '/settings/country') ?> |
+				<?php echo link_to('Provinces and islands', '/settings/province') ?> |
+				<?php echo link_to('Habitats', '/settings/habitat') ?> |
+				<?php echo link_to('Environments', '/settings/environment') ?>
 			</div>
 			<?php endif; ?>
 			
 			<div id="content_title">
-					<?php if ( has_slot('content_title') ) include_slot('content_title') ?>
-				</div>
+				<?php if ( has_slot('content_title') ) include_slot('content_title') ?>
+			</div>
 			<?php echo $sf_content ?>	
 		</div>
 

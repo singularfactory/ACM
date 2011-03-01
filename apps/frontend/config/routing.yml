@@ -36,14 +36,11 @@ settings:
   param:  { module: country, action: index }
 
 settings_module:
-  url:          /settings/:module
-  param:        { action: index }
-  requirements: { module: country|province|habitat|environment }
+  url:    /settings/:module
+  param:  { action: index }
 
 settings_module_action:
   url:    /settings/:module/:action/*
-  requirements: { module: country|province|habitat|environment }
-
 
 
 # Routes for authentication

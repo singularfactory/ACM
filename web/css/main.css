@@ -186,6 +186,11 @@ div#content {
 	display: inline-block;
 }
 
+#settings_menu a,
+#settings_menu strong {
+	padding: 0px 6px;
+}
+
 #content_title {
 	clear:both;
 	font-size: 1.3em;
