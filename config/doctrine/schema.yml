@@ -6,86 +6,85 @@ options:
 Country:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(255) }
+    code: { type: string(3), fixed: true, notnull: true }
+    name: { type: string(60), notnull: true }
 
-Province:
+Region:
   columns:
     id:         { type: integer, primary: true, autoincrement: true }
-    name:       { type: string(255) }
+    code:       { type: string(2), fixed: true, notnull: true }
+    name:       { type: string(60), notnull: true }
+    country_id: { type: integer, notnull: true }
 
-EcosystemPicture:
+Island:
+  columns:
+    id:         { type: integer, primary: true, autoincrement: true }
+    code:       { type: string(2), fixed: true, notnull: true }
+    name:       { type: string(60), notnull: true }
+    region_id:  { type: integer, notnull: true }
+
+LocationPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     filename:     { type: string(255), notnull: true }
-    ecosystem_id: { type: integer, notnull: true }
+    location_id:  { type: integer, notnull: true }
   relations:
-    Ecosystem:    { foreignAlias: Pictures, onDelete: cascade }
+    Location:     { foreignAlias: Pictures, onDelete: cascade }
 
-Ecosystem:
+Location:
   columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    name:               { type: string(255), notnull: true }
-    latitude_degrees:   { type: integer }
-    longitude_degrees:  { type: integer }
-    latitude_minutes:   { type: float }
-    longitude_minutes:  { type: float }
-    country_id:         { type: integer, notnull: true }
-    province_id:        { type: integer }
-    city:               { type: string(255), notnull: true }
-    remarks:            { type:string }
+    id:         { type: integer, primary: true, autoincrement: true }
+    name:       { type: string(255), notnull: true }
+    latitude:   { type: integer(10), fixed: true }
+    longitude:  { type: integer(10), fixed: true }
+    country_id: { type: integer, notnull: true }
+    region_id:  { type: integer, notnull: true }
+    island_id:  { type: integer, notnull: true }
+    remarks:    { type:string }
   relations:
-    Country:            { foreignAlias: Ecosystems }
-    Province:           { foreignAlias: Ecosystems }
+    Country:    { foreignAlias: Locations }
+    Region:     { foreignAlias: Locations }
+    Island:     { foreignAlias: Locations }
     
 Environment:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(255), notnull: true }
+    name: { type: string(127), notnull: true }
 
 Habitat:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(255), notnull: true }
+    name: { type: string(127), notnull: true }
+    description: { type: string }
 
-Role:
+Radiation:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type:string(255), notnull: true }
+    name: { type: string(127), notnull: true }
 
-User:
-  columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    username: { type:string(30), notnull: true }
-    password: { type:string(30), notnull: true }
-    name:     { type:string(255), notnull: true }
-    surname:  { type:string(255), notnull: true }
-    email:    { type:string(255), notnull:true }
-    role_id:  { type:integer, notnull: true }
-  relations:
-    Role:     { foreignAlias: Users }
-    
 Sample:
   columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    ecosystem_id:       { type: integer, notnull: true }
-    location:           { type: string(255), notnull: true }
-    latitude_degrees:   { type: integer }
-    longitude_degrees:  { type: integer }
-    latitude_minutes:   { type: float }
-    longitude_minutes:  { type: float }
-    environment_id:     { type: integer, notnull: true }
-    habitat_id:         { type: integer, notnull: true }
-    ph:                 { type: float }
-    conductivity:       { type: float }
-    temperature:        { type: float }
-    salinity:           { type: float }
-    field_picture:      { type: string(255) }
-    detailed_picture:   { type: string(255) }
-    collector_id:       { type: integer, notnull: true }
-    collection_date:    { type: date, notnull: true }
-    remarks:            { type: string }
+    id:                   { type: integer, primary: true, autoincrement: true }
+    location_id:          { type: integer, notnull: true }
+    latitude:             { type: integer(10), fixed: true }
+    longitude:            { type: integer(10), fixed: true }
+    environment_id:       { type: integer, notnull: true }
+    habitat_id:           { type: integer, notnull: true }
+    ph:                   { type: float }
+    conductivity:         { type: float }
+    temperature:          { type: float }
+    salinity:             { type: float }
+    altitude:             { type: float }
+    radiation_id:         { type: integer, notnull: true }
+    field_picture:        { type: string(255) }
+    detailed_picture:     { type: string(255) }
+    microscopic_picture:  { type: string(255) }
+    collector_id:         { type: integer, notnull: true }
+    collection_date:      { type: date, notnull: true }
+    remarks:              { type: string }
   relations:
-    Ecosystem:          { foreignAlias: Samples }
-    Environment:        { foreignAlias: Samples }
-    Habitat:            { foreignAlias: Samples }
-    Collector:          { class: User, local: collector_id, foreignType: one, foreignAlias: Samples }
+    Location:             { foreignAlias: Samples }
+    Environment:          { foreignAlias: Samples }
+    Habitat:              { foreignAlias: Samples }
+    Radiation:            { foreignAlias: Samples }
+    Collector:            { class: sfGuardUser, local: collector_id, foreignAlias: Samples }
