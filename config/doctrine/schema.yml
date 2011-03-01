@@ -6,7 +6,8 @@ options:
 Country:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(255) }
+    code: { type: string(3), fixed: true, notnull: true }
+    name: { type: string(60), notnull: true }
 
 Province:
   columns:
