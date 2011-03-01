@@ -31,10 +31,10 @@ abstract class BaseEnvironment extends sfDoctrineRecord
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('name', 'string', 255, array(
+        $this->hasColumn('name', 'string', 127, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => 255,
+             'length' => 127,
              ));
 
         $this->option('type', 'INNODB');

@@ -1,9 +1,0 @@
-TRUNCATE TABLE sample;
-TRUNCATE TABLE user;
-TRUNCATE TABLE role;
-TRUNCATE TABLE ecosystem_picture;
-TRUNCATE TABLE ecosystem;
-TRUNCATE TABLE province;
-TRUNCATE TABLE country;
-TRUNCATE TABLE environment;
-TRUNCATE TABLE habitat;
