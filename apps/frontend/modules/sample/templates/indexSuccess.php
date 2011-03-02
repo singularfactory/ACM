@@ -14,7 +14,7 @@
 	<tbody>
 		<?php foreach ($samples as $sample): ?>
 			<tr>
-				<td id="sample_list_number_column"><?php echo link_to($sample->getId(), 'sample/show?id='.$sample->getId()) ?></td>
+				<td id="sample_list_number_column"><?php echo link_to($sample->getNumber(), 'sample/show?id='.$sample->getId()) ?></td>
 				<td id="sample_list_location_column"><?php echo link_to($sample->getLocation()->getName(), 'sample/show?id='.$sample->getId()) ?></td>
 				<td id="sample_list_collector_column"><?php echo link_to($sample->getCollector()->getName(), 'sample/show?id='.$sample->getId()) ?></td>
 				<td id="sample_list_date_column"><?php echo link_to(format_date($sample->getCollectionDate(), 'p'), 'sample/show?id='.$sample->getId()) ?></td>

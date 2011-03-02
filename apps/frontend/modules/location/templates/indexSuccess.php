@@ -19,15 +19,20 @@
 				</td>
 				
 				<td id="location_list_country_column">
-					<?php echo link_to($location->getCountry(), 'location/edit?id='.$location->getId()) ?>
+					<?php echo link_to($location->getCountry()->getName(), 'location/edit?id='.$location->getId()) ?>
 				</td>
 				
 				<td id="location_list_region_column">
-					<?php echo link_to($location->getRegion(), 'location/edit?id='.$location->getId()) ?>
+					<?php echo link_to($location->getRegion()->getName(), 'location/edit?id='.$location->getId()) ?>
 				</td>
 				
 				<td id="location_list_island_column">
-					<?php echo link_to($location->getIsland(), 'location/edit?id='.$location->getId()) ?>
+					<?php
+						if ( $location->getIslandId() )
+							echo link_to($location->getIsland()->getName(), 'location/edit?id='.$location->getId());
+						else
+							echo '-';
+					?>
 				</td>
 				
 				<td id="location_list_picture_column">
