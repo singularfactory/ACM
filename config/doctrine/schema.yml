@@ -35,8 +35,8 @@ Location:
   columns:
     id:         { type: integer, primary: true, autoincrement: true }
     name:       { type: string(255), notnull: true }
-    latitude:   { type: integer(10), fixed: true }
-    longitude:  { type: integer(10), fixed: true }
+    latitude:   { type: string(10), fixed: true }
+    longitude:  { type: string(10), fixed: true }
     country_id: { type: integer, notnull: true }
     region_id:  { type: integer, notnull: true }
     island_id:  { type: integer, notnull: true }
@@ -66,8 +66,8 @@ Sample:
   columns:
     id:                   { type: integer, primary: true, autoincrement: true }
     location_id:          { type: integer, notnull: true }
-    latitude:             { type: integer(10), fixed: true }
-    longitude:            { type: integer(10), fixed: true }
+    latitude:             { type: string(10), fixed: true }
+    longitude:            { type: string(10), fixed: true }
     environment_id:       { type: integer, notnull: true }
     habitat_id:           { type: integer, notnull: true }
     ph:                   { type: float }

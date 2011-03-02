@@ -1,22 +1,21 @@
 <?php
 
 /**
- * Country form base class.
+ * Radiation form base class.
  *
- * @method Country getObject() Returns the current form's model object
+ * @method Radiation getObject() Returns the current form's model object
  *
  * @package    bna_green_house
  * @subpackage form
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseCountryForm extends BaseFormDoctrine
+abstract class BaseRadiationForm extends BaseFormDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'code'       => new sfWidgetFormInputText(),
       'name'       => new sfWidgetFormInputText(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
@@ -24,13 +23,12 @@ abstract class BaseCountryForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'code'       => new sfValidatorString(array('max_length' => 3)),
-      'name'       => new sfValidatorString(array('max_length' => 60)),
+      'name'       => new sfValidatorString(array('max_length' => 127)),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),
     ));
 
-    $this->widgetSchema->setNameFormat('country[%s]');
+    $this->widgetSchema->setNameFormat('radiation[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -41,7 +39,7 @@ abstract class BaseCountryForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'Country';
+    return 'Radiation';
   }
 
 }
