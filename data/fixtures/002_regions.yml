@@ -1,0 +1,3 @@
+Region:
+  las-palmas: { name: Las Palmas, code: GC, country_id: 208 }
+  tenerife:   { name: Santa Cruz de Tenerife, code: TF, country_id: 208 }

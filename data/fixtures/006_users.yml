@@ -1,0 +1,64 @@
+sfGuardPermission:
+  Permission_admin:
+    name:           admin
+    description:    Administrator permission
+
+sfGuardGroup:
+  Group_admin:
+    name:           admin
+    description:    Administrators group
+    Permissions:    [Permission_admin]
+  Group_collector:
+    name:           collector
+    description:    Collectors group
+    Permissions:    [Permission_admin]
+
+sfGuardUser:
+  admin:
+    first_name:     Eliezer
+    last_name:      Talón
+    email_address:  elitalon@inventiaplus.com
+    username:       elitalon
+    password:       bnasfcupdr
+    is_super_admin: true
+    Groups:         [Group_admin]
+  fernando:
+    first_name:     Fernando
+    last_name:      Guzmán
+    email_address:  fguzman@marinebiotechnology.org
+    username:       fernando
+    password:       cocoloco
+    is_super_admin: false
+    Groups:         [Group_admin]
+  moneiba:
+    first_name:     Moneiba
+    last_name:      
+    email_address:  moneiba@marinebiotechnology.org
+    username:       moneiba
+    password:       cocoloco
+    is_super_admin: false
+    Groups:         [Group_admin]
+  nestor:
+    first_name:     Néstor
+    last_name:      
+    email_address:  n@marinebiotechnology.org
+    username:       nestor
+    password:       cocoloco
+    is_super_admin: false
+    Groups:         [Group_admin]
+  vanesa:
+    first_name:     Vanesa
+    last_name:      Romero
+    email_address:  vanesa.romero.kutzner@gmail.com
+    username:       vanesa
+    password:       cocoloco
+    is_super_admin: false
+    Groups:         [Group_admin]
+  eva:
+    first_name:     Eva
+    last_name:      Cancelo
+    email_address:  ecancelo@marinebiotechnology.org
+    username:       eva
+    password:       cocoloco
+    is_super_admin: false
+    Groups:         [Group_admin]
