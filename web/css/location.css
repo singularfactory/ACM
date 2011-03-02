@@ -1,0 +1,32 @@
+#location_list_name_column {
+	width: 30%;
+}
+
+#location_list_city_column {
+	width: 30%;
+}
+
+#location_list_picture_column {
+	width: 15%;
+	text-align: center;
+}
+
+#location_list_count_column {
+	width: 18%;
+	text-align: center;
+}
+
+
+#location_form  {
+	width: 60%;
+	margin: auto;
+}
+
+#location_form th {
+	border: 0;
+	padding: 0;
+}
+
+.location_form_help {
+	font-size: 0.7em;
+}

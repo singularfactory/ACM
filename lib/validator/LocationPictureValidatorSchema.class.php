@@ -1,14 +1,14 @@
 <?php
 
 /**
-* EcosystemPictureValidatorSchema validator.
+* LocationPictureValidatorSchema validator.
 *
 * @package    bna_green_house
 * @subpackage validator
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id
 */
-class EcosystemPictureValidatorSchema extends sfValidatorSchema
+class LocationPictureValidatorSchema extends sfValidatorSchema
 {
   protected function configure($options = array(), $messages = array())
   {
