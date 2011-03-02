@@ -86,7 +86,6 @@ abstract class BaseLocation extends sfDoctrineRecord
              ));
         $this->hasColumn('island_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',

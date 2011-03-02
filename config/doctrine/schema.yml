@@ -43,7 +43,7 @@ Location:
     longitude:  { type: string(10), fixed: true }
     country_id: { type: integer, notnull: true }
     region_id:  { type: integer, notnull: true }
-    island_id:  { type: integer, notnull: true }
+    island_id:  { type: integer }
     remarks:    { type:string }
   relations:
     Country:    { foreignAlias: Locations }
