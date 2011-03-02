@@ -1,4 +1,7 @@
 Country:
+  ES:	{ code: "ES", name: "Spain" }
+  PT:	{ code: "PT", name: "Portugal" }
+  CV:	{ code: "CV", name: "Cape Verde" }
   AF:	{ code: "AF", name: "Afghanistan" }
   AX:	{ code: "AX", name: "Åland Islands" }
   AL:	{ code: "AL", name: "Albania" }
@@ -39,7 +42,6 @@ Country:
   KH:	{ code: "KH", name: "Cambodia" }
   CM:	{ code: "CM", name: "Cameroon" }
   CA:	{ code: "CA", name: "Canada" }
-  CV:	{ code: "CV", name: "Cape Verde" }
   KY:	{ code: "KY", name: "Cayman Islands" }
   CF:	{ code: "CF", name: "Central African Republic" }
   TD:	{ code: "TD", name: "Chad" }
@@ -176,7 +178,6 @@ Country:
   PH:	{ code: "PH", name: "Philippines" }
   PN:	{ code: "PN", name: "Pitcairn" }
   PL:	{ code: "PL", name: "Poland" }
-  PT:	{ code: "PT", name: "Portugal" }
   PR:	{ code: "PR", name: "Puerto Rico" }
   QA:	{ code: "QA", name: "Qatar" }
   RE:	{ code: "RE", name: "Réunion" }
@@ -206,7 +207,6 @@ Country:
   SO:	{ code: "SO", name: "Somalia" }
   ZA:	{ code: "ZA", name: "South Africa" }
   GS:	{ code: "GS", name: "South Georgia and the South Sandwich Islands" }
-  ES:	{ code: "ES", name: "Spain" }
   LK:	{ code: "LK", name: "Sri Lanka" }
   SD:	{ code: "SD", name: "Sudan" }
   SR:	{ code: "SR", name: "Suriname" }
