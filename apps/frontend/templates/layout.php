@@ -46,10 +46,10 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^ecosystem(\/_)?/', $currentRoute) )
-							echo link_to('Ecosystems', '@ecosystem');
+						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
+							echo link_to('Locations', '@location');
 						else
-							echo link_to('Ecosystems', '@ecosystem', array('class' => 'header_menu_current_tab'));
+							echo link_to('Locations', '@location', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
@@ -86,8 +86,9 @@
 		<div id="content">
 			<?php if( preg_match('/^settings\/?/', $currentRoute) ): ?>
 			<div id="settings_menu">
-				<?php echo link_to('Countries and regions', '/settings/country') ?> |
-				<?php echo link_to('Provinces and islands', '/settings/province') ?> |
+				<?php echo link_to('Countries', '/settings/country') ?> |
+				<?php echo link_to('Regions', '/settings/region') ?> |
+				<?php echo link_to('Islands', '/settings/island') ?> |
 				<?php echo link_to('Habitats', '/settings/habitat') ?> |
 				<?php echo link_to('Environments', '/settings/environment') ?>
 			</div>

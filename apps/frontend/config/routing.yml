@@ -3,20 +3,25 @@ sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }
 
-# Routes for Ecosystem model
-ecosystem:
+# Routes for Location model
+location:
   class:   sfDoctrineRouteCollection
-  options: { model: Ecosystem }
+  options: { model: Location }
 
 # Routes for Country module
 country:
   class:   sfDoctrineRouteCollection
   options: { model: Country }
 
-# Routes for Province module
-province:
+# Routes for Region module
+region:
   class:   sfDoctrineRouteCollection
-  options: { model: Province }
+  options: { model: Region }
+
+# Routes for Island module
+island:
+  class:   sfDoctrineRouteCollection
+  options: { model: Island }
 
 # Routes for Habitat module
 habitat:
