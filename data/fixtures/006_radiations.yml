@@ -1,0 +1,4 @@
+Radiation:
+  extreme:  { name: Extreme }
+  normal:  { name: Normal }
+  reduced:  { name: Reduced }

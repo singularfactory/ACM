@@ -15,6 +15,8 @@ Region:
     code:       { type: string(2), fixed: true, notnull: true }
     name:       { type: string(60), notnull: true }
     country_id: { type: integer, notnull: true }
+  relations:
+    Country:    { foreignAlias: Regions }
 
 Island:
   columns:
@@ -22,6 +24,8 @@ Island:
     code:       { type: string(2), fixed: true, notnull: true }
     name:       { type: string(60), notnull: true }
     region_id:  { type: integer, notnull: true }
+  relations:
+    Region:    { foreignAlias: Islands }
 
 LocationPicture:
   columns:

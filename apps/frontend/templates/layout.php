@@ -90,7 +90,8 @@
 				<?php echo link_to('Regions', '/settings/region') ?> |
 				<?php echo link_to('Islands', '/settings/island') ?> |
 				<?php echo link_to('Habitats', '/settings/habitat') ?> |
-				<?php echo link_to('Environments', '/settings/environment') ?>
+				<?php echo link_to('Environments', '/settings/environment') ?> |
+				<?php echo link_to('Radiations', '/settings/radiation') ?>
 			</div>
 			<?php endif; ?>
 			

@@ -33,6 +33,11 @@ environment:
   class:   sfDoctrineRouteCollection
   options: { model: Environment }
 
+# Routes for Environment module
+radiation:
+  class:   sfDoctrineRouteCollection
+  options: { model: Radiation }
+
 
 
 # Routes for settings module
