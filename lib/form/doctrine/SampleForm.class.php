@@ -15,6 +15,11 @@ class SampleForm extends BaseSampleForm
 		// Hide widgets
 		unset($this['created_at'], $this['updated_at']);
 		
+		// Add a temporary ID field
+		$this->setWidget('id', new sfWidgetFormInputText());
+		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => true)));
+		$this->widgetSchema->setLabel('id', 'Code');
+		
 		// Replace default input elements by file input
 		$this->setWidget('field_picture', new sfWidgetFormInputFile());
 		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
