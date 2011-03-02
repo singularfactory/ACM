@@ -18,7 +18,7 @@ abstract class BaseIslandForm extends BaseFormDoctrine
       'id'         => new sfWidgetFormInputHidden(),
       'code'       => new sfWidgetFormInputText(),
       'name'       => new sfWidgetFormInputText(),
-      'region_id'  => new sfWidgetFormInputText(),
+      'region_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Region'), 'add_empty' => false)),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
     ));
@@ -27,7 +27,7 @@ abstract class BaseIslandForm extends BaseFormDoctrine
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'code'       => new sfValidatorString(array('max_length' => 2)),
       'name'       => new sfValidatorString(array('max_length' => 60)),
-      'region_id'  => new sfValidatorInteger(),
+      'region_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Region'))),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),
     ));

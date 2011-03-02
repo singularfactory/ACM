@@ -9,17 +9,20 @@
  * @property string $code
  * @property string $name
  * @property integer $region_id
+ * @property Region $Region
  * @property Doctrine_Collection $Locations
  * 
  * @method integer             getId()        Returns the current record's "id" value
  * @method string              getCode()      Returns the current record's "code" value
  * @method string              getName()      Returns the current record's "name" value
  * @method integer             getRegionId()  Returns the current record's "region_id" value
+ * @method Region              getRegion()    Returns the current record's "Region" value
  * @method Doctrine_Collection getLocations() Returns the current record's "Locations" collection
  * @method Island              setId()        Sets the current record's "id" value
  * @method Island              setCode()      Sets the current record's "code" value
  * @method Island              setName()      Sets the current record's "name" value
  * @method Island              setRegionId()  Sets the current record's "region_id" value
+ * @method Island              setRegion()    Sets the current record's "Region" value
  * @method Island              setLocations() Sets the current record's "Locations" collection
  * 
  * @package    bna_green_house
@@ -59,6 +62,10 @@ abstract class BaseIsland extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Region', array(
+             'local' => 'region_id',
+             'foreign' => 'id'));
+
         $this->hasMany('Location as Locations', array(
              'local' => 'id',
              'foreign' => 'island_id'));

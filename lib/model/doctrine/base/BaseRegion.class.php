@@ -9,17 +9,23 @@
  * @property string $code
  * @property string $name
  * @property integer $country_id
+ * @property Country $Country
+ * @property Doctrine_Collection $Islands
  * @property Doctrine_Collection $Locations
  * 
  * @method integer             getId()         Returns the current record's "id" value
  * @method string              getCode()       Returns the current record's "code" value
  * @method string              getName()       Returns the current record's "name" value
  * @method integer             getCountryId()  Returns the current record's "country_id" value
+ * @method Country             getCountry()    Returns the current record's "Country" value
+ * @method Doctrine_Collection getIslands()    Returns the current record's "Islands" collection
  * @method Doctrine_Collection getLocations()  Returns the current record's "Locations" collection
  * @method Region              setId()         Sets the current record's "id" value
  * @method Region              setCode()       Sets the current record's "code" value
  * @method Region              setName()       Sets the current record's "name" value
  * @method Region              setCountryId()  Sets the current record's "country_id" value
+ * @method Region              setCountry()    Sets the current record's "Country" value
+ * @method Region              setIslands()    Sets the current record's "Islands" collection
  * @method Region              setLocations()  Sets the current record's "Locations" collection
  * 
  * @package    bna_green_house
@@ -59,6 +65,14 @@ abstract class BaseRegion extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Country', array(
+             'local' => 'country_id',
+             'foreign' => 'id'));
+
+        $this->hasMany('Island as Islands', array(
+             'local' => 'id',
+             'foreign' => 'region_id'));
+
         $this->hasMany('Location as Locations', array(
              'local' => 'id',
              'foreign' => 'region_id'));

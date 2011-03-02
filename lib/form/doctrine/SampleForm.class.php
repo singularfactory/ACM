@@ -20,18 +20,16 @@ class SampleForm extends BaseSampleForm
 		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		$this->setWidget('detailed_picture', new sfWidgetFormInputFile());
 		$this->setValidator('detailed_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
+		$this->setWidget('microscopic_picture', new sfWidgetFormInputFile());
+		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		
 		// Configure help messages
-		$this->widgetSchema->setHelp('latitude_degrees', '<span class="sample_form_help">Integer value for the latitude degrees (N) of GPS coordinates (e.g. 15)</span>');
-		$this->widgetSchema->setHelp('longitude_degrees', '<span class="sample_form_help">Integer value for the longitude degrees (E) of GPS coordinates (e.g. 42)</span>');
-		$this->widgetSchema->setHelp('latitude_minutes', '<span class="sample_form_help">Decimal value for the latitude minutes of GPS coordinates (e.g. 15.3423)</span>');
-		$this->widgetSchema->setHelp('longitude_minutes', '<span class="sample_form_help">Decimal value for the longitude minutes of GPS coordinates (e.g. 38.2832)</span>');
+		$this->widgetSchema->setHelp('latitude', '<span class="sample_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
+		$this->widgetSchema->setHelp('longitude', '<span class="sample_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
 		$this->widgetSchema->setHelp('ph', '<span class="sample_form_help">Decimal value for PH (e.g. 38.2832)</span>');
 		$this->widgetSchema->setHelp('conductivity', '<span class="sample_form_help">Decimal value for conductivity (e.g. 38.2832)</span>');
 		$this->widgetSchema->setHelp('temperature', '<span class="sample_form_help">Integer value for temperature (e.g. 22)</span>');
 		$this->widgetSchema->setHelp('salinity', '<span class="sample_form_help">Decimal value for salinity (e.g. 38.2832)</span>');
-		
-		// Configure labels
-		$this->widgetSchema->setLabel('collector_id', 'User');
+		$this->widgetSchema->setHelp('altitude', '<span class="sample_form_help">Integer value for altitude in meters (e.g. 1595)</span>');		
 	}
 }

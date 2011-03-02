@@ -8,15 +8,18 @@
  * @property integer $id
  * @property string $code
  * @property string $name
+ * @property Doctrine_Collection $Regions
  * @property Doctrine_Collection $Locations
  * 
  * @method integer             getId()        Returns the current record's "id" value
  * @method string              getCode()      Returns the current record's "code" value
  * @method string              getName()      Returns the current record's "name" value
+ * @method Doctrine_Collection getRegions()   Returns the current record's "Regions" collection
  * @method Doctrine_Collection getLocations() Returns the current record's "Locations" collection
  * @method Country             setId()        Sets the current record's "id" value
  * @method Country             setCode()      Sets the current record's "code" value
  * @method Country             setName()      Sets the current record's "name" value
+ * @method Country             setRegions()   Sets the current record's "Regions" collection
  * @method Country             setLocations() Sets the current record's "Locations" collection
  * 
  * @package    bna_green_house
@@ -52,6 +55,10 @@ abstract class BaseCountry extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Region as Regions', array(
+             'local' => 'id',
+             'foreign' => 'country_id'));
+
         $this->hasMany('Location as Locations', array(
              'local' => 'id',
              'foreign' => 'country_id'));
