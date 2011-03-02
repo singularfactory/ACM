@@ -27,7 +27,7 @@ class sampleActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new SampleForm();
-	$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
+		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
   }
 
   public function executeCreate(sfWebRequest $request)
@@ -35,6 +35,7 @@ class sampleActions extends sfActions
     $this->forward404Unless($request->isMethod(sfRequest::POST));
 
     $this->form = new SampleForm();
+		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 
     $this->processForm($request, $this->form);
 

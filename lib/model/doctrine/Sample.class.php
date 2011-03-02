@@ -16,7 +16,7 @@ class Sample extends BaseSample
 	{
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
 		$countryCode = $this->getLocation()->getCountry()->getCode();
-		$regionCode = $this->getLocation()->getRegion()->getCode();
+		$regionCode = str_pad($this->getLocation()->getRegion()->getCode(), 3, '_', STR_PAD_LEFT);
 		$islandCode = $this->getLocation()->getIsland()->getCode();
 		if ( empty($islandCode) )
 			$islandCode = '00';
