@@ -1,29 +1,9 @@
-#samples_list_number_column {
-	width: 4%;
-	text-align: center;
-}
-
-#samples_list_ecosystem_column {
-	width: 18%;
-}
-
-#samples_list_location_column {
-	width: 18%;
-}
-
-#samples_list_collector_column {
-	width: 20%;
-}
-
-#samples_list_date_column {
-	width: 10%;
-	text-align: center;
-}
-
-#samples_list_count_column {
-	width: 10%;
-	text-align: center;
-}
+#sample_list { font-size: 12px; }
+#sample_list_number_column { width: 4%; }
+#sample_list_location_column { width: 18%; }
+#sample_list_collector_column { width: 20%; }
+#sample_list_date_column { width: 10%; }
+#sample_list_count_column { width: 10%; }
 
 
 #sample_form  {

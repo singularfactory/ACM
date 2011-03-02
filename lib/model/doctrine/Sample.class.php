@@ -12,4 +12,8 @@
  */
 class Sample extends BaseSample
 {
+	public function getNumber()
+	{
+		return $this->getId();
+	}
 }

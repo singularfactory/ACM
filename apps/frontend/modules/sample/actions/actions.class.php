@@ -27,6 +27,7 @@ class sampleActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new SampleForm();
+	$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
   }
 
   public function executeCreate(sfWebRequest $request)
