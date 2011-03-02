@@ -1,10 +1,12 @@
 <?php slot('content_title', 'All locations') ?>
 
-<table id="locations_list">
+<table id="location_list">
 	<thead>
 		<tr>
 			<th>Name</th>
-			<th>City</th>
+			<th>Country</th>
+			<th>Region</th>
+			<th>Island</th>
 			<th>Has pictures?</th>
 			<th>Number of samples</th>
 		</tr>
@@ -16,8 +18,16 @@
 					<?php echo link_to($location->getName(), 'location/edit?id='.$location->getId()) ?>
 				</td>
 				
-				<td id="location_list_city_column">
-					<?php echo link_to($location->getCity(), 'location/edit?id='.$location->getId()) ?>
+				<td id="location_list_country_column">
+					<?php echo link_to($location->getCountry(), 'location/edit?id='.$location->getId()) ?>
+				</td>
+				
+				<td id="location_list_region_column">
+					<?php echo link_to($location->getRegion(), 'location/edit?id='.$location->getId()) ?>
+				</td>
+				
+				<td id="location_list_island_column">
+					<?php echo link_to($location->getIsland(), 'location/edit?id='.$location->getId()) ?>
 				</td>
 				
 				<td id="location_list_picture_column">

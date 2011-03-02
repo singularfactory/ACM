@@ -1,20 +1,10 @@
-#location_list_name_column {
-	width: 30%;
-}
-
-#location_list_city_column {
-	width: 30%;
-}
-
-#location_list_picture_column {
-	width: 15%;
-	text-align: center;
-}
-
-#location_list_count_column {
-	width: 18%;
-	text-align: center;
-}
+#location_list { font-size: 12px; }
+#location_list_name_column { }
+#location_list_country_column {	width: 20%; }
+#location_list_region_column { width: 20%; }
+#location_list_island_column { width: 15%; }
+#location_list_picture_column { width: 8%; }
+#location_list_count_column { width: 11%; }
 
 
 #location_form  {
