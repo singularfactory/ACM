@@ -22,6 +22,9 @@ class LocationForm extends BaseLocationForm
 		// Configure help messages
 		$this->widgetSchema->setHelp('latitude', '<span class="location_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
 		$this->widgetSchema->setHelp('longitude', '<span class="location_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
+		$this->widgetSchema->setHelp('region_id', '<span class="location_form_help">States and provinces as well</span>');
+		$this->widgetSchema->setHelp('island_id', '<span class="location_form_help">Only for regions with islands</span>');
+
 	}
 
 
