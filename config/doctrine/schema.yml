@@ -12,7 +12,7 @@ Country:
 Region:
   columns:
     id:         { type: integer, primary: true, autoincrement: true }
-    code:       { type: string(2), fixed: true, notnull: true }
+    code:       { type: string(3), fixed: true, notnull: true }
     name:       { type: string(60), notnull: true }
     country_id: { type: integer, notnull: true }
   relations:

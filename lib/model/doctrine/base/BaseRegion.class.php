@@ -43,11 +43,11 @@ abstract class BaseRegion extends sfDoctrineRecord
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('code', 'string', 2, array(
+        $this->hasColumn('code', 'string', 3, array(
              'type' => 'string',
              'fixed' => 1,
              'notnull' => true,
-             'length' => 2,
+             'length' => 3,
              ));
         $this->hasColumn('name', 'string', 60, array(
              'type' => 'string',

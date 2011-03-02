@@ -25,7 +25,7 @@ abstract class BaseRegionForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'code'       => new sfValidatorString(array('max_length' => 2)),
+      'code'       => new sfValidatorString(array('max_length' => 3)),
       'name'       => new sfValidatorString(array('max_length' => 60)),
       'country_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Country'))),
       'created_at' => new sfValidatorDateTime(),
