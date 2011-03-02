@@ -1,13 +1,13 @@
 Island:
-  gran-canaria:   { code: GC, name: Gran Canaria, Region: [GC] }
-  lanzarote:      { code: LZ, name: Lanzarote, Region: [GC] }
-  fuerteventura:  { code: FV, name: Fuerteventura, Region: [GC] }
-  la-graciosa:    { code: GR, name: La Graciosa, Region: [GC] }
-  alegranza:      { code: AL, name: Alegranza, Region: [GC] }
-  montana-clara:  { code: MC, name: Montaña Clara, Region: [GC] }
-  roque-este:     { code: RE, name: Roque del Este, Region: [GC] }
-  roque-oeste:    { code: RO, name: Roque del Oeste, Region: [GC] }
-  la-palma:       { code: LP, name: La Palma, Region: [TF] }
-  la-gomera:      { code: LG, name: La Gomera, Region: [TF] }
-  tenerife:       { code: TF, name: Tenerife, Region: [TF] }
-  el-hierro:      { code: EH, name: El Hierro, Region: [TF] }
+  gran-canaria:   { code: GC, name: Gran Canaria, Region: [ES-GC] }
+  lanzarote:      { code: LZ, name: Lanzarote, Region: [ES-GC] }
+  fuerteventura:  { code: FV, name: Fuerteventura, Region: [ES-GC] }
+  la-graciosa:    { code: GR, name: La Graciosa, Region: [ES-GC] }
+  alegranza:      { code: AL, name: Alegranza, Region: [ES-GC] }
+  montana-clara:  { code: MC, name: Montaña Clara, Region: [ES-GC] }
+  roque-este:     { code: RE, name: Roque del Este, Region: [ES-GC] }
+  roque-oeste:    { code: RO, name: Roque del Oeste, Region: [ES-GC] }
+  la-palma:       { code: LP, name: La Palma, Region: [ES-TF] }
+  la-gomera:      { code: LG, name: La Gomera, Region: [ES-TF] }
+  tenerife:       { code: TF, name: Tenerife, Region: [ES-TF] }
+  el-hierro:      { code: EH, name: El Hierro, Region: [ES-TF] }
