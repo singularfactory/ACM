@@ -73,6 +73,7 @@ Sample:
     latitude:             { type: string(10), fixed: true }
     longitude:            { type: string(10), fixed: true }
     environment_id:       { type: integer, notnull: true }
+    is_extremophile:      { type: boolean, notnull: true, default: false }
     habitat_id:           { type: integer, notnull: true }
     ph:                   { type: float }
     conductivity:         { type: float }

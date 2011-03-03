@@ -10,6 +10,7 @@
  * @property string $latitude
  * @property string $longitude
  * @property integer $environment_id
+ * @property boolean $is_extremophile
  * @property integer $habitat_id
  * @property float $ph
  * @property float $conductivity
@@ -34,6 +35,7 @@
  * @method string      getLatitude()            Returns the current record's "latitude" value
  * @method string      getLongitude()           Returns the current record's "longitude" value
  * @method integer     getEnvironmentId()       Returns the current record's "environment_id" value
+ * @method boolean     getIsExtremophile()      Returns the current record's "is_extremophile" value
  * @method integer     getHabitatId()           Returns the current record's "habitat_id" value
  * @method float       getPh()                  Returns the current record's "ph" value
  * @method float       getConductivity()        Returns the current record's "conductivity" value
@@ -57,6 +59,7 @@
  * @method Sample      setLatitude()            Sets the current record's "latitude" value
  * @method Sample      setLongitude()           Sets the current record's "longitude" value
  * @method Sample      setEnvironmentId()       Sets the current record's "environment_id" value
+ * @method Sample      setIsExtremophile()      Sets the current record's "is_extremophile" value
  * @method Sample      setHabitatId()           Sets the current record's "habitat_id" value
  * @method Sample      setPh()                  Sets the current record's "ph" value
  * @method Sample      setConductivity()        Sets the current record's "conductivity" value
@@ -108,6 +111,11 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->hasColumn('environment_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
+             ));
+        $this->hasColumn('is_extremophile', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => false,
              ));
         $this->hasColumn('habitat_id', 'integer', null, array(
              'type' => 'integer',
