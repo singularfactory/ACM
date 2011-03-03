@@ -23,6 +23,10 @@
 			<td>Environment:</td>
 			<td><?php echo $sample->getEnvironment()->getName() ?></td>
 		</tr>
+			<tr>
+				<td>Is extremophile?</td>
+				<td><?php echo ($sample->getIsExtremophile())?'yes':'no' ?></td>
+			</tr>
 		<tr>
 			<td>Habitat:</td>
 			<td><?php echo $sample->getHabitat()->getName() ?></td>
