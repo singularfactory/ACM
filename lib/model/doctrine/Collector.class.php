@@ -12,4 +12,8 @@
  */
 class Collector extends BaseCollector
 {
+	public function getFullName()
+	{
+		return $this->getName().' '.$this->getSurname();
+	}
 }

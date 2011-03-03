@@ -71,7 +71,7 @@
 		</tr>
 		<tr>
 			<td>Collector:</td>
-			<td><?php echo $sample->getCollector()->getName() ?></td>
+			<td><?php echo $sample->getCollector()->getFullName() ?></td>
 		</tr>
 		<tr>
 			<td>Collection date:</td>
