@@ -28,7 +28,7 @@
  * @property Environment $Environment
  * @property Habitat $Habitat
  * @property Radiation $Radiation
- * @property sfGuardUser $Collector
+ * @property Collector $Collector
  * 
  * @method integer     getId()                  Returns the current record's "id" value
  * @method integer     getLocationId()          Returns the current record's "location_id" value
@@ -53,7 +53,7 @@
  * @method Environment getEnvironment()         Returns the current record's "Environment" value
  * @method Habitat     getHabitat()             Returns the current record's "Habitat" value
  * @method Radiation   getRadiation()           Returns the current record's "Radiation" value
- * @method sfGuardUser getCollector()           Returns the current record's "Collector" value
+ * @method Collector   getCollector()           Returns the current record's "Collector" value
  * @method Sample      setId()                  Sets the current record's "id" value
  * @method Sample      setLocationId()          Sets the current record's "location_id" value
  * @method Sample      setLatitude()            Sets the current record's "latitude" value
@@ -186,7 +186,7 @@ abstract class BaseSample extends sfDoctrineRecord
              'local' => 'radiation_id',
              'foreign' => 'id'));
 
-        $this->hasOne('sfGuardUser as Collector', array(
+        $this->hasOne('Collector', array(
              'local' => 'collector_id',
              'foreign' => 'id'));
 

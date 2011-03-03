@@ -21,8 +21,6 @@
  * @property Doctrine_Collection $sfGuardUserGroup
  * @property sfGuardRememberKey $RememberKeys
  * @property sfGuardForgotPassword $ForgotPassword
- * @property Doctrine_Collection $Samples
- * @property Event $Events
  * 
  * @method string                getFirstName()             Returns the current record's "first_name" value
  * @method string                getLastName()              Returns the current record's "last_name" value
@@ -40,8 +38,6 @@
  * @method Doctrine_Collection   getSfGuardUserGroup()      Returns the current record's "sfGuardUserGroup" collection
  * @method sfGuardRememberKey    getRememberKeys()          Returns the current record's "RememberKeys" value
  * @method sfGuardForgotPassword getForgotPassword()        Returns the current record's "ForgotPassword" value
- * @method Doctrine_Collection   getSamples()               Returns the current record's "Samples" collection
- * @method Event                 getEvents()                Returns the current record's "Events" value
  * @method sfGuardUser           setFirstName()             Sets the current record's "first_name" value
  * @method sfGuardUser           setLastName()              Sets the current record's "last_name" value
  * @method sfGuardUser           setEmailAddress()          Sets the current record's "email_address" value
@@ -58,8 +54,6 @@
  * @method sfGuardUser           setSfGuardUserGroup()      Sets the current record's "sfGuardUserGroup" collection
  * @method sfGuardUser           setRememberKeys()          Sets the current record's "RememberKeys" value
  * @method sfGuardUser           setForgotPassword()        Sets the current record's "ForgotPassword" value
- * @method sfGuardUser           setSamples()               Sets the current record's "Samples" collection
- * @method sfGuardUser           setEvents()                Sets the current record's "Events" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -152,14 +146,6 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
              'foreign' => 'user_id'));
 
         $this->hasOne('sfGuardForgotPassword as ForgotPassword', array(
-             'local' => 'id',
-             'foreign' => 'user_id'));
-
-        $this->hasMany('Sample as Samples', array(
-             'local' => 'id',
-             'foreign' => 'collector_id'));
-
-        $this->hasOne('Event as Events', array(
              'local' => 'id',
              'foreign' => 'user_id'));
 
