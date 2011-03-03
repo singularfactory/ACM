@@ -1,0 +1,9 @@
+Collector:
+  guillermo-garcia:   { name: Guillermo, surname: García }
+  barbara-melkonian:  { name: Bárbara, surname: Melkonian }
+  mickel-melkonian:   { name: Mickel, surname: Melkonian }
+  nereida-rancel:     { name: Nereida, surname: Rancel }
+  carolina-perez:     { name: Carolina, surname: Pérez }
+  paulo-salomon:      { name: Pablo, surname: Salomon }
+  emilio-soler:       { name: Emilio, surname: Soler }
+  various:            { name: Various, surname: collectors  }
