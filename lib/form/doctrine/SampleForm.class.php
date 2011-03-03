@@ -20,6 +20,9 @@ class SampleForm extends BaseSampleForm
 		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => true)));
 		$this->widgetSchema->setLabel('id', 'Code');
 		
+		// Configure collection date with custom format
+		$this->setWidget('collection_date', new sfWidgetFormDate(array('format' => '%year%-%month%-%day%')));
+		
 		// Replace default input elements by file input
 		$this->setWidget('field_picture', new sfWidgetFormInputFile());
 		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
