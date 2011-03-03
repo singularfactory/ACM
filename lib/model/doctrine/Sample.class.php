@@ -20,7 +20,7 @@ class Sample extends BaseSample
 		$islandCode = $this->getLocation()->getIsland()->getCode();
 		if ( empty($islandCode) )
 			$islandCode = '00';
-		$dateCode = date('Ymd', strtotime($this->getCollectionDate()));
+		$dateCode = date('ymd', strtotime($this->getCollectionDate()));
 		
 		return $code.$countryCode.$regionCode.$islandCode.$dateCode;
 	}
