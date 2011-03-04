@@ -1,6 +1,7 @@
 CREATE TABLE collector (id BIGINT AUTO_INCREMENT, name VARCHAR(127) NOT NULL, surname VARCHAR(127) NOT NULL, email VARCHAR(255), created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE country (id BIGINT AUTO_INCREMENT, code CHAR(3) NOT NULL, name VARCHAR(60) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE environment (id BIGINT AUTO_INCREMENT, name VARCHAR(127) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE event (id BIGINT AUTO_INCREMENT, user_id BIGINT NOT NULL, ip_address VARCHAR(15) NOT NULL, action VARCHAR(40) NOT NULL, description VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE habitat (id BIGINT AUTO_INCREMENT, name VARCHAR(127) NOT NULL, description TEXT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE island (id BIGINT AUTO_INCREMENT, code CHAR(2) NOT NULL, name VARCHAR(60) NOT NULL, region_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX region_id_idx (region_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE location (id BIGINT AUTO_INCREMENT, name VARCHAR(255) NOT NULL, latitude CHAR(10), longitude CHAR(10), country_id BIGINT NOT NULL, region_id BIGINT NOT NULL, island_id BIGINT, remarks TEXT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX country_id_idx (country_id), INDEX region_id_idx (region_id), INDEX island_id_idx (island_id), PRIMARY KEY(id)) ENGINE = INNODB;
@@ -16,6 +17,7 @@ CREATE TABLE sf_guard_remember_key (id BIGINT AUTO_INCREMENT, user_id BIGINT, re
 CREATE TABLE sf_guard_user (id BIGINT AUTO_INCREMENT, first_name VARCHAR(255), last_name VARCHAR(255), email_address VARCHAR(255) NOT NULL UNIQUE, username VARCHAR(128) NOT NULL UNIQUE, algorithm VARCHAR(128) DEFAULT 'sha1' NOT NULL, salt VARCHAR(128), password VARCHAR(128), is_active TINYINT(1) DEFAULT '1', is_super_admin TINYINT(1) DEFAULT '0', last_login DATETIME, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX is_active_idx_idx (is_active), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE sf_guard_user_group (user_id BIGINT, group_id BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(user_id, group_id)) ENGINE = INNODB;
 CREATE TABLE sf_guard_user_permission (user_id BIGINT, permission_id BIGINT, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(user_id, permission_id)) ENGINE = INNODB;
+ALTER TABLE event ADD CONSTRAINT event_user_id_sf_guard_user_id FOREIGN KEY (user_id) REFERENCES sf_guard_user(id);
 ALTER TABLE island ADD CONSTRAINT island_region_id_region_id FOREIGN KEY (region_id) REFERENCES region(id);
 ALTER TABLE location ADD CONSTRAINT location_region_id_region_id FOREIGN KEY (region_id) REFERENCES region(id);
 ALTER TABLE location ADD CONSTRAINT location_island_id_island_id FOREIGN KEY (island_id) REFERENCES island(id);
