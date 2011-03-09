@@ -68,7 +68,7 @@ class countryActions extends sfActions
 		{
 			$country = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $country->getId())));
 			$this->redirect('country/edit?id='.$country->getId());
 		}
 	}

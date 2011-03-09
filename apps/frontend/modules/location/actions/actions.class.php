@@ -74,7 +74,7 @@ class locationActions extends sfActions
 		{
 			$location = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
 			$this->redirect('location/edit?id='.$location->getId());
 		}
 	}

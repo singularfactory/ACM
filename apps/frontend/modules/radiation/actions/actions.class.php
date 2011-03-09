@@ -68,7 +68,7 @@ class radiationActions extends sfActions
 		{
 			$radiation = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $radiation->getId())));
 			$this->redirect('radiation/edit?id='.$radiation->getId());
 		}
 	}

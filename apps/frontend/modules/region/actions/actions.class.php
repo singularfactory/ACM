@@ -68,7 +68,7 @@ class regionActions extends sfActions
 		{
 			$region = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $region->getId())));
 			$this->redirect('region/edit?id='.$region->getId());
 		}
 	}

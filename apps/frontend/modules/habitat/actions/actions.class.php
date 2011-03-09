@@ -68,7 +68,7 @@ class habitatActions extends sfActions
 		{
 			$habitat = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $habitat->getId())));
 			$this->redirect('/settings/habitat/edit?id='.$habitat->getId());
 		}
 	}

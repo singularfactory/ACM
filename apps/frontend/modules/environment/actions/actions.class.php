@@ -68,7 +68,7 @@ class environmentActions extends sfActions
 		{
 			$environment = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $environment->getId())));
 			$this->redirect('/settings/environment/edit?id='.$environment->getId());
 		}
 	}

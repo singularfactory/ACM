@@ -68,7 +68,7 @@ class provinceActions extends sfActions
 		{
 			$province = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $province->getId())));
 			$this->redirect('/settings/province/edit?id='.$province->getId());
 		}
 	}

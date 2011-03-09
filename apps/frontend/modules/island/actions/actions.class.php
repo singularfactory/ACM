@@ -68,7 +68,7 @@ class islandActions extends sfActions
 		{
 			$island = $form->save();
 
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $island->getId())));
 			$this->redirect('island/edit?id='.$island->getId());
 		}
 	}
