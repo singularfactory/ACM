@@ -106,6 +106,7 @@ Event:
     id:           { type: integer, primary: true, autoincrement: true }
     user_id:      { type: integer, notnull: true }
     ip_address:   { type: string(15), notnull: true }
+    module:       { type: string(40), notnull: true }
     action:       { type: string(40), notnull: true }
     description:  { type: string(255), notnull: true }
   relations:

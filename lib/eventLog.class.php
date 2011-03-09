@@ -22,10 +22,10 @@ class EventLog
 			case 'update':
 				$form = $request->getPostParameter($module);
 				if ( $action === 'create') {
-					$description = $module.self::$field_separator.$event_occurred['id'];
+					$description = $event_occurred['id'];
 				}
 				else {
-					$description = $module.self::$field_separator.$form['id'];
+					$description = $form['id'];
 				}	
 
 				switch ($module) {
@@ -48,7 +48,7 @@ class EventLog
 				break;
 
 			case 'delete':
-				$description = $module.self::$field_separator.$request->getParameter('id');
+				$description = $request->getParameter('id');
 				break;
 		}
 
@@ -56,6 +56,7 @@ class EventLog
 		$event = new Event();
 		$event->setUserId($notifier->getUser()->getGuardUser()->getId());
 		$event->setIpAddress($request->getRemoteAddress());
+		$event->setModule($module);
 		$event->setAction($action);
 		$event->setDescription($description);
 		$event->save();	
