@@ -68,7 +68,7 @@ class collectorActions extends sfActions
 		{
 			$collector = $form->save();
 			
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $collector->getId())));
 			$this->redirect('collector/edit?id='.$collector->getId());
 		}
 	}
