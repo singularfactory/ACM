@@ -5,3 +5,4 @@ all:
     max_location_pictures:        5
   sf_guard_plugin:
     routes_register: true
+    allow_login_with_email: false
