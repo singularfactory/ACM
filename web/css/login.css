@@ -86,14 +86,16 @@ div.javascript_disabled_notification p {
 }
 #signin_form div.submit input:hover { cursor: pointer; background: #ffffff; color: #2078b7; }
 
-#flashMessage {
-	font-size: 0.8em;
-	background-color: #a00;
+#errorMessage {
+	font-size: 10px;
+	background-color: #c00;
 	color: #ffffff;
-
-	width: 280px;
-	margin: 0px 0px 0px 110px;
-	padding: 0.5em;
+	text-align: center;
+	display: inline-block;
+	
+	margin-top: -20px;
+	min-width: 200px;
+	padding: 5px;
 	
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
