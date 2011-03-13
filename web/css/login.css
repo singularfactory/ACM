@@ -66,7 +66,6 @@ div.javascript_disabled_notification p {
 }
 #signin_form div { margin-top: 15px; }
 #signin_form input { float: right; padding: 2px; }
-#signin_form label { margin-right: -10px; }
 #signin_form div.submit {	margin-top: 25px; text-align: center; }
 #signin_form div.submit input {
 	float: none;
