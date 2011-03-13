@@ -1,9 +1,10 @@
-/**
- * GLOBAL PAGE STYLE
- */
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	margin: 0 auto;
-	padding: 0;
 	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
 	font-size: 12px;
 	color: #242424;
@@ -12,10 +13,8 @@ body {
 	min-width: 870px;
 }
 
+a { text-decoration: none; }
 
-/**
- * JAVASCRIPT DISABLED NOTIFICATION
- */
 div.javascript_disabled_notification {
   width: 520px;
   margin: 30px auto;
@@ -39,52 +38,66 @@ div.javascript_disabled_notification p {
 }
 
 
-/**
- * DEFAULT STYLES
- */
-form { margin: 0; padding: 0; }
-label { font-weight: bold; }
+#container {
+	width: 450px;
+	height: 130px;
 
-
-/**
- * PAGE STRUCTURE
- */
-#content {
-	width: 500px;
-	margin: 100px auto;
+	margin: 100px auto 0px auto;
 	position: relative;
 	padding: 13px;
 	
 	background-color: #ffffff;
 	
 	border: 3px solid #2078b7;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	ms-border-radius: 5px;
-	-khtml-border-radius: 5px;
+	border-radius: 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	ms-border-radius: 7px;
+	-khtml-border-radius: 7px;
 }
 
-#signin_form { }
-#signin_form div { padding: 5px 0px; }
+#logo { float:left; }
+#logo img { border: 0; width: 200px; }
 
-#submit { margin-top: 7px; }
-#submit input {
-	padding: 3px 7px;
-	
-	background: #2078b7;
+#signin_form {
+	width: 250px;
+	margin-left: 180px;
+	margin-top: 25px;
+}
+#signin_form div { margin-top: 15px; }
+#signin_form input { float: right; padding: 2px; }
+#signin_form label { margin-right: -10px; }
+#signin_form div.submit {	margin-top: 25px; text-align: center; }
+#signin_form div.submit input {
+	float: none;
+	font-size: 1em;
 	border: 1px solid #2078b7;
+	margin-left: 25px;
+	padding: 0.2em 1em;
 	color: #ffffff;
-	border-radius: 3px;
+	background: #2078b7;
+	
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
-	ms-border-radius: 3px;
 	-khtml-border-radius: 3px;
+	-ms-border-radius: 3px;
+	ms-border-radius: 3px;
+	border-radius: 3px;
 }
+#signin_form div.submit input:hover { cursor: pointer; background: #ffffff; color: #2078b7; }
 
-#submit input:hover {
-	background: #ffffff;
-	color: #2078b7;
-	cursor: pointer;
+#flashMessage {
+	font-size: 0.8em;
+	background-color: #a00;
+	color: #ffffff;
+
+	width: 280px;
+	margin: 0px 0px 0px 110px;
+	padding: 0.5em;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
 }
-

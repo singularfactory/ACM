@@ -22,9 +22,12 @@
 			</div>
 		</noscript>
 		
-		<div id="content">
+		<div id="container">
 			<div id="logo">
-				<?php ?>
+				<?php echo link_to(
+					image_tag('logo_text.png', array('alt' => 'Banco Español de Algas')),
+					'http://bea.marinebiotechnology.org/')
+				?>
 			</div>
 			<div id="signin_form">
 				<?php echo $sf_content ?>
