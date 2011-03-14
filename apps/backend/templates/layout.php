@@ -42,7 +42,7 @@
 					</li>
 					
 					<li class="header_menu_right_tab">
-						<?php echo link_to('Back to Green House', '/') ?>
+						<?php echo link_to('Back to application', '/') ?>
 					</li>					
 				</ul>
 			</div>
