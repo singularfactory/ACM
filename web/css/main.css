@@ -194,8 +194,8 @@ div.javascript_disabled_notification p {
 	text-decoration: none;
 	margin: 0px;
 	padding-bottom: 7px;
-	color: #2aa2f8;
-	background: #f0f0f0;
+	color: #fff;
+	background: #666;
 }
 .header_menu_right_tab { float: right; }
 
