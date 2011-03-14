@@ -172,23 +172,10 @@ div.javascript_disabled_notification p {
 
 
 
-div#content {
+#content {
 	padding: 12px 23px 0 30px;
 	margin: 0 auto;
 	position: relative;
-}
-
-#settings_menu {
-	font-size: 13px;
-	margin-bottom: 20px;
-	background: #ddd;
-	padding: 6px;
-	display: inline-block;
-}
-
-#settings_menu a,
-#settings_menu strong {
-	padding: 0px 6px;
 }
 
 #content_title {

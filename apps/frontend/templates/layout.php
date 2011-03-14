@@ -37,19 +37,19 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
-							echo link_to('Locations', '@location');
+						if ( !preg_match('/^(sample(\/_)?|homepage)/', $currentRoute) )
+							echo link_to('Samples', '@sample');
 						else
-							echo link_to('Locations', '@location', array('class' => 'header_menu_current_tab'));
+							echo link_to('Samples', '@sample', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
 					<li>
 						<?php
-						if ( !preg_match('/^(sample(\/_)?|homepage)/', $currentRoute) )
-							echo link_to('Samples', '@sample');
+						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
+							echo link_to('Locations', '@location');
 						else
-							echo link_to('Samples', '@sample', array('class' => 'header_menu_current_tab'));
+							echo link_to('Locations', '@location', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
@@ -63,39 +63,13 @@
 					</li>
 					
 					<li class="header_menu_right_tab">
-						<?php
-						if ( !preg_match('/^people(\/_)?/', $currentRoute) )
-							echo link_to('People', '@homepage');
-						else
-							echo link_to('People', '@homepage', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-					
-					<li class="header_menu_right_tab">
-						<?php
-						if ( !preg_match('/^settings\/?/', $currentRoute) )
-							echo link_to('Settings', '@settings');
-						else
-							echo link_to('Settings', '@settings', array('class' => 'header_menu_current_tab'));
-						?>
+						<?php echo link_to('Settings', '/backend.php') ?>
 					</li>					
 				</ul>
 			</div>
 		</div>
 
-		<div id="content">
-			<?php if( preg_match('/^settings\/?/', $currentRoute) ): ?>
-			<div id="settings_menu">
-				<?php echo link_to('Countries', '/settings/country') ?> |
-				<?php echo link_to('Regions', '/settings/region') ?> |
-				<?php echo link_to('Islands', '/settings/island') ?> |
-				<?php echo link_to('Habitats', '/settings/habitat') ?> |
-				<?php echo link_to('Environments', '/settings/environment') ?> |
-				<?php echo link_to('Radiations', '/settings/radiation') ?> |
-				<?php echo link_to('Collectors', '/settings/collector') ?>
-			</div>
-			<?php endif; ?>
-			
+		<div id="content">			
 			<div id="content_title">
 				<?php if ( has_slot('content_title') ) include_slot('content_title') ?>
 			</div>

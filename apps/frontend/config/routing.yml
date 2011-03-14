@@ -45,20 +45,6 @@ collector:
 
 
 
-# Routes for settings module
-settings:
-  url:    /settings
-  param:  { module: country, action: index }
-
-settings_module:
-  url:    /settings/:module
-  param:  { action: index }
-
-settings_module_action:
-  url:    /settings/:module/:action/*
-
-
-
 # Default rules (catch all)
 homepage:
   url:    /
