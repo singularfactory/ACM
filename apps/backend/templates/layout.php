@@ -23,11 +23,13 @@
 		</noscript>
 		
 		<div id="header">
-			<h1 id="header_title">Banco Español de Algas</h1>
+			<?php echo image_tag('logo.png', array('id' => 'header_image', 'alt' => 'Banco Español de Algas')) ?>
+			<h1 id="header_title">Algae culture management</h1>
+			<h2 id="header_subtitle">Banco Español de Algas</h2>
 				
 			<div id="header_shortcuts">
 				<span>inventiaplus</span> |
-				<span><a href="#">About me</a></span> |
+				<span><?php echo link_to('About me', array()) ?></span> |
 				<span><?php echo link_to('Sign out', '@logout') ?></span>
 			</div>
 				
@@ -46,7 +48,7 @@
 			</div>
 		</div>
 
-		<div id="content">
+		<div id="main">
 			<?php echo $sf_content ?>	
 		</div>
 
