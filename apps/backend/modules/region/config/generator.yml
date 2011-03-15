@@ -16,8 +16,10 @@ generator:
       fields:
       list:
         title: Regions
-        display: [code, name, nb_islands, nb_locations, updated_at]
+        display: [code, name, country, nb_islands, nb_locations, updated_at]
         fields:
+          country:
+            label: Country
           nb_locations:
             label: Related locations
           nb_islands:
