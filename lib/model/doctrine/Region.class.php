@@ -27,4 +27,9 @@ class Region extends BaseRegion
 			->where('i.region_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function __toString()
+	{
+	    return $this->getName();
+	}
 }

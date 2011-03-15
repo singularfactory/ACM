@@ -18,5 +18,10 @@ class Island extends BaseIsland
 			->from('Location l')
 			->where('l.island_id = ?', $this->getId())
 			->count();
+	}
+	
+	public function getCountry()
+	{
+		return $this->getRegion()->getCountry()->getName();
 	}	
 }
