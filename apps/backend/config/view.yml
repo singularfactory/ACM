@@ -1,17 +1,14 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/13-View
-
 default:
   http_metas:
     content-type: text/html
 
   metas:
-    #title:        symfony project
-    #description:  symfony project
-    #keywords:     symfony, project
-    #language:     en
-    #robots:       index, follow
-
+    title:        Algae culture management | Banco Español de Algas
+    description:  Algae culture management of Banco Español de Algas
+    keywords:     algae, bna, bea, banco, nacional, algas, español, marine, biotechnology, strains, culture
+    language:     en
+    robots:       index, follow
+  
   stylesheets:    [main.css]
 
   javascripts:    []
