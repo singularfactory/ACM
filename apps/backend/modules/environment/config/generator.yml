@@ -20,8 +20,6 @@ generator:
         fields:
           nb_samples:
             label: Related samples
-          created_at:
-            label: Created
           updated_at:
             label: Last update
             date_format: f
