@@ -1,13 +1,13 @@
 generator:
   class: sfDoctrineGenerator
   param:
-    model_class:           Country
+    model_class:           Region
     theme:                 admin
     non_verbose_templates: true
     with_show:             false
     singular:              ~
     plural:                ~
-    route_prefix:          country
+    route_prefix:          region
     with_doctrine_route:   true
     actions_base_class:    sfActions
 
@@ -15,13 +15,13 @@ generator:
       actions: ~
       fields:
       list:
-        title: Countries
-        display: [code, name, nb_regions, nb_locations, updated_at]
+        title: Regions
+        display: [code, name, nb_islands, nb_locations, updated_at]
         fields:
           nb_locations:
             label: Related locations
-          nb_regions:
-            label: Regions
+          nb_islands:
+            label: Islands
           updated_at:
             label: Last update
             date_format: f
@@ -33,8 +33,10 @@ generator:
           name:
             help: This will appear in application lists
           code:
-            help: Country code according to ISO-3166-1 alpha 2
+            help: Region code according to ISO 3166-2
+          country_id:
+            help: Country which the region belongs to
       edit:
         title: Edit "%%name%%"
       new:
-        title: Add a new country
+        title: Add a new region

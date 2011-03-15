@@ -12,4 +12,19 @@
  */
 class Region extends BaseRegion
 {
+	public function getNbLocations()
+	{
+		return Doctrine_Query::create()
+			->from('Location l')
+			->where('l.region_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbIslands()
+	{
+		return Doctrine_Query::create()
+			->from('Island i')
+			->where('i.region_id = ?', $this->getId())
+			->count();
+	}
 }

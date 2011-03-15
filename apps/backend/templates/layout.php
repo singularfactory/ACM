@@ -49,6 +49,9 @@
 					<li>
 						<?php echo link_to('Countries', '@country', (preg_match('/^country_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
+					<li>
+						<?php echo link_to('Regions', '@region', (preg_match('/^region_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
 					
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Back to application', '/') ?>
