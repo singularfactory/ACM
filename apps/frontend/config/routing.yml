@@ -23,11 +23,6 @@ island:
   class:   sfDoctrineRouteCollection
   options: { model: Island }
 
-# Routes for Habitat module
-habitat:
-  class:   sfDoctrineRouteCollection
-  options: { model: Habitat }
-
 # Routes for Environment module
 environment:
   class:   sfDoctrineRouteCollection
