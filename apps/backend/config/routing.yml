@@ -61,6 +61,15 @@ radiation:
     column:               id
     with_wildcard_routes: true
 
+sf_guard_user:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                sfGuardUser
+    module:               sfGuardUser
+    prefix_path:          /admin/people
+    column:               id
+    with_wildcard_routes: true
+
 login:
   url:   /admin/login
   param: { module: sfGuardAuth, action: signin }
@@ -69,7 +78,7 @@ logout:
   url:   /admin/logout
   param: { module: sfGuardAuth, action: signout }
 
-# default rules
 homepage:
-  url:   /admin
-  param: { module: radiation, action: index }
+  url:    /admin
+  param:  { module: radiation, action: index }
+
