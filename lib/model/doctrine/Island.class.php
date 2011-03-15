@@ -12,4 +12,11 @@
  */
 class Island extends BaseIsland
 {
+	public function getNbLocations()
+	{
+		return Doctrine_Query::create()
+			->from('Location l')
+			->where('l.island_id = ?', $this->getId())
+			->count();
+	}	
 }

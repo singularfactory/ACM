@@ -1,0 +1,40 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Island
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          island
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+      list:
+        title: Islands
+        display: [code, name, nb_locations, updated_at]
+        fields:
+          nb_locations:
+            label: Related locations
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: [code, asc]
+      filter:
+        display: [name]
+      form:
+        fields:
+          name:
+            help: This will appear in application lists
+          code:
+            help: Island code in custom format
+          region_id:
+            help: Region which the island belongs to
+      edit:
+        title: Edit "%%name%%"
+      new:
+        title: Add a new island

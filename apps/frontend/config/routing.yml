@@ -8,11 +8,6 @@ location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
 
-# Routes for Island module
-island:
-  class:   sfDoctrineRouteCollection
-  options: { model: Island }
-
 # Routes for Radiation module
 radiation:
   class:   sfDoctrineRouteCollection

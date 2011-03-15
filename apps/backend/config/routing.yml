@@ -1,3 +1,12 @@
+island:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Island
+    module:               island
+    prefix_path:          /island
+    column:               id
+    with_wildcard_routes: true
+
 region:
   class: sfDoctrineRouteCollection
   options:
