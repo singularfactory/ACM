@@ -1,0 +1,38 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Habitat
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          habitat
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+      list:
+        title: Habitat types
+        display: [name, nb_samples, updated_at]
+        fields:
+          nb_samples:
+            label: Related samples
+          created_at:
+            label: Created
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: [name, asc]
+      filter:
+        display: [name]
+      form:
+        fields:
+          name:
+            help: Type of habitat. This will appear in application lists
+      edit:
+        title: Edit "%%name%%" habitat type
+      new:
+        title: Create a new habitat type

@@ -12,4 +12,11 @@
  */
 class Habitat extends BaseHabitat
 {
+	public function getNbSamples()
+	{
+		return Doctrine_Query::create()
+			->from('Sample s')
+			->where('s.radiation_id = ?', $this->getId())
+			->count();
+	}
 }

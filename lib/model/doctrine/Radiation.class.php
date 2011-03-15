@@ -18,5 +18,5 @@ class Radiation extends BaseRadiation
 			->from('Sample s')
 			->where('s.radiation_id = ?', $this->getId())
 			->count();
-	}	
+	}
 }
