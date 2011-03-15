@@ -13,9 +13,26 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
-      list:    ~
-      filter:  ~
-      form:    ~
-      edit:    ~
-      new:     ~
+      fields:
+      list:
+        title: Radiation types
+        display: [name, nb_samples, updated_at]
+        fields:
+          nb_samples:
+            label: Related samples
+          created_at:
+            label: Created
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: [name, asc]
+      filter:
+        class: false
+      form:
+        fields:
+          name:
+            help: Type of radiation. This will appear in application lists
+      edit:
+        title: Edit "%%name%%" radiation type
+      new:
+        title: Create a new radiation type
