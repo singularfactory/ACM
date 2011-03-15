@@ -38,16 +38,16 @@
 					<?php $route = sfContext::getInstance()->getRouting()->getCurrentRouteName() ?>
 
 					<li>
-						<?php echo link_to('Radiation', '@radiation', (preg_match('/^(radiation_?|homepage)/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Radiations', '@radiation', (preg_match('/^(radiation_?|homepage)/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Habitat', '@habitat', (preg_match('/^habitat_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Habitats', '@habitat', (preg_match('/^habitat_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Environment', '@environment', (preg_match('/^environment_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Environments', '@environment', (preg_match('/^environment_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Country', '@country', (preg_match('/^country_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Countries', '@country', (preg_match('/^country_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					
 					<li class="header_menu_right_tab">
