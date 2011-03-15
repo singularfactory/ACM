@@ -1,3 +1,12 @@
+country:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Country
+    module:               country
+    prefix_path:          /country
+    column:               id
+    with_wildcard_routes: true
+
 environment:
   class: sfDoctrineRouteCollection
   options:

@@ -1,0 +1,40 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Country
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          country
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+      list:
+        title: Countries
+        display: [name, code, nb_regions, nb_locations, updated_at]
+        fields:
+          nb_locations:
+            label: Related locations
+          nb_regions:
+            label: Regions
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: [code, asc]
+      filter:
+        display: [name]
+      form:
+        fields:
+          name:
+            help: This will appear in application lists
+          code:
+            help: Country code according to ISO-3166-1 alpha 2
+      edit:
+        title: Edit "%%name%%"
+      new:
+        title: Add a new country

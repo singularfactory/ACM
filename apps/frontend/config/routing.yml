@@ -8,11 +8,6 @@ location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
 
-# Routes for Country module
-country:
-  class:   sfDoctrineRouteCollection
-  options: { model: Country }
-
 # Routes for Region module
 region:
   class:   sfDoctrineRouteCollection

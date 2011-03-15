@@ -12,4 +12,19 @@
  */
 class Country extends BaseCountry
 {
+	public function getNbLocations()
+	{
+		return Doctrine_Query::create()
+			->from('Location l')
+			->where('l.country_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbRegions()
+	{
+		return Doctrine_Query::create()
+			->from('Region r')
+			->where('r.country_id = ?', $this->getId())
+			->count();
+	}
 }
