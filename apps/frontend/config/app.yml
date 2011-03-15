@@ -1,8 +1,0 @@
-# all:
-#   .general:
-#     sample_pictures_directory:    /sample_pictures
-#     location_pictures_directory:  /location_pictures
-#     max_location_pictures:        5
-#   sf_guard_plugin:
-#     routes_register: true
-#     allow_login_with_email: false

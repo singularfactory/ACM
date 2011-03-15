@@ -65,7 +65,7 @@
 					</li>
 					
 					<li class="header_menu_right_tab">
-						<?php echo link_to('Settings', '/backend.php') ?>
+						<?php echo link_to('Settings', '/admin') ?>
 					</li>					
 				</ul>
 			</div>

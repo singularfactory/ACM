@@ -1,22 +1,21 @@
-# Routes for Sample module
 sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }
 
-# Routes for Location model
 location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
+
+login:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+logout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }
 
 
 # Default rules (catch all)
 homepage:
   url:    /
   param:  { module: sample, action: index }
-
-default_index:
-  url:   /:module
-  param: { action: index }
-
-default:
-  url:   /:module/:action/*

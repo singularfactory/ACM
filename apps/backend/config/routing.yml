@@ -3,7 +3,7 @@ collector:
   options:
     model:                Collector
     module:               collector
-    prefix_path:          /collector
+    prefix_path:          /admin/collector
     column:               id
     with_wildcard_routes: true
 
@@ -12,7 +12,7 @@ island:
   options:
     model:                Island
     module:               island
-    prefix_path:          /island
+    prefix_path:          /admin/island
     column:               id
     with_wildcard_routes: true
 
@@ -21,7 +21,7 @@ region:
   options:
     model:                Region
     module:               region
-    prefix_path:          /region
+    prefix_path:          /admin/region
     column:               id
     with_wildcard_routes: true
 
@@ -30,7 +30,7 @@ country:
   options:
     model:                Country
     module:               country
-    prefix_path:          /country
+    prefix_path:          /admin/country
     column:               id
     with_wildcard_routes: true
 
@@ -39,7 +39,7 @@ environment:
   options:
     model:                Environment
     module:               environment
-    prefix_path:          /environment
+    prefix_path:          /admin/environment
     column:               id
     with_wildcard_routes: true
 
@@ -48,7 +48,7 @@ habitat:
   options:
     model:                Habitat
     module:               habitat
-    prefix_path:          /habitat
+    prefix_path:          /admin/habitat
     column:               id
     with_wildcard_routes: true
 
@@ -57,23 +57,19 @@ radiation:
   options:
     model:                Radiation
     module:               radiation
-    prefix_path:          /radiation
+    prefix_path:          /admin/radiation
     column:               id
     with_wildcard_routes: true
 
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
+login:
+  url:   /admin/login
+  param: { module: sfGuardAuth, action: signin }
+
+logout:
+  url:   /admin/logout
+  param: { module: sfGuardAuth, action: signout }
 
 # default rules
 homepage:
-  url:   /
-  param: { module: default, action: index }
-
-# generic rules
-# please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
-
-default:
-  url:   /:module/:action/*
+  url:   /admin
+  param: { module: radiation, action: index }
