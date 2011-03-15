@@ -43,6 +43,9 @@
 					<li>
 						<?php echo link_to('Habitat', '@habitat', (preg_match('/^habitat_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
+					<li>
+						<?php echo link_to('Environment', '@environment', (preg_match('/^environment_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
 					
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Back to application', '/') ?>

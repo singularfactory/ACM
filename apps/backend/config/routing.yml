@@ -1,3 +1,12 @@
+environment:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Environment
+    module:               environment
+    prefix_path:          /environment
+    column:               id
+    with_wildcard_routes: true
+
 habitat:
   class: sfDoctrineRouteCollection
   options:

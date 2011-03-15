@@ -23,11 +23,6 @@ island:
   class:   sfDoctrineRouteCollection
   options: { model: Island }
 
-# Routes for Environment module
-environment:
-  class:   sfDoctrineRouteCollection
-  options: { model: Environment }
-
 # Routes for Radiation module
 radiation:
   class:   sfDoctrineRouteCollection

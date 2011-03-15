@@ -12,4 +12,11 @@
  */
 class Environment extends BaseEnvironment
 {
+	public function getNbSamples()
+	{
+		return Doctrine_Query::create()
+			->from('Sample s')
+			->where('s.radiation_id = ?', $this->getId())
+			->count();
+	}
 }
