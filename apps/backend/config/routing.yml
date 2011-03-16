@@ -66,7 +66,16 @@ sf_guard_user:
   options:
     model:                sfGuardUser
     module:               sfGuardUser
-    prefix_path:          /admin/people
+    prefix_path:          /admin/user
+    column:               id
+    with_wildcard_routes: true
+
+sf_guard_group:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                sfGuardGroup
+    module:               sfGuardGroup
+    prefix_path:          /admin/role
     column:               id
     with_wildcard_routes: true
 

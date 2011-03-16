@@ -61,6 +61,9 @@
 					<li>
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^sf_guard_user_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
+					<li>
+						<?php echo link_to('Roles', '@sf_guard_group', (preg_match('/^sf_guard_group_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
 					
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Back to application', '/') ?>
