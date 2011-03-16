@@ -79,6 +79,15 @@ sf_guard_group:
     column:               id
     with_wildcard_routes: true
 
+sf_guard_permission:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                sfGuardPermission
+    module:               sfGuardPermission
+    prefix_path:          /admin/permission
+    column:               id
+    with_wildcard_routes: true
+
 login:
   url:   /admin/login
   param: { module: sfGuardAuth, action: signin }
