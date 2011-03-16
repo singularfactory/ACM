@@ -1,12 +1,15 @@
-<?php if ( $form->hasGlobalErrors() ): ?>
-	<span id="error_message">
-		Unknown error. Contact administrators
-	</span>
-<?php elseif ( $form->hasErrors() ): ?>
-	<span id="error_message">
-		Invalid username and/or password
-	</span>
-<?php endif; ?>
+<?php slot('error_message') ?>
+	<?php if ( $form->hasGlobalErrors() ): ?>
+		<span>
+			Unknown error. Contact administrators
+		</span>
+	<?php elseif ( $form->hasErrors() ): ?>
+		<span>
+			Invalid username and/or password
+		</span>
+	<?php endif; ?>
+<?php end_slot() ?>
+
 <form action="<?php echo url_for('@login') ?>" method="post">
 	<div id="username" class="input">
 		<?php echo $form['username']->renderLabel() ?>

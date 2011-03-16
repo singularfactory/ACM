@@ -44,7 +44,7 @@ div.javascript_disabled_notification p {
 
 	margin: 100px auto 0px auto;
 	position: relative;
-	padding: 13px;
+	padding: 13px 13px 27px 13px;
 	
 	background-color: #ffffff;
 	
@@ -56,7 +56,7 @@ div.javascript_disabled_notification p {
 	-khtml-border-radius: 7px;
 }
 
-#logo { float:left; }
+#logo { float:left; clear:both; }
 #logo img { border: 0; width: 200px; }
 
 #signin_form {
@@ -86,19 +86,19 @@ div.javascript_disabled_notification p {
 #signin_form div.submit input:hover { cursor: pointer; background: #ffffff; color: #2078b7; }
 
 #error_message {
+	margin: 0px auto 7px auto;
+}
+
+#error_message span {
 	font-size: 10px;
 	background-color: #c00;
 	color: #ffffff;
 	text-align: center;
-	display: inline-block;
-	
-	margin-top: -20px;
-	min-width: 200px;
-	padding: 5px;
 	
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-khtml-border-radius: 3px;
 	-ms-border-radius: 3px;
 	border-radius: 3px;
+	padding: 5px;
 }

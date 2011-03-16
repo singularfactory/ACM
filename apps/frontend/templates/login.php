@@ -21,8 +21,11 @@
 				</div>
 			</div>
 		</noscript>
-		
+
 		<div id="container">
+			<div id="error_message">
+				<?php include_slot('error_message') ?> &nbsp;
+			</div>
 			<div id="logo">
 				<?php echo link_to(
 					image_tag('logo_text.png', array('alt' => 'Banco Español de Algas')),
