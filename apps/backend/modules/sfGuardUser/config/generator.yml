@@ -14,7 +14,7 @@ generator:
           date_format: f
       list:
         title: People
-        display: [username, name, email_address, last_login]
+        display: [=username, name, email_address, last_login]
         sort: [username, asc]
       filter:
         display: [username, first_name, last_name, email_address]
@@ -22,3 +22,7 @@ generator:
         title: Edit "%%name%%"
       new:
         title: Add a new user
+      form:
+        display:
+          "User":                   [first_name, last_name, email_address, username, password, password_again]
+          "Permissions and groups": [is_active, is_super_admin, groups_list]
