@@ -1,11 +1,7 @@
 <?php if ( $form->hasGlobalErrors() ): ?>
-	<span id="errorMessage">
-		Unknown error. Contact administrators
-	</span>
+	<span id="error_message">Unknown error. Contact administrators</span>
 <?php elseif ( $form->hasErrors() ): ?>
-	<span id="errorMessage">
-		Invalid username and/or password
-	</span>
+	<span id="error_message">Invalid username and/or password</span>
 <?php endif; ?>
 <form action="<?php echo url_for('@login') ?>" method="post">
 	<div id="username" class="input">

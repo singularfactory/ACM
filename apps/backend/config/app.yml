@@ -1,0 +1,4 @@
+all:
+  sf_guard_plugin:
+    success_signout_url:  @logout
+    success_signin_url:   @homepage

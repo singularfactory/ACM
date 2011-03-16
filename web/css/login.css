@@ -85,7 +85,7 @@ div.javascript_disabled_notification p {
 }
 #signin_form div.submit input:hover { cursor: pointer; background: #ffffff; color: #2078b7; }
 
-#errorMessage {
+#error_message {
 	font-size: 10px;
 	background-color: #c00;
 	color: #ffffff;

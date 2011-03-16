@@ -1,9 +1,9 @@
 <?php if ( $form->hasGlobalErrors() ): ?>
-	<span id="errorMessage">
+	<span id="error_message">
 		Unknown error. Contact administrators
 	</span>
 <?php elseif ( $form->hasErrors() ): ?>
-	<span id="errorMessage">
+	<span id="error_message">
 		Invalid username and/or password
 	</span>
 <?php endif; ?>
