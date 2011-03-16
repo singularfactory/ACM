@@ -28,7 +28,7 @@
 			<h2 id="header_subtitle">Banco Español de Algas</h2>
 				
 			<div id="header_shortcuts">
-				<span>inventiaplus</span> |
+				<span><?php echo $sf_user->getUsername(); ?></span> |
 				<span><?php echo link_to('About me', array()) ?></span> |
 				<span><?php echo link_to('Sign out', '@logout') ?></span>
 			</div>
