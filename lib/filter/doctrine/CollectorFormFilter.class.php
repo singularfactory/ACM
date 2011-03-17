@@ -12,5 +12,7 @@ class CollectorFormFilter extends BaseCollectorFormFilter
 {
   public function configure()
   {
+	$this->useFields(array('name', 'email'));
+	$this->setWidget('email', new sfWidgetFormFilterInput(array('with_empty' => false)));
   }
 }
