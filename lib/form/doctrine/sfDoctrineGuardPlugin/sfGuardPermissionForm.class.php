@@ -12,5 +12,6 @@ class sfGuardPermissionForm extends PluginsfGuardPermissionForm
 {
   public function configure()
   {
+	unset($this['users_list'], $this['groups_list']);
   }
 }
