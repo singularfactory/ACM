@@ -12,5 +12,6 @@ class sfGuardGroupFormFilter extends PluginsfGuardGroupFormFilter
 {
   public function configure()
   {
+	$this->setWidget('name', new sfWidgetFormFilterInput(array('with_empty' => false)));
   }
 }
