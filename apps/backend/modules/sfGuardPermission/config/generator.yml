@@ -1,0 +1,14 @@
+generator:
+  param:
+    config:
+      list:
+        title:   Permissions
+        display: [=name, description, updated_at]
+        fields:
+          updated_at: { label: Last update }
+
+      edit:
+        title: Editing permission "%%name%%"
+
+      new:
+        title: New permission

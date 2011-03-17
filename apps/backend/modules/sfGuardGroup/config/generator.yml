@@ -1,0 +1,14 @@
+generator:
+  param:
+    config:
+      list:
+        title:   Roles
+        display: [=name, description, updated_at]
+        fields:
+          updated_at: { label: Last update }
+
+      edit:
+        title: Editing role "%%name%%"
+
+      new:
+        title: New role
