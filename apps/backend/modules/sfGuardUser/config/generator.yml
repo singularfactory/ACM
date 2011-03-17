@@ -1,0 +1,24 @@
+generator:
+  param:
+    config:
+      fields:
+        updated_at: { label: "Last update" }
+        email_address: { label: "Email" }
+        is_super_admin: { label: "Is super admin?" }
+
+      list:
+        title:   User list
+        display: [=username, email_address, is_super_admin, last_login]
+
+      form:
+        class: sfGuardUserAdminForm
+        display:
+          "User":                   [first_name, last_name, email_address, username, password, password_again]
+          "Permissions and groups": false
+          "Status and groups":      [is_active, is_super_admin, groups_list]
+
+      edit:
+        title: Editing user "%%username%%"
+
+      new:
+        title: New user
