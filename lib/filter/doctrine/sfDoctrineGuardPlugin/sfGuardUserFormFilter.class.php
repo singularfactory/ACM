@@ -12,5 +12,11 @@ class sfGuardUserFormFilter extends PluginsfGuardUserFormFilter
 {
   public function configure()
   {
+	$this->useFields(array('username', 'first_name', 'email_address'));
+	
+	$this->setWidget('first_name', new sfWidgetFormFilterInput(array('with_empty' => false)));
+	
+	$this->widgetSchema->setLabel('first_name', 'Name');
+	$this->widgetSchema->setLabel('email_address', 'Email');
   }
 }
