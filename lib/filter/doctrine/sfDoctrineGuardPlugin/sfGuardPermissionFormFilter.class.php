@@ -12,5 +12,6 @@ class sfGuardPermissionFormFilter extends PluginsfGuardPermissionFormFilter
 {
   public function configure()
   {
+	$this->setWidget('name', new sfWidgetFormFilterInput(array('with_empty' => false)));
   }
 }
