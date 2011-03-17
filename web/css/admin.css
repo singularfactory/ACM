@@ -54,6 +54,7 @@ fieldset, pre { margin-bottom: 1em; }
 #sf_admin_container .sf_admin_pagination a { text-decoration: none; }
 #sf_admin_container .sf_admin_pagination a:hover { background: transparent; color: #333; }
 
+#sf_admin_container .sf_admin_filter tr:hover { background: transparent; }
 
 #sf_admin_container ul.error_list {
   margin: 0;
