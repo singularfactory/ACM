@@ -17,6 +17,5 @@ class sfGuardUserAdminForm extends BasesfGuardUserAdminForm
 	$this->widgetSchema->setLabel('last_name', 'Surname');
 	$this->widgetSchema->setLabel('email_address', 'Email');
 	$this->widgetSchema->setLabel('is_super_admin', 'Is super admin?');
-	
   }
 }
