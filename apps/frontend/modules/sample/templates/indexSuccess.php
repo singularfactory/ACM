@@ -8,7 +8,7 @@
 			<th>Location</th>
 			<th>Collector</th>
 			<th>Date</th>
-			<th>Number of strains</th>
+			<th>Strains</th>
 		</tr>
 	</thead>
 	<tbody>
