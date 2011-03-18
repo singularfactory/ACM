@@ -71,11 +71,16 @@
 			</div>
 		</div>
 
-		<div id="main">			
-			<div id="content_title">
-				<?php if ( has_slot('content_title') ) include_slot('content_title') ?>
+		<div id="main">
+			<div id="main_content">
+				<div id="main_header">
+					<?php if ( has_slot('main_header') ) include_slot('main_header') ?>
+				</div>
+				<div id="main_view">
+					<?php echo $sf_content ?>
+				</div>
 			</div>
-			<?php echo $sf_content ?>	
+			<div id="main_actions"></div>
 		</div>
 
 		<div id="footer"></div>

@@ -1,4 +1,4 @@
-<?php slot('content_title', 'Add a new sample') ?>
+<?php slot('main_header', 'Add a new sample') ?>
 <?php
 if ( $hasLocations )
 	include_partial('form', array('form' => $form));

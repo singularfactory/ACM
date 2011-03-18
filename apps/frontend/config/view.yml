@@ -15,3 +15,10 @@ default:
 
   has_layout:     true
   layout:         layout
+
+indexSuccess:
+  stylesheets:  [tables.css]
+editSuccess:
+  stylesheets:  [forms.css]
+newSuccess:
+  stylesheets:  [forms.css]

@@ -1,5 +1,5 @@
 <?php use_helper('Date') ?>
-<?php slot('content_title') ?>
+<?php slot('main_header') ?>
 <?php echo link_to('Back to all samples', '@sample') ?>
 <?php end_slot() ?>
 <table>

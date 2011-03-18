@@ -1,45 +1,34 @@
-<?php slot('content_title', 'All locations') ?>
+<?php slot('main_header') ?>
+<span>All locations</span>
+<div id="index_new_action">
+	<?php echo link_to('Add a new location', 'location/new') ?>
+</div>
+<?php end_slot() ?>
 
 <table id="location_list">
-	<thead>
+	<tbody>
 		<tr>
 			<th>Name</th>
 			<th>Country</th>
 			<th>Region</th>
 			<th>Island</th>
 			<th>Samples</th>
+			<th class="actions"></th>
 		</tr>
-	</thead>
-	<tbody>
+
 		<?php foreach ($locations as $location): ?>
-			<tr>
-				<td id="location_list_name_column">
-					<?php echo link_to($location->getName(), 'location/edit?id='.$location->getId()) ?>
-				</td>
-				
-				<td id="location_list_country_column">
-					<?php echo link_to($location->getCountry()->getName(), 'location/edit?id='.$location->getId()) ?>
-				</td>
-				
-				<td id="location_list_region_column">
-					<?php echo link_to($location->getRegion()->getName(), 'location/edit?id='.$location->getId()) ?>
-				</td>
-				
-				<td id="location_list_island_column">
-					<?php
-						if ( $location->getIslandId() )
-							echo link_to($location->getIsland()->getName(), 'location/edit?id='.$location->getId());
-						else
-							echo '-';
-					?>
-				</td>
-								
-				<td id="location_list_count_column">
-					<?php echo link_to(count($location->getSamples()), 'location/edit?id='.$location->getId()) ?>
-				</td>
-			</tr>
+		<tr>
+			<td class="location_name"><?php echo $location->getName() ?></td>
+			<td class="country_name"><?php echo $location->getCountry()->getName() ?></td>
+			<td class="region_name"><?php echo $location->getRegion()->getName() ?></td>
+			<td class="island_name"><?php echo ($location->getIslandId())?$location->getIsland()->getName():'-'; ?></td>
+			<td class="object_count"><?php echo count($location->getSamples()) ?></td>
+		
+			<td class="actions">
+				<?php echo link_to('Edit', 'location/edit?id='.$location->getId()) ?>
+				<?php echo link_to('Delete', 'location/delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+			</td>
+		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
-
-<?php echo link_to('Add a new location', 'location/new') ?>
