@@ -39,12 +39,15 @@ class SampleForm extends BaseSampleForm
 		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		
 		// Configure help messages
-		$this->widgetSchema->setHelp('latitude', '<span class="sample_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
-		$this->widgetSchema->setHelp('longitude', '<span class="sample_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
-		$this->widgetSchema->setHelp('ph', '<span class="sample_form_help">Decimal value for PH (e.g. 38.2832)</span>');
-		$this->widgetSchema->setHelp('conductivity', '<span class="sample_form_help">Decimal value for conductivity (e.g. 38.2832)</span>');
-		$this->widgetSchema->setHelp('temperature', '<span class="sample_form_help">Integer value for temperature (e.g. 22)</span>');
-		$this->widgetSchema->setHelp('salinity', '<span class="sample_form_help">Decimal value for salinity (e.g. 38.2832)</span>');
-		$this->widgetSchema->setHelp('altitude', '<span class="sample_form_help">Integer value for altitude in meters (e.g. 1595)</span>');		
+		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
+		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
+		$this->widgetSchema->setHelp('ph', 'Decimal value for PH (e.g. 38.2832)');
+		$this->widgetSchema->setHelp('conductivity', 'Decimal value for conductivity (e.g. 38.2832)');
+		$this->widgetSchema->setHelp('temperature', 'Integer value for temperature (e.g. 22)');
+		$this->widgetSchema->setHelp('salinity', 'Decimal value for salinity (e.g. 38.2832)');
+		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
+		
+		// Remove <br /> tag after labels and set custom tag
+		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
 	}
 }
