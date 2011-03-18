@@ -20,11 +20,13 @@ class LocationForm extends BaseLocationForm
 		unset($this['created_at'], $this['updated_at']);
 
 		// Configure help messages
-		$this->widgetSchema->setHelp('latitude', '<span class="location_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
-		$this->widgetSchema->setHelp('longitude', '<span class="location_form_help">Degrees, minutes and seconds (e.g. 43º23\'23"")</span>');
-		$this->widgetSchema->setHelp('region_id', '<span class="location_form_help">States and provinces as well</span>');
-		$this->widgetSchema->setHelp('island_id', '<span class="location_form_help">Only for regions with islands</span>');
-
+		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
+		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
+		$this->widgetSchema->setHelp('region_id', 'States and provinces as well');
+		$this->widgetSchema->setHelp('island_id', 'Only for regions with islands');
+		
+		// Remove <br /> tag after labels and set custom tag
+		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
 	}
 
 
