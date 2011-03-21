@@ -12,14 +12,14 @@ select[multiple=multiple] {	width: 100%; }
 
 input[type=submit] {
 	width: auto;
-	background:#62af56;
-	background: -webkit-gradient(linear, left top, left bottom, from(#a8ea9c), to(#62af56));
-	background-image: -moz-linear-gradient(top, #a8ea9c, #62af56);
-	color: black;
-	text-shadow: #8cee7c 0px 1px 0px;
-	
 	padding: 4px 8px;
-	border: 0.1em solid #2d6324;
+	
+	background: #3A8FCE url(../images/bkg-btn-blue.gif) repeat-x 0 top;
+	color: white;
+	text-shadow: 0 -1px 2px #2063AB;
+	border: 1px solid #2F6EA7;
+	border-color: #508FCD #4483BF #2F6EA7 #3F7EB9;
+
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-khtml-border-radius: 8px;
