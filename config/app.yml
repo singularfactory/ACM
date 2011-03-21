@@ -3,6 +3,7 @@ all:
     sample_pictures_directory:    /sample_pictures
     location_pictures_directory:  /location_pictures
     max_location_pictures:        5
+    max_list_items:               20
   sf_guard_plugin:
     routes_register:        true
     allow_login_with_email: false

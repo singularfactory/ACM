@@ -12,9 +12,10 @@ class locationActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->locations = Doctrine_Core::getTable('Location')
-			->createQuery('a')
-			->execute();
+		$this->pager = new sfDoctrinePager('Location', sfConfig::get('app_max_list_items'));
+		$this->pager->setQuery(Doctrine::getTable('Location')->createQuery('a'));
+		$this->pager->setPage($request->getParameter('page', 1));
+		$this->pager->init();
 	}
 
 	public function executeShow(sfWebRequest $request)

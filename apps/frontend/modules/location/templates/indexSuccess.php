@@ -16,7 +16,7 @@
 			<th class="actions"></th>
 		</tr>
 
-		<?php foreach ($locations as $location): ?>
+		<?php foreach ($pager->getResults() as $location): ?>
 		<tr>
 			<td class="location_name"><?php echo $location->getName() ?></td>
 			<td class="country_name"><?php echo $location->getCountry()->getName() ?></td>
@@ -32,3 +32,7 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+<?php if ($pager->haveToPaginate()): ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'location')) ?>
+<?php endif ?>

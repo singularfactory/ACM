@@ -13,9 +13,10 @@ class sampleActions extends sfActions
 
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->samples = Doctrine_Core::getTable('Sample')
-			->createQuery('a')
-			->execute();
+		$this->pager = new sfDoctrinePager('Sample', sfConfig::get('app_max_list_items'));
+		$this->pager->setQuery(Doctrine::getTable('Sample')->createQuery('a'));
+		$this->pager->setPage($request->getParameter('page', 1));
+		$this->pager->init();
 	}
 
 	public function executeShow(sfWebRequest $request)
