@@ -10,11 +10,23 @@
 */
 class sampleActions extends sfActions
 {
-
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->pager = new sfDoctrinePager('Sample', sfConfig::get('app_max_list_items'));
-		$this->pager->setQuery(Doctrine::getTable('Sample')->createQuery('a'));
+		
+		// Set sorting order
+		$sortingOrder = 'asc';
+		if ( $this->getRequestParameter('order') ) {
+			$sortingOrder = $this->getRequestParameter('order');
+		}
+		
+		// Set sorting criteria
+		$sortingCriteria = 'id';
+		if ( $this->getRequestParameter('sort') ) {
+			$sortingCriteria = $this->getRequestParameter('sort');
+		}
+		
+		$this->pager->setQuery(Doctrine::getTable('Sample')->createQuery('s')->orderBy("s.$sortingCriteria $sortingOrder"));
 		$this->pager->setPage($request->getParameter('page', 1));
 		$this->pager->init();
 	}
