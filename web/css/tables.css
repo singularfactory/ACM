@@ -44,6 +44,17 @@ table tr:nth-child(2n) td { background: #f9f9f9; }
 
 
 /**
+* PAGINATION
+*/
+#pagination { font-size: 12px; margin: 11px 21px 0px 0px; text-align: right; }
+#pagination_links { margin-left: 23px; }
+#pagination_links img { display:inline; padding: 0px 2px; margin:0px; vertical-align: middle; }
+#pagination_links a:link,
+#pagination_links a:visited,
+#pagination_links a:hover { padding: 0px 2px; margin: 0px 0px; background: 0; }
+
+
+/**
 * SPECIFIC COLUMN LENGTHS
 */
 td.location_name { width: 384px; }
