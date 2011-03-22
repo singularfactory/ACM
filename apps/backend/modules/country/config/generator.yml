@@ -10,6 +10,7 @@ generator:
     route_prefix:          country
     with_doctrine_route:   true
     actions_base_class:    sfActions
+    css:  false
 
     config:
       actions: ~

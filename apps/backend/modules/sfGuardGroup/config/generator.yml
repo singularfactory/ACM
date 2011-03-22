@@ -1,5 +1,6 @@
 generator:
   param:
+    css:  false
     config:
       list:
         title:   Roles
