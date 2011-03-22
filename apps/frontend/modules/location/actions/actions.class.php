@@ -8,27 +8,10 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class locationActions extends sfActions
-{
-	public function executeIndex(sfWebRequest $request)
-	{
-		$this->pager = new sfDoctrinePager('Location', sfConfig::get('app_max_list_items'));
-		
-		// Set sorting order
-		$sortingOrder = 'asc';
-		if ( $this->getRequestParameter('order') ) {
-			$sortingOrder = $this->getRequestParameter('order');
-		}
-		
-		// Set sorting criteria
-		$sortingCriteria = 'name';
-		if ( $this->getRequestParameter('sort') ) {
-			$sortingCriteria = $this->getRequestParameter('sort');
-		}
-		
-		$this->pager->setQuery(Doctrine::getTable('Location')->createQuery('l')->orderBy("l.$sortingCriteria $sortingOrder"));
-		$this->pager->setPage($request->getParameter('page', 1));
-		$this->pager->init();
+class locationActions extends MyActions
+{	
+	public function executeIndex(sfWebRequest $request) {
+		$this->pager = $this->buildPagination($request, 'Location');
 	}
 
 	public function executeShow(sfWebRequest $request)

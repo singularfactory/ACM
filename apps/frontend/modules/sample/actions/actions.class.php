@@ -8,27 +8,10 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class sampleActions extends sfActions
+class sampleActions extends MyActions
 {
-	public function executeIndex(sfWebRequest $request)
-	{
-		$this->pager = new sfDoctrinePager('Sample', sfConfig::get('app_max_list_items'));
-		
-		// Set sorting order
-		$sortingOrder = 'asc';
-		if ( $this->getRequestParameter('order') ) {
-			$sortingOrder = $this->getRequestParameter('order');
-		}
-		
-		// Set sorting criteria
-		$sortingCriteria = 'id';
-		if ( $this->getRequestParameter('sort') ) {
-			$sortingCriteria = $this->getRequestParameter('sort');
-		}
-		
-		$this->pager->setQuery(Doctrine::getTable('Sample')->createQuery('s')->orderBy("s.$sortingCriteria $sortingOrder"));
-		$this->pager->setPage($request->getParameter('page', 1));
-		$this->pager->init();
+	public function executeIndex(sfWebRequest $request) {
+		$this->pager = $this->buildPagination($request, 'Sample', 'id');
 	}
 
 	public function executeShow(sfWebRequest $request)
