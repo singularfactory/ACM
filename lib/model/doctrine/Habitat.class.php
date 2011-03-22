@@ -16,7 +16,7 @@ class Habitat extends BaseHabitat
 	{
 		return Doctrine_Query::create()
 			->from('Sample s')
-			->where('s.radiation_id = ?', $this->getId())
+			->where('s.habitat_id = ?', $this->getId())
 			->count();
 	}
 }
