@@ -15,6 +15,14 @@ caption { margin-bottom: .5em; text-align: center; }
 fieldset, pre { margin-bottom: 1em; }
 
 
+
+table { width: 100%; border-collapse: collapse; border-spacing: 0; margin-bottom: 2em; }
+td, th { padding: 3px; text-align: left; }
+table th { border-bottom: 0.15em solid #999; padding: 0.5em 0.5em; }
+
+
+form { margin: 0; padding: 0; }
+
 #sf_admin_container { font-size: 12px; }
 #sf_admin_container a { color: #464646; }
 #sf_admin_container a:hover { color: #ffffff; }
@@ -188,3 +196,4 @@ fieldset, pre { margin-bottom: 1em; }
 #sf_admin_content { float: left; width: 80%; }
 #sf_admin_bar { float: right; width: 19%; }
 #sf_admin_footer { clear:both; }
+#sf_admin_content ul.sf_admin_actions { text-align: left; }
