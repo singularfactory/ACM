@@ -15,13 +15,12 @@ caption { margin-bottom: .5em; text-align: center; }
 fieldset, pre { margin-bottom: 1em; }
 
 
-
+body { text-align: left; }
 table { width: 100%; border-collapse: collapse; border-spacing: 0; margin-bottom: 2em; }
 td, th { padding: 3px; text-align: left; }
 table th { border-bottom: 0.15em solid #999; padding: 0.5em 0.5em; }
-
-
 form { margin: 0; padding: 0; }
+
 
 #sf_admin_container { font-size: 12px; }
 #sf_admin_container a { color: #464646; }
