@@ -14,19 +14,16 @@ class locationActions extends MyActions
 		$this->pager = $this->buildPagination($request, 'Location');
 	}
 
-	public function executeShow(sfWebRequest $request)
-	{
+	public function executeShow(sfWebRequest $request) {
 		$this->location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->location);
 	}
 
-	public function executeNew(sfWebRequest $request)
-	{
+	public function executeNew(sfWebRequest $request) {
 		$this->form = new LocationForm();
 	}
 
-	public function executeCreate(sfWebRequest $request)
-	{
+	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$this->form = new LocationForm();
@@ -36,14 +33,12 @@ class locationActions extends MyActions
 		$this->setTemplate('new');
 	}
 
-	public function executeEdit(sfWebRequest $request)
-	{
+	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id'))), sprintf('Object location does not exist (%s).', $request->getParameter('id')));
 		$this->form = new LocationForm($location);
 	}
 
-	public function executeUpdate(sfWebRequest $request)
-	{
+	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id'))), sprintf('Object location does not exist (%s).', $request->getParameter('id')));
 		$this->form = new LocationForm($location);
@@ -53,8 +48,7 @@ class locationActions extends MyActions
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request)
-	{
+	public function executeDelete(sfWebRequest $request) {
 		$request->checkCSRFProtection();
 
 		$this->forward404Unless($location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id'))), sprintf('Object location does not exist (%s).', $request->getParameter('id')));
@@ -64,15 +58,15 @@ class locationActions extends MyActions
 		$this->redirect('location/index');
 	}
 
-	protected function processForm(sfWebRequest $request, sfForm $form)
-	{
+	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		if ($form->isValid())
 		{
 			$location = $form->save();
 
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
-			$this->redirect('location/edit?id='.$location->getId());
+			// $this->redirect('location/edit?id='.$location->getId());
+			$this->redirect('location/index');
 		}
 	}
 }
