@@ -66,16 +66,22 @@ class sampleActions extends MyActions
 		$this->redirect('sample/index');
 	}
 
-	protected function processForm(sfWebRequest $request, sfForm $form)
-	{
+	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		if ($form->isValid())
-		{
-			$sample = $form->save();
 
+		if ($form->isValid()) {
+			$sample = $form->save();
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $sample->getId())));
-			// $this->redirect('sample/edit?id='.$sample->getId());
-			$this->redirect('sample/index');
+			
+			if ($request->hasParameter('_save_and_add')) {
+				
+				$this->getUser()->setFlash('notice', $notice.' You can add another one below.');
+				$this->redirect('@sample_new');
+			}
+			else {
+				$this->getUser()->setFlash('notice', 'Changes saved');
+				$this->redirect('@sample');
+			}
 		}
 	}
 }

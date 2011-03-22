@@ -52,7 +52,8 @@
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
-			<input type="submit" value="Create this location"> 
+			<input type="submit" value="Create this location">
+			<input type="submit" name="_save_and_add" value="Create and add">
 		<?php else: ?>
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
