@@ -7,7 +7,6 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<?php include_stylesheets() ?>
 		<?php use_javascript('jquery.js') ?>
-		<?php include_javascripts() ?>
 	</head>
 	<body>
 		<noscript>
@@ -85,5 +84,7 @@
 		</div>
 
 		<div id="footer"></div>
+		
+		<?php include_javascripts() ?>
 	</body>
 </html>
