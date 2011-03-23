@@ -12,5 +12,6 @@ class ProjectConfiguration extends sfProjectConfiguration
 
 	// Register the logger event handler
 	$this->dispatcher->connect('bna_green_house.event_log', array('EventLog', 'save_log_message'));
+    $this->enablePlugins('ahDoctrineEasyEmbeddedRelationsPlugin');
   }
 }
