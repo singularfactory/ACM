@@ -46,8 +46,9 @@
 	</div>
 	
 	<div id="pictures">
-		<?php echo $form['Pictures']->renderLabel() ?>
-		<?php echo $form['Pictures'] ?>
+		<?php echo $form['new_Pictures']->renderLabel() ?>
+		<?php echo $form['new_Pictures']->renderHelp() ?>
+		<?php echo $form['new_Pictures'][0]['filename']->render() ?>
 	</div>
 	
 	<div class="submit">

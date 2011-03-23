@@ -13,8 +13,16 @@ class LocationForm extends BaseLocationForm
   	public function configure()
 	{
 		// Create an embedded form to add pictures
-		$pictureForm = new LocationPictureCollectionForm(null, array('location' => $this->getObject()));
-		$this->embedForm('Pictures', $pictureForm);
+		$this->embedRelations(array(
+			'Pictures' => array(
+				'considerNewFormEmptyFields' => array('filename', 'location_id'),
+				'newFormLabel' => 'Pictures',
+				'newFormAfterExistingRelations' => true,
+				'multipleNewForms' => true,
+				'newFormsInitialCount' => 1,
+				'newRelationButtonLabel' => 'Add another picture',
+			),
+		));
 
 		// Hide widgets
 		unset($this['created_at'], $this['updated_at']);
@@ -24,27 +32,9 @@ class LocationForm extends BaseLocationForm
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('region_id', 'States and provinces as well');
 		$this->widgetSchema->setHelp('island_id', 'Only for regions with islands');
+		$this->widgetSchema->setHelp('new_Pictures', 'Only JPG, PNG or TIFF images. 5MB image maximum size');
 		
 		// Remove <br /> tag after labels and set custom tag
 		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
-	}
-
-
-	public function saveEmbeddedForms($con = null, $forms = null)
-	{
-		if (null === $forms)
-		{
-			$pictures = $this->getValue('Pictures');
-			$forms = $this->embeddedForms;
-			foreach ($this->embeddedForms['Pictures'] as $name => $form)
-			{
-				if (!isset($pictures[$name]))
-				{
-					unset($forms['Pictures'][$name]);
-				}
-			}
-		}
-
-		return parent::saveEmbeddedForms($con, $forms);
 	}
 }
