@@ -17,4 +17,11 @@ class Location extends BaseLocation {
 			->where('s.location_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getNbPictures() {
+		return Doctrine_Query::create()
+			->from('LocationPicture lp')
+			->where('lp.location_id = ?', $this->getId())
+			->count();
+	}
 }

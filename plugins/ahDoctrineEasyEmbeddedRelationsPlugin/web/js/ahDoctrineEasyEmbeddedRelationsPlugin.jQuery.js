@@ -73,7 +73,7 @@ jQuery(function($) {
 
 		// find last row of my siblings (each row represents a subform) 
 		// $row = $(this).closest('tr,li').siblings('tr:last,li:last');	REPLACED BY STATEMENT BELOW. PAY ATTENTION IN PLUGIN UPGRADES
-		$row = $(this).closest('tr,li,div').prev().children().last();
+		$row = $(this).closest('tr,li,div').prev().children('input').last();
 
 		// clone it, increment the fields and insert it below, additionally triggering events
 		$row.trigger('beforeclone.ah');
@@ -85,6 +85,11 @@ jQuery(function($) {
 			.trigger('beforeadd.ah')
 			.insertAfter($row)
 			.trigger('afteradd.ah');
+		
+			// Hide the add button when the limit is reached
+			if ( $(this).closest('tr,li,div').prev().children('input').size() == $('#max_location_pictures').val() ) {
+				$('#pictures_add_relation').css('display', 'none');
+			}
 
 		//use events to further modify the cloned row like this
 		// $(document).bind('beforeadd.ah', function(event) { $(event.target).hide() /* event.target is cloned row */ });

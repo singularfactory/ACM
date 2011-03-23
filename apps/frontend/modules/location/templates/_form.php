@@ -3,7 +3,8 @@
 
 <?php echo form_tag_for($form, '@location') ?>
 	<?php echo $form->renderHiddenFields() ?>
-	
+	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_location_pictures'), 'id' => 'max_location_pictures')) ?>
+
 	<div id="name">
 		<?php echo $form['name']->renderLabel() ?>
 		<?php echo $form['name']->renderHelp() ?>
@@ -45,15 +46,17 @@
 		<?php echo $form['remarks'] ?>
 	</div>
 	
+	<?php if ( $form->getObject()->isNew() || $form->getOption('max_location_pictures') > 0 ): ?>
 	<div id="pictures">
 		<?php echo $form['new_Pictures']->renderLabel() ?>
 		<?php echo $form['new_Pictures']->renderHelp() ?>
 		<?php echo $form['new_Pictures'][0]['filename']->render() ?>
 	</div>
-	
+
 	<div id="pictures_add_relation">
 		<?php echo $form['new_Pictures']['_']->render() ?>
 	</div>
+	<?php endif; ?>
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
