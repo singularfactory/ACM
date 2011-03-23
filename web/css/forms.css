@@ -38,7 +38,10 @@ a.cancel_form_link:hover { color: white; background: #e32; margin: 0px; }
 
 
 /**
- * SPECIFIC FIELD LENGTHS
+ * SPECIFIC FIELD BEHAVIORS
  */
 input.application_code { width: 70px; }
 input.application_name { width: 300px; }
+
+
+#pictures input { display:block; padding: 5px; }

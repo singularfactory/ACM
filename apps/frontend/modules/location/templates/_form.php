@@ -49,6 +49,9 @@
 		<?php echo $form['new_Pictures']->renderLabel() ?>
 		<?php echo $form['new_Pictures']->renderHelp() ?>
 		<?php echo $form['new_Pictures'][0]['filename']->render() ?>
+	</div>
+	
+	<div id="pictures_add_relation">
 		<?php echo $form['new_Pictures']['_']->render() ?>
 	</div>
 	

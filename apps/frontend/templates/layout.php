@@ -6,7 +6,6 @@
 		<?php include_title() ?>
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<?php include_stylesheets() ?>
-		<?php use_javascript('jquery.js') ?>
 	</head>
 	<body>
 		<noscript>

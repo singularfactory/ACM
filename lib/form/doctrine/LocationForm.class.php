@@ -32,7 +32,7 @@ class LocationForm extends BaseLocationForm
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('region_id', 'States and provinces as well');
 		$this->widgetSchema->setHelp('island_id', 'Only for regions with islands');
-		$this->widgetSchema->setHelp('new_Pictures', 'Only JPG, PNG or TIFF images. 5MB image maximum size');
+		$this->widgetSchema->setHelp('new_Pictures', 'Up to five JPG, PNG or TIFF images. 5MB maximum size');
 		
 		// Remove <br /> tag after labels and set custom tag
 		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
