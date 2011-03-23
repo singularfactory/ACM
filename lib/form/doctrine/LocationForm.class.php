@@ -25,14 +25,14 @@ class LocationForm extends BaseLocationForm {
 			// Create an embedded form to add pictures
 			$this->embedRelations(array(
 				'Pictures' => array(
-					'considerNewFormEmptyFields' => array('filename', 'location_id'),
+					'considerNewFormEmptyFields' => array('filename'),
 					'newFormLabel' => 'Pictures',
 					'newFormAfterExistingRelations' => true,
 					'multipleNewForms' => true,
 					'newFormsInitialCount' => 1,
 					'newRelationButtonLabel' => 'Add another picture',
 				),
-			));
+			));			
 		}
 
 		// Hide widgets

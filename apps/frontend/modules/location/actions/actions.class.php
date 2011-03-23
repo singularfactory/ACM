@@ -60,7 +60,7 @@ class locationActions extends MyActions
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-
+		
 		if ( $form->isValid() ) {
 			$location = $form->save();
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
