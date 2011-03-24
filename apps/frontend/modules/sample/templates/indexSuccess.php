@@ -7,6 +7,7 @@
 </div>
 <?php end_slot() ?>
 
+<?php if ( $pager->count() ): ?>
 <table id="sample_list">
 	<tbody>
 		<tr>
@@ -39,3 +40,7 @@
 <?php if ($pager->haveToPaginate()): ?>
 	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'sample')) ?>
 <?php endif ?>
+
+<?php else: ?>
+	<p>There are no samples to show.</p>
+<?php endif; ?>
