@@ -61,7 +61,19 @@ class locationActions extends MyActions
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		
-		if ( $form->isValid() ) {
+		// Count files uploaded in form
+		$uploadedFiles = $request->getFiles();
+		$nbValidFiles = 0;
+		if ( $uploadedFiles['location']['new_Pictures'] ) {
+			foreach ( $uploadedFiles['location']['new_Pictures'] as $file ) {
+				if ( !empty($file['filename']['name']) ) {
+					$nbValidFiles += 1;
+				}
+			}
+		}
+		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
+		
+		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_location_pictures') ) {
 			$location = $form->save();
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
 			
