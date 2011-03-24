@@ -5,9 +5,9 @@
 	<?php echo $form->renderHiddenFields() ?>
 
 	<div id="id">
-		<?php echo $form['id']->renderLabel() ?>
-		<?php echo $form['id']->renderHelp() ?>
-		<?php echo $form['id'] ?>
+		<?php echo $form['notebook_code']->renderLabel() ?>
+		<?php echo $form['notebook_code']->renderHelp() ?>
+		<?php echo $form['notebook_code'] ?>
 	</div>
 
 	<div id="location">

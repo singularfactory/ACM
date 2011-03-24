@@ -14,16 +14,11 @@ class SampleForm extends BaseSampleForm
 	{
 		// Hide widgets
 		unset($this['created_at'], $this['updated_at']);
-		
-		// Add a temporary ID field
-		$this->setWidget('id', new sfWidgetFormInputText());
-		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => true)));
-		$this->widgetSchema->setLabel('id', 'Code');
-		
+				
 		// Configure collection date format
 		$lastYear = date('Y');
 		for ($i=$lastYear-5; $i <= $lastYear; $i++) { 
-			$years[] = $i;
+			$years[$i] = $i;
 		}
 		$this->setWidget('collection_date', new sfWidgetFormDate(array(
 			'format' => '%year%-%month%-%day%',

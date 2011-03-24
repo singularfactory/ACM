@@ -16,6 +16,7 @@ abstract class BaseSampleForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                  => new sfWidgetFormInputHidden(),
+      'notebook_code'       => new sfWidgetFormInputText(),
       'location_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Location'), 'add_empty' => false)),
       'latitude'            => new sfWidgetFormInputText(),
       'longitude'           => new sfWidgetFormInputText(),
@@ -40,6 +41,7 @@ abstract class BaseSampleForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                  => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'notebook_code'       => new sfValidatorInteger(),
       'location_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Location'))),
       'latitude'            => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'longitude'           => new sfValidatorString(array('max_length' => 10, 'required' => false)),
