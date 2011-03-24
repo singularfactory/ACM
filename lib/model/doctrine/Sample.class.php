@@ -10,10 +10,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
-class Sample extends BaseSample
-{
-	public function getNumber()
-	{
+class Sample extends BaseSample {
+	public function getNumber() {
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
 		$countryCode = $this->getLocation()->getCountry()->getCode();
 		$regionCode = str_pad($this->getLocation()->getRegion()->getCode(), 3, '_', STR_PAD_LEFT);
@@ -23,5 +21,5 @@ class Sample extends BaseSample
 		$dateCode = date('ymd', strtotime($this->getCollectionDate()));
 		
 		return $code.$countryCode.$regionCode.$islandCode.$dateCode;
-	}
+	}	
 }

@@ -9,14 +9,27 @@
 			<td><?php echo $sample->getNumber() ?></td>
 		</tr>
 		<tr>
+			<td>Notebook code:</td>
+			<td><?php echo $sample->getNotebookCode() ?></td>
+		</tr>
+		<tr>
 			<td>Location:</td>
 			<td><?php echo $sample->getLocation()->getName() ?></td>
 		</tr>
 		<tr>
 			<td>GPS coordinates:</td>
 			<td>
-				<?php echo $sample->getLatitude() ?>
-				<?php echo $sample->getLongitude() ?>
+				<?php
+					if ( $sample->getLatitude() === null || $sample->getLongitude() === null ) {
+						echo 'no data';
+					}
+					elseif ( $sample->getLatitude() === '' || $sample->getLongitude() === '' ) {
+						echo 'no data';
+					}
+					else {
+						echo $sample->getLatitude().', '.$sample->getLongitude();
+					}
+				?>
 			</td>
 		</tr>
 		<tr>
@@ -33,23 +46,23 @@
 		</tr>
 		<tr>
 			<td>Ph:</td>
-			<td><?php echo $sample->getPh() ?></td>
+			<td><?php echo ($sample->getPh() === null)?'no data':$sample->getPh() ?></td>
 		</tr>
 		<tr>
 			<td>Conductivity:</td>
-			<td><?php echo $sample->getConductivity() ?></td>
+			<td><?php echo ($sample->getConductivity() === null)?'no data':$sample->getConductivity() ?></td>
 		</tr>
 		<tr>
 			<td>Temperature:</td>
-			<td><?php echo $sample->getTemperature() ?> ºC</td>
+			<td><?php echo ($sample->getTemperature() === null)?'no data':$sample->getTemperature().'ºC' ?> </td>
 		</tr>
 		<tr>
 			<td>Salinity:</td>
-			<td><?php echo $sample->getSalinity() ?></td>
+			<td><?php echo ($sample->getSalinity() === null)?'no data':$sample->getSalinity() ?></td>
 		</tr>
 		<tr>
 			<td>Altitude:</td>
-			<td><?php echo $sample->getAltitude() ?> m.</td>
+			<td><?php echo ($sample->getAltitude() === null)?'no data':$sample->getAltitude().'m.' ?></td>
 		</tr>
 		
 		<tr>
