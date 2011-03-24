@@ -8,7 +8,7 @@ label { display: block; font-size: 13px; margin-bottom: 3px; color: black; font-
 input, textarea { clear: both; font-size: 12px; padding: 3px; }
 option { padding: 0px 3px; }
 select { clear: both; vertical-align: text-bottom; }
-select[multiple=multiple] {	width: 100%; }
+select[multiple=multiple] {	width: auto; }
 
 input[type=submit] {
 	width: auto;
@@ -27,7 +27,7 @@ input[type=submit] {
 	border-radius: 8px;
 }
 input[type=submit]:hover { cursor: pointer; }
-input[type=checkbox] { clear: left; float: left; margin: 0px 6px 7px 2px; width: auto; }
+input[type=checkbox] { clear: left; margin: 0px 6px 7px 2px; width: auto; }
 input[type=radio] { float:left; width:auto; margin: 0px 3px 7px 0px; }
 input[type=file] { min-width: 400px; }
 
@@ -44,4 +44,7 @@ input.application_code { width: 70px; }
 input.application_name { width: 300px; }
 
 
-#pictures input { display:block; padding: 5px; }
+#pictures input,
+#field_picture input,
+#detailed_picture input,
+#microscopic_picture input { display:block; padding: 5px; }

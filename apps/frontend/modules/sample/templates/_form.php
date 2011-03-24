@@ -40,7 +40,7 @@
 		<?php echo $form['habitat_id'] ?>
 	</div>
 
-	<div id="extremophile">
+	<div id="extremophile" class="checkbox">
 		<?php echo $form['is_extremophile']->renderLabel() ?>
 		<?php echo $form['is_extremophile']->renderHelp() ?>
 		<?php echo $form['is_extremophile'] ?>
