@@ -1,6 +1,6 @@
 <?php slot('main_header') ?>
 <span>All locations</span>
-<div id="index_new_action">
+<div id="main_header_action_new" class="main_header_action">
 	<?php echo link_to('Add a new location', 'location/new') ?>
 </div>
 <?php end_slot() ?>

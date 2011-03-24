@@ -32,29 +32,6 @@ tr:hover td.actions a:hover { color: #fff; background: #2aa2f8; text-decoration:
 
 
 /**
-* ADD BUTTON
-*/
-#index_new_action { float:right; }
-#index_new_action a,
-#index_new_action a:visited,
-#index_new_action a:hover {
-	background: #d5d5d5 url(../images/new.png) no-repeat 0 center;
-	padding: 3px 9px 3px 19px;
-	margin-top: 0px;
-	color: black;
-	text-decoration: none;
-	font-size: 13px;
-	
-	border: 1px solid #c0c0c0;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-ms-border-radius: 5px;
-}
-
-
-/**
 * PAGINATION
 */
 #pagination { font-size: 12px; margin: 11px 21px 0px 0px; text-align: right; }
