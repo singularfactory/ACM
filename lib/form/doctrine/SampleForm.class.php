@@ -41,6 +41,7 @@ class SampleForm extends BaseSampleForm
 		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
 		
 		// Configure help messages
+		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
 		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('ph', 'Decimal value for PH (e.g. 38.2832)');
