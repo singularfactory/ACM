@@ -6,6 +6,10 @@ location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
 
+profile:
+  class:   sfDoctrineRouteCollection
+  options: { model: sfGuardUser }
+
 login:
   url:   /login
   param: { module: sfGuardAuth, action: signin }
@@ -13,7 +17,6 @@ login:
 logout:
   url:   /logout
   param: { module: sfGuardAuth, action: signout }
-
 
 # Default rules (catch all)
 homepage:

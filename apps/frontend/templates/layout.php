@@ -28,7 +28,7 @@
 				
 			<div id="header_shortcuts">
 				<span><?php echo $sf_user->getUsername(); ?></span> |
-				<span><?php echo link_to('About me', array()) ?></span> |
+				<span><?php echo link_to('About me', '@profile_edit?id='.$sf_user->getGuardUser()->getId()) ?></span> |
 				<span><?php echo link_to('Sign out', '@logout') ?></span>
 			</div>
 				
