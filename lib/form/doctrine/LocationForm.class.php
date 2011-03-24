@@ -27,7 +27,6 @@ class LocationForm extends BaseLocationForm {
 				'Pictures' => array(
 					'considerNewFormEmptyFields' => array('filename'),
 					'newFormLabel' => 'Pictures',
-					'newFormAfterExistingRelations' => true,
 					'multipleNewForms' => true,
 					'newFormsInitialCount' => 1,
 					'newRelationButtonLabel' => 'Add another picture',
