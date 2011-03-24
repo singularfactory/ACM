@@ -21,7 +21,14 @@ class SampleForm extends BaseSampleForm
 		$this->widgetSchema->setLabel('id', 'Code');
 		
 		// Configure collection date format
-		$this->setWidget('collection_date', new sfWidgetFormDate(array('format' => '%year%-%month%-%day%')));
+		$lastYear = date('Y');
+		for ($i=$lastYear-5; $i <= $lastYear; $i++) { 
+			$years[] = $i;
+		}
+		$this->setWidget('collection_date', new sfWidgetFormDate(array(
+			'format' => '%year%-%month%-%day%',
+			'years' => $years,
+		)));
 		
 		// Configure collector
 		$this->setWidget('collector_id', new sfWidgetFormDoctrineChoice(array(
