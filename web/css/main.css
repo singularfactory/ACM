@@ -233,6 +233,10 @@ div.javascript_disabled_notification p {
 }
 
 #main_view { margin-bottom: 24px; }
+#main_view_show {  }
+#object_data_list { float:left; width: 49%; padding-right: 1%; }
+#object_google_map { float: right; width: 49%; padding-left: 1%; }
+#object_picture_list { clear: both; }
 
 
 /**

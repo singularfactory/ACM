@@ -10,17 +10,8 @@
 
 <div id="main_view_show">
 	<div id="object_data_list">
-		<table>
-		  <tbody>
-		    <tr>
-		      <th>Latitude:</th>
-		      <td><?php echo $location->getLatitude() ?></td>
-		    </tr>
-		    <tr>
-		      <th>Longitude:</th>
-		      <td><?php echo $location->getLongitude() ?></td>
-		    </tr>
-		    <tr>
+		<table class="object_attributes">
+			<tr>
 		      <th>Country:</th>
 		      <td><?php echo $location->getCountry()->getName() ?></td>
 		    </tr>
@@ -36,11 +27,18 @@
 		      <th>Remarks:</th>
 		      <td><?php echo $location->getRemarks() ?></td>
 		    </tr>
-		  </tbody>
 		</table>
 	</div>
 	
+	<div id="object_google_map">
+		<h2>GPS coordinates</h2>
+		<br />
+		<?php echo $location->getLatitude() ?>
+		<br />
+		<?php echo $location->getLongitude() ?>
+	</div>
+	
 	<div id="object_picture_list">
-		
+		<h2>Pictures</h2>
 	</div>
 </div>

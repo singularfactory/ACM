@@ -18,6 +18,8 @@ default:
 
 indexSuccess:
   stylesheets:  [tables.css]
+showSuccess:
+  stylesheets:  [tables.css]
 editSuccess:
   stylesheets:  [forms.css]
 newSuccess:
