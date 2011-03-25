@@ -32,7 +32,7 @@ all:
     use_database:           true
     
     # Plugin configuration
-    enabled_modules:        [default, sfGuardAuth]
+    enabled_modules:        [default, sfGuardAuth, sfEasyGMapPlugin]
     
   .actions:
     login_module:           sfGuardAuth
