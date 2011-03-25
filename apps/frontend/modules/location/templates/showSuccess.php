@@ -31,11 +31,7 @@
 	</div>
 	
 	<div id="object_google_map">
-		<h2>GPS coordinates</h2>
-		<br />
-		<?php echo $location->getLatitude() ?>
-		<br />
-		<?php echo $location->getLongitude() ?>
+		<?php echo $location->getFormattedGPSCoordinates() ?>
 	</div>
 	
 	<div id="object_picture_list">

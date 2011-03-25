@@ -86,4 +86,30 @@ class Sample extends BaseSample {
 		}
 		return $coordinates['latitude'].', '.$coordinates['longitude'];
 	}
+
+	public function getLatitude() {
+		$latitude = $this->_get('latitude');
+		
+		if ( $latitude === null ) {
+			return $this->getLocation()->getLatitude();
+		}
+		elseif ( $latitude === '' ) {
+			return $this->getLocation()->getLatitude();
+		}
+		
+		return $latitude;
+	}
+	
+	public function getLongitude() {
+		$longitude = $this->_get('longitude');
+		
+		if ( $longitude === null ) {
+			return $this->getLocation()->getLongitude();
+		}
+		elseif ( $longitude === '' ) {
+			return $this->getLocation()->getLongitude();
+		}
+		
+		return $longitude;
+	}
 }

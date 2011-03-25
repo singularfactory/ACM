@@ -24,4 +24,23 @@ class Location extends BaseLocation {
 			->where('lp.location_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getGPSCoordinates() {
+		return array(
+			'latitude' => $this->getLatitude(),
+			'longitude' => $this->getLongitude(),
+		);
+	}
+	
+	public function getFormattedGPSCoordinates() {
+		$coordinates = $this->getGPSCoordinates();
+		
+		if ( $coordinates['latitude'] === null || $coordinates['longitude'] === null ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		elseif ( $coordinates['latitude'] === '' || $coordinates['longitude'] === '' ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		return $coordinates['latitude'].', '.$coordinates['longitude'];
+	}
 }
