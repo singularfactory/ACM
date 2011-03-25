@@ -18,51 +18,37 @@
 		</tr>
 		<tr>
 			<td>GPS coordinates:</td>
-			<td>
-				<?php
-					if ( $sample->getLatitude() === null || $sample->getLongitude() === null ) {
-						echo 'no data';
-					}
-					elseif ( $sample->getLatitude() === '' || $sample->getLongitude() === '' ) {
-						echo 'no data';
-					}
-					else {
-						echo $sample->getLatitude().', '.$sample->getLongitude();
-					}
-				?>
-			</td>
+			<td><?php echo $sample->getFormattedGPSCoordinates() ?></td>
 		</tr>
 		<tr>
 			<td>Environment:</td>
 			<td><?php echo $sample->getEnvironment()->getName() ?></td>
 		</tr>
-			<tr>
-				<td>Is extremophile?</td>
-				<td><?php echo ($sample->getIsExtremophile())?'yes':'no' ?></td>
-			</tr>
+			<td>Is extremophile?</td>
+			<td><?php echo $sample->getFormattedIsExtremophile() ?></td>
 		<tr>
 			<td>Habitat:</td>
 			<td><?php echo $sample->getHabitat()->getName() ?></td>
 		</tr>
 		<tr>
 			<td>Ph:</td>
-			<td><?php echo ($sample->getPh() === null)?'no data':$sample->getPh() ?></td>
+			<td><?php echo $sample->getFormattedPh() ?></td>
 		</tr>
 		<tr>
 			<td>Conductivity:</td>
-			<td><?php echo ($sample->getConductivity() === null)?'no data':$sample->getConductivity() ?></td>
+			<td><?php echo $sample->getFormattedConductivity() ?></td>
 		</tr>
 		<tr>
 			<td>Temperature:</td>
-			<td><?php echo ($sample->getTemperature() === null)?'no data':$sample->getTemperature().'ºC' ?> </td>
+			<td><?php echo $sample->getFormattedTemperature() ?> </td>
 		</tr>
 		<tr>
 			<td>Salinity:</td>
-			<td><?php echo ($sample->getSalinity() === null)?'no data':$sample->getSalinity() ?></td>
+			<td><?php echo $sample->getFormattedSalinity() ?></td>
 		</tr>
 		<tr>
 			<td>Altitude:</td>
-			<td><?php echo ($sample->getAltitude() === null)?'no data':$sample->getAltitude().'m.' ?></td>
+			<td><?php echo $sample->getFormattedAltitude() ?></td>
 		</tr>
 		
 		<tr>
