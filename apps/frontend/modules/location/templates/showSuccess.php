@@ -13,14 +13,16 @@
 <div id="main_view_show">
 	<div id="object_data_list">
 		<dl>
-	      <dt>Country:</dt>
-	      <dd><?php echo $location->getCountry()->getName() ?></dd>
-	      <dt>Region:</dt>
-	      <dd><?php echo $location->getRegion()->getName() ?></dd>
-	      <dt>Island:</dt>
-	      <dd><?php echo $location->getIsland()->getName() ?></dd>
-	      <dt>Remarks:</dt>
-	      <dd><?php echo $location->getRemarks() ?></dd>
+			<dt>Country:</dt>
+			<dd><?php echo $location->getCountry()->getName() ?></dd>
+			<dt>Region:</dt>
+			<dd><?php echo $location->getRegion()->getName() ?></dd>
+			<dt>Island:</dt>
+			<dd><?php echo $location->getIsland()->getName() ?></dd>
+			<dt>GPS coordinates:</dt>
+			<dd><?php echo $location->getFormattedGPSCoordinates() ?></dd>
+			<dt>Remarks:</dt>
+			<dd><?php echo $location->getRemarks() ?></dd>
 		</dl>
 	</div>
 	
