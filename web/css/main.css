@@ -257,9 +257,9 @@ div.javascript_disabled_notification p {
 
 #main_view { margin-bottom: 24px; }
 #main_view_show {  }
-#object_data_list { float:left; padding-left: 13px; }
+#object_data_list { float:left; margin-left: 13px; padding-bottom: 13px; }
 #object_google_map { float: right; padding-right: 21px; }
-#object_picture_list { float: left; clear: left; padding-left: 13px; }
+#object_picture_list { float: left; clear: left; margin-left: 13px; }
 
 
 /**
