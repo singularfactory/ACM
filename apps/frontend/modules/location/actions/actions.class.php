@@ -20,12 +20,15 @@ class locationActions extends MyActions
 		// Configure a Google Map to show the location
 		$this->googleMap = new MyGoogleMap();
 		$coordinates = $this->location->getGPSCoordinates();
-		$information = array('title' => $this->location->getName(), 'description' => $this->location->getRemarks());
+		$information = array(
+			'title' => $this->location->getName(),
+			'description' => "{$this->location->getRegion()->getName()}, {$this->location->getIsland()->getName()}",
+			'notes' => $this->location->getRemarks());
 		if ( $coordinates['latitude'] && $coordinates['longitude'] ) {
 			$marker = $this->googleMap->getMarkerFromCoordinates($coordinates['latitude'], $coordinates['longitude'], $information);
 		}
 		else {
-			$marker = $this->googleMap->getMarkerFromAddress("{$this->location->getName()}, {$this->location->getIsland()->getName()}, {$this->location->getRegion()->getName()}, {$this->location->getCountry()->getName()}", $information);
+			$marker = $this->googleMap->getMarkerFromAddress("{$information['title']}, {$information['description']}, {$this->location->getCountry()->getName()}", $information);
 		}
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
