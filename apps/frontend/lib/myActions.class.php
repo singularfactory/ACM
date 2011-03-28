@@ -4,7 +4,7 @@
 * MyActions actions class.
 *
 * @package    bna_green_house
-* @subpackage location
+* @subpackage frontend
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 */
 class MyActions extends sfActions {
