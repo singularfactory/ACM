@@ -48,7 +48,7 @@ h2 {
 	font-size: 14px;
 	padding: 0;
 }
-h2.marker_description { font-size: 12px; margin: 5px 0px; font-weight: lighter; }
+h2.marker_description { font-size: 12px; margin: 5px 0px 0px 0px; font-weight: lighter; }
 
 h3 {
 	margin: 20px 0 0 0;
@@ -57,7 +57,7 @@ h3 {
 	font-size: 14px;
 	padding: 0;
 }
-h3.marker_notes { font-size: 10px; margin: 15px 0px 0px 0px; font-weight: lighter; }
+h3.marker_notes { font-size: 10px; margin-top: 0px; font-weight: lighter; }
 
 dl { font-size: 12px; margin-top: 0px; }
  
