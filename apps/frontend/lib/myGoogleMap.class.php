@@ -61,11 +61,11 @@ class MyGoogleMap extends GMap {
 			$geocodedAddress->getLng(),
 			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_directory').'/location.png', array('width' => 18, 'height' => 25))));
 		
-		if ( array_key_exists('notes', $window_options) ) {
+		if ( array_key_exists('notes', $window_options) && !empty($window_options['notes']) ) {
 			$window_options['notes'] .= '<br />This location is <strong>not accurate</strong>. GPS coordinates were estimated from available information';
 		}
 		else {
-			$window_options['notes'] = '<br />This location is <strong>not accurate</strong>. GPS coordinates were estimated from available information';
+			$window_options['notes'] = 'This location is <strong>not accurate</strong>. GPS coordinates were estimated from available information';
 		}
 		$marker->addHtmlInfoWindow($this->buildMarkerWindow($window_options));
 		return $marker;
