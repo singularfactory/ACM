@@ -1,7 +1,6 @@
 /**
 * GLOBAL PAGE STYLE
 */
-html { background: white; }
 body {
 	margin: 0 auto;
 	padding: 0;
@@ -57,6 +56,26 @@ h3 {
 	padding: 0;
 }
 
+dl { font-size: 12px; margin-top: 0px; }
+ 
+dl dt {
+	background: #e7eef6;
+	color: #333;
+	float: left;
+	font-weight: bold;
+	padding: 5px;
+	min-width: 120px;
+	vertical-align: top;
+}
+ 
+dl dd {
+	margin: 2px 0px 2px 125px;
+	padding: 5px 13px;
+	vertical-align: top;
+	min-width: 600px;
+}
+
+div.clear { clear: both; }
 
 /**
 * JAVASCRIPT DISABLED NOTIFICATION
@@ -234,12 +253,12 @@ div.javascript_disabled_notification p {
 
 #main_view { margin-bottom: 24px; }
 #main_view_show {  }
-#object_data_list { float:left; width: 49%; padding-right: 1%; }
-#object_google_map { float: right; width: 49%; padding-left: 1%; }
-#object_picture_list { clear: both; }
+#object_data_list { float:left; padding-left: 13px; }
+#object_google_map { float: right; padding-right: 21px; }
+#object_picture_list { float: left; clear: left; padding-left: 13px; }
 
 
 /**
 * FOOTER
 */
-#footer { clear: both; text-align: center; }
+#footer { clear: both; text-align: center; background-color: yellow;}

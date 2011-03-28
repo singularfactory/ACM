@@ -16,6 +16,20 @@ class locationActions extends MyActions
 
 	public function executeShow(sfWebRequest $request) {
 		$this->location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id')));
+		
+		$this->googleMap = new GMap();
+
+		$coordinates = $this->location->getGPSCoordinates();
+		if ( $coordinates['latitude'] && $coordinates['longitude'] ) {
+			$this->googleMap->addMarker(new GMapMarker($coordinates['latitude'], $coordinates['longitude']));
+		}
+		else {
+			$this->googleMap->addMarker(new GMapMarker(sfConfig::get('app_default_latitude'),sfConfig::get('app_default_longitude')));
+		}
+		// $this->googleMap->centerAndZoomOnMarkers();
+		$this->googleMap->centerOnMarkers();
+		$this->googleMap->setZoom(6);
+		
 		$this->forward404Unless($this->location);
 	}
 

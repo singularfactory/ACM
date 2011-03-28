@@ -54,12 +54,3 @@ td.object_count { width: 40px; }
 td.sample_code { width: 150px; }
 td.collector_name { width: 150px; }
 td.date { width: 100px; }
-
-
-/**
-* SPECIFIC TABLE STYLES
-*/
-table.object_attributes { border-spacing: 0px; line-height: 12px; }
-table.object_attributes tr:hover td { color: #333; background: transparent; }
-table.object_attributes th { width: 25%; border-bottom: 1px solid #ccc; font-size: 12px; }
-table.object_attributes td { width: 75%; padding: 0px 21px; }

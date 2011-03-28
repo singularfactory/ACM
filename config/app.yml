@@ -7,6 +7,8 @@ all:
     no_data_message:              no data
     temperature_unit:             ºC
     altitude_unit:                m
+    default_latitude:             27.991232
+    default_longitude:            -15.368787
   sf_guard_plugin:
     routes_register:        true
     allow_login_with_email: false
