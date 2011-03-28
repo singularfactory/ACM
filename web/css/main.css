@@ -67,12 +67,12 @@ dl dt {
 	float: left;
 	font-weight: bold;
 	padding: 5px;
-	min-width: 120px;
+	min-width: 135px;
 	vertical-align: top;
 }
  
 dl dd {
-	margin: 2px 0px 2px 125px;
+	margin: 2px 0px 2px 140px;
 	padding: 5px 13px;
 	vertical-align: top;
 	min-width: 600px;
