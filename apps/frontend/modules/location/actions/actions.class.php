@@ -25,7 +25,7 @@ class locationActions extends MyActions
 			$marker = $this->googleMap->getMarkerFromCoordinates($coordinates['latitude'], $coordinates['longitude'], $information);
 		}
 		else {
-			$marker = $this->googleMap->getMarkerFromAddress("{$this->location->getName()}, {$this->location->getCountry()->getName()}", $information);
+			$marker = $this->googleMap->getMarkerFromAddress("{$this->location->getName()}, {$this->location->getIsland()->getName()}, {$this->location->getRegion()->getName()}, {$this->location->getCountry()->getName()}", $information);
 		}
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
