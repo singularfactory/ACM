@@ -14,5 +14,6 @@ class ProjectConfiguration extends sfProjectConfiguration
 	$this->dispatcher->connect('bna_green_house.event_log', array('EventLog', 'save_log_message'));
     $this->enablePlugins('ahDoctrineEasyEmbeddedRelationsPlugin');
 	$this->enablePlugins('sfEasyGMapPlugin');
+    $this->enablePlugins('sfThumbnailPlugin');
   }
 }
