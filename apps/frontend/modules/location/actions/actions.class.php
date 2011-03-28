@@ -24,7 +24,7 @@ class locationActions extends MyActions
 			$this->googleMap->addMarker(new GMapMarker($coordinates['latitude'], $coordinates['longitude']));
 		}
 		else {
-			$this->googleMap->addMarker(new GMapMarker(sfConfig::get('app_default_latitude'),sfConfig::get('app_default_longitude')));
+			$this->googleMap->addMarker(new GMapMarker(sfConfig::get('app_default_latitude'), sfConfig::get('app_default_longitude')));
 		}
 		// $this->googleMap->centerAndZoomOnMarkers();
 		$this->googleMap->centerOnMarkers();
