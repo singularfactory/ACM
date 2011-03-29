@@ -2,7 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>All samples</span>
-<div id="index_new_action">
+<div id="main_header_action_new" class="main_header_action">
 	<?php echo link_to('Add a new sample', 'sample/new') ?>
 </div>
 <?php end_slot() ?>
