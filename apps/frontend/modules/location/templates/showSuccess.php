@@ -31,7 +31,12 @@
 	</div>
 	
 	<div id="object_picture_list">
-		<h2>Pictures</h2>
+		<?php foreach ($location->getPictures() as $picture): ?>
+		<div class="thumbnail">
+			
+		</div>
+		<?php endforeach; ?>
+		<p class="thumbnail_message">Click on an image to see it full size</p>
 	</div>
 
 	<div class="clear"></div>
