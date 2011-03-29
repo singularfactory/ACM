@@ -5,6 +5,7 @@ all:
     thumbnails_directory:         /thumbnails
     map_pictures_directory:       /images/maps
     max_picture_size:             5242880
+    max_picture_dimensions:       2097152
     max_location_pictures:        5
     max_list_items:               20
     no_data_message:              no data

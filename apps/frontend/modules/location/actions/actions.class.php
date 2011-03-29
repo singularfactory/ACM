@@ -92,17 +92,22 @@ class locationActions extends MyActions
 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
 		
 		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_location_pictures') ) {
-			$location = $form->save();
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
-			
-			if ($request->hasParameter('_save_and_add')) {
+			try {
+				$location = $form->save();
 				
-				$this->getUser()->setFlash('notice', $notice.' You can add another one below.');
-				$this->redirect('@location_new');
-			}
-			else {
-				$this->getUser()->setFlash('notice', 'Changes saved');
-				$this->redirect('@location');
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
+
+				if ($request->hasParameter('_save_and_add')) {
+
+					$this->getUser()->setFlash('notice', 'You can add another one below.');
+					$this->redirect('@location_new');
+				}
+				else {
+					$this->getUser()->setFlash('notice', 'Changes saved');
+					$this->redirect('@location');
+				}
+			} catch (Exception $e) {
+				$this->getUser()->setFlash('notice', $e->getMessage());
 			}
 		}
 	}

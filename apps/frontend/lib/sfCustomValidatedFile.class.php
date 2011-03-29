@@ -2,16 +2,27 @@
 class sfCustomValidatedFile extends sfValidatedFile {
 
 	public function save($file = null, $fileMode = 0666, $create = true, $dirMode = 0777) {
-		// let the parent class save the file and do what it normally does
-		$saved = parent::save($file, $fileMode, $create, $dirMode);
-
-		/* Here we will put all our custom logic. Say, to create a thumbnail,
-		or maybe manipulate it in whatever way you see fit.
-		There are many possibilities here, so see the extended
-		class sfValidatedFile in the Symfony 1.4 API Documentation
-		to get a better idea about what you can manipulate and extend */
+		// Let the parent class save the file and do what it normally does
+		$filename = parent::save($file, $fileMode, $create, $dirMode);
 		
-		// return the saved file as normal
-		return $saved;
+		if ( $this->isSaved() ) {
+			$path = $this->getPath();
+
+			// Check image dimensions
+			$size = getimagesize($path."/$filename");
+			$dimension = $size[0]*$size[1];
+			if ( $dimension >= sfConfig::get('app_max_picture_dimensions') ) {
+				throw new Exception(sprintf('Image dimensions are out of limits (%s bytes)', $dimension));
+			}
+			else {
+				// Create the thumbnail
+				$thumbnail = new sfThumbnail(150, 150, true, false);
+				$thumbnail->loadFile($path."/$filename");
+				$thumbnail->save($path.sfConfig::get('app_thumbnails_directory').'/'.$filename, $this->getType());
+			}
+		}
+		
+		// Return the saved file as normal
+		return $filename;
 	}
 }
