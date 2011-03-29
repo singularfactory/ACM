@@ -31,9 +31,16 @@
 	</div>
 	
 	<div id="object_picture_list">
-		<?php foreach ($location->getPictures() as $picture): ?>
-		<div class="thumbnail">
+		<script type="text/javascript" charset="utf-8">
 			
+		</script>
+		<?php $i = 1 ?>
+		<?php foreach ($location->getPictures() as $picture): ?>
+		<?php $imageLink = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
+		<div class="thumbnail">
+			<a href="<?php echo $imageLink ?>" rel="thumbnail_link">
+				<img src="<?php echo $imageLink ?>" alt="Picture <?php echo $i++ ?>" />
+			</a>
 		</div>
 		<?php endforeach; ?>
 		<p class="thumbnail_message">Click on an image to see it full size</p>

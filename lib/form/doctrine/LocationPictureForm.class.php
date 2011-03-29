@@ -25,7 +25,7 @@ class LocationPictureForm extends BaseLocationPictureForm
 	$this->setValidator('filename', new sfValidatorFile(array(
 		'max_size' => sfConfig::get('app_max_picture_size'),
 		'mime_types' => 'web_images',
-		'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_directory'),
+		'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'),
 		'validated_file_class' => 'sfCustomValidatedFile',
 		'required' => false,
 	)));

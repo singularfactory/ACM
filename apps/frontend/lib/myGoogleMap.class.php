@@ -31,7 +31,7 @@ class MyGoogleMap extends GMap {
 		$marker = new GMapMarker(
 			sfConfig::get('app_default_latitude'),
 			sfConfig::get('app_default_longitude'),
-			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_directory').'/bea.png', array('width' => 18, 'height' => 25))));
+			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_dir').'/bea.png', array('width' => 18, 'height' => 25))));
 
 	    $marker->addHtmlInfoWindow($this->buildMarkerWindow(array(
 	    	'title' => 'Banco Español de Algas',
@@ -46,7 +46,7 @@ class MyGoogleMap extends GMap {
 		$marker = new GMapMarker(
 			$latitude,
 			$longitude,
-			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_directory').'/location.png', array('width' => 18, 'height' => 25))));
+			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_dir').'/location.png', array('width' => 18, 'height' => 25))));
 
 		$marker->addHtmlInfoWindow($this->buildMarkerWindow($window_options));
 		return $marker;
@@ -59,7 +59,7 @@ class MyGoogleMap extends GMap {
 		$marker = new GMapMarker(
 			$geocodedAddress->getLat(),
 			$geocodedAddress->getLng(),
-			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_directory').'/location.png', array('width' => 18, 'height' => 25))));
+			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_dir').'/location.png', array('width' => 18, 'height' => 25))));
 		
 		if ( array_key_exists('notes', $window_options) && !empty($window_options['notes']) ) {
 			$window_options['notes'] .= '<br />This location is <strong>not accurate</strong>. GPS coordinates were estimated from available information';

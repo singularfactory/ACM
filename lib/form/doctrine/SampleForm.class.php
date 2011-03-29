@@ -34,11 +34,11 @@ class SampleForm extends BaseSampleForm
 		
 		// Replace default input elements by file input
 		$this->setWidget('field_picture', new sfWidgetFormInputFile());
-		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
+		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
 		$this->setWidget('detailed_picture', new sfWidgetFormInputFile());
-		$this->setValidator('detailed_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
+		$this->setValidator('detailed_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
 		$this->setWidget('microscopic_picture', new sfWidgetFormInputFile());
-		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_directory'), 'required' => false)));
+		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');

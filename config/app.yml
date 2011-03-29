@@ -1,23 +1,35 @@
 all:
   .general:
-    sample_pictures_directory:    /sample_pictures
-    location_pictures_directory:  /location_pictures
-    thumbnails_directory:         /thumbnails
-    map_pictures_directory:       /images/maps
-    max_picture_size:             5242880
-    max_picture_dimensions:       2097152
-    max_location_pictures:        5
-    max_list_items:               20
-    no_data_message:              no data
-    temperature_unit:             ºC
-    altitude_unit:                m
-    default_latitude:             27.991232
-    default_longitude:            -15.368787
+    # Sample related constants
+    sample_pictures_dir:  /sample_pictures
+    temperature_unit:     ºC
+    altitude_unit:        m
+    
+    # Location related constants
+    location_pictures_dir:  /location_pictures
+    max_location_pictures:  5
+    
+    # Pictures and thumbnails management constants
+    pictures_dir:           /uploads
+    thumbnails_dir:         /thumbnails
+    max_picture_size:       5242880
+    max_picture_dimensions: 2097152
+    max_thumbnail_size:     150
+    
+    # Common constants
+    max_list_items:   20
+    no_data_message:  no data
+    
+    # Google Maps API management constants
+    map_pictures_dir:   /images/maps
+    default_latitude:   27.991232
+    default_longitude:  -15.368787
+    
   sf_guard_plugin:
     routes_register:        true
     allow_login_with_email: false
     success_signout_url:    /login
   google:
     maps_api_keys:
-      bna.es: ABQIAAAAnfs7bKE82qgb3Zc2YyS-oBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxSySz_REpPq-4WZA27OwgbtyR3VcA
-      marinebiotechnology.org: ABQIAAAA7TbcaKTnh_hjjGDvnknQPhSthKBdDxmLzOzI0fHMyeiqcd14nBQ4PGf_DYgy4M__dXQzKYkA3MDFEQ
+      bna.es:                   ABQIAAAAnfs7bKE82qgb3Zc2YyS-oBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxSySz_REpPq-4WZA27OwgbtyR3VcA
+      marinebiotechnology.org:  ABQIAAAA7TbcaKTnh_hjjGDvnknQPhSthKBdDxmLzOzI0fHMyeiqcd14nBQ4PGf_DYgy4M__dXQzKYkA3MDFEQ
