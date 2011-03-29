@@ -1,2 +1,3 @@
 showSuccess:
-  javascripts:  [colorbox.js]
+  javascripts:  [colorbox.js, thumbnails.js]
+  stylesheets:  [colorbox.css]

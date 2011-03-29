@@ -36,10 +36,11 @@
 		</script>
 		<?php $i = 1 ?>
 		<?php foreach ($location->getPictures() as $picture): ?>
-		<?php $imageLink = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
+		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture->getFilename() ?>
+		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">
-			<a href="<?php echo $imageLink ?>" rel="thumbnail_link">
-				<img src="<?php echo $imageLink ?>" alt="Picture <?php echo $i++ ?>" />
+			<a href="<?php echo $image ?>" rel="thumbnail_link">
+				<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i++ ?>" />
 			</a>
 		</div>
 		<?php endforeach; ?>
