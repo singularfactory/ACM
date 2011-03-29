@@ -31,7 +31,6 @@ a:hover {
 img { border: none; }
 
 p { font-size: 12px; line-height: 16px; }
-p.thumbnail_message { font-size: 10px; color: #999; }
 
 h1 {
 	font-family: "Lucida Grande", arial, sans-serif;
@@ -258,9 +257,10 @@ div.javascript_disabled_notification p {
 
 #main_view { margin-bottom: 24px; }
 #main_view_show {  }
-#object_data_list { float:left; margin-left: 13px; padding-bottom: 13px; }
-#object_google_map { float: right; padding-right: 21px; }
+#object_data_list { float:left; margin-left: 13px; margin-bottom: 31px; }
+#object_google_map { float: right; margin-right: 21px; }
 #object_picture_list { float: left; clear: left; margin-left: 13px; }
+.thumbnail { display: inline; }
 
 
 /**
