@@ -36,11 +36,13 @@
 		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture->getFilename() ?>
 		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">
-			<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-				<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
-			</a>
+			<p class="thumbnail_caption"><?php echo "Picture $i" ?></p>
+			<div id="thumbnail_image">
+				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				</a>
+			</div>
 		</div>
-		<?php if ( $i == 3 ) echo '<br />' ?>
 		<?php $i++ ?>
 		<?php endforeach; ?>
 	</div>
