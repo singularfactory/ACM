@@ -56,9 +56,27 @@ class SampleForm extends BaseSampleForm
 		)));
 		
 		// Configure picture validators
-		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
-		$this->setValidator('detailed_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
-		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
+		$this->setValidator('field_picture', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_picture_size'),
+			'mime_types' => 'web_images',
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'),
+			'validated_file_class' => 'sfCustomValidatedFile',
+			'required' => false,
+		)));
+		$this->setValidator('detailed_picture', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_picture_size'),
+			'mime_types' => 'web_images',
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'),
+			'validated_file_class' => 'sfCustomValidatedFile',
+			'required' => false,
+		)));
+		$this->setValidator('microscopic_picture', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_picture_size'),
+			'mime_types' => 'web_images',
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'),
+			'validated_file_class' => 'sfCustomValidatedFile',
+			'required' => false,
+		)));
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
