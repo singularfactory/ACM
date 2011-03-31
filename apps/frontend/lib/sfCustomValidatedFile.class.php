@@ -8,18 +8,14 @@ class sfCustomValidatedFile extends sfValidatedFile {
 		if ( $this->isSaved() ) {
 			$path = $this->getPath();
 
-			// Check image dimensions
-			$size = getimagesize($path."/$filename");
-			$dimension = $size[0]*$size[1];
-			if ( $dimension >= sfConfig::get('app_max_picture_dimensions') ) {
-				throw new Exception(sprintf('Image dimensions are out of limits (%s bytes)', $dimension));
-			}
-			else {
-				// Create the thumbnail
-				$thumbnail = new sfThumbnail(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true, true, 75, 'sfImageMagickAdapter');
-				$thumbnail->loadFile($path."/$filename");
-				$thumbnail->save($path.sfConfig::get('app_thumbnails_dir').'/'.$filename, $this->getType());
-			}
+			// Add support for alternative installation of ImageMagick binaries
+			$PATH=getenv('PATH');
+			putenv("PATH=$PATH:/opt/local/bin");
+				
+			// Create the thumbnail
+			$thumbnail = new sfThumbnail(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true, true, 75, 'sfImageMagickAdapter');
+			$thumbnail->loadFile($path."/$filename");
+			$thumbnail->save($path.sfConfig::get('app_thumbnails_dir').'/'.$filename, $this->getType());
 		}
 		
 		// Return the saved file as normal
