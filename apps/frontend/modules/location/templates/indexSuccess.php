@@ -20,7 +20,7 @@
 
 		<?php foreach ($pager->getResults() as $location): ?>
 		<tr>
-			<?php $url = url_for('@location_show?id='.$location->getId()) ?>			
+			<?php $url = url_for('@location_show?id='.$location->getId()) ?>
 			<td class="location_name"><?php echo link_to($location->getName(), $url) ?></td>
 			<td class="country_name"><?php echo link_to($location->getCountry()->getName(), $url) ?></td>
 			<td class="region_name"><?php echo link_to($location->getRegion()->getName(), $url) ?></td>
