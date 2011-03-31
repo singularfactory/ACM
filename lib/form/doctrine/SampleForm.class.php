@@ -32,12 +32,32 @@ class SampleForm extends BaseSampleForm
 			'add_empty' => false)
 		));
 		
-		// Replace default input elements by file input
-		$this->setWidget('field_picture', new sfWidgetFormInputFile());
+		// Configure picture widgets
+		$this->setWidget('field_picture', new sfWidgetFormInputFileEditable(array(
+			'file_src' => '',
+			'edit_mode' => !$this->isNew(),
+			'is_image' => true,
+			'delete_label' => 'delete',
+			'template'  => '%input% <span>%delete% %delete_label%</span>',
+		)));
+		$this->setWidget('detailed_picture', new sfWidgetFormInputFileEditable(array(
+			'file_src' => '',
+			'edit_mode' => !$this->isNew(),
+			'is_image' => true,
+			'delete_label' => 'delete',
+			'template'  => '%input% <span>%delete% %delete_label%</span>',
+		)));
+		$this->setWidget('microscopic_picture', new sfWidgetFormInputFileEditable(array(
+			'file_src' => '',
+			'edit_mode' => !$this->isNew(),
+			'is_image' => true,
+			'delete_label' => 'delete',
+			'template'  => '%input% <span>%delete% %delete_label%</span>',
+		)));
+		
+		// Configure picture validators
 		$this->setValidator('field_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
-		$this->setWidget('detailed_picture', new sfWidgetFormInputFile());
 		$this->setValidator('detailed_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
-		$this->setWidget('microscopic_picture', new sfWidgetFormInputFile());
 		$this->setValidator('microscopic_picture', new sfValidatorFile(array('path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'), 'required' => false)));
 		
 		// Configure help messages
