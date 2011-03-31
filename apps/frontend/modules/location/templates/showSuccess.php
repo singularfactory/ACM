@@ -31,9 +31,6 @@
 	</div>
 	
 	<div id="object_picture_list">
-		<script type="text/javascript" charset="utf-8">
-			
-		</script>
 		<?php $i = 1 ?>
 		<?php foreach ($location->getPictures() as $picture): ?>
 		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture->getFilename() ?>

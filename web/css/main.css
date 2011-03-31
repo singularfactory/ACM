@@ -242,25 +242,24 @@ div.javascript_disabled_notification p {
 #main_header #main_header_action_new a:link,
 #main_header #main_header_action_new a:visited,
 #main_header #main_header_action_new a:hover {
-	background: /*#d5d5d5*/ url(../images/new.png) no-repeat 0 center;
+	background: url(../images/new.png) no-repeat 0 center;
 }
 #main_header #main_header_action_edit a:link,
 #main_header #main_header_action_edit a:visited,
 #main_header #main_header_action_edit a:hover {
-	background: /*#d5d5d5*/ url(../images/edit.png) no-repeat 0 center;
+	background: url(../images/edit.png) no-repeat 0 center;
 }
 #main_header #main_header_action_back a:link,
 #main_header #main_header_action_back a:visited,
 #main_header #main_header_action_back a:hover {
-	background: /*#d5d5d5*/ url(../images/list.png) no-repeat 0 center;
+	background: url(../images/list.png) no-repeat 0 center;
 }
 
 #main_view { margin-bottom: 24px; }
 #main_view_show {  }
-#object_data_list { float:left; margin-left: 13px; margin-bottom: 31px; }
+#object_data_list { float:left; margin-left: 13px; margin-bottom: 24px; }
 #object_google_map { float: right; margin-right: 21px; }
 #object_picture_list { float: left; clear: left; margin-left: 13px; }
-.thumbnail { display: inline; }
 
 
 /**

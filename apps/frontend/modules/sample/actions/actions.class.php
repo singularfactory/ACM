@@ -14,20 +14,36 @@ class sampleActions extends MyActions
 		$this->pager = $this->buildPagination($request, 'Sample', 'id');
 	}
 
-	public function executeShow(sfWebRequest $request)
-	{
+	public function executeShow(sfWebRequest $request) {
 		$this->sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id')));
+		
+		// Configure a Google Map to show the location
+		$this->googleMap = new MyGoogleMap();
+		$coordinates = $this->sample->getGPSCoordinates();
+		$location = $this->sample->getLocation();
+		$information = array(
+			'title' => $location->getName(),
+			'description' => "{$location->getName()}, {$location->getRegion()->getName()}, {$location->getIsland()->getName()}",
+			'notes' => $this->sample->getRemarks());
+		if ( $coordinates['latitude'] && $coordinates['longitude'] ) {
+			$marker = $this->googleMap->getMarkerFromCoordinates($coordinates['latitude'], $coordinates['longitude'], $information);
+		}
+		else {
+			$marker = $this->googleMap->getMarkerFromAddress("{$information['description']}, {$location->getCountry()->getName()}", $information);
+		}
+		$this->googleMap->addMarker($marker);
+		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
+		$this->googleMap->centerAndZoomOnMarkers(1);
+		
 		$this->forward404Unless($this->sample);
 	}
 
-	public function executeNew(sfWebRequest $request)
-	{
+	public function executeNew(sfWebRequest $request) {
 		$this->form = new SampleForm();
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 	}
 
-	public function executeCreate(sfWebRequest $request)
-	{
+	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$this->form = new SampleForm();
@@ -38,14 +54,12 @@ class sampleActions extends MyActions
 		$this->setTemplate('new');
 	}
 
-	public function executeEdit(sfWebRequest $request)
-	{
+	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
 		$this->form = new SampleForm($sample);
 	}
 
-	public function executeUpdate(sfWebRequest $request)
-	{
+	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
 		$this->form = new SampleForm($sample);
@@ -55,8 +69,7 @@ class sampleActions extends MyActions
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request)
-	{
+	public function executeDelete(sfWebRequest $request) {
 		$request->checkCSRFProtection();
 
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
