@@ -259,7 +259,7 @@ div.javascript_disabled_notification p {
 #main_view_show { }
 #object_data_list { float:left; margin-left: 13px; margin-bottom: 24px; }
 #object_google_map { float: right; margin-right: 21px; }
-#object_picture_list { float: left; margin-left: 13px; width: 750px; }
+#object_picture_list { float: left; margin-left: 13px; width: 60%; }
 
 
 /**
