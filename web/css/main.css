@@ -106,6 +106,48 @@ div.javascript_disabled_notification p {
   line-height: 140%;
 }
 
+/**
+/* jQUERY FLASH PLUGIN
+*/
+#flash { width: 100%; text-align: center; position: fixed; bottom: 0; display: none; }
+#flash_box{
+	position: relative;
+	display: inline-block;
+	z-index: 5500;
+	
+	width: 915px;
+	padding: 19px 20px;
+	margin: 0;
+	
+	cursor:pointer;
+	
+	border:none;
+	background-color: #000000;
+	color: #ffffff;
+	
+	font-size: 14px;
+	text-align:center;
+	
+	filter:alpha(opacity=280);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+	border-radius: 40px 40px 0 0;
+	-moz-border-radius: 40px 40px 0 0;
+	-webkit-border-top-left-radius: 40px;
+	-webkit-border-top-right-radius: 40px;
+}
+#flash div.flash_close{
+	top:-6px;
+	right:-6px;
+	position:absolute;
+	height:30px;
+	width:30px;
+	background: url('/images/dialog_close.png') top left no-repeat;
+	cursor:pointer;
+	z-index: 181;
+}
+
 
 /**
 * HEADER

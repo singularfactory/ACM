@@ -84,6 +84,23 @@
 
 		<div id="footer"></div>
 		
+		<?php if ( $sf_user->hasFlash('notice') || $sf_user->hasFlash('error') ): ?>
+		<div id="flash">
+			<div id="flash_box">
+				<div class="flash_close"></div>
+				<div class="flash_inner">
+					<?php if ($sf_user->hasFlash('notice')): ?>
+					<?php echo $sf_user->getFlash('notice') ?>
+					<?php endif ?>
+
+					<?php if ($sf_user->hasFlash('error')): ?>
+					<?php echo $sf_user->getFlash('error') ?>
+					<?php endif ?>
+				</div>
+			</div>
+		</div>
+		<?php endif ?>
+		
 		<?php include_javascripts() ?>
 	</body>
 </html>
