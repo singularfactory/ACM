@@ -33,6 +33,7 @@
 	<div id="object_picture_list">
 		<?php $i = 1 ?>
 		<?php foreach ($location->getPictures() as $picture): ?>
+		<?php if ( $picture->getFilename() === null ) continue ?>
 		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture->getFilename() ?>
 		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">

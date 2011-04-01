@@ -53,6 +53,7 @@
 	<div id="object_picture_list">
 		<?php $pictureAccessorMethods = array('getMicroscopicPicture', 'getDetailedPicture', 'getFieldPicture') ?>
 		<?php foreach ($pictureAccessorMethods as $accessorMethod): ?>
+			<?php if ( $sample->$accessorMethod() === null ) continue ?>
 			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$sample->$accessorMethod() ?>
 			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$sample->$accessorMethod() ?>
 			<?php $caption = preg_replace('/^get(.+)Picture$/', "$1 picture", $accessorMethod) ?>
