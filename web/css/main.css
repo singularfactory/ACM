@@ -30,7 +30,7 @@ a:hover {
 
 img { border: none; }
 
-p { font-size: 12px; line-height: 16px; }
+p { font-size: 12px; line-height: 16px; padding: 3px 13px; }
 
 h1 {
 	font-family: "Lucida Grande", arial, sans-serif;
