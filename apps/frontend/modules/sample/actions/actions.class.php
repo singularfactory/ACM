@@ -76,24 +76,43 @@ class sampleActions extends MyActions
 		$sample->delete();
 
 		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->redirect('sample/index');
+		$this->getUser()->setFlash('notice', 'Location deleted successfully');
+		$this->redirect('@sample');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 
-		if ($form->isValid()) {
-			$sample = $form->save();
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $sample->getId())));
+		if ( $form->isValid() ) {
+			$flashMessage = null;
+			$url = null;
+			$isNew = $form->getObject()->isNew();
 			
-			if ($request->hasParameter('_save_and_add')) {
-				
-				$this->getUser()->setFlash('notice', $notice.' You can add another one below.');
-				$this->redirect('@sample_new');
+			// Save object
+			try {
+				$sample = $form->save();
+
+				if ( $request->hasParameter('_save_and_add') ) {
+					$message = 'Sample created successfully. Now you can add another one';
+					$url = '@sample_new';
+				}
+				elseif ( !$isNew ) {
+					$message = 'Changes saved';
+					$url = '@sample';
+				}
+				else {
+					$message = 'Sample created successfully';
+					$url = '@sample';
+				}				
 			}
-			else {
-				$this->getUser()->setFlash('notice', 'Changes saved');
-				$this->redirect('@sample');
+			catch (Exception $e) {
+				$message = $e->getMessage();
+			}
+			
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $sample->getId())));
+			$this->getUser()->setFlash('notice', $message);
+			if ( $url !== null ) {
+				$this->redirect($url);
 			}
 		}
 	}
