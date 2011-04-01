@@ -73,7 +73,8 @@ class locationActions extends MyActions
 		$location->delete();
 
 		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->redirect('location/index');
+		$this->getUser()->setFlash('notice', 'Location deleted successfully');
+		$this->redirect('@location');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -91,23 +92,36 @@ class locationActions extends MyActions
 		}
 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
 		
+		// Validate form
 		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_location_pictures') ) {
+			$flashMessage = null;
+			$url = null;
+			$isNew = $form->getObject()->isNew();
+			
+			// Save object
 			try {
 				$location = $form->save();
-				
-				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
-
-				if ($request->hasParameter('_save_and_add')) {
-
-					$this->getUser()->setFlash('notice', 'You can add another one below.');
-					$this->redirect('@location_new');
+				if ( $request->hasParameter('_save_and_add') ) {
+					$message = 'Location created successfully. Now you can add another one';
+					$url = '@location_new';
+				}
+				elseif ( !$isNew ) {
+					$message = 'Changes saved';
+					$url = '@location';
 				}
 				else {
-					$this->getUser()->setFlash('notice', 'Changes saved');
-					$this->redirect('@location');
+					$message = 'Location created successfully';
+					$url = '@location';
 				}
-			} catch (Exception $e) {
-				$this->getUser()->setFlash('notice', $e->getMessage());
+			}
+			catch (Exception $e) {
+				$message = $e->getMessage();
+			}
+			
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
+			$this->getUser()->setFlash('notice', $message);
+			if ( $url !== null ) {
+				$this->redirect($url);
 			}
 		}
 	}
