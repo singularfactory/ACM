@@ -40,7 +40,7 @@ class EventLog
 					case 'province':
 					case 'radiation':
 					case 'region':
-						$description .= $form['name'];
+						$description .= self::$field_separator.$form['name'];
 						break;
 					case 'sample':
 						break;
