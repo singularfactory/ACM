@@ -38,19 +38,19 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^(sample(\/_)?|homepage)/', $currentRoute) )
-							echo link_to('Samples', '@sample');
+						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
+							echo link_to('Locations', '@location');
 						else
-							echo link_to('Samples', '@sample', array('class' => 'header_menu_current_tab'));
+							echo link_to('Locations', '@location', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
 					<li>
 						<?php
-						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
-							echo link_to('Locations', '@location');
+						if ( !preg_match('/^(sample(\/_)?|homepage)/', $currentRoute) )
+							echo link_to('Samples', '@sample');
 						else
-							echo link_to('Locations', '@location', array('class' => 'header_menu_current_tab'));
+							echo link_to('Samples', '@sample', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
