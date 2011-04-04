@@ -7,7 +7,6 @@ $(document).ready(function(){
 			$(this).prev().val('');
 			$(this).detach();
 		});
-	});
-	
+	});	
 	
 });

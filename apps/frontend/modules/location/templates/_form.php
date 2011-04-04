@@ -56,7 +56,8 @@
 			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
 			<div class="thumbnail">
 				<p class="thumbnail_caption">
-					<input type="checkbox" name="location[Pictures][<?php echo $i ?>][delete_object]" id="location_Pictures_<?php echo $i ?>_delete_object" class="delete_location_picture"/>
+					<input type="checkbox" name="location[Pictures][<?php echo $i ?>][delete_object]" id="location_Pictures_<?php echo $i ?>_delete_object" />
+					<input type="hidden" name="location[Pictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="location_Pictures_<?php echo $i ?>_filename" />
 					<input type="hidden" name="location[Pictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="location_Pictures_<?php echo $i ?>_id" />
 					 delete this
 				</p>
