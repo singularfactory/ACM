@@ -1,7 +1,7 @@
 form { clear: both; margin: 0px; padding: 0px; }
 
 form div { padding: 7px; }
-div.submit { border: 0; margin-top: 10px; }
+div.submit { border: 0; margin-top: 10px; clear: both; }
 div.checkbox label { display: inline; }
 div.radio label { margin: 0 0 6px 20px; }
 label { display: block; font-size: 13px; margin-bottom: 3px; color: black; font-weight: bold; }
@@ -47,6 +47,7 @@ input.application_name { width: 300px; }
 #detailed_picture input,
 #microscopic_picture input { display:block; padding: 5px; }
 
+#location_pictures { clear: both; }
 div.location_picture { margin: 0px; padding: 0px; }
 div.location_picture input { display: inline; margin-right: 0px; padding-right: 0px; }
 span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; }

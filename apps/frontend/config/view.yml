@@ -22,7 +22,7 @@ showSuccess:
   stylesheets:  [tables.css, colorbox.css]
   javascripts:  [colorbox.js, thumbnails.js]
 editSuccess:
-  stylesheets:  [forms.css]
+  stylesheets:  [forms.css, colorbox.css]
   javascripts:  [forms.js]
 newSuccess:
   stylesheets:  [forms.css]

@@ -46,7 +46,32 @@
 		<?php echo $form['remarks'] ?>
 	</div>
 	
-	<?php if ( $form->getObject()->isNew() || $form->getOption('max_location_pictures') > 0 ): ?>
+	<?php if ( !$form->getObject()->isNew() && $form->getOption('max_location_pictures') < 5 ): ?>
+	<div id="location_picture_list">
+			<?php echo $form['Pictures']->renderLabel('Actual pictures') ?>
+			<?php $i = 0 ?>
+			<?php foreach ($form['Pictures'] as $widget): ?>
+			<?php $picture = $widget->getValue() ?>
+			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture['filename'] ?>
+			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
+			<div class="thumbnail">
+				<p class="thumbnail_caption">
+					<input type="checkbox" name="location[Pictures][<?php echo $i ?>][delete_object]" id="location_Pictures_<?php echo $i ?>_delete_object" class="delete_location_picture"/>
+					<input type="hidden" name="location[Pictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="location_Pictures_<?php echo $i ?>_id" />
+					 delete this
+				</p>
+				<div id="thumbnail_image">
+					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+					</a>
+				</div>
+			</div>
+			<?php $i++ ?>
+			<?php endforeach; ?>
+		</div>
+	<?php endif ?>
+	
+	<?php if ( $form->getOption('max_location_pictures') > 0 ): ?>
 	<div id="location_pictures">
 		<?php echo $form['new_Pictures']->renderLabel() ?>
 		<?php echo $form['new_Pictures']->renderHelp() ?>
