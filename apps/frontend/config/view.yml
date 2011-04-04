@@ -23,7 +23,7 @@ showSuccess:
   javascripts:  [colorbox.js, thumbnails.js]
 editSuccess:
   stylesheets:  [forms.css, colorbox.css]
-  javascripts:  [forms.js]
+  javascripts:  [forms.js, colorbox.js, thumbnails.js]
 newSuccess:
   stylesheets:  [forms.css]
   javascripts:  [forms.js]
