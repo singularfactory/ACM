@@ -12,8 +12,7 @@ all:
     # Pictures and thumbnails management constants
     pictures_dir:           /uploads
     thumbnails_dir:         /thumbnails
-    max_picture_size:       5242880
-    max_picture_dimensions: 2097152
+    max_picture_size:       512000
     max_thumbnail_size:     150
     
     # Common constants

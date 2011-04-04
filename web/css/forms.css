@@ -29,7 +29,7 @@ input[type=submit] {
 input[type=submit]:hover { cursor: pointer; }
 input[type=checkbox] { clear: left; margin: 0px 6px 7px 2px; width: auto; }
 input[type=radio] { float:left; width:auto; margin: 0px 3px 7px 0px; }
-input[type=file] { min-width: 400px; }
+input[type=file] { width: auto; }
 
 
 p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -5px; padding: 0px; }
@@ -43,8 +43,11 @@ a.cancel_form_link:hover { color: white; background: #e32; margin: 0px; }
 input.application_code { width: 70px; }
 input.application_name { width: 300px; }
 
-
-#pictures input,
 #field_picture input,
 #detailed_picture input,
 #microscopic_picture input { display:block; padding: 5px; }
+
+div.location_picture { margin: 0px; padding: 0px; }
+div.location_picture input { display: inline; margin-right: 0px; padding-right: 0px; }
+span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; }
+span.reset_picture:hover { cursor: pointer; text-decoration: none; }

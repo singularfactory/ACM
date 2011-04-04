@@ -47,10 +47,12 @@
 	</div>
 	
 	<?php if ( $form->getObject()->isNew() || $form->getOption('max_location_pictures') > 0 ): ?>
-	<div id="pictures">
+	<div id="location_pictures">
 		<?php echo $form['new_Pictures']->renderLabel() ?>
 		<?php echo $form['new_Pictures']->renderHelp() ?>
-		<?php echo $form['new_Pictures'][0]['filename']->render() ?>
+		<div class="location_picture">
+			<?php echo $form['new_Pictures'][0]['filename']->render() ?>
+		</div>
 	</div>
 
 	<div id="pictures_add_relation">

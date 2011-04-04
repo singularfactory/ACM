@@ -19,8 +19,11 @@ default:
 indexSuccess:
   stylesheets:  [tables.css]
 showSuccess:
-  stylesheets:  [tables.css]
+  stylesheets:  [tables.css, colorbox.css]
+  javascripts:  [colorbox.js, thumbnails.js]
 editSuccess:
   stylesheets:  [forms.css]
+  javascripts:  [forms.js]
 newSuccess:
   stylesheets:  [forms.css]
+  javascripts:  [forms.js]
