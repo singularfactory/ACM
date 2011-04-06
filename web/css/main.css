@@ -77,6 +77,8 @@ dl dd {
 	vertical-align: top;
 	min-width: 600px;
 }
+dl dd:after { content: '\00a0'; }
+
 
 div.clear { clear: both; }
 
