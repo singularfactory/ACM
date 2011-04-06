@@ -110,7 +110,7 @@ class locationActions extends MyActions {
 				}
 				elseif ( !$isNew ) {
 					$message = 'Changes saved';
-					$url = '@location_edit?id='.$location->getId();
+					$url = '@location_show?id='.$location->getId();
 				}
 				else {
 					$message = 'Location created successfully';
