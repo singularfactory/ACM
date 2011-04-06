@@ -3,11 +3,15 @@
 <?php slot('main_header') ?>
 <span><?php echo $location->getName() ?></span>
 <div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Back to all locations', '@location?page='.$sf_user->getAttribute('location_index_page')) ?>
+	<?php echo link_to('Back to list', '@location?page='.$sf_user->getAttribute('location_index_page')) ?>
 </div>
 <div id="main_header_action_edit" class="main_header_action">
-	<?php echo link_to('Edit this location', '@location_edit?id='.$location->getId()) ?>
+	<?php echo link_to('Edit', '@location_edit?id='.$location->getId()) ?>
 </div>
+<div id="main_header_action_delete" class="main_header_action">
+	<?php echo link_to('Delete', '@location_delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure you want to delete this location?')) ?>
+</div>
+
 <?php end_slot() ?>
 
 <div id="main_view_show">

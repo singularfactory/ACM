@@ -77,7 +77,7 @@ class locationActions extends MyActions {
 
 		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
 		$this->getUser()->setFlash('notice', 'Location deleted successfully');
-		$this->redirect('@location');
+		$this->redirect('@location?page='.$this->getUser()->getAttribute('location_index_page'));
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {

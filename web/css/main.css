@@ -296,6 +296,12 @@ div.javascript_disabled_notification p {
 #main_header #main_header_action_back a:hover {
 	background: url(../images/list.png) no-repeat 0 center;
 }
+#main_header #main_header_action_delete a:link,
+#main_header #main_header_action_delete a:visited,
+#main_header #main_header_action_delete a:hover {
+	background: url(../images/delete.png) no-repeat 0 center;
+}
+
 
 #main_view { margin-bottom: 24px; }
 #main_view_show { }
