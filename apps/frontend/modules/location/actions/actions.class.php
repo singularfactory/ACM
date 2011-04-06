@@ -8,10 +8,13 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class locationActions extends MyActions
-{	
+class locationActions extends MyActions {	
+	
 	public function executeIndex(sfWebRequest $request) {
 		$this->pager = $this->buildPagination($request, 'Location');
+		
+		// Keep track of the last page used in list
+		$this->getUser()->setAttribute('location_index_page', $request->getParameter('page'));
 	}
 
 	public function executeShow(sfWebRequest $request) {
@@ -33,7 +36,7 @@ class locationActions extends MyActions
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
 		$this->googleMap->centerAndZoomOnMarkers(1);
-		
+				
 		$this->forward404Unless($this->location);
 	}
 

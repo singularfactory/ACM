@@ -3,7 +3,7 @@
 <?php slot('main_header') ?>
 <span><?php echo $location->getName() ?></span>
 <div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Back to all locations', '@location') ?>
+	<?php echo link_to('Back to all locations', '@location?page='.$sf_user->getAttribute('location_index_page')) ?>
 </div>
 <div id="main_header_action_edit" class="main_header_action">
 	<?php echo link_to('Edit this location', '@location_edit?id='.$location->getId()) ?>
