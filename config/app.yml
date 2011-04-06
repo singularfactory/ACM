@@ -16,7 +16,7 @@ all:
     max_thumbnail_size:     150
     
     # Common constants
-    max_list_items:   20
+    max_list_items:   15
     no_data_message:  no data
     
     # Google Maps API management constants
