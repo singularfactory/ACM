@@ -93,6 +93,6 @@
 		<?php else: ?>
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
-		or <?php echo link_to('cancel', 'location/index', array('class' => 'cancel_form_link')) ?>
+		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
 	</div>
 </form>
