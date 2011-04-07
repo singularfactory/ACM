@@ -1,4 +1,10 @@
+// Store default text in search boxes
+var search_box_hint = '';
+
 $(document).ready(function(){
+	// Store default text in search boxes
+	search_box_hint = $('#search_box_criteria').val();
+	
 	// Close flash message after a few seconds
 	setTimeout(function() { $('#flash').fadeOut('slow'); }, 7000);
 
@@ -13,8 +19,10 @@ $(document).ready(function(){
 	
 	// Append input value to link url when pressing the link in search boxes
 	$('#search_box a').click(function(){
-		var url = $(this).attr('href') + $(this).prev().val();
-		$(this).attr('href', url);
+		var criteria = $(this).prev().val();
+		if ( criteria != null && criteria != search_box_hint ) {
+			$(this).attr('href', $(this).attr('href') + criteria);
+		}
 	});
 	
 	// Append input value to link url and redirect when pressing Enter key in search boxes
