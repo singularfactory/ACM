@@ -1,10 +1,15 @@
-sample:
-  class:   sfDoctrineRouteCollection
-  options: { model: Sample }
-
 location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
+
+location_search:
+  url:          location/search/:criteria
+  param:        { module: location, action: index }
+  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+
+sample:
+  class:   sfDoctrineRouteCollection
+  options: { model: Sample }
 
 profile:
   class:   sfDoctrineRouteCollection

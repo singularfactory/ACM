@@ -304,6 +304,13 @@ div.javascript_disabled_notification p {
 	background: url(../images/delete.png) no-repeat 0 center;
 }
 
+#main_header #search_box { margin: -3px 0px 0px 5px; padding: 0px; }
+#main_header #search_box input { margin: 0px; padding: 3px; color: #888; width: 150px; }
+#main_header #search_box a:link,
+#main_header #search_box a:visited,
+#main_header #search_box a:hover { background: transparent; margin: 0px; padding: 0px; }
+#main_header #search_box img { margin: 0px; padding: 1px; width: 18px; height: 18px; vertical-align: middle; }
+
 
 #main_view { margin-bottom: 24px; }
 #main_view_show { }

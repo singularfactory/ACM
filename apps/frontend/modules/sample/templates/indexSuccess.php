@@ -11,11 +11,11 @@
 <table id="sample_list">
 	<tbody>
 		<tr>
-			<?php if ( $sortType === 'asc' ) $sortType = 'desc'; else $sortType = 'asc' ?>
-			<th><?php echo link_to('Number', 'sample/index?sort=id&sort_type='.$sortType) ?></th>
-			<th><?php echo link_to('Location', 'sample/index?sort=Location.name&sort_type='.$sortType) ?></th>
-			<th><?php echo link_to('Collector', 'sample/index?sort=Collector.name&sort_type='.$sortType) ?></th>
-			<th><?php echo link_to('Date', 'sample/index?sort=collection_date&sort_type='.$sortType) ?></th>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th><?php echo link_to('Number', 'sample/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Location', 'sample/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Collector', 'sample/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Date', 'sample/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
 

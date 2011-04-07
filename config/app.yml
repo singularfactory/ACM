@@ -16,8 +16,9 @@ all:
     max_thumbnail_size:     150
     
     # Common constants
-    max_list_items:   15
-    no_data_message:  no data
+    max_list_items:         15
+    no_data_message:        no data
+    default_sort_direction: asc
     
     # Google Maps API management constants
     map_pictures_dir:   /images/maps

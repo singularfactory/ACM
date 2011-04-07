@@ -1,7 +1,9 @@
 <?php slot('main_header') ?>
 <span>All locations</span>
+<?php include_partial('global/search_box_header_action', array('route' => '@location_search?criteria=')) ?>
+
 <div id="main_header_action_new" class="main_header_action">
-	<?php echo link_to('Add a new location', 'location/new') ?>
+	<?php echo link_to('Add a new location', '@location_new') ?>
 </div>
 <?php end_slot() ?>
 
@@ -9,11 +11,11 @@
 <table id="location_list">
 	<tbody>
 		<tr>
-			<?php if ( $sortType === 'asc' ) $sortType = 'desc'; else $sortType = 'asc' ?>
-			<th><?php echo link_to('Name', 'location/index?sort=name&sort_type='.$sortType) ?></th>
-			<th><?php echo link_to('Country', 'location/index?sort=Country.name&sort_type='.$sortType) ?></th>
-			<th><?php echo link_to('Region', 'location/index?sort=Region.name&sort_type='.$sortType) ?></th>
-			<th><?php echo link_to('Island', 'location/index?sort=Island.name&sort_type='.$sortType) ?></th>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th><?php echo link_to('Name', 'location/index?sort_column=name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Country', 'location/index?sort_column=Country.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Region', 'location/index?sort_column=Region.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Island', 'location/index?sort_column=Island.name&sort_direction='.$sortDirection) ?></th>
 			<th>Samples</th>
 			<th></th>
 		</tr>
@@ -28,10 +30,8 @@
 			<td class="object_count"><?php echo link_to($location->getNbSamples(), $url) ?></td>
 		
 			<td class="actions">
-				<a href="<?php echo $url ?>">
-					<?php echo link_to('Edit', 'location/edit?id='.$location->getId()) ?>
-					<?php echo link_to('Delete', 'location/delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-				</a>
+				<?php echo link_to('Edit', 'location/edit?id='.$location->getId()) ?>
+				<?php echo link_to('Delete', 'location/delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

@@ -11,7 +11,7 @@
 class sampleActions extends MyActions
 {
 	public function executeIndex(sfWebRequest $request) {
-		$this->pager = $this->buildPagination($request, 'Sample', 'id');
+		$this->pager = $this->buildPagination($request, 'Sample', array('sort_column' => 'id'));
 	}
 
 	public function executeShow(sfWebRequest $request) {

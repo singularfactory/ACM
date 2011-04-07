@@ -11,10 +11,27 @@
 class locationActions extends MyActions {	
 	
 	public function executeIndex(sfWebRequest $request) {
-		$this->pager = $this->buildPagination($request, 'Location');
+		if ( $text = $request->getParameter('criteria') ) {
+			// Initiate the pager with default parameters but delay pagination until search criteria has been added
+			$this->pager = $this->buildPagination($request, 'Location', array('init' => false));
+			
+			$query = $this->pager->getQuery()
+				->where('t.name LIKE ?', "%$text%")
+				->orWhere('t.remarks LIKE ?', "%$text%");
+			$this->pager->setQuery($query);
+			
+			$this->pager->init();
+		}
+		else {
+			// Initiate the pager with default parameters
+			$this->pager = $this->buildPagination($request, 'Location');
+		}
 		
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('location_index_page', $request->getParameter('page'));
+		
+		// Add a form to filter results
+		$this->form = new LocationForm();
 	}
 
 	public function executeShow(sfWebRequest $request) {
