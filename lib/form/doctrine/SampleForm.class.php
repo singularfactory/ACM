@@ -82,10 +82,10 @@ class SampleForm extends BaseSampleForm
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
 		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
-		$this->widgetSchema->setHelp('ph', 'Decimal value for PH (e.g. 38.2832)');
-		$this->widgetSchema->setHelp('conductivity', 'Decimal value for conductivity (e.g. 38.2832)');
-		$this->widgetSchema->setHelp('temperature', 'Integer value for temperature (e.g. 22)');
-		$this->widgetSchema->setHelp('salinity', 'Decimal value for salinity (e.g. 38.2832)');
+		$this->widgetSchema->setHelp('ph', 'Decimal value for pH (e.g. 7)');
+		$this->widgetSchema->setHelp('conductivity', 'Decimal value for conductivity (e.g 5.5 S/m)');
+		$this->widgetSchema->setHelp('temperature', 'Integer value for temperature (e.g 22 ºC)');
+		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		
 		// Remove <br /> tag after labels and set custom tag

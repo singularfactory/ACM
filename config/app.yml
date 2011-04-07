@@ -3,6 +3,8 @@ all:
     # Sample related constants
     sample_pictures_dir:  /sample_pictures
     temperature_unit:     ºC
+    conductivity_unit:    S/m
+    salinity_unit:        ppm
     altitude_unit:        m
     
     # Location related constants
