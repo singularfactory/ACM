@@ -11,6 +11,11 @@ sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }
 
+sample_search:
+  url:          sample/search/:criteria
+  param:        { module: sample, action: index }
+  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+
 profile:
   class:   sfDoctrineRouteCollection
   options: { model: sfGuardUser }

@@ -11,10 +11,26 @@
 class sampleActions extends MyActions
 {
 	public function executeIndex(sfWebRequest $request) {
-		$this->pager = $this->buildPagination($request, 'Sample', array('sort_column' => 'id'));
+		if ( $text = $request->getParameter('criteria') ) {
+			// Initiate the pager with default parameters but delay pagination until search criteria has been added
+			$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
+			
+			$query = $this->pager->getQuery()
+				->where('t.remarks LIKE ?', "%$text%");
+			$this->pager->setQuery($query);
+			
+			$this->pager->init();
+		}
+		else {
+			// Initiate the pager with default parameters
+			$this->pager = $this->buildPagination($request, 'Sample', array('sort_column' => 'id'));
+		}
 		
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('sample.index_page', $request->getParameter('page'));
+		
+		// Add a form to filter results
+		$this->form = new SampleForm();
 	}
 
 	public function executeShow(sfWebRequest $request) {

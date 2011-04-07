@@ -2,6 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>All samples</span>
+<?php include_partial('global/search_box_header_action', array('route' => '@sample_search?criteria=')) ?>
 <?php include_partial('global/new_header_action', array('message' => 'Add a new sample', 'route' => '@sample_new')) ?>
 <?php end_slot() ?>
 
