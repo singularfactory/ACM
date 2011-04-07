@@ -62,12 +62,12 @@ class MyActions extends sfActions {
 		else {
 			$this->sortDirection = $this->paginationOptions['sort_direction'];
 		}
-		
+
 		// Set sort columns
 		$query = Doctrine::getTable($table)->createQuery($this->mainAlias);
 		if ( $sort_column = $request->getParameter('sort_column') ) {
-			if ( preg_match('/^\w+\.\w+$/', $sort) ) {
-				list($relatedTable, $relatedColumn) = explode('.', $sort);
+			if ( preg_match('/^\w+\.\w+$/', $sort_column) ) {
+				list($relatedTable, $relatedColumn) = explode('.', $sort_column);
 				$pager->setQuery($query->leftJoin("{$this->mainAlias}.$relatedTable {$this->relatedAlias}")->orderBy("{$this->relatedAlias}.$relatedColumn ".$this->sortDirection));
 			}
 			else {

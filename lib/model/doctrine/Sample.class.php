@@ -13,9 +13,11 @@
 class Sample extends BaseSample {
 	public function getNumber() {
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
-		$countryCode = $this->getLocation()->getCountry()->getCode();
-		$regionCode = str_pad($this->getLocation()->getRegion()->getCode(), 3, '_', STR_PAD_LEFT);
-		$islandCode = $this->getLocation()->getIsland()->getCode();
+		
+		$location = $this->getLocation();
+		$countryCode = $location->getCountry()->getCode();
+		$regionCode = str_pad($location->getRegion()->getCode(), 3, '_', STR_PAD_LEFT);
+		$islandCode = $location->getIsland()->getCode();
 		if ( empty($islandCode) )
 			$islandCode = '00';
 		$dateCode = date('ymd', strtotime($this->getCollectionDate()));

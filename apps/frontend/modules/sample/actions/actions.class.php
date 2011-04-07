@@ -11,10 +11,11 @@
 class sampleActions extends MyActions
 {
 	public function executeIndex(sfWebRequest $request) {
+		// Initiate the pager with default parameters but delay pagination until search criteria has been added
+		$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
+		
+		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
-			// Initiate the pager with default parameters but delay pagination until search criteria has been added
-			$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
-			
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Location l")
 				->leftJoin("{$this->mainAlias()}.Environment e")
@@ -29,14 +30,14 @@ class sampleActions extends MyActions
 				->orWhere('r.name LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('c.surname LIKE ?', "%$text%");
-			$this->pager->setQuery($query);
-			
-			$this->pager->init();
 		}
 		else {
-			// Initiate the pager with default parameters
-			$this->pager = $this->buildPagination($request, 'Sample', array('sort_column' => 'id'));
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Location l")
+				->leftJoin("{$this->mainAlias()}.Collector c");
 		}
+		$this->pager->setQuery($query);
+		$this->pager->init();
 		
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('sample.index_page', $request->getParameter('page'));

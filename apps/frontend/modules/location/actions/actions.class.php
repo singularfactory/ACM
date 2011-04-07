@@ -11,21 +11,27 @@
 class locationActions extends MyActions {	
 	
 	public function executeIndex(sfWebRequest $request) {
+		// Initiate the pager with default parameters but delay pagination until search criteria has been added
+		$this->pager = $this->buildPagination($request, 'Location', array('init' => false));
+		
+		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
-			// Initiate the pager with default parameters but delay pagination until search criteria has been added
-			$this->pager = $this->buildPagination($request, 'Location', array('init' => false));
-			
 			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Country c")
+				->leftJoin("{$this->mainAlias()}.Region r")
+				->leftJoin("{$this->mainAlias()}.Island i")
 				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%");
-			$this->pager->setQuery($query);
-			
-			$this->pager->init();
 		}
 		else {
-			// Initiate the pager with default parameters
-			$this->pager = $this->buildPagination($request, 'Location');
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Country c")
+				->leftJoin("{$this->mainAlias()}.Region r")
+				->leftJoin("{$this->mainAlias()}.Island i");
 		}
+		
+		$this->pager->setQuery($query);
+		$this->pager->init();
 		
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('location.index_page', $request->getParameter('page'));
