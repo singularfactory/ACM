@@ -71,7 +71,31 @@ class sampleActions extends MyActions
 	}
 
 	public function executeNew(sfWebRequest $request) {
-		$this->form = new SampleForm();
+		if ( $lastSample = $this->getUser()->getAttribute('sample.last_object_created') ) {
+			$sample = new Sample();
+			$sample->setLocationId($lastSample->getLocationId());
+			$sample->setLatitude($lastSample->getLatitude());
+			$sample->setLongitude($lastSample->getLongitude());
+			$sample->setEnvironmentId($lastSample->getEnvironmentId());
+			$sample->setIsExtremophile($lastSample->getIsExtremophile());
+			$sample->setHabitatId($lastSample->getHabitatId());
+			$sample->setPh($lastSample->getPh());
+			$sample->setConductivity($lastSample->getConductivity());
+			$sample->setTemperature($lastSample->getTemperature());
+			$sample->setSalinity($lastSample->getSalinity());
+			$sample->setAltitude($lastSample->getAltitude());
+			$sample->setRadiationId($lastSample->getRadiationId());
+			$sample->setCollectorId($lastSample->getCollectorId());
+			$sample->setCollectionDate($lastSample->getCollectionDate());
+			$sample->setRemarks($lastSample->getRemarks());
+			
+			$this->form = new SampleForm($sample);
+			$this->getUser()->setAttribute('sample.last_object_created', null);
+		}
+		else {
+			$this->form = new SampleForm();
+		}
+		
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 	}
 
@@ -108,7 +132,7 @@ class sampleActions extends MyActions
 		$sample->delete();
 
 		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->getUser()->setFlash('notice', 'Location deleted successfully');
+		$this->getUser()->setFlash('notice', 'Sample deleted successfully');
 		$this->redirect('@sample?page='.$this->getUser()->getAttribute('sample.index_page'));
 	}
 
@@ -126,6 +150,9 @@ class sampleActions extends MyActions
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Sample created successfully. Now you can add another one';
 					$url = '@sample_new';
+					
+					// Reuse last object values
+					$this->getUser()->setAttribute('sample.last_object_created', $sample);
 				}
 				elseif ( !$isNew ) {
 					$message = 'Changes saved';
