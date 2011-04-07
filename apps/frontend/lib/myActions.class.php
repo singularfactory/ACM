@@ -20,6 +20,20 @@ class MyActions extends sfActions {
 		'init' => true,
 	);
 	
+	/**
+	 * mainAlias
+	 *
+	 * @var string
+	 */
+	protected $mainAlias = 'sf_main_alias';
+	
+	/**
+	 * relatedAlias
+	 *
+	 * @var string
+	 */
+	protected $relatedAlias = 'sf_related_alias';
+	
 	
 	/**
 	 * buildPagination
@@ -50,17 +64,18 @@ class MyActions extends sfActions {
 		}
 		
 		// Set sort columns
+		$query = Doctrine::getTable($table)->createQuery($this->mainAlias);
 		if ( $sort_column = $request->getParameter('sort_column') ) {
 			if ( preg_match('/^\w+\.\w+$/', $sort) ) {
 				list($relatedTable, $relatedColumn) = explode('.', $sort);
-				$pager->setQuery(Doctrine::getTable($table)->createQuery('t')->leftJoin("t.$relatedTable r")->orderBy("r.$relatedColumn ".$this->sortDirection).$filter);
+				$pager->setQuery($query->leftJoin("{$this->mainAlias}.$relatedTable {$this->relatedAlias}")->orderBy("{$this->relatedAlias}.$relatedColumn ".$this->sortDirection));
 			}
 			else {
-				$pager->setQuery(Doctrine::getTable($table)->createQuery('t')->orderBy("t.$sort_column ".$this->sortDirection));
+				$pager->setQuery($query->orderBy("{$this->mainAlias}.$sort_column ".$this->sortDirection));
 			}
 		}
 		else {
-			$pager->setQuery(Doctrine::getTable($table)->createQuery('t')->orderBy("t.{$this->paginationOptions['sort_column']} ".$this->sortDirection));
+			$pager->setQuery($query->orderBy("{$this->mainAlias}.{$this->paginationOptions['sort_column']} ".$this->sortDirection));
 		}
 		
 		$pager->setPage($request->getParameter('page', 1));
@@ -70,6 +85,26 @@ class MyActions extends sfActions {
 		}
 		
 		return $pager;
+	}
+	
+	/**
+	 * mainAlias
+	 *
+	 * @return string
+	 * @author Eliezer Talon
+	 */
+	protected function mainAlias() {
+		return $this->mainAlias;
+	}
+	
+	/**
+	 * relatedAlias
+	 *
+	 * @return string
+	 * @author Eliezer Talon
+	 */
+	protected function relatedAlias() {
+		return $this->relatedAlias;
 	}
 	
 }

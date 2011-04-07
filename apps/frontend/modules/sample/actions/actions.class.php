@@ -16,7 +16,19 @@ class sampleActions extends MyActions
 			$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
 			
 			$query = $this->pager->getQuery()
-				->where('t.remarks LIKE ?', "%$text%");
+				->leftJoin("{$this->mainAlias()}.Location l")
+				->leftJoin("{$this->mainAlias()}.Environment e")
+				->leftJoin("{$this->mainAlias()}.Habitat h")
+				->leftJoin("{$this->mainAlias()}.Radiation r")
+				->leftJoin("{$this->mainAlias()}.Collector c")
+				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
+				->orWhere('l.name LIKE ?', "%$text%")
+				->orWhere('e.name LIKE ?', "%$text%")
+				->orWhere('h.name LIKE ?', "%$text%")
+				->orWhere('r.name LIKE ?', "%$text%")
+				->orWhere('c.name LIKE ?', "%$text%")
+				->orWhere('c.surname LIKE ?', "%$text%");
 			$this->pager->setQuery($query);
 			
 			$this->pager->init();

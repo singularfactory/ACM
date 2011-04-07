@@ -16,8 +16,8 @@ class locationActions extends MyActions {
 			$this->pager = $this->buildPagination($request, 'Location', array('init' => false));
 			
 			$query = $this->pager->getQuery()
-				->where('t.name LIKE ?', "%$text%")
-				->orWhere('t.remarks LIKE ?', "%$text%");
+				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%");
 			$this->pager->setQuery($query);
 			
 			$this->pager->init();
