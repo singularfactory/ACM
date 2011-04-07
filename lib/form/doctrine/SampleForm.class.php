@@ -83,6 +83,9 @@ class SampleForm extends BaseSampleForm
 		)));
 		$this->setValidator('microscopic_picture_delete', new sfValidatorBoolean());
 		
+		// Configure labels
+		$this->widgetSchema->setLabel('ph', 'pH');
+		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
 		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
