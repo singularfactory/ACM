@@ -44,6 +44,11 @@
 	</div>
 	
 	<div id="right_side_form">
+		<div id="remarks">
+			<?php echo $form['remarks']->renderLabel() ?>
+			<?php echo $form['remarks'] ?>
+		</div>
+		
 		<?php if ( !$form->getObject()->isNew() && $form->getOption('max_location_pictures') < 5 ): ?>
 		<div id="location_picture_list">
 				<?php echo $form['Pictures']->renderLabel('Actual pictures') ?>
@@ -83,11 +88,6 @@
 			<?php echo $form['new_Pictures']['_']->render() ?>
 		</div>
 		<?php endif; ?>
-
-		<div id="remarks">
-			<?php echo $form['remarks']->renderLabel() ?>
-			<?php echo $form['remarks'] ?>
-		</div>
 	</div>
 	
 	<div class="submit">
