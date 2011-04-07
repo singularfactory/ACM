@@ -1,10 +1,7 @@
 <?php slot('main_header') ?>
 <span>All locations</span>
 <?php include_partial('global/search_box_header_action', array('route' => '@location_search?criteria=')) ?>
-
-<div id="main_header_action_new" class="main_header_action">
-	<?php echo link_to('Add a new location', '@location_new') ?>
-</div>
+<?php include_partial('global/new_header_action', array('message' => 'Add a new location', 'route' => '@location_new')) ?>
 <?php end_slot() ?>
 
 <?php if ( $pager->count() ): ?>

@@ -2,12 +2,9 @@
 
 <?php slot('main_header') ?>
 <span>Sample <?php echo $sample->getNumber() ?></span>
-<div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Back to all samples', '@sample') ?>
-</div>
-<div id="main_header_action_edit" class="main_header_action">
-	<?php echo link_to('Edit this sample', '@sample_edit?id='.$sample->getId()) ?>
-</div>
+<?php include_partial('global/back_header_action', array('module' => 'sample')) ?>
+<?php include_partial('global/edit_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
+<?php include_partial('global/delete_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
 <?php end_slot() ?>
 
 <div id="main_view_show">

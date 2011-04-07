@@ -28,7 +28,7 @@ class locationActions extends MyActions {
 		}
 		
 		// Keep track of the last page used in list
-		$this->getUser()->setAttribute('location_index_page', $request->getParameter('page'));
+		$this->getUser()->setAttribute('location.index_page', $request->getParameter('page'));
 		
 		// Add a form to filter results
 		$this->form = new LocationForm();
@@ -94,7 +94,7 @@ class locationActions extends MyActions {
 
 		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
 		$this->getUser()->setFlash('notice', 'Location deleted successfully');
-		$this->redirect('@location?page='.$this->getUser()->getAttribute('location_index_page'));
+		$this->redirect('@location?page='.$this->getUser()->getAttribute('location.index_page'));
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
