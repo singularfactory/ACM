@@ -40,9 +40,10 @@
         .cboxSlideshow_off #cboxSlideshow{background-position:-100px 0px; right:44px;}
         .cboxSlideshow_off #cboxSlideshow.hover{background-position:-75px -25px;}
 
-.thumbnail { float:left; margin: 0px 13px 13px 0px; height: 160px; width:160px; }
+.thumbnail { float:left; margin: 0px 13px 13px 0px; height: 160px; width:160px; padding-left: 0px; }
 .thumbnail_image { height: 150px; width:150px; }
 .thumbnail_caption { font-size: 11px; text-align: center; font-weight: bold; margin: 0px; padding: 0px; }
+.thumbnail_caption label { text-align: left; }
 .thumbnail_caption input[type="checkbox"] { margin: 0px; padding: 0px; }
 a.cboxElement:link,
 a.cboxElement:visited,

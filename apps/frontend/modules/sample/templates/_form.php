@@ -105,23 +105,57 @@
 			<?php echo $form['remarks'] ?>
 		</div>
 		
+		<?php $pictures = array() ?>
+		<?php if ( !$form['field_picture']->getValue() ): ?>
 		<div id="field_picture">
 			<?php echo $form['field_picture']->renderLabel() ?>
-			<?php echo $form['field_picture']->renderHelp() ?>
 			<?php echo $form['field_picture'] ?>
 		</div>
+		<?php else: ?>
+		<?php $pictures['field_picture'] = $form['field_picture']->getValue() ?>
+		<?php endif; ?>
 
+		<?php if ( !$form['detailed_picture']->getValue() ): ?>
 		<div id="detailed_picture">
 			<?php echo $form['detailed_picture']->renderLabel() ?>
-			<?php echo $form['detailed_picture']->renderHelp() ?>
 			<?php echo $form['detailed_picture'] ?>
 		</div>
+		<?php else: ?>
+		<?php $pictures['detailed_picture'] = $form['detailed_picture']->getValue() ?>
+		<?php endif; ?>
 
+		<?php if ( !$form['microscopic_picture']->getValue() ): ?>
 		<div id="microscopic_picture">
 			<?php echo $form['microscopic_picture']->renderLabel() ?>
-			<?php echo $form['microscopic_picture']->renderHelp() ?>
 			<?php echo $form['microscopic_picture'] ?>
 		</div>
+		<?php else: ?>
+		<?php $pictures['microscopic_picture'] = $form['microscopic_picture']->getValue() ?>
+		<?php endif; ?>
+		
+		<?php if ( !empty($pictures) ): ?>
+		<div id="sample_picture_list">
+			<?php foreach ($pictures as $picture => $filename): ?>
+				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$filename ?>
+				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$filename ?>
+				<div class="thumbnail">
+					<p class="thumbnail_caption">
+						<?php echo $form[$picture]->renderLabel() ?>
+						<input type="checkbox" name="sample[<?php echo $picture ?>_delete]" id="sample_<?php echo $picture ?>_delete" />
+						<input type="hidden" name="sample[<?php echo $picture ?>]" value="<?php echo $picture ?>" id="sample_<?php echo $picture ?>" />
+						 delete this
+					</p>
+					<div id="thumbnail_image">
+						<a href="<?php echo $image ?>" rel="thumbnail_link" title="<?php echo $picture ?>" class="cboxElement">
+							<img src="<?php echo $thumbnail ?>" alt="<?php echo $picture ?>" />
+						</a>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+		
+		
 	</div>
 	
 	<div class="submit">
@@ -131,6 +165,6 @@
 		<?php else: ?>
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
-		or <?php echo link_to('cancel', 'sample/index', array('class' => 'cancel_form_link')) ?>
+		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
 	</div>
 </form>

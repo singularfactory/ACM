@@ -35,21 +35,21 @@ class SampleForm extends BaseSampleForm
 		// Configure picture widgets
 		$this->setWidget('field_picture', new sfWidgetFormInputFileEditable(array(
 			'file_src' => '',
-			'edit_mode' => !$this->isNew(),
+			'edit_mode' => $this['field_picture']->getValue(),
 			'is_image' => true,
 			'delete_label' => 'delete',
 			'template'  => '%input% <span>%delete% %delete_label%</span>',
 		)));
 		$this->setWidget('detailed_picture', new sfWidgetFormInputFileEditable(array(
 			'file_src' => '',
-			'edit_mode' => !$this->isNew(),
+			'edit_mode' => $this['detailed_picture']->getValue(),
 			'is_image' => true,
 			'delete_label' => 'delete',
 			'template'  => '%input% <span>%delete% %delete_label%</span>',
 		)));
 		$this->setWidget('microscopic_picture', new sfWidgetFormInputFileEditable(array(
 			'file_src' => '',
-			'edit_mode' => !$this->isNew(),
+			'edit_mode' => $this['microscopic_picture']->getValue(),
 			'is_image' => true,
 			'delete_label' => 'delete',
 			'template'  => '%input% <span>%delete% %delete_label%</span>',
@@ -63,6 +63,8 @@ class SampleForm extends BaseSampleForm
 			'validated_file_class' => 'sfCustomValidatedFile',
 			'required' => false,
 		)));
+		$this->setValidator('field_picture_delete', new sfValidatorBoolean());
+		
 		$this->setValidator('detailed_picture', new sfValidatorFile(array(
 			'max_size' => sfConfig::get('app_max_picture_size'),
 			'mime_types' => 'web_images',
@@ -70,6 +72,8 @@ class SampleForm extends BaseSampleForm
 			'validated_file_class' => 'sfCustomValidatedFile',
 			'required' => false,
 		)));
+		$this->setValidator('detailed_picture_delete', new sfValidatorBoolean());
+		
 		$this->setValidator('microscopic_picture', new sfValidatorFile(array(
 			'max_size' => sfConfig::get('app_max_picture_size'),
 			'mime_types' => 'web_images',
@@ -77,6 +81,7 @@ class SampleForm extends BaseSampleForm
 			'validated_file_class' => 'sfCustomValidatedFile',
 			'required' => false,
 		)));
+		$this->setValidator('microscopic_picture_delete', new sfValidatorBoolean());
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');

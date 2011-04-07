@@ -12,6 +12,9 @@ class sampleActions extends MyActions
 {
 	public function executeIndex(sfWebRequest $request) {
 		$this->pager = $this->buildPagination($request, 'Sample', array('sort_column' => 'id'));
+		
+		// Keep track of the last page used in list
+		$this->getUser()->setAttribute('sample.index_page', $request->getParameter('page'));
 	}
 
 	public function executeShow(sfWebRequest $request) {
@@ -77,7 +80,7 @@ class sampleActions extends MyActions
 
 		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
 		$this->getUser()->setFlash('notice', 'Location deleted successfully');
-		$this->redirect('@sample');
+		$this->redirect('@sample?page='.$this->getUser()->getAttribute('sample.index_page'));
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -91,18 +94,17 @@ class sampleActions extends MyActions
 			// Save object
 			try {
 				$sample = $form->save();
-
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Sample created successfully. Now you can add another one';
 					$url = '@sample_new';
 				}
 				elseif ( !$isNew ) {
 					$message = 'Changes saved';
-					$url = '@sample';
+					$url = '@sample_show?id='.$sample->getId();
 				}
 				else {
 					$message = 'Sample created successfully';
-					$url = '@sample';
+					$url = '@sample_show?id='.$sample->getId();
 				}				
 			}
 			catch (Exception $e) {
