@@ -45,6 +45,7 @@
 	
 	<div id="object_google_map">
 		<?php include_map($googleMap, array('width' => '400px', 'height' => '400px')); ?>
+		<?php include_partial('global/gmap_legend', array('name' => 'sample')) ?>
 	</div>
 	
 	<div id="object_picture_list">
