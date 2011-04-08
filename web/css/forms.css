@@ -74,4 +74,4 @@ span.gps_coordinates_separator { margin: 3px; font-size: 16px; vertical-align: b
 #gps_coordinates_picker_map { width: 800px; height: 500px; vertical-align: bottom; position: absolute; bottom: 0; }
 #gps_coordinates_picker_data { margin: 0px; padding-top: 15px; }
 #gps_coordinates_picker_data label { display: inline; margin-right: 9px; }
-#gps_coordinates_picker_data input { margin-right: 17px; }
+#gps_coordinates_picker_data input { margin-right: 17px; width: 80px; }

@@ -1,3 +1,9 @@
+// Custom function to round up to a number of decimals
+function roundNumber(num, dec) {
+	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+	return result;
+}
+
 $(document).ready(function(){
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
@@ -22,9 +28,10 @@ $(document).ready(function(){
 				zoom: 7,
 				width: 300,
 			});
-			// $.goMap.createListener({type:'map'}, 'click', function(event, point) { 
-			// 	alert('Click position: ' + event.latLng);
-			// });
+			$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
+				$('#gps_coordinates_picker_latitude').val(roundNumber(event.latLng.lat(), 4));
+				$('#gps_coordinates_picker_longitude').val(roundNumber(event.latLng.lng(), 4));
+			});
 		},
 		
 		onCleanup: function() {
