@@ -51,12 +51,12 @@ div#right_side_form { float: left; margin-left: 50px; }
 #latitude input, #longitude input { width: 70px; }
 
 #field_picture, #detailed_picture, #microscopic_picture { clear: both; }
-#field_picture input, #detailed_picture input, #microscopic_picture input { display:block; padding: 5px; }
+#field_picture input, #detailed_picture input, #microscopic_picture input { display:inline; padding: 5px; }
 
 #location_pictures { clear: both; }
 div.location_picture { margin: 0px; padding: 0px; }
 div.location_picture input { display: inline; margin-right: 0px; padding-right: 0px; }
-span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; }
+span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; margin-left: 3px; }
 span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 
 span.value_unit { font-size: 12px; }
