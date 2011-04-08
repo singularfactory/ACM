@@ -64,3 +64,4 @@ span.value_unit { font-size: 12px; }
 div.date_field { width: 200px; }
 input.hasDatepicker { float: right; }
 img.ui-datepicker-trigger { float:right; }
+table.ui-datepicker-calendar { font-size: 11px; }
