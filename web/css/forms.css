@@ -60,3 +60,7 @@ span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8
 span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 
 span.value_unit { font-size: 12px; }
+
+div.date_field { width: 200px; }
+input.hasDatepicker { float: right; }
+img.ui-datepicker-trigger { float:right; }

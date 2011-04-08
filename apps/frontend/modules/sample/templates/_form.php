@@ -94,7 +94,7 @@
 			<?php echo $form['collector_id'] ?>
 		</div>
 
-		<div id="collection_date">
+		<div id="collection_date" class="date_field">
 			<?php echo $form['collection_date']->renderLabel() ?>
 			<?php echo $form['collection_date']->renderHelp() ?>
 			<?php echo $form['collection_date'] ?>

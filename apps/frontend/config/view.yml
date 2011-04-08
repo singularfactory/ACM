@@ -22,8 +22,8 @@ showSuccess:
   stylesheets:  [tables.css, colorbox.css]
   javascripts:  [colorbox.js, thumbnails.js]
 editSuccess:
-  stylesheets:  [forms.css, colorbox.css]
-  javascripts:  [forms.js, colorbox.js, thumbnails.js]
+  stylesheets:  [cupertino/jquery-ui.custom.css, forms.css, colorbox.css]
+  javascripts:  [jquery-ui.js, datepicker.js, forms.js, colorbox.js, thumbnails.js]
 newSuccess:
-  stylesheets:  [forms.css]
-  javascripts:  [forms.js]
+  stylesheets:  [cupertino/jquery-ui.custom.css, forms.css]
+  javascripts:  [jquery-ui.js, datepicker.js, forms.js]
