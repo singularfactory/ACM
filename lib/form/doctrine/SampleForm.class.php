@@ -85,6 +85,8 @@ class SampleForm extends BaseSampleForm
 		
 		// Configure labels
 		$this->widgetSchema->setLabel('ph', 'pH');
+		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
+		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
