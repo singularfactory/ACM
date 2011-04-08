@@ -27,10 +27,17 @@ $(document).ready(function(){
 		    longitude: -15.368787,	// Longitude of BEA headquarters 
 				zoom: 7,
 				width: 300,
+				disableDoubleClickZoom: false,
 			});
 			$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
 				$('#gps_coordinates_picker_latitude').val(roundNumber(event.latLng.lat(), 4));
 				$('#gps_coordinates_picker_longitude').val(roundNumber(event.latLng.lng(), 4));
+				$.goMap.clearMarkers();
+				$.goMap.createMarker({
+					latitude: event.latLng.lat(),
+			    longitude: event.latLng.lng(),
+				});
+				$.goMap.setMap({ zoom: ($.goMap.getMap().zoom + 1) });
 			});
 		},
 		
