@@ -1,0 +1,1 @@
+<a href="#" class="gps_coordinates_picker_link">pick from a map</a>

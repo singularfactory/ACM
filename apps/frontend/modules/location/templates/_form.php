@@ -16,6 +16,7 @@
 			<?php echo $form['latitude']->renderLabel() ?>
 			<?php echo $form['latitude']->renderHelp() ?>
 			<?php echo $form['latitude'] ?><span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span><?php echo $form['longitude'] ?>
+			<?php include_partial('global/gps_picker_link') ?>
 		</div>
 
 		<div id="country">

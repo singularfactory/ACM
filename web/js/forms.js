@@ -7,6 +7,11 @@ $(document).ready(function(){
 			$(this).prev().val('');
 			$(this).detach();
 		});
-	});	
+	});
+	
+	// Display a Google Map to pick the latitude and longitude of a place
+	$('a.gps_coordinates_picker_link').click(function(){
+		return false;
+	})
 	
 });
