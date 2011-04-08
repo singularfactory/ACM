@@ -73,7 +73,7 @@ class locationActions extends MyActions {
 		$this->form = new LocationForm();
 
 		$this->processForm($request, $this->form);
-
+		
 		$this->setTemplate('new');
 	}
 

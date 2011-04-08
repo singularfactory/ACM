@@ -10,8 +10,41 @@ $(document).ready(function(){
 	});
 	
 	// Display a Google Map to pick the latitude and longitude of a place
-	$('a.gps_coordinates_picker_link').click(function(){
-		return false;
-	})
+	$('#gps_coordinates_picker_link').colorbox({
+		inline: true,
+		href: "#gps_coordinates_picker",
+		transition: "fade",
+		
+		onComplete: function(){
+			$('#gps_coordinates_picker_map').goMap({
+				latitude: 27.991232,		// Latitude of BEA headquarters
+		    longitude: -15.368787,	// Longitude of BEA headquarters 
+				zoom: 7,
+				width: 300,
+			});
+			// $.goMap.createListener({type:'map'}, 'click', function(event, point) { 
+			// 	alert('Click position: ' + event.latLng);
+			// });
+		},
+		
+		onCleanup: function() {
+			$('#gps_coordinates input').each(function(){
+				var id = $(this).attr('id');
+				if ( id != null ) {
+					var latitude_regexp = /_latitude$/;
+					if ( latitude_regexp.test(id) ) {
+						$(this).val($('#gps_coordinates_picker_latitude').val());
+					}
+					
+					var longitude_regexp = /_longitude$/;
+					if ( longitude_regexp.test(id) ) {
+						$(this).val($('#gps_coordinates_picker_longitude').val());
+					}
+				}
+			});
+		}
+
+	});
+
 	
 });

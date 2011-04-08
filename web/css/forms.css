@@ -36,7 +36,6 @@ textarea { width: 350px; height: 100px; }
 p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -5px; padding: 0px; }
 a.cancel_form_link { color: #e32; font-size: 12px; margin: 0px; }
 a.cancel_form_link:hover { color: white; background: #e32; margin: 0px; }
-a.gps_coordinates_picker_link { font-size: 11px; }
 
 div#left_side_form,
 div#right_side_form { margin: 0px 0px 30px 0px; padding: 0px; }
@@ -61,9 +60,18 @@ span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8
 span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 
 span.value_unit { font-size: 12px; }
-span.gps_coordinates_separator { margin: 3px; font-size: 16px; vertical-align: bottom; }
 
 div.date_field { width: 200px; }
 input.hasDatepicker { float: right; }
 img.ui-datepicker-trigger { float:right; }
 table.ui-datepicker-calendar { font-size: 11px; }
+
+span.gps_coordinates_separator { margin: 3px; font-size: 16px; vertical-align: bottom; }
+#gps_coordinates_picker_link { font-size: 11px; padding: 1px 5px; text-decoration: underline; }
+#gps_coordinates_picker_link:hover { background: #2aa2f8; color: #ffffff; text-decoration: none; }
+#gps_coordinates_picker_hidden { display: none; }
+#gps_coordinates_picker { width: 800px; height: 550px; position: relative; background: #f0f0f0; }
+#gps_coordinates_picker_map { width: 800px; height: 500px; vertical-align: bottom; position: absolute; bottom: 0; }
+#gps_coordinates_picker_data { margin: 0px; padding-top: 15px; }
+#gps_coordinates_picker_data label { display: inline; margin-right: 9px; }
+#gps_coordinates_picker_data input { margin-right: 17px; }
