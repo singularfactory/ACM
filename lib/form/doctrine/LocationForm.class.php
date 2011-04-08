@@ -38,6 +38,10 @@ class LocationForm extends BaseLocationForm {
 		$this->widgetSchema->setHelp('region_id', 'States and provinces as well');
 		$this->widgetSchema->setHelp('island_id', 'Only for regions with islands');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
+	
+		// Configure labels
+		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
+		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
 		
 		// Remove <br /> tag after labels and set custom tag
 		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');

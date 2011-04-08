@@ -12,16 +12,10 @@
 			<?php echo $form['name'] ?>
 		</div>
 
-		<div id="latitude">
+		<div id="gps_coordinates">
 			<?php echo $form['latitude']->renderLabel() ?>
 			<?php echo $form['latitude']->renderHelp() ?>
-			<?php echo $form['latitude'] ?>
-		</div>
-
-		<div id="longitude">
-			<?php echo $form['longitude']->renderLabel() ?>
-			<?php echo $form['longitude']->renderHelp() ?>
-			<?php echo $form['longitude'] ?>
+			<?php echo $form['latitude'] ?><span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span><?php echo $form['longitude'] ?>
 		</div>
 
 		<div id="country">

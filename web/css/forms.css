@@ -48,7 +48,7 @@ div#right_side_form { float: left; margin-left: 50px; }
  * SPECIFIC FIELD BEHAVIORS
  */
 #name input { width: 250px; }
-#latitude input, #longitude input { width: 70px; }
+#gps_coordinates input { width: 70px; }
 
 #field_picture, #detailed_picture, #microscopic_picture { clear: both; }
 #field_picture input, #detailed_picture input, #microscopic_picture input { display:inline; padding: 5px; }
@@ -60,6 +60,7 @@ span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8
 span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 
 span.value_unit { font-size: 12px; }
+span.gps_coordinates_separator { margin: 3px; font-size: 16px; vertical-align: bottom; }
 
 div.date_field { width: 200px; }
 input.hasDatepicker { float: right; }
