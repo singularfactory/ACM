@@ -150,5 +150,7 @@ class locationActions extends MyActions {
 				$this->redirect($url);
 			}
 		}
+		
+		$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix');
 	}
 }
