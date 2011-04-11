@@ -31,8 +31,8 @@ $(document).ready(function(){
 				icon: '../../images/maps/location.png',
 			});
 			$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
-				$('#gps_coordinates_picker_latitude').val(roundNumber(event.latLng.lat(), 4));
-				$('#gps_coordinates_picker_longitude').val(roundNumber(event.latLng.lng(), 4));
+				$('#gps_coordinates_picker_latitude').val(roundNumber(event.latLng.lat(), 5));
+				$('#gps_coordinates_picker_longitude').val(roundNumber(event.latLng.lng(), 5));
 				$.goMap.clearMarkers();
 				$.goMap.createMarker({
 					latitude: event.latLng.lat(),
