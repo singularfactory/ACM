@@ -106,7 +106,7 @@ class sampleActions extends MyActions
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 
 		$this->processForm($request, $this->form);
-
+		
 		$this->setTemplate('new');
 	}
 
@@ -174,6 +174,6 @@ class sampleActions extends MyActions
 			}
 		}
 		
-		$this->getUser()->setFlash('notice', 'The information on this sample has some errors you need to fix');
+		$this->getUser()->setFlash('notice', 'The information on this sample has some errors you need to fix', false);
 	}
 }

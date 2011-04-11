@@ -151,6 +151,6 @@ class locationActions extends MyActions {
 			}
 		}
 		
-		$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix');
+		$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix', false);
 	}
 }
