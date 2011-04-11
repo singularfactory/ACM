@@ -4,7 +4,7 @@ function roundNumber(num, dec) {
 	return result;
 }
 
-$(document).ready(function(){
+$(document).ready(function(){		
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
 		$(this).after('<span class="reset_picture">reset</span>');
@@ -42,7 +42,7 @@ $(document).ready(function(){
 			});
 		},
 		
-		onCleanup: function() {
+		onCleanup: function(){
 			$('#gps_coordinates input').each(function(){
 				var id = $(this).attr('id');
 				if ( id != null ) {
@@ -58,8 +58,25 @@ $(document).ready(function(){
 				}
 			});
 		}
-
 	});
 
-	
+	// Load location coordinates when creating a sample
+	$('#location select').ready(function(){
+		if ( ! $('#sample_id').val() ) {
+			var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
+			$.getJSON(sample_location_url + $('#location select').children().first().val(), function(json) {
+				$('#sample_latitude').val(json.latitude);
+				$('#sample_longitude').val(json.longitude);
+			});
+		}
+		return false;
+	});
+	$('#location select').change(function(){
+		var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
+		$.getJSON(sample_location_url + $(this).val(), function(json) {
+			$('#sample_latitude').val(json.latitude);
+			$('#sample_longitude').val(json.longitude);
+		});
+		return false;
+	});
 });

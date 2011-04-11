@@ -16,6 +16,10 @@ sample_search:
   param:        { module: sample, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
 
+sample_location:
+  url:    sample/location/:id
+  param:  { module: sample, action: location }
+  
 profile:
   class:   sfDoctrineRouteCollection
   options: { model: sfGuardUser }

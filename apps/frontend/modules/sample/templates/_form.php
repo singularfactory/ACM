@@ -16,6 +16,7 @@
 			<?php echo $form['location_id']->renderLabel() ?>
 			<?php echo $form['location_id']->renderHelp() ?>
 			<?php echo $form['location_id'] ?>
+			<a href="<?php echo url_for('@sample_location?id=') ?>" class="sample_location_coordinates_url"></a>
 		</div>
 
 		<div id="gps_coordinates">
