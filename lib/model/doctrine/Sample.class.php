@@ -45,27 +45,37 @@ class Sample extends BaseSample {
 	}
 	
 	public function getFormattedConductivity() {
-		return $this->getNotNullAttribute('conductivity');
+		$conductivity = $this->getNotNullAttribute('conductivity');
+		
+		if ( $conductivity !== sfConfig::get('app_no_data_message') ) {
+			$conductivity .= ' '.sfConfig::get('app_conductivity_unit');
+		}
+		return $conductivity;
 	}
 	
 	public function getFormattedTemperature() {
 		$temperature = $this->getNotNullAttribute('temperature');
 		
 		if ( $temperature !== sfConfig::get('app_no_data_message') ) {
-			$temperature .= sfConfig::get('app_temperature_unit');
+			$temperature .= ' '.sfConfig::get('app_temperature_unit');
 		}
 		return $temperature;
 	}
 	
 	public function getFormattedSalinity() {
-		return $this->getNotNullAttribute('salinity');
+		$salinity = $this->getNotNullAttribute('salinity');
+		
+		if ( $salinity !== sfConfig::get('app_no_data_message') ) {
+			$salinity .= ' '.sfConfig::get('app_salinity_unit');
+		}
+		return $salinity;
 	}
 	
 	public function getFormattedAltitude() {
 		$altitude = $this->getNotNullAttribute('altitude');
 		
 		if ( $altitude !== sfConfig::get('app_no_data_message') ) {
-			$altitude .= sfConfig::get('app_altitude_unit');
+			$altitude .= ' '.sfConfig::get('app_altitude_unit');
 		}
 		return $altitude;
 	}
