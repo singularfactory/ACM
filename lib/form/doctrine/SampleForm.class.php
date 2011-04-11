@@ -80,6 +80,23 @@ class SampleForm extends BaseSampleForm
 		)));
 		$this->setValidator('microscopic_picture_delete', new sfValidatorBoolean());
 		
+		// Configure custom validators
+		$this->setValidator('latitude', new sfValidatorOr(array(
+				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}"$/')),
+				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}\.\d{1,6}$/')),
+				),
+				array('required' => false),
+				array('invalid' => 'Invalid coordinates format')));
+		$this->setValidator('longitude', new sfValidatorOr(array(
+				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}"$/')),
+				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}\.\d{1,6}$/')),
+				),
+				array('required' => false),
+				array('invalid' => 'Invalid coordinates format')));
+		$this->setValidator('notebook_code', new sfValidatorInteger(array('required' => true), array(
+			'invalid' => 'Only an integer number allowed',
+			'required' => 'Provide the notebook code')));
+				
 		// Configure labels
 		$this->widgetSchema->setLabel('ph', 'pH');
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');

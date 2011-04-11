@@ -20,6 +20,15 @@
 
 		<div id="gps_coordinates">
 			<?php echo $form['latitude']->renderLabel() ?>
+			
+			<?php if ( $form['latitude']->hasError() || $form['longitude']->hasError() ): ?>
+				<?php if ( $form['latitude']->hasError() ): ?>
+					<?php echo $form['latitude']->renderError() ?>
+				<?php elseif ( $form['longitude']->hasError() ): ?>
+					<?php echo $form['longitude']->renderError() ?>
+				<?php endif; ?>					
+			<?php endif; ?>
+			
 			<?php echo $form['latitude']->renderHelp() ?>
 			<?php echo $form['latitude'] ?>
 			<span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span>
@@ -46,12 +55,14 @@
 
 		<div id="ph">
 			<?php echo $form['ph']->renderLabel() ?>
+			<?php echo $form['ph']->renderError() ?>
 			<?php echo $form['ph']->renderHelp() ?>
 			<?php echo $form['ph'] ?>
 		</div>
 
 		<div id="conductivity">
 			<?php echo $form['conductivity']->renderLabel() ?>
+			<?php echo $form['conductivity']->renderError() ?>
 			<?php echo $form['conductivity']->renderHelp() ?>
 			<?php echo $form['conductivity'] ?>
 			<span class="value_unit"><?php echo sfConfig::get('app_conductivity_unit') ?></span>
@@ -59,6 +70,7 @@
 
 		<div id="temperature">
 			<?php echo $form['temperature']->renderLabel() ?>
+			<?php echo $form['temperature']->renderError() ?>
 			<?php echo $form['temperature']->renderHelp() ?>
 			<?php echo $form['temperature'] ?>
 			<span class="value_unit"><?php echo sfConfig::get('app_temperature_unit') ?></span>
@@ -66,6 +78,7 @@
 
 		<div id="salinity">
 			<?php echo $form['salinity']->renderLabel() ?>
+			<?php echo $form['salinity']->renderError() ?>
 			<?php echo $form['salinity']->renderHelp() ?>
 			<?php echo $form['salinity'] ?>
 			<span class="value_unit"><?php echo sfConfig::get('app_salinity_unit') ?></span>
@@ -73,6 +86,7 @@
 
 		<div id="altitude">
 			<?php echo $form['altitude']->renderLabel() ?>
+			<?php echo $form['altitude']->renderError() ?>
 			<?php echo $form['altitude']->renderHelp() ?>
 			<?php echo $form['altitude'] ?>
 			<span class="value_unit"><?php echo sfConfig::get('app_altitude_unit') ?></span>

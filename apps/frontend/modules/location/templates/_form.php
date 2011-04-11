@@ -15,6 +15,15 @@
 
 		<div id="gps_coordinates">
 			<?php echo $form['latitude']->renderLabel() ?>
+			
+			<?php if ( $form['latitude']->hasError() || $form['longitude']->hasError() ): ?>
+				<?php if ( $form['latitude']->hasError() ): ?>
+					<?php echo $form['latitude']->renderError() ?>
+				<?php elseif ( $form['longitude']->hasError() ): ?>
+					<?php echo $form['longitude']->renderError() ?>
+				<?php endif; ?>					
+			<?php endif; ?>
+			
 			<?php echo $form['latitude']->renderHelp() ?>
 			<?php echo $form['latitude'] ?>
 			<span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span>
