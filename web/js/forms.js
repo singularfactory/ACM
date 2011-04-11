@@ -28,7 +28,7 @@ $(document).ready(function(){
 				zoom: 7,
 				width: 300,
 				disableDoubleClickZoom: false,
-				icon: '../../images/maps/location.png',
+				icon: '/images/maps/location.png',
 			});
 			$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
 				$('#gps_coordinates_picker_latitude').val(roundNumber(event.latLng.lat(), 5));
