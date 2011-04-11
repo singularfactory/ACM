@@ -87,12 +87,13 @@ class SampleForm extends BaseSampleForm
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
-		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
+		$this->widgetSchema->setHelp('latitude', 'Latitude and longitude in degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('ph', 'Decimal value for pH (e.g. 7)');
 		$this->widgetSchema->setHelp('conductivity', 'Decimal value for conductivity (e.g 5.5 S/m)');
 		$this->widgetSchema->setHelp('temperature', 'Integer value for temperature (e.g 22 ºC)');
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
+		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
 	}
 }
