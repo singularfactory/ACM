@@ -8,30 +8,32 @@
 	<div id="left_side_form">
 		<div id="name">
 			<?php echo $form['name']->renderLabel() ?>
+			<?php echo $form['name']->renderError() ?>
 			<?php echo $form['name']->renderHelp() ?>
 			<?php echo $form['name'] ?>
-			<?php echo $form['name']->renderError() ?>
 		</div>
 
 		<div id="gps_coordinates">
 			<?php echo $form['latitude']->renderLabel() ?>
 			<?php echo $form['latitude']->renderHelp() ?>
-			<?php echo $form['latitude'] ?><span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span><?php echo $form['longitude'] ?>
+			<?php echo $form['latitude'] ?>
+			<span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span>
+			<?php echo $form['longitude'] ?>
 			<?php include_partial('global/gps_picker_link') ?>
 		</div>
 
 		<div id="country">
 			<?php echo $form['country_id']->renderLabel() ?>
+			<?php echo $form['country_id']->renderError() ?>
 			<?php echo $form['country_id']->renderHelp() ?>
 			<?php echo $form['country_id'] ?>
-			<?php echo $form['country_id']->renderError() ?>
 		</div>
 
 		<div id="region">
 			<?php echo $form['region_id']->renderLabel() ?>
+			<?php echo $form['region_id']->renderError() ?>
 			<?php echo $form['region_id']->renderHelp() ?>
 			<?php echo $form['region_id'] ?>
-			<?php echo $form['region_id']->renderError() ?>
 		</div>
 
 		<div id="island">

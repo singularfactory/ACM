@@ -17,7 +17,7 @@ abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
 		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
 		
 		// Change default errors formatter
-		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<p class="form_error_item">%error%</p>');
-		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('<span class="form_error_list">%errors%</span>');
+		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('%errors%');
+		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<span class="input_error">%error%</span>');
 	}
 }

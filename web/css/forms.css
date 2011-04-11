@@ -1,16 +1,23 @@
 form { clear: both; margin: 0px; padding: 0px; width: auto; }
-
 form div { padding: 7px; }
+#left_side_form, #right_side_form { margin: 0px 0px 30px 0px; padding: 0px; float: left; }
+#right_side_form { margin-left: 50px; }
+
 div.submit { border: 0; margin-top: 10px; clear: both; }
-div.checkbox label { display: inline; }
 div.radio label { margin: 0 0 6px 20px; }
-label { display: block; font-size: 13px; margin-bottom: 3px; color: black; font-weight: bold; }
-input, textarea { clear: both; font-size: 12px; padding: 1px; }
-option { padding: 0px 3px; }
-select { clear: both; vertical-align: text-bottom; }
+
+label { display: inline; font-size: 13px; margin-bottom: 3px; color: black; font-weight: bold; }
+span.input_error { padding: 0px 0px 0px 3px; font-size: 11px; color: red; }
+p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -2px; padding: 0px; }
+
+input, textarea { display: block; clear: both; font-size: 12px; padding: 1px; }
+textarea { width: 350px; height: 100px; }
+select { clear: both; vertical-align: text-bottom; display: block; }
 select[multiple=multiple] {	width: auto; }
+option { padding: 0px 2px; }
 
 input[type=submit] {
+	display: inline-block;
 	width: auto;
 	padding: 4px 8px;
 	
@@ -27,46 +34,52 @@ input[type=submit] {
 	border-radius: 8px;
 }
 input[type=submit]:hover { cursor: pointer; }
-input[type=checkbox] { clear: left; margin: 0px 6px 7px 2px; width: auto; }
+input[type=checkbox] { margin: 0px 6px 7px 2px; width: auto; display: inline-block; }
 input[type=radio] { float:left; width:auto; margin: 0px 3px 7px 0px; }
 input[type=file] { width: auto; }
-textarea { width: 350px; height: 100px; }
 
-
-p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -5px; padding: 0px; }
 a.cancel_form_link { color: #e32; font-size: 12px; margin: 0px; }
 a.cancel_form_link:hover { color: white; background: #e32; margin: 0px; }
 
-div#left_side_form,
-div#right_side_form { margin: 0px 0px 30px 0px; padding: 0px; }
 
-div#left_side_form { float: left; }
-div#right_side_form { float: left; margin-left: 50px; }
+/**
+ * COMMON FIELDS
+ */
+#gps_coordinates input { width: 70px; display: inline-block; } /* Location and Sample */
+span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; margin-left: 3px; }
+span.reset_picture:hover { cursor: pointer; text-decoration: none; }
+span.value_unit { font-size: 11px; }
 
 
 /**
- * SPECIFIC FIELD BEHAVIORS
+ * SPECIFIC FIELDS
  */
-#name input { width: 250px; }
-#gps_coordinates input { width: 70px; }
-
-#field_picture, #detailed_picture, #microscopic_picture { clear: both; }
-#field_picture input, #detailed_picture input, #microscopic_picture input { display:inline; padding: 5px; }
-
+#name input { width: 250px; }	/* Location */
 #location_pictures { clear: both; }
 div.location_picture { margin: 0px; padding: 0px; }
 div.location_picture input { display: inline; margin-right: 0px; padding-right: 0px; }
-span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; margin-left: 3px; }
-span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 
-span.value_unit { font-size: 12px; }
+#conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
+#field_picture, #detailed_picture, #microscopic_picture { clear: both; }	/* Sample pictures */
+#field_picture label, #detailed_picture label, #microscopic_picture label { display: block; }
+#field_picture input, #detailed_picture input, #microscopic_picture input { display: inline; padding: 5px; }
 
+
+/**
+ * DATE PICKER
+ */
 div.date_field { width: 200px; }
+div.date_field label { display: block; }
+div.date_field select { display: inline; vertical-align: middle; }
 input.hasDatepicker { float: right; }
-img.ui-datepicker-trigger { float:right; }
+img.ui-datepicker-trigger { float:right; margin-top: 3px; }
 table.ui-datepicker-calendar { font-size: 11px; }
 
-span.gps_coordinates_separator { margin: 3px; font-size: 16px; vertical-align: bottom; }
+
+/**
+ * GPS COORDINATES PICKER
+ */
+span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; vertical-align: bottom; }
 #gps_coordinates_picker_link { font-size: 11px; padding: 1px 5px; text-decoration: underline; }
 #gps_coordinates_picker_link:hover { background: #2aa2f8; color: #ffffff; text-decoration: none; }
 #gps_coordinates_picker_hidden { display: none; }

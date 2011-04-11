@@ -7,9 +7,9 @@
 	<div id="left_side_form">
 		<div id="notebook_code">
 			<?php echo $form['notebook_code']->renderLabel() ?>
+			<?php echo $form['notebook_code']->renderError() ?>
 			<?php echo $form['notebook_code']->renderHelp() ?>
 			<?php echo $form['notebook_code'] ?>
-			<?php echo $form['notebook_code']->renderError() ?>
 		</div>
 
 		<div id="location">
@@ -21,7 +21,9 @@
 		<div id="gps_coordinates">
 			<?php echo $form['latitude']->renderLabel() ?>
 			<?php echo $form['latitude']->renderHelp() ?>
-			<?php echo $form['latitude'] ?><span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span><?php echo $form['longitude'] ?>
+			<?php echo $form['latitude'] ?>
+			<span class="gps_coordinates_separator"><?php echo sfConfig::get('app_gps_coordinates_separator') ?></span>
+			<?php echo $form['longitude'] ?>
 			<?php include_partial('global/gps_picker_link') ?>
 		</div>
 
@@ -38,8 +40,8 @@
 		</div>
 
 		<div id="extremophile" class="checkbox">
-			<?php echo $form['is_extremophile'] ?>
 			<?php echo $form['is_extremophile']->renderLabel() ?>
+			<?php echo $form['is_extremophile'] ?>
 		</div>
 
 		<div id="ph">
@@ -86,16 +88,16 @@
 	<div id="right_side_form">
 		<div id="collector">
 			<?php echo $form['collector_id']->renderLabel() ?>
+			<?php echo $form['collector_id']->renderError() ?>
 			<?php echo $form['collector_id']->renderHelp() ?>
 			<?php echo $form['collector_id'] ?>
-			<?php echo $form['collector_id']->renderError() ?>
 		</div>
 
 		<div id="collection_date" class="date_field">
 			<?php echo $form['collection_date']->renderLabel() ?>
+			<?php echo $form['collection_date']->renderError() ?>
 			<?php echo $form['collection_date']->renderHelp() ?>
 			<?php echo $form['collection_date'] ?>
-			<?php echo $form['collection_date']->renderError() ?>
 		</div>
 
 		<div id="remarks">
