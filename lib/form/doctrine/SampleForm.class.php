@@ -11,10 +11,7 @@
 class SampleForm extends BaseSampleForm
 {
 	public function configure()
-	{
-		// Hide widgets
-		unset($this['created_at'], $this['updated_at']);
-				
+	{		
 		// Configure collection date format
 		$lastYear = date('Y');
 		for ($i=$lastYear-5; $i <= $lastYear; $i++) { 
@@ -97,8 +94,5 @@ class SampleForm extends BaseSampleForm
 		$this->widgetSchema->setHelp('temperature', 'Integer value for temperature (e.g 22 ºC)');
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
-		
-		// Remove <br /> tag after labels and set custom tag
-		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
 	}
 }

@@ -29,9 +29,6 @@ class LocationForm extends BaseLocationForm {
 			));			
 		}
 
-		// Hide widgets
-		unset($this['created_at'], $this['updated_at']);
-
 		// Configure help messages
 		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
@@ -42,8 +39,5 @@ class LocationForm extends BaseLocationForm {
 		// Configure labels
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
 		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
-		
-		// Remove <br /> tag after labels and set custom tag
-		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
 	}
 }

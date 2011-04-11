@@ -9,6 +9,7 @@
 			<?php echo $form['notebook_code']->renderLabel() ?>
 			<?php echo $form['notebook_code']->renderHelp() ?>
 			<?php echo $form['notebook_code'] ?>
+			<?php echo $form['notebook_code']->renderError() ?>
 		</div>
 
 		<div id="location">
@@ -87,12 +88,14 @@
 			<?php echo $form['collector_id']->renderLabel() ?>
 			<?php echo $form['collector_id']->renderHelp() ?>
 			<?php echo $form['collector_id'] ?>
+			<?php echo $form['collector_id']->renderError() ?>
 		</div>
 
 		<div id="collection_date" class="date_field">
 			<?php echo $form['collection_date']->renderLabel() ?>
 			<?php echo $form['collection_date']->renderHelp() ?>
 			<?php echo $form['collection_date'] ?>
+			<?php echo $form['collection_date']->renderError() ?>
 		</div>
 
 		<div id="remarks">

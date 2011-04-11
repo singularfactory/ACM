@@ -10,6 +10,7 @@
 			<?php echo $form['name']->renderLabel() ?>
 			<?php echo $form['name']->renderHelp() ?>
 			<?php echo $form['name'] ?>
+			<?php echo $form['name']->renderError() ?>
 		</div>
 
 		<div id="gps_coordinates">
@@ -23,12 +24,14 @@
 			<?php echo $form['country_id']->renderLabel() ?>
 			<?php echo $form['country_id']->renderHelp() ?>
 			<?php echo $form['country_id'] ?>
+			<?php echo $form['country_id']->renderError() ?>
 		</div>
 
 		<div id="region">
 			<?php echo $form['region_id']->renderLabel() ?>
 			<?php echo $form['region_id']->renderHelp() ?>
 			<?php echo $form['region_id'] ?>
+			<?php echo $form['region_id']->renderError() ?>
 		</div>
 
 		<div id="island">
