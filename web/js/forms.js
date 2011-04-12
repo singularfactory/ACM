@@ -4,6 +4,12 @@ function roundNumber(num, dec) {
 	return result;
 }
 
+// Update GPS coordinates of Sample with inherited values from Location
+function updateSampleCoordinates(coordinates) {
+	$('#sample_latitude').val(coordinates.latitude);
+	$('#sample_longitude').val(coordinates.longitude);
+}
+
 $(document).ready(function(){		
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
@@ -65,17 +71,16 @@ $(document).ready(function(){
 		if ( ! $('#sample_id').val() ) {
 			var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
 			$.getJSON(sample_location_url + $('#location select').children().first().val(), function(json) {
-				$('#sample_latitude').val(json.latitude);
-				$('#sample_longitude').val(json.longitude);
+				updateSampleCoordinates(json);
 			});
 		}
 		return false;
 	});
+
 	$('#location select').change(function(){
 		var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
 		$.getJSON(sample_location_url + $(this).val(), function(json) {
-			$('#sample_latitude').val(json.latitude);
-			$('#sample_longitude').val(json.longitude);
+			updateSampleCoordinates(json);
 		});
 		return false;
 	});
