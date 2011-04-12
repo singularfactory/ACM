@@ -226,11 +226,11 @@ div.javascript_disabled_notification p {
 	float: left; /* for IE6 */
 	font-size: 12px;
 	line-height: 12px;
-	font-weight: normal;
+	font-weight: bold;
 	padding: 5px 9px 7px;
 	margin: 0 1px;	
 	color: #ffffff;
-	background: #2aa2f8;
+	background: #666666;
 }
 #header_menu ul#header_menu_tabs a:hover { background: #6CF; }
 #header_menu ul#header_menu_tabs a:link.header_menu_current_tab,
@@ -239,8 +239,8 @@ div.javascript_disabled_notification p {
 	text-decoration: none;
 	margin: 0px;
 	padding-bottom: 7px;
-	color: #fff;
-	background: #666;
+	color: #ffffff;
+	background: #2aa2f8;
 }
 .header_menu_right_tab { float: right; }
 
