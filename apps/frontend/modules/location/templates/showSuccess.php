@@ -36,13 +36,13 @@
 	</div>
 	
 	<div id="object_picture_list">
+		<h2>Pictures</h2>
 		<?php $i = 1 ?>
 		<?php foreach ($location->getPictures() as $picture): ?>
 		<?php if ( $picture->getFilename() === null ) continue ?>
 		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture->getFilename() ?>
 		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">
-			<p class="thumbnail_caption"><?php echo "Picture $i" ?></p>
 			<div id="thumbnail_image">
 				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
 					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
@@ -54,8 +54,10 @@
 	</div>
 
 	<div id="location_sample_list">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h2>Samples</h2>
 	</div>
+	
+	<div class="clear"></div>
 </div>
 
 <?php include_map_javascript($googleMap); ?>
