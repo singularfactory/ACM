@@ -14,20 +14,18 @@ class LocationForm extends BaseLocationForm {
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_location_pictures');
-		if ( $actualPictures < $defaultMaxPictures ) {
-			$this->setOption('max_location_pictures', $defaultMaxPictures - $actualPictures);
-
-			// Create an embedded form to add pictures
-			$this->embedRelations(array(
-				'Pictures' => array(
-					'considerNewFormEmptyFields' => array('filename'),
-					'newFormLabel' => 'Pictures',
-					'multipleNewForms' => true,
-					'newFormsInitialCount' => 1,
-					'newRelationButtonLabel' => 'Add another picture',
-				),
-			));			
-		}
+		$this->setOption('max_location_pictures', $defaultMaxPictures - $actualPictures);
+		
+		// Create an embedded form to add or edit pictures
+		$this->embedRelations(array(
+			'Pictures' => array(
+				'considerNewFormEmptyFields' => array('filename'),
+				'newFormLabel' => 'Pictures',
+				'multipleNewForms' => true,
+				'newFormsInitialCount' => 1,
+				'newRelationButtonLabel' => 'Add another picture',
+			),
+		));		
 		
 		// Configure custom validators
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
