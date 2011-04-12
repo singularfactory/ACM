@@ -316,7 +316,7 @@ div.javascript_disabled_notification p {
 #main_view_show { }
 #object_data_list { float:left; margin-left: 13px; margin-bottom: 24px; width: 63%; }
 #object_google_map { float: right; margin-right: 21px; }
-#object_picture_list { clear: both; float: left; margin-left: 13px; width: 58%; background: #d5d5d5; }
+#object_picture_list { float: left; margin-left: 13px; width: 63%%; }
 #google_map_legend { margin: 0px; padding: 0px; }
 #google_map_legend ul { padding: 0px; font-size: 11px; list-style-type: none; }
 #google_map_legend li { display: inline; margin-right: 21px; }
