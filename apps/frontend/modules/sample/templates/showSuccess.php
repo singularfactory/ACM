@@ -48,25 +48,28 @@
 		<?php include_partial('global/gmap_legend', array('name' => 'sample')) ?>
 	</div>
 	
-	<div id="object_picture_list">
-		<?php $pictureAccessorMethods = array('getMicroscopicPicture', 'getDetailedPicture', 'getFieldPicture') ?>
-		<?php foreach ($pictureAccessorMethods as $accessorMethod): ?>
-			<?php if ( !$sample->$accessorMethod() ) continue ?>
-			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$sample->$accessorMethod() ?>
-			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$sample->$accessorMethod() ?>
-			<?php $caption = preg_replace('/^get(.+)Picture$/', "$1 picture", $accessorMethod) ?>
-			<?php if ( file_exists(sfConfig::get('sf_web_dir').$thumbnail) ): ?>
-			<div class="thumbnail">
-				<p class="thumbnail_caption"><?php echo $caption ?></p>
-				<div id="thumbnail_image">
-					<a href="<?php echo $image ?>" rel="thumbnail_link" title="<?php echo $caption ?>" class="cboxElement">
-						<img src="<?php echo $thumbnail ?>" alt="<?php echo $caption ?>" />
-					</a>
+	<?php if ( $sample->hasPictures() ): ?>
+		<div id="object_picture_list">
+			<h2>Pictures</h2>
+			<?php $pictureAccessorMethods = array('getMicroscopicPicture', 'getDetailedPicture', 'getFieldPicture') ?>
+			<?php foreach ($pictureAccessorMethods as $accessorMethod): ?>
+				<?php if ( !$sample->$accessorMethod() ) continue ?>
+				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$sample->$accessorMethod() ?>
+				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$sample->$accessorMethod() ?>
+				<?php $caption = preg_replace('/^get(\w+)Picture$/', "$1", $accessorMethod) ?>
+				<?php if ( file_exists(sfConfig::get('sf_web_dir').$thumbnail) ): ?>
+				<div class="thumbnail">
+					<p class="thumbnail_caption"><?php echo $caption ?></p>
+					<div id="thumbnail_image">
+						<a href="<?php echo $image ?>" rel="thumbnail_link" title="<?php echo $caption ?>" class="cboxElement">
+							<img src="<?php echo $thumbnail ?>" alt="<?php echo $caption ?>" />
+						</a>
+					</div>
 				</div>
-			</div>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</div>
+	<?php endif ?>
 
 	<div class="clear"></div>
 </div>

@@ -124,4 +124,8 @@ class Sample extends BaseSample {
 		
 		return $longitude;
 	}
+
+	public function hasPictures() {
+		return ( $this->getFieldPicture() || $this->getDetailedPicture() || $this->getMicroscopicPicture() );
+	}
 }
