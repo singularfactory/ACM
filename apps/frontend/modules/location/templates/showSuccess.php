@@ -18,6 +18,13 @@
 			<dd><?php echo $location->getIsland()->getName() ?></dd>
 			<dt>GPS coordinates:</dt>
 			<dd><?php echo $location->getFormattedGPSCoordinates() ?></dd>
+			<dt>Samples:</dt>
+			<dd>
+				<?php echo $nbSamples = $location->getNbSamples() ?>
+				<?php if ( $nbSamples > 0 ): ?>
+					<a href="#location_sample_list" title="List of samples linked to this location" class="page_jump">(see below)</a>
+				<?php endif; ?>
+			</dd>
 			<dt>Remarks:</dt>
 			<dd><?php echo $location->getRemarks() ?></dd>
 		</dl>
@@ -46,7 +53,9 @@
 		<?php endforeach; ?>
 	</div>
 
-	<div class="clear"></div>
+	<div id="location_sample_list">
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</div>
 </div>
 
 <?php include_map_javascript($googleMap); ?>
