@@ -35,6 +35,7 @@
 		<?php include_partial('global/gmap_legend', array('name' => 'location')) ?>
 	</div>
 	
+	<?php if ( $location->getNbPictures() > 0 ): ?>
 	<div id="object_picture_list">
 		<h2>Pictures</h2>
 		<?php $i = 1 ?>
@@ -52,10 +53,25 @@
 		<?php $i++ ?>
 		<?php endforeach; ?>
 	</div>
+	<?php endif ?>
 
+	<?php if ( $nbSamples > 0): ?>
 	<div id="location_sample_list">
 		<h2>Samples</h2>
+		<table>
+			<tr>
+				<th>Number</th>
+				<th>Collector</th>
+			</tr>
+			<?php foreach ($location->getSamples() as $sample ): ?>
+				<tr>
+					<td><?php echo link_to($sample->getNumber(), '@sample_show?id='.$sample->getId()) ?></td>
+					<td><?php echo link_to($sample->getCollector()->getFullName(), '@sample_show?id='.$sample->getId()) ?></td>
+				</tr>
+			<?php endforeach ?>
+		</table>
 	</div>
+	<?php endif ?>
 	
 	<div class="clear"></div>
 </div>

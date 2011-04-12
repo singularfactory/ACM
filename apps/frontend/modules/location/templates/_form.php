@@ -81,6 +81,7 @@
 			</div>
 			<?php $i++ ?>
 			<?php endforeach; ?>
+			<div class="clear"></div>
 		</div>
 		<?php endif ?>
 
