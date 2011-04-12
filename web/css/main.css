@@ -27,6 +27,8 @@ a:hover {
 	-ms-border-radius: 5px;
 	border-radius: 5px;
 }
+a.page_jump { font-size: 10px; padding: 0px; margin: 0px; margin-left: 5px; }
+a.page_jump:hover { background: transparent; color: #2aa2f8; }
 
 img { border: none; }
 

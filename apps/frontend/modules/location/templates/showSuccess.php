@@ -22,7 +22,7 @@
 			<dd>
 				<?php echo $nbSamples = $location->getNbSamples() ?>
 				<?php if ( $nbSamples > 0 ): ?>
-					<a href="#location_sample_list" title="List of samples linked to this location" class="page_jump">(see below)</a>
+					<a href="#location_sample_list" title="List of samples linked to this location" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
 			<dt>Remarks:</dt>
