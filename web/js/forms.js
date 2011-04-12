@@ -67,8 +67,8 @@ $(document).ready(function(){
 	});
 
 	// Load location coordinates when creating a sample
-	$('#location select').ready(function(){
-		if ( ! $('#sample_id').val() ) {
+	$('#sample_location_id').ready(function(){
+		if ( $('#sample_id').length && !$('#sample_id').val() ) {
 			var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
 			$.getJSON(sample_location_url + $('#location select').children().first().val(), function(json) {
 				updateSampleCoordinates(json);
@@ -77,7 +77,7 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$('#location select').change(function(){
+	$('#sample_location_id').change(function(){
 		var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
 		$.getJSON(sample_location_url + $(this).val(), function(json) {
 			updateSampleCoordinates(json);
