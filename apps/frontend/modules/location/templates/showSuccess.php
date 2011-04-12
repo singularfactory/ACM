@@ -8,6 +8,13 @@
 <?php end_slot() ?>
 
 <div id="main_view_show">
+	
+	
+	<div id="object_google_map">
+		<?php include_map($googleMap, array('width' => '400px', 'height' => '400px')); ?>
+		<?php include_partial('global/gmap_legend', array('name' => 'location')) ?>
+	</div>
+	
 	<div id="object_data_list">
 		<dl>
 			<dt>Country:</dt>
@@ -29,12 +36,7 @@
 			<dd><?php echo $location->getRemarks() ?></dd>
 		</dl>
 	</div>
-	
-	<div id="object_google_map">
-		<?php include_map($googleMap, array('width' => '400px', 'height' => '400px')); ?>
-		<?php include_partial('global/gmap_legend', array('name' => 'location')) ?>
-	</div>
-	
+
 	<?php if ( $location->getNbPictures() > 0 ): ?>
 	<div id="object_picture_list">
 		<h2>Pictures</h2>

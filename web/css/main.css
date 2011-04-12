@@ -315,17 +315,17 @@ div.javascript_disabled_notification p {
 
 
 #main_view { margin-bottom: 24px; }
-#main_view_show>div { margin-left: 13px; }
 #main_view_show h2 { background: #e7eef6; padding: 3px 5px; margin-bottom: 7px; }
-#object_data_list { float:left; width: 63%; }
 
-#object_picture_list { float: left; width: 63%%; margin-top: 13px; }
-#location_sample_list { float: left; width: 63%%; margin-top: 13px; }
+#object_data_list, #object_picture_list, #location_sample_list { margin-left: 13px; }
+
+#object_picture_list { margin-top: 13px; overflow: hidden; }
+#location_sample_list { margin-top: 13px; overflow: hidden; }
 #location_sample_list table { margin: 0px; padding: 0px; width: 430px; }
 #location_sample_list th, #location_sample_list td { font-size: 11px; width: auto; padding-left: 0px; }
 #location_sample_list a { padding: 0px; }
 
-#object_google_map { float: right; margin-left: 0px; margin-right: 21px; }
+#object_google_map { float: right; margin-left: 21px; margin-right: 21px; }
 #object_google_map div { margin-left: 0px; }
 
 #google_map_legend { margin: 0px; padding: 0px; }

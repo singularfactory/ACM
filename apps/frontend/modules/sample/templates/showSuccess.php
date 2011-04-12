@@ -8,6 +8,11 @@
 <?php end_slot() ?>
 
 <div id="main_view_show">
+	<div id="object_google_map">
+		<?php include_map($googleMap, array('width' => '400px', 'height' => '400px')); ?>
+		<?php include_partial('global/gmap_legend', array('name' => 'sample')) ?>
+	</div>
+	
 	<div id="object_data_list">
 		<dl>
 			<dt>Notebook code:</dt>
@@ -42,12 +47,7 @@
 			<dd><?php echo $sample->getRemarks() ?></dd>
 		</dl>
 	</div>
-	
-	<div id="object_google_map">
-		<?php include_map($googleMap, array('width' => '400px', 'height' => '400px')); ?>
-		<?php include_partial('global/gmap_legend', array('name' => 'sample')) ?>
-	</div>
-	
+		
 	<?php if ( $sample->hasPictures() ): ?>
 		<div id="object_picture_list">
 			<h2>Pictures</h2>
