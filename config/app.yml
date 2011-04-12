@@ -15,7 +15,7 @@ all:
     pictures_dir:           /uploads
     thumbnails_dir:         /thumbnails
     max_picture_size:       512000
-    max_thumbnail_size:     150
+    max_thumbnail_size:     75
     
     # Common constants
     max_list_items:             15

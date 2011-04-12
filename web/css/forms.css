@@ -70,7 +70,7 @@ span.value_unit { font-size: 11px; }
  */
 #name input { width: 250px; }	/* Location */
 #location_pictures { clear: both; }
-#location_picture_list label { display: block; }
+#location_picture_list label, #sample_picture_list label { display: block; }
 div.location_picture { margin: 0px; padding: 0px; }
 div.location_picture input { display: inline; margin-right: 0px; padding-right: 0px; }
 

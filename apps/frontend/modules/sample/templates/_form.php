@@ -150,15 +150,16 @@
 		
 		<?php if ( !empty($pictures) ): ?>
 		<div id="sample_picture_list">
+			<label for="sample_pictures">Actual pictures</label>
 			<?php foreach ($pictures as $picture => $filename): ?>
 				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$filename ?>
 				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$filename ?>
 				<div class="thumbnail">
 					<p class="thumbnail_caption">
-						<?php echo $form[$picture]->renderLabel() ?>
+						<?php echo str_replace(' picture', '', $form[$picture]->renderLabel()) ?>
 						<input type="checkbox" name="sample[<?php echo $picture ?>_delete]" id="sample_<?php echo $picture ?>_delete" />
 						<input type="hidden" name="sample[<?php echo $picture ?>]" value="<?php echo $picture ?>" id="sample_<?php echo $picture ?>" />
-						 delete this
+						 delete
 					</p>
 					<div id="thumbnail_image">
 						<a href="<?php echo $image ?>" rel="thumbnail_link" title="<?php echo $picture ?>" class="cboxElement">
@@ -169,8 +170,6 @@
 			<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
-		
-		
 	</div>
 	
 	<div class="submit">
