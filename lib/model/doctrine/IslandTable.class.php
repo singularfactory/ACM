@@ -16,6 +16,24 @@ class IslandTable extends Doctrine_Table {
 	}
 	
 	/**
+	 * Returns the ID of the default island to show in selects
+	 *
+	 * @param	string	$regionId
+	 * @return	integer
+	 * 
+	 * @author	Eliezer Talon
+	 * @version	2011-04-13
+	 */
+	public function getDefaultIslandId($regionId) {
+		$island = $this->createQuery()
+			->from('Island i')
+			->where('i.name LIKE ?', '%'.sfConfig::get('app_default_island_name').'%')
+			->fetchOne();
+		
+		return $island->getId();
+	}
+	
+	/**
 	 * Returns a query that select islands of a region
 	 *
 	 * @param string $regionId

@@ -21,22 +21,4 @@ class Island extends BaseIsland {
 	public function getCountry() {
 		return $this->getRegion()->getCountry()->getName();
 	}
-	
-	/**
-	 * Returns the ID of the default island to show in selects
-	 *
-	 * @param	string	$regionId
-	 * @return	integer
-	 * 
-	 * @author	Eliezer Talon
-	 * @version	2011-04-13
-	 */
-	public function getDefaultIslandId($regionId) {
-		$island = Doctrine_Query::create()
-			->from('Island i')
-			->where('i.name LIKE ?', '%'.sfConfig::get('app_default_island_name').'%')
-			->fetchOne();
-		
-		return $island->getId();
-	}
 }

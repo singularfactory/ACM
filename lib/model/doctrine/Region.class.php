@@ -28,22 +28,4 @@ class Region extends BaseRegion {
 	public function __toString() {
 	    return $this->getName();
 	}
-	
-	/**
-	 * Returns the ID of the default region to show in selects
-	 *
-	 * @param	string	$countryId
-	 * @return	integer
-	 * 
-	 * @author	Eliezer Talon
-	 * @version	2011-04-13
-	 */
-	public function getDefaultRegionId($countryId) {
-		$region = Doctrine_Query::create()
-			->from('Region r')
-			->where('r.name LIKE ?', '%'.sfConfig::get('app_default_region_name').'%')
-			->fetchOne();
-		
-		return $region->getId();
-	}
 }

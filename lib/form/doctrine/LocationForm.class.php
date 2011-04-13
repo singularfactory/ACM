@@ -28,9 +28,9 @@ class LocationForm extends BaseLocationForm {
 		));
 		
 		// Configure country, region and island widgets to display default options
-		$defaultCountryId = $this->getObject()->getCountry()->getDefaultCountryId();
-		$defaultRegionId = $this->getObject()->getRegion()->getDefaultRegionId($defaultCountryId);
-		$defaultIslandId = $this->getObject()->getIsland()->getDefaultIslandId($defaultRegionId);
+		$defaultCountryId = $this->getObject()->getCountry()->getTable()->getDefaultCountryId();
+		$defaultRegionId = $this->getObject()->getRegion()->getTable()->getDefaultRegionId($defaultCountryId);
+		$defaultIslandId = $this->getObject()->getIsland()->getTable()->getDefaultIslandId($defaultRegionId);
 		
 		$this->widgetSchema->setDefault('country_id', $defaultCountryId);
 		

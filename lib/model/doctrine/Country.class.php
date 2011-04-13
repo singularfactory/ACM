@@ -24,20 +24,4 @@ class Country extends BaseCountry {
 			->where('r.country_id = ?', $this->getId())
 			->count();
 	}
-	
-	/**
-	 * Returns the ID of the default country to show in selects
-	 *
-	 * @return integer
-	 * @author Eliezer Talon
-	 * @version	2011-04-13
-	 */
-	public function getDefaultCountryId() {
-		$country = Doctrine_Query::create()
-			->from('Country c')
-			->where('c.name LIKE ?', '%'.sfConfig::get('app_default_country_name').'%')
-			->fetchOne();
-		
-		return $country->getId();
-	}
 }
