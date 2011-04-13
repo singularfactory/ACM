@@ -28,14 +28,24 @@ class LocationForm extends BaseLocationForm {
 		));
 		
 		// Configure country, region and island widgets to display default options
-		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Island'), 'add_empty' => '---')));
 		$defaultCountryId = $this->getObject()->getCountry()->getDefaultCountryId();
 		$defaultRegionId = $this->getObject()->getRegion()->getDefaultRegionId($defaultCountryId);
 		$defaultIslandId = $this->getObject()->getIsland()->getDefaultIslandId($defaultRegionId);
 		
 		$this->widgetSchema->setDefault('country_id', $defaultCountryId);
-		$this->widgetSchema->setDefault('region_id', $defaultRegionId);
-		$this->widgetSchema->setDefault('island_id', $defaultIslandId);
+		
+		$this->setWidget('region_id', new sfWidgetFormDoctrineChoice(array(
+			'model' => $this->getRelatedModelName('Region'),
+			'query' => $this->getObject()->getRegion()->getTable()->getRegionsQuery($defaultCountryId),
+			'default' => $defaultRegionId,
+		)));
+		
+		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
+			'model' => $this->getRelatedModelName('Island'),
+			'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($defaultRegionId),
+			'add_empty' => '---',
+			'default' => $defaultIslandId,
+		)));
 		
 		// Configure custom validators
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
