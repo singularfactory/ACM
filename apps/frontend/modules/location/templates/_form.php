@@ -36,6 +36,8 @@
 			<?php echo $form['country_id']->renderError() ?>
 			<?php echo $form['country_id']->renderHelp() ?>
 			<?php echo $form['country_id'] ?>
+			<a href="<?php echo url_for('@location_regions?country=') ?>" class="country_regions_url"></a>
+			<a href="<?php echo url_for('@location_islands?region=') ?>" class="region_islands_url"></a>
 		</div>
 
 		<div id="region">

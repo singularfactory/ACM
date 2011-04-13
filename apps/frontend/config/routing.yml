@@ -7,6 +7,14 @@ location_search:
   param:        { module: location, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
 
+location_regions:
+  url:    location/regions/:country
+  param:  { module: location, action: regions }
+
+location_islands:
+  url:    location/islands/:region
+  param:  { module: location, action: islands }
+
 sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }

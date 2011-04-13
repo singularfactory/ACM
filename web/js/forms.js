@@ -84,4 +84,13 @@ $(document).ready(function(){
 		});
 		return false;
 	});
+
+	$('#location_country_id').change(function(){
+		var country_regions_url = $('a.country_regions_url').attr('href');
+		var region_islands_url = $('a.region_islands_url').attr('href');
+		// $.getJSON(sample_location_url + $(this).val(), function(json) {
+		// 			updateSampleCoordinates(json);
+		// 		});
+		return false;
+	});
 });

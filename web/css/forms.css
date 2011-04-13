@@ -79,6 +79,10 @@ div.location_picture input { display: inline; margin-right: 0px; padding-right: 
 #field_picture label, #detailed_picture label, #microscopic_picture label { display: block; }
 #field_picture input, #detailed_picture input, #microscopic_picture input { display: inline; padding: 5px; }
 
+a.sample_location_coordinates_url,
+a.country_regions_url,
+a.region_islands_url { display: none; }
+
 
 /**
  * DATE PICKER
@@ -103,4 +107,3 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
 #gps_coordinates_picker_data { margin: 0px; padding-top: 15px; }
 #gps_coordinates_picker_data label { display: inline; margin-right: 9px; }
 #gps_coordinates_picker_data input { margin-right: 17px; width: 80px; display: inline-block; }
-a.sample_location_coordinates_url { display: none; }

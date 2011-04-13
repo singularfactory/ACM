@@ -40,6 +40,28 @@ class locationActions extends MyActions {
 		$this->form = new LocationForm();
 	}
 
+	public function executeRegions(sfWebRequest $request) {
+		// if ( $request->isXmlHttpRequest() ) {
+		// 	$location = Doctrine_Core::getTable('Location')->find($request->getParameter('id'));
+		// 	$this->getResponse()->setContent(json_encode(array(
+		// 		'latitude' => $location->getLatitude(),
+		// 		'longitude' => $location->getLongitude(),
+		// 	)));
+		// }
+		return sfView::NONE;
+	}
+	
+	public function executeIslands(sfWebRequest $request) {
+		// if ( $request->isXmlHttpRequest() ) {
+		// 	$location = Doctrine_Core::getTable('Location')->find($request->getParameter('id'));
+		// 	$this->getResponse()->setContent(json_encode(array(
+		// 		'latitude' => $location->getLatitude(),
+		// 		'longitude' => $location->getLongitude(),
+		// 	)));
+		// }
+		return sfView::NONE;
+	}
+
 	public function executeShow(sfWebRequest $request) {
 		$this->location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id')));
 		
