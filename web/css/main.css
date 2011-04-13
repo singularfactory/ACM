@@ -325,7 +325,7 @@ div.javascript_disabled_notification p {
 #location_sample_list th, #location_sample_list td { font-size: 11px; width: auto; padding-left: 0px; }
 #location_sample_list a { padding: 0px; }
 
-#object_google_map { float: right; margin-left: 21px; margin-right: 21px; }
+#object_google_map { float: right; margin-bottom: 21px; margin-left: 21px; margin-right: 21px; }
 #object_google_map div { margin-left: 0px; }
 
 #google_map_legend { margin: 0px; padding: 0px; }
