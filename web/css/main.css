@@ -253,6 +253,7 @@ div.javascript_disabled_notification p {
 	margin: 0px auto;
 }
 #main_content {
+	clear:both;
 	background: white;
 	text-align: left;
 	
@@ -266,9 +267,8 @@ div.javascript_disabled_notification p {
 #main_actions { display: none; }
 #main_header {
 	background: #e7eef6;
-	margin: 0px 0px 15px 0px;
+	margin: 0px;
 	padding: 11px 13px 11px 13px;
-	clear:both;
 	font-size: 14px;
 	font-weight: bold;
 	color: black;
@@ -314,7 +314,7 @@ div.javascript_disabled_notification p {
 #main_header #search_box img { margin: 0px; padding: 1px; width: 18px; height: 18px; vertical-align: middle; }
 
 
-#main_view { margin-bottom: 24px; }
+#main_view { margin-bottom: 24px; margin-top: 15px; }
 #main_view_show h2 { background: #e7eef6; padding: 3px 5px; margin-bottom: 7px; }
 
 #object_data_list, #object_picture_list, #location_sample_list { margin-left: 13px; }

@@ -1,13 +1,14 @@
 <?php
 /**
-* Event extension class that records events per every user action
-*/
-class EventLog
-{
+ * Records every CRUD action on frontend objects
+ *
+ * @package bna_green_house
+ * @author Eliezer Talon
+ */
+class EventLog {
 	static protected $field_separator = ';';
 	
-	static public function save_log_message(sfEvent $event_occurred)
-	{
+	static public function save_log_message(sfEvent $event_occurred) {
 		// Get event information
 		$notifier = $event_occurred->getSubject();
 		$request = $notifier->getRequest();
