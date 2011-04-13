@@ -24,6 +24,8 @@ all:
     search_box_hint:            Search...
     gps_coordinates_separator:  ','
     default_country_name:       Spain
+    default_region_name:        Las Palmas
+    default_island_name:        Gran Canaria
     
     # Google Maps API management constants
     map_pictures_dir:   /images/maps

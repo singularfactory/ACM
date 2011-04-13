@@ -25,6 +25,13 @@ class Country extends BaseCountry {
 			->count();
 	}
 	
+	/**
+	 * Returns the ID of the default country to show in selects
+	 *
+	 * @return integer
+	 * @author Eliezer Talon
+	 * @version	2011-04-13
+	 */
 	public function getDefaultCountryId() {
 		$country = Doctrine_Query::create()
 			->from('Country c')
