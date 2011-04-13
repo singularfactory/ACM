@@ -23,6 +23,7 @@ all:
     default_sort_direction:     asc
     search_box_hint:            Search...
     gps_coordinates_separator:  ','
+    default_country_name:       Spain
     
     # Google Maps API management constants
     map_pictures_dir:   /images/maps

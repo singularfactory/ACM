@@ -25,7 +25,10 @@ class LocationForm extends BaseLocationForm {
 				'newFormsInitialCount' => 1,
 				'newRelationButtonLabel' => 'Add another picture',
 			),
-		));		
+		));
+		
+		// Configure Country widget to set a default option value
+		$this->widgetSchema->setDefault('country_id', $this->getObject()->getCountry()->getDefaultCountryId());
 		
 		// Configure custom validators
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
