@@ -41,24 +41,25 @@ class locationActions extends MyActions {
 	}
 
 	public function executeRegions(sfWebRequest $request) {
-		// if ( $request->isXmlHttpRequest() ) {
-		// 	$location = Doctrine_Core::getTable('Location')->find($request->getParameter('id'));
-		// 	$this->getResponse()->setContent(json_encode(array(
-		// 		'latitude' => $location->getLatitude(),
-		// 		'longitude' => $location->getLongitude(),
-		// 	)));
-		// }
+		if ( $request->isXmlHttpRequest() ) {
+			$results = Doctrine_Core::getTable('Region')->createQuery('r')->where('country_id = ?', $request->getParameter('country'))->execute();
+			$regions = array();
+			foreach ($results as $region) {
+				$regions[] = array('id' => $region->getId(), 'name' => $region->getName());
+			}
+			$this->getResponse()->setContent(json_encode($regions));
+		}
 		return sfView::NONE;
 	}
 	
 	public function executeIslands(sfWebRequest $request) {
-		// if ( $request->isXmlHttpRequest() ) {
-		// 	$location = Doctrine_Core::getTable('Location')->find($request->getParameter('id'));
+		if ( $request->isXmlHttpRequest() ) {
+		$islands = Doctrine_Core::getTable('Region')->find($request->getParameter('region'));
 		// 	$this->getResponse()->setContent(json_encode(array(
 		// 		'latitude' => $location->getLatitude(),
 		// 		'longitude' => $location->getLongitude(),
 		// 	)));
-		// }
+		}
 		return sfView::NONE;
 	}
 

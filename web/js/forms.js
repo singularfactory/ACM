@@ -10,6 +10,15 @@ function updateSampleCoordinates(coordinates) {
 	$('#sample_longitude').val(coordinates.longitude);
 }
 
+// Regions select box in Location
+function updateRegionsSelect(options) {
+	$('#location_region_id').empty();
+	$.each(options, function(key, option){
+		$('#location_region_id').append('<option value="' + option.id + '">' + option.name + '</option');
+	});
+}
+
+
 $(document).ready(function(){		
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
@@ -86,10 +95,17 @@ $(document).ready(function(){
 	});
 
 	$('#location_country_id').change(function(){
+		// Retrieve regions
 		var country_regions_url = $('a.country_regions_url').attr('href');
+		$.getJSON(country_regions_url + $(this).val(), function(json) {
+			updateRegionsSelect(json);
+		});
+		
+		// Retrieve islands
 		var region_islands_url = $('a.region_islands_url').attr('href');
-		// $.getJSON(sample_location_url + $(this).val(), function(json) {
-		// 			updateSampleCoordinates(json);
+		// $.getJSON(region_islands_url + $(this).val(), function(json) {
+		// 			// updateSampleCoordinates(json);
+		// 			;
 		// 		});
 		return false;
 	});
