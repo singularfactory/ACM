@@ -38,7 +38,7 @@
 			<dt>Radiation:</dt>
 			<dd><?php echo $sample->getRadiation()->getName() ?></dd>
 			<dt>Collector:</dt>
-			<dd><?php echo $sample->getCollector()->getFullName() ?></dd>
+			<dd><?php echo $sample->getCollector() ?></dd>
 			<dt>Collection date:</dt>
 			<dd><?php echo format_date($sample->getCollectionDate(), 'p') ?></dd>
 			<dt>GPS coordinates:</dt>

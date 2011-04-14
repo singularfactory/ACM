@@ -23,7 +23,7 @@
 			<?php $url = url_for('@sample_show?id='.$sample->getId()) ?>
 			<td class="sample_code"><?php echo link_to($sample->getNumber(), $url) ?></td>
 			<td class="location_name"><?php echo link_to($sample->getLocation()->getName(), $url) ?></td>
-			<td class="collector_name"><?php echo link_to($sample->getCollector()->getFullName(), $url) ?></td>
+			<td class="collector_name"><?php echo link_to($sample->getCollector(), $url) ?></td>
 			<td class="date"><?php echo link_to(format_date($sample->getCollectionDate(), 'p'), $url) ?></td>
 
 			<td class="actions">

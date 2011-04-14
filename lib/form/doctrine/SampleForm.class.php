@@ -23,7 +23,6 @@ class SampleForm extends BaseSampleForm {
 		// Configure collector
 		$this->setWidget('collector_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Collector'),
-			'method' => 'getFullName',
 			'add_empty' => false)
 		));
 		

@@ -69,7 +69,7 @@
 			<?php foreach ($location->getSamples() as $sample ): ?>
 				<tr>
 					<td><?php echo link_to($sample->getNumber(), '@sample_show?id='.$sample->getId()) ?></td>
-					<td><?php echo link_to($sample->getCollector()->getFullName(), '@sample_show?id='.$sample->getId()) ?></td>
+					<td><?php echo link_to($sample->getCollector(), '@sample_show?id='.$sample->getId()) ?></td>
 					<td><?php echo link_to($sample->getCollectionDate(), '@sample_show?id='.$sample->getId()) ?></td>
 				</tr>
 			<?php endforeach ?>

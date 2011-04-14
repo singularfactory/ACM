@@ -119,7 +119,7 @@
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>
 		</div>
-		
+
 		<?php $pictures = array() ?>
 		<?php if ( !$form['field_picture']->getValue() ): ?>
 		<div id="field_picture">
