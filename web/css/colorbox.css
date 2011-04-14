@@ -42,12 +42,12 @@
 
 .thumbnail { float:left; margin: 0px 7px 7px 0px; height: 80px; width: 80px; padding-left: 0px; text-align: center; }
 #thumbnail_image { height: 75px; width: 75px; padding: 0px; }
-.thumbnail_caption { text-align: center; font-size: 11px; font-weight: bold; margin: 0px auto 0px auto; padding: 0px; }
+.thumbnail_caption { text-align: center; font-size: 11px; font-weight: bold; margin: 0px auto 3px auto; padding: 0px; }
 .thumbnail_caption label { display: block; margin: 0px; padding: 0px; }
 .thumbnail_caption input[type="checkbox"] { margin: 0px; padding: 0px; }
 a.cboxElement:link,
 a.cboxElement:visited,
 a.cboxElement:hover,
-a.cboxElement:focus { padding: 0px; margin: 0px; text-decoration: none; }
+a.cboxElement:focus { padding: 0px; margin: 0px; text-decoration: none; display: block; }
 a.cboxElement:hover { background: transparent; }
 a.cboxElement img { vertical-align: top; }
