@@ -4,6 +4,32 @@ function roundNumber(num, dec) {
 	return result;
 }
 
+// Converts decimal degrees into degrees minutes and seconds
+function decimalDegreesToDMS(coordinate) {
+	var degrees = Math.floor(Math.abs(coordinate));
+	var tmp = (Math.abs(coordinate) - degrees) * 60.0;
+	var minutes = Math.floor(tmp);
+	var seconds = Math.ceil((tmp - minutes) * 60);
+	
+	if ( coordinate < 0 ) {
+		degrees = degrees * -1;
+	}
+	return degrees + 'º' + minutes + "'" + seconds + '"';
+}
+
+// Converts degrees, minutes and seconds into decimal degrees
+function DMSToDecimalDegrees(coordinate) {
+	var degreesSeparatorIndex = coordinate.indexOf('º');
+	var minutesSeparatorIndex = coordinate.indexOf("'");
+	var secondsSeparatorIndex = coordinate.indexOf('"');
+	
+	var degrees = parseInt(coordinate.substring(0, degreesSeparatorIndex + 1));
+	var minutes = parseInt(coordinate.substring(degreesSeparatorIndex + 1, minutesSeparatorIndex));
+	var seconds = parseInt(coordinate.substring(minutesSeparatorIndex + 1, secondsSeparatorIndex));
+	
+	return degrees + (minutes / 60.0) + (seconds / 3600.0);
+}
+
 // Update GPS coordinates of Sample with inherited values from Location
 function updateSampleCoordinates(coordinates) {
 	$('#sample_latitude').val(coordinates.latitude);
@@ -38,7 +64,6 @@ function updateIslandsSelect(options) {
 	}
 }
 
-
 $(document).ready(function(){		
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
@@ -66,12 +91,16 @@ $(document).ready(function(){
 				icon: '/images/maps/location.png',
 			});
 			$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
-				$('#gps_coordinates_picker_latitude').val(roundNumber(event.latLng.lat(), 5));
-				$('#gps_coordinates_picker_longitude').val(roundNumber(event.latLng.lng(), 5));
+				$('#gps_coordinates_picker_latitude').val(decimalDegreesToDMS(event.latLng.lat()));
+				$('#gps_coordinates_picker_longitude').val(decimalDegreesToDMS(event.latLng.lng()));
 				$.goMap.clearMarkers();
 				$.goMap.createMarker({
 					latitude: event.latLng.lat(),
 			    longitude: event.latLng.lng(),
+				});
+				$.goMap.createMarker({
+					latitude: lAtItUdE,
+			    longitude: lOnGiTuDe,
 				});
 				$.goMap.setMap({ zoom: ($.goMap.getMap().zoom + 1) });
 			});
