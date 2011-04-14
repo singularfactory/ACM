@@ -42,7 +42,7 @@ class locationActions extends MyActions {
 
 	public function executeRegions(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Region')->createQuery('r')->where('country_id = ?', $request->getParameter('country'))->execute();
+			$results = Doctrine_Core::getTable('Region')->findByCountryId($request->getParameter('country'));
 			$regions = array();
 			foreach ($results as $region) {
 				$regions[] = array('id' => $region->getId(), 'name' => $region->getName());
@@ -54,7 +54,7 @@ class locationActions extends MyActions {
 	
 	public function executeIslands(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Island')->createQuery('i')->where('region_id = ?', $request->getParameter('region'))->execute();
+			$results = Doctrine_Core::getTable('Island')->findByRegionId($request->getParameter('region'));
 			$islands = array();
 			foreach ($results as $island) {
 				$islands[] = array('id' => $island->getId(), 'name' => $island->getName());
