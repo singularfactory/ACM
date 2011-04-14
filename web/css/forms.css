@@ -99,7 +99,7 @@ table.ui-datepicker-calendar { font-size: 11px; }
  * GPS COORDINATES PICKER
  */
 span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; vertical-align: bottom; }
-#gps_coordinates_picker_link { font-size: 11px; padding: 1px 5px; text-decoration: underline; }
+#gps_coordinates_picker_link { font-size: 11px; padding: 1px 5px; text-decoration: underline; display: inline; }
 #gps_coordinates_picker_link:hover { background: #2aa2f8; color: #ffffff; text-decoration: none; }
 #gps_coordinates_picker_hidden { display: none; }
 #gps_coordinates_picker { width: 800px; height: 550px; position: relative; background: #f0f0f0; }

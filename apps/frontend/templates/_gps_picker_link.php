@@ -1,4 +1,4 @@
-<a href="#" id="gps_coordinates_picker_link" class="cboxElement">pick from a map</a>
+<a href="#" id="gps_coordinates_picker_link">pick from a map</a>
 <div id="gps_coordinates_picker_hidden">
 	<div id="gps_coordinates_picker">
 		<div id="gps_coordinates_picker_data">
