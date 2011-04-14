@@ -54,11 +54,12 @@ class locationActions extends MyActions {
 	
 	public function executeIslands(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
-		$islands = Doctrine_Core::getTable('Region')->find($request->getParameter('region'));
-		// 	$this->getResponse()->setContent(json_encode(array(
-		// 		'latitude' => $location->getLatitude(),
-		// 		'longitude' => $location->getLongitude(),
-		// 	)));
+			$results = Doctrine_Core::getTable('Island')->createQuery('i')->where('region_id = ?', $request->getParameter('region'))->execute();
+			$islands = array();
+			foreach ($results as $island) {
+				$islands[] = array('id' => $island->getId(), 'name' => $island->getName());
+			}
+			$this->getResponse()->setContent(json_encode($islands));
 		}
 		return sfView::NONE;
 	}

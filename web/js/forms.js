@@ -13,9 +13,29 @@ function updateSampleCoordinates(coordinates) {
 // Regions select box in Location
 function updateRegionsSelect(options) {
 	$('#location_region_id').empty();
-	$.each(options, function(key, option){
-		$('#location_region_id').append('<option value="' + option.id + '">' + option.name + '</option');
-	});
+	if ( options.length > 0 ) {
+		$.each(options, function(key, option){
+			$('#location_region_id').append('<option value="' + option.id + '">' + option.name + '</option');
+		});
+		return options[0].id;
+	}
+	else {
+		$('#location_region_id').append('<option value>---</option');
+		return null;
+	}
+}
+
+// Islands select box in Location
+function updateIslandsSelect(options) {
+	$('#location_island_id').empty();
+	if ( options.length > 0 ) {
+		$.each(options, function(key, option){
+			$('#location_island_id').append('<option value="' + option.id + '">' + option.name + '</option');
+		});
+	} 
+	else {
+		$('#location_island_id').append('<option value>---</option');
+	}
 }
 
 
@@ -98,15 +118,16 @@ $(document).ready(function(){
 		// Retrieve regions
 		var country_regions_url = $('a.country_regions_url').attr('href');
 		$.getJSON(country_regions_url + $(this).val(), function(json) {
-			updateRegionsSelect(json);
+			var id = updateRegionsSelect(json);
+			
+			// Retrieve islands
+			var region_islands_url = $('a.region_islands_url').attr('href');
+			$.getJSON(region_islands_url + id, function(json) {
+				updateIslandsSelect(json);
+			});
 		});
 		
-		// Retrieve islands
-		var region_islands_url = $('a.region_islands_url').attr('href');
-		// $.getJSON(region_islands_url + $(this).val(), function(json) {
-		// 			// updateSampleCoordinates(json);
-		// 			;
-		// 		});
 		return false;
 	});
+
 });
