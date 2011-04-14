@@ -25,4 +25,10 @@ class LocationTable extends Doctrine_Table {
 	public function getSortedByNameQuery() {
 		return $this->createQuery('l')->orderBy('l.name ASC');
 	}
+	
+	public function getDefaultLocationId() {
+		$location = $this->createQuery('l')->fetchOne();
+		return $location->getId();
+	}
+	
 }

@@ -16,6 +16,7 @@
 			<?php echo $form['location_id']->renderLabel() ?>
 			<?php echo $form['location_id']->renderHelp() ?>
 			<?php echo $form['location_id'] ?>
+			<input type="text" value="Type a location..." id="sample_location_search" />
 			<a href="<?php echo url_for('@sample_location?id=') ?>" class="sample_location_coordinates_url"></a>
 		</div>
 

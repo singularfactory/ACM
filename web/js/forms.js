@@ -169,5 +169,22 @@ $(document).ready(function(){
 		return false;
 	});
 	
-
+	var locationSearchBoxDefault = "Type a location...";
+	
+	// Location search box in Sample form default values
+	$('#sample_location_search').focus(function(){
+		if ( $(this).attr("value") == locationSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "#333");
+		} 
+	});
+	
+	$('#sample_location_search').blur(function(){
+		if( $(this).attr("value") == "" ) {
+			$(this).attr("value", locationSearchBoxDefault);
+			$(this).css("color", "#888");
+		}
+	});
+	
+	
 });

@@ -21,10 +21,8 @@ class SampleForm extends BaseSampleForm {
 		)));
 		
 		// Configure location
-		$this->setWidget('location_id', new sfWidgetFormDoctrineChoice(array(
-			'model' => $this->getRelatedModelName('Location'),
-			'add_empty' => false,
-			'query' => $this->getObject()->getLocation()->getTable()->getSortedByNameQuery(),
+		$this->setWidget('location_id', new sfWidgetFormInputHidden(array(
+			'default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId(),
 		)));
       
 		// Configure collector

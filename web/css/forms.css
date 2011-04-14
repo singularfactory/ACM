@@ -83,6 +83,8 @@ a.sample_location_coordinates_url,
 a.country_regions_url,
 a.region_islands_url { display: none; }
 
+#sample_location_search { color: #888; font-size: 11px; width: 300px; }
+
 
 /**
  * DATE PICKER
