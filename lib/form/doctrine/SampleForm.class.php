@@ -20,6 +20,13 @@ class SampleForm extends BaseSampleForm {
 			'years' => $years,
 		)));
 		
+		// Configure location
+		$this->setWidget('location_id', new sfWidgetFormDoctrineChoice(array(
+			'model' => $this->getRelatedModelName('Location'),
+			'add_empty' => false,
+			'query' => $this->getObject()->getLocation()->getTable()->getSortedByNameQuery(),
+		)));
+      
 		// Configure collector
 		$this->setWidget('collector_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Collector'),
