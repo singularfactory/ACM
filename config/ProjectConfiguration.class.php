@@ -10,7 +10,6 @@ class ProjectConfiguration extends sfProjectConfiguration {
 			'ahDoctrineEasyEmbeddedRelationsPlugin',
 			'sfEasyGMapPlugin',
 			'sfThumbnailPlugin',
-			'sfDependentSelectPlugin',
 		));
 
 		// Register the logger event handler
