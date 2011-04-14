@@ -50,13 +50,13 @@ class LocationForm extends BaseLocationForm {
 		// Configure custom validators
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
 		$this->setValidator('latitude', new sfValidatorOr(array(
-				new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}"$/')),
+				new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/')),
 				new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}\.\d{1,6}$/')),
 				),
 				array(),
 				array('invalid' => 'Invalid coordinates format')));
 		$this->setValidator('longitude', new sfValidatorOr(array(
-				new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}"$/')),
+				new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/')),
 				new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}\.\d{1,6}$/')),
 				),
 				array(),

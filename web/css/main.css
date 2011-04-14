@@ -272,7 +272,6 @@ div.javascript_disabled_notification p {
 	font-size: 14px;
 	font-weight: bold;
 	color: black;
-	overflow: hidden;
 }
 
 #main_header div.main_header_action { float:right; margin-left: 5px; }

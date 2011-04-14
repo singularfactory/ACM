@@ -82,13 +82,13 @@ class SampleForm extends BaseSampleForm
 		
 		// Configure custom validators
 		$this->setValidator('latitude', new sfValidatorOr(array(
-				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}"$/')),
+				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/')),
 				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}\.\d{1,6}$/')),
 				),
 				array('required' => false),
 				array('invalid' => 'Invalid coordinates format')));
 		$this->setValidator('longitude', new sfValidatorOr(array(
-				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}"$/')),
+				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/')),
 				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}\.\d{1,6}$/')),
 				),
 				array('required' => false),
