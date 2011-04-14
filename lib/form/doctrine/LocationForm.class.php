@@ -73,4 +73,24 @@ class LocationForm extends BaseLocationForm {
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
 		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
 	}
+	
+	/**
+	 * Replace two single-quote symbols by a double-quote symbol before saving the form
+	 *
+	 * @param object $connection
+	 * @return void
+	 * @author Eliezer Talon
+	 * @version 2011-04-14
+	 */
+	protected function doSave($connection = null) {
+		if ( $this->values['latitude'] && preg_match('/\'\'$/', $this->values['latitude']) ) {
+			$this->values['latitude'] = str_replace("''", '"', $this->values['latitude']);
+		}
+		
+		if ( $this->values['longitude'] && preg_match('/\'\'$/', $this->values['longitude']) ) {
+			$this->values['longitude'] = str_replace("''", '"', $this->values['longitude']);
+		}
+		
+		parent::doSave($connection);
+	}
 }

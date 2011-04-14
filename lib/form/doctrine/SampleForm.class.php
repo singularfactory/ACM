@@ -8,10 +8,8 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class SampleForm extends BaseSampleForm
-{
-	public function configure()
-	{		
+class SampleForm extends BaseSampleForm {
+	public function configure() {
 		// Configure collection date format
 		$lastYear = date('Y');
 		for ($i=$lastYear-5; $i <= $lastYear; $i++) { 
@@ -113,4 +111,25 @@ class SampleForm extends BaseSampleForm
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
 	}
+
+	/**
+	 * Replace two single-quote symbols by a double-quote symbol before saving the form
+	 *
+	 * @param object $connection
+	 * @return void
+	 * @author Eliezer Talon
+	 * @version 2011-04-14
+	 */
+	protected function doSave($connection = null) {
+		if ( $this->values['latitude'] && preg_match('/\'\'$/', $this->values['latitude']) ) {
+			$this->values['latitude'] = str_replace("''", '"', $this->values['latitude']);
+		}
+		
+		if ( $this->values['longitude'] && preg_match('/\'\'$/', $this->values['longitude']) ) {
+			$this->values['longitude'] = str_replace("''", '"', $this->values['longitude']);
+		}
+		
+		parent::doSave($connection);
+	}
+
 }
