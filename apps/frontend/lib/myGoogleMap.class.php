@@ -43,6 +43,14 @@ class MyGoogleMap extends GMap {
 	}
 	
 	public function getMarkerFromCoordinates($latitude, $longitude, $window_options = array()) {
+		if ( preg_match('/^-?\d+º\d+\'\d+("|\'\')$/', $latitude) ) {
+			$latitude = MyGoogleMap::dms_to_decimal_degrees($latitude);
+		}
+		
+		if ( preg_match('/^-?\d+º\d+\'\d+("|\'\')$/', $longitude) ) {
+			$longitude = MyGoogleMap::dms_to_decimal_degrees($longitude);
+		}
+		
 		$marker = new GMapMarker(
 			$latitude,
 			$longitude,
@@ -69,5 +77,26 @@ class MyGoogleMap extends GMap {
 		}
 		$marker->addHtmlInfoWindow($this->buildMarkerWindow($window_options));
 		return $marker;
+	}
+	
+	/**
+	 * Converts degrees, minutes and seconds into decimal degrees
+	 *
+	 * @param string $coordinate
+	 * @return double
+	 * @author Eliezer Talon
+	 * @version 2011-04-14
+	 */
+	public static function dms_to_decimal_degrees($coordinate) {
+		if ( empty($coordinate) ) {
+			return 0.0;
+		}
+
+		if ( preg_match('/^(-?\d+)º(\d+)\'(\d+)("|\'\')$/', $coordinate, $matches) ) {
+			return $matches[1] + ($matches[2] / 60.0) + ($matches[3] / 3600.0);
+		}
+		else {
+			return 0.0;
+		}
 	}
 }
