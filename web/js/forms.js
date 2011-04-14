@@ -129,5 +129,16 @@ $(document).ready(function(){
 		
 		return false;
 	});
+	
+	$('#location_region_id').change(function(){
+		// Retrieve islands
+		var region_islands_url = $('a.region_islands_url').attr('href');
+		$.getJSON(region_islands_url + $(this).val(), function(json) {
+			updateIslandsSelect(json);
+		});
+		
+		return false;
+	});
+	
 
 });
