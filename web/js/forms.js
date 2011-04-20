@@ -92,11 +92,11 @@ $(document).ready(function(){
 					latitude: event.latLng.lat(),
 			    longitude: event.latLng.lng(),
 				});
-				$.goMap.createMarker({
-					latitude: lAtItUdE,
-			    longitude: lOnGiTuDe,
+				$.goMap.setMap({
+					zoom: ($.goMap.getMap().zoom + 1),
+					latitude: event.latLng.lat(),
+					longitude: event.latLng.lng(),
 				});
-				$.goMap.setMap({ zoom: ($.goMap.getMap().zoom + 1) });
 			});
 		},
 		
