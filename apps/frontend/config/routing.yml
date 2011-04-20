@@ -1,3 +1,6 @@
+###
+# Location model related routes
+###
 location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
@@ -15,6 +18,11 @@ location_islands:
   url:    location/islands/:region
   param:  { module: location, action: islands }
 
+
+
+###
+# Sample model related routes
+###
 sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }
@@ -27,7 +35,17 @@ sample_search:
 sample_location:
   url:    sample/location/:id
   param:  { module: sample, action: location }
-  
+
+sample_search_location:
+  url:    sample/findLocations/:term
+  param:  { module: sample, action: findLocations }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+
+
+###
+# sfGuardUser model related routes
+###
 profile:
   class:   sfDoctrineRouteCollection
   options: { model: sfGuardUser }
@@ -40,7 +58,11 @@ logout:
   url:   /logout
   param: { module: sfGuardAuth, action: signout }
 
-# Default rules (catch all)
+
+
+###
+# Default rules
+###
 homepage:
   url:    /
   param:  { module: sample, action: index }

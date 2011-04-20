@@ -169,22 +169,40 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	var locationSearchBoxDefault = "Type a location...";
-	
 	// Location search box in Sample form default values
+	var locationSearchBoxDefault = "Type a location...";
 	$('#sample_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
 			$(this).attr("value", "");
-			$(this).css("color", "#333");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
 		} 
 	});
-	
 	$('#sample_location_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
 			$(this).attr("value", locationSearchBoxDefault);
 			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
 		}
 	});
+
+	if ( $('#sample_location_search').val() != locationSearchBoxDefault ) {
+		$('#sample_location_search').css("color", "black");
+		$('#sample_location_search').css("font-size", "12px");
+	}
 	
-	
+	$("#sample_location_search").autocomplete({
+		minLength: 3,
+		source: function(term, add) {
+			var url = $('a.sample_location_coordinates_url').attr('href') + $("#sample_location_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#sample_location_search" ).val( ui.item.label );
+			$( "#sample_location_id" ).val( ui.item.id );
+			$( "#sample_latitude" ).val( ui.item.latitude );
+			$( "#sample_longitude" ).val( ui.item.longitude );
+			return false;
+		},
+	});
 });

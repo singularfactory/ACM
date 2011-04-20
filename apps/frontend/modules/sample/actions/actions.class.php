@@ -57,6 +57,23 @@ class sampleActions extends MyActions
 		return sfView::NONE;
 	}
 	
+	public function executeFindLocations(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = Doctrine_Core::getTable('Location')->createQuery('l')->where('l.name LIKE ?', "%{$request->getParameter('term')}%")->execute();
+			$locations = array();
+			foreach ($results as $location) {
+				$locations[] = array(
+					'id' => $location->getId(),
+					'label' => $location->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'latitude' => $location->getLatitude(),
+					'longitude' => $location->getLongitude(),
+				);
+			}
+			$this->getResponse()->setContent(json_encode($locations));
+		}
+		return sfView::NONE;
+	}
+	
 	public function executeShow(sfWebRequest $request) {
 		$this->sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id')));
 		
