@@ -21,9 +21,7 @@ class SampleForm extends BaseSampleForm {
 		)));
 		
 		// Configure location
-		$this->setWidget('location_id', new sfWidgetFormInputHidden(array(
-			'default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId(),
-		)));
+		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
       
 		// Configure collector
 		$this->setWidget('collector_id', new sfWidgetFormDoctrineChoice(array(
@@ -83,18 +81,17 @@ class SampleForm extends BaseSampleForm {
 		$this->setValidator('microscopic_picture_delete', new sfValidatorBoolean());
 		
 		// Configure custom validators
-		$this->setValidator('latitude', new sfValidatorOr(array(
-				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/')),
-				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}\.\d{1,6}$/')),
-				),
-				array('required' => false),
-				array('invalid' => 'Invalid coordinates format')));
-		$this->setValidator('longitude', new sfValidatorOr(array(
-				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/')),
-				new sfValidatorRegex(array('pattern' => '/^\-?\d{1,2}\.\d{1,6}$/')),
-				),
-				array('required' => false),
-				array('invalid' => 'Invalid coordinates format')));
+		$this->setValidator('location_id', new sfValidatorDoctrineChoice(
+			array('model' => $this->getRelatedModelName('Location')),
+			array('required' => 'The location of the sample is required')));
+		
+		$this->setValidator('latitude', new sfValidatorRegex(
+			array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
+			array('invalid' => 'Invalid coordinates format')));
+		$this->setValidator('longitude', new sfValidatorRegex(
+			array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
+			array('invalid' => 'Invalid coordinates format')));
+				
 		$this->setValidator('notebook_code', new sfValidatorInteger(array('required' => true), array(
 			'invalid' => 'Only an integer number allowed',
 			'required' => 'Provide the notebook code')));
