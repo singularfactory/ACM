@@ -28,5 +28,5 @@ class CountryTable extends Doctrine_Table {
 			->fetchOne();
 		
 		return $country->getId();
-	}
+	}	
 }

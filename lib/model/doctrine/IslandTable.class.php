@@ -1,5 +1,4 @@
 <?php
-
 /**
 * IslandTable
 * 
@@ -47,4 +46,16 @@ class IslandTable extends Doctrine_Table {
 		}
 		return $query;
 	}
+
+	/**
+	 * Returns a list of islands, optionally filter by region
+	 *
+	 * @param integer $regionId Id of a region
+	 * @return object DoctrineRecord
+	 * @author Eliezer Talon
+	 */
+	public function getIslands($regionId = null) {
+		return $this->getIslandsQuery($regionId)->execute();
+	}
+	
 }

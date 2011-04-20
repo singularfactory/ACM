@@ -39,31 +39,7 @@ class locationActions extends MyActions {
 		// Add a form to filter results
 		$this->form = new LocationForm();
 	}
-
-	public function executeRegions(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Region')->findByCountryId($request->getParameter('country'));
-			$regions = array();
-			foreach ($results as $region) {
-				$regions[] = array('id' => $region->getId(), 'name' => $region->getName());
-			}
-			$this->getResponse()->setContent(json_encode($regions));
-		}
-		return sfView::NONE;
-	}
 	
-	public function executeIslands(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Island')->findByRegionId($request->getParameter('region'));
-			$islands = array();
-			foreach ($results as $island) {
-				$islands[] = array('id' => $island->getId(), 'name' => $island->getName());
-			}
-			$this->getResponse()->setContent(json_encode($islands));
-		}
-		return sfView::NONE;
-	}
-
 	public function executeShow(sfWebRequest $request) {
 		$this->location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id')));
 		

@@ -46,4 +46,16 @@ class RegionTable extends Doctrine_Table {
 		}
 		return $query;
 	}
+	
+	/**
+	 * Returns a list of regions, optionally filter by country
+	 *
+	 * @param integer $countryId Id of a country
+	 * @return object DoctrineRecord
+	 * @author Eliezer Talon
+	 */
+	public function getRegions($countryId = null) {
+		return $this->getRegionsQuery($countryId)->execute();
+	}
+	
 }

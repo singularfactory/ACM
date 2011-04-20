@@ -1,4 +1,22 @@
 ###
+# Country model related routes
+###
+country_find_regions:
+  url:    country/findRegions/:country
+  param:  { module: country, action: findRegions }
+  requirements: { country: .* } # Search pattern is optional, by default all results are shown
+
+
+###
+# Region model related routes
+###
+region_find_islands:
+  url:    region/findIslands/:region
+  param:  { module: region, action: findIslands }
+  requirements: { region: .* } # Search pattern is optional, by default all results are shown
+
+
+###
 # Location model related routes
 ###
 location:
@@ -9,15 +27,6 @@ location_search:
   url:          location/search/:criteria
   param:        { module: location, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
-
-location_regions:
-  url:    location/regions/:country
-  param:  { module: location, action: regions }
-
-location_islands:
-  url:    location/islands/:region
-  param:  { module: location, action: islands }
-
 
 
 ###
@@ -38,7 +47,6 @@ sample_find_locations:
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
 
-
 ###
 # sfGuardUser model related routes
 ###
@@ -53,7 +61,6 @@ login:
 logout:
   url:   /logout
   param: { module: sfGuardAuth, action: signout }
-
 
 
 ###
