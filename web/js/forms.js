@@ -30,12 +30,6 @@ function DMSToDecimalDegrees(coordinate) {
 	return degrees + (minutes / 60.0) + (seconds / 3600.0);
 }
 
-// Update GPS coordinates of Sample with inherited values from Location
-function updateSampleCoordinates(coordinates) {
-	$('#sample_latitude').val(coordinates.latitude);
-	$('#sample_longitude').val(coordinates.longitude);
-}
-
 // Regions select box in Location
 function updateRegionsSelect(options) {
 	$('#location_region_id').empty();
@@ -124,25 +118,7 @@ $(document).ready(function(){
 		}
 	});
 
-	// Load location coordinates when creating a sample
-	$('#sample_location_id').ready(function(){
-		if ( $('#sample_id').length && !$('#sample_id').val() ) {
-			var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
-			$.getJSON(sample_location_url + $('#location select').children().first().val(), function(json) {
-				updateSampleCoordinates(json);
-			});
-		}
-		return false;
-	});
-
-	$('#sample_location_id').change(function(){
-		var sample_location_url = $('a.sample_location_coordinates_url').attr('href');
-		$.getJSON(sample_location_url + $(this).val(), function(json) {
-			updateSampleCoordinates(json);
-		});
-		return false;
-	});
-
+	// Update Region select and Island select when selecting a Country in Location form
 	$('#location_country_id').change(function(){
 		// Retrieve regions
 		var country_regions_url = $('a.country_regions_url').attr('href');
@@ -159,6 +135,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	// Update Island select when selecting a Region in Location form
 	$('#location_region_id').change(function(){
 		// Retrieve islands
 		var region_islands_url = $('a.region_islands_url').attr('href');
@@ -169,7 +146,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	// Location search box in Sample form default values
+	// Add a search box for Location in Sample form
 	var locationSearchBoxDefault = "Type a location...";
 	$('#sample_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
@@ -205,4 +182,6 @@ $(document).ready(function(){
 			return false;
 		},
 	});
+	
+	
 });
