@@ -93,7 +93,12 @@ class MyGoogleMap extends GMap {
 		}
 
 		if ( preg_match('/^(-?\d+)º(\d+)\'(\d+)("|\'\')$/', $coordinate, $matches) ) {
-			return $matches[1] + ($matches[2] / 60.0) + ($matches[3] / 3600.0);
+			$coordinate = abs($matches[1]) + ($matches[2] / 60.0) + ($matches[3] / 3600.0);
+			if ( $matches[1] < 0.0 ) {
+				$coordinate = $coordinate * -1.0;
+			}
+			
+			return $coordinate;
 		}
 		else {
 			return 0.0;

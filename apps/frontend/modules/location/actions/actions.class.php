@@ -58,7 +58,8 @@ class locationActions extends MyActions {
 		}
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
-		$this->googleMap->centerAndZoomOnMarkers(1);
+		$this->googleMap->centerAndZoomOnMarkers();
+		$this->googleMap->setZoom($this->googleMap->getZoom() - 2);
 				
 		$this->forward404Unless($this->location);
 	}
