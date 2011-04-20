@@ -32,11 +32,7 @@ sample_search:
   param:        { module: sample, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
 
-sample_location:
-  url:    sample/location/:id
-  param:  { module: sample, action: location }
-
-sample_search_location:
+sample_find_locations:
   url:    sample/findLocations/:term
   param:  { module: sample, action: findLocations }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown

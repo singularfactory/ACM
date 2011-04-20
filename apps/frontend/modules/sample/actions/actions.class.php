@@ -46,17 +46,14 @@ class sampleActions extends MyActions
 		$this->form = new SampleForm();
 	}
 
-	public function executeLocation(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$location = Doctrine_Core::getTable('Location')->find($request->getParameter('id'));
-			$this->getResponse()->setContent(json_encode(array(
-				'latitude' => $location->getLatitude(),
-				'longitude' => $location->getLongitude(),
-			)));
-		}
-		return sfView::NONE;
-	}
-	
+	/**
+	 * Find the locations that matches a search term when creating or editing a sample
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with location id, name and GPS coordinates
+	 * @author Eliezer Talon
+	 * @version 2011-04-20
+	 */
 	public function executeFindLocations(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			$results = Doctrine_Core::getTable('Location')->createQuery('l')->where('l.name LIKE ?', "%{$request->getParameter('term')}%")->execute();

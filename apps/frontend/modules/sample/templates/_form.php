@@ -16,7 +16,7 @@
 			<?php echo $form['location_id']->renderLabel() ?>
 			<?php echo $form['location_id']->renderHelp() ?>
 			<input type="text" value="<?php echo ($form->isNew())?'Type a location...':$form->getObject()->getLocation()->getName(); ?>" id="sample_location_search" />
-			<a href="<?php echo url_for('@sample_search_location?term=') ?>" class="sample_location_coordinates_url"></a>
+			<a href="<?php echo url_for('@sample_find_locations?term=') ?>" class="sample_location_coordinates_url"></a>
 		</div>
 
 		<div id="gps_coordinates">
