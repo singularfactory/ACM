@@ -48,6 +48,19 @@ sample_find_locations:
 
 
 ###
+# Strain model related routes
+###
+strain:
+  class:   sfDoctrineRouteCollection
+  options: { model: Strain }
+
+strain_search:
+  url:          strain/search/:criteria
+  param:        { module: strain, action: index }
+  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+
+
+###
 # sfGuardUser model related routes
 ###
 profile:

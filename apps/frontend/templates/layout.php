@@ -54,6 +54,15 @@
 						?>
 					</li>
 					
+					<li>
+						<?php
+						if ( !preg_match('/^(strain(\/_)?)/', $currentRoute) )
+							echo link_to('Strains', '@strain');
+						else
+							echo link_to('Strains', '@strain', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
 					<li class="header_menu_right_tab">
 						<?php
 						if ( !preg_match('/^search(\/_)?/', $currentRoute) )
