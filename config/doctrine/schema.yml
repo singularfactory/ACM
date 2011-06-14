@@ -210,7 +210,7 @@ Strain:
     cryopreservation_method_id: { type: integer, notnull: true } 
     transfer_interval:          { type: string(40) }
     observation:                { type: string }
-    references:                 { type: string }
+    citations:                  { type: string }
     remarks:                    { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }
