@@ -18,11 +18,11 @@ class Version10 extends Doctrine_Migration_Base
              'foreign' => 'id',
              'foreignTable' => 'dna',
              ));
-        $this->createForeignKey('strain', 'strain_class_id_class_id', array(
-             'name' => 'strain_class_id_class_id',
-             'local' => 'class_id',
+        $this->createForeignKey('strain', 'strain_taxonomic_class_id_taxonomic_class_id', array(
+             'name' => 'strain_taxonomic_class_id_taxonomic_class_id',
+             'local' => 'taxonomic_class_id',
              'foreign' => 'id',
-             'foreignTable' => 'class',
+             'foreignTable' => 'taxonomic_class',
              ));
         $this->createForeignKey('strain', 'strain_genus_id_genus_id', array(
              'name' => 'strain_genus_id_genus_id',
@@ -104,10 +104,10 @@ class Version10 extends Doctrine_Migration_Base
               0 => 'dna_id',
              ),
              ));
-        $this->addIndex('strain', 'strain_class_id', array(
+        $this->addIndex('strain', 'strain_taxonomic_class_id', array(
              'fields' => 
              array(
-              0 => 'class_id',
+              0 => 'taxonomic_class_id',
              ),
              ));
         $this->addIndex('strain', 'strain_genus_id', array(
@@ -182,7 +182,7 @@ class Version10 extends Doctrine_Migration_Base
     {
         $this->dropForeignKey('strain', 'strain_sample_id_sample_id');
         $this->dropForeignKey('strain', 'strain_dna_id_dna_id');
-        $this->dropForeignKey('strain', 'strain_class_id_class_id');
+        $this->dropForeignKey('strain', 'strain_taxonomic_class_id_taxonomic_class_id');
         $this->dropForeignKey('strain', 'strain_genus_id_genus_id');
         $this->dropForeignKey('strain', 'strain_species_id_species_id');
         $this->dropForeignKey('strain', 'strain_authority_id_authority_id');
@@ -206,10 +206,10 @@ class Version10 extends Doctrine_Migration_Base
               0 => 'dna_id',
              ),
              ));
-        $this->removeIndex('strain', 'strain_class_id', array(
+        $this->removeIndex('strain', 'strain_taxonomic_class_id', array(
              'fields' => 
              array(
-              0 => 'class_id',
+              0 => 'taxonomic_class_id',
              ),
              ));
         $this->removeIndex('strain', 'strain_genus_id', array(

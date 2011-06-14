@@ -39,7 +39,7 @@ class Version9 extends Doctrine_Migration_Base
               0 => 'id',
              ),
              ));
-        $this->createTable('class', array(
+        $this->createTable('taxonomic_class', array(
              'id' => 
              array(
               'type' => 'integer',
@@ -473,7 +473,7 @@ class Version9 extends Doctrine_Migration_Base
               'default' => '0',
               'length' => '25',
              ),
-             'class_id' => 
+             'taxonomic_class_id' => 
              array(
               'type' => 'integer',
               'notnull' => '1',
@@ -661,7 +661,7 @@ class Version9 extends Doctrine_Migration_Base
     public function down()
     {
         $this->dropTable('authority');
-        $this->dropTable('class');
+        $this->dropTable('taxonomic_class');
         $this->dropTable('cryopreservation_method');
         $this->dropTable('depositor');
         $this->dropTable('dna');
