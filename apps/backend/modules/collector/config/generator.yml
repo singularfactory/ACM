@@ -17,7 +17,7 @@ generator:
       fields: ~
       list:
         title: Collectors
-        display: [full_name, email, nb_samples, updated_at]
+        display: [name, surname, email, nb_samples, updated_at]
         fields:
           full_name:
             label: Name
@@ -31,6 +31,6 @@ generator:
         display: [name, surname, email]
       form: ~
       edit:
-        title: Edit "%%full_name%%"
+        title: Edit "%%name%% %%surname%%"
       new:
         title: Add a new collector
