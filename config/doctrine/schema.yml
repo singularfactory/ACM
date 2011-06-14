@@ -66,6 +66,30 @@ Radiation:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
 
+FieldPicture:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    filename:     { type: string(255), notnull: true }
+    sample_id:    { type: integer, notnull: true }
+  relations:
+    Sample:     { foreignAlias: FieldPictures, onDelete: cascade }
+
+DetailedPicture:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    filename:     { type: string(255), notnull: true }
+    sample_id:    { type: integer, notnull: true }
+  relations:
+    Sample:     { foreignAlias: DetailedPictures, onDelete: cascade }
+    
+MicroscopicPicture:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    filename:     { type: string(255), notnull: true }
+    sample_id:    { type: integer, notnull: true }
+  relations:
+    Sample:     { foreignAlias: MicroscopicPictures, onDelete: cascade }
+
 Sample:
   columns:
     id:                   { type: integer, primary: true, autoincrement: true }
@@ -82,9 +106,6 @@ Sample:
     salinity:             { type: float }
     altitude:             { type: float }
     radiation_id:         { type: integer, notnull: true }
-    field_picture:        { type: string(255) }
-    detailed_picture:     { type: string(255) }
-    microscopic_picture:  { type: string(255) }
     collector_id:         { type: integer, notnull: true }
     collection_date:      { type: date, notnull: true }
     remarks:              { type: string }
