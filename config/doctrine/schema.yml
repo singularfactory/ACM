@@ -112,3 +112,116 @@ Event:
     description:  { type: string(255), notnull: true }
   relations:
     User:         { class: sfGuardUser, local: user_id, foreignAlias: Events }
+
+Isolator:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    name:     { type: string(127), notnull: true }
+    surname:  { type: string(127), notnull: true }
+    email:    { type: string(255) }
+
+Depositor:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    name:     { type: string(127), notnull: true }
+    surname:  { type: string(127), notnull: true }
+    email:    { type: string(255) }
+
+Identifier:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    name:     { type: string(127), notnull: true }
+    surname:  { type: string(127), notnull: true }
+    email:    { type: string(255) }
+
+MaintenanceStatus:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    name:     { type: enum, values: [Liquid, Solid, Cryopreserved] }
+
+CryopreservationMethod:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    name:     { type: string(127), notnull: true }
+    
+Class:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+
+Genus:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+
+Species:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+
+Authority:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+    
+Dna:
+  columns:
+    id:               { type: integer, primary: true, autoincrement: true }
+    accession_number: { type: string(255), notnull: true }
+    filename:         { type: string(255), notnull: true }
+  
+GrowthMedium:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+    description:  { type: string, notnull: true }
+    link:         { type: string(1024), notnull: true }
+  relations:
+      Strains:    { class: Strain, local: growth_medium_id, foreign: strain_id, refClass: StrainGrowthMediums }
+    
+StrainRelative:
+  columns:
+    id:         { type: integer, primary: true, autoincrement: true }
+    name:       { type: string(255), notnull: true }
+    strain_id:  { type: integer, notnull: true }
+  relations:
+    Strain:     { foreignAlias: Strains, onDelete: cascade }
+
+Strain:
+  columns:
+    id:                         { type: integer, primary: true, autoincrement: true }
+    sample_id:                  { type: integer, notnull: true }
+    dna_id:                     { type: integer, notnull: true }
+    has_dna:                    { type: boolean, notnull: true, default: false }
+    is_epitype:                 { type: boolean, notnull: true, default: false }
+    is_axenic:                  { type: boolean, notnull: true, default: false }
+    is_public:                  { type: boolean, notnull: true, default: false }
+    class_id:                   { type: integer, notnull: true }
+    genus_id:                   { type: integer, notnull: true }
+    species_id:                 { type: integer, notnull: true }
+    authority_id:               { type: integer, notnull: true }
+    isolator_id:                { type: integer, notnull: true }
+    isolation_date:             { type: date, notnull: true }
+    depositor_id:               { type: integer, notnull: true }
+    depositor_date:             { type: date, notnull: true }
+    identifier_id:              { type: integer, notnull: true }
+    identification_date:        { type: date, notnull: true }
+    maintenance_status_id:      { type: integer, notnull: true }
+    cryopreservation_method_id: { type: integer, notnull: true } 
+    transfer_interval:          { type: string(40) }
+    observation:                { type: string }
+    references:                 { type: string }
+    remarks:                    { type: string }
+  relations:
+    Sample:                 { foreignAlias: Strains }
+    Dna:                    { foreignAlias: Strain, foreignType: one }
+    Class:                  { foreignAlias: Strains }
+    Genus:                  { foreignAlias: Strains }
+    Species:                { foreignAlias: Strains }
+    Authority:              { foreignAlias: Strains }
+    Isolator:               { foreignAlias: Strains }
+    Depositor:              { foreignAlias: Strains }
+    Identifier:             { foreignAlias: Strains }
+    MaintenanceStatus:      { foreignAlias: Strains }
+    CryopreservationMethod: { foreignAlias: Strains }
+    GrowthMediums:          { class: GrowthMedium, local: strain_id, foreign: growth_medium_id, refClass: StrainGrowthMediums }
