@@ -225,3 +225,8 @@ Strain:
     MaintenanceStatus:      { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
     GrowthMediums:          { class: GrowthMedium, local: strain_id, foreign: growth_medium_id, refClass: StrainGrowthMediums }
+
+StrainGrowthMediums:
+  columns:
+    strain_id:        { type: integer, primary: true }
+    growth_medium_id: { type: integer, primary: true }
