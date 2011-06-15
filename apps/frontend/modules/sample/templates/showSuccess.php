@@ -48,27 +48,64 @@
 		</dl>
 	</div>
 		
-	<?php if ( $sample->hasPictures() ): ?>
-		<div id="object_picture_list">
-			<h2>Pictures</h2>
-			<?php $pictureAccessorMethods = array('getMicroscopicPicture', 'getDetailedPicture', 'getFieldPicture') ?>
-			<?php foreach ($pictureAccessorMethods as $accessorMethod): ?>
-				<?php if ( !$sample->$accessorMethod() ) continue ?>
-				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$sample->$accessorMethod() ?>
-				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$sample->$accessorMethod() ?>
-				<?php $caption = preg_replace('/^get(\w+)Picture$/', "$1", $accessorMethod) ?>
-				<?php if ( file_exists(sfConfig::get('sf_web_dir').$thumbnail) ): ?>
-				<div class="thumbnail">
-					<p class="thumbnail_caption"><?php echo $caption ?></p>
-					<div id="thumbnail_image">
-						<a href="<?php echo $image ?>" rel="thumbnail_link" title="<?php echo $caption ?>" class="cboxElement">
-							<img src="<?php echo $thumbnail ?>" alt="<?php echo $caption ?>" />
-						</a>
-					</div>
-				</div>
-				<?php endif; ?>
-			<?php endforeach; ?>
+	<?php if ( $sample->getNbFieldPictures() > 0 ): ?>
+	<div class="object_picture_list">
+		<h2>Field pictures</h2>
+		<?php $i = 1 ?>
+		<?php foreach ($sample->getFieldPictures() as $picture): ?>
+		<?php if ( $picture->getFilename() === null ) continue ?>
+		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture->getFilename() ?>
+		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
+		<div class="thumbnail">
+			<div class="thumbnail_image">
+				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				</a>
+			</div>
 		</div>
+		<?php $i++ ?>
+		<?php endforeach; ?>
+	</div>
+	<?php endif ?>
+	
+	<?php if ( $sample->getNbDetailedPictures() > 0 ): ?>
+	<div class="object_picture_list">
+		<h2>Detailed pictures</h2>
+		<?php $i = 1 ?>
+		<?php foreach ($sample->getDetailedPictures() as $picture): ?>
+		<?php if ( $picture->getFilename() === null ) continue ?>
+		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture->getFilename() ?>
+		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
+		<div class="thumbnail">
+			<div class="thumbnail_image">
+				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				</a>
+			</div>
+		</div>
+		<?php $i++ ?>
+		<?php endforeach; ?>
+	</div>
+	<?php endif ?>
+
+	<?php if ( $sample->getNbMicroscopicPictures() > 0 ): ?>
+	<div class="object_picture_list">
+		<h2>Microscopic pictures</h2>
+		<?php $i = 1 ?>
+		<?php foreach ($sample->getMicroscopicPictures() as $picture): ?>
+		<?php if ( $picture->getFilename() === null ) continue ?>
+		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture->getFilename() ?>
+		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
+		<div class="thumbnail">
+			<div class="thumbnail_image">
+				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				</a>
+			</div>
+		</div>
+		<?php $i++ ?>
+		<?php endforeach; ?>
+	</div>
 	<?php endif ?>
 
 	<div class="clear"></div>

@@ -72,6 +72,7 @@ span.value_unit { font-size: 11px; }
 #model_pictures { clear: both; }
 div.model_picture_list label { display: block; }
 div.model_picture_filename { margin: 0px; padding: 0px; }
+div.pictures_add_relation { margin-bottom: 17px; }
 div.model_picture_filename input { display: inline; margin-right: 0px; padding-right: 0px; }
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }

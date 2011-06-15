@@ -30,56 +30,40 @@ class SampleForm extends BaseSampleForm {
 		));
 		
 		// Configure picture widgets
-		$this->setWidget('field_picture', new sfWidgetFormInputFileEditable(array(
-			'file_src' => '',
-			'edit_mode' => $this['field_picture']->getValue(),
-			'is_image' => true,
-			'delete_label' => 'delete',
-			'template'  => '%input% <span>%delete% %delete_label%</span>',
-		)));
-		$this->setWidget('detailed_picture', new sfWidgetFormInputFileEditable(array(
-			'file_src' => '',
-			'edit_mode' => $this['detailed_picture']->getValue(),
-			'is_image' => true,
-			'delete_label' => 'delete',
-			'template'  => '%input% <span>%delete% %delete_label%</span>',
-		)));
-		$this->setWidget('microscopic_picture', new sfWidgetFormInputFileEditable(array(
-			'file_src' => '',
-			'edit_mode' => $this['microscopic_picture']->getValue(),
-			'is_image' => true,
-			'delete_label' => 'delete',
-			'template'  => '%input% <span>%delete% %delete_label%</span>',
-		)));
+		$actualFieldPictures = $this->getObject()->getNbFieldPictures();
+		$actualDetailedPictures = $this->getObject()->getNbDetailedPictures();
+		$actualMicroscopicPictures = $this->getObject()->getNbMicroscopicPictures();
 		
-		// Configure picture validators
-		$this->setValidator('field_picture', new sfValidatorFile(array(
-			'max_size' => sfConfig::get('app_max_picture_size'),
-			'mime_types' => 'web_images',
-			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'),
-			'validated_file_class' => 'sfCustomValidatedFile',
-			'required' => false,
-		)));
-		$this->setValidator('field_picture_delete', new sfValidatorBoolean());
+		$defaultMaxFieldPictures = sfConfig::get('app_max_sample_field_pictures');
+		$defaultMaxDetailedPictures = sfConfig::get('app_max_sample_detailed_pictures');
+		$defaultMaxMicroscopicPictures = sfConfig::get('app_max_sample_microscopic_pictures');
 		
-		$this->setValidator('detailed_picture', new sfValidatorFile(array(
-			'max_size' => sfConfig::get('app_max_picture_size'),
-			'mime_types' => 'web_images',
-			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'),
-			'validated_file_class' => 'sfCustomValidatedFile',
-			'required' => false,
-		)));
-		$this->setValidator('detailed_picture_delete', new sfValidatorBoolean());
+		$this->setOption('max_sample_field_pictures', $defaultMaxFieldPictures - $actualFieldPictures);
+		$this->setOption('max_sample_detailed_pictures', $defaultMaxDetailedPictures - $actualDetailedPictures);
+		$this->setOption('max_sample_microscopic_pictures', $defaultMaxMicroscopicPictures - $actualMicroscopicPictures);
 		
-		$this->setValidator('microscopic_picture', new sfValidatorFile(array(
-			'max_size' => sfConfig::get('app_max_picture_size'),
-			'mime_types' => 'web_images',
-			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_sample_pictures_dir'),
-			'validated_file_class' => 'sfCustomValidatedFile',
-			'required' => false,
-		)));
-		$this->setValidator('microscopic_picture_delete', new sfValidatorBoolean());
-		
+		// Create an embedded form to add or edit pictures
+		$this->embedRelations(array(
+			'FieldPictures' => array(
+				'considerNewFormEmptyFields' => array('filename'),
+				'newFormLabel' => 'Field pictures',
+				'multipleNewForms' => true,
+				'newRelationButtonLabel' => 'Add another picture',
+			),
+			'DetailedPictures' => array(
+				'considerNewFormEmptyFields' => array('filename'),
+				'newFormLabel' => 'Detailed pictures',
+				'multipleNewForms' => true,
+				'newRelationButtonLabel' => 'Add another picture',
+			),
+			'MicroscopicPictures' => array(
+				'considerNewFormEmptyFields' => array('filename'),
+				'newFormLabel' => 'Microscopic pictures',
+				'multipleNewForms' => true,
+				'newRelationButtonLabel' => 'Add another picture',
+			),
+		));
+				
 		// Configure custom validators
 		$this->setValidator('location_id', new sfValidatorDoctrineChoice(
 			array('model' => $this->getRelatedModelName('Location')),
@@ -111,6 +95,9 @@ class SampleForm extends BaseSampleForm {
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
+		$this->widgetSchema->setHelp('new_FieldPictures', 'Select up to '.($defaultMaxFieldPictures - $actualFieldPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
+		$this->widgetSchema->setHelp('new_DetailedPictures', 'Select up to '.($defaultMaxDetailedPictures - $actualDetailedPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
+		$this->widgetSchema->setHelp('new_MicroscopicPictures', 'Select up to '.($defaultMaxMicroscopicPictures - $actualMicroscopicPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
 	}
 
 	/**

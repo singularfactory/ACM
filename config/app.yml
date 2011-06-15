@@ -1,16 +1,19 @@
 all:
   .general:
     # Sample related constants
-    sample_pictures_dir:  /sample_pictures
-    temperature_unit:     ºC
-    conductivity_unit:    ms
-    salinity_unit:        ppm
-    altitude_unit:        m
+    sample_pictures_dir:              /sample_pictures
+    temperature_unit:                 ºC
+    conductivity_unit:                ms
+    salinity_unit:                    ppm
+    altitude_unit:                    m
+    max_sample_field_pictures:        3
+    max_sample_detailed_pictures:     3
+    max_sample_microscopic_pictures:  3
     
     # Location related constants
     location_pictures_dir:  /location_pictures
     max_location_pictures:  5
-    
+        
     # Pictures and thumbnails management constants
     pictures_dir:           /uploads
     thumbnails_dir:         /thumbnails

@@ -126,6 +126,27 @@ class Sample extends BaseSample {
 	}
 
 	public function hasPictures() {
-		return ( $this->getFieldPicture() || $this->getDetailedPicture() || $this->getMicroscopicPicture() );
+		return ( $this->getFieldPictures() || $this->getDetailedPictures() || $this->getMicroscopicPictures() );
+	}
+	
+	public function getNbFieldPictures() {
+		return Doctrine_Query::create()
+			->from('FieldPicture fp')
+			->where('fp.sample_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbDetailedPictures() {
+		return Doctrine_Query::create()
+			->from('DetailedPicture dp')
+			->where('dp.sample_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbMicroscopicPictures() {
+		return Doctrine_Query::create()
+			->from('MicroscopicPicture mp')
+			->where('mp.sample_id = ?', $this->getId())
+			->count();
 	}
 }

@@ -96,7 +96,7 @@
 			</div>
 		</div>
 
-		<div id="pictures_add_relation">
+		<div class="pictures_add_relation">
 			<?php echo $form['new_Pictures']['_']->render() ?>
 		</div>
 		<?php endif; ?>

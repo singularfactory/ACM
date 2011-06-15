@@ -104,7 +104,7 @@ jQuery(function($) {
 		
 			// Hide the add button when the limit is reached
 			if ( $(this).closest('tr,li,div').prev().children('div').children('input').size() == $(constantName).val() ) {
-				$('#pictures_add_relation').css('display', 'none');
+				$(this).closest('div.pictures_add_relation').css('display', 'none');
 			}
 
 		//use events to further modify the cloned row like this
