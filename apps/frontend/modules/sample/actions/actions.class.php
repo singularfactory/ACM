@@ -163,8 +163,48 @@ class sampleActions extends MyActions
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-
-		if ( $form->isValid() ) {
+		$uploadedFiles = $request->getFiles();
+		
+		// Count field pictures uploaded in form
+		$nbValidFieldPictures = 0;
+		if ( $uploadedFiles['sample']['new_FieldPictures'] ) {
+			foreach ( $uploadedFiles['sample']['new_FieldPictures'] as $file ) {
+				if ( !empty($file['filename']['name']) ) {
+					$nbValidFieldPictures += 1;
+				}
+			}
+		}
+		$nbFieldPictures = $form->getObject()->getNbFieldPictures() + $nbValidFieldPictures;
+		
+		// Count detailed pictures uploaded in form
+		$nbValidDetailedPictures = 0;
+		if ( $uploadedFiles['sample']['new_DetailedPictures'] ) {
+			foreach ( $uploadedFiles['sample']['new_DetailedPictures'] as $file ) {
+				if ( !empty($file['filename']['name']) ) {
+					$nbValidDetailedPictures += 1;
+				}
+			}
+		}
+		$nbDetailedPictures = $form->getObject()->getNbDetailedPictures() + $nbValidDetailedPictures;
+		
+		// Count microscopic pictures uploaded in form
+		$nbValidMicroscopicPictures = 0;
+		if ( $uploadedFiles['sample']['new_MicroscopicPictures'] ) {
+			foreach ( $uploadedFiles['sample']['new_MicroscopicPictures'] as $file ) {
+				if ( !empty($file['filename']['name']) ) {
+					$nbValidMicroscopicPictures += 1;
+				}
+			}
+		}
+		$nbMicroscopicPictures = $form->getObject()->getNbMicroscopicPictures() + $nbValidMicroscopicPictures;
+		
+		// Detect invalid number of pictures
+		$pictureCountIsValid = ($nbFieldPictures <= sfConfig::get('app_max_sample_field_pictures')) &&
+													($nbDetailedPictures <= sfConfig::get('app_max_sample_detailed_pictures')) &&
+													($nbMicroscopicPictures <= sfConfig::get('app_max_sample_microscopic_pictures'));
+													
+		// Validate form
+		if ( $form->isValid() && $pictureCountIsValid ) {
 			$flashMessage = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
