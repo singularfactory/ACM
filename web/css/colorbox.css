@@ -41,7 +41,7 @@
         .cboxSlideshow_off #cboxSlideshow.hover{background-position:-75px -25px;}
 
 .thumbnail { float:left; margin: 0px 7px 7px 0px; height: 80px; width: 80px; padding-left: 0px; text-align: center; }
-#thumbnail_image { height: 75px; width: 75px; padding: 0px; }
+.thumbnail_image { height: 75px; width: 75px; padding: 0px; }
 .thumbnail_caption { text-align: center; font-size: 11px; font-weight: bold; margin: 0px auto 3px auto; padding: 0px; }
 .thumbnail_caption label { display: block; margin: 0px; padding: 0px; }
 .thumbnail_caption input[type="checkbox"] { margin: 0px; padding: 0px; }

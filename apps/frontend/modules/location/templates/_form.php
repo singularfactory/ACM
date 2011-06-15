@@ -75,7 +75,7 @@
 					<input type="hidden" name="location[Pictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="location_Pictures_<?php echo $i ?>_id" />
 					 delete
 				</p>
-				<div id="thumbnail_image">
+				<div class="thumbnail_image">
 					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
 						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
 					</a>
