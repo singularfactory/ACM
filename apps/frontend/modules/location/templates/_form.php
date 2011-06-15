@@ -95,10 +95,12 @@
 				<?php echo $form['new_Pictures'][0]['filename']->render() ?>
 			</div>
 		</div>
-
+		
+		<?php if ( $form->getOption('max_location_pictures') > 1 ): ?>
 		<div class="pictures_add_relation">
 			<?php echo $form['new_Pictures']['_']->render() ?>
 		</div>
+		<?php endif; ?>
 		<?php endif; ?>
 	</div>
 	

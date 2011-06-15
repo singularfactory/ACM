@@ -120,128 +120,145 @@
 	</div>
 	
 	<div id="right_side_form">
-		<?php if ( !$form->getObject()->isNew() && $form->getOption('max_sample_field_pictures') < 3 ): ?>
-		<div class="model_picture_list">
-			<?php echo $form['FieldPictures']->renderLabel('Actual field pictures') ?>
-			<?php $i = 0 ?>
-			<?php foreach ($form['FieldPictures'] as $widget): ?>
-			<?php $picture = $widget->getValue() ?>
-			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
-			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
-			<div class="thumbnail">
-				<p class="thumbnail_caption">
-					<input type="checkbox" name="sample[FieldPictures][<?php echo $i ?>][delete_object]" id="sample_FieldPictures_<?php echo $i ?>_delete_object" />
-					<input type="hidden" name="sample[FieldPictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="sample_FieldPictures_<?php echo $i ?>_filename" />
-					<input type="hidden" name="sample[FieldPictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="sample_FieldPictures_<?php echo $i ?>_id" />
-					 delete
-				</p>
-				<div class="thumbnail_image">
-					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
-					</a>
+		<div class="sample_picture_handler">
+			<?php if ( !$form->getObject()->isNew() && $form->getOption('max_sample_field_pictures') < 3 ): ?>
+			<div class="model_picture_list">
+				<?php echo $form['FieldPictures']->renderLabel('Actual field pictures') ?>
+				<?php $i = 0 ?>
+				<?php foreach ($form['FieldPictures'] as $widget): ?>
+				<?php $picture = $widget->getValue() ?>
+				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
+				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
+				<div class="thumbnail">
+					<p class="thumbnail_caption">
+						<input type="checkbox" name="sample[FieldPictures][<?php echo $i ?>][delete_object]" id="sample_FieldPictures_<?php echo $i ?>_delete_object" />
+						<input type="hidden" name="sample[FieldPictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="sample_FieldPictures_<?php echo $i ?>_filename" />
+						<input type="hidden" name="sample[FieldPictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="sample_FieldPictures_<?php echo $i ?>_id" />
+						 delete
+					</p>
+					<div class="thumbnail_image">
+						<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+							<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+						</a>
+					</div>
+				</div>
+				<?php $i++ ?>
+				<?php endforeach; ?>
+				<div class="clear"></div>
+			</div>
+			<?php endif ?>
+
+			<?php if ( $form->getOption('max_sample_field_pictures') > 0 ): ?>
+			<div id="model_pictures">
+				<?php echo $form['new_FieldPictures']->renderLabel() ?>
+				<?php echo $form['new_FieldPictures']->renderHelp() ?>
+				<div class="model_picture_filename">
+					<?php echo $form['new_FieldPictures'][0]['filename']->render() ?>
 				</div>
 			</div>
-			<?php $i++ ?>
-			<?php endforeach; ?>
-			<div class="clear"></div>
-		</div>
-		<?php endif ?>
 
-		<?php if ( $form->getOption('max_sample_field_pictures') > 0 ): ?>
-		<div id="model_pictures">
-			<?php echo $form['new_FieldPictures']->renderLabel() ?>
-			<?php echo $form['new_FieldPictures']->renderHelp() ?>
-			<div class="model_picture_filename">
-				<?php echo $form['new_FieldPictures'][0]['filename']->render() ?>
+			<?php if ( $form->getOption('max_sample_field_pictures') > 1 ): ?>
+			<div class="pictures_add_relation">
+				<?php echo $form['new_FieldPictures']['_']->render() ?>
 			</div>
-		</div>
+			<?php endif; ?>
+			<?php endif; ?>
 
-		<div class="pictures_add_relation">
-			<?php echo $form['new_FieldPictures']['_']->render() ?>
+			
 		</div>
-		<?php endif; ?>
-	
-		<?php if ( !$form->getObject()->isNew() && $form->getOption('max_sample_detailed_pictures') < 3 ): ?>
-		<div class="model_picture_list">
-			<?php echo $form['DetailedPictures']->renderLabel('Actual detailed pictures') ?>
-			<?php $i = 0 ?>
-			<?php foreach ($form['DetailedPictures'] as $widget): ?>
-			<?php $picture = $widget->getValue() ?>
-			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
-			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
-			<div class="thumbnail">
-				<p class="thumbnail_caption">
-					<input type="checkbox" name="sample[DetailedPictures][<?php echo $i ?>][delete_object]" id="sample_DetailedPictures_<?php echo $i ?>_delete_object" />
-					<input type="hidden" name="sample[DetailedPictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="sample_DetailedPictures_<?php echo $i ?>_filename" />
-					<input type="hidden" name="sample[DetailedPictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="sample_DetailedPictures_<?php echo $i ?>_id" />
-					 delete
-				</p>
-				<div class="thumbnail_image">
-					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
-					</a>
-				</div>
-			</div>
-			<?php $i++ ?>
-			<?php endforeach; ?>
-			<div class="clear"></div>
-		</div>
-		<?php endif ?>
-
-		<?php if ( $form->getOption('max_sample_detailed_pictures') > 0 ): ?>
-		<div id="model_pictures">
-			<?php echo $form['new_DetailedPictures']->renderLabel() ?>
-			<?php echo $form['new_DetailedPictures']->renderHelp() ?>
-			<div class="model_picture_filename">
-				<?php echo $form['new_DetailedPictures'][0]['filename']->render() ?>
-			</div>
-		</div>
-
-		<div class="pictures_add_relation">
-			<?php echo $form['new_DetailedPictures']['_']->render() ?>
-		</div>
-		<?php endif; ?>
 		
-		<?php if ( !$form->getObject()->isNew() && $form->getOption('max_sample_microscopic_pictures') < 3 ): ?>
-		<div class="model_picture_list">
-			<?php echo $form['MicroscopicPictures']->renderLabel('Actual microscopic pictures') ?>
-			<?php $i = 0 ?>
-			<?php foreach ($form['MicroscopicPictures'] as $widget): ?>
-			<?php $picture = $widget->getValue() ?>
-			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
-			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
-			<div class="thumbnail">
-				<p class="thumbnail_caption">
-					<input type="checkbox" name="sample[MicroscopicPictures][<?php echo $i ?>][delete_object]" id="sample_MicroscopicPictures_<?php echo $i ?>_delete_object" />
-					<input type="hidden" name="sample[MicroscopicPictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="sample_MicroscopicPictures_<?php echo $i ?>_filename" />
-					<input type="hidden" name="sample[MicroscopicPictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="sample_MicroscopicPictures_<?php echo $i ?>_id" />
-					 delete
-				</p>
-				<div class="thumbnail_image">
-					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
-					</a>
+		<div class="sample_picture_handler">
+			<?php if ( !$form->getObject()->isNew() && $form->getOption('max_sample_detailed_pictures') < 3 ): ?>
+			<div class="model_picture_list">
+				<?php echo $form['DetailedPictures']->renderLabel('Actual detailed pictures') ?>
+				<?php $i = 0 ?>
+				<?php foreach ($form['DetailedPictures'] as $widget): ?>
+				<?php $picture = $widget->getValue() ?>
+				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
+				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
+				<div class="thumbnail">
+					<p class="thumbnail_caption">
+						<input type="checkbox" name="sample[DetailedPictures][<?php echo $i ?>][delete_object]" id="sample_DetailedPictures_<?php echo $i ?>_delete_object" />
+						<input type="hidden" name="sample[DetailedPictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="sample_DetailedPictures_<?php echo $i ?>_filename" />
+						<input type="hidden" name="sample[DetailedPictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="sample_DetailedPictures_<?php echo $i ?>_id" />
+						 delete
+					</p>
+					<div class="thumbnail_image">
+						<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+							<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+						</a>
+					</div>
+				</div>
+				<?php $i++ ?>
+				<?php endforeach; ?>
+				<div class="clear"></div>
+			</div>
+			<?php endif ?>
+
+			<?php if ( $form->getOption('max_sample_detailed_pictures') > 0 ): ?>
+			<div id="model_pictures">
+				<?php echo $form['new_DetailedPictures']->renderLabel() ?>
+				<?php echo $form['new_DetailedPictures']->renderHelp() ?>
+				<div class="model_picture_filename">
+					<?php echo $form['new_DetailedPictures'][0]['filename']->render() ?>
 				</div>
 			</div>
-			<?php $i++ ?>
-			<?php endforeach; ?>
-			<div class="clear"></div>
-		</div>
-		<?php endif ?>
 
-		<?php if ( $form->getOption('max_sample_microscopic_pictures') > 0 ): ?>
-		<div id="model_pictures">
-			<?php echo $form['new_MicroscopicPictures']->renderLabel() ?>
-			<?php echo $form['new_MicroscopicPictures']->renderHelp() ?>
-			<div class="model_picture_filename">
-				<?php echo $form['new_MicroscopicPictures'][0]['filename']->render() ?>
+			<?php if ( $form->getOption('max_sample_detailed_pictures') > 1 ): ?>
+			<div class="pictures_add_relation">
+				<?php echo $form['new_DetailedPictures']['_']->render() ?>
 			</div>
-		</div>
+			<?php endif; ?>
 
-		<div class="pictures_add_relation">
-			<?php echo $form['new_MicroscopicPictures']['_']->render() ?>
+			<?php endif; ?>
+			
 		</div>
-		<?php endif; ?>
+		
+		<div class="sample_picture_handler">
+			<?php if ( !$form->getObject()->isNew() && $form->getOption('max_sample_microscopic_pictures') < 3 ): ?>
+			<div class="model_picture_list">
+				<?php echo $form['MicroscopicPictures']->renderLabel('Actual microscopic pictures') ?>
+				<?php $i = 0 ?>
+				<?php foreach ($form['MicroscopicPictures'] as $widget): ?>
+				<?php $picture = $widget->getValue() ?>
+				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
+				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
+				<div class="thumbnail">
+					<p class="thumbnail_caption">
+						<input type="checkbox" name="sample[MicroscopicPictures][<?php echo $i ?>][delete_object]" id="sample_MicroscopicPictures_<?php echo $i ?>_delete_object" />
+						<input type="hidden" name="sample[MicroscopicPictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="sample_MicroscopicPictures_<?php echo $i ?>_filename" />
+						<input type="hidden" name="sample[MicroscopicPictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="sample_MicroscopicPictures_<?php echo $i ?>_id" />
+						 delete
+					</p>
+					<div class="thumbnail_image">
+						<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+							<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+						</a>
+					</div>
+				</div>
+				<?php $i++ ?>
+				<?php endforeach; ?>
+				<div class="clear"></div>
+			</div>
+			<?php endif ?>
+
+			<?php if ( $form->getOption('max_sample_microscopic_pictures') > 0 ): ?>
+			<div id="model_pictures">
+				<?php echo $form['new_MicroscopicPictures']->renderLabel() ?>
+				<?php echo $form['new_MicroscopicPictures']->renderHelp() ?>
+				<div class="model_picture_filename">
+					<?php echo $form['new_MicroscopicPictures'][0]['filename']->render() ?>
+				</div>
+			</div>
+
+			<?php if ( $form->getOption('max_sample_microscopic_pictures') > 1 ): ?>
+			<div class="pictures_add_relation">
+				<?php echo $form['new_MicroscopicPictures']['_']->render() ?>
+			</div>
+			<?php endif; ?>
+			<?php endif; ?>
+			
+		</div>
 		
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
