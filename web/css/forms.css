@@ -69,15 +69,12 @@ span.value_unit { font-size: 11px; }
  * SPECIFIC FIELDS
  */
 #name input { width: 250px; }	/* Location */
-#location_pictures { clear: both; }
-#location_picture_list label, #sample_picture_list label { display: block; }
-div.location_picture { margin: 0px; padding: 0px; }
-div.location_picture input { display: inline; margin-right: 0px; padding-right: 0px; }
+#model_pictures { clear: both; }
+div.model_picture_list label { display: block; }
+div.model_picture_filename { margin: 0px; padding: 0px; }
+div.model_picture_filename input { display: inline; margin-right: 0px; padding-right: 0px; }
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
-#field_picture, #detailed_picture, #microscopic_picture { clear: both; }	/* Sample pictures */
-#field_picture label, #detailed_picture label, #microscopic_picture label { display: block; }
-#field_picture input, #detailed_picture input, #microscopic_picture input { display: inline; padding: 5px; }
 
 a.sample_location_coordinates_url,
 a.country_regions_url,

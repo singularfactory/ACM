@@ -70,7 +70,6 @@ jQuery(function($) {
 
 	// when clicking the 'add relation' button
 	$('.ahAddRelation').click(function() {
-
 		// find last row of my siblings (each row represents a subform) 
 		// $row = $(this).closest('tr,li').siblings('tr:last,li:last');	REPLACED BY STATEMENT BELOW. PAY ATTENTION IN PLUGIN UPGRADES
 		$row = $(this).closest('tr,li,div').prev().children('div').children('input').last();
@@ -78,17 +77,33 @@ jQuery(function($) {
 		// clone it, increment the fields and insert it below, additionally triggering events
 		$row.trigger('beforeclone.ah');
 		var $newrow = $row.clone(true);
-		$row.trigger('afterclone.ah')
-
+		$row.trigger('afterclone.ah');
+		
+		constantName = "";
+		switch( $(this).attr('rel').replace(/^new_+/, "") ) {
+			case "Pictures":
+				constantName = "#max_location_pictures";
+			  break;
+			case "FieldPictures":
+				constantName = "#max_sample_field_pictures";
+			  break;
+			case "DetailedPictures":
+				constantName = "#max_sample_detailed_pictures";
+			  break;
+			case "MicroscopicPictures":
+				constantName = "#max_sample_microscopic_pictures";
+			  break;
+		}
+		
 		$newrow
 			.incrementFields($(this).attr('rel'))
 			.trigger('beforeadd.ah')
 			.trigger('afteradd.ah')
 			.appendTo($(this).parent().prev())
-			.wrapAll('<div class="location_picture" />');
+			.wrapAll('<div class="model_picture_filename" />');
 		
 			// Hide the add button when the limit is reached
-			if ( $(this).closest('tr,li,div').prev().children('div').children('input').size() == $('#max_location_pictures').val() ) {
+			if ( $(this).closest('tr,li,div').prev().children('div').children('input').size() == $(constantName).val() ) {
 				$('#pictures_add_relation').css('display', 'none');
 			}
 

@@ -61,7 +61,7 @@
 		</div>
 		
 		<?php if ( !$form->getObject()->isNew() && $form->getOption('max_location_pictures') < 5 ): ?>
-		<div id="location_picture_list">
+		<div class="model_picture_list">
 			<?php echo $form['Pictures']->renderLabel('Actual pictures') ?>
 			<?php $i = 0 ?>
 			<?php foreach ($form['Pictures'] as $widget): ?>
@@ -88,10 +88,10 @@
 		<?php endif ?>
 
 		<?php if ( $form->getOption('max_location_pictures') > 0 ): ?>
-		<div id="location_pictures">
+		<div id="model_pictures">
 			<?php echo $form['new_Pictures']->renderLabel() ?>
 			<?php echo $form['new_Pictures']->renderHelp() ?>
-			<div class="location_picture">
+			<div class="model_picture_filename">
 				<?php echo $form['new_Pictures'][0]['filename']->render() ?>
 			</div>
 		</div>
