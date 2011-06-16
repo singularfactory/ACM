@@ -61,6 +61,19 @@ strain_search:
 
 
 ###
+# GrowthMedium model related routes
+###
+growth_medium:
+  class:   sfDoctrineRouteCollection
+  options: { model: GrowthMedium }
+
+growth_medium_search:
+  url:          growth_medium/search/:criteria
+  param:        { module: growth_medium, action: index }
+  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+
+
+###
 # sfGuardUser model related routes
 ###
 profile:

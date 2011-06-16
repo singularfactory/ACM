@@ -63,6 +63,15 @@
 						?>
 					</li>
 					
+					<li>
+						<?php
+						if ( !preg_match('/^(growth_medium(\/_)?)/', $currentRoute) )
+							echo link_to('Growth mediums', '@growth_medium');
+						else
+							echo link_to('Growth mediums', '@growth_medium', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
 					<li class="header_menu_right_tab">
 						<?php
 						if ( !preg_match('/^search(\/_)?/', $currentRoute) )
