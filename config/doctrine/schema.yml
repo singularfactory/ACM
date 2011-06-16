@@ -198,7 +198,7 @@ GrowthMedium:
     description:  { type: string, notnull: true }
     link:         { type: string(1024), notnull: true }
   relations:
-      Strains:    { class: Strain, local: growth_medium_id, foreign: strain_id, refClass: StrainGrowthMediums }
+      Strains:    { foreignAlias: Strains, class: Strain, local: growth_medium_id, foreign: strain_id, refClass: StrainGrowthMediums }
     
 StrainRelative:
   columns:
@@ -245,7 +245,7 @@ Strain:
     Identifier:             { foreignAlias: Strains }
     MaintenanceStatus:      { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
-    GrowthMediums:          { class: GrowthMedium, local: strain_id, foreign: growth_medium_id, refClass: StrainGrowthMediums }
+    GrowthMediums:          { foreignAlias: GrowthMediums, class: GrowthMedium, local: strain_id, foreign: growth_medium_id, refClass: StrainGrowthMediums }
 
 StrainGrowthMediums:
   columns:
