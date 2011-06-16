@@ -125,6 +125,9 @@ class locationActions extends MyActions {
 			$url = null;
 			$isNew = $form->getObject()->isNew();
 			
+			// Detect pictures that must be deleted
+			$removablePictures = $this->getRemovablePictures($form);
+			
 			// Save object
 			try {
 				$location = $form->save();
@@ -140,6 +143,9 @@ class locationActions extends MyActions {
 					$message = 'Location created successfully';
 					$url = '@location_show?id='.$location->getId();
 				}
+				
+				// Remove Location pictures
+				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_location_pictures_dir'));
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();

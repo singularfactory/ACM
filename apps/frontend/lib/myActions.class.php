@@ -107,4 +107,46 @@ class MyActions extends sfActions {
 		return $this->relatedAlias;
 	}
 	
+	/**
+	 * getRemovablePictures
+	 *
+	 * @param array $form A form sent by the user
+	 * @param string $widgetName Alternate name of the widget that stores the picture information
+	 * @return array List of picture filenames
+	 * @author Eliezer Talon
+	 */
+	protected function getRemovablePictures(sfFormObject $form, $widgetName = 'Pictures') {
+		$filenames = array();
+		if ( isset($form[$widgetName]) ) {
+			foreach ( $form[$widgetName] as $index => $pictures ) {
+				foreach ($pictures as $key => $field) {
+					if ( $key === 'delete_object' && $field->getValue() === 'on' ) {
+						$filenames[] = $pictures['filename']->getValue();
+					}
+				}
+			}
+		}
+		
+		return $filenames;
+	}
+	
+	/**
+	 * removePicturesFromFilesystem
+	 *
+	 * @param array $filenames List of filenames to be removed
+	 * @return void
+	 * @author Eliezer Talon
+	 */
+	protected function removePicturesFromFilesystem(array $filenames, $subdirectory) {
+		if ( !empty($filenames) ) {
+			foreach( $filenames as $filename ) {
+				$commonPath = sfConfig::get('sf_web_dir').sfConfig::get('app_pictures_dir').$subdirectory;
+				$image = $commonPath.'/'.$filename;
+				$thumbnail = $commonPath.sfConfig::get('app_thumbnails_dir').'/'.$filename;
+				
+				unlink($image);
+				unlink($thumbnail);
+			}
+		}
+	}
 }

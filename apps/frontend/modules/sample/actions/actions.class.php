@@ -209,6 +209,11 @@ class sampleActions extends MyActions
 			$url = null;
 			$isNew = $form->getObject()->isNew();
 			
+			// Detect pictures that must be deleted
+			$removablePictures = $this->getRemovablePictures($form, 'FieldPictures');
+			$removablePictures = array_merge($removablePictures, $this->getRemovablePictures($form, 'DetailedPictures'));
+			$removablePictures = array_merge($removablePictures, $this->getRemovablePictures($form, 'MicroscopicPictures'));
+			
 			// Save object
 			try {
 				$sample = $form->save();
@@ -226,7 +231,10 @@ class sampleActions extends MyActions
 				else {
 					$message = 'Sample created successfully';
 					$url = '@sample_show?id='.$sample->getId();
-				}				
+				}
+				
+				// Remove Location pictures
+				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_sample_pictures_dir'));		
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
