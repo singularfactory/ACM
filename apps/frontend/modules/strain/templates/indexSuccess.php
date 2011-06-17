@@ -1,66 +1,45 @@
-<h1>Strains List</h1>
+<?php slot('main_header') ?>
+<span>All strains</span>
+	<?php include_partial('global/search_box_header_action', array('route' => '@strain_search?criteria=')) ?>
+<?php include_partial('global/new_header_action', array('message' => 'Add a new strain', 'route' => '@strain_new')) ?>
+<?php end_slot() ?>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Sample</th>
-      <th>Dna</th>
-      <th>Has dna</th>
-      <th>Is epitype</th>
-      <th>Is axenic</th>
-      <th>Is public</th>
-      <th>Taxonomic class</th>
-      <th>Genus</th>
-      <th>Species</th>
-      <th>Authority</th>
-      <th>Isolator</th>
-      <th>Isolation date</th>
-      <th>Depositor</th>
-      <th>Depositor date</th>
-      <th>Identifier</th>
-      <th>Identification date</th>
-      <th>Maintenance status</th>
-      <th>Cryopreservation method</th>
-      <th>Transfer interval</th>
-      <th>Observation</th>
-      <th>Citations</th>
-      <th>Remarks</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($strains as $strain): ?>
-    <tr>
-      <td><a href="<?php echo url_for('strain/show?id='.$strain->getId()) ?>"><?php echo $strain->getId() ?></a></td>
-      <td><?php echo $strain->getSampleId() ?></td>
-      <td><?php echo $strain->getDnaId() ?></td>
-      <td><?php echo $strain->getHasDna() ?></td>
-      <td><?php echo $strain->getIsEpitype() ?></td>
-      <td><?php echo $strain->getIsAxenic() ?></td>
-      <td><?php echo $strain->getIsPublic() ?></td>
-      <td><?php echo $strain->getTaxonomicClassId() ?></td>
-      <td><?php echo $strain->getGenusId() ?></td>
-      <td><?php echo $strain->getSpeciesId() ?></td>
-      <td><?php echo $strain->getAuthorityId() ?></td>
-      <td><?php echo $strain->getIsolatorId() ?></td>
-      <td><?php echo $strain->getIsolationDate() ?></td>
-      <td><?php echo $strain->getDepositorId() ?></td>
-      <td><?php echo $strain->getDepositorDate() ?></td>
-      <td><?php echo $strain->getIdentifierId() ?></td>
-      <td><?php echo $strain->getIdentificationDate() ?></td>
-      <td><?php echo $strain->getMaintenanceStatusId() ?></td>
-      <td><?php echo $strain->getCryopreservationMethodId() ?></td>
-      <td><?php echo $strain->getTransferInterval() ?></td>
-      <td><?php echo $strain->getObservation() ?></td>
-      <td><?php echo $strain->getCitations() ?></td>
-      <td><?php echo $strain->getRemarks() ?></td>
-      <td><?php echo $strain->getCreatedAt() ?></td>
-      <td><?php echo $strain->getUpdatedAt() ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+<?php if ( $pager->count() ): ?>
+<table id="strain_list">
+	<tbody>
+		<tr>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th><?php echo link_to('Number', 'strain/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Sample', 'strain/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Has DNA', 'strain/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Is public', 'strain/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Pending orders', 'strain/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
+		</tr>
+		
+		<?php foreach ($pager->getResults() as $strain): ?>
+		<tr>
+			<?php $url = url_for('@strain_show?id='.$strain->getId()) ?>
+			<td class="strain_code"><?php echo link_to($strain->getNumber(), $url) ?></td>
+			<td class="sample_code"><?php echo link_to($strain->getSample()->getNumber(), $url) ?></td>
+			<td class="dna_availability"><?php echo link_to($strain->getHasDna(), $url) ?></td>
+			<td class="public_status"><?php echo link_to($strain->getIsPublic(), $url) ?></td>
+			<td>0</td>
+
+			<td class="actions">
+				<a href="<?php echo $url ?>">
+					<?php echo link_to('Edit', 'strain/edit?id='.$strain->getId()) ?>
+					<?php echo link_to('Delete', 'strain/delete?id='.$strain->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				</a>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
 </table>
 
-  <a href="<?php echo url_for('strain/new') ?>">New</a>
+<?php if ($pager->haveToPaginate()): ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'strain')) ?>
+<?php endif ?>
+
+<?php else: ?>
+	<p>There are no strains to show.</p>
+<?php endif; ?>

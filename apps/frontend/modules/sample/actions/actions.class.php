@@ -8,8 +8,7 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class sampleActions extends MyActions
-{
+class sampleActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
