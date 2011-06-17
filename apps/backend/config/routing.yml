@@ -93,7 +93,7 @@ authority:
   options:
     model:                Authority
     module:               authority
-    prefix_path:          /admin/auhtority
+    prefix_path:          /admin/authority
     column:               id
     with_wildcard_routes: true
 
