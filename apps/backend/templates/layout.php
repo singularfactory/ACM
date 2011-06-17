@@ -44,6 +44,9 @@
 						<?php echo link_to('Locations', '@country', (preg_match('/^(country|region|island)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
+						<?php echo link_to('Cryopreservation', '@cryopreservation_method', (preg_match('/^(cryopreservation_method)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
+					<li>
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>

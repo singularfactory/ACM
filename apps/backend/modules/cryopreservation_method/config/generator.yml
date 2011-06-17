@@ -1,0 +1,35 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           CryopreservationMethod
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          cryopreservation_method
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+    css:  false
+
+    config:
+      actions: ~
+      fields:
+      list:
+        title: Cryopreservation methods
+        display: [name, updated_at]
+        fields:
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: [name, asc]
+      filter:
+        class: false
+      form:
+        fields:
+          name:
+            help: Method of cryopreservation. This will appear in application lists
+      edit:
+        title: Edit "%%name%%" cryopreservation method
+      new:
+        title: Create a new cryopreservation method
