@@ -41,13 +41,7 @@
 						<?php echo link_to('Sampling', '@radiation', (preg_match('/^((radiation|habitat|environment)_?|homepage)/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Countries', '@country', (preg_match('/^country_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
-					</li>
-					<li>
-						<?php echo link_to('Regions', '@region', (preg_match('/^region_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
-					</li>
-					<li>
-						<?php echo link_to('Islands', '@island', (preg_match('/^island_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Locations', '@country', (preg_match('/^(country|region|island)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -73,6 +67,12 @@
 			<?php if ( preg_match('/^(radiation|habitat|environment)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/sampling_sections', array('route' => $route)) ?>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ( preg_match('/^(country|region|island)_?/', $route) ): ?>
+			<div id="subsections_header">
+				<?php include_partial('global/location_sections', array('route' => $route)) ?>
 			</div>
 			<?php endif; ?>
 			
