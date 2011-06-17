@@ -47,9 +47,6 @@
 						<?php echo link_to('Environments', '@environment', (preg_match('/^environment_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Collectors', '@collector', (preg_match('/^collector_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
-					</li>
-					<li>
 						<?php echo link_to('Countries', '@country', (preg_match('/^country_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
@@ -62,7 +59,7 @@
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^sf_guard_user_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('Roles', '@sf_guard_group', (preg_match('/^sf_guard_group_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -82,6 +79,11 @@
 			<?php if ( preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/taxonomy_sections', array('route' => $route)) ?>
+			</div>
+			<?php endif; ?>
+			<?php if ( preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route) ): ?>
+			<div id="subsections_header">
+				<?php include_partial('global/people_sections', array('route' => $route)) ?>
 			</div>
 			<?php endif; ?>
 			<?php echo $sf_content ?>	

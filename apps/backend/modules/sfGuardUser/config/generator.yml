@@ -3,7 +3,7 @@ generator:
     css:  false
     config:
       list:
-        title:   People
+        title:   Users
         display: [=username, name, email_address, last_login]
         fields:
           email_address: { label: Email }

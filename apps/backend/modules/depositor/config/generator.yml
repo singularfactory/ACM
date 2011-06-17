@@ -1,0 +1,36 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Depositor
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          depositor
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+    css:  false
+
+    config:
+      actions: ~
+      fields: ~
+      list:
+        title: Depositors
+        display: [name, surname, email, nb_strains, updated_at]
+        fields:
+          full_name:
+            label: Name
+          nb_strains:
+            label: Strains deposited
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name, surname, email]
+      form: ~
+      edit:
+        title: Edit "%%name%% %%surname%%"
+      new:
+        title: Add a new depositor

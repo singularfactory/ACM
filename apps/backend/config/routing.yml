@@ -1,3 +1,30 @@
+identifier:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Identifier
+    module:               identifier
+    prefix_path:          /identifier
+    column:               id
+    with_wildcard_routes: true
+
+depositor:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Depositor
+    module:               depositor
+    prefix_path:          /depositor
+    column:               id
+    with_wildcard_routes: true
+
+isolator:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Isolator
+    module:               isolator
+    prefix_path:          /isolator
+    column:               id
+    with_wildcard_routes: true
+
 collector:
   class: sfDoctrineRouteCollection
   options:
