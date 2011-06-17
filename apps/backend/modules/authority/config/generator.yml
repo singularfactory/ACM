@@ -10,12 +10,24 @@ generator:
     route_prefix:          authority
     with_doctrine_route:   true
     actions_base_class:    sfActions
+    css:  false
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
-      filter:  ~
+      list:
+        title: Authorities
+        display: [name, updated_at]
+        fields:
+          name:
+            label: Name
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name]
       form:    ~
       edit:    ~
-      new:     ~
+      new:
+        title: Add a new authority
