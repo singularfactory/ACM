@@ -79,6 +79,11 @@
 		</div>
 
 		<div id="main">
+			<?php if ( preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route) ): ?>
+			<div id="subsections_header">
+				<?php include_partial('global/taxonomy_sections', array('route' => $route)) ?>
+			</div>
+			<?php endif; ?>
 			<?php echo $sf_content ?>	
 		</div>
 

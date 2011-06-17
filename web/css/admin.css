@@ -196,3 +196,22 @@ form { margin: 0; padding: 0; }
 #sf_admin_bar { float: right; width: 19%; }
 #sf_admin_footer { clear:both; }
 #sf_admin_content ul.sf_admin_actions { text-align: left; }
+
+
+
+#subsections_header {
+	background: #e7eef6;
+	margin: 0px; margin-bottom: 13px;
+	padding: 11px 13px 11px 11px;
+	font-size: 14px;
+	color: black;
+}
+
+#subsections_header ul { margin: 0px; padding: 0px; }
+#subsections_header li { margin: 0px; padding: 0px; display: inline; list-style: none; border: none; font-size: 12px; font-weight: bold; }
+#subsections_header li a:link,
+#subsections_header li a:visited { color: #333; }
+#subsections_header li a:hover { color: #ffffff; }
+
+#subsections_header a:link, #subsections_header a:visited { font-weight: lighter; }
+#subsections_header span.subsection_separator { color: #999; font-size: 12px; padding: 0px 5px; }
