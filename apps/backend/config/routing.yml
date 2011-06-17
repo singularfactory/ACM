@@ -61,6 +61,42 @@ radiation:
     column:               id
     with_wildcard_routes: true
 
+taxonomic_class:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TaxonomicClass
+    module:               taxonomic_class
+    prefix_path:          /admin/taxonomic_class
+    column:               id
+    with_wildcard_routes: true
+
+genus:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Genus
+    module:               genus
+    prefix_path:          /admin/genus
+    column:               id
+    with_wildcard_routes: true
+
+species:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Species
+    module:               species
+    prefix_path:          /admin/species
+    column:               id
+    with_wildcard_routes: true
+
+authority:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Authority
+    module:               authority
+    prefix_path:          /admin/auhtority
+    column:               id
+    with_wildcard_routes: true
+
 sf_guard_user:
   class: sfDoctrineRouteCollection
   options:

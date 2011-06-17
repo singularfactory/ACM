@@ -59,6 +59,9 @@
 						<?php echo link_to('Islands', '@island', (preg_match('/^island_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
+						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
+					<li>
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^sf_guard_user_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
