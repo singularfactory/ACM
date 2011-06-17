@@ -31,4 +31,7 @@ class LocationTable extends Doctrine_Table {
 		return $location->getId();
 	}
 	
+	public function findByTerm($term = '') {
+		return $this->createQuery('l')->where('l.name LIKE ?', "%$term%")->execute();
+	}
 }

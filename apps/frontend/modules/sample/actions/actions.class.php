@@ -55,7 +55,7 @@ class sampleActions extends MyActions {
 	 */
 	public function executeFindLocations(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Location')->createQuery('l')->where('l.name LIKE ?', "%{$request->getParameter('term')}%")->execute();
+			$results = Doctrine_Core::getTable('Location')->findByTerm($request->getParameter('term'));
 			$locations = array();
 			foreach ($results as $location) {
 				$locations[] = array(
