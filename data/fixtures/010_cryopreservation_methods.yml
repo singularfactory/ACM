@@ -1,3 +1,4 @@
 CryopreservationMethod:
-  MeOH-liquid:   { name: 'MeOH 5% en medio líquido' }
+  MeOH-liquid:  { name: 'MeOH 5% en medio líquido' }
   MeOH-solid:   { name: 'MeOH 5% en medio sólido' }
+  encapsulated: { name: 'Encapsulación-vitrificación' }
