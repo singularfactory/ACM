@@ -174,19 +174,15 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('depositor_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('deposition_date', 'date', null, array(
              'type' => 'date',
-             'notnull' => true,
              ));
         $this->hasColumn('identifier_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('identification_date', 'date', null, array(
              'type' => 'date',
-             'notnull' => true,
              ));
         $this->hasColumn('maintenance_status_id', 'integer', null, array(
              'type' => 'integer',

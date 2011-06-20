@@ -225,10 +225,10 @@ Strain:
     authority_id:               { type: integer, notnull: true }
     isolator_id:                { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
-    depositor_id:               { type: integer, notnull: true }
-    deposition_date:             { type: date, notnull: true }
-    identifier_id:              { type: integer, notnull: true }
-    identification_date:        { type: date, notnull: true }
+    depositor_id:               { type: integer }
+    deposition_date:            { type: date }
+    identifier_id:              { type: integer }
+    identification_date:        { type: date }
     maintenance_status_id:      { type: integer, notnull: true }
     cryopreservation_method_id: { type: integer, notnull: true } 
     transfer_interval:          { type: string(40) }
