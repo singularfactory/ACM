@@ -3,7 +3,7 @@ cryopreservation_method:
   options:
     model:                CryopreservationMethod
     module:               cryopreservation_method
-    prefix_path:          /cryopreservation_method
+    prefix_path:          /admin/cryopreservation_method
     column:               id
     with_wildcard_routes: true
 
@@ -12,7 +12,7 @@ identifier:
   options:
     model:                Identifier
     module:               identifier
-    prefix_path:          /identifier
+    prefix_path:          /admin/identifier
     column:               id
     with_wildcard_routes: true
 
@@ -21,7 +21,7 @@ depositor:
   options:
     model:                Depositor
     module:               depositor
-    prefix_path:          /depositor
+    prefix_path:          /admin/depositor
     column:               id
     with_wildcard_routes: true
 
@@ -30,7 +30,7 @@ isolator:
   options:
     model:                Isolator
     module:               isolator
-    prefix_path:          /isolator
+    prefix_path:          /admin/isolator
     column:               id
     with_wildcard_routes: true
 
