@@ -27,6 +27,7 @@ class StrainForm extends BaseStrainForm {
 		// Configure labels
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
+		$this->widgetSchema->setLabel('growth_mediums_list', 'Growth mediums');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');

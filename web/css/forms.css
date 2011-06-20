@@ -27,7 +27,7 @@ p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -2px; p
 input, textarea { display: block; clear: both; font-size: 12px; padding: 1px; }
 textarea { width: 350px; height: 100px; }
 select { clear: both; vertical-align: text-bottom; display: block; }
-select[multiple=multiple] {	width: auto; }
+select[multiple=multiple] {	min-width: 350px; }
 option { padding: 0px 2px; }
 
 input[type=submit] {
