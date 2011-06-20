@@ -1,3 +1,9 @@
+prod:
+  root_url: http://greenhouse.marinebiotechnology.org
+
+dev:
+  root_url: http://bna.es
+
 all:
   .general:
     # Sample related constants
