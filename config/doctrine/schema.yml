@@ -224,7 +224,7 @@ Strain:
     isolator_id:                { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
     depositor_id:               { type: integer, notnull: true }
-    depositor_date:             { type: date, notnull: true }
+    deposition_date:             { type: date, notnull: true }
     identifier_id:              { type: integer, notnull: true }
     identification_date:        { type: date, notnull: true }
     maintenance_status_id:      { type: integer, notnull: true }

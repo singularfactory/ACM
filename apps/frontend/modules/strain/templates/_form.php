@@ -112,10 +112,10 @@
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['depositor_date']->renderLabel() ?></th>
+        <th><?php echo $form['deposition_date']->renderLabel() ?></th>
         <td>
-          <?php echo $form['depositor_date']->renderError() ?>
-          <?php echo $form['depositor_date'] ?>
+          <?php echo $form['deposition_date']->renderError() ?>
+          <?php echo $form['deposition_date'] ?>
         </td>
       </tr>
       <tr>

@@ -19,7 +19,7 @@
  * @property integer $isolator_id
  * @property date $isolation_date
  * @property integer $depositor_id
- * @property date $depositor_date
+ * @property date $deposition_date
  * @property integer $identifier_id
  * @property date $identification_date
  * @property integer $maintenance_status_id
@@ -55,7 +55,7 @@
  * @method integer                getIsolatorId()                 Returns the current record's "isolator_id" value
  * @method date                   getIsolationDate()              Returns the current record's "isolation_date" value
  * @method integer                getDepositorId()                Returns the current record's "depositor_id" value
- * @method date                   getDepositorDate()              Returns the current record's "depositor_date" value
+ * @method date                   getDepositionDate()             Returns the current record's "deposition_date" value
  * @method integer                getIdentifierId()               Returns the current record's "identifier_id" value
  * @method date                   getIdentificationDate()         Returns the current record's "identification_date" value
  * @method integer                getMaintenanceStatusId()        Returns the current record's "maintenance_status_id" value
@@ -90,7 +90,7 @@
  * @method Strain                 setIsolatorId()                 Sets the current record's "isolator_id" value
  * @method Strain                 setIsolationDate()              Sets the current record's "isolation_date" value
  * @method Strain                 setDepositorId()                Sets the current record's "depositor_id" value
- * @method Strain                 setDepositorDate()              Sets the current record's "depositor_date" value
+ * @method Strain                 setDepositionDate()             Sets the current record's "deposition_date" value
  * @method Strain                 setIdentifierId()               Sets the current record's "identifier_id" value
  * @method Strain                 setIdentificationDate()         Sets the current record's "identification_date" value
  * @method Strain                 setMaintenanceStatusId()        Sets the current record's "maintenance_status_id" value
@@ -183,7 +183,7 @@ abstract class BaseStrain extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('depositor_date', 'date', null, array(
+        $this->hasColumn('deposition_date', 'date', null, array(
              'type' => 'date',
              'notnull' => true,
              ));
