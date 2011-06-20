@@ -22,8 +22,15 @@ class Strain extends BaseStrain {
 		return 'BEA'.$code.$axenicCode;
 	}
 	
+	public function hasDna() {
+		if ( count($this->getDna()) > 0 ) {
+			return true;
+		}
+		return false;
+	}
+	
 	public function getFormattedHasDna() {
-		if ( $this->getHasDna() ) {
+		if ( $this->hasDna() ) {
 			return 'yes';
 		}
 		return 'no';

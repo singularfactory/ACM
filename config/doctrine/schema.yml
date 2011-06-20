@@ -215,7 +215,6 @@ Strain:
   columns:
     id:                         { type: integer, primary: true, autoincrement: true }
     sample_id:                  { type: integer, notnull: true }
-    has_dna:                    { type: boolean, notnull: true, default: false }
     is_epitype:                 { type: boolean, notnull: true, default: false }
     is_axenic:                  { type: boolean, notnull: true, default: false }
     is_public:                  { type: boolean, notnull: true, default: false }

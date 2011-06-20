@@ -10,7 +10,7 @@
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Number', 'strain/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Sample', 'strain/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Sample', 'strain/index?sort_column=Sample.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Has DNA', 'strain/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Is public', 'strain/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Pending orders', 'strain/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>

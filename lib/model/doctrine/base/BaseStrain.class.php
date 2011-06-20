@@ -7,7 +7,6 @@
  * 
  * @property integer $id
  * @property integer $sample_id
- * @property boolean $has_dna
  * @property boolean $is_epitype
  * @property boolean $is_axenic
  * @property boolean $is_public
@@ -42,7 +41,6 @@
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
- * @method boolean                getHasDna()                     Returns the current record's "has_dna" value
  * @method boolean                getIsEpitype()                  Returns the current record's "is_epitype" value
  * @method boolean                getIsAxenic()                   Returns the current record's "is_axenic" value
  * @method boolean                getIsPublic()                   Returns the current record's "is_public" value
@@ -76,7 +74,6 @@
  * @method Doctrine_Collection    getDna()                        Returns the current record's "Dna" collection
  * @method Strain                 setId()                         Sets the current record's "id" value
  * @method Strain                 setSampleId()                   Sets the current record's "sample_id" value
- * @method Strain                 setHasDna()                     Sets the current record's "has_dna" value
  * @method Strain                 setIsEpitype()                  Sets the current record's "is_epitype" value
  * @method Strain                 setIsAxenic()                   Sets the current record's "is_axenic" value
  * @method Strain                 setIsPublic()                   Sets the current record's "is_public" value
@@ -127,11 +124,6 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasColumn('sample_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
-             ));
-        $this->hasColumn('has_dna', 'boolean', null, array(
-             'type' => 'boolean',
-             'notnull' => true,
-             'default' => false,
              ));
         $this->hasColumn('is_epitype', 'boolean', null, array(
              'type' => 'boolean',

@@ -40,11 +40,6 @@
 			<?php echo $form['authority_id'] ?>
 		</div>
 		
-		<div id="dna" class="checkbox">
-			<?php echo $form['has_dna']->renderLabel() ?>
-			<?php echo $form['has_dna'] ?>
-		</div>
-		
 		<div id="epitype" class="checkbox">
 			<?php echo $form['is_epitype']->renderLabel() ?>
 			<?php echo $form['is_epitype'] ?>

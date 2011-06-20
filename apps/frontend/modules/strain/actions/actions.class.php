@@ -70,7 +70,6 @@ class strainActions extends MyActions {
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSample());
-			$strain->setHasDna($lastStrain->getHasDna());
 			$strain->setIsEpytipe($lastStrain->getIsEpytipe());
 			$strain->setIsAxenic($lastStrain->getIsAxenic());
 			$strain->setIsPublic($lastStrain->getIsPublic());
