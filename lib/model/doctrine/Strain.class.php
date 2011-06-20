@@ -22,6 +22,10 @@ class Strain extends BaseStrain {
 		return 'BEA'.$code.$axenicCode;
 	}
 	
+	public function getNbGrowthMediums() {
+		return count($this->getGrowthMediums());
+	}
+	
 	public function hasDna() {
 		if ( count($this->getDna()) > 0 ) {
 			return true;
@@ -31,6 +35,13 @@ class Strain extends BaseStrain {
 	
 	public function getFormattedIsEpitype() {
 		if ( $this->getIsEpitype() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
+	public function getFormattedIsAxenic() {
+		if ( $this->getIsAxenic() ) {
 			return 'yes';
 		}
 		return 'no';
