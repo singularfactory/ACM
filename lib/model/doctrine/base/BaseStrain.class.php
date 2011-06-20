@@ -7,7 +7,6 @@
  * 
  * @property integer $id
  * @property integer $sample_id
- * @property integer $dna_id
  * @property boolean $has_dna
  * @property boolean $is_epitype
  * @property boolean $is_axenic
@@ -29,7 +28,6 @@
  * @property string $citations
  * @property string $remarks
  * @property Sample $Sample
- * @property Dna $Dna
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -40,10 +38,10 @@
  * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Doctrine_Collection $GrowthMediums
+ * @property Doctrine_Collection $Dna
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
- * @method integer                getDnaId()                      Returns the current record's "dna_id" value
  * @method boolean                getHasDna()                     Returns the current record's "has_dna" value
  * @method boolean                getIsEpitype()                  Returns the current record's "is_epitype" value
  * @method boolean                getIsAxenic()                   Returns the current record's "is_axenic" value
@@ -65,7 +63,6 @@
  * @method string                 getCitations()                  Returns the current record's "citations" value
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
- * @method Dna                    getDna()                        Returns the current record's "Dna" value
  * @method TaxonomicClass         getTaxonomicClass()             Returns the current record's "TaxonomicClass" value
  * @method Genus                  getGenus()                      Returns the current record's "Genus" value
  * @method Species                getSpecies()                    Returns the current record's "Species" value
@@ -76,9 +73,9 @@
  * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Doctrine_Collection    getGrowthMediums()              Returns the current record's "GrowthMediums" collection
+ * @method Doctrine_Collection    getDna()                        Returns the current record's "Dna" collection
  * @method Strain                 setId()                         Sets the current record's "id" value
  * @method Strain                 setSampleId()                   Sets the current record's "sample_id" value
- * @method Strain                 setDnaId()                      Sets the current record's "dna_id" value
  * @method Strain                 setHasDna()                     Sets the current record's "has_dna" value
  * @method Strain                 setIsEpitype()                  Sets the current record's "is_epitype" value
  * @method Strain                 setIsAxenic()                   Sets the current record's "is_axenic" value
@@ -100,7 +97,6 @@
  * @method Strain                 setCitations()                  Sets the current record's "citations" value
  * @method Strain                 setRemarks()                    Sets the current record's "remarks" value
  * @method Strain                 setSample()                     Sets the current record's "Sample" value
- * @method Strain                 setDna()                        Sets the current record's "Dna" value
  * @method Strain                 setTaxonomicClass()             Sets the current record's "TaxonomicClass" value
  * @method Strain                 setGenus()                      Sets the current record's "Genus" value
  * @method Strain                 setSpecies()                    Sets the current record's "Species" value
@@ -111,6 +107,7 @@
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * @method Strain                 setGrowthMediums()              Sets the current record's "GrowthMediums" collection
+ * @method Strain                 setDna()                        Sets the current record's "Dna" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -128,10 +125,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              'autoincrement' => true,
              ));
         $this->hasColumn('sample_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
-        $this->hasColumn('dna_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
@@ -227,10 +220,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'sample_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Dna', array(
-             'local' => 'dna_id',
-             'foreign' => 'id'));
-
         $this->hasOne('TaxonomicClass', array(
              'local' => 'taxonomic_class_id',
              'foreign' => 'id'));
@@ -271,6 +260,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'refClass' => 'StrainGrowthMediums',
              'local' => 'strain_id',
              'foreign' => 'growth_medium_id'));
+
+        $this->hasMany('Dna', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

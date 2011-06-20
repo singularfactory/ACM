@@ -18,6 +18,7 @@ abstract class BaseDnaForm extends BaseFormDoctrine
       'id'               => new sfWidgetFormInputHidden(),
       'accession_number' => new sfWidgetFormInputText(),
       'filename'         => new sfWidgetFormInputText(),
+      'strain_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => false)),
       'created_at'       => new sfWidgetFormDateTime(),
       'updated_at'       => new sfWidgetFormDateTime(),
     ));
@@ -26,6 +27,7 @@ abstract class BaseDnaForm extends BaseFormDoctrine
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'accession_number' => new sfValidatorString(array('max_length' => 255)),
       'filename'         => new sfValidatorString(array('max_length' => 255)),
+      'strain_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'))),
       'created_at'       => new sfValidatorDateTime(),
       'updated_at'       => new sfValidatorDateTime(),
     ));

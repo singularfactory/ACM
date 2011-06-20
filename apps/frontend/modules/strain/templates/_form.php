@@ -28,13 +28,6 @@
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['dna_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['dna_id']->renderError() ?>
-          <?php echo $form['dna_id'] ?>
-        </td>
-      </tr>
-      <tr>
         <th><?php echo $form['has_dna']->renderLabel() ?></th>
         <td>
           <?php echo $form['has_dna']->renderError() ?>

@@ -17,7 +17,6 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => false)),
-      'dna_id'                     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Dna'), 'add_empty' => false)),
       'has_dna'                    => new sfWidgetFormInputCheckbox(),
       'is_epitype'                 => new sfWidgetFormInputCheckbox(),
       'is_axenic'                  => new sfWidgetFormInputCheckbox(),
@@ -46,7 +45,6 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'sample_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'))),
-      'dna_id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Dna'))),
       'has_dna'                    => new sfValidatorBoolean(array('required' => false)),
       'is_epitype'                 => new sfValidatorBoolean(array('required' => false)),
       'is_axenic'                  => new sfValidatorBoolean(array('required' => false)),
