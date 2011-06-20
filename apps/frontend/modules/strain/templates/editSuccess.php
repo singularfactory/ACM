@@ -1,3 +1,2 @@
-<h1>Edit Strain</h1>
-
+<?php slot('main_header', 'Edit this strain') ?>
 <?php include_partial('form', array('form' => $form)) ?>

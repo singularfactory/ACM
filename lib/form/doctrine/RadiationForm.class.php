@@ -8,11 +8,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class RadiationForm extends BaseRadiationForm
-{
-  public function configure()
-  {
-	// Hide widgets
-	unset($this['created_at'], $this['updated_at']);
+class RadiationForm extends BaseRadiationForm {
+  public function configure() {
+		
   }
 }

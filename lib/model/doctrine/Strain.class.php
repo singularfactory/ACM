@@ -10,6 +10,29 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Strain extends BaseStrain
-{
+class Strain extends BaseStrain {
+	public function getNumber() {
+		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
+		
+		$axenicCode = '';
+		if ( ! $this->getIsAxenic() ) {
+			$axenicCode = 'B';
+		}
+		
+		return 'BEA'.$code.$axenicCode;
+	}
+	
+	public function getFormattedHasDna() {
+		if ( $this->getHasDna() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
+	public function getFormattedIsPublic() {
+		if ( $this->getIsPublic() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
 }
