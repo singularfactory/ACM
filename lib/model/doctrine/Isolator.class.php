@@ -10,6 +10,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Isolator extends BaseIsolator
-{
+class Isolator extends BaseIsolator {
+	public function __toString() {
+		return $this->getName().' '.$this->getSurname();
+	}
 }

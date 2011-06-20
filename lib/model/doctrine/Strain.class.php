@@ -29,6 +29,13 @@ class Strain extends BaseStrain {
 		return false;
 	}
 	
+	public function getFormattedIsEpitype() {
+		if ( $this->getIsEpitype() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
 	public function getFormattedHasDna() {
 		if ( $this->hasDna() ) {
 			return 'yes';
