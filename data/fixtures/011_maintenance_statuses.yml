@@ -1,0 +1,4 @@
+MaintenanceStatus:
+  liquid:         { name: Liquid }
+  solid:          { name: Solid }
+  cryopreserved:  { name: Cryopreserved }
