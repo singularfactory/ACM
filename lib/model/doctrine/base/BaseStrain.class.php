@@ -182,7 +182,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('transfer_interval', 'string', 40, array(
              'type' => 'string',

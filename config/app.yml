@@ -19,6 +19,11 @@ all:
     # Location related constants
     location_pictures_dir:  /location_pictures
     max_location_pictures:  5
+    
+    # Strain related constants
+    maintenance_status_liquid: Liquid
+    maintenance_status_solid: Solid
+    maintenance_status_cryopreserved: Cryopreserved
         
     # Pictures and thumbnails management constants
     pictures_dir:           /uploads

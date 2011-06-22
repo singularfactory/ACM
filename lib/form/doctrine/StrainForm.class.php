@@ -23,7 +23,10 @@ class StrainForm extends BaseStrainForm {
 		$this->setWidget('isolation_date', $dateWidgetForm);
 		$this->setWidget('identification_date', $dateWidgetForm);
 		$this->setWidget('deposition_date', $dateWidgetForm);
-				
+		
+		// Configure a custom post validator for cryopreservation method
+    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
+						
 		// Configure labels
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
@@ -40,4 +43,24 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('observation', 'Notes about strain growth');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
   }
+
+
+	public function checkCryopreservedStatusHasMethod($validator, $values) {
+		$cryopreservedStatusId = Doctrine_Core::getTable('MaintenanceStatus')
+			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
+			->getId();
+			
+		if ( $values['maintenance_status_id'] != $cryopreservedStatusId ) {
+			$values['cryopreservation_method_id'] = null;
+		}
+		else {
+			if ( empty($values['cryopreservation_method_id']) ) {
+				$error = new sfValidatorError($validator, 'You must chose a cryopreservation method');
+				throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
+			}
+		}
+
+		// cryopreserved method is consistent with maintenance status, return the clean values
+		return $values;
+	}
 }

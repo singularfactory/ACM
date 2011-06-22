@@ -100,6 +100,8 @@
 		
 		<div id="cryopreservation_method">
 			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
+			<?php echo $form['cryopreservation_method_id']->renderError() ?>
+			<?php echo $form['cryopreservation_method_id']->renderHelp() ?>
 			<?php echo $form['cryopreservation_method_id'] ?>
 		</div>
 		
