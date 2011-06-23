@@ -1,0 +1,227 @@
+TaxonomicClass:
+  Bacillariophyceae:	  { name: Bacillariophyceae }
+  Chlorarachniophyceae: { name: Chlorarachniophyceae }
+  Chlorodendrophyceae:	{ name: Chlorodendrophyceae }
+  Chlorophyceae:	      { name: Chlorophyceae }
+  Chrysophyceae:	      { name: Chrysophyceae }
+  Coscinodiscophyceae:	{ name: Coscinodiscophyceae }
+  Cryptophyceae:	      { name: Cryptophyceae }
+  Cyanobacteria:	      { name: Cyanobacteria }
+  Dinophyceae:	        { name: Dinophyceae }
+  Euglenophyceae:	      { name: Euglenophyceae }
+  Klebsormidiophyceae:  { name: Klebsormidiophyceae }
+  Mediophyceae:	        { name: Mediophyceae }
+  Nephroselmidophyceae:	{ name: Nephroselmidophyceae }
+  Pelagophyceae:	      { name: Pelagophyceae }
+  Prasinophyceae:	      { name: Prasinophyceae }
+  Rhodophyceae:	        { name: Rhodophyceae }
+  Trebouxiophyceae:	    { name: Trebouxiophyceae }
+  Ulvophyceae:	        { name: Ulvophyceae }
+  Xanthophyceae:	      { name: Xanthophyceae }
+  Zygnematophyceae:	    { name: Zygnematophyceae }
+
+Genus:
+  Achnanthes:         { name: Achnanthes }
+  Amphidinium:				{ name: Amphidinium }
+  Amphora:	          { name: Amphora }
+  Anabaena:				    { name: Anabaena }
+  Ankistrodesmus:			{ name: Ankistrodesmus }
+  Aphanothece:				{ name: Aphanothece }
+  Arthrospira:				{ name: Arthrospira }
+  Audouinella:        { name: Audouinella}
+  Aulacoseira:				{ name: Aulacoseira }
+  Biddulphia:					{ name: Biddulphia }
+  Blastophysa:				{ name: Blastophysa }
+  Brachiomonas:				{ name: Brachiomonas }
+  Calothrix:					{ name: Calothrix }
+  Carteria:				    { name: Carteria }
+  Chaetoceros:        { name: Chaetoceros }
+  Chaetophoralean:		{ name: Chaetophoralean }
+  Chlamydomonas:			{ name: Chlamydomonas }
+  Chlorarachnion:			{ name: Chlorarachnion }
+  Chlorella:					{ name: Chlorella }
+  Chlorococcalean:		{ name: Chlorococcalean }
+  Chlorococcum:				{ name: Chlorococcum }
+  Chodatella:         { name: Chodatella }
+  Chroococcus:				{ name: Chroococcus }
+  Chroomonas:					{ name: Chroomonas }
+  Closterium:					{ name: Closterium }
+  Coccomyxa:					{ name: Coccomyxa }
+  Cocconeis:					{ name: Cocconeis }
+  Coelastrum:					{ name: Coelastrum }
+  Colacium:				    { name: Colacium }
+  Coscinodiscus:			{ name: Coscinodiscus }
+  Cosmarium:					{ name: Cosmarium }
+  Crucigenia:					{ name: Crucigenia }
+  Cryptomonas:				{ name: Cryptomonas }
+  Cyanobium:					{ name: Cyanobium }
+  Cyclotella:					{ name: Cyclotella }
+  Cylindrotheca:			{ name: Cylindrotheca }
+  Desmodesmus:				{ name: Desmodesmus }
+  Dictyosphaerium:		{ name: Dictyosphaerium }
+  Diploneis:					{ name: Diploneis }
+  Dunaliella:					{ name: Dunaliella }
+  Elakatothrix:				{ name: Elakatothrix }
+  Eucapsis:				    { name: Eucapsis }
+  Euglena:				    { name: Euglena }
+  Gambierdiscus:			{ name: Gambierdiscus }
+  Geitlerinema:				{ name: Geitlerinema }
+  Gloeocapsopsis:			{ name: Gloeocapsopsis }
+  Gomphonema:					{ name: Gomphonema }
+  Gonium:				      { name: Gonium }
+  Gymnodinium:				{ name: Gymnodinium }
+  Gyrosigma:					{ name: Gyrosigma }
+  Keratococcus:				{ name: Keratococcus }
+  Kirchneriella:			{ name: Kirchneriella }
+  Klebsormidium:			{ name: Klebsormidium }
+  Leptolyngbya:				{ name: Leptolyngbya }
+  Licmophora:					{ name: Licmophora }
+  Lyngbya:				    { name: Lyngbya }
+  Merismopedia:				{ name: Merismopedia }
+  Mesotaenium:				{ name: Mesotaenium }
+  Monoraphidium:			{ name: Monoraphidium }
+  Muriellopsis:				{ name: Muriellopsis }
+  Navicula:				    { name: Navicula }
+  Nephroselmis:				{ name: Nephroselmis }
+  Nitzschia:					{ name: Nitzschia }
+  Nostoc:				      { name: Nostoc }
+  Odontella:					{ name: Odontella }
+  Oedogonium:					{ name: Oedogonium }
+  Oocystis:				    { name: Oocystis }
+  Oscillatoria:				{ name: Oscillatoria }
+  Oxyrrhis:				    { name: Oxyrrhis }
+  Pandorina:				  { name: Pandorina }
+  Pediastrum:				  { name: Pediastrum }
+  Pennate-diatom:     { name: "pennate diatom" }
+  Percursaria:				{ name: Percursaria }
+  Phacus:				      { name: Phacus }
+  Phaseolaria:				{ name: Phaseolaria }
+  Phormidium:				  { name: Phormidium }
+  Pinnularia:				  { name: Pinnularia }
+  Poterioochromonas:  { name: Poterioochromonas }
+  Prorocentrum:			  { name: Prorocentrum }
+  Pseudanabaena:		  { name: Pseudanabaena }
+  Pyramimonas:			  { name: Pyramimonas }
+  Rhodomonas:				  { name: Rhodomonas }
+  Rhodophyte:				  { name: Rhodophyte }
+  Sarcinochrysis:		  { name: Sarcinochrysis }
+  Scenedesmus:			  { name: Scenedesmus }
+  Selenastrum:			  { name: Selenastrum }
+  Skeletonema:			  { name: Skeletonema }
+  Spirogyra:				  { name: Spirogyra }
+  Spirulina:				  { name: Spirulina }
+  Staniera:				    { name: Staniera }
+  Staurastrum:			  { name: Staurastrum }
+  Stauroneis:				  { name: Stauroneis }
+  Stichococcus:			  { name: Stichococcus }
+  Stigeoclonium:		  { name: Stigeoclonium }
+  Surirella:				  { name: Surirella }
+  Synechococcus:		  { name: Synechococcus }
+  Synedra:				    { name: Synedra }
+  Tetraedron:				  { name: Tetraedron }
+  Tetraselmis:			  { name: Tetraselmis }
+  Tetrastrum:				  { name: Tetrastrum }
+  Trachelomonas:		  { name: Trachelomonas }
+  Tribonema:				  { name: Tribonema }
+  Trichormus:				  { name: Trichormus }
+  Ulvophyte:				  { name: Ulvophyte }
+
+Species:
+  adhaerens:			  { name: adhaerens }
+  articulata:			  { name: articulata }
+  cf-abundans:			{ name: "cf. abundans" }
+  cf-acuminatus:		{ name: "cf. acuminatus" }
+  cf-boryanum:			{ name: "cf. boryanum" }
+  cf-contortum:			{ name: "cf. contortum" }
+  cf-dimorphus:			{ name: "cf. dimorphus" }
+  cf-dissociatus:		{ name: "cf. dissociatus" }
+  cf-ellipsoidea:		{ name: "cf. ellipsoidea" }
+  cf-ellipticus:		{ name: "cf. ellipticus" }
+  cf-elongatus:			{ name: "cf. elongatus" }
+  cf-latum:			    { name: "cf. latum" }
+  cf-lividum:			  { name: "cf. lividum" }
+  cf-micans:			  { name: "cf. micans" }
+  cf-numidicum:			{ name: "cf. numidicum" }
+  cf-obtusum:			  { name: "cf. obtusum" }
+  cf-orbicularis:		{ name: "cf. orbicularis" }
+  cf-parva:			    { name: "cf. parva" }
+  cf-planctonicum:	{ name: "cf. planctonicum" }
+  cf-pyrenoidifera: { name: "cf. pyrenoidifera" }
+  cf-rhizopus:			{ name: "cf. rhizopus" }
+  cf-subspicatus:		{ name: "cf. subspicatus" }
+  cf-triangulare:		{ name: "cf. triangulare" }
+  cf-volvocinopsis: { name: "cf. volvocinopsis" }
+  cf-abundans:			{ name: "cf. abundans" }
+  communis:			    { name: communis }
+  convolutae:			  { name: convolutae }
+  ellipsoidea:			{ name: ellipsoidea }
+  fenestrata:			  { name: fenestrata }
+  flaccidum:			  { name: flaccidum }
+  fusiformis:			  { name: fusiformis }
+  hyalina:			    { name: hyalina }
+  incrassatulus:		{ name: incrassatulus }
+  lonchoides:			  { name: lonchoides }
+  maxima:			      { name: maxima }
+  meneghiniana:			{ name: meneghiniana }
+  morum:			      { name: morum }
+  obliqua:			    { name: obliqua }
+  pectorale:			  { name: pectorale }
+  planctonica:			{ name: planctonica }
+  platensis:			  { name: platensis }
+  pyrenoidosa:			{ name: pyrenoidosa }
+  rubescens:			  { name: rubescens }
+  saccharophila:		{ name: saccharophila }
+  salina:			      { name: salina }
+  sp:			          { name: "sp." }
+  sublitoralis:			{ name: sublitoralis }
+  subspicatus:			{ name: subspicatus }
+  turgidus:			    { name: turgidus }
+  vulgaris:			    { name: vulgaris }
+  
+Authority:
+  authority_1:	{ name: "(Chodat) Komárek" }
+  authority_2:	{ name: "(Dangeard) Kessler" }
+  authority_3:	{ name: "(Dunal) Teodoresco" }
+  authority_4:	{ name: "(Ehrenberg) Kützing" }
+  authority_5:	{ name: "(Gomont sensu Welsh) Anagnostidis" }
+  authority_6:	{ name: "(Krüger) Migula" }
+  authority_7:	{ name: "(Kützing) Nägeli" }
+  authority_8:	{ name: "(Kützing) P.C. Silva, K.Mattox & W. Blackwell" }
+  authority_9:	{ name: "(Lagerheim) Chodat" }
+  authority_10:	{ name: "(Lindstedt) K. Anagnostidis & A. Pantazidou" }
+  authority_11:	{ name: "(Nordstedt) Gomont" }
+  authority_12:	{ name: "(Nägeli) Nägeli" }
+  authority_13:	{ name: "(O. Kirchner) Chodat" }
+  authority_14:	{ name: "(O.F. Müller) Bory" }
+  authority_15:	{ name: "(P.A.Verses & F.R.Trainor) H.Ettl & G.Gärtner" }
+  authority_16:	{ name: "(R.Chodat) E.Hegewald & A.Schmidt" }
+  authority_17:	{ name: "(Schmidle) Schmidle" }
+  authority_18:	{ name: "(Thuret) Komárková-Legnerová" }
+  authority_19:	{ name: "(Turpin) Kützing" }
+  authority_20:	{ name: "(Turpin) Meneghini" }
+  authority_21:	{ name: "(Voronikhin) J. Komárek & J. W. G. Lund" }
+  authority_22:	{ name: "(Zanardini) Zanardini" }
+  authority_23:	{ name: "Anagnostidis" }
+  authority_24:	{ name: "Beijerinck" }
+  authority_25:	{ name: "Bohlin" }
+  authority_26:	{ name: "Brunnthaler" }
+  authority_27:	{ name: "Chick" }
+  authority_28:	{ name: "Corda" }
+  authority_29:	{ name: "E. Hegewald" }
+  authority_30:	{ name: "Ehrenberg" }
+  authority_31:	{ name: "Geitler" }
+  authority_32:	{ name: "Gerneck" }
+  authority_33:	{ name: "Hübner" }
+  authority_34:	{ name: "Kützing" }
+  authority_35:	{ name: "Lebour" }
+  authority_36:	{ name: "Matvienko" }
+  authority_37:	{ name: "O.F. Müller" }
+  authority_38:	{ name: "Parke and Manton" }
+  authority_39:	{ name: "Printz " }
+  authority_40:	{ name: "Reinke" }
+  authority_41:	{ name: "Setchell & Gardner" }
+  authority_42:	{ name: "Skuja" }
+  authority_43:	{ name: "Swirenko" }
+  authority_44:	{ name: "Teiling" }
+  authority_45:	{ name: "Vacias" }
+  authority_46:	{ name: "West & G.S.West" }
