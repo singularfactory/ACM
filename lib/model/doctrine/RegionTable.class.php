@@ -29,7 +29,11 @@ class RegionTable extends Doctrine_Table {
 			->where('r.name LIKE ?', '%'.sfConfig::get('app_default_region_name').'%')
 			->fetchOne();
 		
-		return $region->getId();
+		if ( $region ) {
+			return $region->getId();
+		}
+		
+		return null;
 	}
 	
 	/**

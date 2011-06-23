@@ -28,7 +28,11 @@ class LocationTable extends Doctrine_Table {
 	
 	public function getDefaultLocationId() {
 		$location = $this->createQuery('l')->fetchOne();
-		return $location->getId();
+		if ( $location ) {
+			return $location->getId();
+		}
+		
+		return null;
 	}
 	
 	public function findByTerm($term = '') {

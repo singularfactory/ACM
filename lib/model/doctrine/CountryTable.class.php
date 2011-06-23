@@ -27,6 +27,10 @@ class CountryTable extends Doctrine_Table {
 			->where('c.name LIKE ?', '%'.sfConfig::get('app_default_country_name').'%')
 			->fetchOne();
 		
-		return $country->getId();
+		if ( $country ) {
+			return $country->getId();
+		}
+		
+		return null;
 	}	
 }

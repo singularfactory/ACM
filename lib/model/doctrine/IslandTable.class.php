@@ -29,7 +29,11 @@ class IslandTable extends Doctrine_Table {
 			->where('i.name LIKE ?', '%'.sfConfig::get('app_default_island_name').'%')
 			->fetchOne();
 		
-		return $island->getId();
+		if ( $island ) {
+			return $island->getId();
+		}
+		
+		return null;
 	}
 	
 	/**
