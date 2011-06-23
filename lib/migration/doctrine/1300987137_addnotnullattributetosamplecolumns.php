@@ -1,11 +1,11 @@
 <?php
 
 class AddNotNullAttributetoSampleColumns extends Doctrine_Migration_Base {
-  public function up() {
-	$this->changeColumn('sample', 'radiation_id', 'integer', 8, array('notnull' => true));
-  }
+	public function up() {
+		// Nothing to be done here due to misplaced migrations
+	}
 
-  public function down() {
-	$this->changeColumn('sample', 'radiation_id', 'integer', 8, array('notnull' => false));
-  }
+	public function down() {
+		// Nothing to be done here due to misplaced migrations
+	}
 }

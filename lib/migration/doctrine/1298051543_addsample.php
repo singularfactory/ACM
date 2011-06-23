@@ -14,12 +14,6 @@ class Addsample extends Doctrine_Migration_Base
               'autoincrement' => true,
               'length' => 8,
              ),
-             'notebook_code' => 
-             array(
-              'type' => 'integer',
-              'notnull' => true,
-              'length' => 8,
-             ),
              'location_id' => 
              array(
               'type' => 'integer',
@@ -43,13 +37,6 @@ class Addsample extends Doctrine_Migration_Base
               'type' => 'integer',
               'notnull' => true,
               'length' => 8,
-             ),
-             'is_extremophile' => 
-             array(
-              'type' => 'boolean',
-              'notnull' => true,
-              'default' => 0,
-              'length' => 25,
              ),
              'habitat_id' => 
              array(
