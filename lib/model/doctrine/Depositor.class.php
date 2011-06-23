@@ -10,6 +10,15 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Depositor extends BaseDepositor
-{
+class Depositor extends BaseDepositor {
+	public function __toString() {
+		return $this->getName().' '.$this->getSurname();
+	}
+	
+	public function getNbStrains() {
+		return Doctrine_Query::create()
+			->from('Strain s')
+			->where('s.depositor_id = ?', $this->getId())
+			->count();
+	}
 }
