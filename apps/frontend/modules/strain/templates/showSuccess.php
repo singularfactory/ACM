@@ -58,34 +58,28 @@
 			</dd>
 			
 			<dt>Transfer interval:</dt>
-			<dd><?php echo $strain->getTransferInterval() ?></dd>
+			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
 			
 			<dt>Observation:</dt>
-			<dd><?php echo $strain->getObservation() ?></dd>
+			<dd><?php echo $strain->getFormattedObservation() ?></dd>
 
 			<?php if ( $strain->getIsolator()->getName() ): ?>
 			<dt>Isolator:</dt>
-			<dd><?php echo $strain->getIsolator() ?></dd>
-			<dt>Isolation date:</dt>
-			<dd><?php echo format_date($strain->getIsolationDate(), 'p') ?></dd>
+			<dd><?php echo $strain->getIsolator() ?> ( <?php echo format_date($strain->getIsolationDate(), 'p') ?> )</dd>
 			<?php endif; ?>
 			
 			<?php if ( $strain->getIdentifier()->getName() ): ?>
 			<dt>Identifier:</dt>
-			<dd><?php echo $strain->getIdentifier() ?></dd>
-			<dt>Identification date:</dt>
-			<dd><?php echo format_date($strain->getIdentificationDate(), 'p') ?></dd>
+			<dd><?php echo $strain->getIdentifier() ?> (<?php echo format_date($strain->getIdentificationDate(), 'p') ?>)</dd>
 			<?php endif; ?>
 			
 			<?php if ( $strain->getDepositor()->getName() ): ?>
 			<dt>Depositor:</dt>
-			<dd><?php echo $strain->getDepositor() ?></dd>
-			<dt>Deposition date:</dt>
-			<dd><?php echo format_date($strain->getDepositionDate(), 'p') ?></dd>
+			<dd><?php echo $strain->getDepositor() ?> (<?php echo format_date($strain->getDepositionDate(), 'p') ?>)</dd>
 			<?php endif; ?>
 
 			<dt>Citations:</dt>
-			<dd><?php echo $strain->getCitations() ?></dd>
+			<dd><?php echo $strain->getFormattedCitations() ?></dd>
 			
 			<dt>Remarks:</dt>
 			<dd><?php echo $strain->getRemarks() ?></dd>
