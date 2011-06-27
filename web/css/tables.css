@@ -51,11 +51,12 @@ td.region_name { width: 160px; }
 td.island_name { width: 150px; }
 td.object_count { width: 40px; }
 
-td.sample_code { width: 150px; }
 td.collector_name, td.isolator_name { width: 150px; }
 td.date { width: 100px; }
 
-td.strain_code { width: 100px; }
-td.dna_availability, td.public_status, td.is_epitype { width: 100px; }
-td.isolation_date { width: 100px; }
-td.pending_orders { width: 100px; }
+td.strain_code { width: 70px; }
+td.strain_name { width: 270px; }
+td.sample_code { width: 150px; }
+td.dna_availability { width: 70px; }
+td.isolation_date { width: 120px; }
+td.pending_orders { }
