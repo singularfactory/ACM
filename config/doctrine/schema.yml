@@ -209,7 +209,7 @@ StrainRelative:
     name:       { type: string(255), notnull: true }
     strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:     { foreignAlias: Strains, onDelete: cascade }
+    Strain:     { foreignAlias: Relatives, onDelete: cascade }
 
 Strain:
   columns:

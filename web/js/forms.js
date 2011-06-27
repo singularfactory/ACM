@@ -69,6 +69,22 @@ $(document).ready(function(){
 		});
 	});
 	
+	// Display remove option when a strain relative input has text and lose focus
+	$('div.model_text_input_name input').change(function(){
+		if ( $(this).next('span').length == 0 ) {
+			$(this).after('<span class="remove_input_text">remove</span>');
+			$(this).next().click(function(){	// clear input and detach when pressed
+				if( $('div.model_text_input_name input').length > 1 ) {
+					$(this).prev().detach();
+				}
+				else {
+					$(this).prev().val('');
+				}
+				$(this).detach();
+			});
+		}
+	})
+	
 	// Display a Google Map to pick the latitude and longitude of a place
 	$('#gps_coordinates_picker_link').colorbox({
 		inline: true,

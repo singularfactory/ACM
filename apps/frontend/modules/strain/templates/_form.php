@@ -93,6 +93,39 @@
 	</div>
 	
 	<div id="right_side_form">
+		<?php if ( !$form->getObject()->isNew() && isset($form['Relatives']) ): ?>
+		<div class="model_text_input_list">
+			<?php echo $form['Relatives']->renderLabel('Actual relatives') ?>
+			<?php $i = 0 ?>
+			<?php foreach ($form['Relatives'] as $widget): ?>
+			<?php $relative = $widget->getValue() ?>
+			<div class="thumbnail">
+				<p class="thumbnail_caption">
+					<span><?php echo $relative['name'] ?></span>
+					<input type="checkbox" name="strain[Relatives][<?php echo $i ?>][delete_object]" id="strain_Relatives_<?php echo $i ?>_delete_object" />
+					<input type="hidden" name="strain[Relatives][<?php echo $i ?>][name]" value="<?php echo $relative['name'] ?>" id="strain_Relatives_<?php echo $i ?>_name" />
+					<input type="hidden" name="strain[Relatives][<?php echo $i ?>][id]" value="<?php echo $relative['id'] ?>" id="strain_Relatives_<?php echo $i ?>_id" />
+					 delete
+				</p>
+			</div>
+			<?php $i++ ?>
+			<?php endforeach; ?>
+			<div class="clear"></div>
+		</div>
+		<?php endif ?>
+		
+		<div id="model_text_inputs">
+			<?php echo $form['new_Relatives']->renderLabel() ?>
+			<?php echo $form['new_Relatives']->renderHelp() ?>
+			<div class="model_text_input_name">
+				<?php echo $form['new_Relatives'][0]['name']->render() ?>
+			</div>
+		</div>
+		
+		<div class="text_inputs_add_relation">
+			<?php echo $form['new_Relatives']['_']->render() ?>
+		</div>
+		
 		<div id="maintenance_status">
 			<?php echo $form['maintenance_status_id']->renderLabel() ?>
 			<?php echo $form['maintenance_status_id'] ?>

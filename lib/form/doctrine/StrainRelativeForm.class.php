@@ -10,6 +10,8 @@
  */
 class StrainRelativeForm extends BaseStrainRelativeForm {
   public function configure() {
-		
+		$this->useFields(array('name'));
+
+		$this->setValidator('delete_object', new sfValidatorBoolean());
   }
 }

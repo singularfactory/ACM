@@ -36,8 +36,18 @@
 			<dt>Maintenance status:</dt>
 			<dd><?php echo $strain->getMaintenanceStatus() ?></dd>
 			
+			<?php if ( $strain->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
 			<dt>Cryopreservation:</dt>
 			<dd><?php echo $strain->getCryopreservationMethod() ?></dd>
+			<?php endif; ?>
+			
+			<dt>Relatives:</dt>
+			<dd>
+				<?php echo $nbRelatives = $strain->getNbRelatives() ?>
+				<?php if ( $nbRelatives > 0 ): ?>
+					<a href="#strain_relatives_list" title="List of relatives linked to this strain" class="page_jump">see below</a>
+				<?php endif; ?>
+			</dd>
 			
 			<dt>Growth mediums:</dt>
 			<dd>
@@ -53,20 +63,26 @@
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getObservation() ?></dd>
 
+			<?php if ( $strain->getIsolator()->getName() ): ?>
 			<dt>Isolator:</dt>
 			<dd><?php echo $strain->getIsolator() ?></dd>
 			<dt>Isolation date:</dt>
 			<dd><?php echo format_date($strain->getIsolationDate(), 'p') ?></dd>
+			<?php endif; ?>
 			
+			<?php if ( $strain->getIdentifier()->getName() ): ?>
 			<dt>Identifier:</dt>
 			<dd><?php echo $strain->getIdentifier() ?></dd>
 			<dt>Identification date:</dt>
 			<dd><?php echo format_date($strain->getIdentificationDate(), 'p') ?></dd>
+			<?php endif; ?>
 			
+			<?php if ( $strain->getDepositor()->getName() ): ?>
 			<dt>Depositor:</dt>
 			<dd><?php echo $strain->getDepositor() ?></dd>
 			<dt>Deposition date:</dt>
 			<dd><?php echo format_date($strain->getDepositionDate(), 'p') ?></dd>
+			<?php endif; ?>
 
 			<dt>Citations:</dt>
 			<dd><?php echo $strain->getCitations() ?></dd>
@@ -96,6 +112,21 @@
 	</div>
 	<?php endif ?>
 	
-
+	<?php if ( $nbRelatives > 0): ?>
+	<div id="strain_relatives_list">
+		<h2>Relatives</h2>
+		<table>
+			<tr>
+				<th class="name">Name</th>
+			</tr>
+			<?php foreach ($strain->getRelatives() as $relative ): ?>
+				<tr>
+					<td><?php echo $relative->getName() ?></td>
+				</tr>
+			<?php endforeach ?>
+		</table>
+	</div>
+	<?php endif ?>
+	
 	<div class="clear"></div>
 </div>

@@ -317,14 +317,16 @@ div.javascript_disabled_notification p {
 #main_view { margin-bottom: 24px; margin-top: 15px; }
 #main_view_show h2 { background: #e7eef6; padding: 3px 5px; margin-bottom: 7px; margin-right: 21px; }
 
-#object_data_list, div.object_picture_list, #location_sample_list, #strain_growth_medium_list { margin-left: 13px; }
+#object_data_list, div.object_picture_list, #location_sample_list, #strain_growth_medium_list, #strain_relatives_list { margin-left: 13px; }
 
 div.object_picture_list { margin-top: 13px; overflow: hidden; }
-#location_sample_list, #strain_growth_medium_list { margin-top: 13px; overflow: hidden; }
+#location_sample_list, #strain_growth_medium_list, #strain_relatives_list { margin-top: 13px; overflow: hidden; }
 #location_sample_list table { margin: 0px; padding: 0px; width: 430px; }
 #strain_growth_medium_list table { margin: 0px; padding: 0px; width: 630px; }
+#strain_relatives_list table { margin: 0px; padding: 0px; width: 230px; }
 #location_sample_list th, #location_sample_list td,
-#strain_growth_medium_list th, #strain_growth_medium_list td { font-size: 11px; width: auto; padding-left: 0px; }
+#strain_growth_medium_list th, #strain_growth_medium_list td,
+#strain_relatives_list table th, #strain_relatives_list table td { font-size: 11px; width: auto; padding-left: 0px; }
 #location_sample_list a, #strain_growth_medium_list a { padding: 0px; }
 
 #strain_growth_medium_list th.name { width: 90px; }

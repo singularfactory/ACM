@@ -64,16 +64,28 @@ span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8
 span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 span.value_unit { font-size: 11px; }
 
+span.remove_input_text { text-decoration: underline; font-size: 11px; color: #2aa2f8; margin-left: 3px; }
+span.remove_input_text:hover { cursor: pointer; text-decoration: none; }
+
 
 /**
- * SPECIFIC FIELDS
+ * RELATED MODEL FIELDS
  */
-#name input { width: 250px; }	/* Location */
 #model_pictures { clear: both; }
 div.model_picture_list label { display: block; }
 div.model_picture_filename { margin: 0px; padding: 0px; }
 div.sample_picture_handler { margin-bottom: 17px; border-bottom: 1px solid #d3d3d3; }
 div.model_picture_filename input { display: inline; margin-right: 0px; padding-right: 0px; }
+
+div.model_text_input_list label { display: block; }
+div.model_text_input_name { padding: 1px 0px; }
+div.model_text_input_name input { display: inline; margin-right: 0px; padding-right: 0px; }
+
+
+/**
+ * SPECIFIC FIELDS
+ */
+#name input { width: 250px; }	/* Location */
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 

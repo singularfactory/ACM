@@ -40,18 +40,27 @@ jQuery(function($) {
 		$row.trigger('afterclone.ah');
 		
 		constantName = "";
+		divClass = "";
 		switch( $(this).attr('rel').replace(/^new_+/, "") ) {
 			case "Pictures":
 				constantName = "#max_location_pictures";
+				divClass = "model_picture_filename";
 			  break;
 			case "FieldPictures":
 				constantName = "#max_sample_field_pictures";
+				divClass = "model_picture_filename";
 			  break;
 			case "DetailedPictures":
 				constantName = "#max_sample_detailed_pictures";
+				divClass = "model_picture_filename";
 			  break;
 			case "MicroscopicPictures":
 				constantName = "#max_sample_microscopic_pictures";
+				divClass = "model_picture_filename";
+			  break;
+			case "Relatives":
+				divClass = "model_text_input_name";
+				$newrow.val('');
 			  break;
 		}
 		
@@ -60,7 +69,7 @@ jQuery(function($) {
 			.trigger('beforeadd.ah')
 			.trigger('afteradd.ah')
 			.appendTo($(this).parent().prev())
-			.wrapAll('<div class="model_picture_filename" />');
+			.wrapAll('<div class="' + divClass + '" />');
 		
 			// Hide the add button when the limit is reached
 			if ( $(this).closest('tr,li,div').prev().children('div').children('input').size() == $(constantName).val() ) {

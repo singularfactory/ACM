@@ -10,6 +10,17 @@
  */
 class StrainForm extends BaseStrainForm {
   public function configure() {
+		// Create an embedded form to add or edit relatives
+		$this->embedRelations(array(
+			'Relatives' => array(
+				'considerNewFormEmptyFields' => array('name'),
+				'newFormLabel' => 'Relatives',
+				'multipleNewForms' => true,
+				'newFormsInitialCount' => 1,
+				'newRelationButtonLabel' => 'Add another relative',
+			),
+		));
+		
 		// Configure sample code
 		$this->setWidget('sample_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Sample'),

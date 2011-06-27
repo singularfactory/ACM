@@ -21,9 +21,16 @@ class Strain extends BaseStrain {
 		
 		return 'BEA'.$code.$axenicCode;
 	}
-	
+		
 	public function getNbGrowthMediums() {
 		return count($this->getGrowthMediums());
+	}
+	
+	public function getNbRelatives() {
+		return Doctrine_Query::create()
+			->from('StrainRelative sr')
+			->where('sr.strain_id = ?', $this->getId())
+			->count();
 	}
 	
 	public function hasDna() {
