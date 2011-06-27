@@ -21,7 +21,7 @@ class Strain extends BaseStrain {
 		
 		return 'BEA'.$code.$axenicCode;
 	}
-		
+			
 	public function getNbGrowthMediums() {
 		return count($this->getGrowthMediums());
 	}

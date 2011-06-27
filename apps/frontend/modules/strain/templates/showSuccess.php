@@ -1,7 +1,15 @@
 <?php use_helper('Date'); ?>
 
 <?php slot('main_header') ?>
-<span>Strain <?php echo $strain->getNumber() ?></span>
+<span>
+	<?php echo $strain->getNumber() ?> - <?php echo $strainClass = $strain->getTaxonomicClass() ?>
+	<span class="species_name"><?php echo $strainGenus = $strain->getGenus() ?></span>
+	<?php if ( ($strainSpecies = $strain->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
+		<span class="species_name"><?php echo $strainSpecies ?></span>
+	<?php else: ?>
+		<?php echo $strainSpecies ?>
+	<?php endif; ?>
+</span>
 <?php include_partial('global/back_header_action', array('module' => 'strain')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'strain', 'id' => $strain->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'strain', 'id' => $strain->getId())) ?>
@@ -25,11 +33,17 @@
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
 			
 			<dt>Class:</dt>
-			<dd><?php echo $strain->getTaxonomicClass() ?></dd>
+			<dd><?php echo $strainClass ?></dd>
 			<dt>Genus:</dt>
-			<dd><?php echo $strain->getGenus() ?></dd>
+			<dd><span class="species_name"><?php echo $strainGenus ?></span></dd>
 			<dt>Species:</dt>
-			<dd><?php echo $strain->getSpecies() ?></dd>
+			<dd>
+				<?php if ( $strainSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
+				<span class="species_name"><?php echo $strainSpecies ?></span>
+				<?php else: ?>
+				<?php echo $strainSpecies ?>
+				<?php endif; ?>
+			</dd>
 			<dt>Authority:</dt>
 			<dd><?php echo $strain->getAuthority() ?></dd>
 			

@@ -21,8 +21,9 @@ all:
     max_location_pictures:  5
     
     # Strain related constants
-    maintenance_status_liquid: Liquid
-    maintenance_status_solid: Solid
+    unknown_species_name:             sp.
+    maintenance_status_liquid:        Liquid
+    maintenance_status_solid:         Solid
     maintenance_status_cryopreserved: Cryopreserved
         
     # Pictures and thumbnails management constants
