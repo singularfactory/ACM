@@ -97,19 +97,23 @@
 		<div class="model_text_input_list">
 			<?php echo $form['Relatives']->renderLabel('Actual relatives') ?>
 			<?php $i = 0 ?>
-			<?php foreach ($form['Relatives'] as $widget): ?>
-			<?php $relative = $widget->getValue() ?>
-			<div class="thumbnail">
-				<p class="thumbnail_caption">
-					<span><?php echo $relative['name'] ?></span>
-					<input type="checkbox" name="strain[Relatives][<?php echo $i ?>][delete_object]" id="strain_Relatives_<?php echo $i ?>_delete_object" />
+			<ul>
+				<?php foreach ($form['Relatives'] as $widget): ?>
+				<?php $relative = $widget->getValue() ?>
+				<li>
 					<input type="hidden" name="strain[Relatives][<?php echo $i ?>][name]" value="<?php echo $relative['name'] ?>" id="strain_Relatives_<?php echo $i ?>_name" />
 					<input type="hidden" name="strain[Relatives][<?php echo $i ?>][id]" value="<?php echo $relative['id'] ?>" id="strain_Relatives_<?php echo $i ?>_id" />
-					 delete
-				</p>
-			</div>
-			<?php $i++ ?>
-			<?php endforeach; ?>
+					<div class="model_text_input_value">
+						<span><?php echo $relative['name'] ?></span>
+						<div class="model_text_input_value_checkbox">
+							<input type="checkbox" name="strain[Relatives][<?php echo $i ?>][delete_object]" id="strain_Relatives_<?php echo $i ?>_delete_object" />
+							delete
+						</div>
+					</div>
+				</li>
+				<?php $i++ ?>
+				<?php endforeach; ?>
+			</ul>
 			<div class="clear"></div>
 		</div>
 		<?php endif ?>

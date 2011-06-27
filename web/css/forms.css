@@ -77,7 +77,15 @@ div.model_picture_filename { margin: 0px; padding: 0px; }
 div.sample_picture_handler { margin-bottom: 17px; border-bottom: 1px solid #d3d3d3; }
 div.model_picture_filename input { display: inline; margin-right: 0px; padding-right: 0px; }
 
-div.model_text_input_list label { display: block; }
+div.model_text_input_list { width: 170px; }
+div.model_text_input_list label { display: inline-block; }
+div.model_text_input_list ul { padding: 0px; margin: 0px; margin-left: 17px; }
+div.model_text_input_list li { padding: 0px; margin: 0px; }
+div.model_text_input_value { margin: 0px; padding: 2px 0px; position: relative; }
+div.model_text_input_value span { font-size: 13px; }
+div.model_text_input_value_checkbox { position: absolute; right: 3px; top: 3px; padding: 0px; margin: 0px; font-size: 11px; font-weight: lighter; }
+
+div.model_text_input_list div.model_text_input_value input[type=checkbox] { margin: 0px; padding: 0px; }
 div.model_text_input_name { padding: 1px 0px; }
 div.model_text_input_name input { display: inline; margin-right: 0px; padding-right: 0px; }
 
