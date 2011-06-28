@@ -199,4 +199,40 @@ $(document).ready(function(){
 		},
 	});
 	
+	// Add a search box for Sample in Strain form
+	var sampleSearchBoxDefault = "Type a sample code...";
+	$('#strain_sample_search').focus(function(){
+		if ( $(this).attr("value") === sampleSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#strain_sample_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", sampleSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#strain_sample_search').val() !== sampleSearchBoxDefault ) {
+		$('#strain_sample_search').css("color", "black");
+		$('#strain_sample_search').css("font-size", "12px");
+	}
+	
+	$("#strain_sample_search").autocomplete({
+		minLength: 3,
+		source: function(term, add) {
+			var url = $('a.strain_sample_numbers_url').attr('href') + $("#strain_sample_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#strain_sample_search" ).val( ui.item.label );
+			$( "#strain_sample_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	
 });

@@ -34,10 +34,11 @@ class StrainForm extends BaseStrainForm {
 		));
 		
 		// Configure sample code
-		$this->setWidget('sample_id', new sfWidgetFormDoctrineChoice(array(
-			'model' => $this->getRelatedModelName('Sample'),
-			'method' => 'getNumber',
-		)));
+		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getSample()->getTable()->getDefaultSampleId())));
+		// $this->setWidget('sample_id', new sfWidgetFormDoctrineChoice(array(
+		// 		'model' => $this->getRelatedModelName('Sample'),
+		// 		'method' => 'getNumber',
+		// )));
 		
 		// Configure date format
 		$lastYear = date('Y');
@@ -46,6 +47,11 @@ class StrainForm extends BaseStrainForm {
 		$this->setWidget('isolation_date', $dateWidgetForm);
 		$this->setWidget('identification_date', $dateWidgetForm);
 		$this->setWidget('deposition_date', $dateWidgetForm);
+		
+		// Configure custom validators
+		$this->setValidator('sample_id', new sfValidatorDoctrineChoice(
+			array('model' => $this->getRelatedModelName('Sample')),
+			array('required' => 'The origin sample of the strain is required')));
 		
 		// Configure a custom post validator for cryopreservation method
     $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
@@ -62,6 +68,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('authority_id', 'Taxonomic authority');
 		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('identification_date', 'Year, month and day');
+		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
 		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain growth');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');

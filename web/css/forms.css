@@ -98,22 +98,24 @@ div.model_text_input_name input { display: inline; margin-right: 0px; padding-ri
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 
 a.sample_location_coordinates_url,
+a.strain_sample_numbers_url,
 a.country_regions_url,
 a.region_islands_url { display: none; }
 
 
 
 /**
- * SAMPLE LOCATION SEARCH BOX
+ * SAMPLE AND STRAIN RELATED ID SEARCH BOX
  */
-#sample_location_search { /* input */
+li.ui-menu-item { text-align: left; font-size: 11px; }
+#sample_location_search, #strain_sample_search { /* input */
 	color: #888;
 	font-size: 11px;
 	min-height: 15px;
 	width: 300px;
 	padding: 1px;
 }
-li.ui-menu-item { text-align: left; font-size: 11px; }
+#strain_sample_search { width: 150px; }
 
 
 /**

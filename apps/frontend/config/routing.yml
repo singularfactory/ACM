@@ -59,6 +59,11 @@ strain_search:
   param:        { module: strain, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
 
+strain_find_samples:
+  url:    strain/findSamples/:term
+  param:  { module: strain, action: findSamples }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
 
 ###
 # GrowthMedium model related routes

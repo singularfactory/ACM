@@ -26,15 +26,15 @@ class strainActions extends MyActions {
 				->orWhere('g.name LIKE ?', "%$text%")
 				->orWhere('sp.name LIKE ?', "%$text%");
 				
-				// Parse search term to catch boolean-type columns
-				if ( preg_match('/\d[Bb]/', $text) ) {
-					$query = $query->orWhere("{$this->mainAlias()}.is_axenic = 0");
-				}
-				
-				// Parse search term to catch strain codes
-				if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
-					$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
-				}
+			// Parse search term to catch boolean-type columns
+			if ( preg_match('/\d[Bb]/', $text) ) {
+				$query = $query->orWhere("{$this->mainAlias()}.is_axenic = 0");
+			}
+		
+			// Parse search term to catch strain codes
+			if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
+				$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
+			}
 		}
 		else {
 			$query = $this->pager->getQuery()
@@ -49,7 +49,30 @@ class strainActions extends MyActions {
 		// Add a form to filter results
 		$this->form = new StrainForm();
   }
-
+	
+	/**
+	 * Find the samples that matches a search term when creating or editing a strain
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with sample id and number
+	 * @author Eliezer Talon
+	 * @version 2011-06-28
+	 */
+	public function executeFindSamples(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = Doctrine_Core::getTable('Sample')->findByTerm($request->getParameter('term'));
+			$samples = array();
+			foreach ($results as $sample) {
+				$samples[] = array(
+					'id' => $sample->getId(),
+					'label' => $sample->getNumber(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($samples));
+		}
+		return sfView::NONE;
+	}
+	
   public function executeShow(sfWebRequest $request) {
     $this->strain = Doctrine_Core::getTable('Strain')->find(array($request->getParameter('id')));
     $this->forward404Unless($this->strain);

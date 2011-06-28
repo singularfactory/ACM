@@ -10,7 +10,8 @@
 			<?php echo $form['sample_id']->renderLabel() ?>
 			<?php echo $form['sample_id']->renderError() ?>
 			<?php echo $form['sample_id']->renderHelp() ?>
-			<?php echo $form['sample_id'] ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a sample code...':$form->getObject()->getSample()->getNumber(); ?>" id="strain_sample_search" />
+			<a href="<?php echo url_for('@strain_find_samples?term=') ?>" class="strain_sample_numbers_url"></a>
 		</div>
 		
 		<div id="taxonomic_class">
@@ -134,6 +135,7 @@
 		<div id="model_text_inputs">
 			<?php echo $form['new_Relatives']->renderLabel() ?>
 			<?php echo $form['new_Relatives']->renderHelp() ?>
+			<?php echo $form['new_Relatives']->renderError() ?>
 			<div class="model_text_input_name">
 				<?php echo $form['new_Relatives'][0]['name']->render() ?>
 			</div>
