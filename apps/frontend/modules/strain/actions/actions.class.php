@@ -14,7 +14,7 @@ class strainActions extends MyActions {
 		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'id'));
 		
 		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {	
+		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Sample s")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
@@ -25,6 +25,16 @@ class strainActions extends MyActions {
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
 				->orWhere('sp.name LIKE ?', "%$text%");
+				
+				// Parse search term to catch boolean-type columns
+				if ( preg_match('/\d[Bb]/', $text) ) {
+					$query = $query->orWhere("{$this->mainAlias()}.is_axenic = 0");
+				}
+				
+				// Parse search term to catch strain codes
+				if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
+					$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
+				}
 		}
 		else {
 			$query = $this->pager->getQuery()
