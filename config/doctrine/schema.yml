@@ -211,6 +211,14 @@ StrainRelative:
   relations:
     Strain:     { foreignAlias: Relatives, onDelete: cascade }
 
+StrainPicture:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    filename:     { type: string(255), notnull: true }
+    strain_id:    { type: integer, notnull: true }
+  relations:
+    Strain:       { foreignAlias: Pictures, onDelete: cascade }
+
 Strain:
   columns:
     id:                         { type: integer, primary: true, autoincrement: true }
