@@ -16,8 +16,26 @@
 <?php end_slot() ?>
 
 <div id="main_view_show">
-	<div id="object_google_map">
-	
+	<div id="object_picture_floating_list">
+		<?php if ( $strain->getNbPictures() > 0 ): ?>
+		<div class="object_picture_list">
+			<h2>Pictures</h2>
+			<?php $i = 1 ?>
+			<?php foreach ($strain->getPictures() as $picture): ?>
+			<?php if ( $picture->getFilename() === null ) continue ?>
+			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').'/'.$picture->getFilename() ?>
+			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
+			<div class="thumbnail">
+				<div class="thumbnail_image">
+					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+					</a>
+				</div>
+			</div>
+			<?php $i++ ?>
+			<?php endforeach; ?>
+		</div>
+		<?php endif ?>
 	</div>
 	
 	<div id="object_data_list">
@@ -137,25 +155,5 @@
 	</div>
 	<?php endif ?>
 	
-	<?php if ( $strain->getNbPictures() > 0 ): ?>
-	<div class="object_picture_list">
-		<h2>Pictures</h2>
-		<?php $i = 1 ?>
-		<?php foreach ($strain->getPictures() as $picture): ?>
-		<?php if ( $picture->getFilename() === null ) continue ?>
-		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').'/'.$picture->getFilename() ?>
-		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
-		<div class="thumbnail">
-			<div class="thumbnail_image">
-				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
-				</a>
-			</div>
-		</div>
-		<?php $i++ ?>
-		<?php endforeach; ?>
-	</div>
-	<?php endif ?>
-
 	<div class="clear"></div>
 </div>
