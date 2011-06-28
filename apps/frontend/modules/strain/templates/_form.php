@@ -81,6 +81,7 @@
 			<?php echo $form['isolation_date'] ?>
 		</div>
 		
+		<?php if ( isset($form['depositor_id']) ): ?>
 		<div id="depositor">
 			<?php echo $form['depositor_id']->renderLabel() ?>
 			<?php echo $form['depositor_id'] ?>
@@ -92,7 +93,9 @@
 			<?php echo $form['deposition_date']->renderHelp() ?>
 			<?php echo $form['deposition_date'] ?>
 		</div>
+		<?php endif; ?>
 		
+		<?php if ( isset($form['identifier_id']) ): ?>
 		<div id="identifier">
 			<?php echo $form['identifier_id']->renderLabel() ?>
 			<?php echo $form['identifier_id'] ?>
@@ -104,6 +107,7 @@
 			<?php echo $form['identification_date']->renderHelp() ?>
 			<?php echo $form['identification_date'] ?>
 		</div>
+		<?php endif; ?>
 	</div>
 	
 	<div id="right_side_form">

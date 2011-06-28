@@ -10,6 +10,15 @@
  */
 class StrainForm extends BaseStrainForm {
   public function configure() {
+		// Unset select fields that do not have values
+		if ( Doctrine_Core::getTable('Depositor')->count() == 0 ) {
+			unset($this['depositor_id']);
+		}
+		
+		if ( Doctrine_Core::getTable('Identifier')->count() == 0 ) {
+			unset($this['identifier_id']);
+		}
+		
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_strain_pictures');
@@ -35,10 +44,6 @@ class StrainForm extends BaseStrainForm {
 		
 		// Configure sample code
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getSample()->getTable()->getDefaultSampleId())));
-		// $this->setWidget('sample_id', new sfWidgetFormDoctrineChoice(array(
-		// 		'model' => $this->getRelatedModelName('Sample'),
-		// 		'method' => 'getNumber',
-		// )));
 		
 		// Configure date format
 		$lastYear = date('Y');
