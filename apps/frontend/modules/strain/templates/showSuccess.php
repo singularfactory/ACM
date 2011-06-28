@@ -41,7 +41,7 @@
 	<div id="object_data_list">
 		<dl>
 			<dt>Sample:</dt>
-			<dd><?php echo $strain->getSample()->getNumber() ?></dd>
+			<dd><?php echo link_to($strain->getSample()->getNumber(), "@sample_show?id={$strain->getSample()->getId()}") ?></dd>
 			<dt>Has DNA:</dt>
 			<dd><?php echo $strain->getFormattedHasDna() ?></dd>
 			<dt>Is epitype:</dt>
