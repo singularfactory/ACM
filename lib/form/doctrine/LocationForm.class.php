@@ -10,7 +10,7 @@
  */
 class LocationForm extends BaseLocationForm {
 	
-  	public function configure() {
+	public function configure() {
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_location_pictures');
@@ -57,7 +57,7 @@ class LocationForm extends BaseLocationForm {
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('region_id', 'States and provinces as well');
 		$this->widgetSchema->setHelp('island_id', 'Only for regions with islands');
-		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
+		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 	
 		// Configure labels
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');

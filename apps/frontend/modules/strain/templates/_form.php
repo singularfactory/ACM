@@ -3,6 +3,7 @@
 
 <?php echo form_tag_for($form, '@strain') ?>
 	<?php echo $form->renderHiddenFields() ?>
+	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_strain_pictures'), 'id' => 'max_strain_pictures')) ?>
 	
 	<div id="left_side_form">
 		<div id="sample_code">
@@ -53,6 +54,18 @@
 		<div id="axenic" class="checkbox">
 			<?php echo $form['is_axenic']->renderLabel() ?>
 			<?php echo $form['is_axenic'] ?>
+		</div>
+		
+		<div id="maintenance_status">
+			<?php echo $form['maintenance_status_id']->renderLabel() ?>
+			<?php echo $form['maintenance_status_id'] ?>
+		</div>
+		
+		<div id="cryopreservation_method">
+			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
+			<?php echo $form['cryopreservation_method_id']->renderError() ?>
+			<?php echo $form['cryopreservation_method_id']->renderHelp() ?>
+			<?php echo $form['cryopreservation_method_id'] ?>
 		</div>
 		
 		<div id="isolator">
@@ -129,18 +142,51 @@
 		<div class="text_inputs_add_relation">
 			<?php echo $form['new_Relatives']['_']->render() ?>
 		</div>
+		<br />
 		
-		<div id="maintenance_status">
-			<?php echo $form['maintenance_status_id']->renderLabel() ?>
-			<?php echo $form['maintenance_status_id'] ?>
+		<?php if ( !$form->getObject()->isNew() && $form->getOption('max_strain_pictures') < 5 ): ?>
+		<div class="model_picture_list">
+			<?php echo $form['Pictures']->renderLabel('Actual pictures') ?>
+			<?php $i = 0 ?>
+			<?php foreach ($form['Pictures'] as $widget): ?>
+			<?php $picture = $widget->getValue() ?>
+			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').'/'.$picture['filename'] ?>
+			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
+			<div class="thumbnail">
+				<p class="thumbnail_caption">
+					<input type="checkbox" name="strain[Pictures][<?php echo $i ?>][delete_object]" id="strain_Pictures_<?php echo $i ?>_delete_object" />
+					<input type="hidden" name="strain[Pictures][<?php echo $i ?>][filename]" value="<?php echo $picture['filename'] ?>" id="strain_Pictures_<?php echo $i ?>_filename" />
+					<input type="hidden" name="strain[Pictures][<?php echo $i ?>][id]" value="<?php echo $picture['id'] ?>" id="strain_Pictures_<?php echo $i ?>_id" />
+					 delete
+				</p>
+				<div class="thumbnail_image">
+					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+					</a>
+				</div>
+			</div>
+			<?php $i++ ?>
+			<?php endforeach; ?>
+			<div class="clear"></div>
+		</div>
+		<?php endif ?>
+
+		<?php if ( $form->getOption('max_strain_pictures') > 0 ): ?>
+		<div id="model_pictures">
+			<?php echo $form['new_Pictures']->renderLabel() ?>
+			<?php echo $form['new_Pictures']->renderHelp() ?>
+			<div class="model_picture_filename">
+				<?php echo $form['new_Pictures'][0]['filename']->render() ?>
+			</div>
 		</div>
 		
-		<div id="cryopreservation_method">
-			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
-			<?php echo $form['cryopreservation_method_id']->renderError() ?>
-			<?php echo $form['cryopreservation_method_id']->renderHelp() ?>
-			<?php echo $form['cryopreservation_method_id'] ?>
+		<?php if ( $form->getOption('max_strain_pictures') > 1 ): ?>
+		<div class="pictures_add_relation" id="model_strain_picture">
+			<?php echo $form['new_Pictures']['_']->render() ?>
 		</div>
+		<?php endif; ?>
+		<?php endif; ?>
+		<br />
 		
 		<div id="growth_mediums_list" class="list_field">
 			<?php echo $form['growth_mediums_list']->renderLabel() ?>

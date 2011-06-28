@@ -33,6 +33,13 @@ class Strain extends BaseStrain {
 			->count();
 	}
 	
+	public function getNbPictures() {
+		return Doctrine_Query::create()
+			->from('StrainPicture sp')
+			->where('sp.strain_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function hasDna() {
 		if ( count($this->getDna()) > 0 ) {
 			return true;

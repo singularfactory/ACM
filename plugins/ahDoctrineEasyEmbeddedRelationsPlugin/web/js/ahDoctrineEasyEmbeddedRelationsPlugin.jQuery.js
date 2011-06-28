@@ -43,7 +43,12 @@ jQuery(function($) {
 		divClass = "";
 		switch( $(this).attr('rel').replace(/^new_+/, "") ) {
 			case "Pictures":
-				constantName = "#max_location_pictures";
+				if ( $(this).parent().attr('id').indexOf("strain") >= 0 ) {
+					constantName = "#max_strain_pictures";
+				}
+				else {
+					constantName = "#max_location_pictures";
+				}
 				divClass = "model_picture_filename";
 			  break;
 			case "FieldPictures":

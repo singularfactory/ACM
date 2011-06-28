@@ -21,6 +21,8 @@ all:
     max_location_pictures:  5
     
     # Strain related constants
+    strain_pictures_dir:              /strain_pictures
+    max_strain_pictures:              5
     unknown_species_name:             sp.
     maintenance_status_liquid:        Liquid
     maintenance_status_solid:         Solid
@@ -29,7 +31,7 @@ all:
     # Pictures and thumbnails management constants
     pictures_dir:           /uploads
     thumbnails_dir:         /thumbnails
-    max_picture_size:       512000
+    max_picture_size:       5120000
     max_thumbnail_size:     75
     
     # Common constants

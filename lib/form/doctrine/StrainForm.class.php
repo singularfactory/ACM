@@ -10,8 +10,20 @@
  */
 class StrainForm extends BaseStrainForm {
   public function configure() {
-		// Create an embedded form to add or edit relatives
+		// Calculate maximum number of images the user can upload
+		$actualPictures = $this->getObject()->getNbPictures();
+		$defaultMaxPictures = sfConfig::get('app_max_strain_pictures');
+		$this->setOption('max_strain_pictures', $defaultMaxPictures - $actualPictures);
+		
+		// Create an embedded form to add or edit pictures and relatives
 		$this->embedRelations(array(
+			'Pictures' => array(
+				'considerNewFormEmptyFields' => array('filename'),
+				'newFormLabel' => 'Pictures',
+				'multipleNewForms' => true,
+				'newFormsInitialCount' => 1,
+				'newRelationButtonLabel' => 'Add another picture',
+			),
 			'Relatives' => array(
 				'considerNewFormEmptyFields' => array('name'),
 				'newFormLabel' => 'Relatives',
@@ -53,6 +65,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain growth');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
+		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
   }
 
 

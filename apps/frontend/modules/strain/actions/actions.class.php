@@ -20,30 +20,11 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
-				->leftJoin("{$this->mainAlias()}.Authority a")
-				->leftJoin("{$this->mainAlias()}.Isolator is")
-				->leftJoin("{$this->mainAlias()}.Depositor d")
-				->leftJoin("{$this->mainAlias()}.Identifier id")
-				->leftJoin("{$this->mainAlias()}.MaintenanceStatus ms")
-				->leftJoin("{$this->mainAlias()}.CryopreservationMethod cm")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.citations LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.observation LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.transfer_interval LIKE ?", "%$text%")
 				->orWhere('s.id LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('a.name LIKE ?', "%$text%")
-				->orWhere('is.name LIKE ?', "%$text%")
-				->orWhere('is.surname LIKE ?', "%$text%")
-				->orWhere('d.name LIKE ?', "%$text%")
-				->orWhere('d.surname LIKE ?', "%$text%")
-				->orWhere('id.name LIKE ?', "%$text%")
-				->orWhere('id.surname LIKE ?', "%$text%")
-				->orWhere('ms.name LIKE ?', "%$text%")
-				->orWhere('cm.name LIKE ?', "%$text%");
+				->orWhere('sp.name LIKE ?', "%$text%");
 		}
 		else {
 			$query = $this->pager->getQuery()
@@ -155,25 +136,25 @@ class strainActions extends MyActions {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		
 		// Count files uploaded in form
-		// $uploadedFiles = $request->getFiles();
-		// 		$nbValidFiles = 0;
-		// 		if ( $uploadedFiles['strain']['new_Pictures'] ) {
-		// 			foreach ( $uploadedFiles['strain']['new_Pictures'] as $file ) {
-		// 				if ( !empty($file['filename']['name']) ) {
-		// 					$nbValidFiles += 1;
-		// 				}
-		// 			}
-		// 		}
-		// 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
+		$uploadedFiles = $request->getFiles();
+		$nbValidFiles = 0;
+		if ( $uploadedFiles['strain']['new_Pictures'] ) {
+			foreach ( $uploadedFiles['strain']['new_Pictures'] as $file ) {
+				if ( !empty($file['filename']['name']) ) {
+					$nbValidFiles += 1;
+				}
+			}
+		}
+		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
 		
 		// Validate form
-		if ( $form->isValid() /* && $nbFiles <= sfConfig::get('app_max_location_pictures') */ ) {
+		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures') ) {
 			$flashMessage = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
 			
 			// Detect pictures that must be deleted
-			// $removablePictures = $this->getRemovablePictures($form);
+			$removablePictures = $this->getRemovablePictures($form);
 			
 			// Save object
 			try {
@@ -192,7 +173,7 @@ class strainActions extends MyActions {
 				}
 				
 				// Remove Location pictures
-				// $this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_location_pictures_dir'));
+				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_strain_pictures_dir'));
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
