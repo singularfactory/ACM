@@ -8,10 +8,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseCryopreservationMethodFormFilter extends BaseFormFilterDoctrine
-{
-  public function setup()
-  {
+abstract class BaseCryopreservationMethodFormFilter extends BaseFormFilterDoctrine {
+  public function setup() {
     $this->setWidgets(array(
       'name'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
@@ -33,13 +31,11 @@ abstract class BaseCryopreservationMethodFormFilter extends BaseFormFilterDoctri
     parent::setup();
   }
 
-  public function getModelName()
-  {
+  public function getModelName() {
     return 'CryopreservationMethod';
   }
 
-  public function getFields()
-  {
+  public function getFields() {
     return array(
       'id'         => 'Number',
       'name'       => 'Text',

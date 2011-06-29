@@ -8,10 +8,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseStrainGrowthMediumsFormFilter extends BaseFormFilterDoctrine
-{
-  public function setup()
-  {
+abstract class BaseStrainGrowthMediumsFormFilter extends BaseFormFilterDoctrine {
+  public function setup() {
     $this->setWidgets(array(
       'created_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
@@ -31,13 +29,11 @@ abstract class BaseStrainGrowthMediumsFormFilter extends BaseFormFilterDoctrine
     parent::setup();
   }
 
-  public function getModelName()
-  {
+  public function getModelName() {
     return 'StrainGrowthMediums';
   }
 
-  public function getFields()
-  {
+  public function getFields() {
     return array(
       'strain_id'        => 'Number',
       'growth_medium_id' => 'Number',

@@ -8,9 +8,7 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class IsolatorFormFilter extends BaseIsolatorFormFilter
-{
-  public function configure()
-  {
+class IsolatorFormFilter extends BaseIsolatorFormFilter {
+  public function configure() {
   }
 }

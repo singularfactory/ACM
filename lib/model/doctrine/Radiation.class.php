@@ -10,10 +10,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
-class Radiation extends BaseRadiation
-{
-	public function getNbSamples()
-	{
+class Radiation extends BaseRadiation {
+	public function getNbSamples() {
 		return Doctrine_Query::create()
 			->from('Sample s')
 			->where('s.radiation_id = ?', $this->getId())

@@ -63,10 +63,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BasesfGuardUser extends sfDoctrineRecord
-{
-    public function setTableDefinition()
-    {
+abstract class BasesfGuardUser extends sfDoctrineRecord {
+    public function setTableDefinition() {
         $this->setTableName('sf_guard_user');
         $this->hasColumn('first_name', 'string', 255, array(
              'type' => 'string',
@@ -123,8 +121,7 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
              ));
     }
 
-    public function setUp()
-    {
+    public function setUp() {
         parent::setUp();
         $this->hasMany('sfGuardGroup as Groups', array(
              'refClass' => 'sfGuardUserGroup',

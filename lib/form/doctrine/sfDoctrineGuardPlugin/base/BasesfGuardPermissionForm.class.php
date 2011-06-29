@@ -10,10 +10,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BasesfGuardPermissionForm extends BaseFormDoctrine
-{
-  public function setup()
-  {
+abstract class BasesfGuardPermissionForm extends BaseFormDoctrine {
+  public function setup() {
     $this->setWidgets(array(
       'id'          => new sfWidgetFormInputHidden(),
       'name'        => new sfWidgetFormInputText(),
@@ -47,107 +45,88 @@ abstract class BasesfGuardPermissionForm extends BaseFormDoctrine
     parent::setup();
   }
 
-  public function getModelName()
-  {
+  public function getModelName() {
     return 'sfGuardPermission';
   }
 
-  public function updateDefaultsFromObject()
-  {
+  public function updateDefaultsFromObject() {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['groups_list']))
-    {
+    if (isset($this->widgetSchema['groups_list'])) {
       $this->setDefault('groups_list', $this->object->Groups->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['users_list']))
-    {
+    if (isset($this->widgetSchema['users_list'])) {
       $this->setDefault('users_list', $this->object->Users->getPrimaryKeys());
     }
 
   }
 
-  protected function doSave($con = null)
-  {
+  protected function doSave($con = null) {
     $this->saveGroupsList($con);
     $this->saveUsersList($con);
 
     parent::doSave($con);
   }
 
-  public function saveGroupsList($con = null)
-  {
-    if (!$this->isValid())
-    {
+  public function saveGroupsList($con = null) {
+    if (!$this->isValid()) {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['groups_list']))
-    {
+    if (!isset($this->widgetSchema['groups_list'])) {
       // somebody has unset this widget
       return;
     }
 
-    if (null === $con)
-    {
+    if (null === $con) {
       $con = $this->getConnection();
     }
 
     $existing = $this->object->Groups->getPrimaryKeys();
     $values = $this->getValue('groups_list');
-    if (!is_array($values))
-    {
+    if (!is_array($values)) {
       $values = array();
     }
 
     $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
+    if (count($unlink)) {
       $this->object->unlink('Groups', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
-    if (count($link))
-    {
+    if (count($link)) {
       $this->object->link('Groups', array_values($link));
     }
   }
 
-  public function saveUsersList($con = null)
-  {
-    if (!$this->isValid())
-    {
+  public function saveUsersList($con = null) {
+    if (!$this->isValid()) {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['users_list']))
-    {
+    if (!isset($this->widgetSchema['users_list'])) {
       // somebody has unset this widget
       return;
     }
 
-    if (null === $con)
-    {
+    if (null === $con) {
       $con = $this->getConnection();
     }
 
     $existing = $this->object->Users->getPrimaryKeys();
     $values = $this->getValue('users_list');
-    if (!is_array($values))
-    {
+    if (!is_array($values)) {
       $values = array();
     }
 
     $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
+    if (count($unlink)) {
       $this->object->unlink('Users', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
-    if (count($link))
-    {
+    if (count($link)) {
       $this->object->link('Users', array_values($link));
     }
   }

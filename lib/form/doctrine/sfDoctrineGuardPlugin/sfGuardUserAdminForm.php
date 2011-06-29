@@ -7,10 +7,8 @@
  * @subpackage form
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  */
-class sfGuardUserAdminForm extends BasesfGuardUserAdminForm
-{
-  public function configure()
-  {
+class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
+  public function configure() {
 	unset($this['permissions_list']);
 	
 	$this->widgetSchema->setLabel('first_name', 'Name');

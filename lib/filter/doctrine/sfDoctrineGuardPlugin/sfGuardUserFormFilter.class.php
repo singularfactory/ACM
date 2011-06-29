@@ -8,10 +8,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrinePluginFormFilterTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class sfGuardUserFormFilter extends PluginsfGuardUserFormFilter
-{
-  public function configure()
-  {
+class sfGuardUserFormFilter extends PluginsfGuardUserFormFilter {
+  public function configure() {
 	$this->useFields(array('username', 'first_name', 'email_address'));
 	
 	$this->setWidget('first_name', new sfWidgetFormFilterInput(array('with_empty' => false)));

@@ -24,10 +24,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BasesfGuardUserPermission extends sfDoctrineRecord
-{
-    public function setTableDefinition()
-    {
+abstract class BasesfGuardUserPermission extends sfDoctrineRecord {
+    public function setTableDefinition() {
         $this->setTableName('sf_guard_user_permission');
         $this->hasColumn('user_id', 'integer', null, array(
              'type' => 'integer',
@@ -44,8 +42,7 @@ abstract class BasesfGuardUserPermission extends sfDoctrineRecord
              ));
     }
 
-    public function setUp()
-    {
+    public function setUp() {
         parent::setUp();
         $this->hasOne('sfGuardUser as User', array(
              'local' => 'user_id',

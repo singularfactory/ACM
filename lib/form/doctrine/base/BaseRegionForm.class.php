@@ -10,10 +10,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseRegionForm extends BaseFormDoctrine
-{
-  public function setup()
-  {
+abstract class BaseRegionForm extends BaseFormDoctrine {
+  public function setup() {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'code'       => new sfWidgetFormInputText(),
@@ -41,8 +39,7 @@ abstract class BaseRegionForm extends BaseFormDoctrine
     parent::setup();
   }
 
-  public function getModelName()
-  {
+  public function getModelName() {
     return 'Region';
   }
 

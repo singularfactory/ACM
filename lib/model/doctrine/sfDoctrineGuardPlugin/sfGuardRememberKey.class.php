@@ -10,6 +10,5 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
-class sfGuardRememberKey extends PluginsfGuardRememberKey
-{
+class sfGuardRememberKey extends PluginsfGuardRememberKey {
 }

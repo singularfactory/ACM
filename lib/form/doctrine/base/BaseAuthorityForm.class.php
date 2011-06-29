@@ -10,10 +10,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseAuthorityForm extends BaseFormDoctrine
-{
-  public function setup()
-  {
+abstract class BaseAuthorityForm extends BaseFormDoctrine {
+  public function setup() {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'name'       => new sfWidgetFormInputText(),
@@ -37,8 +35,7 @@ abstract class BaseAuthorityForm extends BaseFormDoctrine
     parent::setup();
   }
 
-  public function getModelName()
-  {
+  public function getModelName() {
     return 'Authority';
   }
 

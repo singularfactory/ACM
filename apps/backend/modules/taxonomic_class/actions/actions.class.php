@@ -11,6 +11,5 @@ require_once dirname(__FILE__).'/../lib/taxonomic_classGeneratorHelper.class.php
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class taxonomic_classActions extends autoTaxonomic_classActions
-{
+class taxonomic_classActions extends autoTaxonomic_classActions {
 }

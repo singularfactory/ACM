@@ -8,10 +8,8 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class CollectorFormFilter extends BaseCollectorFormFilter
-{
-  public function configure()
-  {
+class CollectorFormFilter extends BaseCollectorFormFilter {
+  public function configure() {
 	$this->useFields(array('name', 'email'));
 	$this->setWidget('email', new sfWidgetFormFilterInput(array('with_empty' => false)));
   }
