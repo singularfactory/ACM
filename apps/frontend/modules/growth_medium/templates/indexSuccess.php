@@ -1,28 +1,40 @@
-<h1>Growth mediums List</h1>
+<?php slot('main_header') ?>
+<span>All growth mediums</span>
+<?php include_partial('global/search_box_header_action', array('route' => '@growth_medium_search?criteria=')) ?>
+<?php include_partial('global/new_header_action', array('message' => 'Add a new growth medium', 'route' => '@growth_medium_new')) ?>
+<?php end_slot() ?>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Link</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($growth_mediums as $growth_medium): ?>
-    <tr>
-      <td><a href="<?php echo url_for('growth_medium/show?id='.$growth_medium->getId()) ?>"><?php echo $growth_medium->getId() ?></a></td>
-      <td><?php echo $growth_medium->getName() ?></td>
-      <td><?php echo $growth_medium->getDescription() ?></td>
-      <td><?php echo $growth_medium->getLink() ?></td>
-      <td><?php echo $growth_medium->getCreatedAt() ?></td>
-      <td><?php echo $growth_medium->getUpdatedAt() ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+<?php if ( $pager->count() ): ?>
+<table id="growth_medium_list">
+	<tbody>
+		<tr>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th><?php echo link_to('Name', 'growth_medium/index?sort_column=name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Link', 'growth_medium/index?sort_column=linkname&sort_direction='.$sortDirection) ?></th>
+			<th>Strains</th>
+			<th></th>
+		</tr>
+
+		<?php foreach ($pager->getResults() as $growthMedium): ?>
+		<tr>
+			<?php $url = url_for('@growth_medium_show?id='.$growthMedium->getId()) ?>
+			<td class="growth_medium_name"><?php echo link_to($growthMedium->getName(), $url) ?></td>
+			<td class="link"><?php echo link_to($growthMedium->getFormattedLink(), $url) ?></td>
+			<td class="object_count"><?php echo link_to($growthMedium->getNbStrains(), $url) ?></td>
+		
+			<td class="actions">
+				<?php echo link_to('Edit', 'growth_medium/edit?id='.$growthMedium->getId()) ?>
+				<?php echo link_to('Delete', 'growth_medium/delete?id='.$growthMedium->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
 </table>
 
-  <a href="<?php echo url_for('growth_medium/new') ?>">New</a>
+<?php if ($pager->haveToPaginate()): ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'growth_medium')) ?>
+<?php endif ?>
+
+<?php else: ?>
+	<p>There are no growth_mediums to show.</p>
+<?php endif; ?>

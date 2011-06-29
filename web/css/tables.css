@@ -60,3 +60,6 @@ td.sample_code { width: 150px; }
 td.dna_availability { width: 70px; }
 td.isolation_date { width: 120px; }
 td.pending_orders { }
+
+td.growth_medium_name { width: 270px; }
+td.link { }
