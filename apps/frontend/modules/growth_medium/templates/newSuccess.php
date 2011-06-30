@@ -1,3 +1,2 @@
-<h1>New Growth medium</h1>
-
+<?php slot('main_header', 'Add a new growth medium') ?>
 <?php include_partial('form', array('form' => $form)) ?>
