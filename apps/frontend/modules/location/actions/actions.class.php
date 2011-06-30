@@ -93,17 +93,6 @@ class locationActions extends MyActions {
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request) {
-		$request->checkCSRFProtection();
-
-		$this->forward404Unless($location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id'))), sprintf('Object location does not exist (%s).', $request->getParameter('id')));
-		$location->delete();
-
-		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->getUser()->setFlash('notice', 'Location deleted successfully');
-		$this->redirect('@location?page='.$this->getUser()->getAttribute('location.index_page'));
-	}
-
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		

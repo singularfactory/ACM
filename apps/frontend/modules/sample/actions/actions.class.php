@@ -150,17 +150,6 @@ class sampleActions extends MyActions {
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request) {
-		$request->checkCSRFProtection();
-
-		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
-		$sample->delete();
-
-		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->getUser()->setFlash('notice', 'Sample deleted successfully');
-		$this->redirect('@sample?page='.$this->getUser()->getAttribute('sample.index_page'));
-	}
-
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		$uploadedFiles = $request->getFiles();

@@ -154,18 +154,7 @@ class strainActions extends MyActions {
 
     $this->setTemplate('edit');
   }
-
-  public function executeDelete(sfWebRequest $request) {
-    $request->checkCSRFProtection();
-
-    $this->forward404Unless($strain = Doctrine_Core::getTable('Strain')->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
-    $strain->delete();
-
-   	$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->getUser()->setFlash('notice', 'Strain deleted successfully');
-		$this->redirect('@strain?page='.$this->getUser()->getAttribute('strain.index_page'));
-  }
-
+	
   protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		
@@ -216,7 +205,6 @@ class strainActions extends MyActions {
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
-				echo $message;
 			}
 			
 			if ( $strain != null ) {
@@ -228,6 +216,6 @@ class strainActions extends MyActions {
 			}
 		}
 		
-		$this->getUser()->setFlash('notice', 'The information on this strain has some errors you need to fix', false);	
+		$this->getUser()->setFlash('notice', 'The information on this strain has some errors you need to fix', false);
   }
 }

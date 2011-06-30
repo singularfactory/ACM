@@ -149,4 +149,34 @@ class MyActions extends sfActions {
 			}
 		}
 	}
+
+	/**
+	 * Deletes a object if it is not referenced by any foreign key
+	 *
+	 * @param sfWebRequest $request 
+	 * @return void
+	 * @author Eliezer Talon
+	 */
+	public function executeDelete(sfWebRequest $request) {
+		$request->checkCSRFProtection();
+		
+		$id = $request->getParameter('id');
+		$module = $this->request->getParameter('module');
+		$moduleReadableName = sfInflector::humanize($module);
+		$moduleReadableNameLowercase = str_replace('_', ' ', $module);
+		
+		$this->forward404Unless($model = Doctrine_Core::getTable(sfInflector::camelize($module))->find(array($id)), sprintf('Object does not exist (%s).', $id));
+		
+		try {
+			$model->delete();
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			$this->getUser()->setFlash('notice', "$moduleReadableName deleted successfully");
+		}
+		catch (Exception $e) {
+			$this->getUser()->setFlash('notice', "This $moduleReadableNameLowercase cannot be deleted because it is being used in other records");
+		}
+		
+		$this->redirect("@$module?page=".$this->getUser()->getAttribute("$module.index_page"));
+	}
+	
 }

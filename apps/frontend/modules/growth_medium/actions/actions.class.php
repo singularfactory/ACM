@@ -69,23 +69,47 @@ class growth_mediumActions extends MyActions {
 		$this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request) {
-		$request->checkCSRFProtection();
-
-		$this->forward404Unless($growth_medium = Doctrine_Core::getTable('GrowthMedium')->find(array($request->getParameter('id'))), sprintf('Object growth_medium does not exist (%s).', $request->getParameter('id')));
-		$growth_medium->delete();
-		
-		$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-		$this->getUser()->setFlash('notice', 'Gorwth medium deleted successfully');
-		$this->redirect('@growth_medium?page='.$this->getUser()->getAttribute('growth_medium.index_page'));
-	}
-
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		
 		if ($form->isValid()) {
-			$growth_medium = $form->save();
-
-			$this->redirect('growth_medium/edit?id='.$growth_medium->getId());
+			$flashMessage = null;
+			$url = null;
+			$isNew = $form->getObject()->isNew();
+			
+			$growthMedium = null;
+			try {
+				$growthMedium = $form->save();
+				
+				if ( $request->hasParameter('_save_and_add') ) {
+					$message = 'Growth medium created successfully. Now you can add another one';
+					$url = '@growth_medium_new';
+					
+					// Reuse last object values
+					$this->getUser()->setAttribute('growth_medium.last_object_created', $growthMedium);
+				}
+				elseif ( !$isNew ) {
+					$message = 'Changes saved';
+					$url = '@growth_medium_show?id='.$growthMedium->getId();
+				}
+				else {
+					$message = 'Growth medium created successfully';
+					$url = '@growth_medium_show?id='.$growthMedium->getId();
+				}				
+			}
+			catch (Exception $e) {
+				$message = $e->getMessage();
+			}
+			
+			if ( $growthMedium != null ) {
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $growthMedium->getId())));
+				$this->getUser()->setFlash('notice', $message);
+				if ( $url !== null ) {
+					$this->redirect($url);
+				}
+			}
 		}
+		
+		$this->getUser()->setFlash('notice', 'The information on this growth_medium has some errors you need to fix', false);
 	}
 }
