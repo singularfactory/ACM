@@ -9,7 +9,7 @@ generator:
     plural:                ~
     route_prefix:          habitat
     with_doctrine_route:   true
-    actions_base_class:    sfActions
+    actions_base_class:    MyActions
     css:  false
 
     config:

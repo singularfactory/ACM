@@ -12,4 +12,11 @@ require_once dirname(__FILE__).'/../lib/authorityGeneratorHelper.class.php';
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class authorityActions extends autoAuthorityActions {
+	public function executeDelete(sfWebRequest $request) {
+		parent::executeDeleteIfNotUsed($request);
+	}
+	
+	protected function executeBatchDelete(sfWebRequest $request) {
+		parent::executeBatchDeleteIfNotUsed($request);
+	}
 }
