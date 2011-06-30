@@ -196,6 +196,8 @@
 		
 		<div id="growth_mediums_list" class="list_field">
 			<?php echo $form['growth_mediums_list']->renderLabel() ?>
+			<?php echo $form['growth_mediums_list']->renderError() ?>
+			<?php echo $form['growth_mediums_list']->renderHelp() ?>
 			<?php echo $form['growth_mediums_list'] ?>
 		</div>
 		
