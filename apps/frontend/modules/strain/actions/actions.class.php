@@ -9,6 +9,7 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class strainActions extends MyActions {
+	
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'id'));
@@ -190,11 +191,16 @@ class strainActions extends MyActions {
 			$removablePictures = $this->getRemovablePictures($form);
 			
 			// Save object
+			$strain = null;
 			try {
 				$strain = $form->save();
+				
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Strain created successfully. Now you can add another one';
 					$url = '@strain_new';
+					
+					// Reuse last object values
+					$this->getUser()->setAttribute('strain.last_object_created', $strain);
 				}
 				elseif ( !$isNew ) {
 					$message = 'Changes saved';
@@ -210,12 +216,15 @@ class strainActions extends MyActions {
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
+				echo $message;
 			}
 			
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $strain->getId())));
-			$this->getUser()->setFlash('notice', $message);
-			if ( $url !== null ) {
-				$this->redirect($url);
+			if ( $strain != null ) {
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $strain->getId())));
+				$this->getUser()->setFlash('notice', $message);
+				if ( $url !== null ) {
+					$this->redirect($url);
+				}
 			}
 		}
 		

@@ -6,7 +6,7 @@
 	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_strain_pictures'), 'id' => 'max_strain_pictures')) ?>
 	
 	<div id="left_side_form">
-		<div id="sample_code">
+		<div id="sample_id">
 			<?php echo $form['sample_id']->renderLabel() ?>
 			<?php echo $form['sample_id']->renderError() ?>
 			<?php echo $form['sample_id']->renderHelp() ?>

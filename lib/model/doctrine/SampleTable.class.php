@@ -15,6 +15,10 @@ class SampleTable extends Doctrine_Table {
 	    return Doctrine_Core::getTable('Sample');
 	}
 	
+	public function getSortedByNameQuery() {
+		return $this->createQuery('s')->orderBy('s.id ASC');
+	}
+	
 	public function findByTerm($term = '') {
 		// Parse ID
 		$id = '';
@@ -38,10 +42,10 @@ class SampleTable extends Doctrine_Table {
 	public function getDefaultSampleId() {
 		$sample = $this->createQuery('s')->fetchOne();
 		if ( $sample ) {
-			return $sample->getId();
+			return (int)$sample->getId();
 		}
 		
-		return null;
+		return 0;
 	}
 	
 }

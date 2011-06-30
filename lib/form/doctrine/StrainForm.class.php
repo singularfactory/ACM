@@ -11,13 +11,24 @@
 class StrainForm extends BaseStrainForm {
   public function configure() {
 		// Unset select fields that do not have values
-		if ( Doctrine_Core::getTable('Depositor')->count() == 0 ) {
+		if ( DepositorTable::getInstance()->count() == 0 ) {
 			unset($this['depositor_id']);
 		}
 		
-		if ( Doctrine_Core::getTable('Identifier')->count() == 0 ) {
+		if ( IdentifierTable::getInstance()->count() == 0 ) {
 			unset($this['identifier_id']);
 		}
+		
+		// Configure sample code
+		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
+		
+		// Configure date format
+		$lastYear = date('Y');
+		for ($i=$lastYear-5; $i <= $lastYear; $i++) { $years[$i] = $i; }
+		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
+		$this->setWidget('isolation_date', $dateWidgetForm);
+		$this->setWidget('identification_date', $dateWidgetForm);
+		$this->setWidget('deposition_date', $dateWidgetForm);
 		
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
@@ -42,16 +53,6 @@ class StrainForm extends BaseStrainForm {
 			),
 		));
 		
-		// Configure sample code
-		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getSample()->getTable()->getDefaultSampleId())));
-		
-		// Configure date format
-		$lastYear = date('Y');
-		for ($i=$lastYear-5; $i <= $lastYear; $i++) { $years[$i] = $i; }
-		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
-		$this->setWidget('isolation_date', $dateWidgetForm);
-		$this->setWidget('identification_date', $dateWidgetForm);
-		$this->setWidget('deposition_date', $dateWidgetForm);
 		
 		// Configure custom validators
 		$this->setValidator('sample_id', new sfValidatorDoctrineChoice(
@@ -82,7 +83,7 @@ class StrainForm extends BaseStrainForm {
 
 
 	public function checkCryopreservedStatusHasMethod($validator, $values) {
-		$cryopreservedStatusId = Doctrine_Core::getTable('MaintenanceStatus')
+		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
 			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
 			->getId();
 			
