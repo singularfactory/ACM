@@ -1,4 +1,4 @@
-<?php $url = "$model/index?page=" ?>
+<?php $url = "@{$model}_pagination?page=" ?>
 <?php
 	$searchCriteria = null;
 	if ( $text = $sf_user->getAttribute('search.criteria') ) {

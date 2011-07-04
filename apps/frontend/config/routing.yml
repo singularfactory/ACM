@@ -28,6 +28,11 @@ location_search:
   param:        { module: location, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
 
+location_pagination:
+  url:          location/page/:page
+  param:        { module: location, action: index }
+  requirements: { page: .* }
+
 
 ###
 # Sample model related routes
@@ -45,6 +50,11 @@ sample_find_locations:
   url:    sample/findLocations/:term
   param:  { module: sample, action: findLocations }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+sample_pagination:
+  url:          sample/page/:page
+  param:        { module: sample, action: index }
+  requirements: { page: \d* }
 
 
 ###
@@ -64,6 +74,11 @@ strain_find_samples:
   param:  { module: strain, action: findSamples }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
+strain_pagination:
+  url:          strain/page/:page
+  param:        { module: strain, action: index }
+  requirements: { page: \d* }
+
 
 ###
 # GrowthMedium model related routes
@@ -76,6 +91,11 @@ growth_medium_search:
   url:          growth_medium/search/:criteria
   param:        { module: growth_medium, action: index }
   requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+
+growth_medium_pagination:
+  url:          growth_medium/page/:page
+  param:        { module: growth_medium, action: index }
+  requirements: { page: \d* }
 
 
 ###
