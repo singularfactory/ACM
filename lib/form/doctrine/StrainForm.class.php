@@ -19,6 +19,9 @@ class StrainForm extends BaseStrainForm {
 			unset($this['identifier_id']);
 		}
 		
+		// Configure manual ID
+		$this->setWidget('id', new sfWidgetFormInputText());
+		
 		// Configure sample code
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
 		
@@ -55,6 +58,7 @@ class StrainForm extends BaseStrainForm {
 		
 		
 		// Configure custom validators
+		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => true)));
 		$this->setValidator('sample_id', new sfValidatorDoctrineChoice(
 			array('model' => $this->getRelatedModelName('Sample')),
 			array('required' => 'The origin sample of the strain is required')));
@@ -63,11 +67,13 @@ class StrainForm extends BaseStrainForm {
     $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
 						
 		// Configure labels
+		$this->widgetSchema->setLabel('id', 'Strain code');
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 		$this->widgetSchema->setLabel('growth_mediums_list', 'Growth mediums');
 		
 		// Configure help messages
+		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix<strong/>');
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
 		$this->widgetSchema->setHelp('genus_id', 'Taxonomic genus');
 		$this->widgetSchema->setHelp('species_id', 'Taxonomic species');

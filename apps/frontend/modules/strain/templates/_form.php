@@ -7,6 +7,13 @@
 	<?php echo progress_key() ?>
 	
 	<div id="left_side_form">
+		<div id="id">
+			<?php echo $form['id']->renderLabel() ?>
+			<?php echo $form['id']->renderError() ?>
+			<?php echo $form['id']->renderHelp() ?>
+			<?php echo $form['id'] ?>
+		</div>
+		
 		<div id="sample_id">
 			<?php echo $form['sample_id']->renderLabel() ?>
 			<?php echo $form['sample_id']->renderError() ?>
