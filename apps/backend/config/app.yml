@@ -1,4 +1,4 @@
 all:
   sf_guard_plugin:
-    success_signout_url:  @logout
+    success_signout_url:  @login
     success_signin_url:   @homepage
