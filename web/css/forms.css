@@ -105,6 +105,13 @@ a.strain_sample_numbers_url,
 a.country_regions_url,
 a.region_islands_url { display: none; }
 
+#email_address input,
+#username input,
+#password input,
+#password_again input,
+#first_name input,
+#last_name input { width: 250px; }
+
 
 
 /**
