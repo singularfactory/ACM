@@ -30,11 +30,16 @@ class sampleActions extends MyActions {
 				->orWhere('r.name LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('c.surname LIKE ?', "%$text%");
+				
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Location l")
 				->leftJoin("{$this->mainAlias()}.Collector c");
+			
+			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		$this->pager->setQuery($query);
 		$this->pager->init();

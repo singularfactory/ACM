@@ -25,12 +25,17 @@ class locationActions extends MyActions {
 				->orWhere("r.name LIKE ?", "%$text%")
 				->orWhere("i.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%");
+				
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Country c")
 				->leftJoin("{$this->mainAlias()}.Region r")
 				->leftJoin("{$this->mainAlias()}.Island i");
+			
+			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		
 		$this->pager->setQuery($query);

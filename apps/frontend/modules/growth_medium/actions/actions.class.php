@@ -20,9 +20,13 @@ class growth_mediumActions extends MyActions {
 				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.description LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.link LIKE ?", "%$text%");
+			
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
 			$query = $this->pager->getQuery();
+			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		
 		$this->pager->setQuery($query);

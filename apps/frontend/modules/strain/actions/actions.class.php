@@ -36,10 +36,15 @@ class strainActions extends MyActions {
 			if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
 				$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
 			}
+			
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Sample s");
+			
+			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		$this->pager->setQuery($query);
 		$this->pager->init();
