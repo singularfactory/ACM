@@ -26,12 +26,17 @@ location:
 location_search:
   url:          location/search/:criteria
   param:        { module: location, action: index }
-  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
 location_pagination:
   url:          location/page/:page
   param:        { module: location, action: index, page: 1 }
   requirements: { page: \d+ }
+
+location_search_pagination:
+  url:          location/search/:criteria/page/:page
+  param:        { module: location, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
 
 
 ###
@@ -44,7 +49,7 @@ sample:
 sample_search:
   url:          sample/search/:criteria
   param:        { module: sample, action: index }
-  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
 sample_find_locations:
   url:    sample/findLocations/:term
@@ -55,6 +60,12 @@ sample_pagination:
   url:          sample/page/:page
   param:        { module: sample, action: index, page: 1 }
   requirements: { page: \d+ }
+
+sample_search_pagination:
+  url:          sample/search/:criteria/page/:page
+  param:        { module: sample, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
 
 
 ###
@@ -67,7 +78,7 @@ strain:
 strain_search:
   url:          strain/search/:criteria
   param:        { module: strain, action: index }
-  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
 strain_find_samples:
   url:    strain/findSamples/:term
@@ -78,6 +89,11 @@ strain_pagination:
   url:          strain/page/:page
   param:        { module: strain, action: index, page: 1 }
   requirements: { page: \d+ }
+
+strain_search_pagination:
+  url:          strain/search/:criteria/page/:page
+  param:        { module: strain, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
 
 
 ###
@@ -90,12 +106,17 @@ growth_medium:
 growth_medium_search:
   url:          growth_medium/search/:criteria
   param:        { module: growth_medium, action: index }
-  requirements: { criteria: .* }  # Search pattern is optional, by default all results are shown
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
 growth_medium_pagination:
   url:          growth_medium/page/:page
   param:        { module: growth_medium, action: index, page: 1 }
   requirements: { page: \d+ }
+
+growth_medium_search_pagination:
+  url:          growth_medium/search/:criteria/page/:page
+  param:        { module: growth_medium, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
 
 
 ###

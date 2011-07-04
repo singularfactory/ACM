@@ -1,21 +1,27 @@
 <?php
+	$searchCriteria = null;
 	$pageNumber = null;
-	if ( $page = $sf_user->getAttribute("$module.index_page") ) {
-		$pageNumber = "?page=$page";	
+	$url = $module;
+	
+	if ( $text = $sf_user->getAttribute('search.criteria') ) {
+		$searchCriteria = "?criteria=$text";
+		$url = "{$module}_search";
 	}
 	
-	$searchCriteria = null;
-	if ( $text = $sf_user->getAttribute('search.criteria') ) {
-		$searchCriteria = "criteria=$text";
-		if ( !$pageNumber ) {
-			$searchCriteria = "?$searchCriteria";
+	if ( $page = $sf_user->getAttribute("$module.index_page") ) {
+		$pageNumber = "page=$page";	
+		if ( !$searchCriteria ) {
+			$pageNumber = "?$pageNumber";
+			$url = "{$module}_pagination";
 		}
 		else {
-			$searchCriteria = "&$searchCriteria";
+			$pageNumber = "&$pageNumber";
+			$url = "{$module}_search_pagination";
 		}
-	}	
+	}
+
 ?>
 
 <div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Back to list', "@{$module}_pagination{$pageNumber}{$searchCriteria}") ?>
+	<?php echo link_to('Back to list', "@{$url}{$searchCriteria}{$pageNumber}") ?>
 </div>
