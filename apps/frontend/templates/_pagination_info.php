@@ -1,5 +1,10 @@
 <?php $url = "$model/index?page=" ?>
-<?php $searchCriteria = "&criteria={$sf_user->getAttribute('search.criteria')}" ?>
+<?php
+	$searchCriteria = null;
+	if ( $text = $sf_user->getAttribute('search.criteria') ) {
+		$searchCriteria = "&criteria=$text";
+	}
+?>
 
 <div id="pagination">
 	<?php echo count($pager) ?> items - showing page <?php echo $pager->getPage() ?> of <?php echo $pager->getLastPage() ?>
