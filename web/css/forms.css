@@ -54,6 +54,9 @@ input[type=file] { width: auto; }
 
 a.cancel_form_link { color: #e32; font-size: 12px; margin: 0px; }
 a.cancel_form_link:hover { color: white; background: #e32; margin: 0px; }
+a.form_inline_link { display: inline; font-size: 10px; padding: 0px 2px; }
+a.form_inline_link:hover { padding: 0px 2px; }
+span.form_inline_link { font-size: 10px; }
 
 
 /**
