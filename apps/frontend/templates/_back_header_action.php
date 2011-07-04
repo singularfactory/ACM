@@ -1,8 +1,7 @@
 <?php
 	$pageNumber = null;
 	if ( $page = $sf_user->getAttribute("$module.index_page") ) {
-		$pageNumber = "?page=$page";
-		$module = "{$module}_pagination";
+		$pageNumber = "?page=$page";	
 	}
 	
 	$searchCriteria = null;
@@ -18,5 +17,5 @@
 ?>
 
 <div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Back to list', "@{$module}{$pageNumber}{$searchCriteria}") ?>
+	<?php echo link_to('Back to list', "@{$module}_pagination{$pageNumber}{$searchCriteria}") ?>
 </div>

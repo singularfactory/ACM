@@ -30,8 +30,8 @@ location_search:
 
 location_pagination:
   url:          location/page/:page
-  param:        { module: location, action: index }
-  requirements: { page: .* }
+  param:        { module: location, action: index, page: 1 }
+  requirements: { page: \d+ }
 
 
 ###
@@ -53,8 +53,8 @@ sample_find_locations:
 
 sample_pagination:
   url:          sample/page/:page
-  param:        { module: sample, action: index }
-  requirements: { page: \d* }
+  param:        { module: sample, action: index, page: 1 }
+  requirements: { page: \d+ }
 
 
 ###
@@ -76,8 +76,8 @@ strain_find_samples:
 
 strain_pagination:
   url:          strain/page/:page
-  param:        { module: strain, action: index }
-  requirements: { page: \d* }
+  param:        { module: strain, action: index, page: 1 }
+  requirements: { page: \d+ }
 
 
 ###
@@ -94,8 +94,8 @@ growth_medium_search:
 
 growth_medium_pagination:
   url:          growth_medium/page/:page
-  param:        { module: growth_medium, action: index }
-  requirements: { page: \d* }
+  param:        { module: growth_medium, action: index, page: 1 }
+  requirements: { page: \d+ }
 
 
 ###
