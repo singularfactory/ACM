@@ -21,6 +21,9 @@ class locationActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Region r")
 				->leftJoin("{$this->mainAlias()}.Island i")
 				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
+				->orWhere("c.name LIKE ?", "%$text%")
+				->orWhere("r.name LIKE ?", "%$text%")
+				->orWhere("i.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%");
 		}
 		else {
