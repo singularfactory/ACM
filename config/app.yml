@@ -32,6 +32,7 @@ all:
     pictures_dir:       /uploads
     thumbnails_dir:     /thumbnails
     avatar_dir:         /avatar
+    default_avatar:     default_avatar
     max_picture_size:   5120000
     max_thumbnail_size: 75
     max_avatar_size:    40
