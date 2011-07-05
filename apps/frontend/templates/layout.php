@@ -71,16 +71,7 @@
 							echo link_to('Growth mediums', '@growth_medium', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
-					<li class="header_menu_right_tab">
-						<?php
-						if ( !preg_match('/^search(\/_)?/', $currentRoute) )
-							echo link_to('Search', '@homepage');
-						else
-							echo link_to('Search', '@homepage', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-					
+										
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>					
