@@ -8,8 +8,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
-  public function setup() {
+abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'first_name'       => new sfWidgetFormFilterInput(),
       'last_name'        => new sfWidgetFormFilterInput(),
@@ -21,6 +23,7 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
       'is_active'        => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'is_super_admin'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'last_login'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'avatar'           => new sfWidgetFormFilterInput(),
       'created_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'groups_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'sfGuardGroup')),
@@ -38,6 +41,7 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
       'is_active'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'is_super_admin'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'last_login'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'avatar'           => new sfValidatorPass(array('required' => false)),
       'created_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'groups_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'sfGuardGroup', 'required' => false)),
@@ -53,12 +57,15 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
     parent::setup();
   }
 
-  public function addGroupsListColumnQuery(Doctrine_Query $query, $field, $values) {
-    if (!is_array($values)) {
+  public function addGroupsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
       $values = array($values);
     }
 
-    if (!count($values)) {
+    if (!count($values))
+    {
       return;
     }
 
@@ -68,12 +75,15 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
     ;
   }
 
-  public function addPermissionsListColumnQuery(Doctrine_Query $query, $field, $values) {
-    if (!is_array($values)) {
+  public function addPermissionsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
       $values = array($values);
     }
 
-    if (!count($values)) {
+    if (!count($values))
+    {
       return;
     }
 
@@ -83,11 +93,13 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
     ;
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'sfGuardUser';
   }
 
-  public function getFields() {
+  public function getFields()
+  {
     return array(
       'id'               => 'Number',
       'first_name'       => 'Text',
@@ -100,6 +112,7 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterDoctrine {
       'is_active'        => 'Boolean',
       'is_super_admin'   => 'Boolean',
       'last_login'       => 'Date',
+      'avatar'           => 'Text',
       'created_at'       => 'Date',
       'updated_at'       => 'Date',
       'groups_list'      => 'ManyKey',

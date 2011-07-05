@@ -29,10 +29,12 @@ all:
     maintenance_status_cryopreserved: Cryopreserved
         
     # Pictures and thumbnails management constants
-    pictures_dir:           /uploads
-    thumbnails_dir:         /thumbnails
-    max_picture_size:       5120000
-    max_thumbnail_size:     75
+    pictures_dir:       /uploads
+    thumbnails_dir:     /thumbnails
+    avatar_dir:         /avatar
+    max_picture_size:   5120000
+    max_thumbnail_size: 75
+    max_avatar_size:    75
     
     # Common constants
     max_list_items:             15

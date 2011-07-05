@@ -15,6 +15,7 @@
  * @property boolean $is_active
  * @property boolean $is_super_admin
  * @property timestamp $last_login
+ * @property string $avatar
  * @property Doctrine_Collection $Groups
  * @property Doctrine_Collection $Permissions
  * @property Doctrine_Collection $sfGuardUserPermission
@@ -33,6 +34,7 @@
  * @method boolean               getIsActive()              Returns the current record's "is_active" value
  * @method boolean               getIsSuperAdmin()          Returns the current record's "is_super_admin" value
  * @method timestamp             getLastLogin()             Returns the current record's "last_login" value
+ * @method string                getAvatar()                Returns the current record's "avatar" value
  * @method Doctrine_Collection   getGroups()                Returns the current record's "Groups" collection
  * @method Doctrine_Collection   getPermissions()           Returns the current record's "Permissions" collection
  * @method Doctrine_Collection   getSfGuardUserPermission() Returns the current record's "sfGuardUserPermission" collection
@@ -50,6 +52,7 @@
  * @method sfGuardUser           setIsActive()              Sets the current record's "is_active" value
  * @method sfGuardUser           setIsSuperAdmin()          Sets the current record's "is_super_admin" value
  * @method sfGuardUser           setLastLogin()             Sets the current record's "last_login" value
+ * @method sfGuardUser           setAvatar()                Sets the current record's "avatar" value
  * @method sfGuardUser           setGroups()                Sets the current record's "Groups" collection
  * @method sfGuardUser           setPermissions()           Sets the current record's "Permissions" collection
  * @method sfGuardUser           setSfGuardUserPermission() Sets the current record's "sfGuardUserPermission" collection
@@ -63,8 +66,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BasesfGuardUser extends sfDoctrineRecord {
-    public function setTableDefinition() {
+abstract class BasesfGuardUser extends sfDoctrineRecord
+{
+    public function setTableDefinition()
+    {
         $this->setTableName('sf_guard_user');
         $this->hasColumn('first_name', 'string', 255, array(
              'type' => 'string',
@@ -111,6 +116,10 @@ abstract class BasesfGuardUser extends sfDoctrineRecord {
         $this->hasColumn('last_login', 'timestamp', null, array(
              'type' => 'timestamp',
              ));
+        $this->hasColumn('avatar', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
+             ));
 
 
         $this->index('is_active_idx', array(
@@ -119,9 +128,11 @@ abstract class BasesfGuardUser extends sfDoctrineRecord {
               0 => 'is_active',
              ),
              ));
+        $this->option('type', 'INNODB');
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $this->hasMany('sfGuardGroup as Groups', array(
              'refClass' => 'sfGuardUserGroup',
@@ -153,8 +164,7 @@ abstract class BasesfGuardUser extends sfDoctrineRecord {
              'local' => 'id',
              'foreign' => 'user_id'));
 
-        $timestampable0 = new Doctrine_Template_Timestampable(array(
-             ));
+        $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }
 }

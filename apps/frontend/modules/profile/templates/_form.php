@@ -46,6 +46,22 @@
 		<?php echo $form['password_again'] ?>
 	</div>
 	
+	<div id="avatar">
+		<?php echo $form['avatar']->renderLabel() ?>
+		<?php echo $form['avatar']->renderHelp() ?>
+
+		<?php if ( $filename = $form['avatar']->getValue() ): ?>
+			<?php $avatar = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir').'/'.$filename ?>
+			<?php $size = sfConfig::get('app_max_avatar_size') ?>
+			<div id="avatar_image">
+				<img src="<?php echo $avatar ?>" alt="Picture of <?php echo $form['username']->getValue() ?>" width="<?php $size ?>" height="<?php $size ?>" />
+			</div>
+		<?php endif; ?>
+		
+		<?php echo $form['avatar']->renderError() ?>
+		<?php echo $form['avatar'] ?>
+	</div>
+	
 	<div class="submit">
 		<input type="submit" value="Save changes">
 		or <?php echo link_to('cancel', '@homepage', array('class' => 'cancel_form_link')) ?>

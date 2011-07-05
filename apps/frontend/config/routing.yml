@@ -123,8 +123,16 @@ growth_medium_search_pagination:
 # sfGuardUser model related routes
 ###
 profile:
-  class:   sfDoctrineRouteCollection
-  options: { model: sfGuardUser }
+  class:      sfDoctrineRouteCollection
+  options:
+    model:    sfGuardUser
+    actions:  [edit, update]
+
+profile_shortcut:
+  class:    sfDoctrineRoute
+  options:  { model: sfGuardUser, type: object }
+  url:      /profile/:id
+  param:    { module: profile, action: edit }
 
 login:
   url:   /login

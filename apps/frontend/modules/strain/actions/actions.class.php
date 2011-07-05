@@ -177,7 +177,7 @@ class strainActions extends MyActions {
 		
 		// Validate form
 		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures') ) {
-			$flashMessage = null;
+			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
 			
