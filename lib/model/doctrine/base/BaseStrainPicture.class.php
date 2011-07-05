@@ -24,8 +24,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BaseStrainPicture extends sfDoctrineRecord {
-    public function setTableDefinition() {
+abstract class BaseStrainPicture extends sfDoctrineRecord
+{
+    public function setTableDefinition()
+    {
         $this->setTableName('strain_picture');
         $this->hasColumn('id', 'integer', null, array(
              'type' => 'integer',
@@ -45,7 +47,8 @@ abstract class BaseStrainPicture extends sfDoctrineRecord {
         $this->option('type', 'INNODB');
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $this->hasOne('Strain', array(
              'local' => 'strain_id',

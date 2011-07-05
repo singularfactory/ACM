@@ -10,8 +10,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseMaintenanceStatusForm extends BaseFormDoctrine {
-  public function setup() {
+abstract class BaseMaintenanceStatusForm extends BaseFormDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'name'       => new sfWidgetFormChoice(array('choices' => array('Liquid' => 'Liquid', 'Solid' => 'Solid', 'Cryopreserved' => 'Cryopreserved'))),
@@ -35,7 +37,8 @@ abstract class BaseMaintenanceStatusForm extends BaseFormDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'MaintenanceStatus';
   }
 

@@ -10,8 +10,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseGrowthMediumForm extends BaseFormDoctrine {
-  public function setup() {
+abstract class BaseGrowthMediumForm extends BaseFormDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'id'           => new sfWidgetFormInputHidden(),
       'name'         => new sfWidgetFormInputText(),
@@ -41,52 +43,63 @@ abstract class BaseGrowthMediumForm extends BaseFormDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'GrowthMedium';
   }
 
-  public function updateDefaultsFromObject() {
+  public function updateDefaultsFromObject()
+  {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['strains_list'])) {
+    if (isset($this->widgetSchema['strains_list']))
+    {
       $this->setDefault('strains_list', $this->object->Strains->getPrimaryKeys());
     }
 
   }
 
-  protected function doSave($con = null) {
+  protected function doSave($con = null)
+  {
     $this->saveStrainsList($con);
 
     parent::doSave($con);
   }
 
-  public function saveStrainsList($con = null) {
-    if (!$this->isValid()) {
+  public function saveStrainsList($con = null)
+  {
+    if (!$this->isValid())
+    {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['strains_list'])) {
+    if (!isset($this->widgetSchema['strains_list']))
+    {
       // somebody has unset this widget
       return;
     }
 
-    if (null === $con) {
+    if (null === $con)
+    {
       $con = $this->getConnection();
     }
 
     $existing = $this->object->Strains->getPrimaryKeys();
     $values = $this->getValue('strains_list');
-    if (!is_array($values)) {
+    if (!is_array($values))
+    {
       $values = array();
     }
 
     $unlink = array_diff($existing, $values);
-    if (count($unlink)) {
+    if (count($unlink))
+    {
       $this->object->unlink('Strains', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
-    if (count($link)) {
+    if (count($link))
+    {
       $this->object->link('Strains', array_values($link));
     }
   }

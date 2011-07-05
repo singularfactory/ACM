@@ -27,8 +27,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BaseCollector extends sfDoctrineRecord {
-    public function setTableDefinition() {
+abstract class BaseCollector extends sfDoctrineRecord
+{
+    public function setTableDefinition()
+    {
         $this->setTableName('collector');
         $this->hasColumn('id', 'integer', null, array(
              'type' => 'integer',
@@ -53,7 +55,8 @@ abstract class BaseCollector extends sfDoctrineRecord {
         $this->option('type', 'INNODB');
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $this->hasMany('Sample as Samples', array(
              'local' => 'id',

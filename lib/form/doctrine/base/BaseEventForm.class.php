@@ -10,8 +10,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseEventForm extends BaseFormDoctrine {
-  public function setup() {
+abstract class BaseEventForm extends BaseFormDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'id'          => new sfWidgetFormInputHidden(),
       'user_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('User'), 'add_empty' => false)),
@@ -43,7 +45,8 @@ abstract class BaseEventForm extends BaseFormDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'Event';
   }
 

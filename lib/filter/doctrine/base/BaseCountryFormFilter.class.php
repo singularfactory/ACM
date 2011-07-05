@@ -8,8 +8,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseCountryFormFilter extends BaseFormFilterDoctrine {
-  public function setup() {
+abstract class BaseCountryFormFilter extends BaseFormFilterDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'code'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'name'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -33,11 +35,13 @@ abstract class BaseCountryFormFilter extends BaseFormFilterDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'Country';
   }
 
-  public function getFields() {
+  public function getFields()
+  {
     return array(
       'id'         => 'Number',
       'code'       => 'Text',

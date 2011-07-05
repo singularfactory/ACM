@@ -8,8 +8,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine {
-  public function setup() {
+abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'is_epitype'                 => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
@@ -71,12 +73,15 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine {
     parent::setup();
   }
 
-  public function addGrowthMediumsListColumnQuery(Doctrine_Query $query, $field, $values) {
-    if (!is_array($values)) {
+  public function addGrowthMediumsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
       $values = array($values);
     }
 
-    if (!count($values)) {
+    if (!count($values))
+    {
       return;
     }
 
@@ -86,11 +91,13 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine {
     ;
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'Strain';
   }
 
-  public function getFields() {
+  public function getFields()
+  {
     return array(
       'id'                         => 'Number',
       'sample_id'                  => 'ForeignKey',

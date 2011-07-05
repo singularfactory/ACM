@@ -27,8 +27,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BaseDepositor extends sfDoctrineRecord {
-    public function setTableDefinition() {
+abstract class BaseDepositor extends sfDoctrineRecord
+{
+    public function setTableDefinition()
+    {
         $this->setTableName('depositor');
         $this->hasColumn('id', 'integer', null, array(
              'type' => 'integer',
@@ -53,7 +55,8 @@ abstract class BaseDepositor extends sfDoctrineRecord {
         $this->option('type', 'INNODB');
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $this->hasMany('Strain as Strains', array(
              'local' => 'id',

@@ -10,8 +10,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseStrainForm extends BaseFormDoctrine {
-  public function setup() {
+abstract class BaseStrainForm extends BaseFormDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => false)),
@@ -75,52 +77,63 @@ abstract class BaseStrainForm extends BaseFormDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'Strain';
   }
 
-  public function updateDefaultsFromObject() {
+  public function updateDefaultsFromObject()
+  {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['growth_mediums_list'])) {
+    if (isset($this->widgetSchema['growth_mediums_list']))
+    {
       $this->setDefault('growth_mediums_list', $this->object->GrowthMediums->getPrimaryKeys());
     }
 
   }
 
-  protected function doSave($con = null) {
+  protected function doSave($con = null)
+  {
     $this->saveGrowthMediumsList($con);
 
     parent::doSave($con);
   }
 
-  public function saveGrowthMediumsList($con = null) {
-    if (!$this->isValid()) {
+  public function saveGrowthMediumsList($con = null)
+  {
+    if (!$this->isValid())
+    {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['growth_mediums_list'])) {
+    if (!isset($this->widgetSchema['growth_mediums_list']))
+    {
       // somebody has unset this widget
       return;
     }
 
-    if (null === $con) {
+    if (null === $con)
+    {
       $con = $this->getConnection();
     }
 
     $existing = $this->object->GrowthMediums->getPrimaryKeys();
     $values = $this->getValue('growth_mediums_list');
-    if (!is_array($values)) {
+    if (!is_array($values))
+    {
       $values = array();
     }
 
     $unlink = array_diff($existing, $values);
-    if (count($unlink)) {
+    if (count($unlink))
+    {
       $this->object->unlink('GrowthMediums', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
-    if (count($link)) {
+    if (count($link))
+    {
       $this->object->link('GrowthMediums', array_values($link));
     }
   }

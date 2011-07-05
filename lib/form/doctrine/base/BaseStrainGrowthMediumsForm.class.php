@@ -10,8 +10,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseStrainGrowthMediumsForm extends BaseFormDoctrine {
-  public function setup() {
+abstract class BaseStrainGrowthMediumsForm extends BaseFormDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'strain_id'        => new sfWidgetFormInputHidden(),
       'growth_medium_id' => new sfWidgetFormInputHidden(),
@@ -35,7 +37,8 @@ abstract class BaseStrainGrowthMediumsForm extends BaseFormDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'StrainGrowthMediums';
   }
 

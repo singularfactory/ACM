@@ -8,8 +8,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine {
-  public function setup() {
+abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'name'         => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'description'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -37,12 +39,15 @@ abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine {
     parent::setup();
   }
 
-  public function addStrainsListColumnQuery(Doctrine_Query $query, $field, $values) {
-    if (!is_array($values)) {
+  public function addStrainsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
       $values = array($values);
     }
 
-    if (!count($values)) {
+    if (!count($values))
+    {
       return;
     }
 
@@ -52,11 +57,13 @@ abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine {
     ;
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'GrowthMedium';
   }
 
-  public function getFields() {
+  public function getFields()
+  {
     return array(
       'id'           => 'Number',
       'name'         => 'Text',

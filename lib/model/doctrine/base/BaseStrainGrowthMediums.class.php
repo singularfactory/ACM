@@ -18,8 +18,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class BaseStrainGrowthMediums extends sfDoctrineRecord {
-    public function setTableDefinition() {
+abstract class BaseStrainGrowthMediums extends sfDoctrineRecord
+{
+    public function setTableDefinition()
+    {
         $this->setTableName('strain_growth_mediums');
         $this->hasColumn('strain_id', 'integer', null, array(
              'type' => 'integer',
@@ -33,7 +35,8 @@ abstract class BaseStrainGrowthMediums extends sfDoctrineRecord {
         $this->option('type', 'INNODB');
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

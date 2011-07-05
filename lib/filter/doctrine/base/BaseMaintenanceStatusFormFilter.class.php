@@ -8,8 +8,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseMaintenanceStatusFormFilter extends BaseFormFilterDoctrine {
-  public function setup() {
+abstract class BaseMaintenanceStatusFormFilter extends BaseFormFilterDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'name'       => new sfWidgetFormChoice(array('choices' => array('' => '', 'Liquid' => 'Liquid', 'Solid' => 'Solid', 'Cryopreserved' => 'Cryopreserved'))),
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
@@ -31,11 +33,13 @@ abstract class BaseMaintenanceStatusFormFilter extends BaseFormFilterDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'MaintenanceStatus';
   }
 
-  public function getFields() {
+  public function getFields()
+  {
     return array(
       'id'         => 'Number',
       'name'       => 'Enum',

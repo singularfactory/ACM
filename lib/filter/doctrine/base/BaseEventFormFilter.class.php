@@ -8,8 +8,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseEventFormFilter extends BaseFormFilterDoctrine {
-  public function setup() {
+abstract class BaseEventFormFilter extends BaseFormFilterDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'user_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('User'), 'add_empty' => true)),
       'ip_address'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -39,11 +41,13 @@ abstract class BaseEventFormFilter extends BaseFormFilterDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'Event';
   }
 
-  public function getFields() {
+  public function getFields()
+  {
     return array(
       'id'          => 'Number',
       'user_id'     => 'ForeignKey',

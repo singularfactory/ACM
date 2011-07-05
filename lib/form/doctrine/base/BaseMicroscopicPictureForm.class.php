@@ -10,8 +10,10 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseMicroscopicPictureForm extends BaseFormDoctrine {
-  public function setup() {
+abstract class BaseMicroscopicPictureForm extends BaseFormDoctrine
+{
+  public function setup()
+  {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'filename'   => new sfWidgetFormInputText(),
@@ -37,7 +39,8 @@ abstract class BaseMicroscopicPictureForm extends BaseFormDoctrine {
     parent::setup();
   }
 
-  public function getModelName() {
+  public function getModelName()
+  {
     return 'MicroscopicPicture';
   }
 
