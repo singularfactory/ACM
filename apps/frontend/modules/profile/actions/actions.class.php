@@ -10,6 +10,12 @@
 */
 class profileActions extends myActions {
 	public function executeEdit(sfWebRequest $request) {
+		// Avoid hacking on other people profile
+		$userId = $this->getUser()->getGuardUser()->getId();
+		if ( $userId !== $request->getParameter('id') ) {	
+			$this->redirect('@profile_shortcut?id='.$userId);
+		}
+		
 		$this->form = new sfGuardUserForm($this->getRoute()->getObject());
 	}
 
