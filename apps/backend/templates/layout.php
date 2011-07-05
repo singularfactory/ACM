@@ -30,8 +30,15 @@
 			<div id="header_shortcuts">
 				<?php $user = $sf_user->getGuardUser() ?>
 				<div id="header_avatar">
-					<?php $size = sfConfig::get('app_max_avatar_size') ?>
-					<?php $filename = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir')."/{$user->getAvatar()}" ?>
+					<?php
+						$filename = $user->getAvatar();
+						if ( empty($filename) ) {
+							$filename = sfConfig::get('app_default_avatar');
+						}
+						else {
+							$filename = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir')."/$filename";
+						}
+					?>
 					<?php echo image_tag($filename, array('id' => 'header_avatar', 'alt' => $user->getUsername())) ?>
 				</div>
 				
