@@ -259,3 +259,7 @@ StrainGrowthMediums:
   columns:
     strain_id:        { type: integer, primary: true }
     growth_medium_id: { type: integer, primary: true }
+
+sfGuardUser:  
+  columns:  
+    avatar: { type: string(255) }
