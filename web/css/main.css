@@ -175,14 +175,19 @@ div.javascript_disabled_notification p {
 	font-weight: normal;
 	color: #333;
 }
+
 #header_shortcuts {
   position:absolute;
-  top: 0px;
-  right: 0px;
-  padding: 7px 20px;
-  font-size:10px;
+  top: 7px;
+  right: 20px;
+	width: auto;
 }
-#header_shortcuts span { padding: 7px 3px; }
+#header_user_information { float: right; padding: 0px 3px; }
+#header_user_information p { padding: 0px; margin: 1px 0px; font-size: 10px; text-align: right; line-height: 13px; }
+#header_user_information #header_username { padding-right: 4px }
+#header_avatar { float: right; }
+#header_avatar img { max-width: 40px; max-height: 40px; }
+
 #header_menu {
 	padding: 25px 0px 0px 0px;
   height: 24px;

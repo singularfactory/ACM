@@ -12,7 +12,7 @@ class myAvatarFile extends sfValidatedFile {
 
 			// Resize the avatar
 			$path = $this->getPath();
-			$avatar = new sfThumbnail(sfConfig::get('app_max_avatar_size'), sfConfig::get('app_max_avatar_size'), true, true, 75, 'sfImageMagickAdapter');
+			$avatar = new sfThumbnail(sfConfig::get('app_max_avatar_size'), sfConfig::get('app_max_avatar_size'), true, true, 300, 'sfImageMagickAdapter');
 			$avatar->loadFile("$path/$filename");
 			$avatar->save("$path/$filename", $this->getType());
 		}

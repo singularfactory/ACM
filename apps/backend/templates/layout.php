@@ -26,11 +26,20 @@
 			<?php echo image_tag('logo.png', array('id' => 'header_image', 'alt' => 'Banco Español de Algas')) ?>
 			<h1 id="header_title">Algae culture management</h1>
 			<h2 id="header_subtitle">Banco Español de Algas</h2>
-				
+			
 			<div id="header_shortcuts">
-				<span><?php echo $sf_user->getUsername(); ?></span> |
-				<span><?php echo link_to('About me', array()) ?></span> |
-				<span><?php echo link_to('Sign out', '@logout') ?></span>
+				<?php $user = $sf_user->getGuardUser() ?>
+				<div id="header_avatar">
+					<?php $size = sfConfig::get('app_max_avatar_size') ?>
+					<?php $filename = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir')."/{$user->getAvatar()}" ?>
+					<?php echo image_tag($filename, array('id' => 'header_avatar', 'alt' => $user->getUsername())) ?>
+				</div>
+				
+				<div id="header_user_information">
+					<p id="header_username"><?php echo $user->getUsername(); ?></p>
+					<p><?php echo link_to('About me', "/profile/{$user->getId()}") ?></p>
+					<p><?php echo link_to('Sign out', '@logout') ?></p>
+				</div>
 			</div>
 				
 			<div id="header_menu">

@@ -34,7 +34,7 @@ all:
     avatar_dir:         /avatar
     max_picture_size:   5120000
     max_thumbnail_size: 75
-    max_avatar_size:    75
+    max_avatar_size:    40
     
     # Common constants
     max_list_items:             15

@@ -50,7 +50,7 @@
 		<?php echo $form['avatar']->renderLabel() ?>
 		<?php echo $form['avatar']->renderHelp() ?>
 
-		<?php if ( $filename = $form['avatar']->getValue() ): ?>
+		<?php if ( $filename = $form['avatar']->getValue() && false ): ?>
 			<?php $avatar = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir').'/'.$filename ?>
 			<?php $size = sfConfig::get('app_max_avatar_size') ?>
 			<div id="avatar_image">
@@ -64,6 +64,6 @@
 	
 	<div class="submit">
 		<input type="submit" value="Save changes">
-		or <?php echo link_to('cancel', '@homepage', array('class' => 'cancel_form_link')) ?>
+		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
 	</div>
 </form>
