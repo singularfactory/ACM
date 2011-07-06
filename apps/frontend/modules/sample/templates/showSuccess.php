@@ -37,6 +37,13 @@
 			<dd><?php echo $sample->getFormattedAltitude() ?></dd>
 			<dt>Radiation:</dt>
 			<dd><?php echo $sample->getRadiation()->getName() ?></dd>
+			<dt>Strains:</dt>
+			<dd>
+				<?php echo $nbStrains = $sample->getNbStrains() ?>
+				<?php if ( $nbStrains > 0 ): ?>
+					<a href="#sample_strains_list" title="List of strains who come from this sample" class="page_jump">see below</a>
+				<?php endif; ?>
+			</dd>
 			<dt>Collector:</dt>
 			<dd><?php echo $sample->getCollector() ?></dd>
 			<dt>Collection date:</dt>
@@ -108,6 +115,36 @@
 	</div>
 	<?php endif ?>
 
+	<?php if ( $nbStrains > 0): ?>
+	<div id="sample_strains_list">
+		<h2>Strains</h2>
+		<table>
+			<tr>
+				<th class="code">Code</th>
+				<th>Class:</th>
+				<th>Genus:</th>
+				<th>Species:</th>
+			</tr>
+			<?php foreach ($sample->getStrains() as $strain ): ?>
+			<?php $url = '@strain_show?id='.$strain->getId() ?>
+			<tr>
+				<td><?php echo link_to($strain->getNumber(), $url) ?></td>
+				<td><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
+				<td><span class="species_name"><?php echo link_to($strain->getGenus(), $url) ?></span></td>
+				<td>
+					<?php $strainSpecies = $strain->getSpecies() ?>
+					<?php if ( $strainSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
+					<span class="species_name"><?php echo link_to($strainSpecies, $url) ?></span>
+					<?php else: ?>
+					<?php echo link_to($strainSpecies, $url) ?>
+					<?php endif; ?>
+				</td>
+			</tr>
+		<?php endforeach ?>
+		</table>
+	</div>
+	<?php endif ?>
+	
 	<div class="clear"></div>
 </div>
 

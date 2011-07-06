@@ -149,4 +149,12 @@ class Sample extends BaseSample {
 			->where('mp.sample_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getNbStrains() {
+		return Doctrine_Query::create()
+			->from('Strain s')
+			->where('s.sample_id = ?', $this->getId())
+			->count();
+	}
+	
 }

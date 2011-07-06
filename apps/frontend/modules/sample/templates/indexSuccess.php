@@ -15,6 +15,7 @@
 			<th><?php echo link_to('Location', 'sample/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Collector', 'sample/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Date', 'sample/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
+			<th>Strains</th>
 			<th></th>
 		</tr>
 
@@ -25,6 +26,7 @@
 			<td class="location_name"><?php echo link_to($sample->getLocation()->getName(), $url) ?></td>
 			<td class="collector_name"><?php echo link_to($sample->getCollector(), $url) ?></td>
 			<td class="date"><?php echo link_to(format_date($sample->getCollectionDate(), 'p'), $url) ?></td>
+			<td class="object_count"><?php echo link_to($sample->getNbStrains(), $url) ?></td>
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">
