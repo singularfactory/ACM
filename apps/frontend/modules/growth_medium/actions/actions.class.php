@@ -40,8 +40,8 @@ class growth_mediumActions extends MyActions {
 	}
 
 	public function executeShow(sfWebRequest $request) {
-		$this->growth_medium = Doctrine_Core::getTable('GrowthMedium')->find(array($request->getParameter('id')));
-		$this->forward404Unless($this->growth_medium);
+		$this->growthMedium = Doctrine_Core::getTable('GrowthMedium')->find(array($request->getParameter('id')));
+		$this->forward404Unless($this->growthMedium);
 	}
 
 	public function executeNew(sfWebRequest $request) {
