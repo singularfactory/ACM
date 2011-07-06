@@ -73,7 +73,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('growth_mediums_list', 'Growth mediums');
 		
 		// Configure help messages
-		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix<strong/>');
+		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix</strong>');
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
 		$this->widgetSchema->setHelp('genus_id', 'Taxonomic genus');
 		$this->widgetSchema->setHelp('species_id', 'Taxonomic species');
