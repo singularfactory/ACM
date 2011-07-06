@@ -37,9 +37,9 @@
  * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Doctrine_Collection $GrowthMediums
- * @property Doctrine_Collection $Dna
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $Pictures
+ * @property Doctrine_Collection $DnaExtractions
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
@@ -73,9 +73,9 @@
  * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Doctrine_Collection    getGrowthMediums()              Returns the current record's "GrowthMediums" collection
- * @method Doctrine_Collection    getDna()                        Returns the current record's "Dna" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
+ * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
  * @method Strain                 setId()                         Sets the current record's "id" value
  * @method Strain                 setSampleId()                   Sets the current record's "sample_id" value
  * @method Strain                 setIsEpitype()                  Sets the current record's "is_epitype" value
@@ -108,9 +108,9 @@
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * @method Strain                 setGrowthMediums()              Sets the current record's "GrowthMediums" collection
- * @method Strain                 setDna()                        Sets the current record's "Dna" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
+ * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -254,15 +254,15 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'strain_id',
              'foreign' => 'growth_medium_id'));
 
-        $this->hasMany('Dna', array(
-             'local' => 'id',
-             'foreign' => 'strain_id'));
-
         $this->hasMany('StrainRelative as Relatives', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 
         $this->hasMany('StrainPicture as Pictures', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('DnaExtraction as DnaExtractions', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 

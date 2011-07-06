@@ -41,7 +41,7 @@ class Strain extends BaseStrain {
 	}
 	
 	public function hasDna() {
-		if ( count($this->getDna()) > 0 ) {
+		if ( count($this->getDnaExtractions()) > 0 ) {
 			return true;
 		}
 		return false;
