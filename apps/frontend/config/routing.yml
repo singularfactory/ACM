@@ -120,6 +120,29 @@ growth_medium_search_pagination:
 
 
 ###
+# DnaExtraction model related routes
+###
+dna_extraction:
+  class:   sfDoctrineRouteCollection
+  options: { model: DnaExtraction }
+
+dna_extraction_search:
+  url:          dna_extraction/search/:criteria
+  param:        { module: dna_extraction, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+dna_extraction_pagination:
+  url:          dna_extraction/page/:page
+  param:        { module: dna_extraction, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+dna_extraction_search_pagination:
+  url:          dna_extraction/search/:criteria/page/:page
+  param:        { module: dna_extraction, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # sfGuardUser model related routes
 ###
 profile:

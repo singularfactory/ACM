@@ -66,7 +66,7 @@
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('DNA lab', '@extraction_kit', (preg_match('/^(extraction_kit)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('DNA Lab', '@extraction_kit', (preg_match('/^(extraction_kit)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>

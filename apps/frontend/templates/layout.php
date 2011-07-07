@@ -87,7 +87,16 @@
 							echo link_to('Growth mediums', '@growth_medium', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-										
+					
+					<li>
+						<?php
+						if ( !preg_match('/^(dna_extraction(\/_)?)/', $currentRoute) )
+							echo link_to('DNA Lab', '@dna_extraction');
+						else
+							echo link_to('DNA Lab', '@dna_extraction', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+								
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>					
