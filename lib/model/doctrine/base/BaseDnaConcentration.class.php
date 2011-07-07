@@ -9,15 +9,21 @@
  * @property decimal $amount
  * @property decimal $260_280_ratio
  * @property decimal $260_230_ratio
+ * @property integer $dna_extraction_id
+ * @property DnaExtraction $DnaExtraction
  * 
- * @method integer          getId()            Returns the current record's "id" value
- * @method decimal          getAmount()        Returns the current record's "amount" value
- * @method decimal          get260280Ratio()   Returns the current record's "260_280_ratio" value
- * @method decimal          get260230Ratio()   Returns the current record's "260_230_ratio" value
- * @method DnaConcentration setId()            Sets the current record's "id" value
- * @method DnaConcentration setAmount()        Sets the current record's "amount" value
- * @method DnaConcentration set260280Ratio()   Sets the current record's "260_280_ratio" value
- * @method DnaConcentration set260230Ratio()   Sets the current record's "260_230_ratio" value
+ * @method integer          getId()                Returns the current record's "id" value
+ * @method decimal          getAmount()            Returns the current record's "amount" value
+ * @method decimal          get260280Ratio()       Returns the current record's "260_280_ratio" value
+ * @method decimal          get260230Ratio()       Returns the current record's "260_230_ratio" value
+ * @method integer          getDnaExtractionId()   Returns the current record's "dna_extraction_id" value
+ * @method DnaExtraction    getDnaExtraction()     Returns the current record's "DnaExtraction" value
+ * @method DnaConcentration setId()                Sets the current record's "id" value
+ * @method DnaConcentration setAmount()            Sets the current record's "amount" value
+ * @method DnaConcentration set260280Ratio()       Sets the current record's "260_280_ratio" value
+ * @method DnaConcentration set260230Ratio()       Sets the current record's "260_230_ratio" value
+ * @method DnaConcentration setDnaExtractionId()   Sets the current record's "dna_extraction_id" value
+ * @method DnaConcentration setDnaExtraction()     Sets the current record's "DnaExtraction" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -46,6 +52,10 @@ abstract class BaseDnaConcentration extends sfDoctrineRecord
              'type' => 'decimal',
              'notnull' => true,
              ));
+        $this->hasColumn('dna_extraction_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
 
         $this->option('type', 'INNODB');
     }
@@ -53,6 +63,10 @@ abstract class BaseDnaConcentration extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('DnaExtraction', array(
+             'local' => 'dna_extraction_id',
+             'foreign' => 'id'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }

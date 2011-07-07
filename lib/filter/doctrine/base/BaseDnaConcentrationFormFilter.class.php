@@ -13,19 +13,21 @@ abstract class BaseDnaConcentrationFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'amount'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      '260_280_ratio' => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      '260_230_ratio' => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'created_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'updated_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'amount'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      '260_280_ratio'     => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      '260_230_ratio'     => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'dna_extraction_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaExtraction'), 'add_empty' => true)),
+      'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'updated_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'amount'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      '260_280_ratio' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      '260_230_ratio' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'created_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'updated_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'amount'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      '260_280_ratio'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      '260_230_ratio'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'dna_extraction_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DnaExtraction'), 'column' => 'id')),
+      'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'updated_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
 
     $this->widgetSchema->setNameFormat('dna_concentration_filters[%s]');
@@ -45,12 +47,13 @@ abstract class BaseDnaConcentrationFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'            => 'Number',
-      'amount'        => 'Number',
-      '260_280_ratio' => 'Number',
-      '260_230_ratio' => 'Number',
-      'created_at'    => 'Date',
-      'updated_at'    => 'Date',
+      'id'                => 'Number',
+      'amount'            => 'Number',
+      '260_280_ratio'     => 'Number',
+      '260_230_ratio'     => 'Number',
+      'dna_extraction_id' => 'ForeignKey',
+      'created_at'        => 'Date',
+      'updated_at'        => 'Date',
     );
   }
 }

@@ -262,10 +262,13 @@ ExtractionKit:
 
 DnaConcentration:
   columns:
-    id:             { type: integer, primary: true, autoincrement: true }
-    amount:         { type: decimal, notnull: true }
-    260_280_ratio:  { type: decimal, notnull: true }
-    260_230_ratio:  { type: decimal, notnull: true }
+    id:                 { type: integer, primary: true, autoincrement: true }
+    amount:             { type: decimal, notnull: true }
+    260_280_ratio:      { type: decimal, notnull: true }
+    260_230_ratio:      { type: decimal, notnull: true }
+    dna_extraction_id:  { type: integer, notnull: true }
+  relations:
+    DnaExtraction:  { foreignAlias: Concentration, foreignType: one }
 
 DnaExtraction:
   columns:
