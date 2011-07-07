@@ -1,3 +1,12 @@
+extraction_kit:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                ExtractionKit
+    module:               extraction_kit
+    prefix_path:          /admin/extraction_kit
+    column:               id
+    with_wildcard_routes: true
+
 cryopreservation_method:
   class: sfDoctrineRouteCollection
   options:
