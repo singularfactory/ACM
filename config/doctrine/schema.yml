@@ -270,8 +270,7 @@ DnaConcentration:
 DnaExtraction:
   columns:
     id:                   { type: integer, primary: true, autoincrement: true }
-    accession_number:     { type: integer }
-    filename:             { type: string(255) }
+    genbank_link:         { type: string(255) }
     strain_id:            { type: integer, notnull: true }
     is_public:            { type: boolean, notnull: true, default: false }
     arrival_date:         { type: date, notnull: true }

@@ -13,8 +13,7 @@ abstract class BaseDnaExtractionFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'accession_number'     => new sfWidgetFormFilterInput(),
-      'filename'             => new sfWidgetFormFilterInput(),
+      'genbank_link'         => new sfWidgetFormFilterInput(),
       'strain_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
       'is_public'            => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'arrival_date'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
@@ -28,8 +27,7 @@ abstract class BaseDnaExtractionFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'accession_number'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'filename'             => new sfValidatorPass(array('required' => false)),
+      'genbank_link'         => new sfValidatorPass(array('required' => false)),
       'strain_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Strain'), 'column' => 'id')),
       'is_public'            => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'arrival_date'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
@@ -60,8 +58,7 @@ abstract class BaseDnaExtractionFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                   => 'Number',
-      'accession_number'     => 'Number',
-      'filename'             => 'Text',
+      'genbank_link'         => 'Text',
       'strain_id'            => 'ForeignKey',
       'is_public'            => 'Boolean',
       'arrival_date'         => 'Date',

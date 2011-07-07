@@ -16,8 +16,7 @@ abstract class BaseDnaExtractionForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                   => new sfWidgetFormInputHidden(),
-      'accession_number'     => new sfWidgetFormInputText(),
-      'filename'             => new sfWidgetFormInputText(),
+      'genbank_link'         => new sfWidgetFormInputText(),
       'strain_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => false)),
       'is_public'            => new sfWidgetFormInputCheckbox(),
       'arrival_date'         => new sfWidgetFormDate(),
@@ -32,8 +31,7 @@ abstract class BaseDnaExtractionForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                   => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'accession_number'     => new sfValidatorInteger(array('required' => false)),
-      'filename'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'genbank_link'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'strain_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'))),
       'is_public'            => new sfValidatorBoolean(array('required' => false)),
       'arrival_date'         => new sfValidatorDate(),
