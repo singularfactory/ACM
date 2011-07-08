@@ -20,7 +20,7 @@
 			<?php $url = url_for('@growth_medium_show?id='.$growthMedium->getId()) ?>
 			<td class="growth_medium_name"><?php echo link_to($growthMedium->getName(), $url) ?></td>
 			<td class="link"><?php echo link_to($growthMedium->getFormattedLink(), $url) ?></td>
-			<td class=""><?php echo link_to($growthMedium->getNbStrains(), $url) ?></td>
+			<td><?php echo link_to($growthMedium->getNbStrains(), $url) ?></td>
 		
 			<td class="actions">
 				<?php echo link_to('Edit', 'growth_medium/edit?id='.$growthMedium->getId()) ?>

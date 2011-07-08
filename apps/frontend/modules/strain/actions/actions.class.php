@@ -85,8 +85,6 @@ class strainActions extends MyActions {
   }
 
   public function executeNew(sfWebRequest $request) {
-    $this->form = new StrainForm();
-
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSample());
@@ -128,7 +126,7 @@ class strainActions extends MyActions {
   }
 
   public function executeCreate(sfWebRequest $request) {
-    $this->forward404Unless($request->isMethod(sfRequest::POST));
+  	$this->forward404Unless($request->isMethod(sfRequest::POST));
 
     $this->form = new StrainForm();
 		$this->hasSamples = (Doctrine::getTable('Sample')->count() > 0)?true:false;

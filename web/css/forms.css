@@ -103,7 +103,8 @@ div.model_text_input_name input { display: inline; margin-right: 0px; padding-ri
 a.sample_location_coordinates_url,
 a.strain_sample_numbers_url,
 a.country_regions_url,
-a.region_islands_url { display: none; }
+a.region_islands_url,
+a.dna_extraction_strain_numbers_url { display: none; }
 
 #email_address input,
 #username input,
@@ -115,20 +116,22 @@ a.region_islands_url { display: none; }
 #avatar_image { }
 #avatar_image img { display:inline; }
 
+#concentration input, #ratio_260_230 input, #ratio_260_280 input, #aliquots input { width: 50px; }
+#genbank_link input { width: 350px; }
 
 
 /**
- * SAMPLE AND STRAIN RELATED ID SEARCH BOX
+ * RELATED ID SEARCH BOX
  */
 li.ui-menu-item { text-align: left; font-size: 11px; }
-#sample_location_search, #strain_sample_search { /* input */
+#sample_location_search, #strain_sample_search, #dna_extraction_strain_search {
 	color: #888;
 	font-size: 11px;
 	min-height: 15px;
 	width: 300px;
 	padding: 1px;
 }
-#strain_sample_search { width: 150px; }
+#strain_sample_search, #dna_extraction_strain_search { width: 150px; }
 
 
 /**

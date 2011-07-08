@@ -14,9 +14,9 @@
 			<th><?php echo link_to('Number', 'strain/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Name', 'strain/index?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Sample', 'strain/index?sort_column=Sample.id&sort_direction='.$sortDirection) ?></th>
-			<th>Has DNA</th>
+			<th class="dna_availability">Has DNA</th>
 			<th><?php echo link_to('Isolation date', 'strain/index?sort_column=isolation_date&sort_direction='.$sortDirection) ?></th>
-			<th>Pending orders</th>
+			<th class="pending_orders">Pending orders</th>
 			<th></th>
 		</tr>
 		

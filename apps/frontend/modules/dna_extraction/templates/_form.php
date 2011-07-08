@@ -1,95 +1,94 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<form action="<?php echo url_for('dna_extraction/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-<?php if (!$form->getObject()->isNew()): ?>
-<input type="hidden" name="sf_method" value="put" />
-<?php endif; ?>
-  <table>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('dna_extraction/index') ?>">Back to list</a>
-          <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'dna_extraction/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-          <?php endif; ?>
-          <input type="submit" value="Save" />
-        </td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <?php echo $form->renderGlobalErrors() ?>
-      <tr>
-        <th><?php echo $form['accession_number']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['accession_number']->renderError() ?>
-          <?php echo $form['accession_number'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['filename']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['filename']->renderError() ?>
-          <?php echo $form['filename'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['strain_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['strain_id']->renderError() ?>
-          <?php echo $form['strain_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['is_public']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['is_public']->renderError() ?>
-          <?php echo $form['is_public'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['arrival_date']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['arrival_date']->renderError() ?>
-          <?php echo $form['arrival_date'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['extraction_date']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['extraction_date']->renderError() ?>
-          <?php echo $form['extraction_date'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['extraction_kit_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['extraction_kit_id']->renderError() ?>
-          <?php echo $form['extraction_kit_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['dna_concentration_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['dna_concentration_id']->renderError() ?>
-          <?php echo $form['dna_concentration_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['aliquots']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['aliquots']->renderError() ?>
-          <?php echo $form['aliquots'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['remarks']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['remarks']->renderError() ?>
-          <?php echo $form['remarks'] ?>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<?php echo form_tag_for($form, '@dna_extraction') ?>
+	<?php echo $form->renderHiddenFields() ?>
+  
+	<div id="left_side_form">
+		<div id="strain_id">
+			<?php echo $form['strain_id']->renderLabel() ?>
+			<?php echo $form['strain_id']->renderError() ?>
+			<?php echo $form['strain_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getNumber(); ?>" id="dna_extraction_strain_search" />
+			<a href="<?php echo url_for('@dna_extraction_find_strains?term=') ?>" class="dna_extraction_strain_numbers_url"></a>
+		</div>
+		
+		<div id="arrival_date" class="date_field">
+			<?php echo $form['arrival_date']->renderLabel() ?>
+			<?php echo $form['arrival_date']->renderError() ?>
+			<?php echo $form['arrival_date']->renderHelp() ?>
+			<?php echo $form['arrival_date'] ?>
+		</div>
+		
+		<div id="extraction_date" class="date_field">
+			<?php echo $form['extraction_date']->renderLabel() ?>
+			<?php echo $form['extraction_date']->renderError() ?>
+			<?php echo $form['extraction_date']->renderHelp() ?>
+			<?php echo $form['extraction_date'] ?>
+		</div>
+		
+		<div id="extraction_kit">
+			<?php echo $form['extraction_kit_id']->renderLabel() ?>
+			<?php echo $form['extraction_kit_id'] ?>
+		</div>
+		
+		<div id="concentration">
+			<?php echo $form['concentration']->renderLabel() ?>
+			<?php echo $form['concentration']->renderError() ?>
+			<?php echo $form['concentration']->renderHelp() ?>
+			<?php echo $form['concentration'] ?>
+		</div>
+		
+		<div id="ratio_260_280">
+			<?php echo $form['260_280_ratio']->renderLabel() ?>
+			<?php echo $form['260_280_ratio']->renderError() ?>
+			<?php echo $form['260_280_ratio']->renderHelp() ?>
+			<?php echo $form['260_280_ratio'] ?>
+		</div>
+		
+		<div id="ratio_260_230">
+			<?php echo $form['260_230_ratio']->renderLabel() ?>
+			<?php echo $form['260_230_ratio']->renderError() ?>
+			<?php echo $form['260_230_ratio']->renderHelp() ?>
+			<?php echo $form['260_230_ratio'] ?>
+		</div>
+	</div>
+	
+	<div id="right_side_form">
+		<div id="aliquots">
+			<?php echo $form['aliquots']->renderLabel() ?>
+			<?php echo $form['aliquots']->renderError() ?>
+			<?php echo $form['aliquots']->renderHelp() ?>
+			<?php echo $form['aliquots'] ?>
+		</div>
+		
+		<div id="public" class="checkbox">
+			<?php echo $form['is_public']->renderLabel() ?>
+			<?php echo $form['is_public'] ?>
+			<?php echo $form['is_public']->renderHelp() ?>
+		</div>
+		
+		<div id="genbank_link">
+			<?php echo $form['genbank_link']->renderLabel() ?>
+			<?php echo $form['genbank_link']->renderError() ?>
+			<?php echo $form['genbank_link']->renderHelp() ?>
+			<?php echo $form['genbank_link'] ?>
+		</div>
+			
+		<div id="remarks">
+			<?php echo $form['remarks']->renderLabel() ?>
+			<?php echo $form['remarks'] ?>
+		</div>
+	</div>
+	
+	
+	<div class="submit">
+		<?php if ( $form->getObject()->isNew() ): ?>
+			<input type="submit" value="Create this extraction">
+			<input type="submit" name="_save_and_add" value="Create and add">
+		<?php else: ?>
+			<input type="submit" value="Save changes">
+		<?php endif; ?>	
+		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+	</div>
 </form>

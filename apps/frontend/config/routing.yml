@@ -131,6 +131,11 @@ dna_extraction_search:
   param:        { module: dna_extraction, action: index }
   requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
+dna_extraction_find_strains:
+  url:          dna_extraction/findStrains/:term
+  param:        { module: dna_extraction, action: findStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
 dna_extraction_pagination:
   url:          dna_extraction/page/:page
   param:        { module: dna_extraction, action: index, page: 1 }

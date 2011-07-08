@@ -10,6 +10,74 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class DnaExtraction extends BaseDnaExtraction
-{
+class DnaExtraction extends BaseDnaExtraction {
+	
+	public function getNumber() {
+		$strainNumber = $this->getStrain()->getNumber();
+		$extractionDate = date('Ymd', strtotime($this->getExtractionDate()));
+		
+		return "{$strainNumber}_{$extractionDate}";
+	}
+	
+	public function getNbPcr() {
+		return 0;
+		return Doctrine_Query::create()
+			->from('PCR pcr')
+			->where('pcr.dna_extraction_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getConcentration() {
+		if ( $concentration = $this->_get('concentration') ) {
+			return $concentration;
+		}
+		else {
+			return '0.0';
+		}
+	}
+	
+	public function getAliquots() {
+		if ( $aliquots = $this->_get('aliquots') ) {
+			return $aliquots;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	public function get260280Ratio() {
+		if ( $ratio = $this->_get('260_280_ratio') ) {
+			return $ratio;
+		}
+		else {
+			return '0.0';
+		}
+	}
+	
+	public function get260230Ratio() {
+		if ( $ratio = $this->_get('260_230_ratio') ) {
+			return $ratio;
+		}
+		else {
+			return '0.0';
+		}
+	}
+	
+	public function getFormattedIsPublic() {
+		if ( $this->_get('is_public') == 0 ) {
+			return 'no';
+		}
+		else {
+			return 'yes';
+		}
+	}
+	
+	public function getGenbankLink() {
+		if ( $link = $this->_get('genbank_link') ) {
+			return $link;
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
 }

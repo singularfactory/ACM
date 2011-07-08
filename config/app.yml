@@ -27,7 +27,10 @@ all:
     maintenance_status_liquid:        Liquid
     maintenance_status_solid:         Solid
     maintenance_status_cryopreserved: Cryopreserved
-        
+    
+    # DNA lab related constants
+    concentration_unit: ng/µl #ng/&micro;l
+    
     # Pictures and thumbnails management constants
     pictures_dir:       /uploads
     thumbnails_dir:     /thumbnails

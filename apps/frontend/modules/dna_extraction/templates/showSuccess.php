@@ -1,62 +1,41 @@
-<table>
-  <tbody>
-    <tr>
-      <th>Id:</th>
-      <td><?php echo $dna_extraction->getId() ?></td>
-    </tr>
-    <tr>
-      <th>Accession number:</th>
-      <td><?php echo $dna_extraction->getAccessionNumber() ?></td>
-    </tr>
-    <tr>
-      <th>Filename:</th>
-      <td><?php echo $dna_extraction->getFilename() ?></td>
-    </tr>
-    <tr>
-      <th>Strain:</th>
-      <td><?php echo $dna_extraction->getStrainId() ?></td>
-    </tr>
-    <tr>
-      <th>Is public:</th>
-      <td><?php echo $dna_extraction->getIsPublic() ?></td>
-    </tr>
-    <tr>
-      <th>Arrival date:</th>
-      <td><?php echo $dna_extraction->getArrivalDate() ?></td>
-    </tr>
-    <tr>
-      <th>Extraction date:</th>
-      <td><?php echo $dna_extraction->getExtractionDate() ?></td>
-    </tr>
-    <tr>
-      <th>Extraction kit:</th>
-      <td><?php echo $dna_extraction->getExtractionKitId() ?></td>
-    </tr>
-    <tr>
-      <th>Dna concentration:</th>
-      <td><?php echo $dna_extraction->getDnaConcentrationId() ?></td>
-    </tr>
-    <tr>
-      <th>Aliquots:</th>
-      <td><?php echo $dna_extraction->getAliquots() ?></td>
-    </tr>
-    <tr>
-      <th>Remarks:</th>
-      <td><?php echo $dna_extraction->getRemarks() ?></td>
-    </tr>
-    <tr>
-      <th>Created at:</th>
-      <td><?php echo $dna_extraction->getCreatedAt() ?></td>
-    </tr>
-    <tr>
-      <th>Updated at:</th>
-      <td><?php echo $dna_extraction->getUpdatedAt() ?></td>
-    </tr>
-  </tbody>
-</table>
+<?php use_helper('Date'); ?>
 
-<hr />
+<?php slot('main_header') ?>
+<span>
+	<?php echo $dnaExtraction->getNumber() ?>
+</span>
+<?php include_partial('global/back_header_action', array('module' => 'dna_extraction')) ?>
+<?php include_partial('global/edit_header_action', array('module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
+<?php include_partial('global/delete_header_action', array('module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
+<?php end_slot() ?>
 
-<a href="<?php echo url_for('dna_extraction/edit?id='.$dna_extraction->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('dna_extraction/index') ?>">List</a>
+<div id="main_view_show">
+	<div id="object_data_list">
+		<dl>
+			<dt>Strain:</dt>
+			<dd><?php echo link_to($dnaExtraction->getStrain()->getNumber(), "@strain_show?id={$dnaExtraction->getStrain()->getId()}") ?></dd>
+			<dt>Arrival date:</dt>
+			<dd><?php echo format_date($dnaExtraction->getArrivalDate(), 'p') ?></dd>
+			<dt>Extraction date:</dt>
+			<dd><?php echo format_date($dnaExtraction->getExtractionDate(), 'p') ?></dd>
+			<dt>Extraction kit:</dt>
+			<dd><?php echo $dnaExtraction->getExtractionKit()->getName() ?></dd>
+			<dt>Concentration:</dt>
+			<dd><?php echo $dnaExtraction->getConcentration() ?>&nbsp;<?php echo sfConfig::get('app_concentration_unit') ?></dd>
+			<dt>260:280 quality:</dt>
+			<dd><?php echo $dnaExtraction->get260280Ratio() ?></dd>
+			<dt>260:230 quality:</dt>
+			<dd><?php echo $dnaExtraction->get260230Ratio() ?></dd>
+			<dt>Aliquots:</dt>
+			<dd><?php echo $dnaExtraction->getAliquots() ?></dd>
+			<dt>Is public:</dt>
+			<dd><?php echo $dnaExtraction->getFormattedIsPublic() ?></dd>
+			<dt>GenBank link:</dt>
+			<dd><?php echo $dnaExtraction->getGenbankLink() ?></dd>
+			<dt>Remarks:</dt>
+			<dd><?php echo $dnaExtraction->getRemarks() ?></dd>
+		</dl>
+	</div>
+	
+	<div class="clear"></div>
+</div>

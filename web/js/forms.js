@@ -162,6 +162,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	
 	// Add a search box for Location in Sample form
 	var locationSearchBoxDefault = "Type a location...";
 	$('#sample_location_search').focus(function(){
@@ -199,6 +200,7 @@ $(document).ready(function(){
 		},
 	});
 	
+	
 	// Add a search box for Sample in Strain form
 	var sampleSearchBoxDefault = "Type a sample code...";
 	$('#strain_sample_search').focus(function(){
@@ -234,4 +236,39 @@ $(document).ready(function(){
 		},
 	});
 	
+	
+	// Add a search box for Strain in DnaExtraction form
+	var strainSearchBoxDefault = "Type a strain code...";
+	$('#dna_extraction_strain_search').focus(function(){
+		if ( $(this).attr("value") === strainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#dna_extraction_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", strainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#dna_extraction_strain_search').val() !== strainSearchBoxDefault ) {
+		$('#dna_extraction_strain_search').css("color", "black");
+		$('#dna_extraction_strain_search').css("font-size", "12px");
+	}
+	
+	$("#dna_extraction_strain_search").autocomplete({
+		minLength: 3,
+		source: function(term, add) {
+			var url = $('a.dna_extraction_strain_numbers_url').attr('href') + $("#dna_extraction_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#dna_extraction_strain_search" ).val( ui.item.label );
+			$( "#dna_extraction_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
 });

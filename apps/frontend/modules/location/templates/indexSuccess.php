@@ -13,7 +13,7 @@
 			<th><?php echo link_to('Country', 'location/index?sort_column=Country.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Region', 'location/index?sort_column=Region.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Island', 'location/index?sort_column=Island.name&sort_direction='.$sortDirection) ?></th>
-			<th>Samples</th>
+			<th class="object_count">Samples</th>
 			<th></th>
 		</tr>
 

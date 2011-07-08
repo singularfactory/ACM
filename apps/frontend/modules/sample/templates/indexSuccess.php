@@ -15,7 +15,7 @@
 			<th><?php echo link_to('Location', 'sample/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Collector', 'sample/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Date', 'sample/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
-			<th>Strains</th>
+			<th class="object_count">Strains</th>
 			<th></th>
 		</tr>
 
