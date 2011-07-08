@@ -91,10 +91,10 @@
 			</dd>
 			
 			<dt>Transfer interval:</dt>
-			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
+			<dd><?php echo $strain->getTransferInterval() ?></dd>
 			
 			<dt>Observation:</dt>
-			<dd><?php echo $strain->getFormattedObservation() ?></dd>
+			<dd><?php echo $strain->getObservation() ?></dd>
 
 			<?php if ( $strain->getIsolator()->getName() ): ?>
 			<dt>Isolator:</dt>
@@ -112,7 +112,7 @@
 			<?php endif; ?>
 
 			<dt>Citations:</dt>
-			<dd><?php echo $strain->getFormattedCitations() ?></dd>
+			<dd><?php echo $strain->getCitations() ?></dd>
 			
 			<dt>Remarks:</dt>
 			<dd><?php echo $strain->getRemarks() ?></dd>

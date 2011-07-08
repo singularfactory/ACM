@@ -20,7 +20,7 @@ class GrowthMedium extends BaseGrowthMedium {
 	}
 	
 	public function getFormattedLink() {
-		if ( $link = $this->getLink() ) {
+		if ( $link = $this->_get('link') ) {
 			return $link;
 		}
 		

@@ -21,7 +21,7 @@
 			<dt>Extraction kit:</dt>
 			<dd><?php echo $dnaExtraction->getExtractionKit()->getName() ?></dd>
 			<dt>Concentration:</dt>
-			<dd><?php echo $dnaExtraction->getConcentration() ?>&nbsp;<?php echo sfConfig::get('app_concentration_unit') ?></dd>
+			<dd><?php echo $dnaExtraction->getFormattedConcentration() ?></dd>
 			<dt>260:280 quality:</dt>
 			<dd><?php echo $dnaExtraction->get260280Ratio() ?></dd>
 			<dt>260:230 quality:</dt>

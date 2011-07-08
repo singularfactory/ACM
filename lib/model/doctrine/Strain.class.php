@@ -75,31 +75,25 @@ class Strain extends BaseStrain {
 		return 'no';
 	}
 	
-	public function getFormattedCitations() {
-		if ( $citations = $this->getCitations() ) {
+	public function getCitations() {
+		if ( $citations = $this->_get('citations') ) {
 			return $citations;
 		}
-		else {
-			return sfConfig::get('app_no_data_message');
-		}
+		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function getFormattedTransferInterval() {
-		if ( $transferInterval = $this->getTransferInterval() ) {
+	public function getTransferInterval() {
+		if ( $transferInterval = $this->_get('transfer_interval') ) {
 			return $transferInterval;
 		}
-		else {
-			return sfConfig::get('app_no_data_message');
-		}
+		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function getFormattedObservation() {
-		if ( $observation = $this->getObservation() ) {
+	public function getObservation() {
+		if ( $observation = $this->_get('observation') ) {
 			return $observation;
 		}
-		else {
-			return sfConfig::get('app_no_data_message');
-		}
+		return sfConfig::get('app_no_data_message');
 	}
 	
 }
