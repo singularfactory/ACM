@@ -260,27 +260,19 @@ ExtractionKit:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
 
-DnaConcentration:
-  columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    amount:             { type: decimal, notnull: true }
-    260_280_ratio:      { type: decimal, notnull: true }
-    260_230_ratio:      { type: decimal, notnull: true }
-    dna_extraction_id:  { type: integer, notnull: true }
-  relations:
-    DnaExtraction:  { foreignAlias: Concentration, foreignType: one }
-
 DnaExtraction:
   columns:
     id:                   { type: integer, primary: true, autoincrement: true }
-    genbank_link:         { type: string(255) }
     strain_id:            { type: integer, notnull: true }
     is_public:            { type: boolean, notnull: true, default: false }
     arrival_date:         { type: date, notnull: true }
-    extraction_date:      { type: date, notnull: true }
+    extraction_date:      { type: date }
     extraction_kit_id:    { type: integer, notnull: true }
-    dna_concentration_id: { type: integer, notnull: true }
+    concentration:        { type: decimal }
+    260_280_ratio:        { type: decimal }
+    260_230_ratio:        { type: decimal }
     aliquots:             { type: integer }
+    genbank_link:         { type: string(255) }
     remarks:              { type: string }
   relations:
     Strain:               { foreignAlias: DnaExtractions }
