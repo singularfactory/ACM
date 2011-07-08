@@ -215,3 +215,5 @@ form { margin: 0; padding: 0; }
 
 #subsections_header a:link, #subsections_header a:visited { font-weight: lighter; }
 #subsections_header span.subsection_separator { color: #999; font-size: 12px; padding: 0px 5px; }
+
+#sf_admin_container #dna_polymerase_name { width: 200px; }

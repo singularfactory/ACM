@@ -1,6 +1,6 @@
 <ul>
-	<?php $routes = array('extraction_kit') ?>
-	<?php $subsectionNames = array( $routes[0] => 'Extraction kits') ?>
+	<?php $routes = array('extraction_kit', 'dna_polymerase') ?>
+	<?php $subsectionNames = array($routes[0] => 'Extraction kits', $routes[1] => 'Polymerase kits') ?>
 	
 	<?php foreach ( $routes as $routeValue ): ?>
 		<li>

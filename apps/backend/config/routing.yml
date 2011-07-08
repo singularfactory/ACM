@@ -1,3 +1,12 @@
+dna_polymerase:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                DnaPolymerase
+    module:               dna_polymerase
+    prefix_path:          /admin/dna_polymerase
+    column:               id
+    with_wildcard_routes: true
+
 extraction_kit:
   class: sfDoctrineRouteCollection
   options:
