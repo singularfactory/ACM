@@ -278,12 +278,6 @@ DnaExtraction:
     Strain:               { foreignAlias: DnaExtractions }
     ExtractionKit:        { foreignAlias: DnaExtractions }
 
-DnaPrimer:
-  columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    forward: { type: string(10), notnull: true }
-    reverse: { type: string(10), notnull: true }
-
 DnaPolymerase:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
@@ -322,7 +316,8 @@ Pcr:
   columns:
     id:                 { type: integer, primary: true, autoincrement: true }
     dna_extraction_id:  { type: integer, notnull: true }
-    dna_primer_id:      { type: integer, notnull: true }
+    forward_primer:     { type: string(10), notnull: true }
+    reverse_primer:     { type: string(10), notnull: true }
     dna_polymerase_id:  { type: integer, notnull: true }
     concentration:      { type: decimal }
     260_280_ratio:      { type: decimal }
@@ -331,5 +326,4 @@ Pcr:
     remarks:            { type: string }
   relations:
     DnaExtraction:      { foreignAlias: Pcr }
-    DnaPrimer:          { foreignAlias: Pcr }
     DnaPolymerase:      { foreignAlias: Pcr }

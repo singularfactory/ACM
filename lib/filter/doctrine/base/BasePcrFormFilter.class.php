@@ -14,7 +14,8 @@ abstract class BasePcrFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'dna_extraction_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaExtraction'), 'add_empty' => true)),
-      'dna_primer_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'), 'add_empty' => true)),
+      'forward_primer'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'reverse_primer'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'dna_polymerase_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPolymerase'), 'add_empty' => true)),
       'concentration'     => new sfWidgetFormFilterInput(),
       '260_280_ratio'     => new sfWidgetFormFilterInput(),
@@ -27,7 +28,8 @@ abstract class BasePcrFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'dna_extraction_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DnaExtraction'), 'column' => 'id')),
-      'dna_primer_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DnaPrimer'), 'column' => 'id')),
+      'forward_primer'    => new sfValidatorPass(array('required' => false)),
+      'reverse_primer'    => new sfValidatorPass(array('required' => false)),
       'dna_polymerase_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('DnaPolymerase'), 'column' => 'id')),
       'concentration'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       '260_280_ratio'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
@@ -57,7 +59,8 @@ abstract class BasePcrFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                => 'Number',
       'dna_extraction_id' => 'ForeignKey',
-      'dna_primer_id'     => 'ForeignKey',
+      'forward_primer'    => 'Text',
+      'reverse_primer'    => 'Text',
       'dna_polymerase_id' => 'ForeignKey',
       'concentration'     => 'Number',
       '260_280_ratio'     => 'Number',

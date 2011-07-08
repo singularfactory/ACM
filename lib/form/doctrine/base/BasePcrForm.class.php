@@ -17,7 +17,8 @@ abstract class BasePcrForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'dna_extraction_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaExtraction'), 'add_empty' => false)),
-      'dna_primer_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'), 'add_empty' => false)),
+      'forward_primer'    => new sfWidgetFormInputText(),
+      'reverse_primer'    => new sfWidgetFormInputText(),
       'dna_polymerase_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPolymerase'), 'add_empty' => false)),
       'concentration'     => new sfWidgetFormInputText(),
       '260_280_ratio'     => new sfWidgetFormInputText(),
@@ -31,7 +32,8 @@ abstract class BasePcrForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'dna_extraction_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DnaExtraction'))),
-      'dna_primer_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'))),
+      'forward_primer'    => new sfValidatorString(array('max_length' => 10)),
+      'reverse_primer'    => new sfValidatorString(array('max_length' => 10)),
       'dna_polymerase_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPolymerase'))),
       'concentration'     => new sfValidatorNumber(array('required' => false)),
       '260_280_ratio'     => new sfValidatorNumber(array('required' => false)),
