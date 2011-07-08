@@ -49,7 +49,7 @@ Location:
     Country:    { foreignAlias: Locations }
     Region:     { foreignAlias: Locations }
     Island:     { foreignAlias: Locations }
-    
+
 Environment:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
@@ -81,7 +81,7 @@ DetailedPicture:
     sample_id:    { type: integer, notnull: true }
   relations:
     Sample:     { foreignAlias: DetailedPictures, onDelete: cascade }
-    
+
 MicroscopicPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
@@ -164,7 +164,7 @@ CryopreservationMethod:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
     name:     { type: string(127), notnull: true }
-    
+
 TaxonomicClass:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
@@ -184,7 +184,7 @@ Authority:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
-  
+
 GrowthMedium:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
@@ -193,7 +193,7 @@ GrowthMedium:
     link:         { type: string(1024), notnull: true }
   relations:
       Strains:    { foreignAlias: Strains, class: Strain, local: growth_medium_id, foreign: strain_id, refClass: StrainGrowthMediums }
-    
+
 StrainRelative:
   columns:
     id:         { type: integer, primary: true, autoincrement: true }
@@ -277,3 +277,59 @@ DnaExtraction:
   relations:
     Strain:               { foreignAlias: DnaExtractions }
     ExtractionKit:        { foreignAlias: DnaExtractions }
+
+DnaPrimer:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    forward: { type: string(10), notnull: true }
+    reverse: { type: string(10), notnull: true }
+
+DnaPolymerase:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string(127), notnull: true }
+
+PcrGel:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    ratio:    { type: decimal }
+    pcr_id:   { type: integer, notnull: true }
+    is_valid: { type: boolean, notnull: true, default: false }
+  relations:
+    Pcr:      { foreignAlias: Gel }
+
+DnaSequenceReaction:
+  columns:
+    id:               { type: integer, primary: true, autoincrement: true }
+    primer:           { type: string(10), notnull: true }
+    is_valid:         { type: boolean, notnull: true, default: false }
+    dna_sequence_id:  { type: integer, notnull: true }
+  relations:
+    DnaSequence:      { foreignAlias: Reaction }
+
+DnaSequence:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    pcr_id:   { type: integer, notnull: true }
+    gen:      { type: string(127), notnull: true }
+    date:     { type: date, notnull: true }
+    is_valid: { type: boolean, notnull: true, default: false }
+    remarks:  { type: string }
+  relations:
+    Pcr:      { foreignAlias: Sequence, foreignType: one }
+
+Pcr:
+  columns:
+    id:                 { type: integer, primary: true, autoincrement: true }
+    dna_extraction_id:  { type: integer, notnull: true }
+    dna_primer_id:      { type: integer, notnull: true }
+    dna_polymerase_id:  { type: integer, notnull: true }
+    concentration:      { type: decimal }
+    260_280_ratio:      { type: decimal }
+    260_230_ratio:      { type: decimal }
+    can_be_sequenced:   { type: boolean, notnull: true, default: false }
+    remarks:            { type: string }
+  relations:
+    DnaExtraction:      { foreignAlias: Pcr }
+    DnaPrimer:          { foreignAlias: Pcr }
+    DnaPolymerase:      { foreignAlias: Pcr }

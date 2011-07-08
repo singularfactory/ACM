@@ -1,0 +1,4 @@
+DnaPolymerase:
+  kapa:	      { name: "KAPA2G Robust Hot Start" }
+  kapa_taq:	  { name: "KAPATaq DNA Polymerase" }
+  green_taq:  { name: "GreenTaq DNA Polymerase" }
