@@ -87,7 +87,7 @@ class dna_extractionActions extends MyActions {
 	
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastDnaExtraction = $this->getUser()->getAttribute('dna_extraction.last_object_created') ) {
-			$dnaExtraction = new DnaExtractionForm();
+			$dnaExtraction = new DnaExtraction();
 			
 			$dnaExtraction->setStrainId($lastDnaExtraction->getStrainId());
 			$dnaExtraction->setExtractionKitId($lastDnaExtraction->getExtractionKitId());
@@ -173,6 +173,5 @@ class dna_extractionActions extends MyActions {
 		}
 		
 		$this->getUser()->setFlash('notice', 'The information on this DNA extraction has some errors you need to fix', false);
-		
 	}
 }

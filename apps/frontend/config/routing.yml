@@ -148,6 +148,22 @@ dna_extraction_search_pagination:
 
 
 ###
+# Pcr model related routes
+###
+pcr:
+  class:   sfDoctrineRouteCollection
+  options: { model: DnaExtraction }
+  actions: [create, edit, update, delete, show]
+
+pcr_new:
+  url:          /pcr/new/:dna_extraction
+  class:        sfDoctrineRoute
+  param:        { module: pcr, action: new }
+  requirements: { sf_method: [get, head] }
+  options:      { model: Pcr, type: object }
+
+
+###
 # sfGuardUser model related routes
 ###
 profile:

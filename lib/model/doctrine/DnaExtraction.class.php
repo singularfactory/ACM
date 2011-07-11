@@ -20,7 +20,6 @@ class DnaExtraction extends BaseDnaExtraction {
 	}
 	
 	public function getNbPcr() {
-		return 0;
 		return Doctrine_Query::create()
 			->from('PCR pcr')
 			->where('pcr.dna_extraction_id = ?', $this->getId())
@@ -69,7 +68,7 @@ class DnaExtraction extends BaseDnaExtraction {
 		}
 	}
 	
-	public function getGenbankLink() {
+	public function getFormattedGenbankLink() {
 		if ( $link = $this->_get('genbank_link') ) {
 			return $link;
 		}

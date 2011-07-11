@@ -36,5 +36,5 @@
 <?php endif ?>
 
 <?php else: ?>
-	<p>There are no growth_mediums to show.</p>
+	<p>There are no growth mediums to show.</p>
 <?php endif; ?>

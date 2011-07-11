@@ -67,6 +67,12 @@ td.link { width: 300px; }
 td.dna_extraction_code { width: 130px; }
 td.extraction_date { width: 105px; text-align: center; }
 td.extraction_kit { width: 120px; }
-td.concentration { width: 160px; text-align: center; }
+th.concentration, td.concentration { width: 155px; text-align: center; }
 th.aliquots, td.aliquots { width: 60px; text-align: center; }
-td.sequence_availability { width: 145px; }
+th.sequence_availability, td.sequence_availability { width: 135px; text-align: center; }
+
+th.pcr_concentration, td.pcr_concentration { width: 110px; text-align: center; }
+th.quality_ratio, td.quality_ratio { width: 100px; text-align: center; }
+th.dna_primer, td.dna_primer { width: 100px; text-align: center; }
+th.can_be_sequenced, td.can_be_sequenced { text-align: center; }
+th.dna_polymerase, td.dna_polymerase { width: 180px; }

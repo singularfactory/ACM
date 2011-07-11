@@ -30,6 +30,8 @@ all:
     
     # DNA lab related constants
     concentration_unit: ng/µl #ng/&micro;l
+    forward_dna_primer_direction: forward
+    reverse_dna_primer_direction: reverse
     
     # Pictures and thumbnails management constants
     pictures_dir:       /uploads

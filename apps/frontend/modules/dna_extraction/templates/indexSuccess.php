@@ -3,7 +3,7 @@
 <?php slot('main_header') ?>
 <span>All DNA extractions</span>
 	<?php include_partial('global/search_box_header_action', array('route' => '@dna_extraction_search?criteria=')) ?>
-<?php include_partial('global/new_header_action', array('message' => 'Add a new extraction', 'route' => '@dna_extraction_new')) ?>
+	<?php include_partial('global/new_header_action', array('message' => 'Add a new extraction', 'route' => '@dna_extraction_new')) ?>
 <?php end_slot() ?>
 
 <?php if ( $pager->count() ): ?>
