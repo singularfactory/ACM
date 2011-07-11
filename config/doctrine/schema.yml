@@ -283,6 +283,30 @@ DnaPolymerase:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
 
+DnaPrimer:
+  columns:
+    id:         { type: integer, primary: true, autoincrement: true }
+    strand:     { type: string(10), notnull: true }
+    direction:  { type: enum, values: [forward, reverse] }
+
+Pcr:
+  columns:
+    id:                     { type: integer, primary: true, autoincrement: true }
+    dna_extraction_id:      { type: integer, notnull: true }
+    forward_dna_primer_id:  { type: integer, notnull: true }
+    reverse_dna_primer_id:  { type: integer, notnull: true }
+    dna_polymerase_id:      { type: integer, notnull: true }
+    concentration:          { type: decimal }
+    260_280_ratio:          { type: decimal }
+    260_230_ratio:          { type: decimal }
+    can_be_sequenced:       { type: boolean, notnull: true, default: false }
+    remarks:                { type: string }
+  relations:
+    DnaExtraction:          { foreignAlias: Pcr }
+    DnaPolymerase:          { foreignAlias: Pcr }
+    ForwardPrimer:          { class: DnaPrimer, local: forward_dna_primer_id, foreignAlias: Pcr }
+    ReversePrimer:          { class: DnaPrimer, local: reverse_dna_primer_id, foreignAlias: Pcr }
+
 PcrGel:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
@@ -311,19 +335,3 @@ DnaSequence:
     remarks:  { type: string }
   relations:
     Pcr:      { foreignAlias: Sequence, foreignType: one }
-
-Pcr:
-  columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    dna_extraction_id:  { type: integer, notnull: true }
-    forward_primer:     { type: string(10), notnull: true }
-    reverse_primer:     { type: string(10), notnull: true }
-    dna_polymerase_id:  { type: integer, notnull: true }
-    concentration:      { type: decimal }
-    260_280_ratio:      { type: decimal }
-    260_230_ratio:      { type: decimal }
-    can_be_sequenced:   { type: boolean, notnull: true, default: false }
-    remarks:            { type: string }
-  relations:
-    DnaExtraction:      { foreignAlias: Pcr }
-    DnaPolymerase:      { foreignAlias: Pcr }

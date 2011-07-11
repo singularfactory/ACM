@@ -7,8 +7,8 @@
  * 
  * @property integer $id
  * @property integer $dna_extraction_id
- * @property string $forward_primer
- * @property string $reverse_primer
+ * @property integer $forward_dna_primer_id
+ * @property integer $reverse_dna_primer_id
  * @property integer $dna_polymerase_id
  * @property decimal $concentration
  * @property decimal $260_280_ratio
@@ -17,37 +17,43 @@
  * @property string $remarks
  * @property DnaExtraction $DnaExtraction
  * @property DnaPolymerase $DnaPolymerase
+ * @property DnaPrimer $ForwardPrimer
+ * @property DnaPrimer $ReversePrimer
  * @property Doctrine_Collection $Gel
  * @property DnaSequence $Sequence
  * 
- * @method integer             getId()                Returns the current record's "id" value
- * @method integer             getDnaExtractionId()   Returns the current record's "dna_extraction_id" value
- * @method string              getForwardPrimer()     Returns the current record's "forward_primer" value
- * @method string              getReversePrimer()     Returns the current record's "reverse_primer" value
- * @method integer             getDnaPolymeraseId()   Returns the current record's "dna_polymerase_id" value
- * @method decimal             getConcentration()     Returns the current record's "concentration" value
- * @method decimal             get260280Ratio()       Returns the current record's "260_280_ratio" value
- * @method decimal             get260230Ratio()       Returns the current record's "260_230_ratio" value
- * @method boolean             getCanBeSequenced()    Returns the current record's "can_be_sequenced" value
- * @method string              getRemarks()           Returns the current record's "remarks" value
- * @method DnaExtraction       getDnaExtraction()     Returns the current record's "DnaExtraction" value
- * @method DnaPolymerase       getDnaPolymerase()     Returns the current record's "DnaPolymerase" value
- * @method Doctrine_Collection getGel()               Returns the current record's "Gel" collection
- * @method DnaSequence         getSequence()          Returns the current record's "Sequence" value
- * @method Pcr                 setId()                Sets the current record's "id" value
- * @method Pcr                 setDnaExtractionId()   Sets the current record's "dna_extraction_id" value
- * @method Pcr                 setForwardPrimer()     Sets the current record's "forward_primer" value
- * @method Pcr                 setReversePrimer()     Sets the current record's "reverse_primer" value
- * @method Pcr                 setDnaPolymeraseId()   Sets the current record's "dna_polymerase_id" value
- * @method Pcr                 setConcentration()     Sets the current record's "concentration" value
- * @method Pcr                 set260280Ratio()       Sets the current record's "260_280_ratio" value
- * @method Pcr                 set260230Ratio()       Sets the current record's "260_230_ratio" value
- * @method Pcr                 setCanBeSequenced()    Sets the current record's "can_be_sequenced" value
- * @method Pcr                 setRemarks()           Sets the current record's "remarks" value
- * @method Pcr                 setDnaExtraction()     Sets the current record's "DnaExtraction" value
- * @method Pcr                 setDnaPolymerase()     Sets the current record's "DnaPolymerase" value
- * @method Pcr                 setGel()               Sets the current record's "Gel" collection
- * @method Pcr                 setSequence()          Sets the current record's "Sequence" value
+ * @method integer             getId()                    Returns the current record's "id" value
+ * @method integer             getDnaExtractionId()       Returns the current record's "dna_extraction_id" value
+ * @method integer             getForwardDnaPrimerId()    Returns the current record's "forward_dna_primer_id" value
+ * @method integer             getReverseDnaPrimerId()    Returns the current record's "reverse_dna_primer_id" value
+ * @method integer             getDnaPolymeraseId()       Returns the current record's "dna_polymerase_id" value
+ * @method decimal             getConcentration()         Returns the current record's "concentration" value
+ * @method decimal             get260280Ratio()           Returns the current record's "260_280_ratio" value
+ * @method decimal             get260230Ratio()           Returns the current record's "260_230_ratio" value
+ * @method boolean             getCanBeSequenced()        Returns the current record's "can_be_sequenced" value
+ * @method string              getRemarks()               Returns the current record's "remarks" value
+ * @method DnaExtraction       getDnaExtraction()         Returns the current record's "DnaExtraction" value
+ * @method DnaPolymerase       getDnaPolymerase()         Returns the current record's "DnaPolymerase" value
+ * @method DnaPrimer           getForwardPrimer()         Returns the current record's "ForwardPrimer" value
+ * @method DnaPrimer           getReversePrimer()         Returns the current record's "ReversePrimer" value
+ * @method Doctrine_Collection getGel()                   Returns the current record's "Gel" collection
+ * @method DnaSequence         getSequence()              Returns the current record's "Sequence" value
+ * @method Pcr                 setId()                    Sets the current record's "id" value
+ * @method Pcr                 setDnaExtractionId()       Sets the current record's "dna_extraction_id" value
+ * @method Pcr                 setForwardDnaPrimerId()    Sets the current record's "forward_dna_primer_id" value
+ * @method Pcr                 setReverseDnaPrimerId()    Sets the current record's "reverse_dna_primer_id" value
+ * @method Pcr                 setDnaPolymeraseId()       Sets the current record's "dna_polymerase_id" value
+ * @method Pcr                 setConcentration()         Sets the current record's "concentration" value
+ * @method Pcr                 set260280Ratio()           Sets the current record's "260_280_ratio" value
+ * @method Pcr                 set260230Ratio()           Sets the current record's "260_230_ratio" value
+ * @method Pcr                 setCanBeSequenced()        Sets the current record's "can_be_sequenced" value
+ * @method Pcr                 setRemarks()               Sets the current record's "remarks" value
+ * @method Pcr                 setDnaExtraction()         Sets the current record's "DnaExtraction" value
+ * @method Pcr                 setDnaPolymerase()         Sets the current record's "DnaPolymerase" value
+ * @method Pcr                 setForwardPrimer()         Sets the current record's "ForwardPrimer" value
+ * @method Pcr                 setReversePrimer()         Sets the current record's "ReversePrimer" value
+ * @method Pcr                 setGel()                   Sets the current record's "Gel" collection
+ * @method Pcr                 setSequence()              Sets the current record's "Sequence" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -68,15 +74,13 @@ abstract class BasePcr extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('forward_primer', 'string', 10, array(
-             'type' => 'string',
+        $this->hasColumn('forward_dna_primer_id', 'integer', null, array(
+             'type' => 'integer',
              'notnull' => true,
-             'length' => 10,
              ));
-        $this->hasColumn('reverse_primer', 'string', 10, array(
-             'type' => 'string',
+        $this->hasColumn('reverse_dna_primer_id', 'integer', null, array(
+             'type' => 'integer',
              'notnull' => true,
-             'length' => 10,
              ));
         $this->hasColumn('dna_polymerase_id', 'integer', null, array(
              'type' => 'integer',
@@ -112,6 +116,14 @@ abstract class BasePcr extends sfDoctrineRecord
 
         $this->hasOne('DnaPolymerase', array(
              'local' => 'dna_polymerase_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('DnaPrimer as ForwardPrimer', array(
+             'local' => 'forward_dna_primer_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('DnaPrimer as ReversePrimer', array(
+             'local' => 'reverse_dna_primer_id',
              'foreign' => 'id'));
 
         $this->hasMany('PcrGel as Gel', array(
