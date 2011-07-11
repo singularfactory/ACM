@@ -1,0 +1,32 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:            DnaPrimer
+    theme:                  admin
+    non_verbose_templates:  true
+    with_show:              false
+    singular:               ~
+    plural:                 ~
+    route_prefix:           dna_primer
+    with_doctrine_route:    true
+    actions_base_class:     MyActions
+    css:                    false
+
+    config:
+      actions: ~
+      fields: ~
+      list:
+        title: DNA primers
+        display: [strand, direction, updated_at]
+        fields:
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [strand, direction]
+      form: ~
+      edit:
+        title: Edit "%%strand%%"
+      new:
+        title: Add a new primer
