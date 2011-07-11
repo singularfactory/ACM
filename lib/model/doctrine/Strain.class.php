@@ -75,21 +75,21 @@ class Strain extends BaseStrain {
 		return 'no';
 	}
 	
-	public function getCitations() {
+	public function getFormattedCitations() {
 		if ( $citations = $this->_get('citations') ) {
 			return $citations;
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function getTransferInterval() {
+	public function getFormattedTransferInterval() {
 		if ( $transferInterval = $this->_get('transfer_interval') ) {
 			return $transferInterval;
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function getObservation() {
+	public function getFormattedObservation() {
 		if ( $observation = $this->_get('observation') ) {
 			return $observation;
 		}
