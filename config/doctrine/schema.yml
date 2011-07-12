@@ -316,7 +316,7 @@ PcrGel:
     pcr_id:   { type: integer, notnull: true }
     is_valid: { type: boolean, notnull: true, default: false }
   relations:
-    Pcr:      { foreignAlias: Gel }
+    Pcr:      { foreignAlias: Gel, onDelete: cascade }
 
 DnaSequenceReaction:
   columns:
