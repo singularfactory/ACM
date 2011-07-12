@@ -217,8 +217,6 @@ class Version41 extends Doctrine_Migration_Base {
 		array(
 			0 => 'id',
 			),
-			'collate' => '',
-			'charset' => '',
 			));
 		$this->dropTable('dna_concentration');
 		$this->dropTable('dna_extraction');
