@@ -10,6 +10,14 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class PcrGel extends BasePcrGel
-{
+class PcrGel extends BasePcrGel {
+	
+	public function getFormattedIsValid() {
+		if ( $this->_get('is_valid') == 0 ) {
+			return 'no';
+		}
+		else {
+			return 'yes';
+		}
+	}
 }

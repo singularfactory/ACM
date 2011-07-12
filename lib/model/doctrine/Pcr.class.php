@@ -11,6 +11,14 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Pcr extends BasePcr {
+	
+	public function getNbGel() {
+		return Doctrine_Query::create()
+			->from('PcrGel gel')
+			->where('gel.pcr_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getConcentration() {
 		if ( $concentration = $this->_get('concentration') ) {
 			return $concentration;
