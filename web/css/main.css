@@ -16,16 +16,16 @@ body {
 /**
 * DEFAULT STYLES
 */
-a { text-decoration: underline; padding: 1px 5px; }
+a { text-decoration: underline; padding: 1px 2px; }
 a:link { color: #2aa2f8; }
 a:visited { color: #2aa2f8; }
 a:hover {
-	color: #ffffff; background-color: #2aa2f8; text-decoration: none; padding: 1px 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-ms-border-radius: 5px;
-	border-radius: 5px;
+	color: #ffffff; background-color: #2aa2f8; text-decoration: none; padding: 1px 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
 }
 a.page_jump { font-size: 10px; padding: 0px; margin: 0px; margin-left: 5px; }
 a.page_jump:hover { background: transparent; color: #2aa2f8; }
