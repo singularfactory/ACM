@@ -64,7 +64,8 @@ abstract class BaseIsland extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Region', array(
              'local' => 'region_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'cascade'));
 
         $this->hasMany('Location as Locations', array(
              'local' => 'id',

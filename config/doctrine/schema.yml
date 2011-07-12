@@ -16,7 +16,7 @@ Region:
     name:       { type: string(60), notnull: true }
     country_id: { type: integer, notnull: true }
   relations:
-    Country:    { foreignAlias: Regions }
+    Country:    { foreignAlias: Regions, onDelete: cascade }
 
 Island:
   columns:
@@ -25,7 +25,7 @@ Island:
     name:       { type: string(60), notnull: true }
     region_id:  { type: integer, notnull: true }
   relations:
-    Region:    { foreignAlias: Islands }
+    Region:    { foreignAlias: Islands, onDelete: cascade }
 
 LocationPicture:
   columns:

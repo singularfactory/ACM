@@ -67,7 +67,8 @@ abstract class BaseRegion extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Country', array(
              'local' => 'country_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'cascade'));
 
         $this->hasMany('Island as Islands', array(
              'local' => 'id',
