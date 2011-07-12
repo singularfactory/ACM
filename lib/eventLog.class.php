@@ -16,7 +16,7 @@ class EventLog {
 		// Get action information
 		$module = $notifier->getModuleName();
 		$action = $notifier->getActionName();
-
+		
 		// Generate the description for the event
 		switch ( $action ) {
 			case 'create':

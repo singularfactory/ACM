@@ -7,12 +7,8 @@ class Version49 extends Doctrine_Migration_Base {
 		$this->dropForeignKey('pcr', 'pcr_dna_primer_id_dna_primer_id');
 		$this->removeColumn('pcr', 'dna_primer_id');
 		$this->dropTable('dna_primer');
-		$this->addColumn('pcr', 'forward_primer', 'string', '10', array(
-			'notnull' => '1',
-			));
-		$this->addColumn('pcr', 'reverse_primer', 'string', '10', array(
-			'notnull' => '1',
-			));
+		$this->addColumn('pcr', 'forward_primer', 'string', '10', array('notnull' => '1'));
+		$this->addColumn('pcr', 'reverse_primer', 'string', '10', array('notnull' => '1'));
 	}
 
 	public function down() {
@@ -57,12 +53,8 @@ class Version49 extends Doctrine_Migration_Base {
 		array(
 			0 => 'id',
 			),
-			'collate' => '',
-			'charset' => '',
 			));
-		$this->addColumn('pcr', 'dna_primer_id', 'integer', '8', array(
-			'notnull' => '1',
-			));
+		$this->addColumn('pcr', 'dna_primer_id', 'integer', '8', array('notnull' => '1'));
 		$this->removeColumn('pcr', 'forward_primer');
 		$this->removeColumn('pcr', 'reverse_primer');
 		$this->createForeignKey('pcr', 'pcr_dna_primer_id_dna_primer_id', array(
@@ -70,6 +62,7 @@ class Version49 extends Doctrine_Migration_Base {
 			'local' => 'dna_primer_id',
 			'foreign' => 'id',
 			'foreignTable' => 'dna_primer',
-			));
+		));
+		$this->addIndex('pcr', 'pcr_dna_primer_id', array('fields' => array(0 => 'dna_primer_id')));
 	}
 }
