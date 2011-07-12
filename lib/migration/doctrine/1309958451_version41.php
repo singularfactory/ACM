@@ -218,6 +218,13 @@ class Version41 extends Doctrine_Migration_Base {
 			0 => 'id',
 			),
 			));
+		$this->createForeignKey('dna', 'dna_strain_id_strain_id', array(
+			'name' => 'dna_strain_id_strain_id',
+			'local' => 'strain_id',
+			'foreign' => 'id',
+			'foreignTable' => 'strain',
+		));
+		$this->addIndex('dna', 'dna_strain_id', array('fields' => array(0 => 'strain_id',),));
 		$this->dropTable('dna_concentration');
 		$this->dropTable('dna_extraction');
 		$this->dropTable('extraction_kit');
