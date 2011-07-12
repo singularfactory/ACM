@@ -13,6 +13,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'number'     => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'ratio'      => new sfWidgetFormFilterInput(),
       'pcr_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'), 'add_empty' => true)),
       'is_valid'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
@@ -21,6 +22,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'number'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'ratio'      => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'pcr_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Pcr'), 'column' => 'id')),
       'is_valid'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
@@ -46,6 +48,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'         => 'Number',
+      'number'     => 'Number',
       'ratio'      => 'Number',
       'pcr_id'     => 'ForeignKey',
       'is_valid'   => 'Boolean',

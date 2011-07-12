@@ -29,6 +29,17 @@ class PcrForm extends BasePcrForm {
 			'query' => DnaPrimerTable::getInstance()->findReversePrimersQuery(),
 		)));
 		
+		// Create an embedded form to add or edit pictures and relatives
+		$this->embedRelations(array(
+			'Gel' => array(
+				'considerNewFormEmptyFields' => array('number', 'ratio'),
+				'newFormLabel' => 'Gel electrophoresis',
+				'multipleNewForms' => true,
+				'newFormsInitialCount' => 1,
+				'newRelationButtonLabel' => 'Add another gel',
+			),
+		));
+		
 		// Configure labels
 		$this->widgetSchema->setLabel('dna_polymerase_id', 'DNA polymerase kit');
 		$this->widgetSchema->setLabel('forward_dna_primer_id', 'Forward DNA primer');

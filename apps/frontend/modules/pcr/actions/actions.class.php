@@ -101,7 +101,6 @@ class pcrActions extends MyActions {
 			$pcr = null;
 			try {
 				$pcr = $form->save();
-				
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'PCR test created successfully. Now you can add another one';
 					$url = '@pcr_new?dna_extraction='.$pcr->getDnaExtractionId();

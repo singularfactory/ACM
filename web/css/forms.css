@@ -92,6 +92,16 @@ div.model_text_input_list div.model_text_input_value input[type=checkbox] { marg
 div.model_text_input_name { padding: 1px 0px; }
 div.model_text_input_name input { display: inline; margin-right: 0px; padding-right: 0px; }
 
+#pcr_gel_handler { margin-bottom: 17px; border-bottom: 1px solid #d3d3d3; border-top: 1px solid #d3d3d3; padding-left: 0px; }
+#pcr_gel_handler ul { list-style-type: none; margin-left: 3px; }
+div.model_text_input_gel { display: block; font-size: 11px; }
+div.model_text_input_ratio, div.model_text_input_is_valid, div.model_text_input_number { margin-left: 0px; padding-left: 0px; display: inline; }
+div.model_text_input_number label, div.model_text_input_ratio label, div.model_text_input_is_valid label { display: inline; font-size: 11px; }
+div.model_text_input_gel input { display: inline; font-size: 11px; }
+div.model_text_input_number input { width: 30px; margin-left: 3px; }
+div.model_text_input_ratio input { width: 60px; margin-left: 3px; }
+
+
 
 /**
  * SPECIFIC FIELDS
@@ -118,6 +128,8 @@ a.dna_extraction_strain_numbers_url { display: none; }
 
 #concentration input, #ratio_260_230 input, #ratio_260_280 input, #aliquots input { width: 50px; }
 #genbank_link input { width: 350px; }
+
+span.gel_is_valid { color: #005700; }
 
 
 /**

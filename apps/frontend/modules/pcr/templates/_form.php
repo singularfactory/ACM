@@ -55,6 +55,62 @@
 			<?php echo $form['can_be_sequenced']->renderHelp() ?>
 		</div>
 		
+		<div id="pcr_gel_handler">
+			<?php if ( !$form->getObject()->isNew() && isset($form['Gel']) ): ?>
+			<div class="model_text_input_list">
+				<?php echo $form['Gel']->renderLabel('Actual gel results') ?>
+				<?php $i = 0 ?>
+				<ul>
+					<?php foreach ($form['Gel'] as $widget): ?>
+					<?php $gel = $widget->getValue() ?>
+					<li>
+						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][is_valid]" value="<?php echo $gel['is_valid'] ?>" id="pcr_Gel_<?php echo $i ?>_is_valid" />
+						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][number]" value="<?php echo $gel['number'] ?>" id="pcr_Gel_<?php echo $i ?>_number" />
+						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][ratio]" value="<?php echo $gel['ratio'] ?>" id="pcr_Gel_<?php echo $i ?>_ratio" />
+						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][id]" value="<?php echo $gel['id'] ?>" id="pcr_Gel_<?php echo $i ?>_id" />
+						<div class="model_text_input_value">
+							<span><strong>#<?php echo $gel['number'] ?></strong>:&nbsp;</span>
+							<span><?php echo $gel['ratio'] ?></span>
+							<?php echo ($gel['is_valid'])?'<span class="gel_is_valid">&#x2713;':'' ?></span>
+							<div class="model_text_input_value_checkbox">
+								<input type="checkbox" name="pcr[Gel][<?php echo $i ?>][delete_object]" id="pcr_Gel_<?php echo $i ?>_delete_object" />
+								delete
+							</div>
+						</div>
+					</li>
+					<?php $i++ ?>
+					<?php endforeach; ?>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<?php endif ?>
+
+			<div id="model_text_inputs">
+				<?php echo $form['new_Gel']->renderLabel() ?>
+				<?php echo $form['new_Gel']->renderError() ?>
+
+				<div class="model_text_input_gel">
+					<div class="model_text_input_number">
+						# <?php echo $form['new_Gel'][0]['number']->render() ?>
+					</div>
+					
+					<div class="model_text_input_ratio">
+						<?php echo $form['new_Gel'][0]['ratio']->renderLabel() ?>
+						<?php echo $form['new_Gel'][0]['ratio']->render() ?>
+					</div>
+
+					<div class="model_text_input_is_valid">
+						<?php echo $form['new_Gel'][0]['is_valid']->renderLabel() ?>
+						<?php echo $form['new_Gel'][0]['is_valid']->render() ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="text_inputs_add_relation">
+				<?php echo $form['new_Gel']['_']->render() ?>
+			</div>
+		</div>
+		
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>

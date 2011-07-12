@@ -128,7 +128,8 @@ abstract class BasePcr extends sfDoctrineRecord
 
         $this->hasMany('PcrGel as Gel', array(
              'local' => 'id',
-             'foreign' => 'pcr_id'));
+             'foreign' => 'pcr_id',
+             'orderBy' => 'number'));
 
         $this->hasOne('DnaSequence as Sequence', array(
              'local' => 'id',

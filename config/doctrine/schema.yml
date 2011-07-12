@@ -306,10 +306,12 @@ Pcr:
     DnaPolymerase:          { foreignAlias: Pcr }
     ForwardPrimer:          { class: DnaPrimer, local: forward_dna_primer_id, foreignAlias: Pcr }
     ReversePrimer:          { class: DnaPrimer, local: reverse_dna_primer_id, foreignAlias: Pcr }
+    Gel:                    { type: many, class: PcrGel, local:id, foreign: pcr_id, orderBy: number }
 
 PcrGel:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
+    number:   { type: integer, notnull: true }
     ratio:    { type: decimal }
     pcr_id:   { type: integer, notnull: true }
     is_valid: { type: boolean, notnull: true, default: false }
