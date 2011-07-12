@@ -90,6 +90,14 @@
 				<?php endif; ?>
 			</dd>
 			
+			<dt>DNA extractions:</dt>
+			<dd>
+				<?php echo $nbDnaExtractions = $strain->getNbDnaExtractions() ?>
+				<?php if ( $nbDnaExtractions > 0 ): ?>
+					<a href="#strain_dna_extractions_list" title="List of DNA extractions linked to this strain" class="page_jump">see below</a>
+				<?php endif; ?>
+			</dd>
+			
 			<dt>Transfer interval:</dt>
 			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
 			
@@ -129,10 +137,11 @@
 				<th class="link">Link</th>
 			</tr>
 			<?php foreach ($strain->getGrowthMediums() as $growthMedium ): ?>
+				<?php $url = '@growth_medium_show?id='.$growthMedium->getId() ?>
 				<tr>
-					<td><?php echo link_to($growthMedium->getName(), '@growth_medium_show?id='.$growthMedium->getId()) ?></td>
-					<td><?php echo link_to($growthMedium->getDescription(), '@growth_medium_show?id='.$growthMedium->getId()) ?></td>
-					<td><?php echo link_to($growthMedium->getLink(), '@growth_medium_show?id='.$growthMedium->getId()) ?></td>
+					<td><?php echo link_to($growthMedium->getName(), $url) ?></td>
+					<td><?php echo link_to($growthMedium->getDescription(), $url) ?></td>
+					<td><?php echo link_to($growthMedium->getLink(), $url) ?></td>
 				</tr>
 			<?php endforeach ?>
 		</table>
@@ -149,6 +158,40 @@
 			<?php foreach ($strain->getRelatives() as $relative ): ?>
 				<tr>
 					<td><?php echo $relative->getName() ?></td>
+				</tr>
+			<?php endforeach ?>
+		</table>
+	</div>
+	<?php endif ?>
+	
+	<?php if ( $nbDnaExtractions > 0): ?>
+	<div id="strain_dna_extractions_list">
+		<h2>DNA extractions</h2>
+		<table>
+			<tr>
+				<th class="date">Extraction date</th>
+				<th class="description">Extraction kit</th>
+				<th class="link">Concentration</th>
+				<th class="link">Aliquots</th>
+			</tr>
+			<?php foreach ($strain->getDnaExtractions() as $dnaExtraction ): ?>
+				<?php $url = '@dna_extraction_show?id='.$dnaExtraction->getId() ?>
+				<tr>
+					<td>
+						<?php
+							if ( $date = $dnaExtraction->getExtractionDate() ) {
+								 $date = format_date($dnaExtraction->getExtractionDate(), 'p');
+							}
+							else {
+								$date = sfConfig::get('app_no_data_message');
+							}
+
+							echo link_to($date, $url);
+						?>
+					</td>
+					<td><?php echo link_to($dnaExtraction->getExtractionKit()->getName(), $url) ?></td>
+					<td><?php echo link_to($dnaExtraction->getFormattedConcentration(), $url) ?></td>
+					<td><?php echo link_to($dnaExtraction->getAliquots(), $url) ?></td>
 				</tr>
 			<?php endforeach ?>
 		</table>

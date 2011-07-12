@@ -26,6 +26,13 @@ class Strain extends BaseStrain {
 		return count($this->getGrowthMediums());
 	}
 	
+	public function getNbDnaExtractions() {
+		return Doctrine_Query::create()
+			->from('DnaExtraction dna')
+			->where('dna.strain_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getNbRelatives() {
 		return Doctrine_Query::create()
 			->from('StrainRelative sr')

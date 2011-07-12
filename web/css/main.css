@@ -327,14 +327,14 @@ span.species_name { font-style: italic; }
 * OBJECT SHOW ACTION
 */
 #object_data_list, div.object_picture_list, #location_sample_list, #strain_growth_medium_list, #strain_relatives_list,
-#growth_medium_strains_list, #sample_strains_list, #dna_extraction_pcr_list, #pcr_gel_list { margin-left: 13px; }
+#growth_medium_strains_list, #sample_strains_list, #dna_extraction_pcr_list, #pcr_gel_list, #strain_dna_extractions_list { margin-left: 13px; }
 
 div.object_picture_list, #location_sample_list, #strain_growth_medium_list, #strain_relatives_list, #growth_medium_strains_list,
-#sample_strains_list, #dna_extraction_pcr_list, #pcr_gel_list { margin-top: 13px; overflow: hidden; }
+#sample_strains_list, #dna_extraction_pcr_list, #pcr_gel_list, #strain_dna_extractions_list { margin-top: 13px; overflow: hidden; }
 
 #location_sample_list table { margin: 0px; padding: 0px; width: 430px; }
 #pcr_gel_list table { margin: 0px; padding: 0px; width: 500px; }
-#strain_growth_medium_list table, #growth_medium_strains_list table, #sample_strains_list table { margin: 0px; padding: 0px; width: 630px; }
+#strain_growth_medium_list table, #growth_medium_strains_list table, #sample_strains_list table, #strain_dna_extractions_list table { margin: 0px; padding: 0px; width: 630px; }
 #strain_relatives_list table { margin: 0px; padding: 0px; width: 230px; }
 #dna_extraction_pcr_list table { margin: 0px; padding: 0px; width: 970px; }
 
@@ -344,7 +344,8 @@ div.object_picture_list, #location_sample_list, #strain_growth_medium_list, #str
 #growth_medium_strains_list table th, #growth_medium_strains_list td,
 #sample_strains_list table th, #sample_strains_list td { font-size: 11px; width: auto; padding-left: 0px; }
 #dna_extraction_pcr_list table th, #dna_extraction_pcr_list td,
-#pcr_gel_list table th, #pcr_gel_list td { font-size: 11px; padding-left: 0px; }
+#pcr_gel_list table th, #pcr_gel_list td,
+#strain_dna_extractions_list table th, #strain_dna_extractions_list td { font-size: 11px; padding-left: 0px; }
 #location_sample_list a, #strain_growth_medium_list a { padding: 0px; }
 #strain_growth_medium_list th.name { width: 90px; }
 
