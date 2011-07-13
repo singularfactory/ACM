@@ -65,7 +65,8 @@ abstract class BasePcrGel extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Pcr', array(
              'local' => 'pcr_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'cascade'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
