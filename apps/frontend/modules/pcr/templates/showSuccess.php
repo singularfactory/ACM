@@ -8,6 +8,34 @@
 <?php end_slot() ?>
 
 <div id="main_view_show">
+	<div id="object_related_models">
+		<?php $nbGel = $pcr->getNbGel() ?>
+		<?php if ( $nbGel > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Gel electrophoresis</h2>
+			<table>
+				<tr>
+					<th class="object_count">#</th>
+					<th class="quality_ratio">Ratio</th>
+					<th class="is_valid">Is valid?</th>
+					<th></th>
+				</tr>
+				<?php foreach ($pcr->getGel() as $gel ): ?>
+					<tr>
+						<td class="object_count"><?php echo $gel->getNumber() ?></td>
+						<td class="quality_ratio"><?php echo $gel->getRatio() ?></td>
+						<td class="is_valid"><?php echo $gel->getFormattedIsValid() ?></td>
+						<td class="actions">
+							<?php echo link_to('Edit', '@pcr_gel_edit?id='.$gel->getId()) ?>
+							<?php echo link_to('Delete', '@pcr_gel_delete?id='.$gel->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+						</td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+	</div>
+	
 	<div id="object_data_list">
 		<dl>
 			<dt>DNA extraction:</dt>
@@ -19,12 +47,7 @@
 			<dt>Polymerase kit:</dt>
 			<dd><?php echo $pcr->getDnaPolymerase() ?></dd>
 			<dt>Gel:</dt>
-			<dd>
-				<?php echo $nbGel = $pcr->getNbGel() ?>
-				<?php if ( $nbGel > 0 ): ?>
-					<a href="#pcr_gel_list" title="List of gel electrophoresis made with this PCR" class="page_jump">see below</a>
-				<?php endif; ?>
-			</dd>
+			<dd><?php echo $nbGel ?></dd>
 			<dt>Concentration:</dt>
 			<dd><?php echo $pcr->getFormattedConcentration() ?></dd>
 			<dt>260:280 quality:</dt>
@@ -37,31 +60,6 @@
 			<dd><?php echo $pcr->getRemarks() ?></dd>
 		</dl>
 	</div>
-	
-	<?php if ( $nbGel > 0): ?>
-	<div id="pcr_gel_list">
-		<h2>Gel electrophoresis</h2>
-		<table>
-			<tr>
-				<th class="object_count">#</th>
-				<th class="quality_ratio">Ratio</th>
-				<th class="is_valid">Is valid?</th>
-				<th></th>
-			</tr>
-			<?php foreach ($pcr->getGel() as $gel ): ?>
-				<tr>
-					<td class="object_count"><?php echo $gel->getNumber() ?></td>
-					<td class="quality_ratio"><?php echo $gel->getRatio() ?></td>
-					<td class="is_valid"><?php echo $gel->getFormattedIsValid() ?></td>
-					<td class="actions">
-						<?php echo link_to('Edit', '@pcr_gel_edit?id='.$gel->getId()) ?>
-						<?php echo link_to('Delete', '@pcr_gel_delete?id='.$gel->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-					</td>
-				</tr>
-			<?php endforeach ?>
-		</table>
-	</div>
-	<?php endif ?>
 	
 	<div class="clear"></div>
 </div>

@@ -46,11 +46,11 @@
 	</div>
 	
 	<?php if ( $nbPcr > 0): ?>
-	<div id="dna_extraction_pcr_list">
+	<div id="dna_extraction_pcr_list" class="object_related_model_long_list">
 		<h2>PCR tests</h2>
 		<table>
 			<tr>
-				<th class="dna_polymerase">DNA polymerase</th>
+				<th>DNA polymerase</th>
 				<th class="dna_primer">Forward primer</th>
 				<th class="dna_primer">Reverse primer</th>
 				<th class="pcr_concentration">Concentration</th>
@@ -62,7 +62,7 @@
 			<?php foreach ($dnaExtraction->getPcr() as $pcr ): ?>
 				<?php $url = url_for('@pcr_show?id='.$pcr->getId()) ?>
 				<tr>
-					<td class="dna_polymerase"><?php echo link_to($pcr->getDnaPolymerase(), $url) ?></td>
+					<td><?php echo link_to($pcr->getDnaPolymerase(), $url) ?></td>
 					<td class="dna_primer"><?php echo link_to($pcr->getForwardPrimer(), $url) ?></td>
 					<td class="dna_primer"><?php echo link_to($pcr->getReversePrimer(), $url) ?></td>
 					<td class="pcr_concentration"><?php echo link_to($pcr->getConcentration(), $url) ?></td>

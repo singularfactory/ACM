@@ -324,50 +324,6 @@ span.species_name { font-style: italic; }
 
 
 /**
-* OBJECT SHOW ACTION
-*/
-#object_data_list, div.object_picture_list, #location_sample_list, #strain_growth_medium_list, #strain_relatives_list,
-#growth_medium_strains_list, #sample_strains_list, #dna_extraction_pcr_list, #pcr_gel_list, #strain_dna_extractions_list { margin-left: 13px; }
-
-div.object_picture_list, #location_sample_list, #strain_growth_medium_list, #strain_relatives_list, #growth_medium_strains_list,
-#sample_strains_list, #dna_extraction_pcr_list, #pcr_gel_list, #strain_dna_extractions_list { margin-top: 13px; overflow: hidden; }
-
-#location_sample_list table { margin: 0px; padding: 0px; width: 430px; }
-#pcr_gel_list table { margin: 0px; padding: 0px; width: 500px; }
-#strain_growth_medium_list table, #growth_medium_strains_list table, #sample_strains_list table, #strain_dna_extractions_list table { margin: 0px; padding: 0px; width: 630px; }
-#strain_relatives_list table { margin: 0px; padding: 0px; width: 230px; }
-#dna_extraction_pcr_list table { margin: 0px; padding: 0px; width: 970px; }
-
-#location_sample_list th, #location_sample_list td,
-#strain_growth_medium_list th, #strain_growth_medium_list td,
-#strain_relatives_list table th, #strain_relatives_list td,
-#growth_medium_strains_list table th, #growth_medium_strains_list td,
-#sample_strains_list table th, #sample_strains_list td { font-size: 11px; width: auto; padding-left: 0px; }
-#dna_extraction_pcr_list table th, #dna_extraction_pcr_list td,
-#pcr_gel_list table th, #pcr_gel_list td,
-#strain_dna_extractions_list table th, #strain_dna_extractions_list td { font-size: 11px; padding-left: 0px; }
-#location_sample_list a, #strain_growth_medium_list a { padding: 0px; }
-#strain_growth_medium_list th.name { width: 90px; }
-
-#object_picture_floating_list { float: right; margin: 0px 0px 21px 21px; padding-top: 0px; }
-#object_picture_floating_list div.object_picture_list { padding-top: 0px; margin-left: 0px; margin-top: 0px; overflow: auto; width: 460px; }
-#object_picture_floating_list div.object_picture_list h2 { margin-top: 0px; }
-
-
-
-/**
-* GOOGLE MAPS IN SHOW ACTION
-*/
-#object_google_map { float: right; margin-bottom: 21px; margin-left: 21px; margin-right: 21px; }
-#object_google_map div { margin-left: 0px; }
-
-#google_map_legend { margin: 0px; padding: 0px; }
-#google_map_legend ul { padding: 0px; font-size: 11px; list-style-type: none; }
-#google_map_legend li { display: inline; margin-right: 21px; }
-#google_map_legend img { display: inline; vertical-align: top; width: 11px; height: 14px; margin-right: 3px; }
-
-
-/**
 * FOOTER
 */
-#footer { clear: both; text-align: center; background-color: yellow;}
+#footer { clear: both; text-align: center; background-color: yellow; }

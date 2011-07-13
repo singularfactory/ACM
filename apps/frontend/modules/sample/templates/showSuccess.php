@@ -56,7 +56,7 @@
 	</div>
 		
 	<?php if ( $sample->getNbFieldPictures() > 0 ): ?>
-	<div class="object_picture_list">
+	<div class="object_related_model_long_list">
 		<h2>Field pictures</h2>
 		<?php $i = 1 ?>
 		<?php foreach ($sample->getFieldPictures() as $picture): ?>
@@ -76,7 +76,7 @@
 	<?php endif ?>
 	
 	<?php if ( $sample->getNbDetailedPictures() > 0 ): ?>
-	<div class="object_picture_list">
+	<div class="object_related_model_long_list">
 		<h2>Detailed pictures</h2>
 		<?php $i = 1 ?>
 		<?php foreach ($sample->getDetailedPictures() as $picture): ?>
@@ -96,7 +96,7 @@
 	<?php endif ?>
 
 	<?php if ( $sample->getNbMicroscopicPictures() > 0 ): ?>
-	<div class="object_picture_list">
+	<div class="object_related_model_long_list">
 		<h2>Microscopic pictures</h2>
 		<?php $i = 1 ?>
 		<?php foreach ($sample->getMicroscopicPictures() as $picture): ?>
@@ -116,7 +116,7 @@
 	<?php endif ?>
 
 	<?php if ( $nbStrains > 0): ?>
-	<div id="sample_strains_list">
+	<div id="sample_strains_list" class="object_related_model_long_list">
 		<h2>Strains</h2>
 		<table>
 			<tr>

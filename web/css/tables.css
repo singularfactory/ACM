@@ -44,36 +44,53 @@ tr:hover td.actions a:hover { color: #fff; background: #2aa2f8; text-decoration:
 
 
 /**
+* TABLES IN SHOW ACTION VIEW
+*/
+#object_data_list { margin-left: 13px; }
+div.object_related_model_long_list { margin-left: 13px; margin-top: 13px; overflow: hidden; }
+div.object_related_model_long_list table { margin: 0px; padding: 0px; }
+div.object_related_model_long_list th, div.object_related_model_long_list td { font-size: 11px; }
+
+#object_related_models, #object_google_map { float: right; margin: 0px 0px 21px 21px; }
+#object_related_models h2 { margin-top: 0px; }
+div.object_related_model_list { padding-top: 0px; margin: 0px 0px 32px 0px; overflow: auto; width: 500px; }
+div.object_related_model_list table { margin: 0px; padding: 0px; width: 478px; }
+div.object_related_model_list th, div.object_related_model_list td { font-size: 11px; }
+
+
+/**
+* GOOGLE MAPS IN SHOW ACTION
+*/
+#object_google_map div { margin-right: 21px; }
+#google_map_legend { margin: 0px; padding: 0px; }
+#google_map_legend ul { padding: 0px; font-size: 11px; list-style-type: none; }
+#google_map_legend li { display: inline; margin-right: 21px; }
+#google_map_legend img { display: inline; vertical-align: top; width: 11px; height: 14px; margin-right: 3px; }
+
+
+/**
 * SPECIFIC COLUMN LENGTHS
 */
-td.location_name { width: 384px; }
-td.country_name {	width: 150px; }
-td.region_name { width: 160px; }
-td.island_name { width: 150px; }
-th.object_count, td.object_count { width: 35px; text-align: center; }
-
-td.collector_name, td.isolator_name { width: 150px; }
-td.date { width: 100px; }
-
-td.strain_code { width: 70px; }
+th.object_count, td.object_count { width: 35px; }
+th.aliquots, td.aliquots { width: 60px; }
+th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code { width: 100px; }
+td.date { width: 105px; }
+th.pending_orders, td.pending_orders, td.extraction_kit, td.isolation_date { width: 120px; }
+td.dna_extraction_code, td.sample_code { width: 130px; }
+td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
+td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.strain_name { width: 240px; }
-td.sample_code { width: 150px; }
-th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability { width: 70px; text-align: center; }
-td.isolation_date { width: 120px; }
-th.pending_orders, td.pending_orders { width: 145px; text-align: center; }
+td.growth_medium_name, td.link { width: 300px; }
+td.location_name { width: 384px; }
 
-td.growth_medium_name { width: 300px; }
-td.link { width: 300px; }
-
-td.dna_extraction_code { width: 130px; }
-td.extraction_date { width: 105px; text-align: center; }
-td.extraction_kit { width: 120px; }
-th.concentration, td.concentration { width: 155px; text-align: center; }
-th.aliquots, td.aliquots { width: 60px; text-align: center; }
-th.sequence_availability, td.sequence_availability { width: 135px; text-align: center; }
-
-th.pcr_concentration, td.pcr_concentration { width: 110px; text-align: center; }
-th.quality_ratio, td.quality_ratio { width: 100px; text-align: center; }
-th.dna_primer, td.dna_primer { width: 100px; text-align: center; }
+th.object_count, td.object_count,
+th.pending_orders, td.pending_orders,
+th.extraction_date, td.extraction_date,
+th.concentration, td.concentration,
+th.aliquots, td.aliquots,
+th.dna_availability, td.dna_availability,
+th.sequence_availability, td.sequence_availability,
+th.pcr_concentration, td.pcr_concentration,
+th.quality_ratio, td.quality_ratio,
+th.dna_primer, td.dna_primer,
 th.can_be_sequenced, td.can_be_sequenced { text-align: center; }
-th.dna_polymerase, td.dna_polymerase { width: 180px; }

@@ -27,7 +27,7 @@
 	</div>
 	
 	<?php if ( $nbStrains > 0): ?>
-	<div id="growth_medium_strains_list">
+	<div id="growth_medium_strains_list" class="object_related_model_long_list">
 		<h2>Strains</h2>
 		<table>
 			<tr>

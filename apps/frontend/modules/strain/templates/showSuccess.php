@@ -16,9 +16,48 @@
 <?php end_slot() ?>
 
 <div id="main_view_show">
-	<div id="object_picture_floating_list">
+	<div id="object_related_models">
+		<?php $nbRelatives = $strain->getNbRelatives() ?>
+		<?php if ( $nbRelatives > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Relatives</h2>
+			<table>
+				<tr>
+					<th class="name">Name</th>
+				</tr>
+				<?php foreach ($strain->getRelatives() as $relative ): ?>
+					<tr>
+						<td><?php echo $relative->getName() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+		<?php $nbGrowthMediums = $strain->getNbGrowthMediums() ?>
+		<?php if ( $nbGrowthMediums > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Growth mediums</h2>
+			<table>
+				<tr>
+					<th class="name">Name</th>
+					<th class="description">Description</th>
+					<th class="link">Link</th>
+				</tr>
+				<?php foreach ($strain->getGrowthMediums() as $growthMedium ): ?>
+					<?php $url = '@growth_medium_show?id='.$growthMedium->getId() ?>
+					<tr>
+						<td><?php echo link_to($growthMedium->getName(), $url) ?></td>
+						<td><?php echo link_to($growthMedium->getDescription(), $url) ?></td>
+						<td><?php echo link_to($growthMedium->getLink(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 		<?php if ( $strain->getNbPictures() > 0 ): ?>
-		<div class="object_picture_list">
+		<div class="object_related_model_list">
 			<h2>Pictures</h2>
 			<?php $i = 1 ?>
 			<?php foreach ($strain->getPictures() as $picture): ?>
@@ -36,6 +75,7 @@
 			<?php endforeach; ?>
 		</div>
 		<?php endif ?>
+		
 	</div>
 	
 	<div id="object_data_list">
@@ -75,20 +115,10 @@
 			<?php endif; ?>
 			
 			<dt>Relatives:</dt>
-			<dd>
-				<?php echo $nbRelatives = $strain->getNbRelatives() ?>
-				<?php if ( $nbRelatives > 0 ): ?>
-					<a href="#strain_relatives_list" title="List of relatives linked to this strain" class="page_jump">see below</a>
-				<?php endif; ?>
-			</dd>
+			<dd><?php echo $nbRelatives ?></dd>
 			
 			<dt>Growth mediums:</dt>
-			<dd>
-				<?php echo $nbGrowthMediums = $strain->getNbGrowthMediums() ?>
-				<?php if ( $nbGrowthMediums > 0 ): ?>
-					<a href="#strain_growth_medium_list" title="List of growth mediums linked to this strain" class="page_jump">see below</a>
-				<?php endif; ?>
-			</dd>
+			<dd><?php echo $nbGrowthMediums ?></dd>
 			
 			<dt>DNA extractions:</dt>
 			<dd>
@@ -127,45 +157,8 @@
 		</dl>
 	</div>
 	
-	<?php if ( $nbGrowthMediums > 0): ?>
-	<div id="strain_growth_medium_list">
-		<h2>Growth mediums</h2>
-		<table>
-			<tr>
-				<th class="name">Name</th>
-				<th class="description">Description</th>
-				<th class="link">Link</th>
-			</tr>
-			<?php foreach ($strain->getGrowthMediums() as $growthMedium ): ?>
-				<?php $url = '@growth_medium_show?id='.$growthMedium->getId() ?>
-				<tr>
-					<td><?php echo link_to($growthMedium->getName(), $url) ?></td>
-					<td><?php echo link_to($growthMedium->getDescription(), $url) ?></td>
-					<td><?php echo link_to($growthMedium->getLink(), $url) ?></td>
-				</tr>
-			<?php endforeach ?>
-		</table>
-	</div>
-	<?php endif ?>
-	
-	<?php if ( $nbRelatives > 0): ?>
-	<div id="strain_relatives_list">
-		<h2>Relatives</h2>
-		<table>
-			<tr>
-				<th class="name">Name</th>
-			</tr>
-			<?php foreach ($strain->getRelatives() as $relative ): ?>
-				<tr>
-					<td><?php echo $relative->getName() ?></td>
-				</tr>
-			<?php endforeach ?>
-		</table>
-	</div>
-	<?php endif ?>
-	
 	<?php if ( $nbDnaExtractions > 0): ?>
-	<div id="strain_dna_extractions_list">
+	<div id="strain_dna_extractions_list" class="object_related_model_long_list">
 		<h2>DNA extractions</h2>
 		<table>
 			<tr>

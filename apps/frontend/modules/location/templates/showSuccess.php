@@ -36,7 +36,7 @@
 	</div>
 
 	<?php if ( $location->getNbPictures() > 0 ): ?>
-	<div class="object_picture_list">
+	<div class="object_related_model_long_list">
 		<h2>Pictures</h2>
 		<?php $i = 1 ?>
 		<?php foreach ($location->getPictures() as $picture): ?>
@@ -56,7 +56,7 @@
 	<?php endif ?>
 
 	<?php if ( $nbSamples > 0): ?>
-	<div id="location_sample_list">
+	<div id="location_sample_list" class="object_related_model_long_list">
 		<h2>Samples</h2>
 		<table>
 			<tr>

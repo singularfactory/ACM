@@ -13,7 +13,7 @@
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Number', 'dna_extraction/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Name', 'dna_extraction/index?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
-			<th class="extraction_date"><?php echo link_to('Extraction date', 'dna_extraction/index?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
+			<th class="date"><?php echo link_to('Extraction date', 'dna_extraction/index?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Extraction kit', 'dna_extraction/index?sort_column=ExtractionKit.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', 'dna_extraction/index?sort_column=concentration&sort_direction='.$sortDirection) ?></th>
 			<th class="object_count"><?php echo link_to('Aliquots', 'dna_extraction/index?sort_column=aliquots&sort_direction='.$sortDirection)?></th>
@@ -37,7 +37,7 @@
 				}
 			?>
 			<td class="strain_name"><?php echo link_to($strainName, $url) ?></td>
-			<td class="extraction_date">
+			<td class="date">
 				<?php
 					if ( $date = $dnaExtraction->getExtractionDate() ) {
 						 $date = format_date($dnaExtraction->getExtractionDate(), 'p');
