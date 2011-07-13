@@ -34,6 +34,31 @@
 			</table>
 		</div>
 		<?php endif ?>
+		
+		<?php $nbReactions = $pcr->getNbReactions() ?>
+		<?php if ( $nbReactions > 0): ?>
+		<div class="object_related_model_list">
+			<h2>PCR reactions</h2>
+			<table>
+				<tr>
+					<th class="reaction_dna_primer">DNA primer</th>
+					<th class="worked">Worked?</th>
+					<th></th>
+				</tr>
+				<?php foreach ($pcr->getReaction() as $reaction ): ?>
+					<tr>
+						<td class="reaction_dna_primer"><?php echo $reaction->getDnaPrimer()->getStrand() ?></td>
+						<td class="worked"><?php echo $reaction->getFormattedWorked() ?></td>
+						<td class="actions">
+							<?php echo link_to('Edit', '@pcr_reaction_edit?id='.$reaction->getId()) ?>
+							<?php echo link_to('Delete', '@pcr_reaction_delete?id='.$reaction->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+						</td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 	</div>
 	
 	<div id="object_data_list">
@@ -48,6 +73,8 @@
 			<dd><?php echo $pcr->getDnaPolymerase() ?></dd>
 			<dt>Gel:</dt>
 			<dd><?php echo $nbGel ?></dd>
+			<dt>Reactions:</dt>
+			<dd><?php echo $nbReactions ?></dd>
 			<dt>Concentration:</dt>
 			<dd><?php echo $pcr->getFormattedConcentration() ?></dd>
 			<dt>260:280 quality:</dt>

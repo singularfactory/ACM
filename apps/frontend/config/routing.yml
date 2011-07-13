@@ -171,6 +171,14 @@ pcr_gel:
 
 
 ###
+# PcrReaction model related routes
+###
+pcr_reaction:
+  class:   sfDoctrineRouteCollection
+  options: { model: PcrReaction, actions: [edit, update, delete] }
+
+
+###
 # sfGuardUser model related routes
 ###
 profile:

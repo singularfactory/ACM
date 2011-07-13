@@ -103,6 +103,11 @@ jQuery(function($) {
 				$newrow.val('');
 				singleField = false;
 			  break;
+			case "Reaction":
+				divClass = "model_text_input_reaction";
+				$newrow.val('');
+				singleField = false;
+			  break;
 		}
 		
 		if ( singleField ) {

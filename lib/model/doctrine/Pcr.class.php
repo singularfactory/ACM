@@ -19,6 +19,13 @@ class Pcr extends BasePcr {
 			->count();
 	}
 	
+	public function getNbReactions() {
+		return Doctrine_Query::create()
+			->from('PcrReaction reaction')
+			->where('reaction.pcr_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getConcentration() {
 		if ( $concentration = $this->_get('concentration') ) {
 			return $concentration;
