@@ -9,15 +9,18 @@
  * @property string $strand
  * @property enum $direction
  * @property Doctrine_Collection $Pcr
+ * @property Doctrine_Collection $Reaction
  * 
  * @method integer             getId()        Returns the current record's "id" value
  * @method string              getStrand()    Returns the current record's "strand" value
  * @method enum                getDirection() Returns the current record's "direction" value
  * @method Doctrine_Collection getPcr()       Returns the current record's "Pcr" collection
+ * @method Doctrine_Collection getReaction()  Returns the current record's "Reaction" collection
  * @method DnaPrimer           setId()        Sets the current record's "id" value
  * @method DnaPrimer           setStrand()    Sets the current record's "strand" value
  * @method DnaPrimer           setDirection() Sets the current record's "direction" value
  * @method DnaPrimer           setPcr()       Sets the current record's "Pcr" collection
+ * @method DnaPrimer           setReaction()  Sets the current record's "Reaction" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -57,6 +60,10 @@ abstract class BaseDnaPrimer extends sfDoctrineRecord
         $this->hasMany('Pcr', array(
              'local' => 'id',
              'foreign' => 'forward_dna_primer_id'));
+
+        $this->hasMany('PcrReaction as Reaction', array(
+             'local' => 'id',
+             'foreign' => 'dna_primer_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

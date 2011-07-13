@@ -20,7 +20,7 @@
  * @property DnaPrimer $ForwardPrimer
  * @property DnaPrimer $ReversePrimer
  * @property Doctrine_Collection $Gel
- * @property DnaSequence $Sequence
+ * @property Doctrine_Collection $Reaction
  * 
  * @method integer             getId()                    Returns the current record's "id" value
  * @method integer             getDnaExtractionId()       Returns the current record's "dna_extraction_id" value
@@ -37,7 +37,7 @@
  * @method DnaPrimer           getForwardPrimer()         Returns the current record's "ForwardPrimer" value
  * @method DnaPrimer           getReversePrimer()         Returns the current record's "ReversePrimer" value
  * @method Doctrine_Collection getGel()                   Returns the current record's "Gel" collection
- * @method DnaSequence         getSequence()              Returns the current record's "Sequence" value
+ * @method Doctrine_Collection getReaction()              Returns the current record's "Reaction" collection
  * @method Pcr                 setId()                    Sets the current record's "id" value
  * @method Pcr                 setDnaExtractionId()       Sets the current record's "dna_extraction_id" value
  * @method Pcr                 setForwardDnaPrimerId()    Sets the current record's "forward_dna_primer_id" value
@@ -53,7 +53,7 @@
  * @method Pcr                 setForwardPrimer()         Sets the current record's "ForwardPrimer" value
  * @method Pcr                 setReversePrimer()         Sets the current record's "ReversePrimer" value
  * @method Pcr                 setGel()                   Sets the current record's "Gel" collection
- * @method Pcr                 setSequence()              Sets the current record's "Sequence" value
+ * @method Pcr                 setReaction()              Sets the current record's "Reaction" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -131,7 +131,7 @@ abstract class BasePcr extends sfDoctrineRecord
              'foreign' => 'pcr_id',
              'orderBy' => 'number'));
 
-        $this->hasOne('DnaSequence as Sequence', array(
+        $this->hasMany('PcrReaction as Reaction', array(
              'local' => 'id',
              'foreign' => 'pcr_id'));
 

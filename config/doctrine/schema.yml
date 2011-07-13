@@ -318,22 +318,12 @@ PcrGel:
   relations:
     Pcr:      { foreignAlias: Gel, onDelete: cascade }
 
-DnaSequenceReaction:
+PcrReaction:
   columns:
-    id:               { type: integer, primary: true, autoincrement: true }
-    primer:           { type: string(10), notnull: true }
-    is_valid:         { type: boolean, notnull: true, default: false }
-    dna_sequence_id:  { type: integer, notnull: true }
+    id:             { type: integer, primary: true, autoincrement: true }
+    dna_primer_id:  { type: integer, notnull: true }
+    worked:         { type: boolean, notnull: true, default: false }
+    pcr_id:         { type: integer, notnull: true }
   relations:
-    DnaSequence:      { foreignAlias: Reaction }
-
-DnaSequence:
-  columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    pcr_id:   { type: integer, notnull: true }
-    gen:      { type: string(127), notnull: true }
-    date:     { type: date, notnull: true }
-    is_valid: { type: boolean, notnull: true, default: false }
-    remarks:  { type: string }
-  relations:
-    Pcr:      { foreignAlias: Sequence, foreignType: one }
+    DnaPrimer:      { foreignAlias: Reaction }
+    Pcr:            { foreignAlias: Reaction, onDelete: cascade }
