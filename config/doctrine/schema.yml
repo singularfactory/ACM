@@ -337,4 +337,4 @@ PcrReaction:
     dna_sequence_id:  { type: integer, notnull: true }
   relations:
     DnaPrimer:        { foreignAlias: Reaction }
-    DnaSequence:      { foreignAlias: Reaction }
+    DnaSequence:      { foreignAlias: Reaction, onDelete: cascade }
