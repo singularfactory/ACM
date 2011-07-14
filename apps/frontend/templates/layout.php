@@ -90,7 +90,7 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^((dna_extraction|pcr)(\/_)?)/', $currentRoute) )
+						if ( !preg_match('/^((dna_extraction|pcr|dna)(\/_)?)/', $currentRoute) )
 							echo link_to('DNA Lab', '@dna_extraction');
 						else
 							echo link_to('DNA Lab', '@dna_extraction', array('class' => 'header_menu_current_tab'));

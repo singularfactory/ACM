@@ -29,7 +29,7 @@ class PcrForm extends BasePcrForm {
 			'query' => DnaPrimerTable::getInstance()->findReversePrimersQuery(),
 		)));
 		
-		// Create an embedded form to add or edit pictures and relatives
+		// Create an embedded form to add or edit gel electrophoresis results
 		$this->embedRelations(array(
 			'Gel' => array(
 				'considerNewFormEmptyFields' => array('number', 'ratio'),

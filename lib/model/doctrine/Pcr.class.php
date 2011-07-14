@@ -19,10 +19,10 @@ class Pcr extends BasePcr {
 			->count();
 	}
 	
-	public function getNbReactions() {
+	public function getNbSequences() {
 		return Doctrine_Query::create()
-			->from('PcrReaction reaction')
-			->where('reaction.pcr_id = ?', $this->getId())
+			->from('DnaSequence seq')
+			->where('seq.pcr_id = ?', $this->getId())
 			->count();
 	}
 	

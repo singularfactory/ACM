@@ -9,7 +9,21 @@
  * @subpackage model
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
- */
-class DnaSequence extends BaseDnaSequence
-{
+*/
+class DnaSequence extends BaseDnaSequence {
+	public function getFormattedWorked() {
+		if ( $this->_get('worked') == 0 ) {
+			return 'no';
+		}
+		else {
+			return 'yes';
+		}
+	}
+	
+	public function getNbReactions() {
+		return Doctrine_Query::create()
+			->from('PcrReaction r')
+			->where('r.dna_sequence_id = ?', $this->getId())
+			->count();
+	}
 }

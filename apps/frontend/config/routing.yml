@@ -171,6 +171,21 @@ pcr_gel:
 
 
 ###
+# DnaSequence model related routes
+###
+dna_sequence:
+  class:   sfDoctrineRouteCollection
+  options: { model: DnaSequence, actions: [create, edit, update, delete, show] }
+
+dna_sequence_new:
+  url:          /dna_sequence/new/:pcr
+  class:        sfDoctrineRoute
+  param:        { module: dna_sequence, action: new }
+  requirements: { sf_method: [get, head] }
+  options:      { model: DnaSequence, type: object }
+
+
+###
 # PcrReaction model related routes
 ###
 pcr_reaction:
