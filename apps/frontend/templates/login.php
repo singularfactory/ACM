@@ -21,7 +21,7 @@
 				</div>
 			</div>
 		</noscript>
-
+		
 		<div id="container">
 			<div id="error_message">
 				<?php include_slot('error_message') ?> &nbsp;

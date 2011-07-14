@@ -15,21 +15,21 @@ abstract class BasePcrReactionForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'            => new sfWidgetFormInputHidden(),
-      'dna_primer_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'), 'add_empty' => false)),
-      'worked'        => new sfWidgetFormInputCheckbox(),
-      'pcr_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'), 'add_empty' => false)),
-      'created_at'    => new sfWidgetFormDateTime(),
-      'updated_at'    => new sfWidgetFormDateTime(),
+      'id'              => new sfWidgetFormInputHidden(),
+      'dna_primer_id'   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'), 'add_empty' => false)),
+      'worked'          => new sfWidgetFormInputCheckbox(),
+      'dna_sequence_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('DnaSequence'), 'add_empty' => false)),
+      'created_at'      => new sfWidgetFormDateTime(),
+      'updated_at'      => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'            => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'dna_primer_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'))),
-      'worked'        => new sfValidatorBoolean(array('required' => false)),
-      'pcr_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'))),
-      'created_at'    => new sfValidatorDateTime(),
-      'updated_at'    => new sfValidatorDateTime(),
+      'id'              => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'dna_primer_id'   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DnaPrimer'))),
+      'worked'          => new sfValidatorBoolean(array('required' => false)),
+      'dna_sequence_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('DnaSequence'))),
+      'created_at'      => new sfValidatorDateTime(),
+      'updated_at'      => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('pcr_reaction[%s]');

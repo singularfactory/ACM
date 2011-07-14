@@ -8,22 +8,22 @@
  * @property integer $id
  * @property integer $dna_primer_id
  * @property boolean $worked
- * @property integer $pcr_id
+ * @property integer $dna_sequence_id
  * @property DnaPrimer $DnaPrimer
- * @property Pcr $Pcr
+ * @property DnaSequence $DnaSequence
  * 
- * @method integer     getId()            Returns the current record's "id" value
- * @method integer     getDnaPrimerId()   Returns the current record's "dna_primer_id" value
- * @method boolean     getWorked()        Returns the current record's "worked" value
- * @method integer     getPcrId()         Returns the current record's "pcr_id" value
- * @method DnaPrimer   getDnaPrimer()     Returns the current record's "DnaPrimer" value
- * @method Pcr         getPcr()           Returns the current record's "Pcr" value
- * @method PcrReaction setId()            Sets the current record's "id" value
- * @method PcrReaction setDnaPrimerId()   Sets the current record's "dna_primer_id" value
- * @method PcrReaction setWorked()        Sets the current record's "worked" value
- * @method PcrReaction setPcrId()         Sets the current record's "pcr_id" value
- * @method PcrReaction setDnaPrimer()     Sets the current record's "DnaPrimer" value
- * @method PcrReaction setPcr()           Sets the current record's "Pcr" value
+ * @method integer     getId()              Returns the current record's "id" value
+ * @method integer     getDnaPrimerId()     Returns the current record's "dna_primer_id" value
+ * @method boolean     getWorked()          Returns the current record's "worked" value
+ * @method integer     getDnaSequenceId()   Returns the current record's "dna_sequence_id" value
+ * @method DnaPrimer   getDnaPrimer()       Returns the current record's "DnaPrimer" value
+ * @method DnaSequence getDnaSequence()     Returns the current record's "DnaSequence" value
+ * @method PcrReaction setId()              Sets the current record's "id" value
+ * @method PcrReaction setDnaPrimerId()     Sets the current record's "dna_primer_id" value
+ * @method PcrReaction setWorked()          Sets the current record's "worked" value
+ * @method PcrReaction setDnaSequenceId()   Sets the current record's "dna_sequence_id" value
+ * @method PcrReaction setDnaPrimer()       Sets the current record's "DnaPrimer" value
+ * @method PcrReaction setDnaSequence()     Sets the current record's "DnaSequence" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -49,7 +49,7 @@ abstract class BasePcrReaction extends sfDoctrineRecord
              'notnull' => true,
              'default' => false,
              ));
-        $this->hasColumn('pcr_id', 'integer', null, array(
+        $this->hasColumn('dna_sequence_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
@@ -64,10 +64,9 @@ abstract class BasePcrReaction extends sfDoctrineRecord
              'local' => 'dna_primer_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Pcr', array(
-             'local' => 'pcr_id',
-             'foreign' => 'id',
-             'onDelete' => 'cascade'));
+        $this->hasOne('DnaSequence', array(
+             'local' => 'dna_sequence_id',
+             'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

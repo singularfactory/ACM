@@ -38,13 +38,6 @@ class PcrForm extends BasePcrForm {
 				'newFormsInitialCount' => 1,
 				'newRelationButtonLabel' => 'Add another gel',
 			),
-			'Reaction' => array(
-				'considerNewFormEmptyFields' => array('dna_primer_id'),
-				'newFormLabel' => 'PCR reactions',
-				'multipleNewForms' => true,
-				'newFormsInitialCount' => 1,
-				'newRelationButtonLabel' => 'Add another reaction',
-			),
 		));
 		
 		// Configure labels

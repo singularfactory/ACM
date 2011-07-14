@@ -111,61 +111,6 @@
 			</div>
 		</div>
 		
-		<div id="pcr_reaction_handler">
-			<?php if ( !$form->getObject()->isNew() && isset($form['Reaction']) ): ?>
-			<div class="model_text_input_list">
-				<?php echo $form['Reaction']->renderLabel('Actual reactions') ?>
-				<?php $i = 0 ?>
-				<ul>
-					<?php foreach ($form['Reaction'] as $widget): ?>
-					<?php $reaction = $widget->getValue() ?>
-					<li>
-						<input type="hidden" name="pcr[Reaction][<?php echo $i ?>][worked]" value="<?php echo $reaction['worked'] ?>" id="pcr_Reaction_<?php echo $i ?>_worked" />
-						<input type="hidden" name="pcr[Reaction][<?php echo $i ?>][dna_primer_id]" value="<?php echo $reaction['dna_primer_id'] ?>" id="pcr_Reaction_<?php echo $i ?>_dna_primer_id" />
-						<input type="hidden" name="pcr[Reaction][<?php echo $i ?>][id]" value="<?php echo $reaction['id'] ?>" id="pcr_Reaction_<?php echo $i ?>_id" />
-						<div class="model_text_input_value">
-							<span><strong>#<?php echo $i+1 ?></strong>:&nbsp;</span>
-							<span>
-								<?php
-									$dnaPrimer = DnaPrimerTable::getInstance()->findOneById($reaction['dna_primer_id']);
-									echo $dnaPrimer->getStrand(); ?>
-							</span>
-							<?php echo ($reaction['worked'])?'<span class="reaction_worked">&#x2713;':'' ?></span>
-							<div class="model_text_input_value_checkbox">
-								<input type="checkbox" name="pcr[Reaction][<?php echo $i ?>][delete_object]" id="pcr_Reaction_<?php echo $i ?>_delete_object" />
-								delete
-							</div>
-						</div>
-					</li>
-					<?php $i++ ?>
-					<?php endforeach; ?>
-				</ul>
-				<div class="clear"></div>
-			</div>
-			<?php endif ?>
-
-			<div id="model_text_inputs">
-				<?php echo $form['new_Reaction']->renderLabel() ?>
-				<?php echo $form['new_Reaction']->renderError() ?>
-
-				<div class="model_text_input_reaction">
-					<div class="model_text_input_dna_primer">
-						<?php echo $form['new_Reaction'][0]['dna_primer_id']->renderLabel() ?>
-						<?php echo $form['new_Reaction'][0]['dna_primer_id']->render() ?>
-					</div>
-
-					<div class="model_text_input_worked">
-						<?php echo $form['new_Reaction'][0]['worked']->renderLabel() ?>
-						<?php echo $form['new_Reaction'][0]['worked']->render() ?>
-					</div>
-				</div>
-			</div>
-
-			<div class="text_inputs_add_relation">
-				<?php echo $form['new_Reaction']['_']->render() ?>
-			</div>
-		</div>
-		
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>
