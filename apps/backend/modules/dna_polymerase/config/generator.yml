@@ -16,7 +16,7 @@ generator:
       actions: ~
       fields: ~
       list:
-        title: DNA polymerase kits
+        title: DNA polymerase
         display: [name, updated_at]
         fields:
           updated_at:
@@ -29,4 +29,4 @@ generator:
       edit:
         title: Edit "%%name%%"
       new:
-        title: Add a new polymerase kit
+        title: Add a new DNA polymerase

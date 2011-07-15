@@ -73,7 +73,7 @@
 			<dd><?php echo $pcr->getForwardPrimer()->getStrand() ?></dd>
 			<dt>DNA reverse primer:</dt>
 			<dd><?php echo $pcr->getReversePrimer()->getStrand() ?></dd>
-			<dt>Polymerase kit:</dt>
+			<dt>DNA Polymerase:</dt>
 			<dd><?php echo $pcr->getDnaPolymerase() ?></dd>
 			<dt>Gel:</dt>
 			<dd><?php echo $nbGel ?></dd>

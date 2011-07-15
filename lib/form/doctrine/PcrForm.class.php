@@ -41,7 +41,7 @@ class PcrForm extends BasePcrForm {
 		));
 		
 		// Configure labels
-		$this->widgetSchema->setLabel('dna_polymerase_id', 'DNA polymerase kit');
+		$this->widgetSchema->setLabel('dna_polymerase_id', 'DNA polymerase');
 		$this->widgetSchema->setLabel('forward_dna_primer_id', 'Forward DNA primer');
 		$this->widgetSchema->setLabel('reverse_dna_primer_id', 'Reverse DNA primer');
 		$this->widgetSchema->setLabel('concentration', 'PCR product concentration');
