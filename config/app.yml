@@ -45,7 +45,7 @@ all:
     
     # Common constants
     max_list_items:             15
-    no_data_message:            no data
+    no_data_message:            n/a
     default_sort_direction:     asc
     search_box_hint:            Search...
     gps_coordinates_separator:  ','

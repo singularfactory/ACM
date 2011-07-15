@@ -52,7 +52,7 @@
 				?>
 			</td>
 			<td class="extraction_kit"><?php echo link_to($dnaExtraction->getExtractionKit()->getName(), $url) ?></td>
-			<td class="concentration"><?php echo link_to($dnaExtraction->getConcentration(), $url) ?></td>
+			<td class="concentration"><?php echo link_to($dnaExtraction->getFormattedConcentration(), $url) ?></td>
 			<td class="aliquots"><?php echo link_to($dnaExtraction->getFormattedAliquots(), $url) ?></td>
 			<td class="object_count"><?php echo link_to($dnaExtraction->getNbPcr(), $url) ?></td>
 			<td class="sequence_availability">-</td>

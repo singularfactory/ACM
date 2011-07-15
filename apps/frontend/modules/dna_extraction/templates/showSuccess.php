@@ -2,7 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	<?php echo $dnaExtraction->getNumber() ?>
+	Extraction <?php echo $dnaExtraction->getNumber() ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'dna_extraction')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
@@ -24,9 +24,9 @@
 			<dt>Concentration:</dt>
 			<dd><?php echo $dnaExtraction->getFormattedConcentration() ?></dd>
 			<dt>260:280 quality:</dt>
-			<dd><?php echo $dnaExtraction->get260280Ratio() ?></dd>
+			<dd><?php echo $dnaExtraction->getFormatted260280Ratio() ?></dd>
 			<dt>260:230 quality:</dt>
-			<dd><?php echo $dnaExtraction->get260230Ratio() ?></dd>
+			<dd><?php echo $dnaExtraction->getFormatted260230Ratio() ?></dd>
 			<dt>PCR tests:</dt>
 			<dd>
 				<?php echo $nbPcr = $dnaExtraction->getNbPcr() ?>

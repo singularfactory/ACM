@@ -26,16 +26,13 @@ class DnaExtraction extends BaseDnaExtraction {
 			->count();
 	}
 	
-	public function getConcentration() {
-		if ( $concentration = $this->_get('concentration') ) {
-			return $concentration;
-		}
-		
-		return '0.0';
-	}
-	
 	public function getFormattedConcentration() {
-		return $this->getConcentration().' '.sfConfig::get('app_concentration_unit');
+		if ( ($concentration = $this->_get('concentration')) > 0 ) {
+			return $concentration.' '.sfConfig::get('app_concentration_unit');
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
 	}
 	
 	public function getAliquots() {
@@ -45,18 +42,18 @@ class DnaExtraction extends BaseDnaExtraction {
 		return 0;
 	}
 	
-	public function get260280Ratio() {
+	public function getFormatted260280Ratio() {
 		if ( $ratio = $this->_get('260_280_ratio') ) {
 			return $ratio;
 		}
-		return '0.0';
+		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function get260230Ratio() {
+	public function getFormatted260230Ratio() {
 		if ( $ratio = $this->_get('260_230_ratio') ) {
 			return $ratio;
 		}
-		return '0.0';
+		return sfConfig::get('app_no_data_message');
 	}
 	
 	public function getFormattedIsPublic() {
@@ -73,7 +70,7 @@ class DnaExtraction extends BaseDnaExtraction {
 			return "yes ($aliquots)";
 		}
 		else {
-			return 'no';
+			return sfConfig::get('app_no_data_message');
 		}
 	}
 	
