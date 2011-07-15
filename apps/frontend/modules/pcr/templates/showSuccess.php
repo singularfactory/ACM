@@ -5,7 +5,7 @@
 <?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to DNA extraction', 'module' => 'dna_extraction', 'id' => $pcr->getDnaExtraction()->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'pcr', 'id' => $pcr->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'pcr', 'id' => $pcr->getId())) ?>
-<?php include_partial('global/new_header_action', array('message' => 'Register a DNA sequence', 'route' => "@dna_sequence_new?pcr={$pcr->getId()}")) ?>
+<?php include_partial('global/new_header_action', array('message' => 'Sequencing', 'route' => "@dna_sequence_new?pcr={$pcr->getId()}")) ?>
 <?php end_slot() ?>
 
 <div id="main_view_show">
