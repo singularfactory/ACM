@@ -74,14 +74,16 @@ div.object_related_model_list th, div.object_related_model_list td { font-size: 
 th.object_count, td.object_count { width: 35px; }
 th.aliquots, td.aliquots { width: 60px; }
 th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, th.band, td.band { width: 100px; }
-td.date { width: 105px; }
+td.date { width: 110px; }
 th.pending_orders, td.pending_orders, td.extraction_kit, td.isolation_date { width: 120px; }
-td.dna_extraction_code, td.sample_code { width: 130px; }
+td.dna_extraction_code, td.sample_code { width: 135px; }
 td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
 td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.strain_name { width: 240px; }
 td.growth_medium_name, td.link { width: 300px; }
 td.location_name { width: 384px; }
+td.taxonomic_class_name { width: 140px; }
+td.dna_extraction_name { width: 160px; }
 
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,

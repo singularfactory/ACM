@@ -12,7 +12,8 @@
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Number', 'dna_extraction/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Name', 'dna_extraction/index?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Class', 'dna_extraction/index?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', 'dna_extraction/index?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Extraction date', 'dna_extraction/index?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Extraction kit', 'dna_extraction/index?sort_column=ExtractionKit.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', 'dna_extraction/index?sort_column=concentration&sort_direction='.$sortDirection) ?></th>
@@ -26,9 +27,10 @@
 		<tr>
 			<?php $url = url_for('@dna_extraction_show?id='.$dnaExtraction->getId()) ?>
 			<td class="dna_extraction_code"><?php echo link_to($dnaExtraction->getNumber(), $url) ?></td>
+			<?php $strain = $dnaExtraction->getStrain() ?>
+			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 			<?php
-				$strain = $dnaExtraction->getStrain();
-				$strainName = $strain->getTaxonomicClass().'&nbsp;<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
+				$strainName = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
 				if ( $strain->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
 					$strainName .= '<span class="species_name">'.$strain->getSpecies().'</span>';
 				}
@@ -36,7 +38,7 @@
 					$strainName .= $strain->getSpecies();
 				}
 			?>
-			<td class="strain_name"><?php echo link_to($strainName, $url) ?></td>
+			<td class="dna_extraction_name"><?php echo link_to($strainName, $url) ?></td>
 			<td class="date">
 				<?php
 					if ( $date = $dnaExtraction->getExtractionDate() ) {

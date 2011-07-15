@@ -66,9 +66,10 @@ class MyActions extends sfActions {
 		// Set sort columns
 		$query = Doctrine::getTable($table)->createQuery($this->mainAlias);
 		if ( $sort_column = $request->getParameter('sort_column') ) {
-			if ( preg_match('/^\w+\.\w+$/', $sort_column) ) {
-				list($relatedTable, $relatedColumn) = explode('.', $sort_column);
-				$pager->setQuery($query->leftJoin("{$this->mainAlias}.$relatedTable {$this->relatedAlias}")->orderBy("{$this->relatedAlias}.$relatedColumn ".$this->sortDirection));
+			if ( preg_match('/^(\w+\.(\w+\.)*)(\w+)$/', $sort_column, $matches) ) {
+				$relations = preg_replace('/\.$/', '', $matches[1]);
+				$relatedColumn = $matches[3];
+				$pager->setQuery($query->leftJoin("{$this->mainAlias}.$relations {$this->relatedAlias}")->orderBy("{$this->relatedAlias}.$relatedColumn ".$this->sortDirection));
 			}
 			else {
 				$pager->setQuery($query->orderBy("{$this->mainAlias}.$sort_column ".$this->sortDirection));
