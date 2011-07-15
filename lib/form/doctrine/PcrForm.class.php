@@ -18,14 +18,12 @@ class PcrForm extends BasePcrForm {
 		$this->setWidget('forward_dna_primer_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('ForwardPrimer'),
 			'add_empty' => false,
-			'method' => 'getStrand',
 			'query' => DnaPrimerTable::getInstance()->findForwardPrimersQuery(),
 		)));
 		
 		$this->setWidget('reverse_dna_primer_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('ReversePrimer'),
 			'add_empty' => false,
-			'method' => 'getStrand',
 			'query' => DnaPrimerTable::getInstance()->findReversePrimersQuery(),
 		)));
 		

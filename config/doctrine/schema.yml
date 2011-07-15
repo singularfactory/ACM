@@ -285,9 +285,10 @@ DnaPolymerase:
 
 DnaPrimer:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    strand:     { type: string(10), notnull: true }
-    direction:  { type: enum, values: [forward, reverse] }
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(10), notnull: true }
+    direction:    { type: enum, values: [forward, reverse] }
+    orientation:  { type: string(127) }
 
 Pcr:
   columns:

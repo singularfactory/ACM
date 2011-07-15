@@ -70,9 +70,9 @@
 			<dt>DNA extraction:</dt>
 			<dd><?php echo link_to($pcr->getDnaExtraction()->getNumber(), "@dna_extraction_show?id={$pcr->getDnaExtraction()->getId()}") ?></dd>
 			<dt>DNA forward primer:</dt>
-			<dd><?php echo $pcr->getForwardPrimer()->getStrand() ?></dd>
+			<dd><?php echo $pcr->getForwardPrimer()->getName() ?></dd>
 			<dt>DNA reverse primer:</dt>
-			<dd><?php echo $pcr->getReversePrimer()->getStrand() ?></dd>
+			<dd><?php echo $pcr->getReversePrimer()->getName() ?></dd>
 			<dt>DNA Polymerase:</dt>
 			<dd><?php echo $pcr->getDnaPolymerase() ?></dd>
 			<dt>Gel:</dt>

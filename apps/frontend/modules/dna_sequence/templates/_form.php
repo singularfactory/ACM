@@ -43,7 +43,7 @@
 							<span>
 								<?php
 									$dnaPrimer = DnaPrimerTable::getInstance()->findOneById($reaction['dna_primer_id']);
-									echo $dnaPrimer->getStrand(); ?>
+									echo $dnaPrimer->getName(); ?>
 							</span>
 							<?php echo ($reaction['worked'])?'<span class="reaction_worked">&#x2713;':'' ?></span>
 							<div class="model_text_input_value_checkbox">

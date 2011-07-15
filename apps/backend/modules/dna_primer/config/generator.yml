@@ -17,16 +17,18 @@ generator:
       fields: ~
       list:
         title: DNA primers
-        display: [strand, direction, updated_at]
+        display: [name, direction, orientation, updated_at]
         fields:
+          orientation:
+            label: "5' -> 3'"
           updated_at:
             label: Last update
             date_format: f
         sort: ~
       filter:
-        display: [strand, direction]
+        display: [name, direction, orientation]
       form: ~
       edit:
-        title: Edit "%%strand%%"
+        title: Edit "%%name%%"
       new:
         title: Add a new primer
