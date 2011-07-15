@@ -16,7 +16,7 @@
 			<th class="date"><?php echo link_to('Extraction date', 'dna_extraction/index?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Extraction kit', 'dna_extraction/index?sort_column=ExtractionKit.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', 'dna_extraction/index?sort_column=concentration&sort_direction='.$sortDirection) ?></th>
-			<th class="object_count"><?php echo link_to('Aliquots', 'dna_extraction/index?sort_column=aliquots&sort_direction='.$sortDirection)?></th>
+			<th class="dna_availability"><?php echo link_to('DNA bank', 'dna_extraction/index?sort_column=aliquots&sort_direction='.$sortDirection)?></th>
 			<th class="object_count">PCR</th>
 			<th class="sequence_availability">Has sequence?</th>
 			<th></th>
@@ -51,7 +51,7 @@
 			</td>
 			<td class="extraction_kit"><?php echo link_to($dnaExtraction->getExtractionKit()->getName(), $url) ?></td>
 			<td class="concentration"><?php echo link_to($dnaExtraction->getConcentration(), $url) ?></td>
-			<td class="aliquots"><?php echo link_to($dnaExtraction->getAliquots(), $url) ?></td>
+			<td class="aliquots"><?php echo link_to($dnaExtraction->getFormattedAliquots(), $url) ?></td>
 			<td class="object_count"><?php echo link_to($dnaExtraction->getNbPcr(), $url) ?></td>
 			<td class="sequence_availability">-</td>
 

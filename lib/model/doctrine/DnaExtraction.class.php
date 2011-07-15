@@ -68,6 +68,15 @@ class DnaExtraction extends BaseDnaExtraction {
 		}
 	}
 	
+	public function getFormattedAliquots() {
+		if ( ($aliquots = $this->_get('aliquots')) > 0 ) {
+			return "yes ($aliquots)";
+		}
+		else {
+			return 'no';
+		}
+	}
+	
 	public function getFormattedGenbankLink() {
 		if ( $link = $this->_get('genbank_link') ) {
 			return $link;
