@@ -17,7 +17,7 @@ abstract class BasePcrGelForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'number'     => new sfWidgetFormInputText(),
-      'ratio'      => new sfWidgetFormInputText(),
+      'band'       => new sfWidgetFormInputText(),
       'pcr_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'), 'add_empty' => false)),
       'is_valid'   => new sfWidgetFormInputCheckbox(),
       'created_at' => new sfWidgetFormDateTime(),
@@ -27,7 +27,7 @@ abstract class BasePcrGelForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'number'     => new sfValidatorInteger(),
-      'ratio'      => new sfValidatorNumber(array('required' => false)),
+      'band'       => new sfValidatorNumber(array('required' => false)),
       'pcr_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'))),
       'is_valid'   => new sfValidatorBoolean(array('required' => false)),
       'created_at' => new sfValidatorDateTime(),

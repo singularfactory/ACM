@@ -17,14 +17,14 @@
 			<table>
 				<tr>
 					<th class="object_count">#</th>
-					<th class="quality_ratio">Ratio</th>
+					<th class="band">Band (<?php echo sfConfig::get('app_pcr_gel_band_unit') ?>)</th>
 					<th class="is_valid">Is valid?</th>
 					<th></th>
 				</tr>
 				<?php foreach ($pcr->getGel() as $gel ): ?>
 					<tr>
 						<td class="object_count"><?php echo $gel->getNumber() ?></td>
-						<td class="quality_ratio"><?php echo $gel->getRatio() ?></td>
+						<td class="band"><?php echo $gel->getBand() ?></td>
 						<td class="is_valid"><?php echo $gel->getFormattedIsValid() ?></td>
 						<td class="actions">
 							<?php echo link_to('Edit', '@pcr_gel_edit?id='.$gel->getId()) ?>

@@ -30,6 +30,7 @@ all:
     
     # DNA lab related constants
     concentration_unit: ng/µl #ng/&micro;l
+    pcr_gel_band_unit:  bp
     forward_dna_primer_direction: forward
     reverse_dna_primer_direction: reverse
     

@@ -12,11 +12,11 @@
 			<?php echo $form['number'] ?>
 		</div>
 		
-		<div id="ratio">
-			<?php echo $form['ratio']->renderLabel() ?>
-			<?php echo $form['ratio']->renderError() ?>
-			<?php echo $form['ratio']->renderHelp() ?>
-			<?php echo $form['ratio'] ?>
+		<div id="band">
+			<?php echo $form['band']->renderLabel() ?>
+			<?php echo $form['band']->renderError() ?>
+			<?php echo $form['band']->renderHelp() ?>
+			<?php echo $form['band'] ?>
 		</div>
 		
 		<div id="is_valid" class="checkbox">

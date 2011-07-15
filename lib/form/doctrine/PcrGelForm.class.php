@@ -10,7 +10,7 @@
  */
 class PcrGelForm extends BasePcrGelForm {
   public function configure() {
-		$this->useFields(array('number', 'ratio', 'is_valid'));
+		$this->useFields(array('number', 'band', 'is_valid'));
 		$this->setValidator('delete_object', new sfValidatorBoolean());
   }
 }

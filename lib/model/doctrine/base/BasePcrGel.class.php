@@ -7,20 +7,20 @@
  * 
  * @property integer $id
  * @property integer $number
- * @property decimal $ratio
+ * @property decimal $band
  * @property integer $pcr_id
  * @property boolean $is_valid
  * @property Pcr $Pcr
  * 
  * @method integer getId()       Returns the current record's "id" value
  * @method integer getNumber()   Returns the current record's "number" value
- * @method decimal getRatio()    Returns the current record's "ratio" value
+ * @method decimal getBand()     Returns the current record's "band" value
  * @method integer getPcrId()    Returns the current record's "pcr_id" value
  * @method boolean getIsValid()  Returns the current record's "is_valid" value
  * @method Pcr     getPcr()      Returns the current record's "Pcr" value
  * @method PcrGel  setId()       Sets the current record's "id" value
  * @method PcrGel  setNumber()   Sets the current record's "number" value
- * @method PcrGel  setRatio()    Sets the current record's "ratio" value
+ * @method PcrGel  setBand()     Sets the current record's "band" value
  * @method PcrGel  setPcrId()    Sets the current record's "pcr_id" value
  * @method PcrGel  setIsValid()  Sets the current record's "is_valid" value
  * @method PcrGel  setPcr()      Sets the current record's "Pcr" value
@@ -44,7 +44,7 @@ abstract class BasePcrGel extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('ratio', 'decimal', null, array(
+        $this->hasColumn('band', 'decimal', null, array(
              'type' => 'decimal',
              ));
         $this->hasColumn('pcr_id', 'integer', null, array(

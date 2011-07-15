@@ -66,11 +66,11 @@
 					<li>
 						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][is_valid]" value="<?php echo $gel['is_valid'] ?>" id="pcr_Gel_<?php echo $i ?>_is_valid" />
 						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][number]" value="<?php echo $gel['number'] ?>" id="pcr_Gel_<?php echo $i ?>_number" />
-						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][ratio]" value="<?php echo $gel['ratio'] ?>" id="pcr_Gel_<?php echo $i ?>_ratio" />
+						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][band]" value="<?php echo $gel['band'] ?>" id="pcr_Gel_<?php echo $i ?>_band" />
 						<input type="hidden" name="pcr[Gel][<?php echo $i ?>][id]" value="<?php echo $gel['id'] ?>" id="pcr_Gel_<?php echo $i ?>_id" />
 						<div class="model_text_input_value">
 							<span><strong>#<?php echo $gel['number'] ?></strong>:&nbsp;</span>
-							<span><?php echo $gel['ratio'] ?></span>
+							<span><?php echo $gel['band'] ?>&nbsp;<?php echo sfConfig::get('app_pcr_gel_band_unit') ?></span>
 							<?php echo ($gel['is_valid'])?'<span class="gel_is_valid">&#x2713;':'' ?></span>
 							<div class="model_text_input_value_checkbox">
 								<input type="checkbox" name="pcr[Gel][<?php echo $i ?>][delete_object]" id="pcr_Gel_<?php echo $i ?>_delete_object" />
@@ -94,9 +94,9 @@
 						# <?php echo $form['new_Gel'][0]['number']->render() ?>
 					</div>
 					
-					<div class="model_text_input_ratio">
-						<?php echo $form['new_Gel'][0]['ratio']->renderLabel() ?>
-						<?php echo $form['new_Gel'][0]['ratio']->render() ?>
+					<div class="model_text_input_band">
+						<?php echo $form['new_Gel'][0]['band']->renderLabel() ?>
+						<?php echo $form['new_Gel'][0]['band']->render() ?>
 					</div>
 
 					<div class="model_text_input_is_valid">

@@ -14,7 +14,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'number'     => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'ratio'      => new sfWidgetFormFilterInput(),
+      'band'       => new sfWidgetFormFilterInput(),
       'pcr_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'), 'add_empty' => true)),
       'is_valid'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
@@ -23,7 +23,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'number'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'ratio'      => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'band'       => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'pcr_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Pcr'), 'column' => 'id')),
       'is_valid'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
@@ -49,7 +49,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'         => 'Number',
       'number'     => 'Number',
-      'ratio'      => 'Number',
+      'band'       => 'Number',
       'pcr_id'     => 'ForeignKey',
       'is_valid'   => 'Boolean',
       'created_at' => 'Date',

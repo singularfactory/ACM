@@ -98,14 +98,14 @@ div.model_text_input_name input { display: inline; margin-right: 0px; padding-ri
 #pcr_gel_handler ul, #pcr_reaction_handler ul { list-style-type: none; margin-left: 3px; }
 div.model_text_input_gel, div.model_text_input_reaction { display: block; font-size: 11px; }
 
-div.model_text_input_ratio, div.model_text_input_is_valid, div.model_text_input_number,
+div.model_text_input_band, div.model_text_input_is_valid, div.model_text_input_number,
 div.model_text_input_worked, div.model_text_input_dna_primer { margin-left: 0px; padding-left: 0px; display: inline; }
-div.model_text_input_number label, div.model_text_input_ratio label, div.model_text_input_is_valid label,
+div.model_text_input_number label, div.model_text_input_band label, div.model_text_input_is_valid label,
 div.model_text_input_worked label, div.model_text_input_dna_primer label { display: inline; font-size: 11px; }
 
 div.model_text_input_gel input, div.model_text_input_reaction input { display: inline; font-size: 11px; }
 div.model_text_input_number input { width: 30px; margin-left: 3px; }
-div.model_text_input_ratio input { width: 60px; margin-left: 3px; }
+div.model_text_input_band input { width: 60px; margin-left: 3px; }
 div.model_text_input_dna_primer select { margin-left: 3px; display: inline; vertical-align: middle; }
 
 

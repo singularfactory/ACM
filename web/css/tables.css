@@ -73,7 +73,7 @@ div.object_related_model_list th, div.object_related_model_list td { font-size: 
 */
 th.object_count, td.object_count { width: 35px; }
 th.aliquots, td.aliquots { width: 60px; }
-th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code { width: 100px; }
+th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, th.band, td.band { width: 100px; }
 td.date { width: 105px; }
 th.pending_orders, td.pending_orders, td.extraction_kit, td.isolation_date { width: 120px; }
 td.dna_extraction_code, td.sample_code { width: 130px; }
@@ -92,5 +92,6 @@ th.dna_availability, td.dna_availability,
 th.sequence_availability, td.sequence_availability,
 th.pcr_concentration, td.pcr_concentration,
 th.quality_ratio, td.quality_ratio,
+th.band, td.band,
 th.dna_primer, td.dna_primer,
 th.can_be_sequenced, td.can_be_sequenced { text-align: center; }

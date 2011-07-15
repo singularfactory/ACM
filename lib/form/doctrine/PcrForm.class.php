@@ -32,7 +32,7 @@ class PcrForm extends BasePcrForm {
 		// Create an embedded form to add or edit gel electrophoresis results
 		$this->embedRelations(array(
 			'Gel' => array(
-				'considerNewFormEmptyFields' => array('number', 'ratio'),
+				'considerNewFormEmptyFields' => array('number', 'band'),
 				'newFormLabel' => 'Gel electrophoresis',
 				'multipleNewForms' => true,
 				'newFormsInitialCount' => 1,
