@@ -1,6 +1,6 @@
 <?php slot('main_header') ?>
 <span>
-	PCR test details
+	PCR details
 </span>
 <?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to DNA extraction', 'module' => 'dna_extraction', 'id' => $pcr->getDnaExtraction()->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'pcr', 'id' => $pcr->getId())) ?>
