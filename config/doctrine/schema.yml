@@ -350,7 +350,7 @@ PcrProgramStep:
     duration:       { type: time, notnull: true }
     pcr_program_id: { type: integer, notnull: true }
   relations:
-    PcrProgram:     { foreignAlias: Steps }
+    PcrProgram:     { foreignAlias: Steps, onDelete: cascade }
 
 PcrProgram:
   columns:
@@ -359,3 +359,5 @@ PcrProgram:
     cycles: { type: integer, notnull: true }
     start:  { type: integer, notnull: true }
     end:    { type: integer, notnull: true }
+  relations:
+    Steps:  { type: many, class: PcrProgramStep, local:id, foreign: pcr_program_id, orderBy: segment }

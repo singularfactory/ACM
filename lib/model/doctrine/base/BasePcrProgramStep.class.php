@@ -65,7 +65,8 @@ abstract class BasePcrProgramStep extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('PcrProgram', array(
              'local' => 'pcr_program_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'cascade'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

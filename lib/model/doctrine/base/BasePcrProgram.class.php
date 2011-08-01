@@ -10,23 +10,23 @@
  * @property integer $cycles
  * @property integer $start
  * @property integer $end
- * @property Doctrine_Collection $Pcr
  * @property Doctrine_Collection $Steps
+ * @property Doctrine_Collection $Pcr
  * 
  * @method integer             getId()     Returns the current record's "id" value
  * @method string              getName()   Returns the current record's "name" value
  * @method integer             getCycles() Returns the current record's "cycles" value
  * @method integer             getStart()  Returns the current record's "start" value
  * @method integer             getEnd()    Returns the current record's "end" value
- * @method Doctrine_Collection getPcr()    Returns the current record's "Pcr" collection
  * @method Doctrine_Collection getSteps()  Returns the current record's "Steps" collection
+ * @method Doctrine_Collection getPcr()    Returns the current record's "Pcr" collection
  * @method PcrProgram          setId()     Sets the current record's "id" value
  * @method PcrProgram          setName()   Sets the current record's "name" value
  * @method PcrProgram          setCycles() Sets the current record's "cycles" value
  * @method PcrProgram          setStart()  Sets the current record's "start" value
  * @method PcrProgram          setEnd()    Sets the current record's "end" value
- * @method PcrProgram          setPcr()    Sets the current record's "Pcr" collection
  * @method PcrProgram          setSteps()  Sets the current record's "Steps" collection
+ * @method PcrProgram          setPcr()    Sets the current record's "Pcr" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -67,11 +67,12 @@ abstract class BasePcrProgram extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Pcr', array(
-             'local' => 'id',
-             'foreign' => 'pcr_program_id'));
-
         $this->hasMany('PcrProgramStep as Steps', array(
+             'local' => 'id',
+             'foreign' => 'pcr_program_id',
+             'orderBy' => 'segment'));
+
+        $this->hasMany('Pcr', array(
              'local' => 'id',
              'foreign' => 'pcr_program_id'));
 
