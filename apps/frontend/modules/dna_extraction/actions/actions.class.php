@@ -112,6 +112,7 @@ class dna_extractionActions extends MyActions {
 		
 		$this->hasStrains = (Doctrine::getTable('Strain')->count() > 0)?true:false;
 		$this->hasExtractionKits = (Doctrine::getTable('ExtractionKit')->count() > 0)?true:false;
+		$this->aliquotsAreEditable = false;
 	}
 	
 	public function executeCreate(sfWebRequest $request) {
@@ -128,6 +129,8 @@ class dna_extractionActions extends MyActions {
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($dna_extraction = Doctrine_Core::getTable('DnaExtraction')->find(array($request->getParameter('id'))), sprintf('Object dna extraction does not exist (%s).', $request->getParameter('id')));
 		$this->form = new DnaExtractionForm($dna_extraction);
+		
+		$this->aliquotsAreEditable = $dna_extraction->aliquotsAreEditable();
 	}
 	
 	public function executeUpdate(sfWebRequest $request) {

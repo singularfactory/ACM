@@ -7,5 +7,5 @@ if ( ! $hasStrains )
 elseif ( ! $hasExtractionKits )
 	echo '<p>You must '.link_to('add a extraction kit', link_to_backend('extraction_kit_new')).' first before creating DNA extractions.</p>';
 else
-	include_partial('form', array('form' => $form));
+	include_partial('form', array('form' => $form, 'aliquotsAreEditable' => $aliquotsAreEditable));
 ?>

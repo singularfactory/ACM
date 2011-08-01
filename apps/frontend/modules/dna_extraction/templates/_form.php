@@ -55,12 +55,14 @@
 	</div>
 	
 	<div id="right_side_form">
+		<?php if ( $aliquotsAreEditable ): ?>
 		<div id="aliquots">
 			<?php echo $form['aliquots']->renderLabel() ?>
 			<?php echo $form['aliquots']->renderError() ?>
 			<?php echo $form['aliquots']->renderHelp() ?>
 			<?php echo $form['aliquots'] ?>
 		</div>
+		<?php endif; ?>
 		
 		<div id="public" class="checkbox">
 			<?php echo $form['is_public']->renderLabel() ?>
