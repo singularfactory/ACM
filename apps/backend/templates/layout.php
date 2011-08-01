@@ -66,7 +66,7 @@
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('DNA Lab', '@extraction_kit', (preg_match('/^(extraction_kit|dna_polymerase|dna_primer)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('DNA Lab', '@extraction_kit', (preg_match('/^(extraction_kit|dna_polymerase|dna_primer|pcr_program)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -104,7 +104,7 @@
 			</div>
 			<?php endif; ?>
 			
-			<?php if ( preg_match('/^(extraction_kit|dna_polymerase|dna_primer)_?/', $route) ): ?>
+			<?php if ( preg_match('/^(extraction_kit|dna_polymerase|dna_primer|pcr_program)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/dna_lab_sections', array('route' => $route)) ?>
 			</div>

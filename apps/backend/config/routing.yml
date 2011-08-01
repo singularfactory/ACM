@@ -1,3 +1,21 @@
+pcr_program_step:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                PcrProgramStep
+    module:               pcr_program_step
+    prefix_path:          /admin/pcr_program_step
+    column:               id
+    with_wildcard_routes: true
+
+pcr_program:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                PcrProgram
+    module:               pcr_program
+    prefix_path:          /admin/pcr_program
+    column:               id
+    with_wildcard_routes: true
+
 dna_primer:
   class: sfDoctrineRouteCollection
   options:

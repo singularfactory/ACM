@@ -1,0 +1,85 @@
+Location:
+  aa:  { name: AAA, latitude: 27º52\'30\", longitude: -15º26\'45\", Country: [ES], Region: [ES-GC] , Island: [gran-canaria] }
+  ab:  { name: ABA, latitude: 27º52\'30\", longitude: -15º26\'45\", Country: [ES], Region: [ES-GC] , Island: [fuerteventura] }
+  ac:  { name: ACA, latitude: 27º52\'30\", longitude: -15º26\'45\", Country: [ES], Region: [ES-GC] , Island: [lanzarote] }
+
+Sample:
+  01:
+    notebook_code:    1
+    Location:         [aa]
+    latitude:         27º52\'30\"
+    longitude:        -15º26\'45\"
+    Environment:      [freshwater]
+    is_extremophile:  1
+    Habitat:          [acidophilic]
+    ph:               2.0
+    conductivity:     2.0
+    temperature:      25.0
+    salinity:         182.3
+    altitude:         23
+    Radiation:        [normal]
+    Collector:        [emilio-soler]
+    collection_date:  '2011-07-15'
+  02:
+    notebook_code:    2
+    Location:         [ab]
+    latitude:         27º52\'30\"
+    longitude:        -15º26\'45\"
+    Environment:      [freshwater]
+    is_extremophile:  1
+    Habitat:          [acidophilic]
+    ph:               2.0
+    conductivity:     2.0
+    temperature:      25.0
+    salinity:         182.3
+    altitude:         23
+    Radiation:        [normal]
+    Collector:        [emilio-soler]
+    collection_date:  '2011-02-15'
+
+GrowthMedium:
+  01: { name: foo, description: foo, link: foo }
+  02: { name: bar, description: bar, link: bar }
+
+Strain:
+  0001:
+    Sample:             [01]
+    TaxonomicClass:     [Bacillariophyceae]
+    Genus:              [Achnanthes]
+    Species:            [vulgaris]
+    Authority:          [authority_1]
+    Isolator:           [bea]
+    isolation_date:     '2011-07-15'
+    MaintenanceStatus:  [liquid]
+  0002:
+    Sample:             [02]
+    TaxonomicClass:     [Bacillariophyceae]
+    Genus:              [Achnanthes]
+    Species:            [vulgaris]
+    Authority:          [authority_2]
+    Isolator:           [bea]
+    isolation_date:     '2011-07-16'
+    MaintenanceStatus:  [solid]
+
+ExtractionKit:
+  001:  { name: "KIT 1" }
+  002:  { name: "KIT 2" }
+  003:  { name: "KIT 3" }
+
+DnaExtraction:
+  001:
+    Strain:         [0001]
+    arrival_date:   '2011-07-16'
+    ExtractionKit:  [001]
+  002:
+    Strain:         [0001]
+    arrival_date:   '2011-07-18'
+    ExtractionKit:  [002]
+  003:
+    Strain:         [0002]
+    arrival_date:   '2011-07-18'
+    ExtractionKit:  [002]
+
+DnaPrimer:
+  001:  { name: EABF>, direction: forward }
+  002:  { name: FB3>, direction: reverse }

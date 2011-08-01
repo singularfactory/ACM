@@ -82,7 +82,7 @@ td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.strain_name { width: 240px; }
 td.growth_medium_name, td.link { width: 300px; }
 td.location_name { width: 384px; }
-td.taxonomic_class_name { width: 140px; }
+td.taxonomic_class_name { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 
 th.object_count, td.object_count,

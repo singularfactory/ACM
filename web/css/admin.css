@@ -217,3 +217,42 @@ form { margin: 0; padding: 0; }
 #subsections_header span.subsection_separator { color: #999; font-size: 12px; padding: 0px 5px; }
 
 #sf_admin_container #dna_polymerase_name { width: 200px; }
+
+
+/**
+ * EMBEDDED FORMS
+*/
+#sf_admin_container #pcr_program_steps_handler label { display: block; float: none; }
+#sf_admin_container #pcr_program_steps_handler { border-bottom: 0; }
+#sf_admin_container #pcr_program_steps_handler div.model_text_input_steps { display: block; font-size: 11px; margin-left: 13px; margin-top: 7px; border: 1px solid #e5e5e5; padding: 7px; }
+#sf_admin_container #pcr_program_steps_handler div.model_text_input_steps div { margin-top: 7px; }
+#sf_admin_container div.text_inputs_add_relation { margin-left: 17px; }
+
+#sf_admin_container #pcr_program_steps_handler div.model_text_input_steps span.input_error {
+	margin-left: 5px;
+	padding: 1px 5px;
+	text-align: center;
+	width: 400px;
+	font-size: 11px;
+	background: #cc3300;
+	color: #ffffff;
+	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+#sf_admin_container #pcr_program_steps_handler div.model_text_input_steps p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -2px; padding: 0px; }
+
+
+#sf_admin_container div.sf_admin_form_field_Steps { border-top: 1px solid #DDD; margin-top: 13px; }
+#sf_admin_container div.sf_admin_form_field_Steps label { display: block; float: none; margin-bottom: 7px; }
+#sf_admin_container div.sf_admin_form_field_Steps div.content { margin-left: 13px; padding-left: 0px; }
+#sf_admin_container div.sf_admin_form_field_Steps table { width: auto; }
+#sf_admin_container div.sf_admin_form_field_Steps table th { display: none; }
+#sf_admin_container div.sf_admin_form_field_Steps table table th { display: block; border-bottom: 0px; }
+#sf_admin_container div.sf_admin_form_field_Steps table table td { border-bottom: 0px; }
+#sf_admin_container div.sf_admin_form_field_Steps table table tr { border-bottom: 1px solid #DDD; }
+#sf_admin_container div.sf_admin_form_field_Steps td p.input_help { display: none; }
+#sf_admin_container div.sf_admin_form_field_Steps tr:hover{ background: #ffffff; }

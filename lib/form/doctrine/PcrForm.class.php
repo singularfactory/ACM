@@ -42,6 +42,7 @@ class PcrForm extends BasePcrForm {
 		$this->widgetSchema->setLabel('dna_polymerase_id', 'DNA polymerase');
 		$this->widgetSchema->setLabel('forward_dna_primer_id', 'Forward DNA primer');
 		$this->widgetSchema->setLabel('reverse_dna_primer_id', 'Reverse DNA primer');
+		$this->widgetSchema->setLabel('pcr_program_id', 'PCR program');
 		$this->widgetSchema->setLabel('concentration', 'PCR product concentration');
 		$this->widgetSchema->setLabel('260_280_ratio', '260:280 DNA quality ratio');
 		$this->widgetSchema->setLabel('260_230_ratio', '260:230 DNA quality ratio');
@@ -49,6 +50,7 @@ class PcrForm extends BasePcrForm {
 		// Configure help messages
 		$this->widgetSchema->setHelp('forward_dna_primer_id', 'Strand where the PCR starts');
 		$this->widgetSchema->setHelp('reverse_dna_primer_id', 'Strand where the PCR starts');
+		$this->widgetSchema->setHelp('pcr_program_id', 'Program that defines the conditions of this PCR');
 		$this->widgetSchema->setHelp('concentration', 'Decimal value for concentration in ng/&micro;l');
 		$this->widgetSchema->setHelp('260_280_ratio', 'Decimal value for quality ratio, e.g. 1.75');
 		$this->widgetSchema->setHelp('260_230_ratio', 'Decimal value for quality ratio, e.g. 1.75');

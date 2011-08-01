@@ -297,6 +297,7 @@ Pcr:
     forward_dna_primer_id:  { type: integer, notnull: true }
     reverse_dna_primer_id:  { type: integer, notnull: true }
     dna_polymerase_id:      { type: integer, notnull: true }
+    pcr_program_id:         { type: integer, notnull: true }
     concentration:          { type: decimal }
     260_280_ratio:          { type: decimal }
     260_230_ratio:          { type: decimal }
@@ -307,6 +308,7 @@ Pcr:
     DnaPolymerase:          { foreignAlias: Pcr }
     ForwardPrimer:          { class: DnaPrimer, local: forward_dna_primer_id, foreignAlias: Pcr }
     ReversePrimer:          { class: DnaPrimer, local: reverse_dna_primer_id, foreignAlias: Pcr }
+    PcrProgram:             { foreignAlias: Pcr }
     Gel:                    { type: many, class: PcrGel, local:id, foreign: pcr_id, orderBy: number }
 
 PcrGel:
@@ -339,3 +341,21 @@ PcrReaction:
   relations:
     DnaPrimer:        { foreignAlias: Reaction }
     DnaSequence:      { foreignAlias: Reaction, onDelete: cascade }
+
+PcrProgramStep:
+  columns:
+    id:             { type: integer, primary: true, autoincrement: true }
+    segment:        { type: integer, notnull: true }
+    temperature:    { type: decimal, notnull: true }
+    duration:       { type: time, notnull: true }
+    pcr_program_id: { type: integer, notnull: true }
+  relations:
+    PcrProgram:     { foreignAlias: Steps }
+
+PcrProgram:
+  columns:
+    id:     { type: integer, primary: true, autoincrement: true }
+    name:   { type: string(127), notnull: true }
+    cycles: { type: integer, notnull: true }
+    start:  { type: integer, notnull: true }
+    end:    { type: integer, notnull: true }

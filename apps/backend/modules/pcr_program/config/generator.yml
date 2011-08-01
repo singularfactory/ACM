@@ -1,0 +1,34 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           PcrProgram
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          pcr_program
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:                    false
+    
+    config:
+      actions: ~
+      fields:
+        start:  { label: Starting step }
+        end:    { label: Ending step }
+      list:
+        title: PCR programs
+        display: [name, cycles, updated_at]
+        fields:
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name]
+      form: ~
+      edit:
+        title: Edit "%%name%%"
+      new:
+        title: Add a new program

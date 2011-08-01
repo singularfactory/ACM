@@ -108,6 +108,11 @@ jQuery(function($) {
 				$newrow.val('');
 				singleField = false;
 			  break;
+			case "Steps":
+				divClass = "model_text_input_steps";
+				$newrow.val('');
+				singleField = false;
+				break;
 		}
 		
 		if ( singleField ) {

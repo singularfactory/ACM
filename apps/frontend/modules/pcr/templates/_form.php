@@ -26,6 +26,13 @@
 			<?php echo $form['reverse_dna_primer_id'] ?>
 		</div>
 		
+		<div id="pcr_program_id">
+			<?php echo $form['pcr_program_id']->renderLabel() ?>
+			<?php echo $form['pcr_program_id']->renderError() ?>
+			<?php echo $form['pcr_program_id']->renderHelp() ?>
+			<?php echo $form['pcr_program_id'] ?>
+		</div>
+		
 		<div id="concentration">
 			<?php echo $form['concentration']->renderLabel() ?>
 			<?php echo $form['concentration']->renderError() ?>

@@ -75,6 +75,8 @@
 			<dd><?php echo $pcr->getReversePrimer()->getName() ?></dd>
 			<dt>DNA Polymerase:</dt>
 			<dd><?php echo $pcr->getDnaPolymerase() ?></dd>
+			<dt>Program:</dt>
+			<dd><?php echo $pcr->getPcrProgram()->getName() ?></dd>
 			<dt>Gel:</dt>
 			<dd><?php echo $nbGel ?></dd>
 			<dt>DNA sequences:</dt>

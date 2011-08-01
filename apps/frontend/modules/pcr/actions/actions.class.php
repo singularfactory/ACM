@@ -36,6 +36,7 @@ class pcrActions extends MyActions {
 		
 		$this->hasDnaPrimers = (Doctrine::getTable('DnaPrimer')->count() > 0)?true:false;
 		$this->hasDnaPolymeraseKits = (Doctrine::getTable('DnaPolymerase')->count() > 0)?true:false;
+		$this->hasPcrPrograms = (Doctrine::getTable('PcrProgram')->count() > 0)?true:false;
 	}
 
 	public function executeCreate(sfWebRequest $request) {
@@ -47,6 +48,7 @@ class pcrActions extends MyActions {
 		$this->dnaExtraction = DnaExtractionTable::getInstance()->findOneById($request->getParameter('dna_extraction'));
 		$this->hasDnaPrimers = (Doctrine::getTable('DnaPrimer')->count() > 0)?true:false;
 		$this->hasDnaPolymeraseKits = (Doctrine::getTable('DnaPolymerase')->count() > 0)?true:false;
+		$this->hasPcrPrograms = (Doctrine::getTable('PcrProgram')->count() > 0)?true:false;
 
 		$this->setTemplate('new');
 	}
