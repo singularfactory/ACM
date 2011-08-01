@@ -82,6 +82,17 @@ class dna_extractionActions extends MyActions {
 	
 	public function executeShow(sfWebRequest $request) {
 		$this->dnaExtraction = Doctrine_Core::getTable('DnaExtraction')->find(array($request->getParameter('id')));
+		
+		// Retrieve the PCR linked to this DNA extraction
+		$this->pcrResults = $this->buildPagination($request, 'Pcr', array('init' => false, 'sort_column' => 'id'));
+		$query = $this->pcrResults->getQuery()
+			->leftJoin("{$this->mainAlias()}.DnaPolymerase")
+			->leftJoin("{$this->mainAlias()}.ForwardPrimer")
+			->leftJoin("{$this->mainAlias()}.ReversePrimer")
+			->where("{$this->mainAlias()}.dna_extraction_id = ?", $this->dnaExtraction->getId());
+		$this->pcrResults->setQuery($query);
+		$this->pcrResults->init();
+		
 		$this->forward404Unless($this->dnaExtraction);
 	}
 	
