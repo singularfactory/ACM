@@ -43,8 +43,8 @@ class profileActions extends myActions {
 				$url = '@profile_shortcut?id='.$user->getId();
 				
 				// Delete previous avatar
-				$newAvatar = $form->getObject()->getAvatar();
-				if ( $oldAvatar === $newAvatar ) {
+				$newAvatar = $user->getAvatar();
+				if ( $oldAvatar !== $newAvatar ) {
 					$path = sfConfig::get('sf_web_dir').sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir');
 					$filename = $path.'/'.$oldAvatar;
 					unlink($filename);
