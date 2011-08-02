@@ -42,6 +42,7 @@ all:
     max_picture_size:   67108864
     max_thumbnail_size: 75
     max_avatar_size:    40
+    image_mime_types:   ['image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'image/tiff', 'image/svg+xml', 'image/bmp']
     
     # Common constants
     max_list_items:             15

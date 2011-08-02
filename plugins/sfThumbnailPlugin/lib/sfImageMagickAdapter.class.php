@@ -133,6 +133,8 @@ class sfImageMagickAdapter
     'png'   => 'image/png',
     'png24' => 'image/png',
     'png32' => 'image/png',
+		'tif'   => 'image/tiff', 
+		'tiff'  => 'image/tiff',
   );
 
   public function __construct($maxWidth, $maxHeight, $scale, $inflate, $quality, $options)

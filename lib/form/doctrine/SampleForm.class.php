@@ -95,9 +95,9 @@ class SampleForm extends BaseSampleForm {
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
-		$this->widgetSchema->setHelp('new_FieldPictures', 'Select up to '.($defaultMaxFieldPictures - $actualFieldPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
-		$this->widgetSchema->setHelp('new_DetailedPictures', 'Select up to '.($defaultMaxDetailedPictures - $actualDetailedPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
-		$this->widgetSchema->setHelp('new_MicroscopicPictures', 'Select up to '.($defaultMaxMicroscopicPictures - $actualMicroscopicPictures).' pictures in JPEG, PNG or TIFF format (500KB per picture)');
+		$this->widgetSchema->setHelp('new_FieldPictures', 'Select up to '.($defaultMaxFieldPictures - $actualFieldPictures).' pictures in JPEG, PNG or TIFF format');
+		$this->widgetSchema->setHelp('new_DetailedPictures', 'Select up to '.($defaultMaxDetailedPictures - $actualDetailedPictures).' pictures in JPEG, PNG or TIFF format');
+		$this->widgetSchema->setHelp('new_MicroscopicPictures', 'Select up to '.($defaultMaxMicroscopicPictures - $actualMicroscopicPictures).' pictures in JPEG, PNG or TIFF format');
 	}
 
 	/**

@@ -209,8 +209,10 @@ class sampleActions extends MyActions {
 			$removablePictures = array_merge($removablePictures, $this->getRemovablePictures($form, 'MicroscopicPictures'));
 			
 			// Save object
+			$sample = null;
 			try {
 				$sample = $form->save();
+				
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Sample created successfully. Now you can add another one';
 					$url = '@sample_new';
@@ -234,10 +236,12 @@ class sampleActions extends MyActions {
 				$message = $e->getMessage();
 			}
 			
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $sample->getId())));
-			$this->getUser()->setFlash('notice', $message);
-			if ( $url !== null ) {
-				$this->redirect($url);
+			if ( $sample != null ) {
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $sample->getId())));
+				$this->getUser()->setFlash('notice', $message);
+				if ( $url !== null ) {
+					$this->redirect($url);
+				}
 			}
 		}
 		
