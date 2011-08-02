@@ -19,7 +19,7 @@ class sfCustomValidatedFile extends sfValidatedFile {
 			}
 				
 			// Create the thumbnail
-			$thumbnail = new sfThumbnail(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true, true, 75, 'sfImageMagickAdapter');
+			$thumbnail = new sfThumbnail(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true, true, 300, 'sfImageMagickAdapter');
 			$thumbnail->loadFile("$path/$filename");
 			$thumbnail->save("$thumbnailsDirectory/$filename", $this->getType());
 		}
