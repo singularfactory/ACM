@@ -11,6 +11,7 @@
 <?php end_slot() ?>
 
 <form action="<?php echo url_for('@login') ?>" method="post">
+	<?php echo $form->renderHiddenFields() ?>
 	<div id="username" class="input">
 		<?php echo $form['username']->renderLabel() ?>
 		<?php echo $form['username']; ?>
@@ -22,5 +23,5 @@
 	<div class="submit">
 		<input type="submit" value="Sign in">
 	</div>
-	<?php echo $form->renderHiddenFields() ?>
+	
 </form>
