@@ -35,14 +35,15 @@ all:
     reverse_dna_primer_direction: reverse
     
     # Pictures and thumbnails management constants
-    pictures_dir:       /uploads
-    thumbnails_dir:     /thumbnails
-    avatar_dir:         /avatar
-    default_avatar:     /images/default_avatar
-    max_picture_size:   67108864
-    max_thumbnail_size: 75
-    max_avatar_size:    40
-    image_mime_types:   ['image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'image/tiff', 'image/svg+xml', 'image/bmp']
+    pictures_dir:         /uploads
+    thumbnails_dir:       /thumbnails
+    thumbnail_extension:  .png
+    avatar_dir:           /avatar
+    default_avatar:       /images/default_avatar
+    max_picture_size:     67108864
+    max_thumbnail_size:   75
+    max_avatar_size:      40
+    image_mime_types:     ['image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'image/tiff', 'image/svg+xml', 'image/bmp']
     
     # Common constants
     max_list_items:             15

@@ -61,12 +61,10 @@
 		<?php $i = 1 ?>
 		<?php foreach ($sample->getFieldPictures() as $picture): ?>
 		<?php if ( $picture->getFilename() === null ) continue ?>
-		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture->getFilename() ?>
-		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">
 			<div class="thumbnail_image">
-				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $picture->getThumbnail() ?>" alt="Picture <?php echo $i ?>" />
 				</a>
 			</div>
 		</div>
@@ -81,12 +79,10 @@
 		<?php $i = 1 ?>
 		<?php foreach ($sample->getDetailedPictures() as $picture): ?>
 		<?php if ( $picture->getFilename() === null ) continue ?>
-		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture->getFilename() ?>
-		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">
 			<div class="thumbnail_image">
-				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $picture->getThumbnail() ?>" alt="Picture <?php echo $i ?>" />
 				</a>
 			</div>
 		</div>
@@ -101,12 +97,10 @@
 		<?php $i = 1 ?>
 		<?php foreach ($sample->getMicroscopicPictures() as $picture): ?>
 		<?php if ( $picture->getFilename() === null ) continue ?>
-		<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture->getFilename() ?>
-		<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture->getFilename() ?>
 		<div class="thumbnail">
 			<div class="thumbnail_image">
-				<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-					<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+				<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+					<img src="<?php echo $picture->getThumbnail() ?>" alt="Picture <?php echo $i ?>" />
 				</a>
 			</div>
 		</div>

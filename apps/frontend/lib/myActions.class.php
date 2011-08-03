@@ -143,7 +143,7 @@ class MyActions extends sfActions {
 			foreach( $filenames as $filename ) {
 				$commonPath = sfConfig::get('sf_web_dir').sfConfig::get('app_pictures_dir').$subdirectory;
 				$image = $commonPath.'/'.$filename;
-				$thumbnail = $commonPath.sfConfig::get('app_thumbnails_dir').'/'.$filename;
+				$thumbnail = preg_replace('/\.[\-\w]+$/', sfConfig::get('app_thumbnail_extension'), $commonPath.sfConfig::get('app_thumbnails_dir').'/'.$filename);
 				
 				unlink($image);
 				unlink($thumbnail);

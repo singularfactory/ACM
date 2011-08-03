@@ -66,8 +66,6 @@
 			<?php $i = 0 ?>
 			<?php foreach ($form['Pictures'] as $widget): ?>
 			<?php $picture = $widget->getValue() ?>
-			<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$picture['filename'] ?>
-			<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
 			<div class="thumbnail">
 				<p class="thumbnail_caption">
 					<input type="checkbox" name="location[Pictures][<?php echo $i ?>][delete_object]" id="location_Pictures_<?php echo $i ?>_delete_object" />
@@ -76,8 +74,8 @@
 					 delete
 				</p>
 				<div class="thumbnail_image">
-					<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-						<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+					<a href="<?php echo get_picture_with_path($picture['filename'], 'location') ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+						<img src="<?php echo get_thumbnail($picture['filename'], 'location') ?>" alt="Picture <?php echo $i ?>" />
 					</a>
 				</div>
 			</div>

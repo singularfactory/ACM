@@ -11,4 +11,12 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class MicroscopicPicture extends BaseMicroscopicPicture {
+	public function getThumbnail() {
+		$file = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$this->getFilename();
+		return preg_replace('/\.[\-\w]+$/', sfConfig::get('app_thumbnail_extension'), $file);
+	}
+	
+	public function getFilenameWithPath($filename = '') {
+		return sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$this->getFilename();
+	}
 }

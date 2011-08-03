@@ -18,7 +18,7 @@ class myAvatarFile extends sfValidatedFile {
 			$avatar->loadFile("$path/$filename");
 			
 			// Save the avatar as a PNG file
-			$avatarFilename = preg_replace('/\.[\w\-]+$/', '.png', $filename);
+			$avatarFilename = preg_replace('/\.[\w\-]+$/', sfConfig::get('app_thumbnail_extension'), $filename);
 			$avatar->save("$path/$avatarFilename", 'image/png');
 			
 			// Delete the uploaded file

@@ -127,8 +127,6 @@
 				<?php $i = 0 ?>
 				<?php foreach ($form['FieldPictures'] as $widget): ?>
 				<?php $picture = $widget->getValue() ?>
-				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
-				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
 				<div class="thumbnail">
 					<p class="thumbnail_caption">
 						<input type="checkbox" name="sample[FieldPictures][<?php echo $i ?>][delete_object]" id="sample_FieldPictures_<?php echo $i ?>_delete_object" />
@@ -137,8 +135,8 @@
 						 delete
 					</p>
 					<div class="thumbnail_image">
-						<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-							<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+						<a href="<?php echo get_picture_with_path($picture['filename'], 'sample') ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+							<img src="<?php echo get_thumbnail($picture['filename'], 'sample') ?>" alt="Picture <?php echo $i ?>" />
 						</a>
 					</div>
 				</div>
@@ -174,8 +172,6 @@
 				<?php $i = 0 ?>
 				<?php foreach ($form['DetailedPictures'] as $widget): ?>
 				<?php $picture = $widget->getValue() ?>
-				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
-				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
 				<div class="thumbnail">
 					<p class="thumbnail_caption">
 						<input type="checkbox" name="sample[DetailedPictures][<?php echo $i ?>][delete_object]" id="sample_DetailedPictures_<?php echo $i ?>_delete_object" />
@@ -184,8 +180,8 @@
 						 delete
 					</p>
 					<div class="thumbnail_image">
-						<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-							<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+						<a href="<?php echo get_picture_with_path($picture['filename'], 'sample') ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+							<img src="<?php echo get_thumbnail($picture['filename'], 'sample') ?>" alt="Picture <?php echo $i ?>" />
 						</a>
 					</div>
 				</div>
@@ -221,8 +217,6 @@
 				<?php $i = 0 ?>
 				<?php foreach ($form['MicroscopicPictures'] as $widget): ?>
 				<?php $picture = $widget->getValue() ?>
-				<?php $image = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$picture['filename'] ?>
-				<?php $thumbnail = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$picture['filename'] ?>
 				<div class="thumbnail">
 					<p class="thumbnail_caption">
 						<input type="checkbox" name="sample[MicroscopicPictures][<?php echo $i ?>][delete_object]" id="sample_MicroscopicPictures_<?php echo $i ?>_delete_object" />
@@ -231,8 +225,8 @@
 						 delete
 					</p>
 					<div class="thumbnail_image">
-						<a href="<?php echo $image ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-							<img src="<?php echo $thumbnail ?>" alt="Picture <?php echo $i ?>" />
+						<a href="<?php echo get_picture_with_path($picture['filename'], 'sample') ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+							<img src="<?php echo get_thumbnail($picture['filename'], 'sample') ?>" alt="Picture <?php echo $i ?>" />
 						</a>
 					</div>
 				</div>

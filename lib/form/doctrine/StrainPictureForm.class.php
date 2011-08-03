@@ -22,7 +22,7 @@ class StrainPictureForm extends BaseStrainPictureForm {
 	
 		$this->setValidator('filename', new sfValidatorFile(array(
 			'max_size' => sfConfig::get('app_max_picture_size'),
-			'mime_types' => 'web_images',
+			'mime_types' => sfConfig::get('app_image_mime_types'),
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_strain_pictures_dir'),
 			'validated_file_class' => 'sfCustomValidatedFile',
 			'required' => false,
