@@ -11,12 +11,5 @@
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
 class LocationPicture extends BaseLocationPicture {
-	public function getThumbnail() {
-		$file = sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$this->getFilename();
-		return preg_replace('/\.[\-\w]+$/', sfConfig::get('app_thumbnail_extension'), $file);
-	}
 	
-	public function getFilenameWithPath() {
-		return sfConfig::get('app_pictures_dir').sfConfig::get('app_location_pictures_dir').'/'.$this->getFilename();
-	}
 }

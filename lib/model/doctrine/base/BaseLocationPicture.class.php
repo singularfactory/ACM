@@ -56,6 +56,10 @@ abstract class BaseLocationPicture extends sfDoctrineRecord
              'onDelete' => 'cascade'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
+        $picture0 = new Picture(array(
+             'moduleName' => 'location',
+             ));
         $this->actAs($timestampable0);
+        $this->actAs($picture0);
     }
 }

@@ -56,6 +56,10 @@ abstract class BaseFieldPicture extends sfDoctrineRecord
              'onDelete' => 'cascade'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
+        $picture0 = new Picture(array(
+             'moduleName' => 'sample',
+             ));
         $this->actAs($timestampable0);
+        $this->actAs($picture0);
     }
 }

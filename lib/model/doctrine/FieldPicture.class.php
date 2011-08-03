@@ -12,12 +12,4 @@
  */
 class FieldPicture extends BaseFieldPicture {
 	
-	public function getThumbnail() {
-		$file = sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').sfConfig::get('app_thumbnails_dir').'/'.$this->getFilename();
-		return preg_replace('/\.[\-\w]+$/', sfConfig::get('app_thumbnail_extension'), $file);
-	}
-	
-	public function getFilenameWithPath() {
-		return sfConfig::get('app_pictures_dir').sfConfig::get('app_sample_pictures_dir').'/'.$this->getFilename();
-	}
 }

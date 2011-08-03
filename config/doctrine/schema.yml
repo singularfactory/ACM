@@ -34,6 +34,10 @@ LocationPicture:
     location_id:  { type: integer, notnull: true }
   relations:
     Location:     { foreignAlias: Pictures, onDelete: cascade }
+  actAs:
+    Timestampable:
+    Picture:
+      moduleName: location
 
 Location:
   columns:
@@ -73,6 +77,10 @@ FieldPicture:
     sample_id:    { type: integer, notnull: true }
   relations:
     Sample:     { foreignAlias: FieldPictures, onDelete: cascade }
+  actAs:
+    Timestampable:
+    Picture:
+      moduleName: sample
 
 DetailedPicture:
   columns:
@@ -81,6 +89,10 @@ DetailedPicture:
     sample_id:    { type: integer, notnull: true }
   relations:
     Sample:     { foreignAlias: DetailedPictures, onDelete: cascade }
+  actAs:
+    Timestampable:
+    Picture:
+      moduleName: sample
 
 MicroscopicPicture:
   columns:
@@ -89,6 +101,10 @@ MicroscopicPicture:
     sample_id:    { type: integer, notnull: true }
   relations:
     Sample:     { foreignAlias: MicroscopicPictures, onDelete: cascade }
+  actAs:
+    Timestampable:
+    Picture:
+      moduleName: sample
 
 Sample:
   columns:
@@ -209,6 +225,10 @@ StrainPicture:
     strain_id:    { type: integer, notnull: true }
   relations:
     Strain:       { foreignAlias: Pictures, onDelete: cascade }
+  actAs:
+    Timestampable:
+    Picture:
+      moduleName: strain
 
 Strain:
   columns:
