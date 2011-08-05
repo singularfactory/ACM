@@ -1,4 +1,4 @@
-<?php use_helper('Thumbnail') ?>
+<?php use_helper('Thumbnail', 'PictureUpload') ?>
 
 <?php slot('main_header', 'Add a new sample') ?>
 <?php

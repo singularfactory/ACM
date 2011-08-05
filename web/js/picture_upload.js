@@ -12,11 +12,12 @@ function updateProgressBar() {
 	if ( percentage == 100 ) {
 		$("#progressbar").fadeOut();
 		$("#progressbar_wrapper").children('p').first().html('Processing pictures... <img src="/images/progress.gif" height="15" width="15" alt="..."/>');
+		return true;
 	}
 	else {
 		$("#progressbar").progressbar("value", percentage);
+		setTimeout("updateProgressBar()", 750);
 	}
-	setTimeout("updateProgressBar()", 750);
 }
 
 $(document).ready(function(){
@@ -43,18 +44,20 @@ $(document).ready(function(){
 
 		if ( nFiles == 0 ) {
 			$("#progress_key").remove();	// AVOID APC 3.1.6 bug
+			return true;
 		}
 		else {
 			$("#progressbar_wrapper").fadeIn();
 			
 			if ( firstLoading ) {
+				firstLoading = false;
+				
 				var percentage = $.ajax({
 				  url: uploadProgressUrl,
 				  async: false
 				 }).responseText;
-				
 				$("#progressbar").progressbar("value", parseInt(percentage));
-				firstLoading = false;
+				
 				$(uploadForm).submit();
 				updateProgressBar();
 				

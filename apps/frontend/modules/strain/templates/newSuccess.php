@@ -1,5 +1,4 @@
-<?php use_helper('CrossAppLink') ?>
-<?php use_helper('Thumbnail') ?>
+<?php use_helper('CrossAppLink', 'Thumbnail', 'PictureUpload') ?>
 
 <?php slot('main_header', 'Add a new strain') ?>
 <?php

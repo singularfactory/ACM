@@ -4,6 +4,7 @@
 <?php echo form_tag_for($form, '@strain') ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_strain_pictures'), 'id' => 'max_strain_pictures')) ?>
+	<?php echo progress_key() ?>
 	
 	<div id="left_side_form">
 		<div id="sample_id">
@@ -236,5 +237,7 @@
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
 		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+		
+		<?php echo progress_bar() ?>
 	</div>
 </form>

@@ -2,11 +2,12 @@
 <?php use_javascripts_for_form($form) ?>
 
 <?php echo form_tag_for($form, '@sample') ?>
+	<?php echo progress_key() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_sample_field_pictures'), 'id' => 'max_sample_field_pictures')) ?>
 	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_sample_detailed_pictures'), 'id' => 'max_sample_detailed_pictures')) ?>
 	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_sample_microscopic_pictures'), 'id' => 'max_sample_microscopic_pictures')) ?>
-
+	
 	<div id="left_side_form">
 		<div id="notebook_code">
 			<?php echo $form['notebook_code']->renderLabel() ?>
@@ -268,5 +269,7 @@
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
 		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+		
+		<?php echo progress_bar() ?>
 	</div>
 </form>
