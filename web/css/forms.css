@@ -176,3 +176,12 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
 #gps_coordinates_picker_data { margin: 0px; padding-top: 15px; }
 #gps_coordinates_picker_data label { display: inline; margin-right: 9px; }
 #gps_coordinates_picker_data input { margin-right: 17px; width: 80px; display: inline-block; }
+
+
+/**
+ * PROGRESS BAR
+ */
+#progressbar_wrapper { margin: 0px; margin-top: 21px; display: none; }
+#progressbar_wrapper p { padding: 0px; margin: 0px; font-size: 12px; font-style: italic; margin-bottom: 3px; }
+#progressbar { height: 15px; margin: 0px; padding: 0px; }
+#progressbar div { padding: 0px; }	/* disables previous padding in form input fields */

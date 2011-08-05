@@ -180,4 +180,19 @@ class MyActions extends sfActions {
 		$this->redirect("@$module?page=".$this->getUser()->getAttribute("$module.index_page"));
 	}
 	
+	
+	public function executeUploadProgress(sfWebRequest $request) {
+		$apc_status = apc_fetch( 'upload_'.$request->getParameter('id'));
+		$percentage = 1;
+		if ( $apc_status['current'] != 0 ) {
+			$percentage = $apc_status['current'] / $apc_status['total']*100;
+		}
+		
+		$this->setLayout(false);
+		header("Cache-Control: no-cache, must-revalidate");
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+		$this->getResponse()->setContent($percentage);
+		return sfView::NONE;
+	}
+		
 }

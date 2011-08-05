@@ -4,6 +4,7 @@
 <?php echo form_tag_for($form, '@location') ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<?php echo tag('input', array('type' => 'hidden', 'value' => $form->getOption('max_location_pictures'), 'id' => 'max_location_pictures')) ?>
+	<?php echo progress_key() ?>
 
 	<div id="left_side_form">
 		<div id="name">
@@ -110,5 +111,7 @@
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
 		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+		
+		<?php echo progress_bar() ?>
 	</div>
 </form>

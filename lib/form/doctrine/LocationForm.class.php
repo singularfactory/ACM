@@ -51,7 +51,7 @@ class LocationForm extends BaseLocationForm {
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
 		$this->setValidator('latitude', new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/'), array('invalid' => 'Invalid coordinates format')));
 		$this->setValidator('longitude', new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/'), array('invalid' => 'Invalid coordinates format')));
-
+		
 		// Configure help messages
 		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
 		$this->widgetSchema->setHelp('longitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');

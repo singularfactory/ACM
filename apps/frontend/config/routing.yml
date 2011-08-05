@@ -216,6 +216,10 @@ logout:
   url:   /logout
   param: { module: sfGuardAuth, action: signout }
 
+upload_progress:
+  url:    /:module/uploadProgress/:id
+  param:  { action: uploadProgress }
+
 
 ###
 # Default rules
