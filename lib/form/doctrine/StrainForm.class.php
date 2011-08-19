@@ -30,7 +30,6 @@ class StrainForm extends BaseStrainForm {
 		for ($i=$lastYear-5; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
 		$this->setWidget('isolation_date', $dateWidgetForm);
-		$this->setWidget('identification_date', $dateWidgetForm);
 		$this->setWidget('deposition_date', $dateWidgetForm);
 		
 		// Calculate maximum number of images the user can upload
@@ -81,7 +80,6 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('species_id', 'Taxonomic species');
 		$this->widgetSchema->setHelp('authority_id', 'Taxonomic authority');
 		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
-		$this->widgetSchema->setHelp('identification_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
 		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain growth');

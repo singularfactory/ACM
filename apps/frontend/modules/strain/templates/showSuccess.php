@@ -148,7 +148,7 @@
 			
 			<?php if ( $strain->getIdentifier()->getName() ): ?>
 			<dt>Identifier:</dt>
-			<dd><?php echo $strain->getIdentifier() ?> (<?php echo format_date($strain->getIdentificationDate(), 'p') ?>)</dd>
+			<dd><?php echo $strain->getIdentifier() ?></dd>
 			<?php endif; ?>
 			
 			<?php if ( $strain->getDepositor()->getName() ): ?>

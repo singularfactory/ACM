@@ -19,7 +19,6 @@
  * @property integer $depositor_id
  * @property date $deposition_date
  * @property integer $identifier_id
- * @property date $identification_date
  * @property integer $maintenance_status_id
  * @property integer $cryopreservation_method_id
  * @property string $transfer_interval
@@ -55,7 +54,6 @@
  * @method integer                getDepositorId()                Returns the current record's "depositor_id" value
  * @method date                   getDepositionDate()             Returns the current record's "deposition_date" value
  * @method integer                getIdentifierId()               Returns the current record's "identifier_id" value
- * @method date                   getIdentificationDate()         Returns the current record's "identification_date" value
  * @method integer                getMaintenanceStatusId()        Returns the current record's "maintenance_status_id" value
  * @method integer                getCryopreservationMethodId()   Returns the current record's "cryopreservation_method_id" value
  * @method string                 getTransferInterval()           Returns the current record's "transfer_interval" value
@@ -90,7 +88,6 @@
  * @method Strain                 setDepositorId()                Sets the current record's "depositor_id" value
  * @method Strain                 setDepositionDate()             Sets the current record's "deposition_date" value
  * @method Strain                 setIdentifierId()               Sets the current record's "identifier_id" value
- * @method Strain                 setIdentificationDate()         Sets the current record's "identification_date" value
  * @method Strain                 setMaintenanceStatusId()        Sets the current record's "maintenance_status_id" value
  * @method Strain                 setCryopreservationMethodId()   Sets the current record's "cryopreservation_method_id" value
  * @method Strain                 setTransferInterval()           Sets the current record's "transfer_interval" value
@@ -177,9 +174,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('identifier_id', 'integer', null, array(
              'type' => 'integer',
-             ));
-        $this->hasColumn('identification_date', 'date', null, array(
-             'type' => 'date',
              ));
         $this->hasColumn('maintenance_status_id', 'integer', null, array(
              'type' => 'integer',

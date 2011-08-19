@@ -112,13 +112,6 @@
 			<?php echo $form['identifier_id']->renderLabel() ?>
 			<?php echo $form['identifier_id'] ?>
 		</div>
-		
-		<div id="identification_date" class="date_field">
-			<?php echo $form['identification_date']->renderLabel() ?>
-			<?php echo $form['identification_date']->renderError() ?>
-			<?php echo $form['identification_date']->renderHelp() ?>
-			<?php echo $form['identification_date'] ?>
-		</div>
 		<?php endif; ?>
 	</div>
 	
