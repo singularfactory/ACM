@@ -37,7 +37,7 @@
 		<?php $nbGrowthMediums = $strain->getNbGrowthMediums() ?>
 		<?php if ( $nbGrowthMediums > 0): ?>
 		<div class="object_related_model_list">
-			<h2>Growth mediums</h2>
+			<h2>Culture media</h2>
 			<table>
 				<tr>
 					<th class="name">Name</th>
@@ -124,7 +124,7 @@
 			<dt>Relatives:</dt>
 			<dd><?php echo $nbRelatives ?></dd>
 			
-			<dt>Growth mediums:</dt>
+			<dt>Culture media:</dt>
 			<dd><?php echo $nbGrowthMediums ?></dd>
 			
 			<dt>DNA extractions:</dt>

@@ -86,7 +86,7 @@ class growth_mediumActions extends MyActions {
 				$growthMedium = $form->save();
 				
 				if ( $request->hasParameter('_save_and_add') ) {
-					$message = 'Growth medium created successfully. Now you can add another one';
+					$message = 'Culture medium created successfully. Now you can add another one';
 					$url = '@growth_medium_new';
 					
 					// Reuse last object values
@@ -97,7 +97,7 @@ class growth_mediumActions extends MyActions {
 					$url = '@growth_medium_show?id='.$growthMedium->getId();
 				}
 				else {
-					$message = 'Growth medium created successfully';
+					$message = 'Culture medium created successfully';
 					$url = '@growth_medium_show?id='.$growthMedium->getId();
 				}				
 			}
@@ -114,6 +114,6 @@ class growth_mediumActions extends MyActions {
 			}
 		}
 		
-		$this->getUser()->setFlash('notice', 'The information on this growth_medium has some errors you need to fix', false);
+		$this->getUser()->setFlash('notice', 'The information on this culture medium has some errors you need to fix', false);
 	}
 }

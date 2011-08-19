@@ -1,7 +1,7 @@
 <?php slot('main_header') ?>
-<span>All growth mediums</span>
+<span>All culture media</span>
 <?php include_partial('global/search_box_header_action', array('route' => '@growth_medium_search?criteria=')) ?>
-<?php include_partial('global/new_header_action', array('message' => 'Add a new growth medium', 'route' => '@growth_medium_new')) ?>
+<?php include_partial('global/new_header_action', array('message' => 'Add a new culture medium', 'route' => '@growth_medium_new')) ?>
 <?php end_slot() ?>
 
 <?php if ( $pager->count() ): ?>

@@ -20,7 +20,7 @@
 			<dd>
 				<?php echo $nbStrains = $growthMedium->getNbStrains() ?>
 				<?php if ( $nbStrains > 0 ): ?>
-					<a href="#growth_medium_strains_list" title="List of strains who used this growth medium" class="page_jump">see below</a>
+					<a href="#growth_medium_strains_list" title="List of strains who used this culture medium" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
 		</dl>

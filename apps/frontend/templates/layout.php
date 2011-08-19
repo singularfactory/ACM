@@ -82,9 +82,9 @@
 					<li>
 						<?php
 						if ( !preg_match('/^(growth_medium(\/_)?)/', $currentRoute) )
-							echo link_to('Growth mediums', '@growth_medium');
+							echo link_to('Culture media', '@growth_medium');
 						else
-							echo link_to('Growth mediums', '@growth_medium', array('class' => 'header_menu_current_tab'));
+							echo link_to('Culture media', '@growth_medium', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					

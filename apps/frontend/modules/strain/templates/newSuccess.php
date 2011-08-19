@@ -17,7 +17,7 @@ elseif ( ! $hasIsolators )
 elseif ( ! $hasCryopreservationMethods )
 	echo '<p>You must '.link_to('add a cryopreservation method', link_to_backend('cryopreservation_method_new')).' first before creating strains.</p>';
 elseif ( ! $hasGrowthMediums )
-	echo '<p>You must '.link_to('add a growth medium', '@growth_medium_new').' first before creating strains.</p>';
+	echo '<p>You must '.link_to('add a culture medium', '@growth_medium_new').' first before creating strains.</p>';
 else
 	include_partial('form', array('form' => $form));
 ?>
