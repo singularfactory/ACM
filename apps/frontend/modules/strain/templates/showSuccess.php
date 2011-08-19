@@ -161,6 +161,9 @@
 			
 			<dt>Remarks:</dt>
 			<dd><?php echo $strain->getRemarks() ?></dd>
+			
+			<dt>Web notes:</dt>
+			<dd><?php echo $strain->getWebNotes() ?></dd>
 		</dl>
 	</div>
 	

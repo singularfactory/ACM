@@ -24,6 +24,7 @@
  * @property string $transfer_interval
  * @property string $observation
  * @property string $citations
+ * @property string $web_notes
  * @property string $remarks
  * @property Sample $Sample
  * @property TaxonomicClass $TaxonomicClass
@@ -59,6 +60,7 @@
  * @method string                 getTransferInterval()           Returns the current record's "transfer_interval" value
  * @method string                 getObservation()                Returns the current record's "observation" value
  * @method string                 getCitations()                  Returns the current record's "citations" value
+ * @method string                 getWebNotes()                   Returns the current record's "web_notes" value
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
  * @method TaxonomicClass         getTaxonomicClass()             Returns the current record's "TaxonomicClass" value
@@ -93,6 +95,7 @@
  * @method Strain                 setTransferInterval()           Sets the current record's "transfer_interval" value
  * @method Strain                 setObservation()                Sets the current record's "observation" value
  * @method Strain                 setCitations()                  Sets the current record's "citations" value
+ * @method Strain                 setWebNotes()                   Sets the current record's "web_notes" value
  * @method Strain                 setRemarks()                    Sets the current record's "remarks" value
  * @method Strain                 setSample()                     Sets the current record's "Sample" value
  * @method Strain                 setTaxonomicClass()             Sets the current record's "TaxonomicClass" value
@@ -190,6 +193,9 @@ abstract class BaseStrain extends sfDoctrineRecord
              'type' => 'string',
              ));
         $this->hasColumn('citations', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('web_notes', 'string', null, array(
              'type' => 'string',
              ));
         $this->hasColumn('remarks', 'string', null, array(

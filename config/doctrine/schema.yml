@@ -251,6 +251,7 @@ Strain:
     transfer_interval:          { type: string(40) }
     observation:                { type: string }
     citations:                  { type: string }
+    web_notes:                  { type: string }
     remarks:                    { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }

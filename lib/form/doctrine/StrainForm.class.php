@@ -84,6 +84,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain growth');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
+		$this->widgetSchema->setHelp('web_notes', 'Comments that will appear in the public web');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('growth_mediums_list', 'Growth mediums available for this strain. Select more than one with Ctrl or Cmd key.');
   }

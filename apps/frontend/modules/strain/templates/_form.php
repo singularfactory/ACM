@@ -113,6 +113,13 @@
 			<?php echo $form['identifier_id'] ?>
 		</div>
 		<?php endif; ?>
+		
+		<div id="growth_mediums_list" class="list_field">
+			<?php echo $form['growth_mediums_list']->renderLabel() ?>
+			<?php echo $form['growth_mediums_list']->renderError() ?>
+			<?php echo $form['growth_mediums_list']->renderHelp() ?>
+			<?php echo $form['growth_mediums_list'] ?>
+		</div>
 	</div>
 	
 	<div id="right_side_form">
@@ -197,13 +204,6 @@
 		<?php endif; ?>
 		<br />
 		
-		<div id="growth_mediums_list" class="list_field">
-			<?php echo $form['growth_mediums_list']->renderLabel() ?>
-			<?php echo $form['growth_mediums_list']->renderError() ?>
-			<?php echo $form['growth_mediums_list']->renderHelp() ?>
-			<?php echo $form['growth_mediums_list'] ?>
-		</div>
-		
 		<div id="transfer_interval">
 			<?php echo $form['transfer_interval']->renderLabel() ?>
 			<?php echo $form['transfer_interval'] ?>
@@ -226,6 +226,13 @@
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>
+		</div>
+		
+		<div id="web_notes">
+			<?php echo $form['web_notes']->renderLabel() ?>
+			<?php echo $form['web_notes']->renderError() ?>
+			<?php echo $form['web_notes']->renderHelp() ?>
+			<?php echo $form['web_notes'] ?>
 		</div>
 	</div>
 	
