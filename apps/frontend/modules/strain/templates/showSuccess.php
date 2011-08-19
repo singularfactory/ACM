@@ -79,7 +79,16 @@
 	<div id="object_data_list">
 		<dl>
 			<dt>Sample:</dt>
-			<dd><?php echo link_to($strain->getSample()->getNumber(), "@sample_show?id={$strain->getSample()->getId()}") ?></dd>
+			<dd>
+				<?php
+					if ( $strain->getSample() != '' ) {
+						echo link_to($strain->getFormattedSampleNumber(), "@sample_show?id={$strain->getSample()->getId()}");
+					}
+					else {
+						echo sfConfig::get('app_no_data_message');
+					}
+				?>
+			</dd>
 			<dt>Has DNA:</dt>
 			<dd><?php echo $strain->getFormattedHasDna() ?></dd>
 			<dt>Is epitype:</dt>

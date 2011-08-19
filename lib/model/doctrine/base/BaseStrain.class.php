@@ -129,7 +129,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('sample_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('is_epitype', 'boolean', null, array(
              'type' => 'boolean',

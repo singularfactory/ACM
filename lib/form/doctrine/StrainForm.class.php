@@ -22,8 +22,8 @@ class StrainForm extends BaseStrainForm {
 		// Configure manual ID
 		$this->setWidget('id', new sfWidgetFormInputText());
 		
-		// Configure sample code
-		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
+		// Configure sample code (commented out to temporarily allow NULL values)
+		//$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
 		
 		// Configure date format
 		$lastYear = date('Y');
@@ -59,9 +59,11 @@ class StrainForm extends BaseStrainForm {
 		
 		// Configure custom validators
 		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => true)));
-		$this->setValidator('sample_id', new sfValidatorDoctrineChoice(
-			array('model' => $this->getRelatedModelName('Sample')),
-			array('required' => 'The origin sample of the strain is required')));
+		
+		// (commented out to temporarily allow NULL values)
+		// $this->setValidator('sample_id', new sfValidatorDoctrineChoice(
+		// 			array('model' => $this->getRelatedModelName('Sample')),
+		// 			array('required' => 'The origin sample of the strain is required')));
 		
 		// Configure a custom post validator for cryopreservation method
     $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));

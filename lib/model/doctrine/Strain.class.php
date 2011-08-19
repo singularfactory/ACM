@@ -21,6 +21,13 @@ class Strain extends BaseStrain {
 		
 		return 'BEA'.$code.$axenicCode;
 	}
+	
+	public function getFormattedSampleNumber() {
+		if ( $this->getSample() ) {
+			return $this->getSample()->getNumber();
+		}
+		return sfConfig::get('app_no_data_message');
+	}
 			
 	public function getNbGrowthMediums() {
 		return count($this->getGrowthMediums());
