@@ -169,7 +169,17 @@ class MyActions extends sfActions {
 		$this->forward404Unless($model = Doctrine_Core::getTable(sfInflector::camelize($module))->find(array($id)), sprintf('Object does not exist (%s).', $id));
 		
 		try {
+			// Remove pictures if any
+			$removablePictures = array();
+			if ( $module === 'location' || $module === 'sample' || $module === 'strain' ) {
+				foreach ($model->getPictures() as $picture ) {
+					$removablePictures[] = $picture->getFilename();
+				}
+			}
+			
 			$model->delete();
+			$this->removePicturesFromFilesystem($removablePictures, sfConfig::get("app_{$module}_pictures_dir"));
+			
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
 			$this->getUser()->setFlash('notice', "$moduleReadableName deleted successfully");
 		}

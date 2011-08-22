@@ -157,4 +157,18 @@ class Sample extends BaseSample {
 			->count();
 	}
 	
+	public function getPictures() {
+		$pictures = array();
+		foreach ( $this->getFieldPictures() as $picture ) {
+			$pictures[] = $picture;
+		}
+		foreach ( $this->getDetailedPictures() as $picture ) {
+			$pictures[] = $picture;
+		}
+		foreach ( $this->getMicroscopicPictures() as $picture ) {
+			$pictures[] = $picture;
+		}
+		
+		return $pictures;
+	}
 }
