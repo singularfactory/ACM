@@ -108,4 +108,5 @@ class StrainForm extends BaseStrainForm {
 		// cryopreserved method is consistent with maintenance status, return the clean values
 		return $values;
 	}
+	
 }

@@ -95,6 +95,11 @@ strain_search_pagination:
   param:        { module: strain, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+strain_new_related_model_form:
+  url:          strain/new_related_model/:related_model
+  param:        { module: strain, action: newRelatedModelEmbeddedForm }
+  requirements: { sf_method: get, related_model: "[^/]+" }
+
 
 ###
 # GrowthMedium model related routes

@@ -1,0 +1,1 @@
+<input type="text" name="strain[new_<?php echo $model ?>][name]" id="strain_new_<?php echo $model ?>_name">

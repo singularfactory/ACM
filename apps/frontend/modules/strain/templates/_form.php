@@ -24,7 +24,6 @@
 		
 		<div id="taxonomic_class">
 			<?php echo $form['taxonomic_class_id']->renderLabel() ?>
-			<?php //include_partial('global/form_inline_link', array('route' => 'taxonomic_class_new')) ?>
 			<?php echo $form['taxonomic_class_id']->renderError() ?>
 			<?php echo $form['taxonomic_class_id']->renderHelp() ?>
 			<?php echo $form['taxonomic_class_id'] ?>
@@ -32,7 +31,6 @@
 		
 		<div id="genus">
 			<?php echo $form['genus_id']->renderLabel() ?>
-			<?php //include_partial('global/form_inline_link', array('route' => 'genus_new')) ?>
 			<?php echo $form['genus_id']->renderError() ?>
 			<?php echo $form['genus_id']->renderHelp() ?>
 			<?php echo $form['genus_id'] ?>
@@ -40,7 +38,6 @@
 		
 		<div id="species">
 			<?php echo $form['species_id']->renderLabel() ?>
-			<?php //include_partial('global/form_inline_link', array('route' => 'species_new')) ?>
 			<?php echo $form['species_id']->renderError() ?>
 			<?php echo $form['species_id']->renderHelp() ?>
 			<?php echo $form['species_id'] ?>
@@ -48,7 +45,6 @@
 		
 		<div id="authority">
 			<?php echo $form['authority_id']->renderLabel() ?>
-			<?php //include_partial('global/form_inline_link', array('route' => 'authority_new')) ?>
 			<?php echo $form['authority_id']->renderError() ?>
 			<?php echo $form['authority_id']->renderHelp() ?>
 			<?php echo $form['authority_id'] ?>

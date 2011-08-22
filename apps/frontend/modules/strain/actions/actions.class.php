@@ -83,7 +83,17 @@ class strainActions extends MyActions {
     $this->strain = Doctrine_Core::getTable('Strain')->find(array($request->getParameter('id')));
     $this->forward404Unless($this->strain);
   }
-
+	
+	public function executeNewRelatedModelEmbeddedForm(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$this->setLayout(false);
+			return $this->renderPartial('embeddedForm', array('model' => $request->getParameter('related_model')));
+		}
+		else {
+			return sfView::NONE;
+		}
+	}
+	
   public function executeNew(sfWebRequest $request) {
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
@@ -159,7 +169,31 @@ class strainActions extends MyActions {
   }
 	
   protected function processForm(sfWebRequest $request, sfForm $form) {
-		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		$taintedValues = $request->getParameter($form->getName());
+		
+		// Look for related models embedded forms
+		$relatedModels = array('taxonomic_class', 'genus', 'species', 'authority');
+		foreach ( $relatedModels as $modelName ) {
+			$modelInput = "new_$modelName";
+			$modelClass = sfInflector::camelize($modelName);
+			
+			if ( array_key_exists($modelInput, $taintedValues) ) {
+				$model = new $modelClass();
+				$model->setName($taintedValues[$modelInput]['name']);
+				unset($taintedValues[$modelInput]);
+
+				if ( $model->trySave() ) {
+					$taintedValues["{$modelName}_id"] = $model->getId();
+				}
+				else {
+					$this->getUser()->setFlash('notice', "A related model ($model) could not be saved. Try again", false);
+					return;
+				}
+			}
+		}
+		
+		// Bind input fields with files uploaded
+		$form->bind($taintedValues, $request->getFiles($form->getName()));
 		
 		// Count files uploaded in form
 		$uploadedFiles = $request->getFiles();

@@ -271,4 +271,27 @@ $(document).ready(function(){
 			return false;
 		},
 	});
+	
+	// Add a "create" option to taxonomic class, genus, species and authority select elements in strain creation forms
+	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority"];
+	var selectCreateOptionValue = 'create';
+	for (var i = strainRelatedModels.length - 1; i >= 0; i--) {
+		var model = strainRelatedModels[i];
+		var element = "#strain_" + model + "_id";
+		var modelName = model.replace("taxonomic_", "");
+		
+		$(element).append('<option value="' + selectCreateOptionValue + '">Create another ' + modelName + '...</option>');
+		$(element).change(function(){
+			var selectInput = $(this);
+			if ( selectInput.val() == selectCreateOptionValue ) {
+				var model = selectInput.attr('id').replace("strain_", "").replace("_id", "");
+				$.get('/strain/new_related_model/' + model, function(data) {
+					selectInput.hide();
+					selectInput.parent().append(data);
+					$("#strain_new_" + model + "_name").focus();
+				});
+			}
+		});
+	};
+	
 });
