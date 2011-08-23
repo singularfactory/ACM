@@ -27,18 +27,20 @@ class apiActions extends sfActions {
 		// Retrieve the information
 		$info = array();
 		$entities = array(
-			// 'Country' => 'CountryTable',
-			// 			'Region' => 'RegionTable',
+			'Country' => 'CountryTable',
+			'Region' => 'RegionTable',
 			'Island' => 'IslandTable',
-			// 'Environment' => 'EnvironmentTable',
-			// 			'Habitat' => 'HabitatTable',
-			// 			'Radiation' => 'RadiationTable',
-			// 			'Location' => 'LocationTable',
-			// 			'Collector' => 'CollectorTable',
+			'Environment' => 'EnvironmentTable',
+			'Habitat' => 'HabitatTable',
+			'Radiation' => 'RadiationTable',
+			'Location' => 'LocationTable',
+			'Collector' => 'CollectorTable',
 		);
 		
 		foreach ( $entities as $entity => $table ) {
 			$records = $table::getInstance()->findAll();
+			
+			$tmp = array();
 			foreach ( $records as $record ) {
 				$tmp['id'] = $record->getId();
 				$tmp['name'] = $record->getName();
@@ -51,7 +53,11 @@ class apiActions extends sfActions {
 						break;
 						
 					case 'Location':
-						
+						$tmp['latitude'] = $record->getLatitude();
+						$tmp['longitude'] = $record->getLongitude();
+						$tmp['country_id'] = $record->getCountryId();
+						$tmp['region_id'] = $record->getRegionId();
+						$tmp['island_id'] = $record->getIslandId();
 						break;
 					
 					case 'Collector':
