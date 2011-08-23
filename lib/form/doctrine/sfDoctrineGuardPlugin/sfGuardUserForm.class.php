@@ -9,6 +9,7 @@
  * @version    SVN: $Id: sfDoctrinePluginFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class sfGuardUserForm extends PluginsfGuardUserForm {
+	
   public function configure() {
 		// Configure password management
 		$this->setWidget('password', new sfWidgetFormInputPassword());
@@ -24,22 +25,25 @@ class sfGuardUserForm extends PluginsfGuardUserForm {
 			'edit_mode' => false,
 			'is_image' => true,
 		)));
-	
 		$this->setValidator('avatar', new sfValidatorFile(array(
 			'max_size' => sfConfig::get('app_max_picture_size'),
 			'mime_types' => sfConfig::get('app_image_mime_types'),
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_avatar_dir'),
 			'validated_file_class' => 'myAvatarFile',
 			'required' => false,
-		)));	
+		)));
+		
+		// Configure authentication token management
+		$this->setWidget('token', new sfWidgetFormInputHidden());
 	
-		$this->useFields(array('first_name', 'last_name', 'email_address', 'username', 'password', 'password_again', 'avatar'));
+		$this->useFields(array('first_name', 'last_name', 'email_address', 'username', 'password', 'password_again', 'avatar', 'token'));
 
 		$this->widgetSchema->setLabel('first_name', 'Name');
 		$this->widgetSchema->setLabel('last_name', 'Surname');
 		$this->widgetSchema->setLabel('email_address', 'Email');
 		$this->widgetSchema->setLabel('password_again', 'Password again');
 		$this->widgetSchema->setLabel('avatar', 'Profile picture');
+		$this->widgetSchema->setLabel('token', 'Authentication token');
 	
 		$this->widgetSchema->setHelp('first_name', 'Your name');
 		$this->widgetSchema->setHelp('last_name', 'Your last name');

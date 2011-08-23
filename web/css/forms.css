@@ -23,6 +23,7 @@ span.input_error {
 	border-radius: 3px;
 }
 p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -2px; padding: 0px; }
+p.input_long_help { width: 500px; }
 
 input, textarea { display: block; clear: both; font-size: 12px; padding: 1px; }
 textarea { width: 350px; height: 100px; }
@@ -58,6 +59,12 @@ a.form_inline_link { display: inline; font-size: 10px; padding: 0px 2px; }
 a.form_inline_link:hover { padding: 0px 2px; }
 span.form_inline_link { font-size: 10px; }
 
+
+/**
+ *	TOKEN INFORMATION
+ */
+p.token_label { padding: 0; margin: 0; margin-top: 7px; font-weight: bold; }
+p.token_value { padding: 0; margin: 0; margin-top: 1px; }
 
 /**
  * COMMON FIELDS
