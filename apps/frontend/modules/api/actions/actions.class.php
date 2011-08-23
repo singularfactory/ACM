@@ -9,20 +9,18 @@
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
 class apiActions extends sfActions {
-
-	/**
-	* Executes index action
-	*
-	* @param sfRequest $request A request object
-	*/
-	public function executeSamplingInformation(sfWebRequest $request) {
-		$token = $request->getParameter('token');
-		
-		// Check that the user exists and has a valid token
+	
+	protected function validateToken($token = '') {
 		$user = sfGuardUserTable::getInstance()->findOneByToken($token);
 		if ( !$user ) {
 			throw new sfError404Exception("User with token $token does not exist or is not activated.");
 		}
+		
+		return true;
+	}
+
+	public function executeSamplingInformation(sfWebRequest $request) {
+		$this->validateToken($request->getParameter('token'));
 		
 		// Retrieve the information
 		$info = array();
@@ -79,6 +77,15 @@ class apiActions extends sfActions {
 		
 		// Return the information as a JSON object
 		$this->getResponse()->setContent(json_encode($info));
+		return sfView::NONE;
+	}
+	
+	public function executeSyncSamplingInformation(sfWebRequest $request) {
+		$this->validateToken($request->getParameter('token'));
+		
+		$status = 0;
+		
+		$this->getResponse()->setContent($status);
 		return sfView::NONE;
 	}
 }

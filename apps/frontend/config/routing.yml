@@ -240,6 +240,14 @@ api_sampling_information:
   class:    sfDoctrineRoute
   param:    { module: api, action: samplingInformation }
   options:  { model: Sample, type: list }
+
+api_sync_sampling_information:
+  url:          /api/:token/syncSamplingInformation
+  class:        sfDoctrineRoute
+  param:        { module: api, action: syncSamplingInformation }
+  options:      { model: Sample, type: list }
+  requirements: { sf_method: post }
+
       
 ###
 # Default rules
