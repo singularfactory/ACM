@@ -294,4 +294,13 @@ $(document).ready(function(){
 		});
 	};
 	
+	// Make an AJAX call to generate a new API token
+	$("#token_regeneration_link").click(function(event){
+		event.preventDefault();
+		
+		$.get($(this).attr('href'), function(data) {
+			$('#token_value_ipad').html(data);
+		});
+	});
+	
 });

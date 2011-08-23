@@ -24,7 +24,24 @@ class profileActions extends myActions {
 		$this->processForm($request, $this->form);
 		$this->setTemplate('edit');
 	}
-
+	
+	public function executeNewToken(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$user = $this->getUser()->getGuardUser();
+			$previousToken = $user->getToken();
+			$newToken = sha1($user->getEmailAddress().rand(11111, 99999));
+			
+			$user->setToken($newToken);
+			if ( $user->trySave() ) {
+				$this->getResponse()->setContent($newToken);
+			}
+			else {
+				$this->getResponse()->setContent($previousToken);
+			}
+		}
+		return sfView::NONE;
+	}
+	
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		

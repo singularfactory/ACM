@@ -67,7 +67,6 @@ sample_search_pagination:
   requirements: { criteria: "[^/]+", page: \d+ }
 
 
-
 ###
 # Strain model related routes
 ###
@@ -208,10 +207,17 @@ profile:
     actions:  [edit, update]
 
 profile_shortcut:
+  class:        sfDoctrineRoute
+  options:      { model: sfGuardUser, type: object }
+  url:          /profile/:id
+  param:        { module: profile, action: edit }
+  requirements: { id: '[0-9]+' }
+
+profile_token_regeneration:
   class:    sfDoctrineRoute
   options:  { model: sfGuardUser, type: object }
-  url:      /profile/:id
-  param:    { module: profile, action: edit }
+  url:      /profile/new_token
+  param:    { module: profile, action: newToken }
 
 login:
   url:   /login
@@ -227,8 +233,18 @@ upload_progress:
 
 
 ###
+# API routes
+###
+api_sampling_information:
+  url:      /api/:token/samplingInformation
+  class:    sfDoctrineRoute
+  param:    { module: api, action: samplingInformation }
+  options:  { model: Sample, type: list }
+      
+###
 # Default rules
 ###
 homepage:
   url:    /
   param:  { module: sample, action: index }
+

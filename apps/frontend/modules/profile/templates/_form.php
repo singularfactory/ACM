@@ -70,7 +70,10 @@
 			Your authentication token is a special code that allows outside software and services to connect to your account with your permission. It works like a password so you should keep it safe just as you do with your username and password. If you think your token might have been compromised, you can generate a new one.
 		</p>
 		<p class="token_label">Token for iPad application</p>
-		<p class="token_value"><?php echo $form->getObject()->getToken(); ?> (regenerate)</p>
+		<p class="token_value">
+			<span id="token_value_ipad"><?php echo $form->getObject()->getToken(); ?></span>
+			<?php echo link_to('regenerate', '@profile_token_regeneration', array('id' => 'token_regeneration_link')) ?>
+		</p>
 	</div>
 	
 	<div class="submit">

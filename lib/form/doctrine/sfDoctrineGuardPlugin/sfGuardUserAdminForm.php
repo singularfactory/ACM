@@ -32,7 +32,7 @@ class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
 	
 	public function checkTokenValue($validator, $values) {
 		if ( empty($values['token']) ) {
-			$values['token'] = sha1($values['email'].rand(11111, 99999));
+			$values['token'] = sha1($values['email_address'].rand(11111, 99999));
 		}
 		
 		return $values;
