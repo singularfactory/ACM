@@ -274,6 +274,7 @@ StrainGrowthMediums:
 sfGuardUser:  
   columns:  
     avatar: { type: string(255) }
+    token:  { type: string(40), notnull: true }
 
 ExtractionKit:
   columns:

@@ -20,8 +20,22 @@ class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
 			$this->widgetSchema->setLabel('is_super_admin', 'Is super admin?');
 		}
 		
+		// Configure authentication token management
+		$this->setWidget('token', new sfWidgetFormInputHidden());
+		$this->setValidator('token', new sfValidatorString(array('max_length' => 40, 'min_length' => 40, 'required' => false)));
+		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkTokenValue'))));
+		
 		$this->widgetSchema->setLabel('first_name', 'Name');
 		$this->widgetSchema->setLabel('last_name', 'Surname');
 		$this->widgetSchema->setLabel('email_address', 'Email');
 	}
+	
+	public function checkTokenValue($validator, $values) {
+		if ( empty($values['token']) ) {
+			$values['token'] = sha1($values['email'].rand(11111, 99999));
+		}
+		
+		return $values;
+	}
+	
 }
