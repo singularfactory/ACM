@@ -38,7 +38,8 @@ class apiActions extends sfActions {
 		);
 		
 		foreach ( $entities as $entity => $table ) {
-			$records = $table::getInstance()->findAll();
+			$tableInstance = call_user_func(array($table, 'getInstance'));
+			$records = $tableInstance->findAll();
 			
 			$tmp = array();
 			foreach ( $records as $record ) {
