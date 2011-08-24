@@ -48,9 +48,15 @@ class apiActions extends sfActions {
 				
 				switch ( $entity ) {
 					case 'Country':
+						$tmp['code'] = $record->getCode();
+						break;
 					case 'Region':
+						$tmp['code'] = $record->getCode();
+						$tmp['country_id'] = $record->getCountryId();
+						break;
 					case 'Island':
 						$tmp['code'] = $record->getCode();
+						$tmp['region_id'] = $record->getRegionId();
 						break;
 						
 					case 'Location':
