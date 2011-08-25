@@ -236,10 +236,15 @@ upload_progress:
 # API routes
 ###
 api_sampling_information:
-  url:      /api/:token/samplingInformation
-  class:    sfDoctrineRoute
-  param:    { module: api, action: samplingInformation }
-  options:  { model: Sample, type: list }
+  url:          /api/:token/samplingInformation
+  param:        { module: api, action: samplingInformation }
+  requirements: { sf_method: get }
+
+api_sync_sampling_information:
+  url:          /api/:token/syncSamplingInformation
+  param:        { module: api, action: syncSamplingInformation }
+  requirements: { sf_method: post }
+
       
 ###
 # Default rules

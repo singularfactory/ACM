@@ -8,21 +8,19 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class apiActions extends MyActions {
-
-	/**
-	* Executes index action
-	*
-	* @param sfRequest $request A request object
-	*/
-	public function executeSamplingInformation(sfWebRequest $request) {
-		$token = $request->getParameter('token');
-		
-		// Check that the user exists and has a valid token
+class apiActions extends sfActions {
+	
+	protected function validateToken($token = '') {
 		$user = sfGuardUserTable::getInstance()->findOneByToken($token);
 		if ( !$user ) {
 			throw new sfError404Exception("User with token $token does not exist or is not activated.");
 		}
+		
+		return true;
+	}
+
+	public function executeSamplingInformation(sfWebRequest $request) {
+		$this->validateToken($request->getParameter('token'));
 		
 		// Retrieve the information
 		$info = array();
@@ -80,4 +78,22 @@ class apiActions extends MyActions {
 		return sfView::NONE;
 	}
 	
+	public function executeSyncSamplingInformation(sfWebRequest $request) {
+		$this->validateToken($request->getParameter('token'));
+		
+		$info = json_decode($request->getParameter('json'));
+		if ( !is_array($info) ) {
+			throw new sfError404Exception("JSON content could not be decoded.");
+		}
+		
+		$status = 0;
+		foreach ( $info as $entity => $records ) {
+			foreach ( $records as $record ) {
+				
+			}
+		}
+		
+		$this->getResponse()->setContent($status);
+		return sfView::NONE;
+	}
 }
