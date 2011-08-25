@@ -13,5 +13,6 @@ class GrowthMediumForm extends BaseGrowthMediumForm {
 		$this->widgetSchema->setHelp('name', 'Name of this culture medium');
 		$this->widgetSchema->setHelp('description', 'A detailed explanation of characteristics of this culture medium');
 		$this->widgetSchema->setHelp('link', 'Links to external resources');
+		$this->widgetSchema->setHelp('is_public', 'Whether the DNA should be shown in public catalog or not');
 	}
 }

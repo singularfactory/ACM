@@ -58,6 +58,7 @@
 		<div id="public" class="checkbox">
 			<?php echo $form['is_public']->renderLabel() ?>
 			<?php echo $form['is_public'] ?>
+			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
 		
 		<div id="axenic" class="checkbox">
