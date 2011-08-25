@@ -8,7 +8,7 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class apiActions extends sfActions {
+class apiActions extends MyActions {
 
 	/**
 	* Executes index action
@@ -39,46 +39,45 @@ class apiActions extends sfActions {
 		
 		foreach ( $entities as $entity => $table ) {
 			$tableInstance = call_user_func(array($table, 'getInstance'));
-			$records = $tableInstance->findAll();
+			$records = $tableInstance->createQuery()->fetchArray();
 			
 			$tmp = array();
 			foreach ( $records as $record ) {
-				$tmp['id'] = $record->getId();
-				$tmp['name'] = $record->getName();
+				$tmp['id'] = $record['id'];
+				$tmp['name'] = $record['name'];
 				
 				switch ( $entity ) {
 					case 'Country':
-						$tmp['code'] = $record->getCode();
+						$tmp['code'] = $record['code'];
 						break;
 					case 'Region':
-						$tmp['code'] = $record->getCode();
-						$tmp['country_id'] = $record->getCountryId();
+						$tmp['code'] = $record['code'];
+						$tmp['country_id'] = $record['country_id'];
 						break;
 					case 'Island':
-						$tmp['code'] = $record->getCode();
-						$tmp['region_id'] = $record->getRegionId();
+						$tmp['code'] = $record['code'];
+						$tmp['region_id'] = $record['region_id'];
 						break;
-						
 					case 'Location':
-						$tmp['latitude'] = $record->getLatitude();
-						$tmp['longitude'] = $record->getLongitude();
-						$tmp['country_id'] = $record->getCountryId();
-						$tmp['region_id'] = $record->getRegionId();
-						$tmp['island_id'] = $record->getIslandId();
+						$tmp['latitude'] = $record['latitude'];
+						$tmp['longitude'] = $record['longitude'];
+						$tmp['country_id'] = $record['country_id'];
+						$tmp['region_id'] = $record['region_id'];
+						$tmp['island_id'] = $record['island_id'];
 						break;
-					
 					case 'Collector':
-						$tmp['surname'] = $record->getSurname();
-						$tmp['email'] = $record->getEmail();
+						$tmp['surname'] = $record['surname'];
+						$tmp['email'] = $record['email'];
 						break;
 				}
 				
 				$info[sfInflector::tableize($entity)][] = $tmp;
 			}
 		}
-		
+
 		// Return the information as a JSON object
 		$this->getResponse()->setContent(json_encode($info));
 		return sfView::NONE;
 	}
+	
 }
