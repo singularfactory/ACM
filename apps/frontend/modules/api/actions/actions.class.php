@@ -15,12 +15,17 @@ class apiActions extends sfActions {
 		if ( !$user ) {
 			throw new sfError404Exception("User with token $token does not exist or is not activated.");
 		}
-		
 		return true;
 	}
 
 	public function executeSamplingInformation(sfWebRequest $request) {
 		$this->validateToken($request->getParameter('token'));
+
+		// Check that the timestamp represents a valid date
+		$timestamp = date("Y-m-d H:i:s", $request->getParameter('timestamp'));
+		if ( !$timestamp ) {
+			throw new sfError404Exception(sprintf('Timestamp %s is not valid.', $request->getParameter('timestamp')));
+		}
 		
 		// Retrieve the information
 		$info = array();
@@ -37,7 +42,9 @@ class apiActions extends sfActions {
 		
 		foreach ( $entities as $entity => $table ) {
 			$tableInstance = call_user_func(array($table, 'getInstance'));
-			$records = $tableInstance->createQuery()->fetchArray();
+			$records = $tableInstance->createQuery('m')
+				->where('m.updated_at >= ?', $timestamp)
+				->fetchArray();
 			
 			$tmp = array();
 			foreach ( $records as $record ) {
