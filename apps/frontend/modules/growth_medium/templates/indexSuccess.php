@@ -10,7 +10,8 @@
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Name', 'growth_medium/index?sort_column=name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Link', 'growth_medium/index?sort_column=linkname&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Link', 'growth_medium/index?sort_column=link&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Is public', 'growth_medium/index?sort_column=is_public&sort_direction='.$sortDirection) ?></th>
 			<th>Strains</th>
 			<th></th>
 		</tr>
@@ -20,6 +21,7 @@
 			<?php $url = url_for('@growth_medium_show?id='.$growthMedium->getId()) ?>
 			<td class="growth_medium_name"><?php echo link_to($growthMedium->getName(), $url) ?></td>
 			<td class="link"><?php echo link_to($growthMedium->getLink(), $url) ?></td>
+			<td class="link"><?php echo link_to($growthMedium->getFormattedIsPublic(), $url) ?></td>
 			<td><?php echo link_to($growthMedium->getNbStrains(), $url) ?></td>
 		
 			<td class="actions">

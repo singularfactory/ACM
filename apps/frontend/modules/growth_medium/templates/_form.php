@@ -25,6 +25,11 @@
 			<?php echo $form['link']->renderHelp() ?>
 			<?php echo $form['link'] ?>
 		</div>
+		
+		<div id="public" class="checkbox">
+			<?php echo $form['is_public']->renderLabel() ?>
+			<?php echo $form['is_public'] ?>
+		</div>
 	</div>
 
 	<div id="right_side_form">

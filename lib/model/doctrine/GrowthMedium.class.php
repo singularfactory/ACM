@@ -27,4 +27,11 @@ class GrowthMedium extends BaseGrowthMedium {
 		return sfConfig::get('app_no_data_message');
 	}
 	
+	public function getFormattedIsPublic() {
+		if ( $this->getIsPublic() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
 }

@@ -9,17 +9,20 @@
  * @property string $name
  * @property string $description
  * @property string $link
+ * @property boolean $is_public
  * @property Doctrine_Collection $Strains
  * 
  * @method integer             getId()          Returns the current record's "id" value
  * @method string              getName()        Returns the current record's "name" value
  * @method string              getDescription() Returns the current record's "description" value
  * @method string              getLink()        Returns the current record's "link" value
+ * @method boolean             getIsPublic()    Returns the current record's "is_public" value
  * @method Doctrine_Collection getStrains()     Returns the current record's "Strains" collection
  * @method GrowthMedium        setId()          Sets the current record's "id" value
  * @method GrowthMedium        setName()        Sets the current record's "name" value
  * @method GrowthMedium        setDescription() Sets the current record's "description" value
  * @method GrowthMedium        setLink()        Sets the current record's "link" value
+ * @method GrowthMedium        setIsPublic()    Sets the current record's "is_public" value
  * @method GrowthMedium        setStrains()     Sets the current record's "Strains" collection
  * 
  * @package    bna_green_house
@@ -50,6 +53,11 @@ abstract class BaseGrowthMedium extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => 1024,
+             ));
+        $this->hasColumn('is_public', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => false,
              ));
 
         $this->option('type', 'INNODB');

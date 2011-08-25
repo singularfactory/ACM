@@ -15,7 +15,9 @@
 			<dt>Link:</dt>
 			<dd><?php echo $growthMedium->getLink() ?></dd>
 			<dt>Description:</dt>
-			<dd><?php echo $growthMedium->getDescription() ?></dd>			
+			<dd><?php echo $growthMedium->getDescription() ?></dd>
+			<dt>Is public:</dt>
+			<dd><?php echo $growthMedium->getFormattedIsPublic() ?></dd>
 			<dt>Strains:</dt>
 			<dd>
 				<?php echo $nbStrains = $growthMedium->getNbStrains() ?>
