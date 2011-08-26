@@ -208,6 +208,7 @@ GrowthMedium:
     description:  { type: string, notnull: true }
     link:         { type: string(1024), notnull: true }
     is_public:    { type: boolean, notnull: true, default: false }
+    amount:       { type: integer, notnull: true, default: 0 }
   relations:
       Strains:    { foreignAlias: Strains, class: Strain, local: growth_medium_id, foreign: strain_id, refClass: StrainGrowthMediums }
 

@@ -26,6 +26,13 @@
 			<?php echo $form['link'] ?>
 		</div>
 		
+		<div id="amount">
+			<?php echo $form['amount']->renderLabel() ?>
+			<?php echo $form['amount']->renderError() ?>
+			<?php echo $form['amount']->renderHelp() ?>
+			<?php echo $form['amount'] ?>
+		</div>
+		
 		<div id="public" class="checkbox">
 			<?php echo $form['is_public']->renderLabel() ?>
 			<?php echo $form['is_public'] ?>

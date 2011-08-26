@@ -84,6 +84,7 @@ td.growth_medium_name, td.link { width: 300px; }
 td.location_name { width: 384px; }
 td.taxonomic_class_name { width: 130px; }
 td.dna_extraction_name { width: 160px; }
+td.amount, td.is_public { width: 80px; }
 
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,
@@ -96,4 +97,6 @@ th.pcr_concentration, td.pcr_concentration,
 th.quality_ratio, td.quality_ratio,
 th.band, td.band,
 th.dna_primer, td.dna_primer,
-th.can_be_sequenced, td.can_be_sequenced { text-align: center; }
+th.can_be_sequenced, td.can_be_sequenced,
+th.amount, td.amount,
+th.is_public, td.is_public { text-align: center; }

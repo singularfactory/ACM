@@ -18,6 +18,8 @@
 			<dd><?php echo $growthMedium->getDescription() ?></dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $growthMedium->getFormattedIsPublic() ?></dd>
+			<dt>Amount:</dt>
+			<dd><?php echo $growthMedium->getAmount() ?> <?php echo sfConfig::get('app_stock_items_label') ?></dd>
 			<dt>Strains:</dt>
 			<dd>
 				<?php echo $nbStrains = $growthMedium->getNbStrains() ?>
