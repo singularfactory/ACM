@@ -238,7 +238,7 @@ upload_progress:
 api_sampling_information:
   url:          /api/:token/samplingInformation/:timestamp
   param:        { module: api, action: samplingInformation }
-  requirements: { sf_method: get }
+  requirements: { sf_method: get, timestamp: \d+ }
 
 api_sync_sampling_information:
   url:          /api/:token/syncSamplingInformation

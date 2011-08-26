@@ -20,7 +20,6 @@ class apiActions extends sfActions {
 	}
 	
 	protected function validateTimestamp($timestamp = '') {
-		// Check that the timestamp represents a valid date
 		$timestamp = date("Y-m-d H:i:s", $timestamp);
 		if ( !$timestamp ) {
 			throw new sfError404Exception(sprintf('Timestamp %s is not valid.', $request->getParameter('timestamp')));
@@ -90,7 +89,7 @@ class apiActions extends sfActions {
 		$this->getResponse()->setContent(json_encode($info));
 		return sfView::NONE;
 	}
-	
+		
 	public function executeSyncSamplingInformation(sfWebRequest $request) {
 		$this->validateToken($request->getParameter('token'));
 		
@@ -109,4 +108,5 @@ class apiActions extends sfActions {
 		$this->getResponse()->setContent($status);
 		return sfView::NONE;
 	}
+	
 }
