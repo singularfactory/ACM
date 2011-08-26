@@ -56,6 +56,11 @@ all:
     default_island_name:        Gran Canaria
     stock_items_label:          items
     
+    # Inbox constants
+    inbox_notification_new:     0
+    inbox_notification_read:    1
+    inbox_notification_deleted: 2
+    
     # Google Maps API management constants
     map_pictures_dir:   /images/maps
     default_latitude:   27.991232

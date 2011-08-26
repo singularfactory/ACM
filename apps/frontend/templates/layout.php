@@ -99,7 +99,15 @@
 								
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Settings', '/admin') ?>
-					</li>					
+					</li>
+					<li class="header_menu_right_tab">
+						<?php
+						if ( !preg_match('/^((inbox|notification)(\/_)?)/', $currentRoute) )
+							echo link_to('Inbox', '@inbox');
+						else
+							echo link_to('Inbox', '@inbox', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
 				</ul>
 			</div>
 		</div>

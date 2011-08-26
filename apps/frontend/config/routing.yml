@@ -249,7 +249,31 @@ api_new_purchase_order:
   url:          /api/:token/newPurchaseOrder
   param:        { module: api, action: newPurchaseOrder }
   requirements: { sf_method: post }
-      
+
+
+###
+# Inbox routes
+###
+inbox:
+  class:   sfDoctrineRouteCollection
+  options: { model: Notification, actions: [list, show, delete] }
+
+inbox_search:
+  url:          inbox/search/:criteria
+  param:        { module: inbox, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+inbox_pagination:
+  url:          inbox/page/:page
+  param:        { module: inbox, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+inbox_search_pagination:
+  url:          inbox/search/:criteria/page/:page
+  param:        { module: inbox, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
 ###
 # Default rules
 ###

@@ -385,3 +385,12 @@ PcrProgram:
     end:    { type: integer, notnull: true }
   relations:
     Steps:  { type: many, class: PcrProgramStep, local:id, foreign: pcr_program_id, orderBy: segment }
+
+Notification:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    message:  { type: string, notnull: true }
+    status:   { type: enum, values: [new, read, deleted] }
+    user_id:  { type: integer, notnull: true }
+  relations:
+    User:     { class: sfGuardUser, local: user_id, foreignAlias: Notifications }

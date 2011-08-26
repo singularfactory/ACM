@@ -47,7 +47,7 @@ class MyActions extends sfActions {
 	protected function buildPagination(sfWebRequest $request, $table, array $options = array()) {
 		// Merge default options with requested options
 		foreach ($options as $key => $value) {
-			if ( $value !== null && !empty($value) ) {
+			if ( $value !== null && (!empty($value) || is_bool($value)) ) {
 				$this->paginationOptions[$key] = $value;
 			}
 		}
@@ -62,7 +62,7 @@ class MyActions extends sfActions {
 		else {
 			$this->sortDirection = $this->paginationOptions['sort_direction'];
 		}
-
+		
 		// Set sort columns
 		$query = Doctrine::getTable($table)->createQuery($this->mainAlias);
 		if ( $sort_column = $request->getParameter('sort_column') ) {
