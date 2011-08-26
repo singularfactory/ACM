@@ -91,6 +91,7 @@ class apiActions extends sfActions {
 	}
 		
 	public function executeSyncSamplingInformation(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));	
 		$this->validateToken($request->getParameter('token'));
 		
 		$info = json_decode($request->getParameter('json'));
@@ -106,6 +107,41 @@ class apiActions extends sfActions {
 		}
 		
 		$this->getResponse()->setContent($status);
+		return sfView::NONE;
+	}
+	
+	public function executeNewPurchaseOrder(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));	
+		$this->validateToken($request->getParameter('token'));
+		
+		$purchaseOrder = json_decode($request->getParameter('json'), true);
+		if ( !is_array($purchaseOrder) ) {
+			throw new sfError404Exception("JSON content could not be decoded.");
+		}
+		
+		$productTypes = array(
+			'strain' => array('table' => 'StrainTable', 'regex' => '/^BEA(\d+)B?$/', 'amountMethod' => 'getAmount'),
+			'culture_media' => array('table' => 'GrowthMediumTable', 'regex' => '/^BEA(\d+)-cm$/', 'amountMethod' => 'getAmount'),
+			'genomic_dna' => array('table' => 'StrainTable', 'regex' => '/^BEA(\d+)B?$/', 'amountMethod' => 'getDnaAmount'),
+		);
+		
+		foreach ( $purchaseOrder as $item => $details ) {
+			$productType = $details['product_type'];
+			if ( !in_array($productType, array_keys($productTypes)) ) {
+				continue;
+			}
+			
+			$id = preg_replace($productTypes[$productType]['regex'], "$1", $details['id']);
+
+			$tableInstance = call_user_func(array($productTypes[$productType]['table'], 'getInstance'));
+			$model = $tableInstance->findOneById($id);
+
+			$method = $productTypes[$productType]['amountMethod'];
+			$amount = $model->$method();
+			
+			// Notify	the purchase order for this product
+		}
+		
 		return sfView::NONE;
 	}
 	

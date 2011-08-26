@@ -110,4 +110,16 @@ class Strain extends BaseStrain {
 		return sfConfig::get('app_no_data_message');
 	}
 	
+	public function getAliquots() {
+		$aliquots = 0;
+		foreach ($this->getDnaExtractions() as $dnaExtraction) {
+			$aliquots += $dnaExtraction->getAliquots();
+		}
+		
+		return $aliquots;
+	}
+	
+	public function getDnaAmount() {
+		return $this->getAliquots();
+	}
 }
