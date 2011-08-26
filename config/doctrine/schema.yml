@@ -254,6 +254,7 @@ Strain:
     observation:                { type: string }
     citations:                  { type: string }
     web_notes:                  { type: string }
+    amount:                     { type: integer, notnull: true, default: 0 }
     remarks:                    { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }

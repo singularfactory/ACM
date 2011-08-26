@@ -196,5 +196,5 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
 /**
  * NUMERIC PLUGIN
  */
-#growth_medium_amount { float:left; width: 40px; }
-#growth_medium_amount_buttons { padding:0; float: right; margin-left: 3px; }
+#growth_medium_amount, #strain_amount { float:left; width: 40px; }
+#growth_medium_amount_buttons, #strain_amount_buttons { padding:0; float: right; margin-left: 3px; }
