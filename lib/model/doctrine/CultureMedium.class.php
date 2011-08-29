@@ -12,6 +12,12 @@
  */
 class CultureMedium extends BaseCultureMedium {
 	
+	public function getCode() {
+		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
+		
+		return "BEA$code-cm";
+	}
+	
 	public function getNbStrains() {
 		return Doctrine_Query::create()
 			->from('StrainCultureMedia s')

@@ -11,7 +11,7 @@
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
 class Sample extends BaseSample {
-	public function getNumber() {
+	public function getCode() {
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
 		
 		$location = $this->getLocation();

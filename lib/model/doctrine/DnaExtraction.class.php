@@ -12,8 +12,8 @@
  */
 class DnaExtraction extends BaseDnaExtraction {
 	
-	public function getNumber() {
-		$strainNumber = $this->getStrain()->getNumber();
+	public function getCode() {
+		$strainNumber = $this->getStrain()->getCode();
 		$extractionDate = date('Ymd', strtotime($this->getExtractionDate()));
 		
 		return "{$strainNumber}_{$extractionDate}";

@@ -72,7 +72,7 @@ class dna_extractionActions extends MyActions {
 			foreach ($results as $strain) {
 				$strains[] = array(
 					'id' => $strain->getId(),
-					'label' => $strain->getNumber(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'label' => $strain->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
 				);
 			}
 			$this->getResponse()->setContent(json_encode($strains));

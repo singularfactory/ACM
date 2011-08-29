@@ -1,6 +1,6 @@
 <?php slot('main_header') ?>
 <span>
-	<?php echo $cultureMedium->getName() ?>
+	<?php echo $cultureMedium->getCode() ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'culture_medium')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'culture_medium', 'id' => $cultureMedium->getId())) ?>
@@ -10,6 +10,8 @@
 <div id="main_view_show">
 	<div id="object_data_list">
 		<dl>
+			<dt>Code:</dt>
+			<dd><?php echo $cultureMedium->getCode() ?></dd>
 			<dt>Name:</dt>
 			<dd><?php echo $cultureMedium->getName() ?></dd>
 			<dt>Link:</dt>
@@ -43,7 +45,7 @@
 			<?php foreach ($cultureMedium->getStrains() as $strain ): ?>
 			<?php $url = '@strain_show?id='.$strain->getId() ?>
 			<tr>
-				<td><?php echo link_to($strain->getNumber(), $url) ?></td>
+				<td><?php echo link_to($strain->getCode(), $url) ?></td>
 				<td><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 				<td><span class="species_name"><?php echo link_to($strain->getGenus(), $url) ?></span></td>
 				<td>

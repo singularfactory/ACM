@@ -32,6 +32,13 @@ class StrainForm extends BaseStrainForm {
 		$this->setWidget('isolation_date', $dateWidgetForm);
 		$this->setWidget('deposition_date', $dateWidgetForm);
 		
+		// Configure culture media relationships
+		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
+			'multiple' => true,
+			'model' => 'CultureMedium',
+			'method' => 'getCode',
+		)));
+		
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_strain_pictures');

@@ -68,7 +68,7 @@
 	<div id="object_data_list">
 		<dl>
 			<dt>DNA extraction:</dt>
-			<dd><?php echo link_to($pcr->getDnaExtraction()->getNumber(), "@dna_extraction_show?id={$pcr->getDnaExtraction()->getId()}") ?></dd>
+			<dd><?php echo link_to($pcr->getDnaExtraction()->getCode(), "@dna_extraction_show?id={$pcr->getDnaExtraction()->getId()}") ?></dd>
 			<dt>DNA forward primer:</dt>
 			<dd><?php echo $pcr->getForwardPrimer()->getName() ?></dd>
 			<dt>DNA reverse primer:</dt>

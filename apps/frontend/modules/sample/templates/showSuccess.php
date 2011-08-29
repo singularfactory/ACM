@@ -1,7 +1,7 @@
 <?php use_helper('Date'); use_helper('GMap') ?>
 
 <?php slot('main_header') ?>
-<span>Sample <?php echo $sample->getNumber() ?></span>
+<span>Sample <?php echo $sample->getCode() ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'sample')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
@@ -122,7 +122,7 @@
 			<?php foreach ($sample->getStrains() as $strain ): ?>
 			<?php $url = '@strain_show?id='.$strain->getId() ?>
 			<tr>
-				<td><?php echo link_to($strain->getNumber(), $url) ?></td>
+				<td><?php echo link_to($strain->getCode(), $url) ?></td>
 				<td><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 				<td><span class="species_name"><?php echo link_to($strain->getGenus(), $url) ?></span></td>
 				<td>

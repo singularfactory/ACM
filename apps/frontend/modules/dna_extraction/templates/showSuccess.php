@@ -2,7 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	Extraction <?php echo $dnaExtraction->getNumber() ?>
+	Extraction <?php echo $dnaExtraction->getCode() ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'dna_extraction')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
@@ -14,7 +14,7 @@
 	<div id="object_data_list">
 		<dl>
 			<dt>Strain:</dt>
-			<dd><?php echo link_to($dnaExtraction->getStrain()->getNumber(), "@strain_show?id={$dnaExtraction->getStrain()->getId()}") ?></dd>
+			<dd><?php echo link_to($dnaExtraction->getStrain()->getCode(), "@strain_show?id={$dnaExtraction->getStrain()->getId()}") ?></dd>
 			<dt>Arrival date:</dt>
 			<dd><?php echo format_date($dnaExtraction->getArrivalDate(), 'p') ?></dd>
 			<dt>Extraction date:</dt>

@@ -9,7 +9,7 @@
 			<?php echo $form['strain_id']->renderLabel() ?>
 			<?php echo $form['strain_id']->renderError() ?>
 			<?php echo $form['strain_id']->renderHelp() ?>
-			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getNumber(); ?>" id="dna_extraction_strain_search" />
+			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getCode(); ?>" id="dna_extraction_strain_search" />
 			<a href="<?php echo url_for('@dna_extraction_find_strains?term=') ?>" class="dna_extraction_strain_numbers_url"></a>
 		</div>
 		

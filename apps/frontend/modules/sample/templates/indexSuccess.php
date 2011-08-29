@@ -11,7 +11,7 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Number', 'sample/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Code', 'sample/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Location', 'sample/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Collector', 'sample/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Date', 'sample/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
@@ -22,7 +22,7 @@
 		<?php foreach ($pager->getResults() as $sample): ?>
 		<tr>
 			<?php $url = url_for('@sample_show?id='.$sample->getId()) ?>
-			<td class="sample_code"><?php echo link_to($sample->getNumber(), $url) ?></td>
+			<td class="sample_code"><?php echo link_to($sample->getCode(), $url) ?></td>
 			<td class="location_name"><?php echo link_to($sample->getLocation()->getName(), $url) ?></td>
 			<td class="collector_name"><?php echo link_to($sample->getCollector(), $url) ?></td>
 			<td class="date"><?php echo link_to(format_date($sample->getCollectionDate(), 'p'), $url) ?></td>

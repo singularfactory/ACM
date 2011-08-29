@@ -9,6 +9,7 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th class="culture_medium_code"><?php echo link_to('Code', 'culture_medium/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
 			<th class="culture_medium_name"><?php echo link_to('Name', 'culture_medium/index?sort_column=name&sort_direction='.$sortDirection) ?></th>
 			<th class="link"><?php echo link_to('Link', 'culture_medium/index?sort_column=link&sort_direction='.$sortDirection) ?></th>
 			<th class="is_public"><?php echo link_to('Is public', 'culture_medium/index?sort_column=is_public&sort_direction='.$sortDirection) ?></th>
@@ -20,6 +21,7 @@
 		<?php foreach ($pager->getResults() as $cultureMedium): ?>
 		<tr>
 			<?php $url = url_for('@culture_medium_show?id='.$cultureMedium->getId()) ?>
+			<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
 			<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
 			<td class="link"><?php echo link_to($cultureMedium->getLink(), $url) ?></td>
 			<td class="is_public"><?php echo link_to($cultureMedium->getFormattedIsPublic(), $url) ?></td>

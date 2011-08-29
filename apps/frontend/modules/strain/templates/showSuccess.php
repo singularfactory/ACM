@@ -2,7 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	<?php echo $strain->getNumber() ?> - <?php echo $strainClass = $strain->getTaxonomicClass() ?>
+	<?php echo $strain->getCode() ?> - <?php echo $strainClass = $strain->getTaxonomicClass() ?>
 	<span class="species_name"><?php echo $strainGenus = $strain->getGenus() ?></span>
 	<?php if ( ($strainSpecies = $strain->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
 		<span class="species_name"><?php echo $strainSpecies ?></span>
@@ -40,6 +40,7 @@
 			<h2>Culture media</h2>
 			<table>
 				<tr>
+					<th class="code">Code</th>
 					<th class="name">Name</th>
 					<th class="description">Description</th>
 					<th class="link">Link</th>
@@ -47,6 +48,7 @@
 				<?php foreach ($strain->getCultureMedia() as $cultureMedium ): ?>
 					<?php $url = '@culture_medium_show?id='.$cultureMedium->getId() ?>
 					<tr>
+						<td><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
 						<td><?php echo link_to($cultureMedium->getName(), $url) ?></td>
 						<td><?php echo link_to($cultureMedium->getDescription(), $url) ?></td>
 						<td><?php echo link_to($cultureMedium->getLink(), $url) ?></td>
@@ -82,7 +84,7 @@
 			<dd>
 				<?php
 					if ( $strain->getSample() != '' ) {
-						echo link_to($strain->getFormattedSampleNumber(), "@sample_show?id={$strain->getSample()->getId()}");
+						echo link_to($strain->getFormattedSampleCode(), "@sample_show?id={$strain->getSample()->getId()}");
 					}
 					else {
 						echo sfConfig::get('app_no_data_message');

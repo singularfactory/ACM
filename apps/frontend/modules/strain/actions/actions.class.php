@@ -71,7 +71,7 @@ class strainActions extends MyActions {
 			foreach ($results as $sample) {
 				$samples[] = array(
 					'id' => $sample->getId(),
-					'label' => $sample->getNumber(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'label' => $sample->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
 				);
 			}
 			$this->getResponse()->setContent(json_encode($samples));

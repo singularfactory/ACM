@@ -26,7 +26,7 @@
 		<?php foreach ($pager->getResults() as $dnaExtraction): ?>
 		<tr>
 			<?php $url = url_for('@dna_extraction_show?id='.$dnaExtraction->getId()) ?>
-			<td class="dna_extraction_code"><?php echo link_to($dnaExtraction->getNumber(), $url) ?></td>
+			<td class="dna_extraction_code"><?php echo link_to($dnaExtraction->getCode(), $url) ?></td>
 			<?php $strain = $dnaExtraction->getStrain() ?>
 			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 			<?php

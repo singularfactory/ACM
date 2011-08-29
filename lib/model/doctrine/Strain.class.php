@@ -11,7 +11,8 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Strain extends BaseStrain {
-	public function getNumber() {
+	
+	public function getCode() {
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
 		
 		$axenicCode = '';
@@ -22,9 +23,9 @@ class Strain extends BaseStrain {
 		return 'BEA'.$code.$axenicCode;
 	}
 	
-	public function getFormattedSampleNumber() {
+	public function getFormattedSampleCode() {
 		if ( $this->getSample() ) {
-			return $this->getSample()->getNumber();
+			return $this->getSample()->getCode();
 		}
 		return sfConfig::get('app_no_data_message');
 	}

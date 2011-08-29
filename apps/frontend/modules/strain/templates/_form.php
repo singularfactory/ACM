@@ -18,7 +18,7 @@
 			<?php echo $form['sample_id']->renderLabel() ?>
 			<?php echo $form['sample_id']->renderError() ?>
 			<?php echo $form['sample_id']->renderHelp() ?>
-			<input type="text" value="<?php echo ($form->isNew() || $form->getObject()->getSample() == '')?'Type a sample code...':$form->getObject()->getSample()->getNumber(); ?>" id="strain_sample_search" />
+			<input type="text" value="<?php echo ($form->isNew() || $form->getObject()->getSample() == '')?'Type a sample code...':$form->getObject()->getSample()->getCode(); ?>" id="strain_sample_search" />
 			<a href="<?php echo url_for('@strain_find_samples?term=') ?>" class="strain_sample_numbers_url"></a>
 		</div>
 		

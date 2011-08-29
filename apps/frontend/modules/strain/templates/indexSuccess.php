@@ -11,7 +11,7 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Number', 'strain/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Code', 'strain/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Name', 'strain/index?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Sample', 'strain/index?sort_column=Sample.id&sort_direction='.$sortDirection) ?></th>
 			<th class="dna_availability">Has DNA</th>
@@ -23,7 +23,7 @@
 		<?php foreach ($pager->getResults() as $strain): ?>
 		<tr>
 			<?php $url = url_for('@strain_show?id='.$strain->getId()) ?>
-			<td class="strain_code"><?php echo link_to($strain->getNumber(), $url) ?></td>
+			<td class="strain_code"><?php echo link_to($strain->getCode(), $url) ?></td>
 			<?php
 				$strainName = $strain->getTaxonomicClass().'&nbsp;<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
 				if ( $strain->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
@@ -34,7 +34,7 @@
 				}
 			?>
 			<td class="strain_name"><?php echo link_to($strainName, $url) ?></td>
-			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleNumber(), $url) ?></td>
+			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleCode(), $url) ?></td>
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
 			<td class="isolation_date"><?php echo link_to(format_date($strain->getIsolationDate(), 'p'), $url) ?></td>
 			<td class="amount"><?php echo link_to($strain->getAmount(), $url) ?></td>
