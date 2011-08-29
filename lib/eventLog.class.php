@@ -31,8 +31,13 @@ class EventLog {
 
 				switch ($module) {
 					case 'collector':
+					case 'depositor':
+					case 'identifier':
+					case 'isolator':
 						$description .= self::$field_separator."{$form['name']} {$form['surname']}";
 						break;
+					case 'authority':
+					case 'cryopreservation_method':
 					case 'country':
 					case 'environment':
 					case 'habitat':
@@ -41,9 +46,19 @@ class EventLog {
 					case 'province':
 					case 'radiation':
 					case 'region':
+					case 'culture_medium':
+					case 'dna_polymerase':
+					case 'dna_primer':
+					case 'extraction_kit':
+					case 'genus':
+					case 'species':
+					case 'taxonomic_class':
+					case 'maintenance_status':
+					case 'pcr_program':
+					case ''
 						$description .= self::$field_separator.$form['name'];
 						break;
-					case 'sample':
+					default:
 						break;
 				}
 				break;
