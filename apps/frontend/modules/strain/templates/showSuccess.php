@@ -34,8 +34,8 @@
 		</div>
 		<?php endif ?>
 		
-		<?php $nbGrowthMediums = $strain->getNbGrowthMediums() ?>
-		<?php if ( $nbGrowthMediums > 0): ?>
+		<?php $nbCultureMedia = $strain->getNbCultureMedia() ?>
+		<?php if ( $nbCultureMedia > 0): ?>
 		<div class="object_related_model_list">
 			<h2>Culture media</h2>
 			<table>
@@ -44,12 +44,12 @@
 					<th class="description">Description</th>
 					<th class="link">Link</th>
 				</tr>
-				<?php foreach ($strain->getGrowthMediums() as $growthMedium ): ?>
-					<?php $url = '@growth_medium_show?id='.$growthMedium->getId() ?>
+				<?php foreach ($strain->getCultureMedia() as $cultureMedium ): ?>
+					<?php $url = '@culture_medium_show?id='.$cultureMedium->getId() ?>
 					<tr>
-						<td><?php echo link_to($growthMedium->getName(), $url) ?></td>
-						<td><?php echo link_to($growthMedium->getDescription(), $url) ?></td>
-						<td><?php echo link_to($growthMedium->getLink(), $url) ?></td>
+						<td><?php echo link_to($cultureMedium->getName(), $url) ?></td>
+						<td><?php echo link_to($cultureMedium->getDescription(), $url) ?></td>
+						<td><?php echo link_to($cultureMedium->getLink(), $url) ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
@@ -127,7 +127,7 @@
 			<dd><?php echo $nbRelatives ?></dd>
 			
 			<dt>Culture media:</dt>
-			<dd><?php echo $nbGrowthMediums ?></dd>
+			<dd><?php echo $nbCultureMedia ?></dd>
 			
 			<dt>DNA extractions:</dt>
 			<dd>

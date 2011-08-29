@@ -132,7 +132,7 @@ class strainActions extends MyActions {
 		$this->hasAuthorities = (Doctrine::getTable('Authority')->count() > 0)?true:false;
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
 		$this->hasCryopreservationMethods = (Doctrine::getTable('CryopreservationMethod')->count() > 0)?true:false;
-		$this->hasGrowthMediums = (Doctrine::getTable('GrowthMedium')->count() > 0)?true:false;
+		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
   }
 
   public function executeCreate(sfWebRequest $request) {
@@ -146,7 +146,7 @@ class strainActions extends MyActions {
 		$this->hasAuthorities = (Doctrine::getTable('Authority')->count() > 0)?true:false;
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
 		$this->hasCryopreservationMethods = (Doctrine::getTable('CryopreservationMethod')->count() > 0)?true:false;
-		$this->hasGrowthMediums = (Doctrine::getTable('GrowthMedium')->count() > 0)?true:false;
+		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
 
     $this->processForm($request, $this->form);
 

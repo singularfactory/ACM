@@ -1,16 +1,16 @@
 <?php
 
 /**
- * GrowthMedium form base class.
+ * CultureMedium form base class.
  *
- * @method GrowthMedium getObject() Returns the current form's model object
+ * @method CultureMedium getObject() Returns the current form's model object
  *
  * @package    bna_green_house
  * @subpackage form
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseGrowthMediumForm extends BaseFormDoctrine
+abstract class BaseCultureMediumForm extends BaseFormDoctrine
 {
   public function setup()
   {
@@ -38,7 +38,7 @@ abstract class BaseGrowthMediumForm extends BaseFormDoctrine
       'strains_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('growth_medium[%s]');
+    $this->widgetSchema->setNameFormat('culture_medium[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -49,7 +49,7 @@ abstract class BaseGrowthMediumForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'GrowthMedium';
+    return 'CultureMedium';
   }
 
   public function updateDefaultsFromObject()

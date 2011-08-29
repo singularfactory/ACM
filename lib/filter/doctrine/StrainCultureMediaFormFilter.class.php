@@ -1,14 +1,16 @@
 <?php
 
 /**
- * GrowthMedium filter form.
+ * StrainCultureMedia filter form.
  *
  * @package    bna_green_house
  * @subpackage filter
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class GrowthMediumFormFilter extends BaseGrowthMediumFormFilter {
-  public function configure() {
+class StrainCultureMediaFormFilter extends BaseStrainCultureMediaFormFilter
+{
+  public function configure()
+  {
   }
 }

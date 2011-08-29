@@ -101,25 +101,25 @@ strain_new_related_model_form:
 
 
 ###
-# GrowthMedium model related routes
+# CultureMedium model related routes
 ###
-growth_medium:
+culture_medium:
   class:   sfDoctrineRouteCollection
-  options: { model: GrowthMedium }
+  options: { model: CultureMedium }
 
-growth_medium_search:
-  url:          growth_medium/search/:criteria
-  param:        { module: growth_medium, action: index }
+culture_medium_search:
+  url:          culture_medium/search/:criteria
+  param:        { module: culture_medium, action: index }
   requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
-growth_medium_pagination:
-  url:          growth_medium/page/:page
-  param:        { module: growth_medium, action: index, page: 1 }
+culture_medium_pagination:
+  url:          culture_medium/page/:page
+  param:        { module: culture_medium, action: index, page: 1 }
   requirements: { page: \d+ }
 
-growth_medium_search_pagination:
-  url:          growth_medium/search/:criteria/page/:page
-  param:        { module: growth_medium, action: index, page: 1 }
+culture_medium_search_pagination:
+  url:          culture_medium/search/:criteria/page/:page
+  param:        { module: culture_medium, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
 

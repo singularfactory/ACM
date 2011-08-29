@@ -71,7 +71,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('id', 'Strain code');
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
-		$this->widgetSchema->setLabel('growth_mediums_list', 'Culture media');
+		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix</strong>');
@@ -82,13 +82,13 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
 		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
-		$this->widgetSchema->setHelp('observation', 'Notes about strain growth');
+		$this->widgetSchema->setHelp('observation', 'Notes about strain culture');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
 		$this->widgetSchema->setHelp('web_notes', 'Comments that will appear in the public web');
 		$this->widgetSchema->setHelp('is_public', 'Whether the strain must be shown in public catalog or not');
 		$this->widgetSchema->setHelp('amount', 'Items in stock');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
-		$this->widgetSchema->setHelp('growth_mediums_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
   }
 
 

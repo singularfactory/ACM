@@ -1,7 +1,7 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<?php echo form_tag_for($form, '@growth_medium') ?>
+<?php echo form_tag_for($form, '@culture_medium') ?>
 	<?php echo $form->renderHiddenFields() ?>
 
 	<div id="left_side_form">

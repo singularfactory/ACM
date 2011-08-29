@@ -39,7 +39,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'remarks'                    => new sfWidgetFormTextarea(),
       'created_at'                 => new sfWidgetFormDateTime(),
       'updated_at'                 => new sfWidgetFormDateTime(),
-      'growth_mediums_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'GrowthMedium')),
+      'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
     ));
 
     $this->setValidators(array(
@@ -67,7 +67,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'remarks'                    => new sfValidatorString(array('required' => false)),
       'created_at'                 => new sfValidatorDateTime(),
       'updated_at'                 => new sfValidatorDateTime(),
-      'growth_mediums_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'GrowthMedium', 'required' => false)),
+      'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('strain[%s]');
@@ -88,28 +88,28 @@ abstract class BaseStrainForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['growth_mediums_list']))
+    if (isset($this->widgetSchema['culture_media_list']))
     {
-      $this->setDefault('growth_mediums_list', $this->object->GrowthMediums->getPrimaryKeys());
+      $this->setDefault('culture_media_list', $this->object->CultureMedia->getPrimaryKeys());
     }
 
   }
 
   protected function doSave($con = null)
   {
-    $this->saveGrowthMediumsList($con);
+    $this->saveCultureMediaList($con);
 
     parent::doSave($con);
   }
 
-  public function saveGrowthMediumsList($con = null)
+  public function saveCultureMediaList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['growth_mediums_list']))
+    if (!isset($this->widgetSchema['culture_media_list']))
     {
       // somebody has unset this widget
       return;
@@ -120,8 +120,8 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $existing = $this->object->GrowthMediums->getPrimaryKeys();
-    $values = $this->getValue('growth_mediums_list');
+    $existing = $this->object->CultureMedia->getPrimaryKeys();
+    $values = $this->getValue('culture_media_list');
     if (!is_array($values))
     {
       $values = array();
@@ -130,13 +130,13 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     $unlink = array_diff($existing, $values);
     if (count($unlink))
     {
-      $this->object->unlink('GrowthMediums', array_values($unlink));
+      $this->object->unlink('CultureMedia', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
     if (count($link))
     {
-      $this->object->link('GrowthMediums', array_values($link));
+      $this->object->link('CultureMedia', array_values($link));
     }
   }
 

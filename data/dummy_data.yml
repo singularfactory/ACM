@@ -37,7 +37,7 @@ Sample:
     Collector:        [emilio-soler]
     collection_date:  '2011-02-15'
 
-GrowthMedium:
+CultureMedium:
   01: { name: foo, description: foo, link: foo }
   02: { name: bar, description: bar, link: bar }
 

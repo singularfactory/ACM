@@ -1,14 +1,14 @@
 <?php
 
 /**
- * GrowthMedium filter form base class.
+ * CultureMedium filter form base class.
  *
  * @package    bna_green_house
  * @subpackage filter
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
-abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine
+abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
@@ -34,7 +34,7 @@ abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine
       'strains_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('growth_medium_filters[%s]');
+    $this->widgetSchema->setNameFormat('culture_medium_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -56,14 +56,14 @@ abstract class BaseGrowthMediumFormFilter extends BaseFormFilterDoctrine
     }
 
     $query
-      ->leftJoin($query->getRootAlias().'.StrainGrowthMediums StrainGrowthMediums')
-      ->andWhereIn('StrainGrowthMediums.strain_id', $values)
+      ->leftJoin($query->getRootAlias().'.StrainCultureMedia StrainCultureMedia')
+      ->andWhereIn('StrainCultureMedia.strain_id', $values)
     ;
   }
 
   public function getModelName()
   {
-    return 'GrowthMedium';
+    return 'CultureMedium';
   }
 
   public function getFields()

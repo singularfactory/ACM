@@ -36,7 +36,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'remarks'                    => new sfWidgetFormFilterInput(),
       'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'growth_mediums_list'        => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'GrowthMedium')),
+      'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
     ));
 
     $this->setValidators(array(
@@ -63,7 +63,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'remarks'                    => new sfValidatorPass(array('required' => false)),
       'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'growth_mediums_list'        => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'GrowthMedium', 'required' => false)),
+      'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('strain_filters[%s]');
@@ -75,7 +75,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     parent::setup();
   }
 
-  public function addGrowthMediumsListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addCultureMediaListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -88,8 +88,8 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     }
 
     $query
-      ->leftJoin($query->getRootAlias().'.StrainGrowthMediums StrainGrowthMediums')
-      ->andWhereIn('StrainGrowthMediums.growth_medium_id', $values)
+      ->leftJoin($query->getRootAlias().'.StrainCultureMedia StrainCultureMedia')
+      ->andWhereIn('StrainCultureMedia.culture_medium_id', $values)
     ;
   }
 
@@ -125,7 +125,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'remarks'                    => 'Text',
       'created_at'                 => 'Date',
       'updated_at'                 => 'Date',
-      'growth_mediums_list'        => 'ManyKey',
+      'culture_media_list'         => 'ManyKey',
     );
   }
 }

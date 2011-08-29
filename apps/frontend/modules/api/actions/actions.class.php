@@ -121,7 +121,7 @@ class apiActions extends sfActions {
 		
 		$productTypes = array(
 			'strain' => array('table' => 'StrainTable', 'regex' => '/^BEA(\d+)B?$/', 'amountMethod' => 'getAmount'),
-			'culture_media' => array('table' => 'GrowthMediumTable', 'regex' => '/^BEA(\d+)-cm$/', 'amountMethod' => 'getAmount'),
+			'culture_media' => array('table' => 'CultureMediumTable', 'regex' => '/^BEA(\d+)-cm$/', 'amountMethod' => 'getAmount'),
 			'genomic_dna' => array('table' => 'StrainTable', 'regex' => '/^BEA(\d+)B?$/', 'amountMethod' => 'getDnaAmount'),
 		);
 		

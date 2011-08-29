@@ -37,7 +37,7 @@
  * @property Identifier $Identifier
  * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
- * @property Doctrine_Collection $GrowthMediums
+ * @property Doctrine_Collection $CultureMedia
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $Pictures
  * @property Doctrine_Collection $DnaExtractions
@@ -74,7 +74,7 @@
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
  * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
- * @method Doctrine_Collection    getGrowthMediums()              Returns the current record's "GrowthMediums" collection
+ * @method Doctrine_Collection    getCultureMedia()               Returns the current record's "CultureMedia" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
  * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
@@ -110,7 +110,7 @@
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
- * @method Strain                 setGrowthMediums()              Sets the current record's "GrowthMediums" collection
+ * @method Strain                 setCultureMedia()               Sets the current record's "CultureMedia" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
  * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
@@ -256,10 +256,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'cryopreservation_method_id',
              'foreign' => 'id'));
 
-        $this->hasMany('GrowthMedium as GrowthMediums', array(
-             'refClass' => 'StrainGrowthMediums',
+        $this->hasMany('CultureMedium as CultureMedia', array(
+             'refClass' => 'StrainCultureMedia',
              'local' => 'strain_id',
-             'foreign' => 'growth_medium_id'));
+             'foreign' => 'culture_medium_id'));
 
         $this->hasMany('StrainRelative as Relatives', array(
              'local' => 'id',

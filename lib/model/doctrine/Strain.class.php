@@ -29,8 +29,8 @@ class Strain extends BaseStrain {
 		return sfConfig::get('app_no_data_message');
 	}
 			
-	public function getNbGrowthMediums() {
-		return count($this->getGrowthMediums());
+	public function getNbCultureMedia() {
+		return count($this->getCultureMedia());
 	}
 	
 	public function getNbDnaExtractions() {

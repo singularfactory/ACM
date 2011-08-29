@@ -81,10 +81,10 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^(growth_medium(\/_)?)/', $currentRoute) )
-							echo link_to('Culture media', '@growth_medium');
+						if ( !preg_match('/^(culture_medium(\/_)?)/', $currentRoute) )
+							echo link_to('Culture media', '@culture_medium');
 						else
-							echo link_to('Culture media', '@growth_medium', array('class' => 'header_menu_current_tab'));
+							echo link_to('Culture media', '@culture_medium', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
@@ -100,6 +100,7 @@
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>
+					
 					<li class="header_menu_right_tab">
 						<?php
 						if ( !preg_match('/^((inbox|notification)(\/_)?)/', $currentRoute) )

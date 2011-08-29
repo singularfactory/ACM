@@ -80,7 +80,7 @@ td.dna_extraction_code, td.sample_code { width: 135px; }
 td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
 td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.strain_name { width: 240px; }
-td.growth_medium_name, td.link { width: 300px; }
+td.culture_medium_name, td.link { width: 200px; }
 td.location_name { width: 384px; }
 td.taxonomic_class_name { width: 130px; }
 td.dna_extraction_name { width: 160px; }
