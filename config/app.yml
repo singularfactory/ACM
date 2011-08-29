@@ -60,6 +60,7 @@ all:
     inbox_notification_new:     0
     inbox_notification_read:    1
     inbox_notification_deleted: 2
+    inbox_days_in_trash:        30
     
     # Google Maps API management constants
     map_pictures_dir:   /images/maps

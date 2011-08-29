@@ -27,7 +27,10 @@ class inboxActions extends MyActions {
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
-			$query = $this->pager->getQuery()->where("{$this->mainAlias()}.user_id = ?", $userId);
+			$query = $this->pager->getQuery()
+				->where("{$this->mainAlias()}.user_id = ?", $userId)
+				->andWhere("{$this->mainAlias()}.status != ?", sfConfig::get('app_inbox_notification_deleted'));
+			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		
@@ -43,11 +46,17 @@ class inboxActions extends MyActions {
 
   public function executeShow(sfWebRequest $request) {
 		$this->notification = Doctrine_Core::getTable('Notification')->find(array($request->getParameter('id')));
+
+		if ( $this->notification->getStatus() == sfConfig::get('app_inbox_notification_deleted') ) {
+			$this->getUser()->setFlash('notice', "This notification does not exist");
+			$this->redirect("@inbox?page=".$this->getUser()->getAttribute("inbox.index_page"));
+		}
 		
 		if ($this->notification->getStatus() == sfConfig::get('app_inbox_notification_new') ) {
 			$this->notification->setStatus(sfConfig::get('app_inbox_notification_read'));
 			$this->notification->trySave();
 		}
+		
 		$this->forward404Unless($this->notification);
   }
   
@@ -58,7 +67,8 @@ class inboxActions extends MyActions {
 		$this->forward404Unless($notification = Doctrine_Core::getTable('Notification')->find(array($id)), sprintf('Object notification does not exist (%s).', $id));
 		
 		try {
-			$notification->delete();
+			$notification->setStatus(sfConfig::get('app_inbox_notification_deleted'));
+			$notification->save();
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
 			$this->getUser()->setFlash('notice', "Notification deleted successfully");
 		}
