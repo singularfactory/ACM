@@ -17,7 +17,6 @@
 			<th class="dna_availability">Has DNA</th>
 			<th><?php echo link_to('Isolation date', 'strain/index?sort_column=isolation_date&sort_direction='.$sortDirection) ?></th>
 			<th class="amount"><?php echo link_to('Amount', 'strain/index?sort_column=amount&sort_direction='.$sortDirection) ?></th>
-			<th class="pending_orders">Pending orders</th>
 			<th></th>
 		</tr>
 		
@@ -39,7 +38,6 @@
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
 			<td class="isolation_date"><?php echo link_to(format_date($strain->getIsolationDate(), 'p'), $url) ?></td>
 			<td class="amount"><?php echo link_to($strain->getAmount(), $url) ?></td>
-			<td class="pending_orders">0</td>
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">
