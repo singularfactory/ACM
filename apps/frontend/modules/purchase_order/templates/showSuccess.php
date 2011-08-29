@@ -6,6 +6,40 @@
 <?php end_slot() ?>
 
 <div id="main_view_show">
+	<div id="object_related_models">
+		<?php $nbPurchaseItems = $purchaseOrder->getNbItems() ?>
+		<?php if ( $nbPurchaseItems > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Purchase items</h2>
+			<table>
+				<tr>
+					<th class="purchase_item_product">Product</th>
+					<th class="purchase_item_amount">Amount</th>
+					<th class="purchase_item_status">Status</th>
+					<th class="purchase_item_remarks">Remarks</th>
+				</tr>
+				<?php foreach ($purchaseOrder->getItems() as $item ): ?>
+					<?php $url = '@purchase_item_edit?id='.$item->getId() ?>
+					<tr>
+						<td class="purchase_item_product"><?php echo link_to($item->getDescription(), $url) ?></td>
+						<td class="purchase_item_amount"><?php echo link_to($item->getAmount(), $url) ?></td>
+						<td class="purchase_item_status"><?php echo link_to($item->getFormattedStatus(), $url) ?></td>
+						<td class="purchase_item_remarks">
+							<?php $remarks = $item->getRemarks() ?>
+							<?php if ( empty($remarks) ): ?>
+							<?php echo link_to(sfConfig::get('app_no_data_message'), $url) ?>
+							<?php else: ?>
+							<?php echo link_to($remarks, $url) ?>
+							<?php endif; ?>	
+						</td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+				
+	</div>
+	
 	<div id="object_data_list">
 		<dl>
 			<dt>Code:</dt>
@@ -15,39 +49,11 @@
 			<dt>Status:</dt>
 			<dd><?php echo $purchaseOrder->getFormattedStatus() ?></dd>
 			<dt>Items:</dt>
-			<dd>
-				<?php echo $nbPurchaseItems = $purchaseOrder->getNbItems() ?>
-				<?php if ( $nbPurchaseItems > 0 ): ?>
-					<a href="#purchase_order_purchase_items_list" title="List of purchase items in this order" class="page_jump">see below</a>
-				<?php endif; ?>
-			</dd>
+			<dd><?php echo $nbPurchaseItems ?></dd>
 			<dt>Remarks:</dt>
 			<dd><?php echo $purchaseOrder->getRemarks() ?></dd>
 		</dl>
 	</div>
-	
-	<?php if ( $nbPurchaseItems > 0): ?>
-	<div id="purchase_order_purchase_items_list" class="object_related_model_long_list">
-		<h2>Purchase items</h2>
-		<table>
-			<tr>
-				<th class="product_item_description">Product</th>
-				<th class="product_item_amount">Amount</th>
-				<th class="product_item_status">Status</th>
-				<th class="product_item_remarks">Remarks</th>
-			</tr>
-			<?php foreach ($purchaseOrder->getItems() as $item ): ?>
-				<?php $url = '@purchase_item_edit?id='.$item->getId() ?>
-				<tr>
-					<td><?php echo link_to($item->getProduct(), $url) ?></td>
-					<td><?php echo link_to($item->getAmount(), $url) ?></td>
-					<td><?php echo link_to($item->getFormattedStatus(), $url) ?></td>
-					<td><?php echo link_to($item->getRemarks(), $url) ?></td>
-				</tr>
-			<?php endforeach ?>
-		</table>
-	</div>
-	<?php endif ?>
 	
 	<div class="clear"></div>
 </div>

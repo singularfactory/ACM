@@ -298,6 +298,14 @@ purchase_order_search_pagination:
 
 
 ###
+# Purchase item routes
+###
+purchase_item:
+  class:   sfDoctrineRouteCollection
+  options: { model: PurchaseItem, actions: [edit, update] }
+
+
+###
 # Default rules
 ###
 homepage:
