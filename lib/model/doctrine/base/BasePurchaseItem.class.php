@@ -8,6 +8,7 @@
  * @property integer $id
  * @property enum $status
  * @property enum $product
+ * @property integer $product_id
  * @property integer $amount
  * @property string $remarks
  * @property integer $purchase_order_id
@@ -16,6 +17,7 @@
  * @method integer       getId()                Returns the current record's "id" value
  * @method enum          getStatus()            Returns the current record's "status" value
  * @method enum          getProduct()           Returns the current record's "product" value
+ * @method integer       getProductId()         Returns the current record's "product_id" value
  * @method integer       getAmount()            Returns the current record's "amount" value
  * @method string        getRemarks()           Returns the current record's "remarks" value
  * @method integer       getPurchaseOrderId()   Returns the current record's "purchase_order_id" value
@@ -23,6 +25,7 @@
  * @method PurchaseItem  setId()                Sets the current record's "id" value
  * @method PurchaseItem  setStatus()            Sets the current record's "status" value
  * @method PurchaseItem  setProduct()           Sets the current record's "product" value
+ * @method PurchaseItem  setProductId()         Sets the current record's "product_id" value
  * @method PurchaseItem  setAmount()            Sets the current record's "amount" value
  * @method PurchaseItem  setRemarks()           Sets the current record's "remarks" value
  * @method PurchaseItem  setPurchaseOrderId()   Sets the current record's "purchase_order_id" value
@@ -60,6 +63,10 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
               1 => 'culture_medium',
               2 => 'genomic_dna',
              ),
+             ));
+        $this->hasColumn('product_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('amount', 'integer', null, array(
              'type' => 'integer',

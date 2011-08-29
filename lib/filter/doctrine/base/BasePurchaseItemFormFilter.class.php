@@ -15,6 +15,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'status'            => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready'))),
       'product'           => new sfWidgetFormChoice(array('choices' => array('' => '', 'strain' => 'strain', 'culture_medium' => 'culture_medium', 'genomic_dna' => 'genomic_dna'))),
+      'product_id'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'amount'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'remarks'           => new sfWidgetFormFilterInput(),
       'purchase_order_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PurchaseOrder'), 'add_empty' => true)),
@@ -25,6 +26,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'status'            => new sfValidatorChoice(array('required' => false, 'choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready'))),
       'product'           => new sfValidatorChoice(array('required' => false, 'choices' => array('strain' => 'strain', 'culture_medium' => 'culture_medium', 'genomic_dna' => 'genomic_dna'))),
+      'product_id'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'amount'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'remarks'           => new sfValidatorPass(array('required' => false)),
       'purchase_order_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PurchaseOrder'), 'column' => 'id')),
@@ -52,6 +54,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
       'id'                => 'Number',
       'status'            => 'Enum',
       'product'           => 'Enum',
+      'product_id'        => 'Number',
       'amount'            => 'Number',
       'remarks'           => 'Text',
       'purchase_order_id' => 'ForeignKey',
