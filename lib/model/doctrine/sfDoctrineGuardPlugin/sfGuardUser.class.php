@@ -18,4 +18,9 @@ class sfGuardUser extends PluginsfGuardUser {
 			->andWhere('n.status = ?', sfConfig::get('app_inbox_notification_new'))
 			->count();
 	}
+	
+	public function getNbPendingPurchaseOrders() {
+		$purchaseOrder = new PurchaseOrder;
+		return $purchaseOrder->getNbPendingPurchaseOrders();
+	}
 }

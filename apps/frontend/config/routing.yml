@@ -275,6 +275,29 @@ inbox_search_pagination:
 
 
 ###
+# Purchase order routes
+###
+purchase_order:
+  class:   sfDoctrineRouteCollection
+  options: { model: PurchaseOrder, actions: [list, show, edit, update, delete] }
+
+purchase_order_search:
+  url:          purchase_order/search/:criteria
+  param:        { module: purchase_order, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+purchase_order_pagination:
+  url:          purchase_order/page/:page
+  param:        { module: purchase_order, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+purchase_order_search_pagination:
+  url:          purchase_order/search/:criteria/page/:page
+  param:        { module: purchase_order, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Default rules
 ###
 homepage:

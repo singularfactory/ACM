@@ -103,20 +103,38 @@
 					
 					<li class="header_menu_right_tab">
 						<?php
-						if ( !preg_match('/^((inbox|notification)(\/_)?)/', $currentRoute) )
-							echo link_to('Inbox', '@inbox');
-						else {
-							$unreadMessages = $user->getNbUnreadNotifications();
-							if ( $unreadMessages ) {
-								$unreadMessages = " ($unreadMessages)";
-							}
-							else {
-								$unreadMessages = '';
-							}
-							echo link_to("Inbox$unreadMessages", '@inbox', array('class' => 'header_menu_current_tab'));
+						$unreadMessages = $user->getNbUnreadNotifications();
+						if ( $unreadMessages ) {
+							$unreadMessages = " ($unreadMessages)";
 						}
-						?>
+						else {
+							$unreadMessages = '';
+						}
+						if ( !preg_match('/^((inbox|notification)(\/_)?)/', $currentRoute) )
+							echo link_to("Inbox$unreadMessages", '@inbox');
+						else
+							echo link_to("Inbox$unreadMessages", '@inbox', array('class' => 'header_menu_current_tab'));
+						?>	
 					</li>
+					
+					<li class="header_menu_right_tab">
+						<?php
+						$itemsCountCssClass = array();
+						$newOrders = $user->getNbPendingPurchaseOrders();
+						if ( $newOrders ) {
+							$newOrders = " ($newOrders)";
+							$itemsCountCssClass = array('class' => 'header_menu_tab_count');
+						}
+						else {
+							$newOrders = '';
+						}
+						if ( !preg_match('/^((purchase_order|purchase_item)(\/_)?)/', $currentRoute) )
+							echo link_to("Purchase orders$newOrders", '@purchase_order', $itemsCountCssClass);
+						else
+							echo link_to("Purchase orders$newOrders", '@purchase_order', array('class' => 'header_menu_current_tab'));
+						?>	
+					</li>
+					
 				</ul>
 			</div>
 		</div>

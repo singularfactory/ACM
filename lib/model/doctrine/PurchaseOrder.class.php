@@ -10,6 +10,72 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class PurchaseOrder extends BasePurchaseOrder
-{
+class PurchaseOrder extends BasePurchaseOrder {
+	
+	public function getNbPendingPurchaseOrders() {
+		return PurchaseOrderTable::getInstance()->createQuery('po')
+			->where('po.status = ?', sfConfig::get('app_purchase_order_pending'))
+			->count();
+	}
+	
+	public function getDate() {
+		$now = time();
+		$received = strtotime($this->getCreatedAt());
+		$interval = $now - $received;
+		
+		if ( $interval < 60 ) {
+			return 'A few seconds ago';
+		}
+		
+		for ( $i=60; $i < 3600; $i+=60 ) { 
+			if ( $interval <= $i ) {
+				$minutes = floor($interval / 60.0);
+				if ( $minutes <= 1 ) {
+					return "$minutes minute ago";
+				}
+				else {
+					return "$minutes minutes ago";	
+				}
+			}
+		}
+		
+		if ( $interval <= 3600 ) {
+			return 'Less than an hour ago';
+		}
+		
+		if ( $interval <= 7200 ) {
+			return 'About an hour ago';
+		}
+		
+		if ( $interval < 86400 ) {
+			return 'Today at '.date("H:i", $received);
+		}
+		
+		return date("M S, H:i", $received);
+	}
+	
+	public function getFormattedStatus() {
+		switch( $this->_get('status') ) {
+			case sfConfig::get('app_purchase_order_pending'):
+				return 'pending';
+				break;
+			case sfConfig::get('app_purchase_order_processing'):
+				return 'processing';
+				break;
+			case sfConfig::get('app_purchase_order_ready');
+				return 'ready';
+				break;
+			case sfConfig::get('app_purchase_order_sent');
+				return 'sent';
+				break;
+		}
+		
+		return 'processing';
+	}
+	
+	public function getNbItems() {
+		return PurchaseItemTable::getInstance()->createQuery('pi')
+			->where('pi.purchase_order_id = ?', $this->getId())
+			->count();
+	}
 }

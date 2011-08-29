@@ -62,11 +62,23 @@ all:
     inbox_notification_deleted: 2
     inbox_days_in_trash:        30
     
+    # Purchase orders constants
+    purchase_order_pending:           0
+    purchase_order_processing:        1
+    purchase_order_ready:             2
+    purchase_order_sent:              3
+    purchase_item_pending:            0
+    purchase_item_processing:         1
+    purchase_item_ready:              2
+    purchase_product_strain:          0
+    purchase_product_culture_medium:  1
+    purchase_product_genomic_dna:     2
+    
     # Google Maps API management constants
     map_pictures_dir:   /images/maps
     default_latitude:   27.991232
     default_longitude:  -15.368787
-    
+  
   sf_guard_plugin:
     routes_register:        true
     allow_login_with_email: false

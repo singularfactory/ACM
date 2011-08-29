@@ -248,7 +248,7 @@ div.javascript_disabled_notification p {
 	background: #2aa2f8;
 }
 .header_menu_right_tab { float: right; }
-
+#header_menu ul#header_menu_tabs a.header_menu_tab_count { color: #ffffff; background: #bf0426; }
 
 /**
 * MAIN CONTENT

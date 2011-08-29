@@ -55,7 +55,8 @@ class EventLog {
 					case 'taxonomic_class':
 					case 'maintenance_status':
 					case 'pcr_program':
-					case ''
+					case 'purchase_order':
+					case 'purchase_item':
 						$description .= self::$field_separator.$form['name'];
 						break;
 					default:
