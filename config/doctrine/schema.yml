@@ -394,3 +394,21 @@ Notification:
     user_id:  { type: integer, notnull: true }
   relations:
     User:     { class: sfGuardUser, local: user_id, foreignAlias: Notifications }
+
+PurchaseOrder:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    status:   { type: enum, values: [pending, processing, ready, sent] }
+    code:     { type: string(40) }
+    remarks:  { type: string }
+
+PurchaseItem:
+  columns:
+    id:                 { type: integer, primary: true, autoincrement: true }
+    status:             { type: enum, values: [pending, processing, ready] }
+    product:            { type: enum, values: [strain, culture_medium, genomic_dna] }
+    amount:             { type: integer, notnull: true, default: 0 }
+    remarks:            { type: string }
+    purchase_order_id:  { type: integer, notnull: true }
+  relations:
+    PurchaseOrder:      { foreignAlias: Items, onDelete: cascade }
