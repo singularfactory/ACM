@@ -104,8 +104,16 @@
 						<?php
 						if ( !preg_match('/^((inbox|notification)(\/_)?)/', $currentRoute) )
 							echo link_to('Inbox', '@inbox');
-						else
-							echo link_to('Inbox', '@inbox', array('class' => 'header_menu_current_tab'));
+						else {
+							$unreadMessages = $user->getNbUnreadNotifications();
+							if ( $unreadMessages ) {
+								$unreadMessages = " ($unreadMessages)";
+							}
+							else {
+								$unreadMessages = '';
+							}
+							echo link_to("Inbox$unreadMessages", '@inbox', array('class' => 'header_menu_current_tab'));
+						}
 						?>
 					</li>
 				</ul>
