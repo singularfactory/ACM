@@ -1,15 +1,20 @@
 generator:
   param:
-    css:  false
+    actions_base_class:     MyActions
+    css:                    false
+    
     config:
+      actions: ~
+      fields: ~
       list:
         title:   Users
         display: [=username, name, email_address, last_login]
         fields:
           email_address: { label: Email }
-
+      form:
+        display:
+          "Notifications":  [notify_new_order, notify_ready_order]
       edit:
         title: Editing user "%%username%%"
-
       new:
         title: New user

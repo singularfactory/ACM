@@ -22,7 +22,7 @@ class SampleForm extends BaseSampleForm {
 		
 		// Configure location
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
-      
+     
 		// Configure collector
 		$this->setWidget('collector_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Collector'),

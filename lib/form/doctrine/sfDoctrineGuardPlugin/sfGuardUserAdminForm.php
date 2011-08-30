@@ -20,6 +20,12 @@ class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
 			$this->widgetSchema->setLabel('is_super_admin', 'Is super admin?');
 		}
 		
+		// Configure notifications management
+		$this->setWidget('notify_new_order', new sfWidgetFormInputCheckbox());
+		$this->setWidget('notify_ready_order', new sfWidgetFormInputCheckbox());
+		$this->setValidator('notify_new_order', new sfValidatorBoolean(array('required' => false)));
+		$this->setValidator('notify_ready_order', new sfValidatorBoolean(array('required' => false)));
+		
 		// Configure authentication token management
 		$this->setWidget('token', new sfWidgetFormInputHidden());
 		$this->setValidator('token', new sfValidatorString(array('max_length' => 40, 'min_length' => 40, 'required' => false)));
@@ -28,6 +34,8 @@ class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
 		$this->widgetSchema->setLabel('first_name', 'Name');
 		$this->widgetSchema->setLabel('last_name', 'Surname');
 		$this->widgetSchema->setLabel('email_address', 'Email');
+		$this->widgetSchema->setLabel('notify_new_order', 'A new purchase order arrives');
+		$this->widgetSchema->setLabel('notify_ready_order', 'A purchase order is ready to deliver');
 	}
 	
 	public function checkTokenValue($validator, $values) {

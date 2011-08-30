@@ -46,7 +46,16 @@
 			<?php echo $form['password_again']->renderError() ?>
 			<?php echo $form['password_again'] ?>
 		</div>
-
+		
+		<div id="notifications" class="checkbox checkbox_group">
+			<p>Notify me when...</p>
+			<?php echo $form['notify_new_order'] ?>
+			<?php echo $form['notify_new_order']->renderLabel() ?>
+			<br />
+			<?php echo $form['notify_ready_order'] ?>
+			<?php echo $form['notify_ready_order']->renderLabel() ?>
+		</div>
+		
 		<div id="avatar">
 			<?php echo $form['avatar']->renderLabel() ?>
 			<?php echo $form['avatar']->renderHelp() ?>

@@ -50,7 +50,7 @@ form { margin: 0; padding: 0; }
 }
 #sf_admin_container thead img, #sf_admin_container tfoot img { vertical-align: middle; }
 
-#sf_admin_container input, #sf_admin_container textarea { width: auto; }
+#sf_admin_container input, #sf_admin_container textarea { width: auto; margin-left: 21px; }
 
 #sf_admin_container .radio_list, #sf_admin_container .checkbox_list { margin: 0; }
 #sf_admin_container .radio_list li, #sf_admin_container .checkbox_list li { list-style: none; display: inline; }

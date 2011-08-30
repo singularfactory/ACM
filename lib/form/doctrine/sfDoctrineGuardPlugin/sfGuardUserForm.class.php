@@ -36,7 +36,7 @@ class sfGuardUserForm extends PluginsfGuardUserForm {
 		// Configure authentication token management
 		$this->setWidget('token', new sfWidgetFormInputHidden());
 	
-		$this->useFields(array('first_name', 'last_name', 'email_address', 'username', 'password', 'password_again', 'avatar', 'token'));
+		$this->useFields(array('first_name', 'last_name', 'email_address', 'username', 'password', 'password_again', 'avatar', 'token', 'notify_new_order', 'notify_ready_order'));
 
 		$this->widgetSchema->setLabel('first_name', 'Name');
 		$this->widgetSchema->setLabel('last_name', 'Surname');
@@ -44,6 +44,8 @@ class sfGuardUserForm extends PluginsfGuardUserForm {
 		$this->widgetSchema->setLabel('password_again', 'Password again');
 		$this->widgetSchema->setLabel('avatar', 'Profile picture');
 		$this->widgetSchema->setLabel('token', 'Authentication token');
+		$this->widgetSchema->setLabel('notify_new_order', 'A new purchase order arrives');
+		$this->widgetSchema->setLabel('notify_ready_order', 'A purchase order is ready to deliver');
 	
 		$this->widgetSchema->setHelp('first_name', 'Your name');
 		$this->widgetSchema->setHelp('last_name', 'Your last name');
