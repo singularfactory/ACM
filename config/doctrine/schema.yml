@@ -276,8 +276,10 @@ StrainCultureMedia:
 
 sfGuardUser:  
   columns:  
-    avatar: { type: string(255) }
-    token:  { type: string(40), notnull: true }
+    avatar:             { type: string(255) }
+    token:              { type: string(40), notnull: true }
+    notify_new_order:   { type: boolean, notnull: true, default: true }
+    notify_ready_order: { type: boolean, notnull: true, default: true }
 
 ExtractionKit:
   columns:

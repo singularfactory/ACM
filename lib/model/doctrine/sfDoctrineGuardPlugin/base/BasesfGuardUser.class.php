@@ -17,6 +17,8 @@
  * @property timestamp $last_login
  * @property string $avatar
  * @property string $token
+ * @property boolean $notify_new_order
+ * @property boolean $notify_ready_order
  * @property Doctrine_Collection $Groups
  * @property Doctrine_Collection $Permissions
  * @property Doctrine_Collection $sfGuardUserPermission
@@ -38,6 +40,8 @@
  * @method timestamp             getLastLogin()             Returns the current record's "last_login" value
  * @method string                getAvatar()                Returns the current record's "avatar" value
  * @method string                getToken()                 Returns the current record's "token" value
+ * @method boolean               getNotifyNewOrder()        Returns the current record's "notify_new_order" value
+ * @method boolean               getNotifyReadyOrder()      Returns the current record's "notify_ready_order" value
  * @method Doctrine_Collection   getGroups()                Returns the current record's "Groups" collection
  * @method Doctrine_Collection   getPermissions()           Returns the current record's "Permissions" collection
  * @method Doctrine_Collection   getSfGuardUserPermission() Returns the current record's "sfGuardUserPermission" collection
@@ -58,6 +62,8 @@
  * @method sfGuardUser           setLastLogin()             Sets the current record's "last_login" value
  * @method sfGuardUser           setAvatar()                Sets the current record's "avatar" value
  * @method sfGuardUser           setToken()                 Sets the current record's "token" value
+ * @method sfGuardUser           setNotifyNewOrder()        Sets the current record's "notify_new_order" value
+ * @method sfGuardUser           setNotifyReadyOrder()      Sets the current record's "notify_ready_order" value
  * @method sfGuardUser           setGroups()                Sets the current record's "Groups" collection
  * @method sfGuardUser           setPermissions()           Sets the current record's "Permissions" collection
  * @method sfGuardUser           setSfGuardUserPermission() Sets the current record's "sfGuardUserPermission" collection
@@ -130,6 +136,16 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => 40,
+             ));
+        $this->hasColumn('notify_new_order', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => true,
+             ));
+        $this->hasColumn('notify_ready_order', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => true,
              ));
 
 
