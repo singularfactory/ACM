@@ -73,9 +73,14 @@ class purchase_orderActions extends MyActions {
 				$purchaseOrder = $form->save();
 				$message = 'Changes saved';
 				$url = '@purchase_order_show?id='.$purchaseOrder->getId();
+				
+				$purchaseOrder->updateItemsStatus();
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
+				if ( $purchaseOrder != null ) {
+					$message = 'Changes were saved but status of items could not be updated';
+				}
 			}
 			
 			if ( $purchaseOrder != null ) {

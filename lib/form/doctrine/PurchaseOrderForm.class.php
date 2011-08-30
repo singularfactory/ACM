@@ -31,4 +31,5 @@ class PurchaseOrderForm extends BasePurchaseOrderForm {
 		$this->widgetSchema->setHelp('code', 'Purchase code assigned after payment');
 		$this->widgetSchema->setHelp('status', 'Status of this purchase order');
 	}
+	
 }

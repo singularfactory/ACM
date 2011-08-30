@@ -14,7 +14,7 @@ class PurchaseOrder extends BasePurchaseOrder {
 	
 	public function getNbPendingPurchaseOrders() {
 		return PurchaseOrderTable::getInstance()->createQuery('po')
-			->where('po.status = ?', sfConfig::get('app_purchase_order_pending'))
+			->where('po.status < ?', sfConfig::get('app_purchase_order_sent'))
 			->count();
 	}
 	
@@ -78,4 +78,46 @@ class PurchaseOrder extends BasePurchaseOrder {
 			->where('pi.purchase_order_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function updateStatus($status = 1) {
+		// Change purchase order to processing if one or more items are in being processed
+		if ( $this->getStatus() < $status && $status == sfConfig::get('app_purchase_item_processing') ) {
+			$this->setStatus(sfConfig::get('app_purchase_item_processing'));
+			$this->save();
+		}
+		
+		// If every item is ready, change the purchase order status to ready
+		$itemsReady = 0;
+		foreach ($this->getItems() as $item) {
+			if ( $item->getStatus() == sfConfig::get('app_purchase_item_ready') ) {
+				$itemsReady += 1;
+			}
+		}
+		
+		if ( $itemsReady == $this->getNbItems() ) {
+			$this->setStatus(sfConfig::get('app_purchase_item_ready'));
+			$this->save();
+		}
+		else if ( $this->getStatus() == sfConfig::get('app_purchase_item_ready') ) {
+			$this->setStatus(sfConfig::get('app_purchase_item_processing'));
+			$this->save();
+		}
+	}
+	
+	public function updateItemsStatus() {
+		if ( $this->getStatus() >= sfConfig::get('app_purchase_order_ready') ) {
+			$items = array();
+			foreach ( $this->getItems() as $item ) {
+				$items[] = $item->getId();
+			}
+
+			PurchaseItemTable::getInstance()
+				->createQuery('pi')
+				->update()
+				->set('pi.status', sfConfig::get('app_purchase_item_ready'))
+				->whereIn('pi.purchase_order_id', $items)
+				->execute();
+		}
+	}
+	
 }
