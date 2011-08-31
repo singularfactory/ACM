@@ -61,12 +61,14 @@ function updateIslandsSelect(options) {
 $(document).ready(function(){		
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
-		$(this).after('<span class="reset_picture">reset</span>');
-		
-		$(this).next().click(function(){	// clear input and detach when pressed
-			$(this).prev().val('');
-			$(this).detach();
-		});
+		if ( !$(this).next('span.reset_picture').length ) {
+			$(this).after('<span class="reset_picture">reset</span>');
+			
+			$(this).next().click(function(){	// clear input and detach when pressed
+				$(this).prev().val('');
+				$(this).detach();
+			});
+		}
 	});
 	
 	// Display remove option when a strain relative input has text and lose focus

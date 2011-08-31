@@ -1,3 +1,5 @@
+<?php use_helper('Text') ?>
+
 <?php slot('main_header') ?>
 <span>All culture media</span>
 <?php include_partial('global/search_box_header_action', array('route' => '@culture_medium_search?criteria=')) ?>
@@ -23,7 +25,7 @@
 			<?php $url = url_for('@culture_medium_show?id='.$cultureMedium->getId()) ?>
 			<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
 			<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
-			<td class="link"><?php echo link_to($cultureMedium->getLink(), $url) ?></td>
+			<td class="link"><?php echo link_to(truncate_text($cultureMedium->getLink(), 60), $url) ?></td>
 			<td class="is_public"><?php echo link_to($cultureMedium->getFormattedIsPublic(), $url) ?></td>
 			<td class="amount"><?php echo link_to($cultureMedium->getAmount(), $url) ?></td>
 			<td class="object_count"><?php echo link_to($cultureMedium->getNbStrains(), $url) ?></td>

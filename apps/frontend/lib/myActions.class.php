@@ -150,6 +150,27 @@ class MyActions extends sfActions {
 			}
 		}
 	}
+	
+	/**
+	 * removeDocumentsFromFilesystem
+	 * 
+	 * Each item of $files represent a <filename,directory> pair:
+	 * 
+	 *   filename[0] => array('filename1', 'directory1')
+	 *   ...
+	 *   filename[i] => array('filename2', 'directory2')
+	 *   ...
+	 *   filename[n] => array('filename3', 'directory1')
+	 *
+	 * @param array $files List of files to be removed
+	 * @return void
+	 * @author Eliezer Talon
+	 */
+	protected function removeDocumentsFromFilesystem(array $files) {
+		foreach( $files as $file ) {
+			unlink(sfConfig::get('sf_upload_dir').$file[1].'/'.$file[0]);
+		}
+	}
 
 	/**
 	 * Deletes a object if it is not referenced by any foreign key
@@ -177,8 +198,15 @@ class MyActions extends sfActions {
 				}
 			}
 			
+			// Remove documents, if any
+			$removableDocuments = array();
+			if ( $module === 'culture_medium' ) {
+				$removableDocuments[] = array($model->getDescription(), sfConfig::get('app_culture_media_dir'));
+			}
+			
 			$model->delete();
 			$this->removePicturesFromFilesystem($removablePictures, sfConfig::get("app_{$module}_pictures_dir"));
+			$this->removeDocumentsFromFilesystem($removableDocuments);
 			
 			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
 			$this->getUser()->setFlash('notice', "$moduleReadableName deleted successfully");

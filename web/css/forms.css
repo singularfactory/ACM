@@ -53,7 +53,7 @@ input[type=submit] {
 input[type=submit]:hover { cursor: pointer; }
 input[type=checkbox] { margin: 0px 6px 7px 2px; width: auto; display: inline-block; }
 input[type=radio] { float:left; width:auto; margin: 0px 3px 7px 0px; }
-input[type=file] { min-width: 350px; font-size: 11px; color: #555; }
+input[type=file] { font-size: 11px; color: #555; }
 
 a.cancel_form_link { color: #e32; font-size: 12px; margin: 0px; }
 a.cancel_form_link:hover { color: white; background: #e32; margin: 0px; }
@@ -127,6 +127,7 @@ div.model_text_input_dna_primer select { margin-left: 3px; display: inline; vert
  * SPECIFIC FIELDS
  */
 #name input { width: 250px; }	/* Location */
+#description input[type=file] { display: inline; }	/* Culture media*/
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 

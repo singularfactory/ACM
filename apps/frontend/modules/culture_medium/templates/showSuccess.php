@@ -15,9 +15,15 @@
 			<dt>Name:</dt>
 			<dd><?php echo $cultureMedium->getName() ?></dd>
 			<dt>Link:</dt>
-			<dd><?php echo $cultureMedium->getLink() ?></dd>
+			<dd><?php echo link_to($cultureMedium->getLink(), $cultureMedium->getLink(), array('popup' => true)) ?></dd>
 			<dt>Description:</dt>
-			<dd><?php echo $cultureMedium->getDescription() ?></dd>
+			<dd>
+				<?php if ( $url = $cultureMedium->getDescriptionUrl() ): ?>
+				<?php echo link_to($cultureMedium->getDescription(), $url) ?>
+				<?php else: ?>
+				<?php echo sfConfig::get('app_no_data_message') ?>
+				<?php endif; ?>
+			</dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $cultureMedium->getFormattedIsPublic() ?></dd>
 			<dt>Amount:</dt>

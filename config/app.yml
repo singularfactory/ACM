@@ -28,6 +28,9 @@ all:
     maintenance_status_solid:         Solid
     maintenance_status_cryopreserved: Cryopreserved
     
+    # Culture media related constants
+    culture_media_dir:  /culture_media
+    
     # DNA lab related constants
     concentration_unit: ng/µl #ng/&micro;l
     pcr_gel_band_unit:  bp
@@ -55,6 +58,9 @@ all:
     default_region_name:        Las Palmas
     default_island_name:        Gran Canaria
     stock_items_label:          items
+    document_mime_types:       ['application/pdf', 'application/zip', 'application/postscript', 'text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', ' vnd.oasis.opendocument.text', 'application/vnd.ms-word']
+    max_document_size:          67108864
+    documents_dir:             /uploads
     
     # Inbox constants
     inbox_notification_new:     0

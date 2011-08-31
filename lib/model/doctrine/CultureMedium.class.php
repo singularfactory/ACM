@@ -39,4 +39,27 @@ class CultureMedium extends BaseCultureMedium {
 		}
 		return 'no';
 	}
+	
+	public function getLink() {
+		$link = $this->_get('link');
+		
+		if ( !empty($link) && !preg_match('/^https?:\/\//', $link) ) {
+			return "http://$link";
+		}
+		
+		return $link;
+	}
+	
+	public function getDescriptionUrl() {
+		$path = sfConfig::get('app_documents_dir').sfConfig::get('app_culture_media_dir');
+		$filename = $this->getDescription();
+		
+		if ( empty($filename) ) {
+			return null;
+		}
+		else {
+			return "$path/$filename";
+		}
+	}
+	
 }

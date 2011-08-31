@@ -40,18 +40,14 @@
 			<h2>Culture media</h2>
 			<table>
 				<tr>
-					<th class="code">Code</th>
-					<th class="name">Name</th>
-					<th class="description">Description</th>
-					<th class="link">Link</th>
+					<th class="culture_medium_code">Code</th>
+					<th class="culture_medium_name">Name</th>
 				</tr>
 				<?php foreach ($strain->getCultureMedia() as $cultureMedium ): ?>
 					<?php $url = '@culture_medium_show?id='.$cultureMedium->getId() ?>
 					<tr>
-						<td><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
-						<td><?php echo link_to($cultureMedium->getName(), $url) ?></td>
-						<td><?php echo link_to($cultureMedium->getDescription(), $url) ?></td>
-						<td><?php echo link_to($cultureMedium->getLink(), $url) ?></td>
+						<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
+						<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
