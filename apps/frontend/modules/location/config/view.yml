@@ -1,4 +1,4 @@
 editSuccess:
-  javascripts:  ['http://maps.google.com/maps/api/js?sensor=false', jquery-gomap.js, datepicker.js, forms.js, colorbox.js, thumbnails.js, picture_upload.js]
+  javascripts:  ['http://maps.google.com/maps/api/js?sensor=false', jquery-gomap.js, datepicker.js, forms.js, colorbox.js, thumbnails.js, numeric.js, picture_upload.js]
 newSuccess:
-  javascripts:  ['http://maps.google.com/maps/api/js?sensor=false', jquery-gomap.js, datepicker.js, forms.js, colorbox.js, picture_upload.js]
+  javascripts:  ['http://maps.google.com/maps/api/js?sensor=false', jquery-gomap.js, datepicker.js, forms.js, colorbox.js, numeric.js, picture_upload.js]
