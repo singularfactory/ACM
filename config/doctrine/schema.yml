@@ -205,7 +205,7 @@ CultureMedium:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
-    description:  { type: string, notnull: true }
+    description:  { type: string(255), notnull: true }
     link:         { type: string(1024), notnull: true }
     is_public:    { type: boolean, notnull: true, default: false }
     amount:       { type: integer, notnull: true, default: 0 }
