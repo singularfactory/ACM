@@ -120,9 +120,9 @@ class apiActions extends sfActions {
 		}
 		
 		$productTypes = array(
-			'strain' => array('table' => 'StrainTable', 'regex' => '/^BEA(\d+)B?$/', 'amountMethod' => 'getAmount'),
-			'culture_media' => array('table' => 'CultureMediumTable', 'regex' => '/^BEA(\d+)-cm$/', 'amountMethod' => 'getAmount'),
-			'genomic_dna' => array('table' => 'StrainTable', 'regex' => '/^BEA(\d+)B?$/', 'amountMethod' => 'getDnaAmount'),
+			'strain' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex'), 'amountMethod' => 'getAmount'),
+			'culture_media' => array('table' => 'CultureMediumTable', 'regex' => sfConfig::get('app_culture_media_bea_code_regex'), 'amountMethod' => 'getAmount'),
+			'genomic_dna' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex'), 'amountMethod' => 'getDnaAmount'),
 		);
 		
 		foreach ( $purchaseOrder as $item => $details ) {

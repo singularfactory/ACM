@@ -62,6 +62,10 @@ all:
     max_document_size:          67108864
     documents_dir:             /uploads
     
+    # Common regular expressions
+    strain_bea_code_regex:          '/^BEA\s?(\d+)B?$/'
+    culture_medium_bea_code_regex:  '/^BEA\s?(\d+)-cm$/'
+    
     # Inbox constants
     inbox_notification_new:     0
     inbox_notification_read:    1

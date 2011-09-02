@@ -12,6 +12,21 @@
 */
 class PurchaseItem extends BasePurchaseItem {
 	
+	protected $products = array(
+		'strain' => array(
+			'table' => 'StrainTable',
+			'default_description' => 'Strain',
+		),
+		'genomic_dna' => array(
+			'table' => 'StrainTable',
+			'default_description' => 'Genomic DNA from strain',
+		),
+		'culture_medium' => array(
+			'table' => 'CultureMediumTable',
+			'default_description' => 'Culture medium',
+		),
+	);
+	
 	public function getFormattedStatus() {
 		switch( $this->_get('status') ) {
 			case sfConfig::get('app_purchase_item_pending'):
@@ -32,26 +47,24 @@ class PurchaseItem extends BasePurchaseItem {
 		$product = $this->getProduct();
 		$code = $this->getProductId();
 		
+		// Get product ID
 		if ( $product === 'strain' ) {
-			$id = preg_replace('/^BEA\s?(\d+)B?$/', '$1', $code);
-			$strain = StrainTable::getInstance()->findOneById($id);
-			
-			return 'Strain '.$strain->getCode();
+			$id = preg_replace(sfConfig::get('app_strain_bea_code_regex'), '$1', $code);
 		}
 		else if ( $product === 'genomic_dna' ) {
-			$id = preg_replace('/^BEA\s?(\d+)B?$/', '$1', $code);
-			$strain = StrainTable::getInstance()->findOneById($id);
-			
-			return 'Genomic DNA from strain '.$strain->getCode();
+			$id = preg_replace(sfConfig::get('app_strain_bea_code_regex'), '$1', $code);
 		}
 		else if ( $product === 'culture_medium' ) {
-			$id = preg_replace('/^BEA\s?(\d+)-cm$/', '$1', $code);
-			$cultureMedium = CultureMediumTable::getInstance()->findOneById($id);
-			
-			return 'Culture medium '.$cultureMedium->getCode();
+			$id = preg_replace(sfConfig::get('app_culture_medium_bea_code_regex'), '$1', $code);
 		}
 		
-		return $product;
+		// Get extra information about the product
+		$tableInstance = call_user_func(array($this->products[$product]['table'], 'getInstance'));
+		if ( $model = $tableInstance->findOneById($id) ) {
+			return $this->products[$product]['default_description'].' '.$model->getCode();
+		}
+		
+		return $this->products[$product]['default_description'];
 	}
 	
 }
