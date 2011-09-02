@@ -27,7 +27,7 @@ class StrainForm extends BaseStrainForm {
 		
 		// Configure date format
 		$lastYear = date('Y');
-		for ($i=$lastYear-5; $i <= $lastYear; $i++) { $years[$i] = $i; }
+		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
 		$this->setWidget('isolation_date', $dateWidgetForm);
 		$this->setWidget('deposition_date', $dateWidgetForm);

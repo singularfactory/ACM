@@ -16,7 +16,7 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		
 		// Configure date format
 		$lastYear = date('Y');
-		for ($i=$lastYear-5; $i <= $lastYear; $i++) { $years[$i] = $i; }
+		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
 		$this->setWidget('arrival_date', $dateWidgetForm);
 		$this->setWidget('extraction_date', $dateWidgetForm);

@@ -12,7 +12,7 @@ class SampleForm extends BaseSampleForm {
 	public function configure() {
 		// Configure collection date format
 		$lastYear = date('Y');
-		for ($i=$lastYear-5; $i <= $lastYear; $i++) { 
+		for ($i=1990; $i <= $lastYear; $i++) { 
 			$years[$i] = $i;
 		}
 		$this->setWidget('collection_date', new sfWidgetFormDate(array(
