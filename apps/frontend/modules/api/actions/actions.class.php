@@ -204,8 +204,4 @@ class apiActions extends sfActions {
 		return sfView::NONE;
 	}
 	
-	public function executePurchaseOrderReadyToDeliver(sfWebRequest $request) {
-		
-	}
-	
 }

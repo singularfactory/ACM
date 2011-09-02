@@ -75,6 +75,9 @@ class purchase_orderActions extends MyActions {
 				$url = '@purchase_order_show?id='.$purchaseOrder->getId();
 				
 				$purchaseOrder->updateItemsStatus();
+				if ( $purchaseOrder->getStatus() == sfConfig::get('app_purchase_order_sent') ) {
+					$this->notifyPurchaseOrderSent($purchaseOrder->getCode());
+				}
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
@@ -94,5 +97,9 @@ class purchase_orderActions extends MyActions {
 		
 		$this->getUser()->setFlash('notice', 'The information on this purchase order has some errors you need to fix', false);
   }
+	
+	protected function notifyPurchaseOrderSent($code) {
+		$url = sfConfig::get('app_notify_sent_public_web_url');
+	}
 	
 }
