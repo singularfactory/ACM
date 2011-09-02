@@ -67,4 +67,14 @@ class PurchaseItem extends BasePurchaseItem {
 		return $this->products[$product]['default_description'];
 	}
 	
+	public function getFormattedRemarks() {
+		$remarks = $this->getRemarks();
+		if ( empty($remarks) ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		else {
+			return $remarks;
+		}
+	}
+	
 }

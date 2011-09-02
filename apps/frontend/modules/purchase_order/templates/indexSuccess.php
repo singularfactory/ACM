@@ -23,7 +23,7 @@
 			<td class="purchase_order_date"><?php echo link_to($purchaseOrder->getDate(), $url) ?></td>
 			<td class="purchase_order_status"><?php echo link_to($purchaseOrder->getFormattedStatus(), $url) ?></td>
 			<td class="purchase_order_items"><?php echo link_to($purchaseOrder->getNbItems(), $url) ?></td>
-			<td class="purchase_order_remarks"><?php echo link_to($purchaseOrder->getRemarks(), $url) ?></td>
+			<td class="purchase_order_remarks"><?php echo link_to($purchaseOrder->getFormattedRemarks(), $url) ?></td>
 		
 			<td class="actions">
 				<?php echo link_to('Edit', 'purchase_order/edit?id='.$purchaseOrder->getId()) ?>

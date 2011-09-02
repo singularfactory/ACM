@@ -24,14 +24,7 @@
 						<td class="purchase_item_product"><?php echo link_to($item->getDescription(), $url) ?></td>
 						<td class="purchase_item_amount"><?php echo link_to($item->getAmount(), $url) ?></td>
 						<td class="purchase_item_status"><?php echo link_to($item->getFormattedStatus(), $url) ?></td>
-						<td class="purchase_item_remarks">
-							<?php $remarks = $item->getRemarks() ?>
-							<?php if ( empty($remarks) ): ?>
-							<?php echo link_to(sfConfig::get('app_no_data_message'), $url) ?>
-							<?php else: ?>
-							<?php echo link_to($remarks, $url) ?>
-							<?php endif; ?>	
-						</td>
+						<td class="purchase_item_remarks"><?php echo link_to($item->getFormattedRemarks(), $url) ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
