@@ -123,4 +123,12 @@ class Strain extends BaseStrain {
 	public function getDnaAmount() {
 		return $this->getAliquots();
 	}
+	
+	public function getFormattedIsolationDate() {
+		return $this->formatDate($this->_get('isolation_date'));
+	}
+	
+	public function getFormattedDepositionDate() {
+		return $this->formatDate($this->_get('deposition_date'));
+	}
 }

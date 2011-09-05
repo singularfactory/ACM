@@ -9,10 +9,11 @@
 * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
 class SampleForm extends BaseSampleForm {
+	
 	public function configure() {
 		// Configure collection date format
 		$lastYear = date('Y');
-		for ($i=1990; $i <= $lastYear; $i++) { 
+		for ($i=1990; $i <= $lastYear; $i++) {
 			$years[$i] = $i;
 		}
 		$this->setWidget('collection_date', new sfWidgetFormDate(array(
@@ -79,7 +80,7 @@ class SampleForm extends BaseSampleForm {
 		$this->setValidator('notebook_code', new sfValidatorInteger(array('required' => true), array(
 			'invalid' => 'Only an integer number allowed',
 			'required' => 'Provide the notebook code')));
-				
+						
 		// Configure labels
 		$this->widgetSchema->setLabel('ph', 'pH');
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');

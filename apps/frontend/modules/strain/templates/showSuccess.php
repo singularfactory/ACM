@@ -143,7 +143,7 @@
 
 			<?php if ( $strain->getIsolator()->getName() ): ?>
 			<dt>Isolator:</dt>
-			<dd><?php echo $strain->getIsolator() ?> ( <?php echo format_date($strain->getIsolationDate(), 'p') ?> )</dd>
+			<dd><?php echo $strain->getIsolator() ?> ( <?php echo $strain->getFormattedIsolationDate() ?> )</dd>
 			<?php endif; ?>
 			
 			<?php if ( $strain->getIdentifier()->getName() ): ?>
@@ -153,7 +153,7 @@
 			
 			<?php if ( $strain->getDepositor()->getName() ): ?>
 			<dt>Depositor:</dt>
-			<dd><?php echo $strain->getDepositor() ?> (<?php echo format_date($strain->getDepositionDate(), 'p') ?>)</dd>
+			<dd><?php echo $strain->getDepositor() ?> (<?php echo $strain->getFormattedDepositionDate() ?>)</dd>
 			<?php endif; ?>
 
 			<dt>Citations:</dt>

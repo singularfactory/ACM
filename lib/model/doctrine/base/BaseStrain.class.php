@@ -274,6 +274,8 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'strain_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
+        $date0 = new Date();
         $this->actAs($timestampable0);
+        $this->actAs($date0);
     }
 }

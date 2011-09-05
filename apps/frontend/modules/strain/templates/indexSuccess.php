@@ -36,7 +36,7 @@
 			<td class="strain_name"><?php echo link_to($strainName, $url) ?></td>
 			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleCode(), $url) ?></td>
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
-			<td class="isolation_date"><?php echo link_to(format_date($strain->getIsolationDate(), 'p'), $url) ?></td>
+			<td class="isolation_date"><?php echo link_to($strain->getFormattedIsolationDate(), $url) ?></td>
 			<td class="amount"><?php echo link_to($strain->getAmount(), $url) ?></td>
 
 			<td class="actions">

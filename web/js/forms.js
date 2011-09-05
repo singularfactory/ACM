@@ -306,4 +306,5 @@ $(document).ready(function(){
 	});
 	
 	$("#amount input").numeric({ "minValue": 0, emptyValue: false, increment: 1 });
+	
 });

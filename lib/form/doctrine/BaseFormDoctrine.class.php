@@ -9,6 +9,7 @@
  * @version    SVN: $Id: sfDoctrineFormBaseTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
+	
 	public function setup() {
 		// Hide widgets
 		unset($this['created_at'], $this['updated_at']);
@@ -20,4 +21,5 @@ abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
 		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('%errors%');
 		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<span class="input_error">%error%</span>');
 	}
+	
 }

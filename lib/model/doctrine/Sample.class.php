@@ -171,4 +171,9 @@ class Sample extends BaseSample {
 		
 		return $pictures;
 	}
+	
+	public function getFormattedCollectionDate() {
+		return $this->formatDate($this->_get('collection_date'));
+	}
+	
 }

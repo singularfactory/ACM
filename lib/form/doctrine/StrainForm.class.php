@@ -25,10 +25,10 @@ class StrainForm extends BaseStrainForm {
 		// Configure sample code (commented out to temporarily allow NULL values)
 		//$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
 		
-		// Configure date format
+		// Configure date formats
 		$lastYear = date('Y');
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
-		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
+		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years));		
 		$this->setWidget('isolation_date', $dateWidgetForm);
 		$this->setWidget('deposition_date', $dateWidgetForm);
 		
@@ -73,7 +73,8 @@ class StrainForm extends BaseStrainForm {
 		
 		// Configure a custom post validator for cryopreservation method
     $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
-						
+		
+		
 		// Configure labels
 		$this->widgetSchema->setLabel('id', 'Strain code');
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');

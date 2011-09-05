@@ -48,9 +48,10 @@ abstract class BaseCultureMedium extends sfDoctrineRecord
              'notnull' => true,
              'length' => 255,
              ));
-        $this->hasColumn('description', 'string', null, array(
+        $this->hasColumn('description', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
              ));
         $this->hasColumn('link', 'string', 1024, array(
              'type' => 'string',

@@ -17,7 +17,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'           => new sfWidgetFormInputHidden(),
       'name'         => new sfWidgetFormInputText(),
-      'description'  => new sfWidgetFormTextarea(),
+      'description'  => new sfWidgetFormInputText(),
       'link'         => new sfWidgetFormTextarea(),
       'is_public'    => new sfWidgetFormInputCheckbox(),
       'amount'       => new sfWidgetFormInputText(),
@@ -29,7 +29,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'           => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'name'         => new sfValidatorString(array('max_length' => 255)),
-      'description'  => new sfValidatorString(),
+      'description'  => new sfValidatorString(array('max_length' => 255)),
       'link'         => new sfValidatorString(array('max_length' => 1024)),
       'is_public'    => new sfValidatorBoolean(array('required' => false)),
       'amount'       => new sfValidatorInteger(array('required' => false)),

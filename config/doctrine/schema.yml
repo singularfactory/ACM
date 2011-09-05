@@ -131,6 +131,9 @@ Sample:
     Habitat:              { foreignAlias: Samples }
     Radiation:            { foreignAlias: Samples }
     Collector:            { foreignAlias: Samples }
+  actAs:
+    Timestampable:
+    Date:
 
 Collector:
   columns:
@@ -268,6 +271,9 @@ Strain:
     MaintenanceStatus:      { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
+  actAs:
+    Timestampable:
+    Date:
 
 StrainCultureMedia:
   columns:

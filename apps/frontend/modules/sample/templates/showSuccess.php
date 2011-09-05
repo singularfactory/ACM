@@ -47,7 +47,7 @@
 			<dt>Collector:</dt>
 			<dd><?php echo $sample->getCollector() ?></dd>
 			<dt>Collection date:</dt>
-			<dd><?php echo format_date($sample->getCollectionDate(), 'p') ?></dd>
+			<dd><?php echo $sample->getFormattedCollectionDate() ?></dd>
 			<dt>GPS coordinates:</dt>
 			<dd><?php echo $sample->getFormattedGPSCoordinates() ?></dd>
 			<dt>Remarks:</dt>
