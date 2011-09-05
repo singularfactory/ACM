@@ -20,6 +20,7 @@ class inboxActions extends MyActions {
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
 				->where("{$this->mainAlias()}.user_id = ?", $userId)
+				->andWhere("{$this->mainAlias()}.status != ?", sfConfig::get('app_inbox_notification_deleted'))
 				->andWhere("{$this->mainAlias()}.message LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.created_at LIKE ?", "%$text%");
 				
@@ -61,22 +62,30 @@ class inboxActions extends MyActions {
   }
   
   public function executeDelete(sfWebRequest $request) {
-		$request->checkCSRFProtection();
+		$ids = $request->getParameter('notification');
+		$this->forward404Unless(is_array($ids), sprintf('Object notification does not exist.'));
 		
-		$id = $request->getParameter('id');
-		$this->forward404Unless($notification = Doctrine_Core::getTable('Notification')->find(array($id)), sprintf('Object notification does not exist (%s).', $id));
-		
-		try {
-			$notification->setStatus(sfConfig::get('app_inbox_notification_deleted'));
-			$notification->save();
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
-			$this->getUser()->setFlash('notice', "Notification deleted successfully");
+		$notifications = NotificationTable::getInstance()->createQuery('n')->whereIn('n.id', $ids)->execute();
+		$hasErrors = false;
+		foreach ( $notifications as $notification ) {
+			try {
+				$notification->setStatus(sfConfig::get('app_inbox_notification_deleted'));
+				$notification->save();
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log'));
+			}
+			catch (Exception $e) {
+				$hasErrors = true;
+			}
 		}
-		catch (Exception $e) {
-			$this->getUser()->setFlash('notice', "This notification cannot be deleted because it is being used in other records");
+				
+		if ( $hasErrors ) {
+			$this->getUser()->setFlash('notice', 'One or more messages could not be deleted');
+		}
+		else {
+			$this->getUser()->setFlash('notice', 'Messages deleted successfully');
 		}
 		
-		$this->redirect("@inbox?page=".$this->getUser()->getAttribute("inbox.index_page"));
+		$this->redirect("@inbox?page=".$this->getUser()->getAttribute("inbox.index_page"));		
 	}
 
 }

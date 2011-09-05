@@ -31,4 +31,41 @@ $(document).ready(function(){
 			location.href = $('#search_box a').attr('href') + $(this).val();
 		}
 	});
+	
+	$('#delete_table_row_selector_link').click(function(event){
+		var checkboxes = $('td.table_row_selector input[type="checkbox"]:checked');
+		if ( checkboxes.size() > 0 && confirm("Are you sure you want to delete the selected messages?") ) {
+			var f = document.createElement('form');
+			f.method = 'post';
+			f.action = this.href + 0;
+			
+			checkboxes.each(function(){
+				var m = document.createElement('input');
+				m.setAttribute('type', 'hidden');
+				m.setAttribute('name', $(this).attr('name'));
+				m.setAttribute('value', $(this).attr('value'));
+				f.appendChild(m);
+			});
+			
+			var m = document.createElement('input');
+			m.setAttribute('type', 'hidden');
+			m.setAttribute('name', 'sf_method');
+			m.setAttribute('value', 'delete');
+			f.appendChild(m);
+			f.submit();
+			return false;
+		}
+		else {
+			event.preventDefault();
+		}
+	});
+	
+	$("#table_row_selector_header").click(function() {
+		var checkedStatus = this.checked;
+		$('td.table_row_selector input[type="checkbox"]').each(function(){
+			this.checked = checkedStatus;
+		});
+	});
+	
+	
 });
