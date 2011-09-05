@@ -76,13 +76,13 @@ class purchase_orderActions extends MyActions {
 				
 				$purchaseOrder->updateItemsStatus();
 				if ( $purchaseOrder->getStatus() == sfConfig::get('app_purchase_order_sent') ) {
-					$this->notifyPurchaseOrderSent($purchaseOrder->getCode());
+					$this->notifyPurchaseOrderSent($purchaseOrder);
 				}
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
 				if ( $purchaseOrder != null ) {
-					$message = 'Changes were saved but status of items could not be updated';
+					$message = 'Changes were saved but either status of items could not be updated or notifications could not be sent';
 				}
 			}
 			
@@ -98,8 +98,24 @@ class purchase_orderActions extends MyActions {
 		$this->getUser()->setFlash('notice', 'The information on this purchase order has some errors you need to fix', false);
   }
 	
-	protected function notifyPurchaseOrderSent($code) {
-		$url = sfConfig::get('app_notify_sent_public_web_url');
+	protected function notifyPurchaseOrderSent(PurchaseOrder $purchaseOrder) {
+		if ( !$purchaseOrder ) {
+			return;
+		}
+		
+		// Notify the public web
+		$remoteUrl = sfConfig::get('app_notify_sent_public_web_url');
+		
+		// Notify via application's inbox
+		$message = "The purchase order #{$purchaseOrder->getCode()} has been sent to the customer";
+		$status = sfConfig::get('app_inbox_notification_new');
+		foreach ( sfGuardUserTable::getInstance()->findByNotifyNewOrder(true) as $user ) {
+			$notification = new Notification();
+			$notification->setMessage($message);
+			$notification->setStatus($status);
+			$notification->setUserId($user->getId());
+			$notification->save();
+		}
 	}
 	
 }
