@@ -114,3 +114,4 @@ th.purchase_order_items, td.purchase_order_items,
 th.purchase_item_amount, td.purchase_item_amount { text-align: center; }
 
 td.notification_new { font-weight: bold; }
+td.purchase_order_pending { font-weight: bold; }

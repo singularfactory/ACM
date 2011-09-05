@@ -19,11 +19,12 @@
 		<?php foreach ($pager->getResults() as $purchaseOrder): ?>
 		<tr>
 			<?php $url = url_for('@purchase_order_show?id='.$purchaseOrder->getId()) ?>
-			<td class="purchase_order_code"><?php echo link_to($purchaseOrder->getCode(), $url) ?></td>
-			<td class="purchase_order_date"><?php echo link_to($purchaseOrder->getDate(), $url) ?></td>
-			<td class="purchase_order_status"><?php echo link_to($purchaseOrder->getFormattedStatus(), $url) ?></td>
-			<td class="purchase_order_items"><?php echo link_to($purchaseOrder->getNbItems(), $url) ?></td>
-			<td class="purchase_order_remarks"><?php echo link_to($purchaseOrder->getFormattedRemarks(), $url) ?></td>
+			<?php $pendingPurchaseOrderClass = ($purchaseOrder->getStatus() == sfConfig::get('app_purchase_order_pending'))?'purchase_order_pending':'' ?>
+			<td class="purchase_order_code <?php echo $pendingPurchaseOrderClass ?>"><?php echo link_to($purchaseOrder->getCode(), $url) ?></td>
+			<td class="purchase_order_date <?php echo $pendingPurchaseOrderClass ?>"><?php echo link_to($purchaseOrder->getDate(), $url) ?></td>
+			<td class="purchase_order_status <?php echo $pendingPurchaseOrderClass ?>"><?php echo link_to($purchaseOrder->getFormattedStatus(), $url) ?></td>
+			<td class="purchase_order_items <?php echo $pendingPurchaseOrderClass ?>"><?php echo link_to($purchaseOrder->getNbItems(), $url) ?></td>
+			<td class="purchase_order_remarks <?php echo $pendingPurchaseOrderClass ?>"><?php echo link_to($purchaseOrder->getFormattedRemarks(), $url) ?></td>
 		
 			<td class="actions">
 				<?php echo link_to('Edit', 'purchase_order/edit?id='.$purchaseOrder->getId()) ?>
