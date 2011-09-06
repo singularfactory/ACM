@@ -8,11 +8,11 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Code', 'purchase_order/index?sort_column=code&sort_direction='.$sortDirection) ?></th>
-			<th class="purchase_order_date"><?php echo link_to('Received', 'purchase_order/index?sort_column=created_at&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Status', 'purchase_order/index?sort_column=status&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Code', '@purchase_order?sort_column=code&sort_direction='.$sortDirection) ?></th>
+			<th class="purchase_order_date"><?php echo link_to('Received', '@purchase_order?sort_column=created_at&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Status', '@purchase_order?sort_column=status&sort_direction='.$sortDirection) ?></th>
 			<th class="purchase_order_items">Items</th>
-			<th><?php echo link_to('Remarks', 'purchase_order/index?sort_column=remarks&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Remarks', '@purchase_order?sort_column=remarks&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
 
@@ -27,8 +27,8 @@
 			<td class="purchase_order_remarks <?php echo $pendingPurchaseOrderClass ?>"><?php echo link_to($purchaseOrder->getFormattedRemarks(), $url) ?></td>
 		
 			<td class="actions">
-				<?php echo link_to('Edit', 'purchase_order/edit?id='.$purchaseOrder->getId()) ?>
-				<?php echo link_to('Delete', 'purchase_order/delete?id='.$purchaseOrder->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				<?php echo link_to('Edit', '@purchase_order_edit?id='.$purchaseOrder->getId()) ?>
+				<?php echo link_to('Delete', '@purchase_order_delete?id='.$purchaseOrder->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

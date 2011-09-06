@@ -12,8 +12,8 @@
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th class="table_row_selector"><input type="checkbox" id="table_row_selector_header"></th>
-			<th><?php echo link_to('Message', 'inbox/index?sort_column=message&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Received', 'inbox/index?sort_column=created_at&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Message', '@inbox?sort_column=message&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Received', '@inbox?sort_column=created_at&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
 		
@@ -26,7 +26,7 @@
 			<td class="notification_date <?php echo $newNotificationClass ?>"><?php echo link_to($notification->getDate(), $url) ?></td>
 		
 			<td class="actions">
-				<?php echo link_to('Delete', 'inbox/delete?id='.$notification->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				<?php echo link_to('Delete', '@inbox_delete?id='.$notification->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

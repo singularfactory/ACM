@@ -11,10 +11,10 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Code', 'sample/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Location', 'sample/index?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Collector', 'sample/index?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Date', 'sample/index?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Code', '@sample?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Location', '@sample?sort_column=Location.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Collector', '@sample?sort_column=Collector.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Date', '@sample?sort_column=collection_date&sort_direction='.$sortDirection) ?></th>
 			<th class="object_count">Strains</th>
 			<th></th>
 		</tr>
@@ -30,8 +30,8 @@
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">
-					<?php echo link_to('Edit', 'sample/edit?id='.$sample->getId()) ?>
-					<?php echo link_to('Delete', 'sample/delete?id='.$sample->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+					<?php echo link_to('Edit', '@sample_edit?id='.$sample->getId()) ?>
+					<?php echo link_to('Delete', '@sample_delete?id='.$sample->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 				</a>
 			</td>
 		</tr>

@@ -11,13 +11,13 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Number', 'dna_extraction/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Class', 'dna_extraction/index?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Name', 'dna_extraction/index?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
-			<th class="date"><?php echo link_to('Extraction date', 'dna_extraction/index?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Extraction kit', 'dna_extraction/index?sort_column=ExtractionKit.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', 'dna_extraction/index?sort_column=concentration&sort_direction='.$sortDirection) ?></th>
-			<th class="dna_availability"><?php echo link_to('DNA bank', 'dna_extraction/index?sort_column=aliquots&sort_direction='.$sortDirection)?></th>
+			<th><?php echo link_to('Number', '@dna_extraction?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Class', '@dna_extraction?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@dna_extraction?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
+			<th class="date"><?php echo link_to('Extraction date', '@dna_extraction?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Extraction kit', '@dna_extraction?sort_column=ExtractionKit.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', '@dna_extraction?sort_column=concentration&sort_direction='.$sortDirection) ?></th>
+			<th class="dna_availability"><?php echo link_to('DNA bank', '@dna_extraction?sort_column=aliquots&sort_direction='.$sortDirection)?></th>
 			<th class="object_count">PCR</th>
 			<th class="sequence_availability">Has sequence?</th>
 			<th></th>
@@ -59,8 +59,8 @@
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">
-					<?php echo link_to('Edit', 'dna_extraction/edit?id='.$dnaExtraction->getId()) ?>
-					<?php echo link_to('Delete', 'dna_extraction/delete?id='.$dnaExtraction->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+					<?php echo link_to('Edit', '@dna_extraction_edit?id='.$dnaExtraction->getId()) ?>
+					<?php echo link_to('Delete', '@dna_extraction_delete?id='.$dnaExtraction->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 				</a>
 			</td>
 		</tr>

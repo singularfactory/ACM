@@ -11,11 +11,11 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th class="culture_medium_code"><?php echo link_to('Code', 'culture_medium/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th class="culture_medium_name"><?php echo link_to('Name', 'culture_medium/index?sort_column=name&sort_direction='.$sortDirection) ?></th>
-			<th class="link"><?php echo link_to('Link', 'culture_medium/index?sort_column=link&sort_direction='.$sortDirection) ?></th>
-			<th class="is_public"><?php echo link_to('Is public', 'culture_medium/index?sort_column=is_public&sort_direction='.$sortDirection) ?></th>
-			<th class="amount"><?php echo link_to('Amount', 'culture_medium/index?sort_column=amount&sort_direction='.$sortDirection) ?></th>
+			<th class="culture_medium_code"><?php echo link_to('Code', '@culture_medium?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th class="culture_medium_name"><?php echo link_to('Name', '@culture_medium?sort_column=name&sort_direction='.$sortDirection) ?></th>
+			<th class="link"><?php echo link_to('Link', '@culture_medium?sort_column=link&sort_direction='.$sortDirection) ?></th>
+			<th class="is_public"><?php echo link_to('Is public', '@culture_medium?sort_column=is_public&sort_direction='.$sortDirection) ?></th>
+			<th class="amount"><?php echo link_to('Amount', '@culture_medium?sort_column=amount&sort_direction='.$sortDirection) ?></th>
 			<th class="object_count">Strains</th>
 			<th></th>
 		</tr>
@@ -31,8 +31,8 @@
 			<td class="object_count"><?php echo link_to($cultureMedium->getNbStrains(), $url) ?></td>
 		
 			<td class="actions">
-				<?php echo link_to('Edit', 'culture_medium/edit?id='.$cultureMedium->getId()) ?>
-				<?php echo link_to('Delete', 'culture_medium/delete?id='.$cultureMedium->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				<?php echo link_to('Edit', '@culture_medium_edit?id='.$cultureMedium->getId()) ?>
+				<?php echo link_to('Delete', '@culture_medium_delete?id='.$cultureMedium->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

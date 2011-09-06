@@ -9,10 +9,10 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Name', 'location/index?sort_column=name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Country', 'location/index?sort_column=Country.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Region', 'location/index?sort_column=Region.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Island', 'location/index?sort_column=Island.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@location?sort_column=name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Country', '@location?sort_column=Country.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Region', '@location?sort_column=Region.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Island', '@location?sort_column=Island.name&sort_direction='.$sortDirection) ?></th>
 			<th class="object_count">Samples</th>
 			<th></th>
 		</tr>
@@ -27,8 +27,8 @@
 			<td class="object_count"><?php echo link_to($location->getNbSamples(), $url) ?></td>
 		
 			<td class="actions">
-				<?php echo link_to('Edit', 'location/edit?id='.$location->getId()) ?>
-				<?php echo link_to('Delete', 'location/delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				<?php echo link_to('Edit', '@location_edit?id='.$location->getId()) ?>
+				<?php echo link_to('Delete', '@location_delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

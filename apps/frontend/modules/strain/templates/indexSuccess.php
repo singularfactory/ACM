@@ -11,12 +11,12 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Code', 'strain/index?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Name', 'strain/index?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Sample', 'strain/index?sort_column=Sample.id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Code', '@strain?sort_column=id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@strain?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Sample', '@strain?sort_column=Sample.id&sort_direction='.$sortDirection) ?></th>
 			<th class="dna_availability">Has DNA</th>
-			<th><?php echo link_to('Isolation date', 'strain/index?sort_column=isolation_date&sort_direction='.$sortDirection) ?></th>
-			<th class="amount"><?php echo link_to('Amount', 'strain/index?sort_column=amount&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Isolation date', '@strain?sort_column=isolation_date&sort_direction='.$sortDirection) ?></th>
+			<th class="amount"><?php echo link_to('Amount', '@strain?sort_column=amount&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
 		
@@ -41,8 +41,8 @@
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">
-					<?php echo link_to('Edit', 'strain/edit?id='.$strain->getId()) ?>
-					<?php echo link_to('Delete', 'strain/delete?id='.$strain->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+					<?php echo link_to('Edit', '@strain_edit?id='.$strain->getId()) ?>
+					<?php echo link_to('Delete', '@strain_delete?id='.$strain->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 				</a>
 			</td>
 		</tr>
