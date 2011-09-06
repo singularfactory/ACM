@@ -3,6 +3,10 @@
 /log/*
 /web/*_dev.php
 /web/uploads/*
+/config/databases.yml
+/data/sql/schema.sql
+/web/*_cache.php
+/web/*_test.php
 
 # SCM files
 .arch-params
@@ -13,3 +17,7 @@ _darcs
 .monotone
 .svn
 CVS
+
+# Filesystem files
+Thumbs.db
+.DS_Store
