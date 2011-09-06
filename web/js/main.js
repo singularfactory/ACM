@@ -32,6 +32,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	// Link to delete messages in a table
 	$('#delete_table_row_selector_link').click(function(event){
 		var checkboxes = $('td.table_row_selector input[type="checkbox"]:checked');
 		if ( checkboxes.size() > 0 && confirm("Are you sure you want to delete the selected messages?") ) {
@@ -60,6 +61,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	// Set the checked/unchecked status to every row in a table
 	$("#table_row_selector_header").click(function() {
 		var checkedStatus = this.checked;
 		$('td.table_row_selector input[type="checkbox"]').each(function(){
@@ -67,5 +69,15 @@ $(document).ready(function(){
 		});
 	});
 	
+	// Hide main_header div if the page is a HTTP error
+	if ( $('div.http_error').size() ) {
+		$('#main_header').hide();
+	}
+	
+	// Go back link
+	$('#go_back_link').click(function(event){
+		event.preventDefault();
+		window.history.back();
+	});
 	
 });
