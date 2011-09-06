@@ -1,2 +1,4 @@
 error404:
   is_secure: false
+disabled:
+  is_secure: false

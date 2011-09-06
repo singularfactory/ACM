@@ -14,5 +14,11 @@ class defaultActions extends MyActions {
 	 * Error page for page not found (404) error
 	 */
 	public function executeError404() { }
+	
+	/**
+	 * Module disabled
+	 *
+	 */
+	public function executeDisabled() { }
 
 }
