@@ -34,6 +34,9 @@ all:
     # Plugin configuration
     enabled_modules:        [default, sfGuardAuth, sfEasyGMapPlugin]
     
+    # Display unavailable website page
+    check_lock: true
+    
   .actions:
     login_module:           sfGuardAuth
     login_action:           signin

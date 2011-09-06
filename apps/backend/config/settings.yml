@@ -34,6 +34,9 @@ all:
     # Enable modules
     enabled_modules:        [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission]
     
+    # Display unavailable website page
+    check_lock: true
+    
   .actions:
     login_module:           sfGuardAuth
     login_action:           signin
