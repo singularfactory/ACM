@@ -39,9 +39,9 @@
 			<div id="main_content"> 
 				<div id="main_header" style="display: none"></div> 
 				<div id="main_view"> 
-					<div class="http_error">
+					<div class="http_error http_unavailable">
 						<div id="http_error_text">
-							<h2>Oops! Website temporarily unavailable</h2>
+							<h2>Website temporarily unavailable</h2>
 							<p>Don't freak out. Everything is going to be OK</p>
 							<p class="navigation">Wait a few minutes and try to <a href="#" id="go_back_link">go back</a>.</p>
 						</div>

@@ -161,6 +161,7 @@ div.http_error {
 	margin-left: auto; margin-right: auto;
 	padding: 50px 0px;
 }
+div.http_unavailable { width: 800px; }
 #http_error_image { float: left; }
 #http_error_text { float: right; margin-top: 50px; }
 div.http_error h2 {
