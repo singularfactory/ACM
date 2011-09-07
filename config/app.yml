@@ -39,6 +39,8 @@ all:
     
     # Pictures and thumbnails management constants
     pictures_dir:         /uploads
+    picture_extension:    .png
+    picture_resolution:   300
     thumbnails_dir:       /thumbnails
     thumbnail_extension:  .png
     avatar_dir:           /avatar
