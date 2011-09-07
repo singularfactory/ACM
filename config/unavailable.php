@@ -43,7 +43,7 @@
 						<div id="http_error_text">
 							<h2>Oops! Website temporarily unavailable</h2>
 							<p>Don't freak out. Everything is going to be OK</p>
-							<p class="navigation">Wait a few seconds and try to <a href="#" id="go_back_link">go back</a>.</p>
+							<p class="navigation">Wait a few minutes and try to <a href="#" id="go_back_link">go back</a>.</p>
 						</div>
 						<div id="http_error_image">
 							<img alt="Website temporarily unavailable" src="/images/http_error.png" width="290" height="308" />
