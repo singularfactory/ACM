@@ -49,6 +49,16 @@ abstract class BaseCountry extends sfDoctrineRecord
              'length' => 60,
              ));
 
+
+        $this->index('country_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

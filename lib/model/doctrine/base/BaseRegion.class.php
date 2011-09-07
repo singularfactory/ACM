@@ -59,6 +59,16 @@ abstract class BaseRegion extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('region_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

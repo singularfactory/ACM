@@ -55,6 +55,13 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
              'type' => 'string',
              ));
 
+
+        $this->index('purchase_order_status', array(
+             'fields' => 
+             array(
+              'status' => NULL,
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

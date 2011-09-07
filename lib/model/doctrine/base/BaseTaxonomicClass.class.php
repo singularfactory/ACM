@@ -37,6 +37,16 @@ abstract class BaseTaxonomicClass extends sfDoctrineRecord
              'length' => 255,
              ));
 
+
+        $this->index('taxonomic_class_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

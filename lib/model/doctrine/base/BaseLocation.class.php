@@ -91,6 +91,16 @@ abstract class BaseLocation extends sfDoctrineRecord
              'type' => 'string',
              ));
 
+
+        $this->index('location_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

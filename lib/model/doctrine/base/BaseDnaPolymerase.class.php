@@ -37,6 +37,16 @@ abstract class BaseDnaPolymerase extends sfDoctrineRecord
              'length' => 127,
              ));
 
+
+        $this->index('dna_polymerase_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

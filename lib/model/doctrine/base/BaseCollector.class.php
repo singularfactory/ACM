@@ -52,6 +52,25 @@ abstract class BaseCollector extends sfDoctrineRecord
              'length' => 255,
              ));
 
+
+        $this->index('collector_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
+        $this->index('collector_surname', array(
+             'fields' => 
+             array(
+              'surname' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

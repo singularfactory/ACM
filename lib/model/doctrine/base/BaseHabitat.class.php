@@ -43,6 +43,16 @@ abstract class BaseHabitat extends sfDoctrineRecord
              'type' => 'string',
              ));
 
+
+        $this->index('habitat_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

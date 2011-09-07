@@ -58,6 +58,16 @@ abstract class BaseDnaPrimer extends sfDoctrineRecord
              'length' => 127,
              ));
 
+
+        $this->index('dna_primer_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 10,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

@@ -81,6 +81,13 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('purchase_item_status', array(
+             'fields' => 
+             array(
+              'status' => NULL,
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

@@ -41,6 +41,16 @@ abstract class BaseMaintenanceStatus extends sfDoctrineRecord
              ),
              ));
 
+
+        $this->index('maintenance_status_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

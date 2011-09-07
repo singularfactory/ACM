@@ -52,6 +52,25 @@ abstract class BaseIsolator extends sfDoctrineRecord
              'length' => 255,
              ));
 
+
+        $this->index('isolator_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
+        $this->index('isolator_surname', array(
+             'fields' => 
+             array(
+              'surname' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

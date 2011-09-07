@@ -69,6 +69,16 @@ abstract class BaseCultureMedium extends sfDoctrineRecord
              'default' => 0,
              ));
 
+
+        $this->index('culture_medium_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

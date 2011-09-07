@@ -56,6 +56,16 @@ abstract class BaseIsland extends sfDoctrineRecord
              'notnull' => true,
              ));
 
+
+        $this->index('island_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

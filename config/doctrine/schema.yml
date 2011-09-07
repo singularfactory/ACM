@@ -3,11 +3,17 @@ actAs: [Timestampable]
 options:
   type: INNODB
 
+
 Country:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     code: { type: string(3), fixed: true, notnull: true }
     name: { type: string(60), notnull: true }
+  indexes:
+    country_name:
+      fields:
+        name: { length: 20 }
+
 
 Region:
   columns:
@@ -17,6 +23,11 @@ Region:
     country_id: { type: integer, notnull: true }
   relations:
     Country:    { foreignAlias: Regions, onDelete: cascade }
+  indexes:
+    region_name:
+      fields:
+        name: { length: 20 }
+
 
 Island:
   columns:
@@ -26,6 +37,11 @@ Island:
     region_id:  { type: integer, notnull: true }
   relations:
     Region:    { foreignAlias: Islands, onDelete: cascade }
+  indexes:
+    island_name:
+      fields:
+        name: { length: 20 }
+
 
 LocationPicture:
   columns:
@@ -38,6 +54,7 @@ LocationPicture:
     Timestampable:
     Picture:
       moduleName: location
+
 
 Location:
   columns:
@@ -53,22 +70,42 @@ Location:
     Country:    { foreignAlias: Locations }
     Region:     { foreignAlias: Locations }
     Island:     { foreignAlias: Locations }
+  indexes:
+    location_name:
+      fields:
+        name: { length: 20 }
+
 
 Environment:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
+  indexes:
+    environment_name:
+      fields:
+        name: { length: 20 }
+
 
 Habitat:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
     description: { type: string }
+  indexes:
+    habitat_name:
+      fields:
+        name: { length: 20 }
+
 
 Radiation:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
+  indexes:
+    radiation_name:
+      fields:
+        name: { length: 20 }
+
 
 FieldPicture:
   columns:
@@ -82,6 +119,7 @@ FieldPicture:
     Picture:
       moduleName: sample
 
+
 DetailedPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
@@ -94,6 +132,7 @@ DetailedPicture:
     Picture:
       moduleName: sample
 
+
 MicroscopicPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
@@ -105,6 +144,7 @@ MicroscopicPicture:
     Timestampable:
     Picture:
       moduleName: sample
+
 
 Sample:
   columns:
@@ -134,6 +174,10 @@ Sample:
   actAs:
     Timestampable:
     Date:
+  indexes:
+    sample_notebook_code:
+      fields: [notebook_code]
+
 
 Collector:
   columns:
@@ -141,6 +185,14 @@ Collector:
     name:     { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
+  indexes:
+    collector_name:
+      fields:
+        name: { length: 20 }
+    collector_surname:
+      fields:
+        surname: { length: 20 }
+
 
 Event:
   columns:
@@ -153,12 +205,21 @@ Event:
   relations:
     User:         { class: sfGuardUser, local: user_id, foreignAlias: Events }
 
+
 Isolator:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
     name:     { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
+  indexes:
+    isolator_name:
+      fields:
+        name: { length: 20 }
+    isolator_surname:
+      fields:
+        surname: { length: 20 }
+
 
 Depositor:
   columns:
@@ -166,6 +227,14 @@ Depositor:
     name:     { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
+  indexes:
+    depositor_name:
+      fields:
+        name: { length: 20 }
+    depositor_surname:
+      fields:
+        surname: { length: 20 }
+
 
 Identifier:
   columns:
@@ -173,36 +242,74 @@ Identifier:
     name:     { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
+  indexes:
+    identifier_name:
+      fields:
+        name: { length: 20 }
+    identifier_surname:
+      fields:
+        surname: { length: 20 }
+
 
 MaintenanceStatus:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
     name:     { type: enum, values: [Liquid, Solid, Cryopreserved] }
+  indexes:
+    maintenance_status_name:
+      fields:
+        name: { length: 20 }
+
 
 CryopreservationMethod:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
     name:     { type: string(127), notnull: true }
+  indexes:
+    cryopreservation_method_name:
+      fields:
+        name: { length: 20 }
+
 
 TaxonomicClass:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
+  indexes:
+    taxonomic_class_name:
+      fields:
+        name: { length: 20 }
+
 
 Genus:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
+  indexes:
+    genus_name:
+      fields:
+        name: { length: 20 }
+
 
 Species:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
+  indexes:
+    species_name:
+      fields:
+        name: { length: 20 }
+
 
 Authority:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
+  indexes:
+    authority_name:
+      fields:
+        name: { length: 20 }
+
 
 CultureMedium:
   columns:
@@ -214,6 +321,11 @@ CultureMedium:
     amount:       { type: integer, notnull: true, default: 0 }
   relations:
       Strains:    { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
+  indexes:
+    culture_medium_name:
+      fields:
+        name: { length: 20 }
+
 
 StrainRelative:
   columns:
@@ -222,6 +334,7 @@ StrainRelative:
     strain_id:  { type: integer, notnull: true }
   relations:
     Strain:     { foreignAlias: Relatives, onDelete: cascade }
+
 
 StrainPicture:
   columns:
@@ -234,6 +347,7 @@ StrainPicture:
     Timestampable:
     Picture:
       moduleName: strain
+
 
 Strain:
   columns:
@@ -275,22 +389,30 @@ Strain:
     Timestampable:
     Date:
 
+
 StrainCultureMedia:
   columns:
     strain_id:          { type: integer, primary: true }
     culture_medium_id:  { type: integer, primary: true }
 
-sfGuardUser:  
+
+sfGuardUser:
   columns:  
     avatar:             { type: string(255) }
     token:              { type: string(40), notnull: true }
     notify_new_order:   { type: boolean, notnull: true, default: true }
     notify_ready_order: { type: boolean, notnull: true, default: true }
 
+
 ExtractionKit:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
+  indexes:
+    extraction_kit_name:
+      fields:
+        name: { length: 20 }
+
 
 DnaExtraction:
   columns:
@@ -309,11 +431,22 @@ DnaExtraction:
   relations:
     Strain:               { foreignAlias: DnaExtractions }
     ExtractionKit:        { foreignAlias: DnaExtractions }
+  indexes:
+    dna_extraction_date1:
+      fields: [extraction_date]
+    dna_extraction_date2:
+      fields: [arrival_date]
+
 
 DnaPolymerase:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(127), notnull: true }
+  indexes:
+    dna_polymerase_name:
+      fields:
+        name: { length: 20 }
+
 
 DnaPrimer:
   columns:
@@ -321,6 +454,11 @@ DnaPrimer:
     name:         { type: string(10), notnull: true }
     direction:    { type: enum, values: [forward, reverse] }
     orientation:  { type: string(127) }
+  indexes:
+    dna_primer_name:
+      fields:
+        name: { length: 10 }
+
 
 Pcr:
   columns:
@@ -343,6 +481,7 @@ Pcr:
     PcrProgram:             { foreignAlias: Pcr }
     Gel:                    { type: many, class: PcrGel, local:id, foreign: pcr_id, orderBy: number }
 
+
 PcrGel:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
@@ -352,6 +491,7 @@ PcrGel:
     is_valid: { type: boolean, notnull: true, default: false }
   relations:
     Pcr:      { foreignAlias: Gel, onDelete: cascade }
+
 
 DnaSequence:
   columns:
@@ -364,6 +504,7 @@ DnaSequence:
   relations:
     Pcr:      { foreignAlias: Sequence }
 
+
 PcrReaction:
   columns:
     id:               { type: integer, primary: true, autoincrement: true }
@@ -373,6 +514,7 @@ PcrReaction:
   relations:
     DnaPrimer:        { foreignAlias: Reaction }
     DnaSequence:      { foreignAlias: Reaction, onDelete: cascade }
+
 
 PcrProgramStep:
   columns:
@@ -384,6 +526,7 @@ PcrProgramStep:
   relations:
     PcrProgram:     { foreignAlias: Steps, onDelete: cascade }
 
+
 PcrProgram:
   columns:
     id:     { type: integer, primary: true, autoincrement: true }
@@ -394,6 +537,7 @@ PcrProgram:
   relations:
     Steps:  { type: many, class: PcrProgramStep, local:id, foreign: pcr_program_id, orderBy: segment }
 
+
 Notification:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
@@ -402,6 +546,10 @@ Notification:
     user_id:  { type: integer, notnull: true }
   relations:
     User:     { class: sfGuardUser, local: user_id, foreignAlias: Notifications }
+  indexes:
+    notification_status:
+      fields: [status]
+
 
 PurchaseOrder:
   columns:
@@ -409,6 +557,10 @@ PurchaseOrder:
     status:   { type: enum, values: [pending, processing, ready, sent] }
     code:     { type: string(40) }
     remarks:  { type: string }
+  indexes:
+    purchase_order_status:
+      fields: [status]
+
 
 PurchaseItem:
   columns:
@@ -421,3 +573,7 @@ PurchaseItem:
     purchase_order_id:  { type: integer, notnull: true }
   relations:
     PurchaseOrder:      { foreignAlias: Items, onDelete: cascade }
+  indexes:
+    purchase_item_status:
+      fields: [status]
+

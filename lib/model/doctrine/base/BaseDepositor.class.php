@@ -52,6 +52,25 @@ abstract class BaseDepositor extends sfDoctrineRecord
              'length' => 255,
              ));
 
+
+        $this->index('depositor_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
+        $this->index('depositor_surname', array(
+             'fields' => 
+             array(
+              'surname' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

@@ -37,6 +37,16 @@ abstract class BaseCryopreservationMethod extends sfDoctrineRecord
              'length' => 127,
              ));
 
+
+        $this->index('cryopreservation_method_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

@@ -37,6 +37,16 @@ abstract class BaseRadiation extends sfDoctrineRecord
              'length' => 127,
              ));
 
+
+        $this->index('radiation_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

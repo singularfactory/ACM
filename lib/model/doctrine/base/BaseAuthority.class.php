@@ -37,6 +37,16 @@ abstract class BaseAuthority extends sfDoctrineRecord
              'length' => 255,
              ));
 
+
+        $this->index('authority_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 

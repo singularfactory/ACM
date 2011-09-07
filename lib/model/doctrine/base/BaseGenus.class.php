@@ -37,6 +37,16 @@ abstract class BaseGenus extends sfDoctrineRecord
              'length' => 255,
              ));
 
+
+        $this->index('genus_name', array(
+             'fields' => 
+             array(
+              'name' => 
+              array(
+              'length' => 20,
+              ),
+             ),
+             ));
         $this->option('type', 'INNODB');
     }
 
