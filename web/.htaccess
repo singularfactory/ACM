@@ -24,3 +24,8 @@ Options +FollowSymLinks +ExecCGI
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
+
+php_value memory_limit 512M
+php_value post_max_size 355M
+php_value upload_max_filesize 350M
+php_value max_input_time 3600
