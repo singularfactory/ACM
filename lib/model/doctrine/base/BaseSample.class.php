@@ -148,7 +148,6 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('radiation_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('collector_id', 'integer', null, array(
              'type' => 'integer',

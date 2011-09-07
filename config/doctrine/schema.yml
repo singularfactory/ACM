@@ -121,7 +121,7 @@ Sample:
     temperature:          { type: float }
     salinity:             { type: float }
     altitude:             { type: float }
-    radiation_id:         { type: integer, notnull: true }
+    radiation_id:         { type: integer }
     collector_id:         { type: integer, notnull: true }
     collection_date:      { type: date, notnull: true }
     remarks:              { type: string }
