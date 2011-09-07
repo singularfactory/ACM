@@ -80,4 +80,10 @@ $(document).ready(function(){
 		window.history.back();
 	});
 	
+	// Reload link
+	$('#reload_link').click(function(event){
+		event.preventDefault();
+		location.reload();
+	});
+	
 });
