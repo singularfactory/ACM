@@ -218,7 +218,13 @@ class MyActions extends sfActions {
 		$this->redirect("@$module?page=".$this->getUser()->getAttribute("$module.index_page"));
 	}
 	
-	
+	/**
+	 * Returns the progress of a form upload using APC
+	 *
+	 * @param sfWebRequest $request 
+	 * @return void
+	 * @author Eliezer Talon
+	 */
 	public function executeUploadProgress(sfWebRequest $request) {
 		$apc_status = apc_fetch( 'upload_'.$request->getParameter('id'));
 		$percentage = 1;
@@ -232,5 +238,5 @@ class MyActions extends sfActions {
 		$this->getResponse()->setContent($percentage);
 		return sfView::NONE;
 	}
-		
+	
 }

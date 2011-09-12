@@ -1,4 +1,4 @@
-<?php use_helper('Date'); use_helper('GMap') ?>
+<?php use_helper('Date', 'GMap', 'Gps') ?>
 
 <?php slot('main_header') ?>
 <span>Sample <?php echo $sample->getCode() ?></span>
@@ -49,7 +49,18 @@
 			<dt>Collection date:</dt>
 			<dd><?php echo $sample->getFormattedCollectionDate() ?></dd>
 			<dt>GPS coordinates:</dt>
-			<dd><?php echo $sample->getFormattedGPSCoordinates() ?></dd>
+			<dd>
+				<?php 
+					$gpsCoordinates = $sample->getFormattedGPSCoordinates();
+
+					if ( $gpsCoordinates === sfConfig::get('app_no_data_message') ) {
+						echo convert_to_dms($googleMap->coordinates['latitude']).', '.convert_to_dms($googleMap->coordinates['longitude']).'&nbsp;<span class="field_warning">(estimated from available information)</span>';
+					}
+					else {
+						echo $gpsCoordinates;
+					}
+				?>
+			</dd>
 			<dt>Remarks:</dt>
 			<dd><?php echo $sample->getRemarks() ?></dd>
 		</dl>

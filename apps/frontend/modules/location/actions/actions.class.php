@@ -64,6 +64,7 @@ class locationActions extends MyActions {
 		else {
 			$marker = $this->googleMap->getMarkerFromAddress("{$information['title']}, {$information['description']}, {$this->location->getCountry()->getName()}", $information);
 		}
+		
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
 		$this->googleMap->centerAndZoomOnMarkers();
@@ -143,6 +144,13 @@ class locationActions extends MyActions {
 				
 				// Remove Location pictures
 				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_location_pictures_dir'));
+				
+				// Update GPS coordinates of every sample (temporary measure)
+				foreach ($location->getSamples() as $sample) {
+					$sample->setLatitude($location->getLatitude());
+					$sample->setLongitude($location->getLongitude());
+					$sample->trySave();
+				}
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
@@ -157,4 +165,5 @@ class locationActions extends MyActions {
 		
 		$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix', false);
 	}
+	
 }

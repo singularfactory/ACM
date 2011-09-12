@@ -41,6 +41,8 @@ class Location extends BaseLocation {
 		elseif ( $coordinates['latitude'] === '' || $coordinates['longitude'] === '' ) {
 			return sfConfig::get('app_no_data_message');
 		}
+		
 		return $coordinates['latitude'].', '.$coordinates['longitude'];
 	}
+	
 }

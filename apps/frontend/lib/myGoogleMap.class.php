@@ -9,6 +9,8 @@
 */
 class MyGoogleMap extends GMap {
 	
+	public $coordinates = array('latitude' => null, 'longitude' => null);
+	
 	public function buildMarkerWindow($options = array()) {
 		$html = '';
 		
@@ -61,12 +63,11 @@ class MyGoogleMap extends GMap {
 	}
 	
 	public function getMarkerFromAddress($address, $window_options = array()) {
-	    $geocodedAddress = new GMapGeocodedAddress($address);
-	    $geocodedAddress->geocode($this->getGMapClient());
-
+		$coordinates = $this->guessGPSCoordinates($address);
+		
 		$marker = new GMapMarker(
-			$geocodedAddress->getLat(),
-			$geocodedAddress->getLng(),
+			$coordinates[1],
+			$coordinates[0],
 			array('icon' => new GMapMarkerImage(sfConfig::get('app_map_pictures_dir').'/location.png', array('width' => 18, 'height' => 25))));
 		
 		if ( array_key_exists('notes', $window_options) && !empty($window_options['notes']) ) {
@@ -104,4 +105,29 @@ class MyGoogleMap extends GMap {
 			return 0.0;
 		}
 	}
+	
+	/**
+	 * Returns the guessed GPS coordinates given a place description
+	 *
+	 * @param string description
+	 * @return void
+	 * @author Eliezer Talon
+	 */
+	public function guessGPSCoordinates($description = '') {
+		$apiKeys = sfConfig::get('app_google_maps_api_keys');
+		$url = "http://maps.google.com/maps/geo?q=".urlencode($description)."&amp;output=json&amp;key=".$apiKeys[$_SERVER['SERVER_NAME']];
+		
+		$data = json_decode(file_get_contents($url), true);
+		
+		if ( is_array($data) && !empty($data['Placemark']) ) {
+			$coordinates = $data['Placemark'][0]['Point']['coordinates'];
+			$this->coordinates['latitude'] = $coordinates[1];
+			$this->coordinates['longitude'] =$coordinates[0];
+			
+			return $coordinates;
+		}
+		
+		return null;
+	}
+	
 }

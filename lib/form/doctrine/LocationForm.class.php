@@ -22,7 +22,6 @@ class LocationForm extends BaseLocationForm {
 				'considerNewFormEmptyFields' => array('filename'),
 				'newFormLabel' => 'Pictures',
 				'multipleNewForms' => true,
-				'newFormsInitialCount' => 1,
 				'newRelationButtonLabel' => 'Add another picture',
 			),
 		));
@@ -33,13 +32,11 @@ class LocationForm extends BaseLocationForm {
 		$defaultIslandId = $this->getObject()->getIsland()->getTable()->getDefaultIslandId($defaultRegionId);
 		
 		$this->widgetSchema->setDefault('country_id', $defaultCountryId);
-		
 		$this->setWidget('region_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Region'),
 			'query' => $this->getObject()->getRegion()->getTable()->getRegionsQuery($defaultCountryId),
 			'default' => $defaultRegionId,
 		)));
-		
 		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Island'),
 			'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($defaultRegionId),
@@ -49,8 +46,9 @@ class LocationForm extends BaseLocationForm {
 		
 		// Configure custom validators
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
-		$this->setValidator('latitude', new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/'), array('invalid' => 'Invalid coordinates format')));
-		$this->setValidator('longitude', new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/'), array('invalid' => 'Invalid coordinates format')));
+		$gpsCoordinatesValidator = new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/','required' => false), array('invalid' => 'Invalid coordinates format'));
+		$this->setValidator('latitude', $gpsCoordinatesValidator);
+		$this->setValidator('longitude', $gpsCoordinatesValidator);
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('latitude', 'Degrees, minutes and seconds (e.g. 43º23\'23")');
@@ -66,6 +64,7 @@ class LocationForm extends BaseLocationForm {
 	
 	/**
 	 * Replace two single-quote symbols by a double-quote symbol before saving the form
+	 * or unset the GPS coordinates if they are empty
 	 *
 	 * @param object $connection
 	 * @return void
@@ -73,14 +72,15 @@ class LocationForm extends BaseLocationForm {
 	 * @version 2011-04-14
 	 */
 	protected function doSave($connection = null) {
-		if ( $this->values['latitude'] && preg_match('/\'\'$/', $this->values['latitude']) ) {
-			$this->values['latitude'] = str_replace("''", '"', $this->values['latitude']);
+		if ( preg_match('/\'\'$/', $this->values['latitude']) ) {
+				$this->values['latitude'] = str_replace("''", '"', $this->values['latitude']);
 		}
-		
-		if ( $this->values['longitude'] && preg_match('/\'\'$/', $this->values['longitude']) ) {
+				
+		if ( preg_match('/\'\'$/', $this->values['longitude']) ) {
 			$this->values['longitude'] = str_replace("''", '"', $this->values['longitude']);
 		}
-		
+				
 		parent::doSave($connection);
 	}
+	
 }

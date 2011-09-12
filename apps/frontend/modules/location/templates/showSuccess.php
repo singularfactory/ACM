@@ -1,4 +1,4 @@
-<?php use_helper('GMap') ?>
+<?php use_helper('GMap', 'Gps') ?>
 
 <?php slot('main_header') ?>
 <span><?php echo $location->getName() ?></span>
@@ -22,7 +22,18 @@
 			<dt>Island:</dt>
 			<dd><?php echo $location->getIsland()->getName() ?></dd>
 			<dt>GPS coordinates:</dt>
-			<dd><?php echo $location->getFormattedGPSCoordinates() ?></dd>
+			<dd>
+			<?php 
+				$gpsCoordinates = $location->getFormattedGPSCoordinates();
+				
+				if ( $gpsCoordinates === sfConfig::get('app_no_data_message') ) {
+					echo convert_to_dms($googleMap->coordinates['latitude']).', '.convert_to_dms($googleMap->coordinates['longitude']).'&nbsp;<span class="field_warning">(estimated from available information)</span>';
+				}
+				else {
+					echo $gpsCoordinates;
+				}
+			?>
+			</dd>
 			<dt>Samples:</dt>
 			<dd>
 				<?php echo $nbSamples = $location->getNbSamples() ?>

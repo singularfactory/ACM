@@ -251,7 +251,8 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasMany('CultureMedium as CultureMedia', array(
              'refClass' => 'StrainCultureMedia',
              'local' => 'strain_id',
-             'foreign' => 'culture_medium_id'));
+             'foreign' => 'culture_medium_id',
+             'onDelete' => 'cascade'));
 
         $this->hasMany('StrainRelative as Relatives', array(
              'local' => 'id',

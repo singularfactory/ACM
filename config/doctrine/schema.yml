@@ -394,6 +394,8 @@ StrainCultureMedia:
   columns:
     strain_id:          { type: integer, primary: true }
     culture_medium_id:  { type: integer, primary: true }
+  relations:
+    Strain:             { onDelete: cascade }
 
 
 sfGuardUser:
