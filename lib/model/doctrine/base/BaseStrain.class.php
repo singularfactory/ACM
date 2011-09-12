@@ -25,7 +25,6 @@
  * @property string $observation
  * @property string $citations
  * @property string $web_notes
- * @property integer $amount
  * @property string $remarks
  * @property Sample $Sample
  * @property TaxonomicClass $TaxonomicClass
@@ -62,7 +61,6 @@
  * @method string                 getObservation()                Returns the current record's "observation" value
  * @method string                 getCitations()                  Returns the current record's "citations" value
  * @method string                 getWebNotes()                   Returns the current record's "web_notes" value
- * @method integer                getAmount()                     Returns the current record's "amount" value
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
  * @method TaxonomicClass         getTaxonomicClass()             Returns the current record's "TaxonomicClass" value
@@ -98,7 +96,6 @@
  * @method Strain                 setObservation()                Sets the current record's "observation" value
  * @method Strain                 setCitations()                  Sets the current record's "citations" value
  * @method Strain                 setWebNotes()                   Sets the current record's "web_notes" value
- * @method Strain                 setAmount()                     Sets the current record's "amount" value
  * @method Strain                 setRemarks()                    Sets the current record's "remarks" value
  * @method Strain                 setSample()                     Sets the current record's "Sample" value
  * @method Strain                 setTaxonomicClass()             Sets the current record's "TaxonomicClass" value
@@ -200,11 +197,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('web_notes', 'string', null, array(
              'type' => 'string',
-             ));
-        $this->hasColumn('amount', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             'default' => 0,
              ));
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',

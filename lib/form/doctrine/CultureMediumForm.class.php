@@ -30,6 +30,6 @@ class CultureMediumForm extends BaseCultureMediumForm {
 		$this->widgetSchema->setHelp('description', 'Enclosed document with the details of this culture medium');
 		$this->widgetSchema->setHelp('link', 'Links to external resources');
 		$this->widgetSchema->setHelp('is_public', 'Whether the culture media must be shown in public catalog or not');
-		$this->widgetSchema->setHelp('amount', 'Items in stock');
+		//$this->widgetSchema->setHelp('amount', 'Items in stock');
 	}
 }

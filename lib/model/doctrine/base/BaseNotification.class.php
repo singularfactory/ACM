@@ -59,7 +59,7 @@ abstract class BaseNotification extends sfDoctrineRecord
         $this->index('notification_status', array(
              'fields' => 
              array(
-              'status' => NULL,
+              0 => 'status',
              ),
              ));
         $this->option('type', 'INNODB');

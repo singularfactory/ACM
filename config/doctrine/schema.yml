@@ -318,7 +318,7 @@ CultureMedium:
     description:  { type: string(255), notnull: true }
     link:         { type: string(1024), notnull: true }
     is_public:    { type: boolean, notnull: true, default: false }
-    amount:       { type: integer, notnull: true, default: 0 }
+    # amount:       { type: integer, notnull: true, default: 0 }
   relations:
       Strains:    { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
   indexes:
@@ -371,7 +371,7 @@ Strain:
     observation:                { type: string }
     citations:                  { type: string }
     web_notes:                  { type: string }
-    amount:                     { type: integer, notnull: true, default: 0 }
+    # amount:                     { type: integer, notnull: true, default: 0 }
     remarks:                    { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }

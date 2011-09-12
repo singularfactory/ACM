@@ -165,7 +165,7 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->index('sample_notebook_code', array(
              'fields' => 
              array(
-              'notebook_code' => NULL,
+              0 => 'notebook_code',
              ),
              ));
         $this->option('type', 'INNODB');

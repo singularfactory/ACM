@@ -15,7 +15,7 @@
 			<th class="culture_medium_name"><?php echo link_to('Name', '@culture_medium?sort_column=name&sort_direction='.$sortDirection) ?></th>
 			<th class="link"><?php echo link_to('Link', '@culture_medium?sort_column=link&sort_direction='.$sortDirection) ?></th>
 			<th class="is_public"><?php echo link_to('Is public', '@culture_medium?sort_column=is_public&sort_direction='.$sortDirection) ?></th>
-			<th class="amount"><?php echo link_to('Amount', '@culture_medium?sort_column=amount&sort_direction='.$sortDirection) ?></th>
+			<!-- <th class="amount"><?php //echo link_to('Amount', '@culture_medium?sort_column=amount&sort_direction='.$sortDirection) ?></th> -->
 			<th class="object_count">Strains</th>
 			<th></th>
 		</tr>
@@ -27,7 +27,7 @@
 			<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
 			<td class="link"><?php echo link_to(truncate_text($cultureMedium->getLink(), 60), $url) ?></td>
 			<td class="is_public"><?php echo link_to($cultureMedium->getFormattedIsPublic(), $url) ?></td>
-			<td class="amount"><?php echo link_to($cultureMedium->getAmount(), $url) ?></td>
+			<!-- <td class="amount"><?php //echo link_to($cultureMedium->getAmount(), $url) ?></td> -->
 			<td class="object_count"><?php echo link_to($cultureMedium->getNbStrains(), $url) ?></td>
 		
 			<td class="actions">

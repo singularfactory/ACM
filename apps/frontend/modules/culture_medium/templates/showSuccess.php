@@ -26,8 +26,10 @@
 			</dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $cultureMedium->getFormattedIsPublic() ?></dd>
+			<!--
 			<dt>Amount:</dt>
-			<dd><?php echo $cultureMedium->getAmount() ?> <?php echo sfConfig::get('app_stock_items_label') ?></dd>
+			<dd><?php //echo $cultureMedium->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
+			-->
 			<dt>Strains:</dt>
 			<dd>
 				<?php echo $nbStrains = $cultureMedium->getNbStrains() ?>

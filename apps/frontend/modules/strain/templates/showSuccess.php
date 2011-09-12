@@ -95,8 +95,10 @@
 			<dd><?php echo $strain->getFormattedIsAxenic() ?></dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
+			<!--
 			<dt>Amount:</dt>
-			<dd><?php echo $strain->getAmount() ?> <?php echo sfConfig::get('app_stock_items_label') ?></dd>
+			<dd><?php //echo $strain->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
+			-->
 			
 			<dt>Class:</dt>
 			<dd><?php echo $strainClass ?></dd>

@@ -111,15 +111,13 @@ abstract class BaseDnaExtraction extends sfDoctrineRecord
         $this->index('dna_extraction_date1', array(
              'fields' => 
              array(
-              'extraction_date' => NULL,
+              0 => 'extraction_date',
              ),
              ));
         $this->index('dna_extraction_date2', array(
              'fields' => 
              array(
-              'arrival_date' => 
-              array(
-              ),
+              0 => 'arrival_date',
              ),
              ));
         $this->option('type', 'INNODB');
