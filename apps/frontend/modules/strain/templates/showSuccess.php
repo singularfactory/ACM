@@ -123,6 +123,9 @@
 			<dd><?php echo $strain->getCryopreservationMethod() ?></dd>
 			<?php endif; ?>
 			
+			<dt>Best container:</dt>
+			<dd><?php echo $strain->getFormattedContainer() ?></dd>
+			
 			<dt>Relatives:</dt>
 			<dd><?php echo $nbRelatives ?></dd>
 			

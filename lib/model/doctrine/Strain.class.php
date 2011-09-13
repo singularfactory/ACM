@@ -132,4 +132,11 @@ class Strain extends BaseStrain {
 		return $this->formatDate($this->_get('deposition_date'));
 	}
 	
+	public function getFormattedContainer() {
+		if ( $container = $this->getContainer()->getName() ) {
+			return $container;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+	
 }

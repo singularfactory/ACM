@@ -66,6 +66,14 @@
 			<?php echo $form['is_axenic'] ?>
 		</div>
 		
+		<?php if ( isset($form['container_id']) ): ?>
+		<div id="container">
+			<?php echo $form['container_id']->renderLabel() ?>
+			<?php echo $form['container_id']->renderHelp() ?>
+			<?php echo $form['container_id'] ?>
+		</div>
+		<?php endif; ?>
+		
 		<!--
 		<div id="amount">
 			<?php //echo $form['amount']->renderLabel() ?>

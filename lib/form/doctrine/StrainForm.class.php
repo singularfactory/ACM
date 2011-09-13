@@ -18,6 +18,10 @@ class StrainForm extends BaseStrainForm {
 		if ( IdentifierTable::getInstance()->count() == 0 ) {
 			unset($this['identifier_id']);
 		}
+		
+		if ( ContainerTable::getInstance()->count() == 0 ) {
+			unset($this['container_id']);
+		}
 				
 		// Configure manual ID
 		$this->setWidget('id', new sfWidgetFormInputText());
@@ -78,6 +82,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
+		$this->widgetSchema->setLabel('container_id', 'Best container');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix</strong>');
@@ -95,6 +100,7 @@ class StrainForm extends BaseStrainForm {
 		//$this->widgetSchema->setHelp('amount', 'Items in stock');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('container_id', 'Type of container where the strain grows better');
   }
 
 
