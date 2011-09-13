@@ -131,4 +131,5 @@ class Strain extends BaseStrain {
 	public function getFormattedDepositionDate() {
 		return $this->formatDate($this->_get('deposition_date'));
 	}
+	
 }

@@ -18,7 +18,7 @@ class StrainForm extends BaseStrainForm {
 		if ( IdentifierTable::getInstance()->count() == 0 ) {
 			unset($this['identifier_id']);
 		}
-		
+				
 		// Configure manual ID
 		$this->setWidget('id', new sfWidgetFormInputText());
 		
@@ -62,7 +62,6 @@ class StrainForm extends BaseStrainForm {
 			),
 		));
 		
-		
 		// Configure custom validators
 		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => true)));
 		
@@ -73,7 +72,6 @@ class StrainForm extends BaseStrainForm {
 		
 		// Configure a custom post validator for cryopreservation method
     $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
-		
 		
 		// Configure labels
 		$this->widgetSchema->setLabel('id', 'Strain code');

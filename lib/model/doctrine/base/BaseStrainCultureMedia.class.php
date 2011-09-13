@@ -7,11 +7,14 @@
  * 
  * @property integer $strain_id
  * @property integer $culture_medium_id
+ * @property Strain $Strain
  * 
  * @method integer            getStrainId()          Returns the current record's "strain_id" value
  * @method integer            getCultureMediumId()   Returns the current record's "culture_medium_id" value
+ * @method Strain             getStrain()            Returns the current record's "Strain" value
  * @method StrainCultureMedia setStrainId()          Sets the current record's "strain_id" value
  * @method StrainCultureMedia setCultureMediumId()   Sets the current record's "culture_medium_id" value
+ * @method StrainCultureMedia setStrain()            Sets the current record's "Strain" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -38,6 +41,11 @@ abstract class BaseStrainCultureMedia extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Strain', array(
+             'local' => 'strain_id',
+             'foreign' => 'id',
+             'onDelete' => 'cascade'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }

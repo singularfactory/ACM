@@ -366,7 +366,7 @@ Strain:
     deposition_date:            { type: date }
     identifier_id:              { type: integer }
     maintenance_status_id:      { type: integer, notnull: true }
-    cryopreservation_method_id: { type: integer } 
+    cryopreservation_method_id: { type: integer }
     transfer_interval:          { type: string(40) }
     observation:                { type: string }
     citations:                  { type: string }

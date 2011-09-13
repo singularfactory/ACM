@@ -117,7 +117,7 @@
 			
 			<dt>Maintenance status:</dt>
 			<dd><?php echo $strain->getMaintenanceStatus() ?></dd>
-			
+									
 			<?php if ( $strain->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
 			<dt>Cryopreservation:</dt>
 			<dd><?php echo $strain->getCryopreservationMethod() ?></dd>
