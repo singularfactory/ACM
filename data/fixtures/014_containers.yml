@@ -1,0 +1,6 @@
+Container:
+  glass-tube:     { name: "Glass tube" }
+  plastic-tube:   { name: "Plastic tube" }
+  e-flask:        { name: "E-flask" }
+  petri-dish-30:  { name: "Petri dish 30" }
+  petri-dish-60:  { name: "Petri dish 60" }

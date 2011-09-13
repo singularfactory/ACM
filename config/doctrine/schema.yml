@@ -348,6 +348,15 @@ StrainPicture:
     Picture:
       moduleName: strain
 
+Container:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string(255), notnull: true }
+  indexes:
+    container_name:
+      fields:
+        name: { length: 20 }
+
 
 Strain:
   columns:
@@ -367,6 +376,7 @@ Strain:
     identifier_id:              { type: integer }
     maintenance_status_id:      { type: integer, notnull: true }
     cryopreservation_method_id: { type: integer }
+    container_id:               { type: integer }
     transfer_interval:          { type: string(40) }
     observation:                { type: string }
     citations:                  { type: string }
@@ -384,6 +394,7 @@ Strain:
     Identifier:             { foreignAlias: Strains }
     MaintenanceStatus:      { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
+    Container:              { foreignAlias: Strains }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
   actAs:
     Timestampable:

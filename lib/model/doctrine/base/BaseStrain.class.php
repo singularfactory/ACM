@@ -21,6 +21,7 @@
  * @property integer $identifier_id
  * @property integer $maintenance_status_id
  * @property integer $cryopreservation_method_id
+ * @property integer $container_id
  * @property string $transfer_interval
  * @property string $observation
  * @property string $citations
@@ -36,6 +37,7 @@
  * @property Identifier $Identifier
  * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
+ * @property Container $Container
  * @property Doctrine_Collection $CultureMedia
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $Pictures
@@ -58,6 +60,7 @@
  * @method integer                getIdentifierId()               Returns the current record's "identifier_id" value
  * @method integer                getMaintenanceStatusId()        Returns the current record's "maintenance_status_id" value
  * @method integer                getCryopreservationMethodId()   Returns the current record's "cryopreservation_method_id" value
+ * @method integer                getContainerId()                Returns the current record's "container_id" value
  * @method string                 getTransferInterval()           Returns the current record's "transfer_interval" value
  * @method string                 getObservation()                Returns the current record's "observation" value
  * @method string                 getCitations()                  Returns the current record's "citations" value
@@ -73,6 +76,7 @@
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
  * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
+ * @method Container              getContainer()                  Returns the current record's "Container" value
  * @method Doctrine_Collection    getCultureMedia()               Returns the current record's "CultureMedia" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
@@ -94,6 +98,7 @@
  * @method Strain                 setIdentifierId()               Sets the current record's "identifier_id" value
  * @method Strain                 setMaintenanceStatusId()        Sets the current record's "maintenance_status_id" value
  * @method Strain                 setCryopreservationMethodId()   Sets the current record's "cryopreservation_method_id" value
+ * @method Strain                 setContainerId()                Sets the current record's "container_id" value
  * @method Strain                 setTransferInterval()           Sets the current record's "transfer_interval" value
  * @method Strain                 setObservation()                Sets the current record's "observation" value
  * @method Strain                 setCitations()                  Sets the current record's "citations" value
@@ -109,6 +114,7 @@
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
+ * @method Strain                 setContainer()                  Sets the current record's "Container" value
  * @method Strain                 setCultureMedia()               Sets the current record's "CultureMedia" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
@@ -188,6 +194,9 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
              'type' => 'integer',
              ));
+        $this->hasColumn('container_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
         $this->hasColumn('transfer_interval', 'string', 40, array(
              'type' => 'string',
              'length' => 40,
@@ -249,6 +258,10 @@ abstract class BaseStrain extends sfDoctrineRecord
 
         $this->hasOne('CryopreservationMethod', array(
              'local' => 'cryopreservation_method_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Container', array(
+             'local' => 'container_id',
              'foreign' => 'id'));
 
         $this->hasMany('CultureMedium as CultureMedia', array(
