@@ -1,0 +1,34 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Container
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          container
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title:  Containers
+        display: [name, updated_at]
+        fields:
+          name:
+            label: Name
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name]
+      form:    ~
+      edit:
+        title: Edit the container name
+      new:
+        title: Add a new container
