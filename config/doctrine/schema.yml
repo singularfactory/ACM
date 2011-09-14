@@ -162,7 +162,6 @@ Sample:
     salinity:             { type: float }
     altitude:             { type: float }
     radiation_id:         { type: integer }
-    collector_id:         { type: integer, notnull: true }
     collection_date:      { type: date, notnull: true }
     remarks:              { type: string }
   relations:
@@ -170,7 +169,7 @@ Sample:
     Environment:          { foreignAlias: Samples }
     Habitat:              { foreignAlias: Samples }
     Radiation:            { foreignAlias: Samples }
-    Collector:            { foreignAlias: Samples }
+    Collectors:           { foreignAlias: Collectors, class: Collector, local: sample_id, foreign: collector_id, refClass: SampleCollectors }
   actAs:
     Timestampable:
     Date:
@@ -185,6 +184,8 @@ Collector:
     name:     { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
+  relations:
+    Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
   indexes:
     collector_name:
       fields:
@@ -192,6 +193,14 @@ Collector:
     collector_surname:
       fields:
         surname: { length: 20 }
+
+
+SampleCollectors:
+  columns:
+    sample_id:    { type: integer, primary: true }
+    collector_id: { type: integer, primary: true }
+  relations:
+    Sample:       { onDelete: cascade }
 
 
 Event:
@@ -347,6 +356,7 @@ StrainPicture:
     Timestampable:
     Picture:
       moduleName: strain
+
 
 Container:
   columns:

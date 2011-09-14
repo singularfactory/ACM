@@ -19,17 +19,17 @@
  * @property float $salinity
  * @property float $altitude
  * @property integer $radiation_id
- * @property integer $collector_id
  * @property date $collection_date
  * @property string $remarks
  * @property Location $Location
  * @property Environment $Environment
  * @property Habitat $Habitat
  * @property Radiation $Radiation
- * @property Collector $Collector
+ * @property Doctrine_Collection $Collectors
  * @property Doctrine_Collection $FieldPictures
  * @property Doctrine_Collection $DetailedPictures
  * @property Doctrine_Collection $MicroscopicPictures
+ * @property Doctrine_Collection $SampleCollectors
  * @property Doctrine_Collection $Strains
  * 
  * @method integer             getId()                  Returns the current record's "id" value
@@ -46,17 +46,17 @@
  * @method float               getSalinity()            Returns the current record's "salinity" value
  * @method float               getAltitude()            Returns the current record's "altitude" value
  * @method integer             getRadiationId()         Returns the current record's "radiation_id" value
- * @method integer             getCollectorId()         Returns the current record's "collector_id" value
  * @method date                getCollectionDate()      Returns the current record's "collection_date" value
  * @method string              getRemarks()             Returns the current record's "remarks" value
  * @method Location            getLocation()            Returns the current record's "Location" value
  * @method Environment         getEnvironment()         Returns the current record's "Environment" value
  * @method Habitat             getHabitat()             Returns the current record's "Habitat" value
  * @method Radiation           getRadiation()           Returns the current record's "Radiation" value
- * @method Collector           getCollector()           Returns the current record's "Collector" value
+ * @method Doctrine_Collection getCollectors()          Returns the current record's "Collectors" collection
  * @method Doctrine_Collection getFieldPictures()       Returns the current record's "FieldPictures" collection
  * @method Doctrine_Collection getDetailedPictures()    Returns the current record's "DetailedPictures" collection
  * @method Doctrine_Collection getMicroscopicPictures() Returns the current record's "MicroscopicPictures" collection
+ * @method Doctrine_Collection getSampleCollectors()    Returns the current record's "SampleCollectors" collection
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
  * @method Sample              setId()                  Sets the current record's "id" value
  * @method Sample              setNotebookCode()        Sets the current record's "notebook_code" value
@@ -72,17 +72,17 @@
  * @method Sample              setSalinity()            Sets the current record's "salinity" value
  * @method Sample              setAltitude()            Sets the current record's "altitude" value
  * @method Sample              setRadiationId()         Sets the current record's "radiation_id" value
- * @method Sample              setCollectorId()         Sets the current record's "collector_id" value
  * @method Sample              setCollectionDate()      Sets the current record's "collection_date" value
  * @method Sample              setRemarks()             Sets the current record's "remarks" value
  * @method Sample              setLocation()            Sets the current record's "Location" value
  * @method Sample              setEnvironment()         Sets the current record's "Environment" value
  * @method Sample              setHabitat()             Sets the current record's "Habitat" value
  * @method Sample              setRadiation()           Sets the current record's "Radiation" value
- * @method Sample              setCollector()           Sets the current record's "Collector" value
+ * @method Sample              setCollectors()          Sets the current record's "Collectors" collection
  * @method Sample              setFieldPictures()       Sets the current record's "FieldPictures" collection
  * @method Sample              setDetailedPictures()    Sets the current record's "DetailedPictures" collection
  * @method Sample              setMicroscopicPictures() Sets the current record's "MicroscopicPictures" collection
+ * @method Sample              setSampleCollectors()    Sets the current record's "SampleCollectors" collection
  * @method Sample              setStrains()             Sets the current record's "Strains" collection
  * 
  * @package    bna_green_house
@@ -149,10 +149,6 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->hasColumn('radiation_id', 'integer', null, array(
              'type' => 'integer',
              ));
-        $this->hasColumn('collector_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
         $this->hasColumn('collection_date', 'date', null, array(
              'type' => 'date',
              'notnull' => true,
@@ -190,9 +186,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'local' => 'radiation_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Collector', array(
-             'local' => 'collector_id',
-             'foreign' => 'id'));
+        $this->hasMany('Collector as Collectors', array(
+             'refClass' => 'SampleCollectors',
+             'local' => 'sample_id',
+             'foreign' => 'collector_id'));
 
         $this->hasMany('FieldPicture as FieldPictures', array(
              'local' => 'id',
@@ -203,6 +200,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'foreign' => 'sample_id'));
 
         $this->hasMany('MicroscopicPicture as MicroscopicPictures', array(
+             'local' => 'id',
+             'foreign' => 'sample_id'));
+
+        $this->hasMany('SampleCollectors', array(
              'local' => 'id',
              'foreign' => 'sample_id'));
 

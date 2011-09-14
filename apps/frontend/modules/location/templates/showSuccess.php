@@ -77,7 +77,7 @@
 			<?php $url = '@sample_show?id='.$sample->getId() ?>
 				<tr>
 					<td><?php echo link_to($sample->getCode(), $url) ?></td>
-					<td><?php echo link_to($sample->getCollector(), $url) ?></td>
+					<td><?php echo link_to($sample->getFormattedCollectors(), $url) ?></td>
 					<td><?php echo link_to($sample->getCollectionDate(), $url) ?></td>
 				</tr>
 			<?php endforeach ?>

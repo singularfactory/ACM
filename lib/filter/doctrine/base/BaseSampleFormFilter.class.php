@@ -26,11 +26,11 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
       'salinity'        => new sfWidgetFormFilterInput(),
       'altitude'        => new sfWidgetFormFilterInput(),
       'radiation_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Radiation'), 'add_empty' => true)),
-      'collector_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Collector'), 'add_empty' => true)),
       'collection_date' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'remarks'         => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'collectors_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Collector')),
     ));
 
     $this->setValidators(array(
@@ -47,11 +47,11 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
       'salinity'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'altitude'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'radiation_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Radiation'), 'column' => 'id')),
-      'collector_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Collector'), 'column' => 'id')),
       'collection_date' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'remarks'         => new sfValidatorPass(array('required' => false)),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'collectors_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Collector', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('sample_filters[%s]');
@@ -61,6 +61,24 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
     $this->setupInheritance();
 
     parent::setup();
+  }
+
+  public function addCollectorsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.SampleCollectors SampleCollectors')
+      ->andWhereIn('SampleCollectors.collector_id', $values)
+    ;
   }
 
   public function getModelName()
@@ -85,11 +103,11 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
       'salinity'        => 'Number',
       'altitude'        => 'Number',
       'radiation_id'    => 'ForeignKey',
-      'collector_id'    => 'ForeignKey',
       'collection_date' => 'Date',
       'remarks'         => 'Text',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',
+      'collectors_list' => 'ManyKey',
     );
   }
 }

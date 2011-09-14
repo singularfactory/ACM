@@ -44,8 +44,13 @@
 					<a href="#sample_strains_list" title="List of strains who come from this sample" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
-			<dt>Collector:</dt>
-			<dd><?php echo $sample->getCollector() ?></dd>
+			<dt>Collectors:</dt>
+			<dd>
+				<?php echo $nbCollectors = $sample->getNbCollectors() ?>
+				<?php if ( $nbCollectors > 0 ): ?>
+					<a href="#sample_collectors_list" title="List of collectors who gather this sample" class="page_jump">see below</a>
+				<?php endif; ?>
+			</dd>
 			<dt>Collection date:</dt>
 			<dd><?php echo $sample->getFormattedCollectionDate() ?></dd>
 			<dt>GPS coordinates:</dt>
@@ -126,9 +131,9 @@
 		<table>
 			<tr>
 				<th class="code">Code</th>
-				<th>Class:</th>
-				<th>Genus:</th>
-				<th>Species:</th>
+				<th>Class</th>
+				<th>Genus</th>
+				<th>Species</th>
 			</tr>
 			<?php foreach ($sample->getStrains() as $strain ): ?>
 			<?php $url = '@strain_show?id='.$strain->getId() ?>
@@ -144,6 +149,24 @@
 					<?php echo link_to($strainSpecies, $url) ?>
 					<?php endif; ?>
 				</td>
+			</tr>
+		<?php endforeach ?>
+		</table>
+	</div>
+	<?php endif ?>
+	
+	<?php if ( $nbCollectors > 0): ?>
+	<div id="sample_collectors_list" class="object_related_model_long_list">
+		<h2>Collectors</h2>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th class="object_count_long">Total samples</th>
+			</tr>
+			<?php foreach ($sample->getCollectors() as $collector ): ?>
+			<tr>
+				<td><?php echo $collector->getName() ?> <?php echo $collector->getSurname() ?></td>
+				<td class="object_count_long"><?php echo $collector->getNbSamples() ?></span></td>
 			</tr>
 		<?php endforeach ?>
 		</table>

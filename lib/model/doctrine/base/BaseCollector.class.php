@@ -78,8 +78,9 @@ abstract class BaseCollector extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Sample as Samples', array(
-             'local' => 'id',
-             'foreign' => 'collector_id'));
+             'refClass' => 'SampleCollectors',
+             'local' => 'collector_id',
+             'foreign' => 'sample_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

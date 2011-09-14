@@ -29,11 +29,11 @@ abstract class BaseSampleForm extends BaseFormDoctrine
       'salinity'        => new sfWidgetFormInputText(),
       'altitude'        => new sfWidgetFormInputText(),
       'radiation_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Radiation'), 'add_empty' => true)),
-      'collector_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Collector'), 'add_empty' => false)),
       'collection_date' => new sfWidgetFormDate(),
       'remarks'         => new sfWidgetFormTextarea(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
+      'collectors_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Collector')),
     ));
 
     $this->setValidators(array(
@@ -51,11 +51,11 @@ abstract class BaseSampleForm extends BaseFormDoctrine
       'salinity'        => new sfValidatorNumber(array('required' => false)),
       'altitude'        => new sfValidatorNumber(array('required' => false)),
       'radiation_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Radiation'), 'required' => false)),
-      'collector_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Collector'))),
       'collection_date' => new sfValidatorDate(),
       'remarks'         => new sfValidatorString(array('required' => false)),
       'created_at'      => new sfValidatorDateTime(),
       'updated_at'      => new sfValidatorDateTime(),
+      'collectors_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Collector', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('sample[%s]');
@@ -70,6 +70,62 @@ abstract class BaseSampleForm extends BaseFormDoctrine
   public function getModelName()
   {
     return 'Sample';
+  }
+
+  public function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+
+    if (isset($this->widgetSchema['collectors_list']))
+    {
+      $this->setDefault('collectors_list', $this->object->Collectors->getPrimaryKeys());
+    }
+
+  }
+
+  protected function doSave($con = null)
+  {
+    $this->saveCollectorsList($con);
+
+    parent::doSave($con);
+  }
+
+  public function saveCollectorsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['collectors_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Collectors->getPrimaryKeys();
+    $values = $this->getValue('collectors_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Collectors', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Collectors', array_values($link));
+    }
   }
 
 }

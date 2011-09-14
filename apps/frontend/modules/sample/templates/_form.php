@@ -104,11 +104,11 @@
 			<?php echo $form['radiation_id'] ?>
 		</div>
 		
-		<div id="collector">
-			<?php echo $form['collector_id']->renderLabel() ?>
-			<?php echo $form['collector_id']->renderError() ?>
-			<?php echo $form['collector_id']->renderHelp() ?>
-			<?php echo $form['collector_id'] ?>
+		<div id="collectors">
+			<?php echo $form['collectors_list']->renderLabel() ?>
+			<?php echo $form['collectors_list']->renderError() ?>
+			<?php echo $form['collectors_list']->renderHelp() ?>
+			<?php echo $form['collectors_list'] ?>
 		</div>
 
 		<div id="collection_date" class="date_field">

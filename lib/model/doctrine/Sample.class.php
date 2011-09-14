@@ -158,6 +158,10 @@ class Sample extends BaseSample {
 			->count();
 	}
 	
+	public function getNbCollectors() {
+		return count($this->getCollectors());
+	}
+	
 	public function getPictures() {
 		$pictures = array();
 		foreach ( $this->getFieldPictures() as $picture ) {
@@ -175,6 +179,22 @@ class Sample extends BaseSample {
 	
 	public function getFormattedCollectionDate() {
 		return $this->formatDate($this->_get('collection_date'));
+	}
+	
+	public function getFormattedCollectors() {
+		$collectors = '';
+		foreach ( $this->getCollectors() as $collector ) {
+			$name = $collector->getName();
+			$surname = $collector->getSurname();
+			$collectors .= "$name $surname, ";
+		}
+		
+		if ( empty($collectors) ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		else {
+			return preg_replace('/, $/', '', $collectors);
+		}
 	}
 	
 }

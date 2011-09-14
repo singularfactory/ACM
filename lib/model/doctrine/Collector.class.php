@@ -11,13 +11,14 @@
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
 class Collector extends BaseCollector {
+	
 	public function __toString() {
 		return $this->getName().' '.$this->getSurname();
 	}
 	
 	public function getNbSamples() {
 		return Doctrine_Query::create()
-			->from('Sample s')
+			->from('SampleCollectors s')
 			->where('s.collector_id = ?', $this->getId())
 			->count();
 	}

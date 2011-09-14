@@ -23,13 +23,7 @@ class SampleForm extends BaseSampleForm {
 		
 		// Configure location
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
-     
-		// Configure collector
-		$this->setWidget('collector_id', new sfWidgetFormDoctrineChoice(array(
-			'model' => $this->getRelatedModelName('Collector'),
-			'add_empty' => false)
-		));
-		
+				
 		// Configure picture widgets
 		$actualFieldPictures = $this->getObject()->getNbFieldPictures();
 		$actualDetailedPictures = $this->getObject()->getNbDetailedPictures();
@@ -85,6 +79,7 @@ class SampleForm extends BaseSampleForm {
 		$this->widgetSchema->setLabel('ph', 'pH');
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
 		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
+		$this->widgetSchema->setLabel('collectors_list', 'Collectors');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
@@ -96,6 +91,7 @@ class SampleForm extends BaseSampleForm {
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		$this->widgetSchema->setHelp('radiation_id', 'Leave it blank if you do not know the value');
+		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this sample. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_FieldPictures', 'Select up to '.($defaultMaxFieldPictures - $actualFieldPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('new_DetailedPictures', 'Select up to '.($defaultMaxDetailedPictures - $actualDetailedPictures).' pictures in JPEG, PNG or TIFF format');

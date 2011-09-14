@@ -76,6 +76,7 @@ div.object_related_model_list th, div.object_related_model_list td { font-size: 
 * SPECIFIC COLUMN LENGTHS
 */
 th.object_count, td.object_count { width: 35px; }
+th.object_count_long, td.object_count_long { width: 100px; }
 th.aliquots, td.aliquots { width: 60px; }
 th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band { width: 100px; }
 td.date { width: 110px; }
@@ -86,7 +87,7 @@ td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.strain_name { width: 240px; }
 td.culture_medium_name { width: 125px; }
 td.link { width: 250px; }
-td.location_name { width: 384px; }
+td.location_name { width: 300px; }
 td.taxonomic_class_name { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount, td.is_public { width: 80px; }
@@ -95,6 +96,7 @@ td.purchase_order_items { width: 100px; }
 td.purchase_order_status, td.purchase_item_status { width: 100px; }
 td.purchase_order_code { width: 150px; }
 td.purchase_item_product { width: 200px; }
+td.collectors_name { width: 240px; }
 
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,
@@ -111,7 +113,8 @@ th.can_be_sequenced, td.can_be_sequenced,
 th.amount, td.amount,
 th.is_public, td.is_public,
 th.purchase_order_items, td.purchase_order_items,
-th.purchase_item_amount, td.purchase_item_amount { text-align: center; }
+th.purchase_item_amount, td.purchase_item_amount,
+th.object_count_long, td.object_count_long { text-align: center; }
 
 td.notification_new { font-weight: bold; }
 td.purchase_order_pending { font-weight: bold; }

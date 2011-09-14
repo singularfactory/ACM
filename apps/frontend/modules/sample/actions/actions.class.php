@@ -21,7 +21,7 @@ class sampleActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Environment e")
 				->leftJoin("{$this->mainAlias()}.Habitat h")
 				->leftJoin("{$this->mainAlias()}.Radiation r")
-				->leftJoin("{$this->mainAlias()}.Collector c")
+				->leftJoin("{$this->mainAlias()}.Collectors c")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
 				->orWhere('l.name LIKE ?', "%$text%")
@@ -37,7 +37,7 @@ class sampleActions extends MyActions {
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Location l")
-				->leftJoin("{$this->mainAlias()}.Collector c");
+				->leftJoin("{$this->mainAlias()}.Collectors c");
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
