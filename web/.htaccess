@@ -1,3 +1,22 @@
+# Disable ETags
+Header unset ETag
+FileETag none
+
+# Expiration dates for static files
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault A0
+	<FilesMatch "\.(gif|jpg|jpeg|png|swf|js|css|ico)$">
+		ExpiresDefault "access plus 1 months"
+	</FilesMatch>
+</IfModule>
+
+# Send gzipped files
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</IfModule>
+
+
 Options +FollowSymLinks +ExecCGI
 
 <IfModule mod_rewrite.c>
@@ -30,4 +49,3 @@ php_value post_max_size 355M
 php_value upload_max_filesize 350M
 php_value max_input_time 3600
 
-FileETag none
