@@ -91,18 +91,18 @@ class apiActions extends sfActions {
 	}
 		
 	public function executeSyncSamplingInformation(sfWebRequest $request) {
-		$this->forward404Unless($request->isMethod(sfRequest::POST));	
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$this->validateToken($request->getParameter('token'));
-		
-		$info = json_decode($request->getParameter('json'));
+
+		$info = json_decode($request->getParameter('json'), true);
 		if ( !is_array($info) ) {
 			throw new sfError404Exception("JSON content could not be decoded.");
 		}
-		
+
 		$status = 0;
 		foreach ( $info as $entity => $records ) {
 			foreach ( $records as $record ) {
-				
+
 			}
 		}
 		
