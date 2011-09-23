@@ -1,5 +1,4 @@
 # Disable ETags
-Header unset ETag
 FileETag none
 
 # Expiration dates for static files
