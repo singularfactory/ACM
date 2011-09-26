@@ -345,6 +345,15 @@ StrainRelative:
     Strain:     { foreignAlias: Relatives, onDelete: cascade }
 
 
+AxenityTest:
+  columns:
+    id:         { type: integer, primary: true, autoincrement: true }
+    date:       { type: date, notnull: true }
+    strain_id:  { type: integer, notnull: true }
+  relations:
+    Strain:     { foreignAlias: AxenityTests, onDelete: cascade }
+
+
 StrainPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
