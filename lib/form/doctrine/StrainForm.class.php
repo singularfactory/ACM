@@ -9,7 +9,8 @@
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class StrainForm extends BaseStrainForm {
-  public function configure() {
+  
+	public function configure() {
 		// Unset select fields that do not have values
 		if ( DepositorTable::getInstance()->count() == 0 ) {
 			unset($this['depositor_id']);
@@ -40,7 +41,7 @@ class StrainForm extends BaseStrainForm {
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
 			'multiple' => true,
 			'model' => 'CultureMedium',
-			'method' => 'getCode',
+			'method' => 'getName',
 		)));
 		
 		// Calculate maximum number of images the user can upload
