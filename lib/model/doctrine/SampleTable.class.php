@@ -22,7 +22,7 @@ class SampleTable extends Doctrine_Table {
 	public function findByTerm($term = '') {
 		// Parse ID
 		$id = '';
-		if ( preg_match('/0+(\d)/', $term, $matches) ) {
+		if ( preg_match('/0*(\d+)/', $term, $matches) ) {
 			$id = $matches[1];
 		}
 
@@ -31,8 +31,7 @@ class SampleTable extends Doctrine_Table {
 			->leftJoin('l.Country c')
 			->leftJoin('l.Region r')
 			->leftJoin('l.Island i')
-			->where('s.id LIKE ?', $id)
-			->orWhere('s.notebook_code LIKE ?', "%$term%")
+			->where('s.id LIKE ?', "%$id%")
 			->orWhere('c.code LIKE ?', "%$term%")
 			->orWhere('r.code LIKE ?', "%$term%")
 			->orWhere('i.code LIKE ?', "%$term%")

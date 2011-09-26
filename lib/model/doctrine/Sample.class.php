@@ -14,14 +14,24 @@ class Sample extends BaseSample {
 	
 	public function getCode() {
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
-		
-		$location = $this->getLocation();
-		$countryCode = $location->getCountry()->getCode();
-		$regionCode = str_pad($location->getRegion()->getCode(), 3, '_', STR_PAD_LEFT);
-		$islandCode = $location->getIsland()->getCode();
-		if ( empty($islandCode) )
-			$islandCode = '00';
+		$countryCode = $regionCode = $islandCode = '';
 		$dateCode = date('ymd', strtotime($this->getCollectionDate()));
+		
+		if ( $location = $this->getLocation() ) {
+			if ( $country = $location->getCountry() ) {
+				$countryCode = $country->getCode();
+			}
+			
+			if ( $region = $location->getRegion() ) {
+				$regionCode = str_pad($region->getCode(), 3, '_', STR_PAD_LEFT);
+			}
+			
+			if ( $island = $location->getIsland() ) {
+				$islandCode = $island->getCode();
+				if ( empty($islandCode) )
+					$islandCode = '00';
+			}
+		}
 		
 		return $code.$countryCode.$regionCode.$islandCode.$dateCode;
 	}
