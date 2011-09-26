@@ -141,7 +141,7 @@
 			</dd>
 			
 			<dt>Transfer interval:</dt>
-			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
+			<dd><?php echo $strain->getFormattedTransferInterval() ?>&nbsp;weeks</dd>
 			
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getFormattedObservation() ?></dd>

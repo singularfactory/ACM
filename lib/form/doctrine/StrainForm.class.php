@@ -85,6 +85,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
 		$this->widgetSchema->setLabel('container_id', 'Best container');
+		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix</strong>');
