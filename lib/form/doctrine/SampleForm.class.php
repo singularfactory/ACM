@@ -65,10 +65,10 @@ class SampleForm extends BaseSampleForm {
 			array('required' => 'The location of the sample is required')));
 		
 		$this->setValidator('latitude', new sfValidatorRegex(
-			array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
+			array('pattern' => '/^\-?\d{1,3}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
 		$this->setValidator('longitude', new sfValidatorRegex(
-			array('pattern' => '/^\-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
+			array('pattern' => '/^\-?\d{1,3}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
 				
 		$this->setValidator('notebook_code', new sfValidatorInteger(array('required' => true), array(

@@ -46,7 +46,7 @@ class LocationForm extends BaseLocationForm {
 		
 		// Configure custom validators
 		$this->setValidator('name', new sfValidatorString(array('max_length' => 255), array('required' => 'Give this location a name')));
-		$gpsCoordinatesValidator = new sfValidatorRegex(array('pattern' => '/^-?\d{1,2}º\d{1,2}\'\d{1,2}("|\'\')$/','required' => false), array('invalid' => 'Invalid coordinates format'));
+		$gpsCoordinatesValidator = new sfValidatorRegex(array('pattern' => '/^-?\d{1,3}º\d{1,2}\'\d{1,2}("|\'\')$/','required' => false), array('invalid' => 'Invalid coordinates format'));
 		$this->setValidator('latitude', $gpsCoordinatesValidator);
 		$this->setValidator('longitude', $gpsCoordinatesValidator);
 		
