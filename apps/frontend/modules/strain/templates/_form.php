@@ -61,10 +61,6 @@
 			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
 		
-		<div id="axenic" class="checkbox">
-			<?php echo $form['is_axenic']->renderLabel() ?>
-			<?php echo $form['is_axenic'] ?>
-		</div>
 		
 		<?php if ( isset($form['container_id']) ): ?>
 		<div id="container">
@@ -137,6 +133,49 @@
 	</div>
 	
 	<div id="right_side_form">
+		<div id="axenic" class="checkbox">
+			<?php echo $form['is_axenic']->renderLabel() ?>
+			<?php echo $form['is_axenic'] ?>
+		</div>
+		
+		<?php if ( !$form->getObject()->isNew() && isset($form['AxenityTests']) ): ?>
+		<div class="model_text_input_list">
+			<?php echo $form['AxenityTests']->renderLabel('Actual tests') ?>
+			<?php $i = 0 ?>
+			<ul>
+				<?php foreach ($form['AxenityTests'] as $widget): ?>
+				<?php $test = $widget->getValue() ?>
+				<li>
+					<input type="hidden" name="strain[AxenityTests][<?php echo $i ?>][date]" value="<?php echo $test['date'] ?>" id="strain_AxenityTests_<?php echo $i ?>_date" />
+					<input type="hidden" name="strain[AxenityTests][<?php echo $i ?>][id]" value="<?php echo $test['id'] ?>" id="strain_AxenityTests_<?php echo $i ?>_id" />
+					<div class="model_text_input_value">
+						<span><?php echo $test['date'] ?></span>
+						<div class="model_text_input_value_checkbox">
+							<input type="checkbox" name="strain[AxenityTests][<?php echo $i ?>][delete_object]" id="strain_AxenityTests_<?php echo $i ?>_delete_object" />
+							delete
+						</div>
+					</div>
+				</li>
+				<?php $i++ ?>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php endif ?>
+		
+		<div id="model_text_inputs" class="date_field">
+			<?php echo $form['new_AxenityTests']->renderLabel() ?>
+			<?php echo $form['new_AxenityTests']->renderHelp() ?>
+			<?php echo $form['new_AxenityTests']->renderError() ?>
+			<div class="model_text_input_date">
+				<?php echo $form['new_AxenityTests'][0]['date']->render() ?>
+			</div>
+		</div>
+		
+		<div class="text_inputs_add_relation">
+			<?php echo $form['new_AxenityTests']['_']->render() ?>
+		</div>
+		<br />
+		
 		<?php if ( !$form->getObject()->isNew() && isset($form['Relatives']) ): ?>
 		<div class="model_text_input_list">
 			<?php echo $form['Relatives']->renderLabel('Actual relatives') ?>

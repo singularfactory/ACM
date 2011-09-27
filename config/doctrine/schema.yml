@@ -352,6 +352,9 @@ AxenityTest:
     strain_id:  { type: integer, notnull: true }
   relations:
     Strain:     { foreignAlias: AxenityTests, onDelete: cascade }
+  actAs:
+    Timestampable:
+    Date:
 
 
 StrainPicture:

@@ -102,8 +102,8 @@ div.model_text_input_value span { font-size: 13px; }
 div.model_text_input_value_checkbox { position: absolute; right: 3px; top: 3px; padding: 0px; margin: 0px; font-size: 11px; font-weight: lighter; }
 
 div.model_text_input_list div.model_text_input_value input[type=checkbox] { margin: 0px; padding: 0px; }
-div.model_text_input_name { padding: 1px 0px; }
-div.model_text_input_name input { display: inline; margin-right: 0px; padding-right: 0px; }
+div.model_text_input_name, div.model_text_input_date { padding: 1px 0px; }
+div.model_text_input_name input, div.model_text_input_date input { display: inline; margin-right: 0px; padding-right: 0px; }
 
 #pcr_gel_handler, #pcr_reaction_handler { margin-bottom: 17px; border-bottom: 1px solid #d3d3d3; border-top: 1px solid #d3d3d3; padding-left: 0px; }
 #pcr_reaction_handler { border-top: 0; }

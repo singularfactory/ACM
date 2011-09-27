@@ -48,6 +48,13 @@ class Strain extends BaseStrain {
 			->count();
 	}
 	
+	public function getNbAxenityTests() {
+		return Doctrine_Query::create()
+			->from('AxenityTest t')
+			->where('t.strain_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getNbPictures() {
 		return Doctrine_Query::create()
 			->from('StrainPicture sp')
@@ -99,7 +106,7 @@ class Strain extends BaseStrain {
 	
 	public function getFormattedTransferInterval() {
 		if ( $transferInterval = $this->_get('transfer_interval') ) {
-			return $transferInterval;
+			return "$transferInterval weeks";
 		}
 		return sfConfig::get('app_no_data_message');
 	}

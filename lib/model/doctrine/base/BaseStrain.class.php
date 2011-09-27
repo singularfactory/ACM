@@ -40,6 +40,7 @@
  * @property Container $Container
  * @property Doctrine_Collection $CultureMedia
  * @property Doctrine_Collection $Relatives
+ * @property Doctrine_Collection $AxenityTests
  * @property Doctrine_Collection $Pictures
  * @property Doctrine_Collection $StrainCultureMedia
  * @property Doctrine_Collection $DnaExtractions
@@ -79,6 +80,7 @@
  * @method Container              getContainer()                  Returns the current record's "Container" value
  * @method Doctrine_Collection    getCultureMedia()               Returns the current record's "CultureMedia" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
+ * @method Doctrine_Collection    getAxenityTests()               Returns the current record's "AxenityTests" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
  * @method Doctrine_Collection    getStrainCultureMedia()         Returns the current record's "StrainCultureMedia" collection
  * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
@@ -117,6 +119,7 @@
  * @method Strain                 setContainer()                  Sets the current record's "Container" value
  * @method Strain                 setCultureMedia()               Sets the current record's "CultureMedia" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
+ * @method Strain                 setAxenityTests()               Sets the current record's "AxenityTests" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
  * @method Strain                 setStrainCultureMedia()         Sets the current record's "StrainCultureMedia" collection
  * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
@@ -270,6 +273,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'culture_medium_id'));
 
         $this->hasMany('StrainRelative as Relatives', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('AxenityTest as AxenityTests', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 

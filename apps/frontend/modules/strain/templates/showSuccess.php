@@ -17,23 +17,6 @@
 
 <div id="main_view_show">
 	<div id="object_related_models">
-		<?php $nbRelatives = $strain->getNbRelatives() ?>
-		<?php if ( $nbRelatives > 0): ?>
-		<div class="object_related_model_list">
-			<h2>Relatives</h2>
-			<table>
-				<tr>
-					<th class="name">Name</th>
-				</tr>
-				<?php foreach ($strain->getRelatives() as $relative ): ?>
-					<tr>
-						<td><?php echo $relative->getName() ?></td>
-					</tr>
-				<?php endforeach ?>
-			</table>
-		</div>
-		<?php endif ?>
-		
 		<?php $nbCultureMedia = $strain->getNbCultureMedia() ?>
 		<?php if ( $nbCultureMedia > 0): ?>
 		<div class="object_related_model_list">
@@ -48,6 +31,40 @@
 					<tr>
 						<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
 						<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+		<?php $nbAxenityTests = $strain->getNbAxenityTests() ?>
+		<?php if ( $nbAxenityTests > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Axenity tests</h2>
+			<table>
+				<tr>
+					<th class="date">Date</th>
+				</tr>
+				<?php foreach ($strain->getAxenityTests() as $test ): ?>
+					<tr>
+						<td><?php echo $test->getFormattedDate() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+		<?php $nbRelatives = $strain->getNbRelatives() ?>
+		<?php if ( $nbRelatives > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Relatives</h2>
+			<table>
+				<tr>
+					<th class="name">Name</th>
+				</tr>
+				<?php foreach ($strain->getRelatives() as $relative ): ?>
+					<tr>
+						<td><?php echo $relative->getName() ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
@@ -141,7 +158,7 @@
 			</dd>
 			
 			<dt>Transfer interval:</dt>
-			<dd><?php echo $strain->getFormattedTransferInterval() ?>&nbsp;weeks</dd>
+			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
 			
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getFormattedObservation() ?></dd>

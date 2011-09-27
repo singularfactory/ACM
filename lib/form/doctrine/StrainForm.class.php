@@ -49,7 +49,7 @@ class StrainForm extends BaseStrainForm {
 		$defaultMaxPictures = sfConfig::get('app_max_strain_pictures');
 		$this->setOption('max_strain_pictures', $defaultMaxPictures - $actualPictures);
 		
-		// Create an embedded form to add or edit pictures and relatives
+		// Create an embedded form to add or edit pictures, relatives and axenity tests
 		$this->embedRelations(array(
 			'Pictures' => array(
 				'considerNewFormEmptyFields' => array('filename'),
@@ -64,6 +64,13 @@ class StrainForm extends BaseStrainForm {
 				'multipleNewForms' => true,
 				'newFormsInitialCount' => 1,
 				'newRelationButtonLabel' => 'Add another relative',
+			),
+			'AxenityTests' => array(
+				'considerNewFormEmptyFields' => array('date'),
+				'newFormLabel' => 'Axenity tests',
+				'multipleNewForms' => true,
+				'newFormsInitialCount' => 1,
+				'newRelationButtonLabel' => 'Add another date',
 			),
 		));
 		
@@ -95,6 +102,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('authority_id', 'Taxonomic authority');
 		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
+		$this->widgetSchema->setHelp('new_AxenityTests', 'Date of axenity tests performed');
 		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain culture');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
