@@ -241,7 +241,7 @@ api_sampling_information:
   requirements: { sf_method: get, timestamp: \d+ }
 
 api_sync_sampling_information:
-  url:          /api/:token/syncSamplingInformation/:json
+  url:          /api/:token/syncSamplingInformation
   param:        { module: api, action: syncSamplingInformation }
   requirements: { sf_method: post }
 

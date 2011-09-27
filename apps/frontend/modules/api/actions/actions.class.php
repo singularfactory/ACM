@@ -94,7 +94,7 @@ class apiActions extends sfActions {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$this->validateToken($request->getParameter('token'));
 
-		$info = json_decode($request->getParameter('json'), true);
+		$info = json_decode($request->getParameter('jsonData'), true);
 		if ( !is_array($info) ) {
 			throw new sfError404Exception("JSON content could not be decoded.");
 		}
