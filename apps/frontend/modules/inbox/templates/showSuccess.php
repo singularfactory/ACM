@@ -12,7 +12,7 @@
 			<dt>Received:</dt>
 			<dd><?php echo $notification->getDate() ?></dd>
 			<dt>Message:</dt>
-			<dd><?php echo $notification->getMessage() ?></dd>
+			<dd><?php echo $notification->getMessage(ESC_RAW) ?></dd>
 		</dl>
 	</div>
 	

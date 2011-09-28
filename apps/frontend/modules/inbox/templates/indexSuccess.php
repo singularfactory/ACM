@@ -22,7 +22,8 @@
 			<?php $url = url_for('@inbox_show?id='.$notification->getId()) ?>
 			<?php $newNotificationClass = ($notification->getStatus() == sfConfig::get('app_inbox_notification_new'))?'notification_new':'' ?>
 			<td class="table_row_selector"><input type="checkbox" name="notification[]" value="<?php echo $notification->getId() ?>"></td>
-			<td class="notification_message <?php echo $newNotificationClass ?>"><?php echo link_to(truncate_text($notification->getMessage(), 150), $url) ?></td>
+			<?php $message = preg_replace('/<\w[^>]+>([^<]*)<\/\w+>/', '$1', $notification->getMessage(ESC_RAW)) ?>
+			<td class="notification_message <?php echo $newNotificationClass ?>"><?php echo link_to(truncate_text($message, 150), $url) ?></td>
 			<td class="notification_date <?php echo $newNotificationClass ?>"><?php echo link_to($notification->getDate(), $url) ?></td>
 		
 			<td class="actions">

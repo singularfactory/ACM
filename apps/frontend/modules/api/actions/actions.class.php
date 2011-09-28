@@ -10,27 +10,83 @@
 */
 class apiActions extends sfActions {
 	
-	protected function validateToken($token = '') {
-		$user = sfGuardUserTable::getInstance()->findOneByToken($token);
-		if ( !$user ) {
-			throw new sfError404Exception("User with token $token does not exist or is not activated.");
+	// Error codes
+	const HttpRequestSuccess = 200;
+	const HttpInvalidRequestMethod = 405;
+	const HttpInvalidToken = 401;
+	const HttpInvalidTimestamp = 400;
+	const HttpInvalidJSON = 400;
+	const HttpServerError = 500;
+	
+	// HTTP status codes
+	const RequestSuccess = 0;
+	const InvalidRequestMethod = 1;
+	const InvalidToken = 2;
+	const InvalidTimestamp = 3;
+	const InvalidJSON = 4;
+	const ServerError = 5;
+	
+	protected function requestExitStatus($error = self::RequestSuccess, $content = '') {
+		$exitStatus = self::HttpRequestSuccess;
+		if ( empty($content) ) {
+			switch ( $error ) {
+				case self::InvalidRequestMethod:
+					$content = 'Invalid request method';
+					$exitStatus = self::HttpInvalidRequestMethod;
+					break;
+				case self::InvalidToken:
+					$content = 'Invalid token';
+					$exitStatus = self::HttpInvalidToken;
+					break;
+				case self::InvalidTimestamp:
+					$content = 'Invalid timestamp';
+					$exitStatus = self::HttpInvalidTimestamp;
+					break;
+				case self::InvalidJSON:
+					$content = 'Invalid JSON';
+					$exitStatus = self::HttpInvalidJSON;
+					break;
+				case self::ServerError:
+					$content = 'Server error';
+					$exitStatus = self::HttpServerError;
+					break;
+			}
 		}
 		
-		return true;
+		$this->getResponse()->setStatusCode($exitStatus);
+		$this->getResponse()->setContent($content);
+		return sfView::NONE;
 	}
 	
-	protected function validateTimestamp($timestamp = '') {
-		$timestamp = date("Y-m-d H:i:s", $timestamp);
-		if ( !$timestamp ) {
-			throw new sfError404Exception(sprintf('Timestamp %s is not valid.', $request->getParameter('timestamp')));
+	protected function validateToken($token = null) {
+		return (sfGuardUserTable::getInstance()->findOneByToken($token) != false);
+	}
+	
+	protected function validateTimestamp($timestamp = null) {
+		return (date("Y-m-d H:i:s", $timestamp) != false);
+	}
+	
+	protected function validateRequestMethod(sfWebRequest $request = null, $method) {
+		return $request->isMethod($method);
+	}
+	
+	protected function validateJson($data = '') {
+		return json_decode($data, true);
+	}
+	
+	public function executeSamplingInformation(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod);
 		}
 		
-		return $timestamp;
-	}
-
-	public function executeSamplingInformation(sfWebRequest $request) {
-		$this->validateToken($request->getParameter('token'));
-		$timestamp = $this->validateTimestamp($request->getParameter('timestamp'));
+		if ( !$this->validateToken($request->getParameter('token')) ) {
+			return $this->requestExitStatus(self::InvalidToken);
+		}
+		
+		$timestamp = $request->getParameter('timestamp');
+		if ( !$this->validateTimestamp($timestamp) ) {
+			return $this->requestExitStatus(self::InvalidTimestamp);
+		}
 		
 		// Retrieve the information
 		$info = array();
@@ -86,122 +142,147 @@ class apiActions extends sfActions {
 		}
 
 		// Return the information as a JSON object
-		$this->getResponse()->setContent(json_encode($info));
-		return sfView::NONE;
+		return $this->requestExitStatus(self::RequestSuccess, json_encode($info));
 	}
 		
-	public function executeSyncSamplingInformation(sfWebRequest $request) {
-		$this->forward404Unless($request->isMethod(sfRequest::POST));
-		$this->validateToken($request->getParameter('token'));
-
-		$info = json_decode($request->getParameter('jsonData'), true);
-		if ( !is_array($info) ) {
-			throw new sfError404Exception("JSON content could not be decoded.");
+	public function executeAddSamplingInformation(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::POST) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod);
 		}
-
-		$status = 0;
+		
+		if ( !$this->validateToken($request->getParameter('token')) ) {
+			return $this->requestExitStatus(self::InvalidToken);
+		}
+		
+		$json = $this->validateJson($request->getParameter('jsonData'));
+		if ( !is_array($json) ) {
+			return $this->requestExitStatus(self::InvalidJSON);
+		}
+		
 		foreach ( $info as $entity => $records ) {
 			foreach ( $records as $record ) {
-
+				// Create samples and locations
 			}
 		}
 		
-		$this->getResponse()->setContent($status);
-		return sfView::NONE;
+		return self::requestExitStatus();
+	}
+	
+	public function executeSyncLocationInformation(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::POST) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod);
+		}
+		
+		if ( !$this->validateToken($request->getParameter('token')) ) {
+			return $this->requestExitStatus(self::InvalidToken);
+		}
+		
+		$json = $this->validateJson($request->getParameter('jsonData'));
+		if ( !is_array($json) ) {
+			return $this->requestExitStatus(self::InvalidJSON);
+		}
+		
+		foreach ( $info as $entity => $records ) {
+			foreach ( $records as $record ) {
+				// Update locations
+			}
+		}
+		
+		return self::requestExitStatus();
 	}
 	
 	public function executeNewPurchaseOrder(sfWebRequest $request) {
-		$this->forward404Unless($request->isMethod(sfRequest::POST));	
-		$this->validateToken($request->getParameter('token'));
+		if ( !$this->validateRequestMethod($request, sfRequest::POST) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod);
+		}
 		
-		$json = json_decode($request->getParameter('json'), true);
+		if ( !$this->validateToken($request->getParameter('token')) ) {
+			return $this->requestExitStatus(self::InvalidToken);
+		}
+		
+		$json = $this->validateJson($request->getParameter('jsonData'));
 		if ( !is_array($json) ) {
-			throw new sfError404Exception("JSON content could not be decoded.");
+			return $this->requestExitStatus(self::InvalidJSON);
 		}
 		
 		$productTypes = array(
-			'strain' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex'), 'amountMethod' => 'getAmount'),
-			'culture_medium' => array('table' => 'CultureMediumTable', 'regex' => sfConfig::get('app_culture_medium_bea_code_regex'), 'amountMethod' => 'getAmount'),
-			'genomic_dna' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex'), 'amountMethod' => 'getDnaAmount'),
+			'strain' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex')),
+			'culture_medium' => array('table' => 'CultureMediumTable', 'regex' => sfConfig::get('app_culture_medium_bea_code_regex')),
+			'genomic_dna' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex')),
 		);
 		
-		// Configure initial conditions of this purchase order
-		$purchaseOrder = new PurchaseOrder();
-		$purchaseOrder->setStatus(sfConfig::get('app_purchase_order_pending'));
-		$purchaseOrder->setCode($json['code']);
-		$purchaseItems = $purchaseOrder->getItems();
-		
-		// Add items to the purchase order
-		$errorMessages = array();
-		unset($json['code']);
-		foreach ( $json as $item => $details ) {
-			$productType = $details['product_type'];
-			
-			// Check if this product is valid
-			if ( !in_array($productType, array_keys($productTypes)) ) {
-				$errorMessages[] = 'One or more products were not valid (unknow product type)';
-				continue;
-			}
-			
-			// Check if this product is available within the catalog
-			$id = preg_replace($productTypes[$productType]['regex'], '$1', $details['id']);
-			$tableInstance = call_user_func(array($productTypes[$productType]['table'], 'getInstance'));
-			$model = $tableInstance->findOneById($id);
-			if ( !$model ) {
-				$errorMessages = 'One or more products were not available (unknow product code)';
-				continue;
-			}
-			
-			// Add a new purchase item
-			$purchaseItem = new PurchaseItem();
-			$purchaseItem->setStatus(sfConfig::get('app_purchase_item_pending'));
-			$purchaseItem->setProduct($productType);
-			$amountMethod = $productTypes[$productType]['amountMethod'];
-			$purchaseItem->setAmount($model->$amountMethod());
-			$purchaseItem->setProductId($model->getId());
-			
-			$purchaseItems->add($purchaseItem);
-		}
-		
-		// Save the purchase order
 		try {
-			$purchaseOrder->save();
-		}
-		catch (Exception $e) {
-			$this->getResponse()->setStatusCode(202);
-			echo 'The purchase order could not be saved to the database, but was notified anyway';
-			$errorMessages[] = "A new purchase order with code {$purchaseOrder->getCode()} was received but could not be processed";
-		}
-		
-		// Notify users
-		try {
-			// Configure message
-			$message = '';
-			if ( $errorMessages ) {
-				$message = 'A new purchase order request was received, but the request could not be fully processed due to the following errors: ';
-				foreach ( $errorMessages as $error ) {
-					$message .= "$error. ";
-				}
+			// Create a purchase order
+			$purchaseOrder = new PurchaseOrder();
+			$purchaseOrder->setStatus(sfConfig::get('app_purchase_order_pending'));
+			if ( isset($json['code']) ) {
+				$purchaseOrder->setCode($json['code']);
+				unset($json['code']);
 			}
 			else {
-				$message = "A new purchase order request with code {$purchaseOrder->getCode()} was received. More details in purchase order section.";
+				return $this->requestExitStatus(self::InvalidJSON);
 			}
-			
-			// Send notification to users
+
+			// Add items to the purchase order
+			$purchaseItems = $purchaseOrder->getItems();
+			foreach ( $json as $item => $details ) {
+				// Check if the product type is valid
+				$productType = $details['product_type'];
+				if ( !in_array($productType, array_keys($productTypes)) ) {
+					return $this->requestExitStatus(self::InvalidJSON);
+				}
+
+				// Create the purchase item
+				$purchaseItem = new PurchaseItem();
+				$purchaseItem->setStatus(sfConfig::get('app_purchase_item_pending'));
+				$purchaseItem->setProduct($productType);
+				$purchaseItem->setCode($details['id']);
+				$purchaseItem->setAmount($details['amount']);
+
+				// Check if the product exists
+				$id = preg_replace($productTypes[$productType]['regex'], '$1', $details['id']);
+				$tableInstance = call_user_func(array($productTypes[$productType]['table'], 'getInstance'));
+				if ( $model = $tableInstance->findOneById($id) ) {
+					$purchaseItem->setProductId($model->getId());
+				}
+
+				$purchaseItems->add($purchaseItem);
+			}
+
+			// Notify users about this purchase order
+			$notifications = array();
 			foreach ( sfGuardUserTable::getInstance()->findByNotifyNewOrder(true) as $user ) {
 				$notification = new Notification();
-				$notification->setMessage($message);
+				$notification->setMessage(
+					"A new purchase order request with code {$purchaseOrder->getCode()} was received. See the details in the <a href=\"".$this->generateUrl('purchase_order')."\">purchase orders</a> section."
+				);
 				$notification->setStatus(sfConfig::get('app_inbox_notification_new'));
 				$notification->setUserId($user->getId());
-				$notification->save();
+				$notifications[] = $notification;
 			}
 		}
 		catch (Exception $e) {
-			$this->getResponse()->setStatusCode(202);
-			echo "The purchase order could was saved to the database, but notified could not be posted ({$e->getMessage()})";
+			return self::requestExitStatus(self::ServerError, "The purchase order could not be saved to the database. {$e->getMessage()}");
 		}
 		
-		return sfView::NONE;
+		// The creation of a purchase order and notifications to users must be wrapped under a database transaction
+		$dbConnection = Doctrine_Manager::connection();
+		try {
+			$dbConnection->beginTransaction();
+			
+			$purchaseOrder->save();
+			foreach ($notifications as $notification) {
+				$notification->save();
+			}
+			
+			$dbConnection->commit();
+		}
+		catch (Exception $e) {
+			$dbConnection->rollback();
+			return self::requestExitStatus(self::ServerError, 'The purchase order could not be saved to the database');
+		}
+		
+		return self::requestExitStatus();
 	}
 	
 }

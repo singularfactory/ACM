@@ -9,6 +9,7 @@
  * @property enum $status
  * @property enum $product
  * @property integer $product_id
+ * @property string $code
  * @property integer $amount
  * @property string $remarks
  * @property integer $purchase_order_id
@@ -18,6 +19,7 @@
  * @method enum          getStatus()            Returns the current record's "status" value
  * @method enum          getProduct()           Returns the current record's "product" value
  * @method integer       getProductId()         Returns the current record's "product_id" value
+ * @method string        getCode()              Returns the current record's "code" value
  * @method integer       getAmount()            Returns the current record's "amount" value
  * @method string        getRemarks()           Returns the current record's "remarks" value
  * @method integer       getPurchaseOrderId()   Returns the current record's "purchase_order_id" value
@@ -26,6 +28,7 @@
  * @method PurchaseItem  setStatus()            Sets the current record's "status" value
  * @method PurchaseItem  setProduct()           Sets the current record's "product" value
  * @method PurchaseItem  setProductId()         Sets the current record's "product_id" value
+ * @method PurchaseItem  setCode()              Sets the current record's "code" value
  * @method PurchaseItem  setAmount()            Sets the current record's "amount" value
  * @method PurchaseItem  setRemarks()           Sets the current record's "remarks" value
  * @method PurchaseItem  setPurchaseOrderId()   Sets the current record's "purchase_order_id" value
@@ -66,12 +69,15 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
              ));
         $this->hasColumn('product_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
+             ));
+        $this->hasColumn('code', 'string', 40, array(
+             'type' => 'string',
+             'length' => 40,
              ));
         $this->hasColumn('amount', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
-             'default' => 0,
+             'default' => 1,
              ));
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',

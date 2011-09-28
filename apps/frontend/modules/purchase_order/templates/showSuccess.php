@@ -24,7 +24,7 @@
 						<td class="purchase_item_product"><?php echo link_to($item->getDescription(), $url) ?></td>
 						<td class="purchase_item_amount"><?php echo link_to($item->getAmount(), $url) ?></td>
 						<td class="purchase_item_status"><?php echo link_to($item->getFormattedStatus(), $url) ?></td>
-						<td class="purchase_item_remarks"><?php echo link_to($item->getFormattedRemarks(), $url) ?></td>
+						<td class="purchase_item_remarks"><?php echo link_to($item->getFormattedRemarks(ESC_RAW), $url) ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
@@ -44,7 +44,7 @@
 			<dt>Items:</dt>
 			<dd><?php echo $nbPurchaseItems ?></dd>
 			<dt>Remarks:</dt>
-			<dd><?php echo $purchaseOrder->getRemarks() ?></dd>
+			<dd><?php echo $purchaseOrder->getRemarks(ESC_RAW) ?></dd>
 		</dl>
 	</div>
 	

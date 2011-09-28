@@ -63,7 +63,9 @@ class inboxActions extends MyActions {
   
   public function executeDelete(sfWebRequest $request) {
 		$ids = $request->getParameter('notification');
-		$this->forward404Unless(is_array($ids), sprintf('Object notification does not exist.'));
+		if ( !is_array($ids) || empty($ids) ) {
+			$ids[] = $request->getParameter('id');
+		}
 		
 		$notifications = NotificationTable::getInstance()->createQuery('n')->whereIn('n.id', $ids)->execute();
 		$hasErrors = false;

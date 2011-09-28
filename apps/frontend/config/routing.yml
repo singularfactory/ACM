@@ -240,9 +240,14 @@ api_sampling_information:
   param:        { module: api, action: samplingInformation }
   requirements: { sf_method: get, timestamp: \d+ }
 
-api_sync_sampling_information:
-  url:          /api/:token/syncSamplingInformation
-  param:        { module: api, action: syncSamplingInformation }
+api_add_sampling_information:
+  url:          /api/:token/addSamplingInformation
+  param:        { module: api, action: addSamplingInformation }
+  requirements: { sf_method: post }
+
+api_sync_location_information:
+  url:          /api/:token/syncLocationInformation
+  param:        { module: api, action: syncLocationInformation }
   requirements: { sf_method: post }
 
 api_new_purchase_order:

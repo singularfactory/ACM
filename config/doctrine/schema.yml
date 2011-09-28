@@ -602,8 +602,9 @@ PurchaseItem:
     id:                 { type: integer, primary: true, autoincrement: true }
     status:             { type: enum, values: [pending, processing, ready] }
     product:            { type: enum, values: [strain, culture_medium, genomic_dna] }
-    product_id:         { type: integer, notnull: true }
-    amount:             { type: integer, notnull: true, default: 0 }
+    product_id:         { type: integer }
+    code:               { type: string(40) }
+    amount:             { type: integer, notnull: true, default: 1 }
     remarks:            { type: string }
     purchase_order_id:  { type: integer, notnull: true }
   relations:
