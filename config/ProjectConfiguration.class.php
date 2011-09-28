@@ -15,10 +15,10 @@ class ProjectConfiguration extends sfProjectConfiguration {
 
 		// Register the logger event handler
 		$this->dispatcher->connect('bna_green_house.event_log', array('EventLog', 'save_log_message'));
-		
-		// apc_clear_cache();
-		// apc_clear_cache('user');
-		// apc_clear_cache('opcode');
+
+		//apc_clear_cache();
+		//apc_clear_cache('user');
+		//apc_clear_cache('opcode');
 	}
 	
 	/**
