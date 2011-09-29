@@ -211,21 +211,24 @@ class apiActions extends sfActions {
 			'genomic_dna' => array('table' => 'StrainTable', 'regex' => sfConfig::get('app_strain_bea_code_regex')),
 		);
 		
+		if ( !isset($json['code']) ) {
+			return $this->requestExitStatus(self::InvalidJSON);
+		}
+		
+		if ( !isset($json['items']) ) {
+			return $this->requestExitStatus(self::InvalidJSON);
+		}
+		
 		try {
 			// Create a purchase order
 			$purchaseOrder = new PurchaseOrder();
 			$purchaseOrder->setStatus(sfConfig::get('app_purchase_order_pending'));
-			if ( isset($json['code']) ) {
-				$purchaseOrder->setCode($json['code']);
-				unset($json['code']);
-			}
-			else {
-				return $this->requestExitStatus(self::InvalidJSON);
-			}
-
+			$purchaseOrder->setCode($json['code']);
+			unset($json['code']);
+			
 			// Add items to the purchase order
 			$purchaseItems = $purchaseOrder->getItems();
-			foreach ( $json as $item => $details ) {
+			foreach ( $json['items'] as $details ) {
 				// Check if the product type is valid
 				$productType = $details['product_type'];
 				if ( !in_array($productType, array_keys($productTypes)) ) {
