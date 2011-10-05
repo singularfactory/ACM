@@ -192,6 +192,25 @@ class strainActions extends MyActions {
 			}
 		}
 		
+		// Unset axenity tests if values are empty
+		if ( isset($taintedValues['new_AxenityTests']) ) {
+			$validTests = array();
+			foreach ( $taintedValues['new_AxenityTests'] as $test ) { 
+				if ( empty($test['date']['day']) || empty($test['date']['month']) || empty($test['date']['year']) ) {
+					continue;
+				}
+				$validTests[] = $test;
+			}
+			
+			$nValidTests = count($validTests);
+			if ( $nValidTests == 0 ) {
+				unset($taintedValues['new_AxenityTests']);
+			}
+			else if ( $nValidTests > 0 && $nValidTests < count($taintedValues['new_AxenityTests']) ) {
+				$taintedValues['new_AxenityTests'] = $validTests;
+			}
+		}
+		
 		// Bind input fields with files uploaded
 		$form->bind($taintedValues, $request->getFiles($form->getName()));
 		

@@ -13,13 +13,13 @@ class AxenityTestForm extends BaseAxenityTestForm {
 		$this->useFields(array('date'));
 		
 		// Configure date format
-		$lastYear = date('Y');
-		for ($i=1990; $i <= $lastYear; $i++) {
-			$years[$i] = $i;
-		}
+		for ($i=1990; $i <= date('Y'); $i++) { $years[$i] = $i; }
 		$this->setWidget('date', new sfWidgetFormDate(array(
-			'format' => '%year%-%month%-%day%',
+			'format' => '%year% %month% %day%',
 			'years' => $years,
+		),
+		array(
+			'class' => 'noauto',
 		)));
 		
 		$this->setValidator('delete_object', new sfValidatorBoolean());
