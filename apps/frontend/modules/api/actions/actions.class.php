@@ -159,13 +159,73 @@ class apiActions extends sfActions {
 			return $this->requestExitStatus(self::InvalidJSON);
 		}
 		
-		foreach ( $info as $entity => $records ) {
-			foreach ( $records as $record ) {
-				// Create samples and locations
+		// The creation of locations and samples must be wrapped under a database transaction
+		$dbConnection = Doctrine_Manager::connection();
+		try {
+			$dbConnection->beginTransaction();
+			
+			// Create locations
+			$locations = array();
+			if ( isset($json['location']) ) {
+				foreach ( $json['location'] as $records ) {
+					$location = new Location;
+					$location->setName($records['name']);
+					$location->setLatitude($records['latitude']);
+					$location->setLongitude($records['longitude']);
+					$location->setCountryId($records['country_id']);
+					$location->setRegionId($records['region_id']);
+					$location->setIslandId($records['island_id']);
+					$location->setRemarks($records['remarks']);
+					$location->save();
+					
+					// Store the local ID of this location to compare with Sample.location_id
+					$locations[$records['id']] = $location->getId();
+				}
 			}
+			
+			// Create samples
+			if ( isset($json['sample']) ) {
+				foreach ( $json['sample'] as $records ) {
+					$sample = new Sample;
+					$sample->setLatitude($records['latitude']);
+					$sample->setLongitude($records['longitude']);
+					$sample->setEnvironmentId($records['environment_id']);
+					$sample->setHabitatId($records['habitat_id']);
+					$sample->setPh($records['ph']);
+					$sample->setConductivity($records['conductivity']);
+					$sample->setTemperature($records['temperature']);
+					$sample->setSalinity($records['salinity']);
+					$sample->setAltitude($records['altitude']);
+					$sample->setRadiationId($records['radiation_id']);
+					$sample->setCollectionDate($records['collection_date']);
+					$sample->setRemarks($records['remarks']);
+					$sample->setIsExtremophile($records['is_extremophile']);
+					$sample->setNotebookCode($records['notebook_code']);
+					
+					// Manage the relationship with Location
+					if ( isset($records['location_id']) && !empty($records['location_id']) ) {
+						$sample->setLocationId($locations[$records['location_id']]);
+					}
+					else if ( isset($records['local_location_id']) && !empty($records['local_location_id']) ) {
+						$sample->setLocationId($locations[$records['local_location_id']]);
+					}
+					else {
+						throw new Exception("The sample {$records['id']} does not have a valid location_id");
+					}
+
+					$sample->save();
+				}
+			}
+			
+			$dbConnection->commit();
+		}
+		catch (Exception $e) {
+			$dbConnection->rollback();
+			return $this->requestExitStatus(self::ServerError, "The sampling information could not be saved to the database (".$e->getMessage().")");
 		}
 		
-		return self::requestExitStatus();
+		
+		return $this->requestExitStatus();
 	}
 	
 	public function executeSyncLocationInformation(sfWebRequest $request) {
@@ -182,13 +242,34 @@ class apiActions extends sfActions {
 			return $this->requestExitStatus(self::InvalidJSON);
 		}
 		
-		foreach ( $info as $entity => $records ) {
-			foreach ( $records as $record ) {
-				// Update locations
+		// Merging remote and local Location objects must be wrapped under a database transaction
+		$dbConnection = Doctrine_Manager::connection();
+		try {
+			$dbConnection->beginTransaction();
+			
+			if ( isset($json['location']) ) {
+				foreach ( $json['location'] as $records ) {
+					$location = new Location;
+					$location->setName($records['name']);
+					$location->setLatitude($records['latitude']);
+					$location->setLongitude($records['longitude']);
+					$location->setCountryId($records['country_id']);
+					$location->setRegionId($records['region_id']);
+					$location->setIslandId($records['island_id']);
+					$location->setRemarks($records['remarks']);
+					$location->save();
+				}
 			}
+			
+			$dbConnection->commit();
+		}
+		catch (Exception $e) {
+			$dbConnection->rollback();
+			return $this->requestExitStatus(self::ServerError, "The location merging could not be saved to the database (".$e->getMessage().")");
 		}
 		
-		return self::requestExitStatus();
+		
+		return $this->requestExitStatus();
 	}
 	
 	public function executeNewPurchaseOrder(sfWebRequest $request) {
@@ -265,7 +346,7 @@ class apiActions extends sfActions {
 			}
 		}
 		catch (Exception $e) {
-			return self::requestExitStatus(self::ServerError, "The purchase order could not be saved to the database. {$e->getMessage()}");
+			return $this->requestExitStatus(self::ServerError, "The purchase order could not be saved to the database. {$e->getMessage()}");
 		}
 		
 		// The creation of a purchase order and notifications to users must be wrapped under a database transaction
@@ -282,10 +363,10 @@ class apiActions extends sfActions {
 		}
 		catch (Exception $e) {
 			$dbConnection->rollback();
-			return self::requestExitStatus(self::ServerError, 'The purchase order could not be saved to the database');
+			return $this->requestExitStatus(self::ServerError, 'The purchase order could not be saved to the database');
 		}
 		
-		return self::requestExitStatus();
+		return $this->requestExitStatus();
 	}
 	
 }
