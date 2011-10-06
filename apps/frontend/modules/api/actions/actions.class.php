@@ -204,7 +204,7 @@ class apiActions extends sfActions {
 					
 					// Manage the relationship with Location
 					$locationId = $records['location_id'];
-					if ( array_key_exists($locationId, $locations) && isset($locations[$locationId]) ) {
+					if ( isset($locations[$locationId]) ) {
 						$sample->setLocationId($locations[$locationId]);
 					}
 					else if ( $locationId ) {
@@ -215,6 +215,23 @@ class apiActions extends sfActions {
 					}
 					
 					$sample->save();
+					
+					// Manage many-to-many relationships with Collector once the sample has been saved
+					if ( isset($records['collector_id']) ) {
+						$collectors = $records['collector_id'];
+						if ( !is_array($collectors) ) {
+							$collectors = array($collectors);
+						}
+						
+						$sampleId = $sample->getId();
+						foreach ( $collectors as $collector ) {
+							$sampleCollectors = new SampleCollectors();
+							$sampleCollectors->sample_id = $sampleId;
+							$sampleCollectors->collector_id = $collector;
+							$sampleCollectors->save();
+						}
+					}
+					
 				}
 			}
 			
@@ -224,7 +241,6 @@ class apiActions extends sfActions {
 			$dbConnection->rollback();
 			return $this->requestExitStatus(self::ServerError, "The sampling information could not be saved to the database (".$e->getMessage().")");
 		}
-		
 		
 		return $this->requestExitStatus();
 	}
