@@ -178,7 +178,7 @@ class apiActions extends sfActions {
 					$location->setRemarks($records['remarks']);
 					$location->save();
 					
-					// Store the local ID of this location to compare with Sample.location_id
+					// Store the new ID of this location to compare with Sample.location_id
 					$locations[$records['id']] = $location->getId();
 				}
 			}
@@ -203,16 +203,17 @@ class apiActions extends sfActions {
 					$sample->setNotebookCode($records['notebook_code']);
 					
 					// Manage the relationship with Location
-					if ( isset($records['location_id']) && !empty($records['location_id']) ) {
-						$sample->setLocationId($locations[$records['location_id']]);
+					$locationId = $records['location_id'];
+					if ( array_key_exists($locationId, $locations) && isset($locations[$locationId]) ) {
+						$sample->setLocationId($locations[$locationId]);
 					}
-					else if ( isset($records['local_location_id']) && !empty($records['local_location_id']) ) {
-						$sample->setLocationId($locations[$records['local_location_id']]);
+					else if ( $locationId ) {
+						$sample->setLocationId($locationId);
 					}
 					else {
 						throw new Exception("The sample {$records['id']} does not have a valid location_id");
 					}
-
+					
 					$sample->save();
 				}
 			}
