@@ -8,7 +8,7 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class apiActions extends sfActions {
+class apiActions extends MyActions {
 	
 	// Error codes
 	const HttpRequestSuccess = 200;
@@ -98,6 +98,7 @@ class apiActions extends sfActions {
 			'Habitat' => 'HabitatTable',
 			'Radiation' => 'RadiationTable',
 			'Location' => 'LocationTable',
+			'LocationPicture' => 'LocationPictureTable',
 			'Collector' => 'CollectorTable',
 		);
 		
@@ -110,7 +111,9 @@ class apiActions extends sfActions {
 			$tmp = array();
 			foreach ( $records as $record ) {
 				$tmp['id'] = $record['id'];
-				$tmp['name'] = $record['name'];
+				if ( isset($record['name']) ) {
+					$tmp['name'] = $record['name'];
+				}
 				
 				switch ( $entity ) {
 					case 'Country':
@@ -130,6 +133,11 @@ class apiActions extends sfActions {
 						$tmp['country_id'] = $record['country_id'];
 						$tmp['region_id'] = $record['region_id'];
 						$tmp['island_id'] = $record['island_id'];
+						break;
+					case 'LocationPicture':
+						$tmp['filename'] = $record['filename'];
+						$tmp['location_id'] = $record['location_id'];
+						$tmp['image_data'] = $this->getBase64EncodedPicture($record['filename'], sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'));
 						break;
 					case 'Collector':
 						$tmp['surname'] = $record['surname'];

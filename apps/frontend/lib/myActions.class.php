@@ -239,4 +239,18 @@ class MyActions extends sfActions {
 		return sfView::NONE;
 	}
 	
+	/**
+	 * Returns a picture encoded in Base64
+	 *
+	 * @param string $filename
+	 * @param string $path If null, it's assumed that the picture is located in 'images' directory
+	 * 
+	 * @return string Base64 encoded picture
+	 * @author Eliezer Talon
+	 */
+	public function getBase64EncodedPicture($filename, $path = '/images') {
+		$picture = fread(fopen("$path/$filename", 'r'), filesize("$path/$filename"));
+		return base64_encode($picture);
+	}
+	
 }
