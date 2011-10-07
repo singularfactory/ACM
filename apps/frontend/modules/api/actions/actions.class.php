@@ -10,7 +10,7 @@
 */
 class apiActions extends MyActions {
 	
-	// Error codes
+	// HTTP status codes
 	const HttpRequestSuccess = 200;
 	const HttpInvalidRequestMethod = 405;
 	const HttpInvalidToken = 401;
@@ -18,7 +18,7 @@ class apiActions extends MyActions {
 	const HttpInvalidJSON = 400;
 	const HttpServerError = 500;
 	
-	// HTTP status codes
+	// Error codes
 	const RequestSuccess = 0;
 	const InvalidRequestMethod = 1;
 	const InvalidToken = 2;
