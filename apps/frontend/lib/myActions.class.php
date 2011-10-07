@@ -263,6 +263,7 @@ class MyActions extends sfActions {
 	 * @author Eliezer Talon
 	 */
 	public function saveBase64EncodedPicture($data = '', $path = '/images') {
+		// Create the picture and save it
 		$pngPicture = new Imagick();
 		if ( !$pngPicture->readImageBlob(base64_decode($data)) ) {
 			throw Exception("The picture could not be decoded");
@@ -275,7 +276,24 @@ class MyActions extends sfActions {
 		if ( !$pngPicture->writeImage("$path/$filename") ) {
 			throw Exception("The picture could not be saved to the filesystem");
 		}
-
+		
+		// Create the thumbnail by resizing the image
+		try {
+			$thumbnailsDirectory = $path.sfConfig::get('app_thumbnails_dir');
+			if ( !is_dir($thumbnailsDirectory) ) {
+				mkdir($thumbnailsDirectory, 0770);
+			}
+			
+			$pngPicture->thumbnailImage(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true);
+			if ( !$pngPicture->writeImage("$thumbnailsDirectory/$filename") ) {
+				throw Exception("The picture could not be saved to the filesystem");
+			}
+		}
+		catch (Exception $e) {
+			unlink("$path/$filename");
+			throw Exception("The picture thumbnail could not be created. {$e->getMessage()}");
+		}
+		
 		$pngPicture->clear();
 		$pngPicture->destroy();
 		return $filename;
