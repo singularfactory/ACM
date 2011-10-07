@@ -192,6 +192,7 @@ class apiActions extends MyActions {
 			}
 			
 			// Create samples
+			$samples = array();
 			if ( isset($json['sample']) ) {
 				foreach ( $json['sample'] as $records ) {
 					$sample = new Sample;
@@ -224,6 +225,9 @@ class apiActions extends MyActions {
 					
 					$sample->save();
 					
+					// Store the new ID of this sample to compare with Picture.sample_id
+					$samples[$records['id']] = $sample->getId();
+					
 					// Manage many-to-many relationships with Collector once the sample has been saved
 					if ( isset($records['collector_id']) ) {
 						$collectors = $records['collector_id'];
@@ -243,25 +247,37 @@ class apiActions extends MyActions {
 				}
 			}
 			
-			// Create location pictures
-			if ( isset($json['location_picture']) ) {
-				foreach ( $json['location_picture'] as $records ) {
-					$locationPicture = new LocationPicture;
-					$filename = $this->saveBase64EncodedPicture($records['image_data'], sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'));
-					$locationPicture->setFilename($filename);
-					
-					$locationId = $records['location_id'];
-					if ( isset($locations[$locationId]) ) {
-						$locationPicture->setLocationId($locations[$locationId]);
+			// Create pictures
+			$pictureModels = array(
+				'LocationPicture' => array('parent' => 'Location', 'array' => $locations),
+				'FieldPicture' => array('parent' => 'Sample', 'array' => $samples),
+				'DetailedPicture' => array('parent' => 'Sample', 'array' => $samples),
+			);
+			foreach ( $pictureModels as $model => $parentInformation ) {
+				$key = sfInflector::underscore($model);
+				
+				if ( isset($json[$key]) ) {
+					$parentModel = sfInflector::underscore($parentInformation['parent']);
+					foreach ( $json[$key] as $records ) {
+						$picture = new $model;
+						$filename = $this->saveBase64EncodedPicture($records['image_data'], sfConfig::get('sf_upload_dir').sfConfig::get('app_'.$parentModel.'_pictures_dir'));
+						$picture->setFilename($filename);
+						
+						$foreignKey = sfInflector::foreign_key($parentModel, true);
+						$parentId = $records[$foreignKey];
+						$foreignKeyArray = $parentInformation['array'];
+						if ( isset($foreignKeyArray[$parentId]) ) {
+							call_user_func(array($picture, 'set'.sfInflector::camelize($foreignKey)), $foreignKeyArray[$parentId]);
+						}
+						else if ( $parentId ) {
+							call_user_func(array($picture, 'set'.sfInflector::camelize($foreignKey)), $parentId);
+						}
+						else {
+							throw new Exception("The picture {$records['id']} does not have a valid $foreignKey");
+						}
+						
+						$picture->save();
 					}
-					else if ( $locationId ) {
-						$locationPicture->setLocationId($locationId);
-					}
-					else {
-						throw new Exception("The picture {$records['id']} does not have a valid location_id");
-					}
-					
-					$locationPicture->save();
 				}
 			}
 			
