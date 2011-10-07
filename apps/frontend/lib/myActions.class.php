@@ -253,4 +253,32 @@ class MyActions extends sfActions {
 		return base64_encode($picture);
 	}
 	
+	/**
+	 * Saves a PNG picture encoded in Base64 in filesystem
+	 *
+	 * @param string $data Encoded picture
+	 * @param string $path If null, it's assumed that the picture is located in 'images' directory
+	 * 
+	 * @return string Filename of the PNG picture in local filesystem
+	 * @author Eliezer Talon
+	 */
+	public function saveBase64EncodedPicture($data = '', $path = '/images') {
+		$pngPicture = new Imagick();
+		if ( !$pngPicture->readImageBlob(base64_decode($data)) ) {
+			throw Exception("The picture could not be decoded");
+		}
+		
+		$pngPicture->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
+		$pngPicture->setResolution(sfConfig::get('app_picture_resolution'), sfConfig::get('app_picture_resolution'));
+		
+		$filename = sha1(substr($data, 0, 40).rand(11111, 99999)).'.png';
+		if ( !$pngPicture->writeImage("$path/$filename") ) {
+			throw Exception("The picture could not be saved to the filesystem");
+		}
+
+		$pngPicture->clear();
+		$pngPicture->destroy();
+		return $filename;
+	}
+	
 }

@@ -243,6 +243,28 @@ class apiActions extends MyActions {
 				}
 			}
 			
+			// Create location pictures
+			if ( isset($json['location_picture']) ) {
+				foreach ( $json['location_picture'] as $records ) {
+					$locationPicture = new LocationPicture;
+					$filename = $this->saveBase64EncodedPicture($records['image_data'], sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'));
+					$locationPicture->setFilename($filename);
+					
+					$locationId = $records['location_id'];
+					if ( isset($locations[$locationId]) ) {
+						$locationPicture->setLocationId($locations[$locationId]);
+					}
+					else if ( $locationId ) {
+						$locationPicture->setLocationId($locationId);
+					}
+					else {
+						throw new Exception("The picture {$records['id']} does not have a valid location_id");
+					}
+					
+					$locationPicture->save();
+				}
+			}
+			
 			$dbConnection->commit();
 		}
 		catch (Exception $e) {
