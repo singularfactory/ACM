@@ -47,6 +47,6 @@ php_value memory_limit 512M
 php_value post_max_size 355M
 php_value upload_max_filesize 350M
 php_value max_input_time 3600
-php_value suhosin.post.max_value_length			10000000
-php_value suhosin.request.max_value_length	10000000
+php_value suhosin.post.max_value_length			50000000
+php_value suhosin.request.max_value_length	50000000
 
