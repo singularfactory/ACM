@@ -48,6 +48,9 @@ class apiActions extends MyActions {
 				$content = (empty($content))?'Server error':$content;
 				$exitStatus = self::HttpServerError;
 				break;
+			default:
+				$exitStatus = self::HttpRequestSuccess;
+				break;
 		}
 		
 		$this->getResponse()->setStatusCode($exitStatus);
@@ -174,13 +177,29 @@ class apiActions extends MyActions {
 			if ( isset($json['location']) ) {
 				foreach ( $json['location'] as $records ) {
 					$location = new Location;
-					$location->setName($records['name']);
-					$location->setLatitude($records['latitude']);
-					$location->setLongitude($records['longitude']);
-					$location->setCountryId($records['country_id']);
-					$location->setRegionId($records['region_id']);
-					$location->setIslandId($records['island_id']);
-					$location->setRemarks($records['remarks']);
+					
+					if ( isset($records['name']) ) {
+						$location->setName($records['name']);
+					}
+					if ( isset($records['latitude']) ) {
+						$location->setLatitude($records['latitude']);
+					}
+					if ( isset($records['longitude']) ) {
+						$location->setLongitude($records['longitude']);
+					}
+					if ( isset($records['country_id']) ) {
+						$location->setCountryId($records['country_id']);
+					}
+					if ( isset($records['region_id']) ) {
+						$location->setRegionId($records['region_id']);
+					}
+					if ( isset($records['island_id']) ) {
+						$location->setIslandId($records['island_id']);
+					}
+					if ( isset($records['remarks']) ) {
+						$location->setRemarks($records['remarks']);
+					}
+					
 					$location->save();
 					
 					// Store the new ID of this location to compare with Sample.location_id
@@ -193,31 +212,62 @@ class apiActions extends MyActions {
 			if ( isset($json['sample']) ) {
 				foreach ( $json['sample'] as $records ) {
 					$sample = new Sample;
-					$sample->setLatitude($records['latitude']);
-					$sample->setLongitude($records['longitude']);
-					$sample->setEnvironmentId($records['environment_id']);
-					$sample->setHabitatId($records['habitat_id']);
-					$sample->setPh($records['ph']);
-					$sample->setConductivity($records['conductivity']);
-					$sample->setTemperature($records['temperature']);
-					$sample->setSalinity($records['salinity']);
-					$sample->setAltitude($records['altitude']);
-					$sample->setRadiationId($records['radiation_id']);
-					$sample->setRemarks($records['remarks']);
-					$sample->setIsExtremophile($records['is_extremophile']);
-					$sample->setNotebookCode($records['notebook_code']);
-					$sample->setCollectionDate(($records['collection_date'])?$records['collection_date']:date('Y-m-d'));
+					
+					if ( isset($records['latitude']) ) {
+						$sample->setLatitude($records['latitude']);
+					}
+					if ( isset($records['longitude']) ) {
+						$sample->setLongitude($records['longitude']);
+					}
+					if ( isset($records['environment_id']) ) {
+						$sample->setEnvironmentId($records['environment_id']);
+					}
+					if ( isset($records['habitat_id']) ) {
+						$sample->setHabitatId($records['habitat_id']);
+					}
+					if ( isset($records['ph']) ) {
+						$sample->setPh($records['ph']);
+					}
+					if ( isset($records['conductivity']) ) {
+						$sample->setConductivity($records['conductivity']);
+					}
+					if ( isset($records['temperature']) ) {
+						$sample->setTemperature($records['temperature']);
+					}
+					if ( isset($records['salinity']) ) {
+						$sample->setSalinity($records['salinity']);
+					}
+					if ( isset($records['altitude']) ) {
+						$sample->setAltitude($records['altitude']);
+					}
+					if ( isset($records['radiation_id']) ) {
+						$sample->setRadiationId($records['radiation_id']);
+					}
+					if ( isset($records['remarks']) ) {
+						$sample->setRemarks($records['remarks']);
+					}
+					if ( isset($records['is_extremophile']) ) {
+						$sample->setIsExtremophile($records['is_extremophile']);
+					}
+					if ( isset($records['notebook_code']) ) {
+						$sample->setNotebookCode($records['notebook_code']);
+					}
+					if ( isset($records['collection_date']) ) {
+						$sample->setCollectionDate(($records['collection_date'])?$records['collection_date']:date('Y-m-d'));
+					}
 					
 					// Manage the relationship with Location
-					$locationId = $records['location_id'];
-					if ( isset($locations[$locationId]) ) {
-						$sample->setLocationId($locations[$locationId]);
-					}
-					else if ( $locationId ) {
-						$sample->setLocationId($locationId);
-					}
-					else {
-						throw new Exception("The sample {$records['id']} does not have a valid location_id");
+					if ( isset($records['location_id']) ) {
+						$locationId = $records['location_id'];
+						if ( isset($locations[$locationId]) ) {
+							$sample->setLocationId($locations[$locationId]);
+						}
+						else if ( $locationId ) {
+							$sample->setLocationId($locationId);
+						}
+						else {
+							throw new Exception("The sample {$records['id']} does not have a valid location_id");
+						}
 					}
 					
 					$sample->save();
@@ -240,7 +290,6 @@ class apiActions extends MyActions {
 							$sampleCollectors->save();
 						}
 					}
-					
 				}
 			}
 			
@@ -255,12 +304,16 @@ class apiActions extends MyActions {
 				
 				if ( isset($json[$key]) ) {
 					$parentModel = sfInflector::underscore($parentInformation['parent']);
+					$foreignKey = sfInflector::foreign_key($parentModel, true);
 					foreach ( $json[$key] as $records ) {
+						if ( !isset($records['image_data']) || !isset($records[$foreignKey]) ) {
+							continue;
+						}
+						
 						$picture = new $model;
 						$filename = $this->saveBase64EncodedPicture($records['image_data'], sfConfig::get('sf_upload_dir').sfConfig::get('app_'.$parentModel.'_pictures_dir'));
 						$picture->setFilename($filename);
 						
-						$foreignKey = sfInflector::foreign_key($parentModel, true);
 						$parentId = $records[$foreignKey];
 						$foreignKeyArray = $parentInformation['array'];
 						if ( isset($foreignKeyArray[$parentId]) ) {
