@@ -541,7 +541,7 @@ class apiActions extends MyActions {
 		}
 		catch (Exception $e) {
 			$dbConnection->rollback();
-			return $this->requestExitStatus(self::ServerError, 'The purchase order could not be saved to the database');
+			return $this->requestExitStatus(self::ServerError, "The purchase order could not be saved to the database. {$e->getMessage()}");
 		}
 		
 		return $this->requestExitStatus();
