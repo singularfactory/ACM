@@ -27,30 +27,27 @@ class apiActions extends MyActions {
 	const ServerError = 5;
 	
 	protected function requestExitStatus($error = self::RequestSuccess, $content = '') {
-		$exitStatus = self::HttpRequestSuccess;
-		if ( empty($content) ) {
-			switch ( $error ) {
-				case self::InvalidRequestMethod:
-					$content = 'Invalid request method';
-					$exitStatus = self::HttpInvalidRequestMethod;
-					break;
-				case self::InvalidToken:
-					$content = 'Invalid token';
-					$exitStatus = self::HttpInvalidToken;
-					break;
-				case self::InvalidTimestamp:
-					$content = 'Invalid timestamp';
-					$exitStatus = self::HttpInvalidTimestamp;
-					break;
-				case self::InvalidJSON:
-					$content = 'Invalid JSON';
-					$exitStatus = self::HttpInvalidJSON;
-					break;
-				case self::ServerError:
-					$content = 'Server error';
-					$exitStatus = self::HttpServerError;
-					break;
-			}
+		switch ( $error ) {
+			case self::InvalidRequestMethod:
+				$content = (empty($content))?'Invalid request method':$content;
+				$exitStatus = self::HttpInvalidRequestMethod;
+				break;
+			case self::InvalidToken:
+				$content = (empty($content))?'Invalid token':$content;
+				$exitStatus = self::HttpInvalidToken;
+				break;
+			case self::InvalidTimestamp:
+				$content = (empty($content))?'Invalid timestamp':$content;
+				$exitStatus = self::HttpInvalidTimestamp;
+				break;
+			case self::InvalidJSON:
+				$content = (empty($content))?'Invalid JSON':$content;
+				$exitStatus = self::HttpInvalidJSON;
+				break;
+			case self::ServerError:
+				$content = (empty($content))?'Server error':$content;
+				$exitStatus = self::HttpServerError;
+				break;
 		}
 		
 		$this->getResponse()->setStatusCode($exitStatus);
@@ -273,6 +270,7 @@ class apiActions extends MyActions {
 							call_user_func(array($picture, 'set'.sfInflector::camelize($foreignKey)), $parentId);
 						}
 						else {
+							$this->removePicturesFromFilesystem(array($filename), sfConfig::get('app_'.$parentModel.'_pictures_dir'));
 							throw new Exception("The picture {$records['id']} does not have a valid $foreignKey");
 						}
 						
@@ -312,15 +310,65 @@ class apiActions extends MyActions {
 			
 			if ( isset($json['location']) ) {
 				foreach ( $json['location'] as $records ) {
-					$location = new Location;
-					$location->setName($records['name']);
-					$location->setLatitude($records['latitude']);
-					$location->setLongitude($records['longitude']);
-					$location->setCountryId($records['country_id']);
-					$location->setRegionId($records['region_id']);
-					$location->setIslandId($records['island_id']);
-					$location->setRemarks($records['remarks']);
+					$location = LocationTable::getInstance()->find($records['id']);
+					if ( isset($records['name']) ) {
+						$location->setName($records['name']);
+					}
+					
+					if ( isset($records['latitude']) ) {
+						$location->setLatitude($records['latitude']);
+					}
+					
+					if ( isset($records['longitude']) ) {
+						$location->setLongitude($records['longitude']);
+					}
+					
+					if ( isset($records['country_id']) ) {
+						$location->setCountryId($records['country_id']);
+					}
+					
+					if ( isset($records['region_id']) ) {
+						$location->setRegionId($records['region_id']);
+					}
+					
+					if ( isset($records['island_id']) ) {
+						$location->setIslandId($records['island_id']);
+					}
+					
+					if ( isset($records['remarks']) ) {
+						$location->setRemarks($records['remarks']);
+					}
+					
 					$location->save();
+				}
+			}
+			
+			if ( isset($json['location_picture']) ) {
+				foreach ( $json['location_picture'] as $records ) {
+					// Delete actual pictures
+					$filenames = array();
+					$ids = array();
+					foreach ( LocationTable::getInstance()->find($records['location_id'])->getPictures() as $picture ) {
+						$filenames[] = $picture->getFilename();
+						$ids[] = $picture->getId();
+					}
+					LocationPictureTable::getInstance()->createQuery('q')->delete('LocationPicture lp')->whereIn('lp.id', $ids)->execute();
+					$this->removePicturesFromFilesystem($filenames, sfConfig::get('app_location_pictures_dir'));
+					
+					// Create the new pictures
+					$picture = new LocationPicture;
+					$filename = $this->saveBase64EncodedPicture($records['image_data'], sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'));
+					$picture->setFilename($filename);
+					
+					if ( isset($records['location_id']) ) {
+						$picture->setLocationId($records['location_id']);
+					}
+					else {
+						$this->removePicturesFromFilesystem(array($filename), sfConfig::get('app_location_pictures_dir'));
+						throw new Exception("The picture {$records['id']} does not have a valid location_id");
+					}
+					
+					$picture->save();
 				}
 			}
 			
@@ -330,7 +378,6 @@ class apiActions extends MyActions {
 			$dbConnection->rollback();
 			return $this->requestExitStatus(self::ServerError, "The location merging could not be saved to the database (".$e->getMessage().")");
 		}
-		
 		
 		return $this->requestExitStatus();
 	}
