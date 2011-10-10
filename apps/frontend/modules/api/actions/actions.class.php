@@ -206,10 +206,10 @@ class apiActions extends MyActions {
 					$sample->setSalinity($records['salinity']);
 					$sample->setAltitude($records['altitude']);
 					$sample->setRadiationId($records['radiation_id']);
-					$sample->setCollectionDate($records['collection_date']);
 					$sample->setRemarks($records['remarks']);
 					$sample->setIsExtremophile($records['is_extremophile']);
 					$sample->setNotebookCode($records['notebook_code']);
+					$sample->setCollectionDate(($records['collection_date'])?$records['collection_date']:date('Y-m-d'));
 					
 					// Manage the relationship with Location
 					$locationId = $records['location_id'];
