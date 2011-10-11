@@ -21,7 +21,7 @@
  * @subpackage form
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author     Jonathan H. Wage <jonwage@gmail.com>
- * @version    SVN: $Id: sfFormFilterDoctrine.class.php 32740 2011-07-09 09:24:03Z fabien $
+ * @version    SVN: $Id: sfFormFilterDoctrine.class.php 33123 2011-10-07 12:52:03Z fabien $
  */
 abstract class sfFormFilterDoctrine extends sfFormFilter
 {
@@ -163,7 +163,7 @@ abstract class sfFormFilterDoctrine extends sfFormFilter
     $fields = $this->getFields();
 
     // add those fields that are not represented in getFields() with a null type
-    $names = array_merge($fields, array_diff(array_keys($this->validatorSchema->getFields()), array_keys($fields)));
+    $names = array_merge(array_diff(array_keys($this->validatorSchema->getFields()), array_keys($fields)));
     $fields = array_merge($fields, array_combine($names, array_fill(0, count($names), null)));
 
     foreach ($fields as $field => $type)
