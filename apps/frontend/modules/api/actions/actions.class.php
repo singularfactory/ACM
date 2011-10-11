@@ -26,7 +26,7 @@ class apiActions extends MyActions {
 	const InvalidJSON = 4;
 	const ServerError = 5;
 	
-	protected function requestExitStatus($error = self::RequestSuccess, $content = '') {
+	protected function requestExitStatus($error = self::RequestSuccess, $content = 0) {
 		switch ( $error ) {
 			case self::InvalidRequestMethod:
 				$content = (empty($content))?'Invalid request method':$content;
