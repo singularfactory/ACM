@@ -361,9 +361,20 @@ class apiActions extends MyActions {
 		try {
 			$dbConnection->beginTransaction();
 			
+			$skippedLocations = array();
 			if ( isset($json['location']) ) {
 				foreach ( $json['location'] as $records ) {
 					$location = LocationTable::getInstance()->find($records['id']);
+
+					if ( !isset($records['updated_at']) ) {
+						throw new Exception("Missing updated_at field");
+					}
+					$updatedAt = date('Y-m-d H:i:s', $records['updated_at']);
+					if ( $location->getUpdatedAt() > $updatedAt ) {
+						$skippedLocations[] = $location->getId();
+						continue;
+					}
+
 					if ( isset($records['name']) ) {
 						$location->setName($records['name']);
 					}
@@ -398,6 +409,10 @@ class apiActions extends MyActions {
 			
 			if ( isset($json['location_picture']) ) {
 				foreach ( $json['location_picture'] as $records ) {
+					if ( in_array($records['location_id'], $skippedLocations) ) {
+						continue;
+					}
+
 					// Delete actual pictures
 					$filenames = array();
 					$ids = array();
