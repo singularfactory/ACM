@@ -613,8 +613,10 @@ PurchaseItem:
     amount:             { type: integer, notnull: true, default: 1 }
     remarks:            { type: string }
     purchase_order_id:  { type: integer, notnull: true }
+    supervisor_id:      { type: integer }
   relations:
     PurchaseOrder:      { foreignAlias: Items, onDelete: cascade }
+    Supervisor:         { foreignAlias: Items, class: sfGuardUser, local: supervisor_id }
   indexes:
     purchase_item_status:
       fields: [status]

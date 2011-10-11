@@ -57,8 +57,8 @@ div.object_related_model_long_list th, div.object_related_model_long_list td { f
 
 #object_related_models, #object_google_map { float: right; margin: 0px 0px 21px 21px; }
 #object_related_models h2 { margin-top: 0px; }
-div.object_related_model_list { padding-top: 0px; margin: 0px 0px 32px 0px; overflow: auto; width: 500px; }
-div.object_related_model_list table { margin: 0px; padding: 0px; width: 478px; }
+div.object_related_model_list { padding-top: 0px; margin: 0px 0px 32px 0px; overflow: auto; width: 600px; }
+div.object_related_model_list table { margin: 0px; padding: 0px; width: 578px; }
 div.object_related_model_list th, div.object_related_model_list td { font-size: 11px; }
 
 
@@ -95,7 +95,7 @@ td.notification_date, td.purchase_order_date { width: 130px; }
 td.purchase_order_items { width: 100px; }
 td.purchase_order_status, td.purchase_item_status { width: 100px; }
 td.purchase_order_code { width: 150px; }
-td.purchase_item_product { width: 200px; }
+td.purchase_item_product { width: 150px; }
 td.collectors_name { width: 240px; }
 
 th.object_count, td.object_count,

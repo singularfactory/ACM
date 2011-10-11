@@ -13,7 +13,9 @@
  * @property integer $amount
  * @property string $remarks
  * @property integer $purchase_order_id
+ * @property integer $supervisor_id
  * @property PurchaseOrder $PurchaseOrder
+ * @property sfGuardUser $Supervisor
  * 
  * @method integer       getId()                Returns the current record's "id" value
  * @method enum          getStatus()            Returns the current record's "status" value
@@ -23,7 +25,9 @@
  * @method integer       getAmount()            Returns the current record's "amount" value
  * @method string        getRemarks()           Returns the current record's "remarks" value
  * @method integer       getPurchaseOrderId()   Returns the current record's "purchase_order_id" value
+ * @method integer       getSupervisorId()      Returns the current record's "supervisor_id" value
  * @method PurchaseOrder getPurchaseOrder()     Returns the current record's "PurchaseOrder" value
+ * @method sfGuardUser   getSupervisor()        Returns the current record's "Supervisor" value
  * @method PurchaseItem  setId()                Sets the current record's "id" value
  * @method PurchaseItem  setStatus()            Sets the current record's "status" value
  * @method PurchaseItem  setProduct()           Sets the current record's "product" value
@@ -32,7 +36,9 @@
  * @method PurchaseItem  setAmount()            Sets the current record's "amount" value
  * @method PurchaseItem  setRemarks()           Sets the current record's "remarks" value
  * @method PurchaseItem  setPurchaseOrderId()   Sets the current record's "purchase_order_id" value
+ * @method PurchaseItem  setSupervisorId()      Sets the current record's "supervisor_id" value
  * @method PurchaseItem  setPurchaseOrder()     Sets the current record's "PurchaseOrder" value
+ * @method PurchaseItem  setSupervisor()        Sets the current record's "Supervisor" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -86,6 +92,9 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
+        $this->hasColumn('supervisor_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
 
 
         $this->index('purchase_item_status', array(
@@ -104,6 +113,10 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
              'local' => 'purchase_order_id',
              'foreign' => 'id',
              'onDelete' => 'cascade'));
+
+        $this->hasOne('sfGuardUser as Supervisor', array(
+             'local' => 'supervisor_id',
+             'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

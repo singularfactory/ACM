@@ -23,6 +23,7 @@ abstract class BasePurchaseItemForm extends BaseFormDoctrine
       'amount'            => new sfWidgetFormInputText(),
       'remarks'           => new sfWidgetFormTextarea(),
       'purchase_order_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PurchaseOrder'), 'add_empty' => false)),
+      'supervisor_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
     ));
@@ -36,6 +37,7 @@ abstract class BasePurchaseItemForm extends BaseFormDoctrine
       'amount'            => new sfValidatorInteger(array('required' => false)),
       'remarks'           => new sfValidatorString(array('required' => false)),
       'purchase_order_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PurchaseOrder'))),
+      'supervisor_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'required' => false)),
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
     ));

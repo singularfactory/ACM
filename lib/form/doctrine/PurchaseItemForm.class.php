@@ -32,5 +32,7 @@ class PurchaseItemForm extends BasePurchaseItemForm {
 		$this->setWidget('product_id', new sfWidgetFormInputHidden());
 		
 		$this->widgetSchema->setHelp('status', 'Status of this item');
+		$this->widgetSchema->setLabel('supervisor_id', 'Prepared by');
+		$this->widgetSchema->setHelp('supervisor_id', 'Biologist responsible for this product');
 	}
 }

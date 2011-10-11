@@ -20,6 +20,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
       'amount'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'remarks'           => new sfWidgetFormFilterInput(),
       'purchase_order_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PurchaseOrder'), 'add_empty' => true)),
+      'supervisor_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
       'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
@@ -32,6 +33,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
       'amount'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'remarks'           => new sfValidatorPass(array('required' => false)),
       'purchase_order_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('PurchaseOrder'), 'column' => 'id')),
+      'supervisor_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Supervisor'), 'column' => 'id')),
       'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -61,6 +63,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
       'amount'            => 'Number',
       'remarks'           => 'Text',
       'purchase_order_id' => 'ForeignKey',
+      'supervisor_id'     => 'ForeignKey',
       'created_at'        => 'Date',
       'updated_at'        => 'Date',
     );

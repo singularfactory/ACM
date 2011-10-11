@@ -14,6 +14,13 @@
 			<?php echo $form['status'] ?>
 		</div>
 		
+		<div id="supervisor_id">
+			<?php echo $form['supervisor_id']->renderLabel() ?>
+			<?php echo $form['supervisor_id']->renderError() ?>
+			<?php echo $form['supervisor_id']->renderHelp() ?>
+			<?php echo $form['supervisor_id'] ?>
+		</div>
+		
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>

@@ -27,6 +27,7 @@
  * @property sfGuardForgotPassword $ForgotPassword
  * @property Doctrine_Collection $Events
  * @property Doctrine_Collection $Notifications
+ * @property Doctrine_Collection $Items
  * 
  * @method string                getFirstName()             Returns the current record's "first_name" value
  * @method string                getLastName()              Returns the current record's "last_name" value
@@ -50,6 +51,7 @@
  * @method sfGuardForgotPassword getForgotPassword()        Returns the current record's "ForgotPassword" value
  * @method Doctrine_Collection   getEvents()                Returns the current record's "Events" collection
  * @method Doctrine_Collection   getNotifications()         Returns the current record's "Notifications" collection
+ * @method Doctrine_Collection   getItems()                 Returns the current record's "Items" collection
  * @method sfGuardUser           setFirstName()             Sets the current record's "first_name" value
  * @method sfGuardUser           setLastName()              Sets the current record's "last_name" value
  * @method sfGuardUser           setEmailAddress()          Sets the current record's "email_address" value
@@ -72,6 +74,7 @@
  * @method sfGuardUser           setForgotPassword()        Sets the current record's "ForgotPassword" value
  * @method sfGuardUser           setEvents()                Sets the current record's "Events" collection
  * @method sfGuardUser           setNotifications()         Sets the current record's "Notifications" collection
+ * @method sfGuardUser           setItems()                 Sets the current record's "Items" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -194,6 +197,10 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
         $this->hasMany('Notification as Notifications', array(
              'local' => 'id',
              'foreign' => 'user_id'));
+
+        $this->hasMany('PurchaseItem as Items', array(
+             'local' => 'id',
+             'foreign' => 'supervisor_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

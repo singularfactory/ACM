@@ -77,4 +77,13 @@ class PurchaseItem extends BasePurchaseItem {
 		}
 	}
 	
+	public function getFormattedSupervisor() {
+		$supervisor = $this->getSupervisor();
+		if ( $supervisor->exists() ) {
+			return $supervisor;
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
 }

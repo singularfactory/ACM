@@ -12,6 +12,10 @@
  */
 class sfGuardUser extends PluginsfGuardUser {
 	
+	public function __toString() {
+		return $this->getFirstName().' '.$this->getLastName();
+	}
+	
 	public function getNbUnreadNotifications() {
 		return NotificationTable::getInstance()->createQuery('n')
 			->where('n.user_id = ?', $this->getId())

@@ -107,13 +107,12 @@ class PurchaseOrder extends BasePurchaseOrder {
 			$this->trySave();
 		}
 		
-		// if item is ready => set order to ready if every item is ready, otherwise set to processing
-		if ( $itemStatus == sfConfig::get('app_purchase_item_ready') ) {
+		if ( $this->getStatus() != sfConfig::get('app_purchase_order_sent') && $itemStatus == sfConfig::get('app_purchase_item_ready') ) {
 			if ( $this->getNbReadyItems() == $this->getNbItems() ) {
 				$this->setStatus(sfConfig::get('app_purchase_order_ready'));
 				$this->trySave();
 			}
-			else if ( $this->getStatus() != sfConfig::get('app_purchase_order_processing') ) {
+			else {
 				$this->setStatus(sfConfig::get('app_purchase_order_processing'));
 				$this->setActivationDate(date('Y-m-d H:i:s'));
 				$this->trySave();
