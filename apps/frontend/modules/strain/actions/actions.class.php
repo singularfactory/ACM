@@ -21,11 +21,14 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
+				->leftJoin("{$this->mainAlias()}.Isolators i")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere('s.id LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%");
+				->orWhere('sp.name LIKE ?', "%$text%")
+				->orWhere('i.name LIKE ?', "%$text%")
+				->orWhere('i.surname LIKE ?', "%$text%");
 				
 			// Parse search term to catch boolean-type columns
 			if ( preg_match('/\d[Bb]/', $text) ) {
@@ -42,7 +45,8 @@ class strainActions extends MyActions {
 		}
 		else {
 			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.Sample s");
+				->leftJoin("{$this->mainAlias()}.Sample s")
+				->leftJoin("{$this->mainAlias()}.Isolators i");
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
@@ -105,7 +109,7 @@ class strainActions extends MyActions {
 			$strain->setGenusId($lastStrain->getGenusId());
 			$strain->setSpeciesId($lastStrain->getSpeciesId());
 			$strain->setAuthorityId($lastStrain->getAuthorityId());
-			$strain->setIsolatorId($lastStrain->getIsolatorId());
+			//$strain->setIsolatorId($lastStrain->getIsolatorId());
 			$strain->setDepositorId($lastStrain->getDepositorId());
 			$strain->setIdentifierId($lastStrain->getIdentifierId());
 			$strain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());

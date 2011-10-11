@@ -91,9 +91,11 @@
 			<?php echo $form['cryopreservation_method_id'] ?>
 		</div>
 		
-		<div id="isolator">
-			<?php echo $form['isolator_id']->renderLabel() ?>
-			<?php echo $form['isolator_id'] ?>
+		<div id="isolators">
+			<?php echo $form['isolators_list']->renderLabel() ?>
+			<?php echo $form['isolators_list']->renderError() ?>
+			<?php echo $form['isolators_list']->renderHelp() ?>
+			<?php echo $form['isolators_list'] ?>
 		</div>
 		
 		<div id="isolation_date" class="date_field">

@@ -37,6 +37,25 @@
 		</div>
 		<?php endif ?>
 		
+		<?php $nbIsolators = $strain->getNbIsolators() ?>
+		<?php if ( $nbIsolators > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Isolators</h2>
+			<table>
+				<tr>
+					<th class="isolator_name">Name</th>
+					<th class="object_count_long">Total strains</th>
+				</tr>
+				<?php foreach ($strain->getIsolators() as $isolator ): ?>
+				<tr>
+					<td class="isolator_name"><?php echo $isolator->getName() ?> <?php echo $isolator->getSurname() ?></td>
+					<td class="object_count_long"><?php echo $isolator->getNbStrains() ?></span></td>
+				</tr>
+			<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 		<?php $nbAxenityTests = $strain->getNbAxenityTests() ?>
 		<?php if ( $nbAxenityTests > 0): ?>
 		<div class="object_related_model_list">
@@ -88,7 +107,6 @@
 			<?php endforeach; ?>
 		</div>
 		<?php endif ?>
-		
 	</div>
 	
 	<div id="object_data_list">
@@ -162,11 +180,9 @@
 			
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getFormattedObservation() ?></dd>
-
-			<?php if ( $strain->getIsolator()->getName() ): ?>
-			<dt>Isolator:</dt>
-			<dd><?php echo $strain->getIsolator() ?> ( <?php echo $strain->getFormattedIsolationDate() ?> )</dd>
-			<?php endif; ?>
+			
+			<dt>Isolators:</dt>
+			<dd><?php echo $nbIsolators ?>	</dd>
 			
 			<?php if ( $strain->getIdentifier()->getName() ): ?>
 			<dt>Identifier:</dt>

@@ -93,6 +93,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
 		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
+		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('id', 'Numeric code assigned to the strain <strong>without BEA nor B suffix</strong>');
@@ -112,6 +113,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('container_id', 'Type of container where the strain grows better');
+		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
   }
 
 

@@ -15,21 +15,23 @@ abstract class BaseIsolatorForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'name'       => new sfWidgetFormInputText(),
-      'surname'    => new sfWidgetFormInputText(),
-      'email'      => new sfWidgetFormInputText(),
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
+      'id'           => new sfWidgetFormInputHidden(),
+      'name'         => new sfWidgetFormInputText(),
+      'surname'      => new sfWidgetFormInputText(),
+      'email'        => new sfWidgetFormInputText(),
+      'created_at'   => new sfWidgetFormDateTime(),
+      'updated_at'   => new sfWidgetFormDateTime(),
+      'strains_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
     ));
 
     $this->setValidators(array(
-      'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 127)),
-      'surname'    => new sfValidatorString(array('max_length' => 127)),
-      'email'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'created_at' => new sfValidatorDateTime(),
-      'updated_at' => new sfValidatorDateTime(),
+      'id'           => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'name'         => new sfValidatorString(array('max_length' => 127)),
+      'surname'      => new sfValidatorString(array('max_length' => 127)),
+      'email'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'created_at'   => new sfValidatorDateTime(),
+      'updated_at'   => new sfValidatorDateTime(),
+      'strains_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('isolator[%s]');
@@ -44,6 +46,62 @@ abstract class BaseIsolatorForm extends BaseFormDoctrine
   public function getModelName()
   {
     return 'Isolator';
+  }
+
+  public function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+
+    if (isset($this->widgetSchema['strains_list']))
+    {
+      $this->setDefault('strains_list', $this->object->Strains->getPrimaryKeys());
+    }
+
+  }
+
+  protected function doSave($con = null)
+  {
+    $this->saveStrainsList($con);
+
+    parent::doSave($con);
+  }
+
+  public function saveStrainsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['strains_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Strains->getPrimaryKeys();
+    $values = $this->getValue('strains_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Strains', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Strains', array_values($link));
+    }
   }
 
 }

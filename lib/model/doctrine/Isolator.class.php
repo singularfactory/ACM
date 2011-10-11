@@ -17,7 +17,7 @@ class Isolator extends BaseIsolator {
 	
 	public function getNbStrains() {
 		return Doctrine_Query::create()
-			->from('Strain s')
+			->from('StrainIsolators s')
 			->where('s.isolator_id = ?', $this->getId())
 			->count();
 	}

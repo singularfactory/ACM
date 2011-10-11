@@ -146,4 +146,24 @@ class Strain extends BaseStrain {
 		return sfConfig::get('app_no_data_message');
 	}
 	
+	public function getNbIsolators() {
+		return count($this->getIsolators());
+	}
+	
+	public function getFormattedCollectors() {
+		$isolators = '';
+		foreach ( $this->getIsolators() as $isolator ) {
+			$name = $isolator->getName();
+			$surname = $isolator->getSurname();
+			$isolators .= "$name $surname, ";
+		}
+		
+		if ( empty($isolators) ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		else {
+			return preg_replace('/, $/', '', $isolators);
+		}
+	}
+	
 }

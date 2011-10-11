@@ -24,7 +24,6 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'genus_id'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => false)),
       'species_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => false)),
       'authority_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => false)),
-      'isolator_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Isolator'), 'add_empty' => false)),
       'isolation_date'             => new sfWidgetFormDate(),
       'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'deposition_date'            => new sfWidgetFormDate(),
@@ -39,6 +38,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'remarks'                    => new sfWidgetFormTextarea(),
       'created_at'                 => new sfWidgetFormDateTime(),
       'updated_at'                 => new sfWidgetFormDateTime(),
+      'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
     ));
 
@@ -52,7 +52,6 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'genus_id'                   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'))),
       'species_id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Species'))),
       'authority_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'))),
-      'isolator_id'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Isolator'))),
       'isolation_date'             => new sfValidatorDate(),
       'depositor_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'required' => false)),
       'deposition_date'            => new sfValidatorDate(array('required' => false)),
@@ -67,6 +66,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'remarks'                    => new sfValidatorString(array('required' => false)),
       'created_at'                 => new sfValidatorDateTime(),
       'updated_at'                 => new sfValidatorDateTime(),
+      'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
     ));
 
@@ -88,6 +88,11 @@ abstract class BaseStrainForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
+    if (isset($this->widgetSchema['isolators_list']))
+    {
+      $this->setDefault('isolators_list', $this->object->Isolators->getPrimaryKeys());
+    }
+
     if (isset($this->widgetSchema['culture_media_list']))
     {
       $this->setDefault('culture_media_list', $this->object->CultureMedia->getPrimaryKeys());
@@ -97,9 +102,48 @@ abstract class BaseStrainForm extends BaseFormDoctrine
 
   protected function doSave($con = null)
   {
+    $this->saveIsolatorsList($con);
     $this->saveCultureMediaList($con);
 
     parent::doSave($con);
+  }
+
+  public function saveIsolatorsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['isolators_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Isolators->getPrimaryKeys();
+    $values = $this->getValue('isolators_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Isolators', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Isolators', array_values($link));
+    }
   }
 
   public function saveCultureMediaList($con = null)

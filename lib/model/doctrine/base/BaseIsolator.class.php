@@ -78,8 +78,9 @@ abstract class BaseIsolator extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Strain as Strains', array(
-             'local' => 'id',
-             'foreign' => 'isolator_id'));
+             'refClass' => 'StrainIsolators',
+             'local' => 'isolator_id',
+             'foreign' => 'strain_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

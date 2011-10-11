@@ -14,7 +14,6 @@
  * @property integer $genus_id
  * @property integer $species_id
  * @property integer $authority_id
- * @property integer $isolator_id
  * @property date $isolation_date
  * @property integer $depositor_id
  * @property date $deposition_date
@@ -32,13 +31,14 @@
  * @property Genus $Genus
  * @property Species $Species
  * @property Authority $Authority
- * @property Isolator $Isolator
+ * @property Doctrine_Collection $Isolators
  * @property Depositor $Depositor
  * @property Identifier $Identifier
  * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Container $Container
  * @property Doctrine_Collection $CultureMedia
+ * @property Doctrine_Collection $StrainIsolators
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $AxenityTests
  * @property Doctrine_Collection $Pictures
@@ -54,7 +54,6 @@
  * @method integer                getGenusId()                    Returns the current record's "genus_id" value
  * @method integer                getSpeciesId()                  Returns the current record's "species_id" value
  * @method integer                getAuthorityId()                Returns the current record's "authority_id" value
- * @method integer                getIsolatorId()                 Returns the current record's "isolator_id" value
  * @method date                   getIsolationDate()              Returns the current record's "isolation_date" value
  * @method integer                getDepositorId()                Returns the current record's "depositor_id" value
  * @method date                   getDepositionDate()             Returns the current record's "deposition_date" value
@@ -72,13 +71,14 @@
  * @method Genus                  getGenus()                      Returns the current record's "Genus" value
  * @method Species                getSpecies()                    Returns the current record's "Species" value
  * @method Authority              getAuthority()                  Returns the current record's "Authority" value
- * @method Isolator               getIsolator()                   Returns the current record's "Isolator" value
+ * @method Doctrine_Collection    getIsolators()                  Returns the current record's "Isolators" collection
  * @method Depositor              getDepositor()                  Returns the current record's "Depositor" value
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
  * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Container              getContainer()                  Returns the current record's "Container" value
  * @method Doctrine_Collection    getCultureMedia()               Returns the current record's "CultureMedia" collection
+ * @method Doctrine_Collection    getStrainIsolators()            Returns the current record's "StrainIsolators" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getAxenityTests()               Returns the current record's "AxenityTests" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
@@ -93,7 +93,6 @@
  * @method Strain                 setGenusId()                    Sets the current record's "genus_id" value
  * @method Strain                 setSpeciesId()                  Sets the current record's "species_id" value
  * @method Strain                 setAuthorityId()                Sets the current record's "authority_id" value
- * @method Strain                 setIsolatorId()                 Sets the current record's "isolator_id" value
  * @method Strain                 setIsolationDate()              Sets the current record's "isolation_date" value
  * @method Strain                 setDepositorId()                Sets the current record's "depositor_id" value
  * @method Strain                 setDepositionDate()             Sets the current record's "deposition_date" value
@@ -111,13 +110,14 @@
  * @method Strain                 setGenus()                      Sets the current record's "Genus" value
  * @method Strain                 setSpecies()                    Sets the current record's "Species" value
  * @method Strain                 setAuthority()                  Sets the current record's "Authority" value
- * @method Strain                 setIsolator()                   Sets the current record's "Isolator" value
+ * @method Strain                 setIsolators()                  Sets the current record's "Isolators" collection
  * @method Strain                 setDepositor()                  Sets the current record's "Depositor" value
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * @method Strain                 setContainer()                  Sets the current record's "Container" value
  * @method Strain                 setCultureMedia()               Sets the current record's "CultureMedia" collection
+ * @method Strain                 setStrainIsolators()            Sets the current record's "StrainIsolators" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
  * @method Strain                 setAxenityTests()               Sets the current record's "AxenityTests" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
@@ -170,10 +170,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              'notnull' => true,
              ));
         $this->hasColumn('authority_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
-        $this->hasColumn('isolator_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
@@ -243,9 +239,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'authority_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Isolator', array(
-             'local' => 'isolator_id',
-             'foreign' => 'id'));
+        $this->hasMany('Isolator as Isolators', array(
+             'refClass' => 'StrainIsolators',
+             'local' => 'strain_id',
+             'foreign' => 'isolator_id'));
 
         $this->hasOne('Depositor', array(
              'local' => 'depositor_id',
@@ -271,6 +268,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'refClass' => 'StrainCultureMedia',
              'local' => 'strain_id',
              'foreign' => 'culture_medium_id'));
+
+        $this->hasMany('StrainIsolators', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
 
         $this->hasMany('StrainRelative as Relatives', array(
              'local' => 'id',

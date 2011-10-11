@@ -115,7 +115,7 @@ class sampleActions extends MyActions {
 			$sample->setSalinity($lastSample->getSalinity());
 			$sample->setAltitude($lastSample->getAltitude());
 			$sample->setRadiationId($lastSample->getRadiationId());
-			$sample->setCollectorId($lastSample->getCollectorId());
+			//$sample->setCollectorId($lastSample->getCollectorId());
 			$sample->setCollectionDate($lastSample->getCollectionDate());
 			$sample->setRemarks($lastSample->getRemarks());
 			

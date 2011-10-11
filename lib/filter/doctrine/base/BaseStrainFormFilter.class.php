@@ -21,7 +21,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'genus_id'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => true)),
       'species_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => true)),
       'authority_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => true)),
-      'isolator_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Isolator'), 'add_empty' => true)),
       'isolation_date'             => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'deposition_date'            => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -36,6 +35,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'remarks'                    => new sfWidgetFormFilterInput(),
       'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
     ));
 
@@ -48,7 +48,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'genus_id'                   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Genus'), 'column' => 'id')),
       'species_id'                 => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Species'), 'column' => 'id')),
       'authority_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Authority'), 'column' => 'id')),
-      'isolator_id'                => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Isolator'), 'column' => 'id')),
       'isolation_date'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'depositor_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Depositor'), 'column' => 'id')),
       'deposition_date'            => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
@@ -63,6 +62,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'remarks'                    => new sfValidatorPass(array('required' => false)),
       'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
     ));
 
@@ -73,6 +73,24 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     $this->setupInheritance();
 
     parent::setup();
+  }
+
+  public function addIsolatorsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.StrainIsolators StrainIsolators')
+      ->andWhereIn('StrainIsolators.isolator_id', $values)
+    ;
   }
 
   public function addCultureMediaListColumnQuery(Doctrine_Query $query, $field, $values)
@@ -110,7 +128,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'genus_id'                   => 'ForeignKey',
       'species_id'                 => 'ForeignKey',
       'authority_id'               => 'ForeignKey',
-      'isolator_id'                => 'ForeignKey',
       'isolation_date'             => 'Date',
       'depositor_id'               => 'ForeignKey',
       'deposition_date'            => 'Date',
@@ -125,6 +142,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'remarks'                    => 'Text',
       'created_at'                 => 'Date',
       'updated_at'                 => 'Date',
+      'isolators_list'             => 'ManyKey',
       'culture_media_list'         => 'ManyKey',
     );
   }
