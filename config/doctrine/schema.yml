@@ -588,10 +588,11 @@ Notification:
 
 PurchaseOrder:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    status:   { type: enum, values: [pending, processing, ready, sent] }
-    code:     { type: string(40) }
-    remarks:  { type: string }
+    id:               { type: integer, primary: true, autoincrement: true }
+    status:           { type: enum, values: [pending, processing, ready, sent] }
+    code:             { type: string(40) }
+    remarks:          { type: string }
+    activation_date:  { type: date }
   indexes:
     purchase_order_status:
       fields: [status]
