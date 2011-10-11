@@ -221,6 +221,8 @@ Isolator:
     name:     { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
+  relations:
+    Strains:  { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
   indexes:
     isolator_name:
       fields:
@@ -228,6 +230,14 @@ Isolator:
     isolator_surname:
       fields:
         surname: { length: 20 }
+
+
+StrainIsolators:
+  columns:
+    strain_id:    { type: integer, primary: true }
+    isolator_id:  { type: integer, primary: true }
+  relations:
+    Strain:       { onDelete: cascade }
 
 
 Depositor:
@@ -391,7 +401,6 @@ Strain:
     genus_id:                   { type: integer, notnull: true }
     species_id:                 { type: integer, notnull: true }
     authority_id:               { type: integer, notnull: true }
-    isolator_id:                { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
     depositor_id:               { type: integer }
     deposition_date:            { type: date }
@@ -411,7 +420,7 @@ Strain:
     Genus:                  { foreignAlias: Strains }
     Species:                { foreignAlias: Strains }
     Authority:              { foreignAlias: Strains }
-    Isolator:               { foreignAlias: Strains }
+    Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators }
     Depositor:              { foreignAlias: Strains }
     Identifier:             { foreignAlias: Strains }
     MaintenanceStatus:      { foreignAlias: Strains }
