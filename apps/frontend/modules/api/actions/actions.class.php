@@ -365,7 +365,8 @@ class apiActions extends MyActions {
 			if ( isset($json['location']) ) {
 				foreach ( $json['location'] as $records ) {
 					$location = LocationTable::getInstance()->find($records['id']);
-
+					
+					// Decide if this location should be updated using timestamps
 					if ( !isset($records['updated_at']) ) {
 						throw new Exception("Missing updated_at field");
 					}
@@ -402,7 +403,7 @@ class apiActions extends MyActions {
 					if ( isset($records['remarks']) ) {
 						$location->setRemarks($records['remarks']);
 					}
-					
+
 					$location->save();
 				}
 			}
