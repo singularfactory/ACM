@@ -79,6 +79,8 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
              'foreign' => 'purchase_order_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
+        $date0 = new Date();
         $this->actAs($timestampable0);
+        $this->actAs($date0);
     }
 }

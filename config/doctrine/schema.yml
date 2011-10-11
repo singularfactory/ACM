@@ -593,6 +593,9 @@ PurchaseOrder:
     code:             { type: string(40) }
     remarks:          { type: string }
     activation_date:  { type: date }
+  actAs:
+    Timestampable:
+    Date:
   indexes:
     purchase_order_status:
       fields: [status]
