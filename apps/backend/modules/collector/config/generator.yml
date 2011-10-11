@@ -29,7 +29,8 @@ generator:
         sort: ~
       filter:
         display: [name, surname, email]
-      form: ~
+      form:
+        display:  [name, surname, email]
       edit:
         title: Edit "%%name%% %%surname%%"
       new:
