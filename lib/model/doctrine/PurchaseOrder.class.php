@@ -30,6 +30,14 @@ class PurchaseOrder extends BasePurchaseOrder {
 		return sfConfig::get('app_no_data_message');
 	}
 	
+	public function getDeliveryDate() {
+		if ( $deliveryDate = $this->_get('delivery_date') ) {
+			return $this->formatFriendlyDate($deliveryDate);
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
 	public function setActivationDate($activationDate) {
 		if ( !$this->_get('activation_date') ) {
 			return $this->_set('activation_date', $activationDate);
@@ -40,6 +48,11 @@ class PurchaseOrder extends BasePurchaseOrder {
 		if ( $this->getStatus() == sfConfig::get('app_purchase_order_pending') && $status > $this->getStatus() == sfConfig::get('app_purchase_order_pending') ) {
 			$this->setActivationDate(date('Y-m-d H:i:s'));
 		}
+		
+		if ( $this->getStatus() != sfConfig::get('app_purchase_order_sent') && $status == sfConfig::get('app_purchase_order_sent') ) {
+			$this->setDeliveryDate(date('Y-m-d H:i:s'));
+		}
+		
 		$this->_set('status', $status);
 	}
 	

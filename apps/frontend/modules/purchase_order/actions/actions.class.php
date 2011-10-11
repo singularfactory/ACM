@@ -105,6 +105,8 @@ class purchase_orderActions extends MyActions {
 		
 		// Notify the public web
 		$remoteUrl = sfConfig::get('app_notify_sent_public_web_url');
+		$purchaseOrder->setDeliveryDate(date('Y-m-d- H:i:s'));
+		$purchaseOrder->trySave();
 		
 		// Notify via application's inbox
 		$message = "The purchase order #{$purchaseOrder->getCode()} has been sent to the customer";
@@ -114,7 +116,7 @@ class purchase_orderActions extends MyActions {
 			$notification->setMessage($message);
 			$notification->setStatus($status);
 			$notification->setUserId($user->getId());
-			$notification->save();
+			$notification->trySave();
 		}
 	}
 	

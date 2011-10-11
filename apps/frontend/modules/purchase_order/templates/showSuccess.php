@@ -39,8 +39,10 @@
 			<dd><?php echo $purchaseOrder->getCode() ?></dd>
 			<dt>Received:</dt>
 			<dd><?php echo $purchaseOrder->getDate() ?></dd>
-			<dt>Activation:</dt>
+			<dt>Activated:</dt>
 			<dd><?php echo $purchaseOrder->getActivationDate() ?></dd>
+			<dt>Delivered:</dt>
+			<dd><?php echo $purchaseOrder->getDeliveryDate() ?></dd>
 			<dt>Status:</dt>
 			<dd><?php echo $purchaseOrder->getFormattedStatus() ?></dd>
 			<dt>Items:</dt>
