@@ -10,6 +10,7 @@
  * @property string $code
  * @property string $remarks
  * @property timestamp $activation_date
+ * @property timestamp $delivery_date
  * @property Doctrine_Collection $Items
  * 
  * @method integer             getId()              Returns the current record's "id" value
@@ -17,12 +18,14 @@
  * @method string              getCode()            Returns the current record's "code" value
  * @method string              getRemarks()         Returns the current record's "remarks" value
  * @method timestamp           getActivationDate()  Returns the current record's "activation_date" value
+ * @method timestamp           getDeliveryDate()    Returns the current record's "delivery_date" value
  * @method Doctrine_Collection getItems()           Returns the current record's "Items" collection
  * @method PurchaseOrder       setId()              Sets the current record's "id" value
  * @method PurchaseOrder       setStatus()          Sets the current record's "status" value
  * @method PurchaseOrder       setCode()            Sets the current record's "code" value
  * @method PurchaseOrder       setRemarks()         Sets the current record's "remarks" value
  * @method PurchaseOrder       setActivationDate()  Sets the current record's "activation_date" value
+ * @method PurchaseOrder       setDeliveryDate()    Sets the current record's "delivery_date" value
  * @method PurchaseOrder       setItems()           Sets the current record's "Items" collection
  * 
  * @package    bna_green_house
@@ -58,6 +61,9 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
              'type' => 'string',
              ));
         $this->hasColumn('activation_date', 'timestamp', null, array(
+             'type' => 'timestamp',
+             ));
+        $this->hasColumn('delivery_date', 'timestamp', null, array(
              'type' => 'timestamp',
              ));
 

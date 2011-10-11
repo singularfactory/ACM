@@ -593,6 +593,7 @@ PurchaseOrder:
     code:             { type: string(40) }
     remarks:          { type: string }
     activation_date:  { type: timestamp }
+    delivery_date:    { type: timestamp }
   actAs:
     Timestampable:
     Date:
