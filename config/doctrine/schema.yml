@@ -591,6 +591,7 @@ PurchaseOrder:
     id:               { type: integer, primary: true, autoincrement: true }
     status:           { type: enum, values: [pending, processing, ready, sent] }
     code:             { type: string(40) }
+    customer:         { type: string(512) }
     remarks:          { type: string }
     activation_date:  { type: timestamp }
     delivery_date:    { type: timestamp }

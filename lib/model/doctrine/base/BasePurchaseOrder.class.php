@@ -8,6 +8,7 @@
  * @property integer $id
  * @property enum $status
  * @property string $code
+ * @property string $customer
  * @property string $remarks
  * @property timestamp $activation_date
  * @property timestamp $delivery_date
@@ -16,6 +17,7 @@
  * @method integer             getId()              Returns the current record's "id" value
  * @method enum                getStatus()          Returns the current record's "status" value
  * @method string              getCode()            Returns the current record's "code" value
+ * @method string              getCustomer()        Returns the current record's "customer" value
  * @method string              getRemarks()         Returns the current record's "remarks" value
  * @method timestamp           getActivationDate()  Returns the current record's "activation_date" value
  * @method timestamp           getDeliveryDate()    Returns the current record's "delivery_date" value
@@ -23,6 +25,7 @@
  * @method PurchaseOrder       setId()              Sets the current record's "id" value
  * @method PurchaseOrder       setStatus()          Sets the current record's "status" value
  * @method PurchaseOrder       setCode()            Sets the current record's "code" value
+ * @method PurchaseOrder       setCustomer()        Sets the current record's "customer" value
  * @method PurchaseOrder       setRemarks()         Sets the current record's "remarks" value
  * @method PurchaseOrder       setActivationDate()  Sets the current record's "activation_date" value
  * @method PurchaseOrder       setDeliveryDate()    Sets the current record's "delivery_date" value
@@ -56,6 +59,10 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
         $this->hasColumn('code', 'string', 40, array(
              'type' => 'string',
              'length' => 40,
+             ));
+        $this->hasColumn('customer', 'string', 512, array(
+             'type' => 'string',
+             'length' => 512,
              ));
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',

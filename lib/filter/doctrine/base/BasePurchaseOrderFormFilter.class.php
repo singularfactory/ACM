@@ -15,6 +15,7 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'status'          => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent'))),
       'code'            => new sfWidgetFormFilterInput(),
+      'customer'        => new sfWidgetFormFilterInput(),
       'remarks'         => new sfWidgetFormFilterInput(),
       'activation_date' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'delivery_date'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -25,6 +26,7 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'status'          => new sfValidatorChoice(array('required' => false, 'choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent'))),
       'code'            => new sfValidatorPass(array('required' => false)),
+      'customer'        => new sfValidatorPass(array('required' => false)),
       'remarks'         => new sfValidatorPass(array('required' => false)),
       'activation_date' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'delivery_date'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
@@ -52,6 +54,7 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
       'id'              => 'Number',
       'status'          => 'Enum',
       'code'            => 'Text',
+      'customer'        => 'Text',
       'remarks'         => 'Text',
       'activation_date' => 'Date',
       'delivery_date'   => 'Date',

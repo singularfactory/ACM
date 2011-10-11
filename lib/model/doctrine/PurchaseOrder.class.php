@@ -18,6 +18,14 @@ class PurchaseOrder extends BasePurchaseOrder {
 			->count();
 	}
 	
+	public function getFormattedCustomer() {
+		if ( $customer = $this->_get('customer') ) {
+			return $customer;
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
 	public function getDate() {
 		return $this->formatFriendlyDate($this->getCreatedAt());
 	}

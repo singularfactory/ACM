@@ -500,6 +500,7 @@ class apiActions extends MyActions {
 				$purchaseItem->setProduct($productType);
 				$purchaseItem->setCode($details['id']);
 				$purchaseItem->setAmount($details['amount']);
+				$purchaseItem->setCustomer($details['customer']);
 
 				// Check if the product exists
 				$id = preg_replace($productTypes[$productType]['regex'], '$1', $details['id']);

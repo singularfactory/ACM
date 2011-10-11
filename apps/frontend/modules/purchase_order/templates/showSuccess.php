@@ -37,6 +37,8 @@
 		<dl>
 			<dt>Code:</dt>
 			<dd><?php echo $purchaseOrder->getCode() ?></dd>
+			<dt>Customer:</dt>
+			<dd><?php echo $purchaseOrder->getFormattedCustomer() ?></dd>
 			<dt>Received:</dt>
 			<dd><?php echo $purchaseOrder->getDate() ?></dd>
 			<dt>Activated:</dt>
