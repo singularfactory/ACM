@@ -592,7 +592,7 @@ PurchaseOrder:
     status:           { type: enum, values: [pending, processing, ready, sent] }
     code:             { type: string(40) }
     remarks:          { type: string }
-    activation_date:  { type: date }
+    activation_date:  { type: timestamp }
   actAs:
     Timestampable:
     Date:

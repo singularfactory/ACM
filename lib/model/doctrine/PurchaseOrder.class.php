@@ -22,6 +22,27 @@ class PurchaseOrder extends BasePurchaseOrder {
 		return $this->formatFriendlyDate($this->getCreatedAt());
 	}
 	
+	public function getActivationDate() {
+		if ( $activationDate = $this->_get('activation_date') ) {
+			return $this->formatFriendlyDate($activationDate);
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function setActivationDate($activationDate) {
+		if ( !$this->_get('activation_date') ) {
+			return $this->_set('activation_date', $activationDate);
+		}
+	}
+	
+	public function setStatus($status) {
+		if ( $this->getStatus() == sfConfig::get('app_purchase_order_pending') && $status > $this->getStatus() == sfConfig::get('app_purchase_order_pending') ) {
+			$this->setActivationDate(date('Y-m-d H:i:s'));
+		}
+		$this->_set('status', $status);
+	}
+	
 	public function getFormattedStatus() {
 		switch( $this->_get('status') ) {
 			case sfConfig::get('app_purchase_order_pending'):
@@ -47,28 +68,35 @@ class PurchaseOrder extends BasePurchaseOrder {
 			->count();
 	}
 	
-	public function updateStatus($status = 1) {
-		// Change purchase order to processing if one or more items are in being processed
-		if ( $this->getStatus() < $status && $status == sfConfig::get('app_purchase_item_processing') ) {
-			$this->setStatus(sfConfig::get('app_purchase_item_processing'));
-			$this->save();
+	public function getNbReadyItems() {
+		return PurchaseItemTable::getInstance()->createQuery('pi')
+			->where('pi.purchase_order_id = ?', $this->getId())
+			->andWhere('pi.status = ?', sfConfig::get('app_purchase_item_ready'))
+			->count();
+	}
+	
+	public function updateStatusWithItemStatus($itemStatus) {
+		if ( $itemStatus == sfConfig::get('app_purchase_item_pending') ) {
+			return;
 		}
 		
-		// If every item is ready, change the purchase order status to ready
-		$itemsReady = 0;
-		foreach ($this->getItems() as $item) {
-			if ( $item->getStatus() == sfConfig::get('app_purchase_item_ready') ) {
-				$itemsReady += 1;
+		if ( $itemStatus == sfConfig::get('app_purchase_item_processing') ) {
+			$this->setStatus(sfConfig::get('app_purchase_order_processing'));
+			$this->setActivationDate(date('Y-m-d H:i:s'));
+			$this->trySave();
+		}
+		
+		// if item is ready => set order to ready if every item is ready, otherwise set to processing
+		if ( $itemStatus == sfConfig::get('app_purchase_item_ready') ) {
+			if ( $this->getNbReadyItems() == $this->getNbItems() ) {
+				$this->setStatus(sfConfig::get('app_purchase_order_ready'));
+				$this->trySave();
 			}
-		}
-		
-		if ( $itemsReady == $this->getNbItems() ) {
-			$this->setStatus(sfConfig::get('app_purchase_item_ready'));
-			$this->save();
-		}
-		else if ( $this->getStatus() == sfConfig::get('app_purchase_item_ready') ) {
-			$this->setStatus(sfConfig::get('app_purchase_item_processing'));
-			$this->save();
+			else if ( $this->getStatus() != sfConfig::get('app_purchase_order_processing') ) {
+				$this->setStatus(sfConfig::get('app_purchase_order_processing'));
+				$this->setActivationDate(date('Y-m-d H:i:s'));
+				$this->trySave();
+			}
 		}
 	}
 	

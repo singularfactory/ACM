@@ -41,7 +41,7 @@ class purchase_itemActions extends MyActions {
 				$message = 'Changes saved';
 				$url = '@purchase_order_show?id='.$purchaseItem->getPurchaseOrderId();
 				
-				$purchaseItem->getPurchaseOrder()->updateStatus($purchaseItem->getStatus());
+				$purchaseItem->getPurchaseOrder()->updateStatusWithItemStatus($purchaseItem->getStatus());
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
