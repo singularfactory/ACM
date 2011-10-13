@@ -339,6 +339,29 @@ project_search_pagination:
 
 
 ###
+# PatentDeposit model related routes
+###
+patent_deposit:
+  class:   sfDoctrineRouteCollection
+  options: { model: Project }
+
+patent_deposit_search:
+  url:          patent_deposit/search/:criteria
+  param:        { module: patent_deposit, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+patent_deposit_pagination:
+  url:          patent_deposit/page/:page
+  param:        { module: patent_deposit, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+patent_deposit_search_pagination:
+  url:          patent_deposit/search/:criteria/page/:page
+  param:        { module: patent_deposit, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Default rules
 ###
 homepage:

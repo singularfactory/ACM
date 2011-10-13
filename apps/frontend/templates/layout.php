@@ -101,7 +101,16 @@
 							echo link_to('Projects', '@project', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-								
+					
+					<li>
+						<?php
+						if ( !preg_match('/^((patent_deposit)(\/_)?)/', $currentRoute) )
+							echo link_to('Patent deposits', '@patent_deposit');
+						else
+							echo link_to('Patent deposits', '@patent_deposit', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>
