@@ -9,9 +9,9 @@
  * @property integer $strain_id
  * @property float $amount
  * @property integer $provider_id
- * @property timestamp $inoculation_date
+ * @property date $inoculation_date
  * @property string $purpose
- * @property timestamp $delivery_date
+ * @property date $delivery_date
  * @property string $remarks
  * @property Strain $Strain
  * @property sfGuardUser $Provider
@@ -20,9 +20,9 @@
  * @method integer     getStrainId()         Returns the current record's "strain_id" value
  * @method float       getAmount()           Returns the current record's "amount" value
  * @method integer     getProviderId()       Returns the current record's "provider_id" value
- * @method timestamp   getInoculationDate()  Returns the current record's "inoculation_date" value
+ * @method date        getInoculationDate()  Returns the current record's "inoculation_date" value
  * @method string      getPurpose()          Returns the current record's "purpose" value
- * @method timestamp   getDeliveryDate()     Returns the current record's "delivery_date" value
+ * @method date        getDeliveryDate()     Returns the current record's "delivery_date" value
  * @method string      getRemarks()          Returns the current record's "remarks" value
  * @method Strain      getStrain()           Returns the current record's "Strain" value
  * @method sfGuardUser getProvider()         Returns the current record's "Provider" value
@@ -64,16 +64,16 @@ abstract class BaseProject extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('inoculation_date', 'timestamp', null, array(
-             'type' => 'timestamp',
+        $this->hasColumn('inoculation_date', 'date', null, array(
+             'type' => 'date',
              'notnull' => true,
              ));
         $this->hasColumn('purpose', 'string', null, array(
              'type' => 'string',
              'notnull' => true,
              ));
-        $this->hasColumn('delivery_date', 'timestamp', null, array(
-             'type' => 'timestamp',
+        $this->hasColumn('delivery_date', 'date', null, array(
+             'type' => 'date',
              ));
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',

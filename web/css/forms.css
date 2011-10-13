@@ -135,7 +135,8 @@ a.sample_location_coordinates_url,
 a.strain_sample_numbers_url,
 a.country_regions_url,
 a.region_islands_url,
-a.dna_extraction_strain_numbers_url { display: none; }
+a.dna_extraction_strain_numbers_url,
+a.project_strain_numbers_url { display: none; }
 
 #email_address input,
 #username input,
@@ -157,14 +158,14 @@ span.gel_is_valid, span.reaction_worked { color: #005700; }
  * RELATED ID SEARCH BOX
  */
 li.ui-menu-item { text-align: left; font-size: 11px; }
-#sample_location_search, #strain_sample_search, #dna_extraction_strain_search {
+#sample_location_search, #strain_sample_search, #dna_extraction_strain_search, #project_strain_search {
 	color: #888;
 	font-size: 11px;
 	min-height: 15px;
 	width: 300px;
 	padding: 1px;
 }
-#strain_sample_search, #dna_extraction_strain_search { width: 150px; }
+#strain_sample_search, #dna_extraction_strain_search, #project_strain_search { width: 150px; }
 
 
 /**

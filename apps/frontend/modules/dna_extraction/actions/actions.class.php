@@ -81,7 +81,7 @@ class dna_extractionActions extends MyActions {
 	}
 	
 	public function executeShow(sfWebRequest $request) {
-		$this->dnaExtraction = Doctrine_Core::getTable('DnaExtraction')->find(array($request->getParameter('id')));
+		$this->dnaExtraction = DnaExtractionTable::getInstance()->find(array($request->getParameter('id')));
 		
 		// Retrieve the PCR linked to this DNA extraction
 		$this->pcrResults = $this->buildPagination($request, 'Pcr', array('init' => false, 'sort_column' => 'id'));
@@ -127,7 +127,7 @@ class dna_extractionActions extends MyActions {
 	}
 	
 	public function executeEdit(sfWebRequest $request) {
-		$this->forward404Unless($dna_extraction = Doctrine_Core::getTable('DnaExtraction')->find(array($request->getParameter('id'))), sprintf('Object dna extraction does not exist (%s).', $request->getParameter('id')));
+		$this->forward404Unless($dna_extraction = DnaExtractionTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object dna extraction does not exist (%s).', $request->getParameter('id')));
 		$this->form = new DnaExtractionForm($dna_extraction);
 		
 		$this->aliquotsAreEditable = $dna_extraction->aliquotsAreEditable();
@@ -135,7 +135,7 @@ class dna_extractionActions extends MyActions {
 	
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-		$this->forward404Unless($dna_extraction = Doctrine_Core::getTable('DnaExtraction')->find(array($request->getParameter('id'))), sprintf('Object dna_extraction does not exist (%s).', $request->getParameter('id')));
+		$this->forward404Unless($dna_extraction = DnaExtractionTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object dna_extraction does not exist (%s).', $request->getParameter('id')));
 		$this->form = new DnaExtractionForm($dna_extraction);
 
 		$this->processForm($request, $this->form);
@@ -188,4 +188,5 @@ class dna_extractionActions extends MyActions {
 		
 		$this->getUser()->setFlash('notice', 'The information on this DNA extraction has some errors you need to fix', false);
 	}
+
 }

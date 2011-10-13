@@ -78,7 +78,7 @@ div.object_related_model_list th, div.object_related_model_list td { font-size: 
 th.object_count, td.object_count { width: 35px; }
 th.object_count_long, td.object_count_long { width: 100px; }
 th.aliquots, td.aliquots { width: 60px; }
-th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band { width: 100px; }
+th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band, td.project_strain_code { width: 100px; }
 td.date { width: 110px; }
 td.extraction_kit, td.isolation_date { width: 120px; }
 td.dna_extraction_code, td.sample_code { width: 135px; }
@@ -88,7 +88,7 @@ td.strain_name { width: 240px; }
 td.culture_medium_name { width: 125px; }
 td.link { width: 250px; }
 td.location_name { width: 300px; }
-td.taxonomic_class_name { width: 130px; }
+td.taxonomic_class_name, td.inoculation_date, td.delivery_date { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount, td.is_public { width: 80px; }
 td.notification_date, td.purchase_order_date { width: 130px; }

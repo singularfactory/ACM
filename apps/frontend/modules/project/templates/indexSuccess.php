@@ -1,36 +1,60 @@
-<h1>Projects List</h1>
+<?php use_helper('Date') ?>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Strain</th>
-      <th>Amount</th>
-      <th>Provider</th>
-      <th>Inoculation date</th>
-      <th>Purpose</th>
-      <th>Delivery date</th>
-      <th>Remarks</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($projects as $project): ?>
-    <tr>
-      <td><a href="<?php echo url_for('project/show?id='.$project->getId()) ?>"><?php echo $project->getId() ?></a></td>
-      <td><?php echo $project->getStrainId() ?></td>
-      <td><?php echo $project->getAmount() ?></td>
-      <td><?php echo $project->getProviderId() ?></td>
-      <td><?php echo $project->getInoculationDate() ?></td>
-      <td><?php echo $project->getPurpose() ?></td>
-      <td><?php echo $project->getDeliveryDate() ?></td>
-      <td><?php echo $project->getRemarks() ?></td>
-      <td><?php echo $project->getCreatedAt() ?></td>
-      <td><?php echo $project->getUpdatedAt() ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+<?php slot('main_header') ?>
+<span>All projects</span>
+	<?php include_partial('global/search_box_header_action', array('route' => '@project_search?criteria=')) ?>
+	<?php include_partial('global/new_header_action', array('message' => 'Add a new project', 'route' => '@project_new')) ?>
+<?php end_slot() ?>
+
+<?php if ( $pager->count() ): ?>
+<table id="project_list">
+	<tbody>
+		<tr>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th><?php echo link_to('Strain', '@project?sort_column=Strain.id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Class', '@project?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@project?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
+			<th class="date"><?php echo link_to('Inoculation date', '@project?sort_column=inoculation_date&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Provider', '@project?sort_column=Provider.name&sort_direction='.$sortDirection) ?></th>
+			<th class="date"><?php echo link_to('Delivery date', '@project?sort_column=delivery_date&sort_direction='.$sortDirection) ?></th>
+			<th></th>
+		</tr>
+		
+		<?php foreach ($pager->getResults() as $project): ?>
+		<tr>
+			<?php $url = url_for('@project_show?id='.$project->getId()) ?>
+			<?php $strain = $project->getStrain() ?>
+			<td class="project_strain_code"><?php echo link_to($strain->getCode(), $url) ?></td>
+			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
+			<?php
+				$strainName = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
+				if ( $strain->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
+					$strainName .= '<span class="species_name">'.$strain->getSpecies().'</span>';
+				}
+				else {
+					$strainName .= $strain->getSpecies();
+				}
+			?>
+			<td class="project_name"><?php echo link_to($strainName, $url) ?></td>
+			<td class="date inoculation_date"><?php echo link_to($project->getInoculationDate(), $url) ?></td>
+			<td class="provider_name"><?php echo link_to($project->getProvider()->getName(), $url) ?></td>
+			<td class="date delivery_date"><?php echo link_to($project->getDeliveryDate(), $url) ?></td>
+
+			<td class="actions">
+				<a href="<?php echo $url ?>">
+					<?php echo link_to('Edit', '@project_edit?id='.$project->getId()) ?>
+					<?php echo link_to('Delete', '@project_delete?id='.$project->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				</a>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
 </table>
 
-  <a href="<?php echo url_for('project/new') ?>">New</a>
+<?php if ($pager->haveToPaginate()): ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'project')) ?>
+<?php endif ?>
+
+<?php else: ?>
+	<p>There are no projects to show.</p>
+<?php endif; ?>

@@ -262,7 +262,7 @@ $(document).ready(function(){
 	}
 	
 	$("#dna_extraction_strain_search").autocomplete({
-		minLength: 3,
+		minLength: 2,
 		source: function(term, add) {
 			var url = $('a.dna_extraction_strain_numbers_url').attr('href') + $("#dna_extraction_strain_search").val();
 			$.getJSON(url, function(data){ add(data); });
@@ -273,6 +273,42 @@ $(document).ready(function(){
 			return false;
 		},
 	});
+	
+	
+	// Add a search box for Strain in Project form
+	$('#project_strain_search').focus(function(){
+		if ( $(this).attr("value") === strainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#project_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", strainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#project_strain_search').val() !== strainSearchBoxDefault ) {
+		$('#project_strain_search').css("color", "black");
+		$('#project_strain_search').css("font-size", "12px");
+	}
+	
+	$("#project_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.project_strain_numbers_url').attr('href') + $("#project_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#project_strain_search" ).val( ui.item.label );
+			$( "#project_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
 	
 	// Add a "create" option to taxonomic class, genus, species and authority select elements in strain creation forms
 	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority"];

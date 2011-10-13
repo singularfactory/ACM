@@ -55,6 +55,13 @@ class Strain extends BaseStrain {
 			->count();
 	}
 	
+	public function getNbProjects() {
+		return Doctrine_Query::create()
+			->from('Project p')
+			->where('p.strain_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getNbPictures() {
 		return Doctrine_Query::create()
 			->from('StrainPicture sp')

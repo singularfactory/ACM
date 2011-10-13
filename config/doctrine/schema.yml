@@ -637,9 +637,9 @@ Project:
     strain_id:        { type: integer, notnull: true }
     amount:           { type: float, notnull: true }
     provider_id:      { type: integer, notnull: true }
-    inoculation_date: { type: timestamp, notnull: true }
+    inoculation_date: { type: date, notnull: true }
     purpose:          { type: string, notnull: true }
-    delivery_date:    { type: timestamp }
+    delivery_date:    { type: date }
     remarks:          { type: string }
   relations:
     Strain:   { foreignAlias: Projects }

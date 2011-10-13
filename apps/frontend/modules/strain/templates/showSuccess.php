@@ -90,6 +90,28 @@
 		</div>
 		<?php endif ?>
 		
+		<?php $nbProjects = $strain->getNbProjects() ?>
+		<?php if ( $nbProjects > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Projects</h2>
+			<table>
+				<tr>
+					<th class="project_inoculation_date">Date</th>
+					<th class="provider_name">Provider</th>
+					<th class="project_amount">Amount</th>
+				</tr>
+				<?php foreach ($strain->getProjects() as $project ): ?>
+					<?php $url = '@project_show?id='.$project->getId() ?>
+					<tr>
+						<td class="project_inoculation_date"><?php echo link_to($project->getInoculationDate(), $url) ?></td>
+						<td class="provider_name"><?php echo link_to($project->getProvider()->getName(), $url) ?></td>
+						<td class="project_amount"><?php echo link_to($project->getAmount(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 		<?php if ( $strain->getNbPictures() > 0 ): ?>
 		<div class="object_related_model_list">
 			<h2>Pictures</h2>
@@ -166,6 +188,9 @@
 			
 			<dt>Culture media:</dt>
 			<dd><?php echo $nbCultureMedia ?></dd>
+			
+			<dt>Projects:</dt>
+			<dd><?php echo $nbProjects ?></dd>
 			
 			<dt>DNA extractions:</dt>
 			<dd>

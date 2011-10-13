@@ -1,50 +1,47 @@
-<table>
-  <tbody>
-    <tr>
-      <th>Id:</th>
-      <td><?php echo $project->getId() ?></td>
-    </tr>
-    <tr>
-      <th>Strain:</th>
-      <td><?php echo $project->getStrainId() ?></td>
-    </tr>
-    <tr>
-      <th>Amount:</th>
-      <td><?php echo $project->getAmount() ?></td>
-    </tr>
-    <tr>
-      <th>Provider:</th>
-      <td><?php echo $project->getProviderId() ?></td>
-    </tr>
-    <tr>
-      <th>Inoculation date:</th>
-      <td><?php echo $project->getInoculationDate() ?></td>
-    </tr>
-    <tr>
-      <th>Purpose:</th>
-      <td><?php echo $project->getPurpose() ?></td>
-    </tr>
-    <tr>
-      <th>Delivery date:</th>
-      <td><?php echo $project->getDeliveryDate() ?></td>
-    </tr>
-    <tr>
-      <th>Remarks:</th>
-      <td><?php echo $project->getRemarks() ?></td>
-    </tr>
-    <tr>
-      <th>Created at:</th>
-      <td><?php echo $project->getCreatedAt() ?></td>
-    </tr>
-    <tr>
-      <th>Updated at:</th>
-      <td><?php echo $project->getUpdatedAt() ?></td>
-    </tr>
-  </tbody>
-</table>
+<?php use_helper('Date'); ?>
 
-<hr />
+<?php slot('main_header') ?>
+<span>
+	Project transference from strain <?php echo $project->getStrain()->getCode() ?>
+</span>
+<?php include_partial('global/back_header_action', array('module' => 'project')) ?>
+<?php include_partial('global/edit_header_action', array('module' => 'project', 'id' => $project->getId())) ?>
+<?php include_partial('global/delete_header_action', array('module' => 'project', 'id' => $project->getId())) ?>
+<?php end_slot() ?>
 
-<a href="<?php echo url_for('project/edit?id='.$project->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('project/index') ?>">List</a>
+<div id="main_view_show">
+	<div id="object_data_list">
+		<dl>
+			<?php $strain = $project->getStrain() ?>
+			<dt>Strain:</dt>
+			<dd><?php echo link_to($strain->getCode(), "@strain_show?id={$strain->getId()}") ?></dd>
+			
+			<dt>Class:</dt>
+			<dd><?php echo $strain->getTaxonomicClass() ?></dd>
+			<dt>Genus:</dt>
+			<dd><span class="species_name"><?php echo $strain->getGenus() ?></span></dd>
+			<dt>Species:</dt>
+			<dd>
+				<?php if ( ($strainSpecies = $strain->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
+					<span class="species_name"><?php echo $strainSpecies ?></span>
+				<?php else: ?>
+					<?php echo $strainSpecies ?>
+				<?php endif; ?>
+			</dd>
+			<dt>Inoculation date:</dt>
+			<dd><?php echo $project->getInoculationDate() ?></dd>
+			<dt>Provider:</dt>
+			<dd><?php echo $project->getProvider()->getName() ?></dd>
+			<dt>Amount:</dt>
+			<dd><?php echo $project->getAmount() ?></dd>
+			<dt>Delivery date:</dt>
+			<dd><?php echo $project->getDeliveryDate() ?></dd>
+			<dt>Purpose:</dt>
+			<dd><?php echo $project->getPurpose() ?></dd>
+			<dt>Remarks:</dt>
+			<dd><?php echo $project->getRemarks() ?></dd>
+		</dl>
+	</div>
+	
+	<div class="clear"></div>
+</div>
