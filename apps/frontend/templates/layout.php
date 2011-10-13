@@ -129,9 +129,9 @@
 							$newOrders = '';
 						}
 						if ( !preg_match('/^((purchase_order|purchase_item)(\/_)?)/', $currentRoute) )
-							echo link_to("Purchase orders$newOrders", '@purchase_order', $itemsCountCssClass);
+							echo link_to("Sales$newOrders", '@purchase_order', $itemsCountCssClass);
 						else
-							echo link_to("Purchase orders$newOrders", '@purchase_order', array('class' => 'header_menu_current_tab'));
+							echo link_to("Sales$newOrders", '@purchase_order', array('class' => 'header_menu_current_tab'));
 						?>	
 					</li>
 					
