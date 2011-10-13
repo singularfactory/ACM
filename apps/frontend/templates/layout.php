@@ -29,16 +29,12 @@
 			<div id="header_shortcuts">
 				<?php $user = $sf_user->getGuardUser() ?>
 				<div id="header_avatar">
-					<?php
-						$filename = $user->getAvatar();
-						if ( empty($filename) ) {
-							$filename = sfConfig::get('app_default_avatar');
-						}
-						else {
-							$filename = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir')."/$filename";
-						}
-					?>
-					<?php echo image_tag($filename, array('id' => 'header_avatar', 'alt' => $user->getUsername())) ?>
+					<?php if ( $user->exists() && ($filename = $user->getAvatar()) ): ?>
+						<?php $filename = sfConfig::get('app_pictures_dir').sfConfig::get('app_avatar_dir')."/$filename"; ?>
+					<?php else: ?>
+						<?php $filename = sfConfig::get('app_default_avatar') ?>
+					<?php endif ?>
+					<?php echo image_tag($filename, array('id' => 'header_avatar', 'alt' => $user->getUsername())) ?>					
 				</div>
 				
 				<div id="header_user_information">
@@ -94,6 +90,15 @@
 							echo link_to('DNA Lab', '@dna_extraction');
 						else
 							echo link_to('DNA Lab', '@dna_extraction', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
+					<li>
+						<?php
+						if ( !preg_match('/^((project)(\/_)?)/', $currentRoute) )
+							echo link_to('Projects', '@project');
+						else
+							echo link_to('Projects', '@project', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 								

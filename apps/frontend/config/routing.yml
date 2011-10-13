@@ -311,6 +311,34 @@ purchase_item:
 
 
 ###
+# Project model related routes
+###
+project:
+  class:   sfDoctrineRouteCollection
+  options: { model: Project }
+
+project_search:
+  url:          project/search/:criteria
+  param:        { module: project, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+project_find_strains:
+  url:          project/findStrains/:term
+  param:        { module: project, action: findStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+project_pagination:
+  url:          project/page/:page
+  param:        { module: project, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+project_search_pagination:
+  url:          project/search/:criteria/page/:page
+  param:        { module: project, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Default rules
 ###
 homepage:
