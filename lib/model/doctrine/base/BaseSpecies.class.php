@@ -8,13 +8,16 @@
  * @property integer $id
  * @property string $name
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method string              getName()    Returns the current record's "name" value
- * @method Doctrine_Collection getStrains() Returns the current record's "Strains" collection
- * @method Species             setId()      Sets the current record's "id" value
- * @method Species             setName()    Sets the current record's "name" value
- * @method Species             setStrains() Sets the current record's "Strains" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method Doctrine_Collection getStrains()        Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method Species             setId()             Sets the current record's "id" value
+ * @method Species             setName()           Sets the current record's "name" value
+ * @method Species             setStrains()        Sets the current record's "Strains" collection
+ * @method Species             setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -54,6 +57,10 @@ abstract class BaseSpecies extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Strain as Strains', array(
+             'local' => 'id',
+             'foreign' => 'species_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
              'local' => 'id',
              'foreign' => 'species_id'));
 

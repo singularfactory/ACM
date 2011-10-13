@@ -8,13 +8,16 @@
  * @property integer $id
  * @property string $name
  * @property Doctrine_Collection $Samples
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method string              getName()    Returns the current record's "name" value
- * @method Doctrine_Collection getSamples() Returns the current record's "Samples" collection
- * @method Environment         setId()      Sets the current record's "id" value
- * @method Environment         setName()    Sets the current record's "name" value
- * @method Environment         setSamples() Sets the current record's "Samples" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method Doctrine_Collection getSamples()        Returns the current record's "Samples" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method Environment         setId()             Sets the current record's "id" value
+ * @method Environment         setName()           Sets the current record's "name" value
+ * @method Environment         setSamples()        Sets the current record's "Samples" collection
+ * @method Environment         setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -54,6 +57,10 @@ abstract class BaseEnvironment extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Sample as Samples', array(
+             'local' => 'id',
+             'foreign' => 'environment_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
              'local' => 'id',
              'foreign' => 'environment_id'));
 

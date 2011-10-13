@@ -12,10 +12,6 @@ class StrainForm extends BaseStrainForm {
   
 	public function configure() {
 		// Unset select fields that do not have values
-		if ( DepositorTable::getInstance()->count() == 0 ) {
-			unset($this['depositor_id']);
-		}
-		
 		if ( IdentifierTable::getInstance()->count() == 0 ) {
 			unset($this['identifier_id']);
 		}
@@ -33,9 +29,7 @@ class StrainForm extends BaseStrainForm {
 		// Configure date formats
 		$lastYear = date('Y');
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
-		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years));		
-		$this->setWidget('isolation_date', $dateWidgetForm);
-		$this->setWidget('deposition_date', $dateWidgetForm);
+		$this->setWidget('isolation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 		
 		// Configure culture media relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
@@ -104,7 +98,6 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
 		$this->widgetSchema->setHelp('new_AxenityTests', 'Date of axenity tests performed');
-		$this->widgetSchema->setHelp('deposition_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain culture');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
 		$this->widgetSchema->setHelp('web_notes', 'Comments that will appear in the public web');

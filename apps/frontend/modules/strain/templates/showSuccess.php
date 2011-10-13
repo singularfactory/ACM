@@ -213,11 +213,6 @@
 			<dt>Identifier:</dt>
 			<dd><?php echo $strain->getIdentifier() ?></dd>
 			<?php endif; ?>
-			
-			<?php if ( $strain->getDepositor()->getName() ): ?>
-			<dt>Depositor:</dt>
-			<dd><?php echo $strain->getDepositor() ?> (<?php echo $strain->getFormattedDepositionDate() ?>)</dd>
-			<?php endif; ?>
 
 			<dt>Citations:</dt>
 			<dd><?php echo $strain->getFormattedCitations() ?></dd>

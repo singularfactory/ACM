@@ -9,15 +9,18 @@
  * @property string $name
  * @property string $description
  * @property Doctrine_Collection $Samples
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()          Returns the current record's "id" value
- * @method string              getName()        Returns the current record's "name" value
- * @method string              getDescription() Returns the current record's "description" value
- * @method Doctrine_Collection getSamples()     Returns the current record's "Samples" collection
- * @method Habitat             setId()          Sets the current record's "id" value
- * @method Habitat             setName()        Sets the current record's "name" value
- * @method Habitat             setDescription() Sets the current record's "description" value
- * @method Habitat             setSamples()     Sets the current record's "Samples" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method string              getDescription()    Returns the current record's "description" value
+ * @method Doctrine_Collection getSamples()        Returns the current record's "Samples" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method Habitat             setId()             Sets the current record's "id" value
+ * @method Habitat             setName()           Sets the current record's "name" value
+ * @method Habitat             setDescription()    Sets the current record's "description" value
+ * @method Habitat             setSamples()        Sets the current record's "Samples" collection
+ * @method Habitat             setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -60,6 +63,10 @@ abstract class BaseHabitat extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Sample as Samples', array(
+             'local' => 'id',
+             'foreign' => 'habitat_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
              'local' => 'id',
              'foreign' => 'habitat_id'));
 

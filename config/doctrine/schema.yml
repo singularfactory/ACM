@@ -240,21 +240,6 @@ StrainIsolators:
     Strain:       { onDelete: cascade }
 
 
-Depositor:
-  columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
-    surname:  { type: string(127), notnull: true }
-    email:    { type: string(255) }
-  indexes:
-    depositor_name:
-      fields:
-        name: { length: 20 }
-    depositor_surname:
-      fields:
-        surname: { length: 20 }
-
-
 Identifier:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
@@ -402,8 +387,6 @@ Strain:
     species_id:                 { type: integer, notnull: true }
     authority_id:               { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
-    depositor_id:               { type: integer }
-    deposition_date:            { type: date }
     identifier_id:              { type: integer }
     maintenance_status_id:      { type: integer, notnull: true }
     cryopreservation_method_id: { type: integer }
@@ -421,7 +404,6 @@ Strain:
     Species:                { foreignAlias: Strains }
     Authority:              { foreignAlias: Strains }
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators }
-    Depositor:              { foreignAlias: Strains }
     Identifier:             { foreignAlias: Strains }
     MaintenanceStatus:      { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
@@ -650,4 +632,104 @@ Project:
   actAs:
     Timestampable:
     Date:
+
+
+Depositor:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    name:     { type: string(127), notnull: true }
+    surname:  { type: string(127), notnull: true }
+    email:    { type: string(255) }
+  indexes:
+    depositor_name:
+      fields:
+        name: { length: 20 }
+    depositor_surname:
+      fields:
+        surname: { length: 20 }
+
+
+PatentDeposit:
+  columns:
+    id:                         { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:         { type: integer, notnull: true }
+    genus_id:                   { type: integer, notnull: true }
+    species_id:                 { type: integer, notnull: true }
+    authority_id:               { type: integer, notnull: true }
+    is_epitype:                 { type: boolean, notnull: true, default: false }
+    is_axenic:                  { type: boolean, notnull: true, default: false }
+    is_public:                  { type: boolean, notnull: true, default: false }
+    has_dna:                    { type: boolean, notnull: true, default: false }
+    gen_sequence:               { type: string(256) }
+    location_id:                { type: integer, notnull: true }
+    latitude:                   { type: string(10), fixed: true }
+    longitude:                  { type: string(10), fixed: true }
+    environment_id:             { type: integer, notnull: true }
+    habitat_id:                 { type: integer, notnull: true }
+    collection_date:            { type: date }
+    isolation_date:             { type: date }
+    identifier_id:              { type: integer }
+    depositor_id:               { type: integer }
+    deposition_date:            { type: date }
+    depositor_code:             { type: string(40) }
+    maintenance_status_id:      { type: integer, notnull: true }
+    cryopreservation_method_id: { type: integer }
+    transfer_interval:          { type: string(40) }
+    viability_test:             { type: string }
+    observation:                { type: string }
+    citations:                  { type: string }
+    remarks:                    { type: string }
+    bp1_link:                   { type: string(1024), notnull: true }
+    bp4_link:                   { type: string(1024), notnull: true }
+  relations:
+    TaxonomicClass:         { foreignAlias: PatentDeposits }
+    Genus:                  { foreignAlias: PatentDeposits }
+    Species:                { foreignAlias: PatentDeposits }
+    Authority:              { foreignAlias: PatentDeposits }
+    Location:               { foreignAlias: PatentDeposits }
+    Environment:            { foreignAlias: PatentDeposits }
+    Habitat:                { foreignAlias: PatentDeposits }
+    Identifier:             { foreignAlias: PatentDeposits }
+    Depositor:              { foreignAlias: PatentDeposits }
+    MaintenanceStatus:      { foreignAlias: PatentDeposits }
+    CryopreservationMethod: { foreignAlias: PatentDeposits }
+    Collectors:             { foreignAlias: Collectors, class: Collector, local: patent_deposit_id, foreign: collector_id, refClass: PatentDepositCollectors }
+    Isolators:              { foreignAlias: Isolators, class: Isolator, local: patent_deposit_id, foreign: isolator_id, refClass: PatentDepositIsolators }
+    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: patent_deposit_id, foreign: culture_medium_id, refClass: PatentDepositCultureMedia }
+  actAs:
+    Timestampable:
+    Date:
+
+
+PatentDepositRelative:
+  columns:
+    id:                 { type: integer, primary: true, autoincrement: true }
+    name:               { type: string(255), notnull: true }
+    patent_deposit_id:  { type: integer, notnull: true }
+  relations:
+    PatentDeposit:      { foreignAlias: Relatives, onDelete: cascade }
+
+
+PatentDepositCultureMedia:
+  columns:
+    patent_deposit_id:  { type: integer, primary: true }
+    culture_medium_id:  { type: integer, primary: true }
+  relations:
+    PatentDeposit:      { onDelete: cascade }
+
+
+PatentDepositIsolators:
+  columns:
+    patent_deposit_id:  { type: integer, primary: true }
+    isolator_id:        { type: integer, primary: true }
+  relations:
+    PatentDeposit:      { onDelete: cascade }
+
+
+PatentDepositCollectors:
+  columns:
+    patent_deposit_id:  { type: integer, primary: true }
+    collector_id:       { type: integer, primary: true }
+  relations:
+    PatentDeposit:      { onDelete: cascade }
 

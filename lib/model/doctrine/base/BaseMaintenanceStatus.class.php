@@ -8,13 +8,16 @@
  * @property integer $id
  * @property enum $name
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method enum                getName()    Returns the current record's "name" value
- * @method Doctrine_Collection getStrains() Returns the current record's "Strains" collection
- * @method MaintenanceStatus   setId()      Sets the current record's "id" value
- * @method MaintenanceStatus   setName()    Sets the current record's "name" value
- * @method MaintenanceStatus   setStrains() Sets the current record's "Strains" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method enum                getName()           Returns the current record's "name" value
+ * @method Doctrine_Collection getStrains()        Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method MaintenanceStatus   setId()             Sets the current record's "id" value
+ * @method MaintenanceStatus   setName()           Sets the current record's "name" value
+ * @method MaintenanceStatus   setStrains()        Sets the current record's "Strains" collection
+ * @method MaintenanceStatus   setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -58,6 +61,10 @@ abstract class BaseMaintenanceStatus extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Strain as Strains', array(
+             'local' => 'id',
+             'foreign' => 'maintenance_status_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
              'local' => 'id',
              'foreign' => 'maintenance_status_id'));
 

@@ -110,7 +110,6 @@ class strainActions extends MyActions {
 			$strain->setSpeciesId($lastStrain->getSpeciesId());
 			$strain->setAuthorityId($lastStrain->getAuthorityId());
 			//$strain->setIsolatorId($lastStrain->getIsolatorId());
-			$strain->setDepositorId($lastStrain->getDepositorId());
 			$strain->setIdentifierId($lastStrain->getIdentifierId());
 			$strain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());
 			$strain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
@@ -118,7 +117,6 @@ class strainActions extends MyActions {
 			$strain->setObservation($lastStrain->getObservation());
 			$strain->setCitations($lastStrain->getCitations());
 			$strain->setIsolationDate($lastStrain->getIsolationDate());
-			$strain->setDepositionDate($lastStrain->getDepositionDate());
 			$strain->setIdentifierDate($lastStrain->getIdentificationId());
 			$strain->setRemarks($lastStrain->getRemarks());
 			

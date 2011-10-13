@@ -15,8 +15,6 @@
  * @property integer $species_id
  * @property integer $authority_id
  * @property date $isolation_date
- * @property integer $depositor_id
- * @property date $deposition_date
  * @property integer $identifier_id
  * @property integer $maintenance_status_id
  * @property integer $cryopreservation_method_id
@@ -32,7 +30,6 @@
  * @property Species $Species
  * @property Authority $Authority
  * @property Doctrine_Collection $Isolators
- * @property Depositor $Depositor
  * @property Identifier $Identifier
  * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
@@ -56,8 +53,6 @@
  * @method integer                getSpeciesId()                  Returns the current record's "species_id" value
  * @method integer                getAuthorityId()                Returns the current record's "authority_id" value
  * @method date                   getIsolationDate()              Returns the current record's "isolation_date" value
- * @method integer                getDepositorId()                Returns the current record's "depositor_id" value
- * @method date                   getDepositionDate()             Returns the current record's "deposition_date" value
  * @method integer                getIdentifierId()               Returns the current record's "identifier_id" value
  * @method integer                getMaintenanceStatusId()        Returns the current record's "maintenance_status_id" value
  * @method integer                getCryopreservationMethodId()   Returns the current record's "cryopreservation_method_id" value
@@ -73,7 +68,6 @@
  * @method Species                getSpecies()                    Returns the current record's "Species" value
  * @method Authority              getAuthority()                  Returns the current record's "Authority" value
  * @method Doctrine_Collection    getIsolators()                  Returns the current record's "Isolators" collection
- * @method Depositor              getDepositor()                  Returns the current record's "Depositor" value
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
  * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
@@ -96,8 +90,6 @@
  * @method Strain                 setSpeciesId()                  Sets the current record's "species_id" value
  * @method Strain                 setAuthorityId()                Sets the current record's "authority_id" value
  * @method Strain                 setIsolationDate()              Sets the current record's "isolation_date" value
- * @method Strain                 setDepositorId()                Sets the current record's "depositor_id" value
- * @method Strain                 setDepositionDate()             Sets the current record's "deposition_date" value
  * @method Strain                 setIdentifierId()               Sets the current record's "identifier_id" value
  * @method Strain                 setMaintenanceStatusId()        Sets the current record's "maintenance_status_id" value
  * @method Strain                 setCryopreservationMethodId()   Sets the current record's "cryopreservation_method_id" value
@@ -113,7 +105,6 @@
  * @method Strain                 setSpecies()                    Sets the current record's "Species" value
  * @method Strain                 setAuthority()                  Sets the current record's "Authority" value
  * @method Strain                 setIsolators()                  Sets the current record's "Isolators" collection
- * @method Strain                 setDepositor()                  Sets the current record's "Depositor" value
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
@@ -180,12 +171,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              'type' => 'date',
              'notnull' => true,
              ));
-        $this->hasColumn('depositor_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
-        $this->hasColumn('deposition_date', 'date', null, array(
-             'type' => 'date',
-             ));
         $this->hasColumn('identifier_id', 'integer', null, array(
              'type' => 'integer',
              ));
@@ -246,10 +231,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              'refClass' => 'StrainIsolators',
              'local' => 'strain_id',
              'foreign' => 'isolator_id'));
-
-        $this->hasOne('Depositor', array(
-             'local' => 'depositor_id',
-             'foreign' => 'id'));
 
         $this->hasOne('Identifier', array(
              'local' => 'identifier_id',

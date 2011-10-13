@@ -9,18 +9,18 @@
  * @property string $name
  * @property string $surname
  * @property string $email
- * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method string              getName()    Returns the current record's "name" value
- * @method string              getSurname() Returns the current record's "surname" value
- * @method string              getEmail()   Returns the current record's "email" value
- * @method Doctrine_Collection getStrains() Returns the current record's "Strains" collection
- * @method Depositor           setId()      Sets the current record's "id" value
- * @method Depositor           setName()    Sets the current record's "name" value
- * @method Depositor           setSurname() Sets the current record's "surname" value
- * @method Depositor           setEmail()   Sets the current record's "email" value
- * @method Depositor           setStrains() Sets the current record's "Strains" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method string              getSurname()        Returns the current record's "surname" value
+ * @method string              getEmail()          Returns the current record's "email" value
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method Depositor           setId()             Sets the current record's "id" value
+ * @method Depositor           setName()           Sets the current record's "name" value
+ * @method Depositor           setSurname()        Sets the current record's "surname" value
+ * @method Depositor           setEmail()          Sets the current record's "email" value
+ * @method Depositor           setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -77,7 +77,7 @@ abstract class BaseDepositor extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Strain as Strains', array(
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
              'local' => 'id',
              'foreign' => 'depositor_id'));
 

@@ -15,10 +15,10 @@ class Depositor extends BaseDepositor {
 		return $this->getName().' '.$this->getSurname();
 	}
 	
-	public function getNbStrains() {
+	public function getNbPatentDeposits() {
 		return Doctrine_Query::create()
-			->from('Strain s')
-			->where('s.depositor_id = ?', $this->getId())
+			->from('PatentDeposits p')
+			->where('p.depositor_id = ?', $this->getId())
 			->count();
 	}
 }

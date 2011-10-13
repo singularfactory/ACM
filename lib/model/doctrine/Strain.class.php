@@ -142,10 +142,6 @@ class Strain extends BaseStrain {
 		return $this->formatDate($this->_get('isolation_date'));
 	}
 	
-	public function getFormattedDepositionDate() {
-		return $this->formatDate($this->_get('deposition_date'));
-	}
-	
 	public function getFormattedContainer() {
 		if ( $container = $this->getContainer()->getName() ) {
 			return $container;
