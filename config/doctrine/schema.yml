@@ -630,3 +630,24 @@ PurchaseItem:
     purchase_item_status:
       fields: [status]
 
+
+Project:
+  columns:
+    id:               { type: integer, primary: true, autoincrement: true }
+    strain_id:        { type: integer, notnull: true }
+    amount:           { type: float, notnull: true }
+    provider_id:      { type: integer, notnull: true }
+    inoculation_date: { type: timestamp, notnull: true }
+    purpose:          { type: string, notnull: true }
+    delivery_date:    { type: timestamp }
+    remarks:          { type: string }
+  relations:
+    Strain:   { foreignAlias: Projects }
+    Provider: { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
+  indexes:
+    project_inoculation_date:
+      fields: [inoculation_date]
+  actAs:
+    Timestampable:
+    Date:
+
