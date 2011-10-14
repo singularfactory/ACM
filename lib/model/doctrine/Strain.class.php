@@ -153,7 +153,7 @@ class Strain extends BaseStrain {
 		return count($this->getIsolators());
 	}
 	
-	public function getFormattedCollectors() {
+	public function getFormattedIsolators() {
 		$isolators = '';
 		foreach ( $this->getIsolators() as $isolator ) {
 			$name = $isolator->getName();
