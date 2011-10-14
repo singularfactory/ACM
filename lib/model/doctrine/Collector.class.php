@@ -22,5 +22,12 @@ class Collector extends BaseCollector {
 			->where('s.collector_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getNbPatentDeposits() {
+		return Doctrine_Query::create()
+			->from('PatentDepositCollectors s')
+			->where('s.collector_id = ?', $this->getId())
+			->count();
+	}
 
 }

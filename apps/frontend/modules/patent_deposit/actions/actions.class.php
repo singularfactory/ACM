@@ -53,8 +53,8 @@ class patent_depositActions extends MyActions {
 	}
 	
 	public function executeShow(sfWebRequest $request) {
-		$this->patent_deposit = Doctrine_Core::getTable('PatentDeposit')->find(array($request->getParameter('id')));
-		$this->forward404Unless($this->patent_deposit);
+		$this->patentDeposit = PatentDepositTable::getInstance()->find(array($request->getParameter('id')));
+		$this->forward404Unless($this->patentDeposit);
 	}
 	
 	/**
@@ -129,18 +129,18 @@ class patent_depositActions extends MyActions {
   }
 		
 	public function executeEdit(sfWebRequest $request) {
-		$this->forward404Unless($patent_deposit = Doctrine_Core::getTable('PatentDeposit')->find(array($request->getParameter('id'))), sprintf('Object patent_deposit does not exist (%s).', $request->getParameter('id')));
-		$this->form = new PatentDepositForm($patent_deposit);
+		$this->forward404Unless($patentDeposit = PatentDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object patent deposit does not exist (%s).', $request->getParameter('id')));
+		$this->form = new PatentDepositForm($patentDeposit);
 	}
 	
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-		$this->forward404Unless($patent_deposit = Doctrine_Core::getTable('PatentDeposit')->find(array($request->getParameter('id'))), sprintf('Object patent_deposit does not exist (%s).', $request->getParameter('id')));
-		$this->form = new PatentDepositForm($patent_deposit);
+    $this->forward404Unless($patentDeposit = PatentDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object patent deposit does not exist (%s).', $request->getParameter('id')));
+    $this->form = new PatentDepositForm($patentDeposit);
 
-		$this->processForm($request, $this->form);
+    $this->processForm($request, $this->form);
 
-		$this->setTemplate('edit');
+    $this->setTemplate('edit');
 	}
 	
 	protected function processForm(sfWebRequest $request, sfForm $form) {

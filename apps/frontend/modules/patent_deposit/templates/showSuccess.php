@@ -1,130 +1,198 @@
-<table>
-  <tbody>
-    <tr>
-      <th>Id:</th>
-      <td><?php echo $patent_deposit->getId() ?></td>
-    </tr>
-    <tr>
-      <th>Taxonomic class:</th>
-      <td><?php echo $patent_deposit->getTaxonomicClassId() ?></td>
-    </tr>
-    <tr>
-      <th>Genus:</th>
-      <td><?php echo $patent_deposit->getGenusId() ?></td>
-    </tr>
-    <tr>
-      <th>Species:</th>
-      <td><?php echo $patent_deposit->getSpeciesId() ?></td>
-    </tr>
-    <tr>
-      <th>Authority:</th>
-      <td><?php echo $patent_deposit->getAuthorityId() ?></td>
-    </tr>
-    <tr>
-      <th>Is epitype:</th>
-      <td><?php echo $patent_deposit->getIsEpitype() ?></td>
-    </tr>
-    <tr>
-      <th>Is axenic:</th>
-      <td><?php echo $patent_deposit->getIsAxenic() ?></td>
-    </tr>
-    <tr>
-      <th>Is public:</th>
-      <td><?php echo $patent_deposit->getIsPublic() ?></td>
-    </tr>
-    <tr>
-      <th>Has dna:</th>
-      <td><?php echo $patent_deposit->getHasDna() ?></td>
-    </tr>
-    <tr>
-      <th>Gen sequence:</th>
-      <td><?php echo $patent_deposit->getGenSequence() ?></td>
-    </tr>
-    <tr>
-      <th>Location:</th>
-      <td><?php echo $patent_deposit->getLocationId() ?></td>
-    </tr>
-    <tr>
-      <th>Environment:</th>
-      <td><?php echo $patent_deposit->getEnvironmentId() ?></td>
-    </tr>
-    <tr>
-      <th>Habitat:</th>
-      <td><?php echo $patent_deposit->getHabitatId() ?></td>
-    </tr>
-    <tr>
-      <th>Collection date:</th>
-      <td><?php echo $patent_deposit->getCollectionDate() ?></td>
-    </tr>
-    <tr>
-      <th>Isolation date:</th>
-      <td><?php echo $patent_deposit->getIsolationDate() ?></td>
-    </tr>
-    <tr>
-      <th>Identifier:</th>
-      <td><?php echo $patent_deposit->getIdentifierId() ?></td>
-    </tr>
-    <tr>
-      <th>Depositor:</th>
-      <td><?php echo $patent_deposit->getDepositorId() ?></td>
-    </tr>
-    <tr>
-      <th>Deposition date:</th>
-      <td><?php echo $patent_deposit->getDepositionDate() ?></td>
-    </tr>
-    <tr>
-      <th>Depositor code:</th>
-      <td><?php echo $patent_deposit->getDepositorCode() ?></td>
-    </tr>
-    <tr>
-      <th>Maintenance status:</th>
-      <td><?php echo $patent_deposit->getMaintenanceStatusId() ?></td>
-    </tr>
-    <tr>
-      <th>Cryopreservation method:</th>
-      <td><?php echo $patent_deposit->getCryopreservationMethodId() ?></td>
-    </tr>
-    <tr>
-      <th>Transfer interval:</th>
-      <td><?php echo $patent_deposit->getTransferInterval() ?></td>
-    </tr>
-    <tr>
-      <th>Viability test:</th>
-      <td><?php echo $patent_deposit->getViabilityTest() ?></td>
-    </tr>
-    <tr>
-      <th>Observation:</th>
-      <td><?php echo $patent_deposit->getObservation() ?></td>
-    </tr>
-    <tr>
-      <th>Citations:</th>
-      <td><?php echo $patent_deposit->getCitations() ?></td>
-    </tr>
-    <tr>
-      <th>Remarks:</th>
-      <td><?php echo $patent_deposit->getRemarks() ?></td>
-    </tr>
-    <tr>
-      <th>Bp1 link:</th>
-      <td><?php echo $patent_deposit->getBp1Link() ?></td>
-    </tr>
-    <tr>
-      <th>Bp4 link:</th>
-      <td><?php echo $patent_deposit->getBp4Link() ?></td>
-    </tr>
-    <tr>
-      <th>Created at:</th>
-      <td><?php echo $patent_deposit->getCreatedAt() ?></td>
-    </tr>
-    <tr>
-      <th>Updated at:</th>
-      <td><?php echo $patent_deposit->getUpdatedAt() ?></td>
-    </tr>
-  </tbody>
-</table>
+<?php use_helper('Date'); ?>
 
-<hr />
+<?php slot('main_header') ?>
+<span>
+	<?php echo $patentDeposit->getDepositorCode() ?> - <?php echo $patentDepositClass = $patentDeposit->getTaxonomicClass() ?>
+	<span class="species_name"><?php echo $patentDepositGenus = $patentDeposit->getGenus() ?></span>
+	<?php if ( ($patentDepositSpecies = $patentDeposit->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
+		<span class="species_name"><?php echo $patentDepositSpecies ?></span>
+	<?php else: ?>
+		<?php echo $patentDepositSpecies ?>
+	<?php endif; ?>
+</span>
+<?php include_partial('global/back_header_action', array('module' => 'patent_deposit')) ?>
+<?php include_partial('global/edit_header_action', array('module' => 'patent_deposit', 'id' => $patentDeposit->getId())) ?>
+<?php include_partial('global/delete_header_action', array('module' => 'patent_deposit', 'id' => $patentDeposit->getId())) ?>
+<?php end_slot() ?>
 
-<a href="<?php echo url_for('patent_deposit/edit?id='.$patent_deposit->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('patent_deposit/index') ?>">List</a>
+<div id="main_view_show">
+	<div id="object_related_models">
+		<?php $nbCultureMedia = $patentDeposit->getNbCultureMedia() ?>
+		<?php if ( $nbCultureMedia > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Culture media</h2>
+			<table>
+				<tr>
+					<th class="culture_medium_code">Code</th>
+					<th class="culture_medium_name">Name</th>
+				</tr>
+				<?php foreach ($patentDeposit->getCultureMedia() as $cultureMedium ): ?>
+					<?php $url = '@culture_medium_show?id='.$cultureMedium->getId() ?>
+					<tr>
+						<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
+						<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+		<?php $nbIsolators = $patentDeposit->getNbIsolators() ?>
+		<?php if ( $nbIsolators > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Isolators</h2>
+			<table>
+				<tr>
+					<th class="isolator_name">Name</th>
+					<th class="object_count_long">Total patent deposits</th>
+				</tr>
+				<?php foreach ($patentDeposit->getIsolators() as $isolator ): ?>
+				<tr>
+					<td class="isolator_name"><?php echo $isolator ?></td>
+					<td class="object_count_long"><?php echo $isolator->getNbPatentDeposits() ?></span></td>
+				</tr>
+			<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+		<?php $nbCollectors = $patentDeposit->getNbCollectors() ?>
+		<?php if ( $nbCollectors > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Collectors</h2>
+			<table>
+				<tr>
+					<th class="collector_name">Name</th>
+					<th class="object_count_long">Total patent deposits</th>
+				</tr>
+				<?php foreach ($patentDeposit->getCollectors() as $collector ): ?>
+				<tr>
+					<td class="collector_name"><?php echo $collector ?></td>
+					<td class="object_count_long"><?php echo $collector->getNbPatentDeposits() ?></span></td>
+				</tr>
+			<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+		<?php $nbRelatives = $patentDeposit->getNbRelatives() ?>
+		<?php if ( $nbRelatives > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Relatives</h2>
+			<table>
+				<tr>
+					<th class="name">Name</th>
+				</tr>
+				<?php foreach ($patentDeposit->getRelatives() as $relative ): ?>
+					<tr>
+						<td><?php echo $relative->getName() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
+	</div>
+	
+	<div id="object_data_list">
+		<dl>
+			<dt>Depositor code:</dt>
+			<dd><?php echo $patentDeposit->getDepositorCode() ?></dd>
+
+			<dt>Depositor:</dt>
+			<dd><?php echo $patentDeposit->getDepositor() ?></dd>
+
+			<dt>Deposition date:</dt>
+			<dd><?php echo $patentDeposit->getDepositionDate() ?></dd>
+			
+			<dt>Location:</dt>
+			<dd><?php echo link_to($patentDeposit->getLocation()->getName(), "@location_show?id={$patentDeposit->getLocationId()}") ?></dd>
+			<dt>Environment:</dt>
+			<dd><?php echo $patentDeposit->getEnvironment() ?></dd>
+
+			<dt>Habitat:</dt>
+			<dd><?php echo $patentDeposit->getHabitat() ?></dd>
+			
+			<dt>Class:</dt>
+			<dd><?php echo $patentDepositClass ?></dd>
+
+			<dt>Genus:</dt>
+			<dd><span class="species_name"><?php echo $patentDepositGenus ?></span></dd>
+
+			<dt>Species:</dt>
+			<dd>
+				<?php if ( $patentDepositSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
+				<span class="species_name"><?php echo $patentDepositSpecies ?></span>
+				<?php else: ?>
+				<?php echo $patentDepositSpecies ?>
+				<?php endif; ?>
+			</dd>
+
+			<dt>Authority:</dt>
+			<dd><?php echo $patentDeposit->getAuthority() ?></dd>
+			
+			<dt>Collectors:</dt>
+			<dd><?php echo $nbCollectors ?></dd>
+			
+			<dt>Is epitype:</dt>
+			<dd><?php echo $patentDeposit->getFormattedIsEpitype() ?></dd>
+
+			<dt>Is axenic:</dt>
+			<dd><?php echo $patentDeposit->getFormattedIsAxenic() ?></dd>
+
+			<dt>Is public:</dt>
+			<dd><?php echo $patentDeposit->getFormattedIsPublic() ?></dd>
+			
+			<dt>Culture media:</dt>
+			<dd><?php echo $nbCultureMedia ?></dd>
+			
+			<dt>Maintenance status:</dt>
+			<dd><?php echo $patentDeposit->getMaintenanceStatus() ?></dd>
+									
+			<?php if ( $patentDeposit->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
+			<dt>Cryopreservation:</dt>
+			<dd><?php echo $patentDeposit->getCryopreservationMethod() ?></dd>
+			<?php endif; ?>
+			
+			<dt>Isolators:</dt>
+			<dd><?php echo $nbIsolators ?>	</dd>
+			
+			<dt>Has DNA:</dt>
+			<dd><?php echo $patentDeposit->getFormattedHasDna() ?></dd>
+			
+			<?php if ( $patentDeposit->getIdentifier()->getName() ): ?>
+			<dt>Identifier:</dt>
+			<dd><?php echo $patentDeposit->getIdentifier() ?></dd>
+			<?php endif; ?>
+			
+			<dt>Gen sequence:</dt>
+			<dd><?php echo $patentDeposit->getGenSequence() ?></dd>
+			
+			<dt>Relatives:</dt>
+			<dd><?php echo $nbRelatives ?></dd>
+			
+			<dt>Transfer interval:</dt>
+			<dd><?php echo $patentDeposit->getFormattedTransferInterval() ?></dd>
+			
+			<dt>Observation:</dt>
+			<dd><?php echo $patentDeposit->getFormattedObservation() ?></dd>
+			
+			<dt>Viability test:</dt>
+			<dd><?php echo $patentDeposit->getFormattedViabilityTest() ?></dd>
+			
+			<dt>Citations:</dt>
+			<dd><?php echo $patentDeposit->getFormattedCitations() ?></dd>
+			
+			<dt>Remarks:</dt>
+			<dd><?php echo $patentDeposit->getRemarks() ?></dd>
+			
+			<dt>BP1 link:</dt>
+			<dd><?php echo $patentDeposit->getBp1Link() ?></dd>
+			
+			<dt>BP4 link:</dt>
+			<dd><?php echo $patentDeposit->getBp4Link() ?></dd>
+		</dl>
+	</div>
+	
+	<div class="clear"></div>
+</div>

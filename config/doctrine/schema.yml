@@ -186,6 +186,7 @@ Collector:
     email:    { type: string(255) }
   relations:
     Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
+    PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: collector_id, foreign: patent_deposit_id, refClass: PatentDepositCollectors }
   indexes:
     collector_name:
       fields:
@@ -222,7 +223,8 @@ Isolator:
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
   relations:
-    Strains:  { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
+    Strains:        { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
+    PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: isolator_id, foreign: patent_deposit_id, refClass: PatentDepositIsolators }
   indexes:
     isolator_name:
       fields:
@@ -324,7 +326,8 @@ CultureMedium:
     is_public:    { type: boolean, notnull: true, default: false }
     # amount:       { type: integer, notnull: true, default: 0 }
   relations:
-      Strains:    { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
+      Strains:        { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
+      PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: culture_medium_id, foreign: patent_deposit_id, refClass: PatentDepositCultureMedia }
   indexes:
     culture_medium_name:
       fields:

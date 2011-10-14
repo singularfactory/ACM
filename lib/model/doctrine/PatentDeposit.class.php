@@ -13,12 +13,25 @@
 class PatentDeposit extends BasePatentDeposit {
 	
 	public function getNbCultureMedia() {
-		return count($this->getCultureMedia());
+		return PatentDepositCultureMediaTable::getInstance()->createQuery('cm')
+			->where('cm.patent_deposit_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbCollectors() {
+		return PatentDepositCollectorsTable::getInstance()->createQuery('c')
+			->where('c.patent_deposit_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbIsolators() {
+		return PatentDepositIsolatorsTable::getInstance()->createQuery('i')
+			->where('i.patent_deposit_id = ?', $this->getId())
+			->count();
 	}
 	
 	public function getNbRelatives() {
-		return Doctrine_Query::create()
-			->from('PatentDepositRelative r')
+		return PatentDepositRelativeTable::getInstance()->createQuery('r')
 			->where('r.patent_deposit_id = ?', $this->getId())
 			->count();
 	}
@@ -30,6 +43,20 @@ class PatentDeposit extends BasePatentDeposit {
 		return false;
 	}
 	
+	public function isAxenic() {
+		if ( $this->_get('is_axenic') ) {
+			return true;
+		}
+		return false;
+	}
+	
+	public function getFormattedHasDna() {
+		if ( $this->hasDna() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
 	public function getFormattedIsEpitype() {
 		if ( $this->getIsEpitype() ) {
 			return 'yes';
@@ -37,8 +64,8 @@ class PatentDeposit extends BasePatentDeposit {
 		return 'no';
 	}
 	
-	public function getFormattedHasDna() {
-		if ( $this->hasDna() ) {
+	public function getFormattedIsAxenic() {
+		if ( $this->isAxenic() ) {
 			return 'yes';
 		}
 		return 'no';
@@ -58,6 +85,13 @@ class PatentDeposit extends BasePatentDeposit {
 		return sfConfig::get('app_no_data_message');
 	}
 	
+	public function getFormattedViabilityTest() {
+		if ( $test = $this->_get('viability_test') ) {
+			return $test;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+	
 	public function getFormattedTransferInterval() {
 		if ( $transferInterval = $this->_get('transfer_interval') ) {
 			return "$transferInterval weeks";
@@ -72,28 +106,32 @@ class PatentDeposit extends BasePatentDeposit {
 		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function getFormattedIsolationDate() {
-		return $this->formatDate($this->_get('isolation_date'));
-	}
-	
-	public function getNbIsolators() {
-		return count($this->getIsolators());
-	}
-	
-	public function getFormattedCollectors() {
-		$isolators = '';
-		foreach ( $this->getIsolators() as $isolator ) {
-			$name = $isolator->getName();
-			$surname = $isolator->getSurname();
-			$isolators .= "$name $surname, ";
-		}
-		
-		if ( empty($isolators) ) {
-			return sfConfig::get('app_no_data_message');
+	public function getDepositionDate() {
+		if ( $date = $this->_get('deposition_date') ) {
+			return $this->formatDate($date);
 		}
 		else {
-			return preg_replace('/, $/', '', $isolators);
+			return sfConfig::get('app_no_data_message');
 		}
 	}
-		
+	
+	public function getIsolationDate() {
+		if ( $date = $this->_get('isolation_date') ) {
+			return $this->formatDate($date);
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+	
+	public function getCollectionDate() {
+		if ( $date = $this->_get('collection_date') ) {
+			return $this->formatDate($date);
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+	
+	
 }

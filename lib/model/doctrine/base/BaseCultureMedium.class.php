@@ -11,19 +11,22 @@
  * @property string $link
  * @property boolean $is_public
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()          Returns the current record's "id" value
- * @method string              getName()        Returns the current record's "name" value
- * @method string              getDescription() Returns the current record's "description" value
- * @method string              getLink()        Returns the current record's "link" value
- * @method boolean             getIsPublic()    Returns the current record's "is_public" value
- * @method Doctrine_Collection getStrains()     Returns the current record's "Strains" collection
- * @method CultureMedium       setId()          Sets the current record's "id" value
- * @method CultureMedium       setName()        Sets the current record's "name" value
- * @method CultureMedium       setDescription() Sets the current record's "description" value
- * @method CultureMedium       setLink()        Sets the current record's "link" value
- * @method CultureMedium       setIsPublic()    Sets the current record's "is_public" value
- * @method CultureMedium       setStrains()     Sets the current record's "Strains" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method string              getDescription()    Returns the current record's "description" value
+ * @method string              getLink()           Returns the current record's "link" value
+ * @method boolean             getIsPublic()       Returns the current record's "is_public" value
+ * @method Doctrine_Collection getStrains()        Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method CultureMedium       setId()             Sets the current record's "id" value
+ * @method CultureMedium       setName()           Sets the current record's "name" value
+ * @method CultureMedium       setDescription()    Sets the current record's "description" value
+ * @method CultureMedium       setLink()           Sets the current record's "link" value
+ * @method CultureMedium       setIsPublic()       Sets the current record's "is_public" value
+ * @method CultureMedium       setStrains()        Sets the current record's "Strains" collection
+ * @method CultureMedium       setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -81,6 +84,11 @@ abstract class BaseCultureMedium extends sfDoctrineRecord
              'refClass' => 'StrainCultureMedia',
              'local' => 'culture_medium_id',
              'foreign' => 'strain_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'refClass' => 'PatentDepositCultureMedia',
+             'local' => 'culture_medium_id',
+             'foreign' => 'patent_deposit_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

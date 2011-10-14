@@ -10,17 +10,20 @@
  * @property string $surname
  * @property string $email
  * @property Doctrine_Collection $Samples
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method string              getName()    Returns the current record's "name" value
- * @method string              getSurname() Returns the current record's "surname" value
- * @method string              getEmail()   Returns the current record's "email" value
- * @method Doctrine_Collection getSamples() Returns the current record's "Samples" collection
- * @method Collector           setId()      Sets the current record's "id" value
- * @method Collector           setName()    Sets the current record's "name" value
- * @method Collector           setSurname() Sets the current record's "surname" value
- * @method Collector           setEmail()   Sets the current record's "email" value
- * @method Collector           setSamples() Sets the current record's "Samples" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method string              getSurname()        Returns the current record's "surname" value
+ * @method string              getEmail()          Returns the current record's "email" value
+ * @method Doctrine_Collection getSamples()        Returns the current record's "Samples" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method Collector           setId()             Sets the current record's "id" value
+ * @method Collector           setName()           Sets the current record's "name" value
+ * @method Collector           setSurname()        Sets the current record's "surname" value
+ * @method Collector           setEmail()          Sets the current record's "email" value
+ * @method Collector           setSamples()        Sets the current record's "Samples" collection
+ * @method Collector           setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -81,6 +84,11 @@ abstract class BaseCollector extends sfDoctrineRecord
              'refClass' => 'SampleCollectors',
              'local' => 'collector_id',
              'foreign' => 'sample_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'refClass' => 'PatentDepositCollectors',
+             'local' => 'collector_id',
+             'foreign' => 'patent_deposit_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

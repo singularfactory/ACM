@@ -10,17 +10,20 @@
  * @property string $surname
  * @property string $email
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $PatentDeposits
  * 
- * @method integer             getId()      Returns the current record's "id" value
- * @method string              getName()    Returns the current record's "name" value
- * @method string              getSurname() Returns the current record's "surname" value
- * @method string              getEmail()   Returns the current record's "email" value
- * @method Doctrine_Collection getStrains() Returns the current record's "Strains" collection
- * @method Isolator            setId()      Sets the current record's "id" value
- * @method Isolator            setName()    Sets the current record's "name" value
- * @method Isolator            setSurname() Sets the current record's "surname" value
- * @method Isolator            setEmail()   Sets the current record's "email" value
- * @method Isolator            setStrains() Sets the current record's "Strains" collection
+ * @method integer             getId()             Returns the current record's "id" value
+ * @method string              getName()           Returns the current record's "name" value
+ * @method string              getSurname()        Returns the current record's "surname" value
+ * @method string              getEmail()          Returns the current record's "email" value
+ * @method Doctrine_Collection getStrains()        Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
+ * @method Isolator            setId()             Sets the current record's "id" value
+ * @method Isolator            setName()           Sets the current record's "name" value
+ * @method Isolator            setSurname()        Sets the current record's "surname" value
+ * @method Isolator            setEmail()          Sets the current record's "email" value
+ * @method Isolator            setStrains()        Sets the current record's "Strains" collection
+ * @method Isolator            setPatentDeposits() Sets the current record's "PatentDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -81,6 +84,11 @@ abstract class BaseIsolator extends sfDoctrineRecord
              'refClass' => 'StrainIsolators',
              'local' => 'isolator_id',
              'foreign' => 'strain_id'));
+
+        $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'refClass' => 'PatentDepositIsolators',
+             'local' => 'isolator_id',
+             'foreign' => 'patent_deposit_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

@@ -15,25 +15,27 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'           => new sfWidgetFormInputHidden(),
-      'name'         => new sfWidgetFormInputText(),
-      'description'  => new sfWidgetFormInputText(),
-      'link'         => new sfWidgetFormTextarea(),
-      'is_public'    => new sfWidgetFormInputCheckbox(),
-      'created_at'   => new sfWidgetFormDateTime(),
-      'updated_at'   => new sfWidgetFormDateTime(),
-      'strains_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
+      'id'                   => new sfWidgetFormInputHidden(),
+      'name'                 => new sfWidgetFormInputText(),
+      'description'          => new sfWidgetFormInputText(),
+      'link'                 => new sfWidgetFormTextarea(),
+      'is_public'            => new sfWidgetFormInputCheckbox(),
+      'created_at'           => new sfWidgetFormDateTime(),
+      'updated_at'           => new sfWidgetFormDateTime(),
+      'strains_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
+      'patent_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
     ));
 
     $this->setValidators(array(
-      'id'           => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'         => new sfValidatorString(array('max_length' => 255)),
-      'description'  => new sfValidatorString(array('max_length' => 255)),
-      'link'         => new sfValidatorString(array('max_length' => 1024)),
-      'is_public'    => new sfValidatorBoolean(array('required' => false)),
-      'created_at'   => new sfValidatorDateTime(),
-      'updated_at'   => new sfValidatorDateTime(),
-      'strains_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
+      'id'                   => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'name'                 => new sfValidatorString(array('max_length' => 255)),
+      'description'          => new sfValidatorString(array('max_length' => 255)),
+      'link'                 => new sfValidatorString(array('max_length' => 1024)),
+      'is_public'            => new sfValidatorBoolean(array('required' => false)),
+      'created_at'           => new sfValidatorDateTime(),
+      'updated_at'           => new sfValidatorDateTime(),
+      'strains_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
+      'patent_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('culture_medium[%s]');
@@ -59,11 +61,17 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       $this->setDefault('strains_list', $this->object->Strains->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['patent_deposits_list']))
+    {
+      $this->setDefault('patent_deposits_list', $this->object->PatentDeposits->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
   {
     $this->saveStrainsList($con);
+    $this->savePatentDepositsList($con);
 
     parent::doSave($con);
   }
@@ -103,6 +111,44 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('Strains', array_values($link));
+    }
+  }
+
+  public function savePatentDepositsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['patent_deposits_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->PatentDeposits->getPrimaryKeys();
+    $values = $this->getValue('patent_deposits_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('PatentDeposits', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('PatentDeposits', array_values($link));
     }
   }
 

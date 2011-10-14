@@ -13,23 +13,25 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'name'         => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'description'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'link'         => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'is_public'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
-      'created_at'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'updated_at'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'strains_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
+      'name'                 => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'description'          => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'link'                 => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'is_public'            => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'created_at'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'updated_at'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'strains_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
+      'patent_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
     ));
 
     $this->setValidators(array(
-      'name'         => new sfValidatorPass(array('required' => false)),
-      'description'  => new sfValidatorPass(array('required' => false)),
-      'link'         => new sfValidatorPass(array('required' => false)),
-      'is_public'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
-      'created_at'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'updated_at'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'strains_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
+      'name'                 => new sfValidatorPass(array('required' => false)),
+      'description'          => new sfValidatorPass(array('required' => false)),
+      'link'                 => new sfValidatorPass(array('required' => false)),
+      'is_public'            => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'created_at'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'updated_at'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'strains_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
+      'patent_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('culture_medium_filters[%s]');
@@ -59,6 +61,24 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
+  public function addPatentDepositsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.PatentDepositCultureMedia PatentDepositCultureMedia')
+      ->andWhereIn('PatentDepositCultureMedia.patent_deposit_id', $values)
+    ;
+  }
+
   public function getModelName()
   {
     return 'CultureMedium';
@@ -67,14 +87,15 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'           => 'Number',
-      'name'         => 'Text',
-      'description'  => 'Text',
-      'link'         => 'Text',
-      'is_public'    => 'Boolean',
-      'created_at'   => 'Date',
-      'updated_at'   => 'Date',
-      'strains_list' => 'ManyKey',
+      'id'                   => 'Number',
+      'name'                 => 'Text',
+      'description'          => 'Text',
+      'link'                 => 'Text',
+      'is_public'            => 'Boolean',
+      'created_at'           => 'Date',
+      'updated_at'           => 'Date',
+      'strains_list'         => 'ManyKey',
+      'patent_deposits_list' => 'ManyKey',
     );
   }
 }

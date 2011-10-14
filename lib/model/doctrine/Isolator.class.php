@@ -21,4 +21,12 @@ class Isolator extends BaseIsolator {
 			->where('s.isolator_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getNbPatentDeposits() {
+		return Doctrine_Query::create()
+			->from('PatentDepositIsolators s')
+			->where('s.isolator_id = ?', $this->getId())
+			->count();
+	}
+	
 }
