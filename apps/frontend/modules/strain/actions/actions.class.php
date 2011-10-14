@@ -84,8 +84,8 @@ class strainActions extends MyActions {
 	}
 	
   public function executeShow(sfWebRequest $request) {
-    $this->strain = Doctrine_Core::getTable('Strain')->find(array($request->getParameter('id')));
-    $this->forward404Unless($this->strain);
+		$this->strain = StrainTable::getInstance()->find(array($request->getParameter('id')));
+		$this->forward404Unless($this->strain);
   }
 	
 	public function executeNewRelatedModelEmbeddedForm(sfWebRequest $request) {
