@@ -19,35 +19,38 @@
  * @property Doctrine_Collection $Pictures
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
+ * @property Doctrine_Collection $MaintenanceDeposits
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getName()           Returns the current record's "name" value
- * @method string              getLatitude()       Returns the current record's "latitude" value
- * @method string              getLongitude()      Returns the current record's "longitude" value
- * @method integer             getCountryId()      Returns the current record's "country_id" value
- * @method integer             getRegionId()       Returns the current record's "region_id" value
- * @method integer             getIslandId()       Returns the current record's "island_id" value
- * @method string              getRemarks()        Returns the current record's "remarks" value
- * @method Country             getCountry()        Returns the current record's "Country" value
- * @method Region              getRegion()         Returns the current record's "Region" value
- * @method Island              getIsland()         Returns the current record's "Island" value
- * @method Doctrine_Collection getPictures()       Returns the current record's "Pictures" collection
- * @method Doctrine_Collection getSamples()        Returns the current record's "Samples" collection
- * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
- * @method Location            setId()             Sets the current record's "id" value
- * @method Location            setName()           Sets the current record's "name" value
- * @method Location            setLatitude()       Sets the current record's "latitude" value
- * @method Location            setLongitude()      Sets the current record's "longitude" value
- * @method Location            setCountryId()      Sets the current record's "country_id" value
- * @method Location            setRegionId()       Sets the current record's "region_id" value
- * @method Location            setIslandId()       Sets the current record's "island_id" value
- * @method Location            setRemarks()        Sets the current record's "remarks" value
- * @method Location            setCountry()        Sets the current record's "Country" value
- * @method Location            setRegion()         Sets the current record's "Region" value
- * @method Location            setIsland()         Sets the current record's "Island" value
- * @method Location            setPictures()       Sets the current record's "Pictures" collection
- * @method Location            setSamples()        Sets the current record's "Samples" collection
- * @method Location            setPatentDeposits() Sets the current record's "PatentDeposits" collection
+ * @method integer             getId()                  Returns the current record's "id" value
+ * @method string              getName()                Returns the current record's "name" value
+ * @method string              getLatitude()            Returns the current record's "latitude" value
+ * @method string              getLongitude()           Returns the current record's "longitude" value
+ * @method integer             getCountryId()           Returns the current record's "country_id" value
+ * @method integer             getRegionId()            Returns the current record's "region_id" value
+ * @method integer             getIslandId()            Returns the current record's "island_id" value
+ * @method string              getRemarks()             Returns the current record's "remarks" value
+ * @method Country             getCountry()             Returns the current record's "Country" value
+ * @method Region              getRegion()              Returns the current record's "Region" value
+ * @method Island              getIsland()              Returns the current record's "Island" value
+ * @method Doctrine_Collection getPictures()            Returns the current record's "Pictures" collection
+ * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
+ * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
+ * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Location            setId()                  Sets the current record's "id" value
+ * @method Location            setName()                Sets the current record's "name" value
+ * @method Location            setLatitude()            Sets the current record's "latitude" value
+ * @method Location            setLongitude()           Sets the current record's "longitude" value
+ * @method Location            setCountryId()           Sets the current record's "country_id" value
+ * @method Location            setRegionId()            Sets the current record's "region_id" value
+ * @method Location            setIslandId()            Sets the current record's "island_id" value
+ * @method Location            setRemarks()             Sets the current record's "remarks" value
+ * @method Location            setCountry()             Sets the current record's "Country" value
+ * @method Location            setRegion()              Sets the current record's "Region" value
+ * @method Location            setIsland()              Sets the current record's "Island" value
+ * @method Location            setPictures()            Sets the current record's "Pictures" collection
+ * @method Location            setSamples()             Sets the current record's "Samples" collection
+ * @method Location            setPatentDeposits()      Sets the current record's "PatentDeposits" collection
+ * @method Location            setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -131,6 +134,10 @@ abstract class BaseLocation extends sfDoctrineRecord
              'foreign' => 'location_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'local' => 'id',
+             'foreign' => 'location_id'));
+
+        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
              'local' => 'id',
              'foreign' => 'location_id'));
 

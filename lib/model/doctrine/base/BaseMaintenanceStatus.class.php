@@ -9,15 +9,18 @@
  * @property enum $name
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $PatentDeposits
+ * @property Doctrine_Collection $MaintenanceDeposits
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method enum                getName()           Returns the current record's "name" value
- * @method Doctrine_Collection getStrains()        Returns the current record's "Strains" collection
- * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
- * @method MaintenanceStatus   setId()             Sets the current record's "id" value
- * @method MaintenanceStatus   setName()           Sets the current record's "name" value
- * @method MaintenanceStatus   setStrains()        Sets the current record's "Strains" collection
- * @method MaintenanceStatus   setPatentDeposits() Sets the current record's "PatentDeposits" collection
+ * @method integer             getId()                  Returns the current record's "id" value
+ * @method enum                getName()                Returns the current record's "name" value
+ * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
+ * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method MaintenanceStatus   setId()                  Sets the current record's "id" value
+ * @method MaintenanceStatus   setName()                Sets the current record's "name" value
+ * @method MaintenanceStatus   setStrains()             Sets the current record's "Strains" collection
+ * @method MaintenanceStatus   setPatentDeposits()      Sets the current record's "PatentDeposits" collection
+ * @method MaintenanceStatus   setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -65,6 +68,10 @@ abstract class BaseMaintenanceStatus extends sfDoctrineRecord
              'foreign' => 'maintenance_status_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'local' => 'id',
+             'foreign' => 'maintenance_status_id'));
+
+        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
              'local' => 'id',
              'foreign' => 'maintenance_status_id'));
 

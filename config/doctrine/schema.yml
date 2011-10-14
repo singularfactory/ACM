@@ -187,6 +187,7 @@ Collector:
   relations:
     Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
     PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: collector_id, foreign: patent_deposit_id, refClass: PatentDepositCollectors }
+    MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: collector_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCollectors }
   indexes:
     collector_name:
       fields:
@@ -225,6 +226,7 @@ Isolator:
   relations:
     Strains:        { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
     PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: isolator_id, foreign: patent_deposit_id, refClass: PatentDepositIsolators }
+    MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: isolator_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositIsolators }
   indexes:
     isolator_name:
       fields:
@@ -328,6 +330,7 @@ CultureMedium:
   relations:
       Strains:        { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
       PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: culture_medium_id, foreign: patent_deposit_id, refClass: PatentDepositCultureMedia }
+      MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: culture_medium_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCultureMedia }
   indexes:
     culture_medium_name:
       fields:
@@ -733,4 +736,86 @@ PatentDepositCollectors:
     collector_id:       { type: integer, primary: true }
   relations:
     PatentDeposit:      { onDelete: cascade }
+
+
+MaintenanceDeposit:
+  columns:
+    id:                         { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:         { type: integer, notnull: true }
+    genus_id:                   { type: integer, notnull: true }
+    species_id:                 { type: integer, notnull: true }
+    authority_id:               { type: integer, notnull: true }
+    is_epitype:                 { type: boolean, notnull: true, default: false }
+    is_axenic:                  { type: boolean, notnull: true, default: false }
+    is_public:                  { type: boolean, notnull: true, default: false }
+    has_dna:                    { type: boolean, notnull: true, default: false }
+    gen_sequence:               { type: string(256) }
+    location_id:                { type: integer, notnull: true }
+    environment_id:             { type: integer, notnull: true }
+    habitat_id:                 { type: integer, notnull: true }
+    collection_date:            { type: date }
+    isolation_date:             { type: date }
+    identifier_id:              { type: integer }
+    depositor_id:               { type: integer, notnull: true }
+    deposition_date:            { type: date, notnull: true }
+    depositor_code:             { type: string(40), notnull: true }
+    maintenance_status_id:      { type: integer, notnull: true }
+    cryopreservation_method_id: { type: integer }
+    transfer_interval:          { type: string(40) }
+    viability_test:             { type: string }
+    observation:                { type: string }
+    citations:                  { type: string }
+    remarks:                    { type: string }
+    mf1_link:                   { type: string(1024), notnull: true }
+  relations:
+    TaxonomicClass:         { foreignAlias: MaintenanceDeposits }
+    Genus:                  { foreignAlias: MaintenanceDeposits }
+    Species:                { foreignAlias: MaintenanceDeposits }
+    Authority:              { foreignAlias: MaintenanceDeposits }
+    Location:               { foreignAlias: MaintenanceDeposits }
+    Environment:            { foreignAlias: MaintenanceDeposits }
+    Habitat:                { foreignAlias: MaintenanceDeposits }
+    Identifier:             { foreignAlias: MaintenanceDeposits }
+    Depositor:              { foreignAlias: MaintenanceDeposits }
+    MaintenanceStatus:      { foreignAlias: MaintenanceDeposits }
+    CryopreservationMethod: { foreignAlias: MaintenanceDeposits }
+    Collectors:             { foreignAlias: Collectors, class: Collector, local: maintenance_deposit_id, foreign: collector_id, refClass: MaintenanceDepositCollectors }
+    Isolators:              { foreignAlias: Isolators, class: Isolator, local: maintenance_deposit_id, foreign: isolator_id, refClass: MaintenanceDepositIsolators }
+    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: maintenance_deposit_id, foreign: culture_medium_id, refClass: MaintenanceDepositCultureMedia }
+  actAs:
+    Timestampable:
+    Date:
+
+
+MaintenanceDepositRelative:
+  columns:
+    id:                     { type: integer, primary: true, autoincrement: true }
+    name:                   { type: string(255), notnull: true }
+    maintenance_deposit_id: { type: integer, notnull: true }
+  relations:
+    MaintenanceDeposit:     { foreignAlias: Relatives, onDelete: cascade }
+
+
+MaintenanceDepositCultureMedia:
+  columns:
+    maintenance_deposit_id: { type: integer, primary: true }
+    culture_medium_id:      { type: integer, primary: true }
+  relations:
+    MaintenanceDeposit:     { onDelete: cascade }
+
+
+MaintenanceDepositIsolators:
+  columns:
+    maintenance_deposit_id: { type: integer, primary: true }
+    isolator_id:            { type: integer, primary: true }
+  relations:
+    MaintenanceDeposit:     { onDelete: cascade }
+
+
+MaintenanceDepositCollectors:
+  columns:
+    maintenance_deposit_id: { type: integer, primary: true }
+    collector_id:           { type: integer, primary: true }
+  relations:
+    MaintenanceDeposit:     { onDelete: cascade }
 

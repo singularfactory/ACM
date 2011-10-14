@@ -9,15 +9,18 @@
  * @property string $name
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $PatentDeposits
+ * @property Doctrine_Collection $MaintenanceDeposits
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getName()           Returns the current record's "name" value
- * @method Doctrine_Collection getStrains()        Returns the current record's "Strains" collection
- * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
- * @method TaxonomicClass      setId()             Sets the current record's "id" value
- * @method TaxonomicClass      setName()           Sets the current record's "name" value
- * @method TaxonomicClass      setStrains()        Sets the current record's "Strains" collection
- * @method TaxonomicClass      setPatentDeposits() Sets the current record's "PatentDeposits" collection
+ * @method integer             getId()                  Returns the current record's "id" value
+ * @method string              getName()                Returns the current record's "name" value
+ * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
+ * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method TaxonomicClass      setId()                  Sets the current record's "id" value
+ * @method TaxonomicClass      setName()                Sets the current record's "name" value
+ * @method TaxonomicClass      setStrains()             Sets the current record's "Strains" collection
+ * @method TaxonomicClass      setPatentDeposits()      Sets the current record's "PatentDeposits" collection
+ * @method TaxonomicClass      setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -61,6 +64,10 @@ abstract class BaseTaxonomicClass extends sfDoctrineRecord
              'foreign' => 'taxonomic_class_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'local' => 'id',
+             'foreign' => 'taxonomic_class_id'));
+
+        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
              'local' => 'id',
              'foreign' => 'taxonomic_class_id'));
 

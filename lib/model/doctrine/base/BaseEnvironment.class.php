@@ -9,15 +9,18 @@
  * @property string $name
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
+ * @property Doctrine_Collection $MaintenanceDeposits
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getName()           Returns the current record's "name" value
- * @method Doctrine_Collection getSamples()        Returns the current record's "Samples" collection
- * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
- * @method Environment         setId()             Sets the current record's "id" value
- * @method Environment         setName()           Sets the current record's "name" value
- * @method Environment         setSamples()        Sets the current record's "Samples" collection
- * @method Environment         setPatentDeposits() Sets the current record's "PatentDeposits" collection
+ * @method integer             getId()                  Returns the current record's "id" value
+ * @method string              getName()                Returns the current record's "name" value
+ * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
+ * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
+ * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Environment         setId()                  Sets the current record's "id" value
+ * @method Environment         setName()                Sets the current record's "name" value
+ * @method Environment         setSamples()             Sets the current record's "Samples" collection
+ * @method Environment         setPatentDeposits()      Sets the current record's "PatentDeposits" collection
+ * @method Environment         setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -61,6 +64,10 @@ abstract class BaseEnvironment extends sfDoctrineRecord
              'foreign' => 'environment_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
+             'local' => 'id',
+             'foreign' => 'environment_id'));
+
+        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
              'local' => 'id',
              'foreign' => 'environment_id'));
 

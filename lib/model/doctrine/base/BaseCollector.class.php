@@ -11,19 +11,22 @@
  * @property string $email
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
+ * @property Doctrine_Collection $MaintenanceDeposits
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getName()           Returns the current record's "name" value
- * @method string              getSurname()        Returns the current record's "surname" value
- * @method string              getEmail()          Returns the current record's "email" value
- * @method Doctrine_Collection getSamples()        Returns the current record's "Samples" collection
- * @method Doctrine_Collection getPatentDeposits() Returns the current record's "PatentDeposits" collection
- * @method Collector           setId()             Sets the current record's "id" value
- * @method Collector           setName()           Sets the current record's "name" value
- * @method Collector           setSurname()        Sets the current record's "surname" value
- * @method Collector           setEmail()          Sets the current record's "email" value
- * @method Collector           setSamples()        Sets the current record's "Samples" collection
- * @method Collector           setPatentDeposits() Sets the current record's "PatentDeposits" collection
+ * @method integer             getId()                  Returns the current record's "id" value
+ * @method string              getName()                Returns the current record's "name" value
+ * @method string              getSurname()             Returns the current record's "surname" value
+ * @method string              getEmail()               Returns the current record's "email" value
+ * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
+ * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
+ * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Collector           setId()                  Sets the current record's "id" value
+ * @method Collector           setName()                Sets the current record's "name" value
+ * @method Collector           setSurname()             Sets the current record's "surname" value
+ * @method Collector           setEmail()               Sets the current record's "email" value
+ * @method Collector           setSamples()             Sets the current record's "Samples" collection
+ * @method Collector           setPatentDeposits()      Sets the current record's "PatentDeposits" collection
+ * @method Collector           setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -89,6 +92,11 @@ abstract class BaseCollector extends sfDoctrineRecord
              'refClass' => 'PatentDepositCollectors',
              'local' => 'collector_id',
              'foreign' => 'patent_deposit_id'));
+
+        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'refClass' => 'MaintenanceDepositCollectors',
+             'local' => 'collector_id',
+             'foreign' => 'maintenance_deposit_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
