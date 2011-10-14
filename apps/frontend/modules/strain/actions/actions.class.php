@@ -276,4 +276,5 @@ class strainActions extends MyActions {
 		
 		$this->getUser()->setFlash('notice', 'The information on this strain has some errors you need to fix', false);
   }
+
 }

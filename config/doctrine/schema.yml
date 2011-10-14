@@ -662,16 +662,14 @@ PatentDeposit:
     has_dna:                    { type: boolean, notnull: true, default: false }
     gen_sequence:               { type: string(256) }
     location_id:                { type: integer, notnull: true }
-    latitude:                   { type: string(10), fixed: true }
-    longitude:                  { type: string(10), fixed: true }
     environment_id:             { type: integer, notnull: true }
     habitat_id:                 { type: integer, notnull: true }
     collection_date:            { type: date }
     isolation_date:             { type: date }
     identifier_id:              { type: integer }
-    depositor_id:               { type: integer }
-    deposition_date:            { type: date }
-    depositor_code:             { type: string(40) }
+    depositor_id:               { type: integer, notnull: true }
+    deposition_date:            { type: date, notnull: true }
+    depositor_code:             { type: string(40), notnull: true }
     maintenance_status_id:      { type: integer, notnull: true }
     cryopreservation_method_id: { type: integer }
     transfer_interval:          { type: string(40) }

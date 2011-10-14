@@ -345,6 +345,11 @@ patent_deposit:
   class:   sfDoctrineRouteCollection
   options: { model: Project }
 
+patent_deposit_find_locations:
+  url:    patent_deposit/findLocations/:term
+  param:  { module: patent_deposit, action: findLocations }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
 patent_deposit_search:
   url:          patent_deposit/search/:criteria
   param:        { module: patent_deposit, action: index }

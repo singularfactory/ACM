@@ -132,6 +132,7 @@ div.model_text_input_dna_primer select { margin-left: 3px; display: inline; vert
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 
 a.sample_location_coordinates_url,
+a.patent_deposit_location_coordinates_url,
 a.strain_sample_numbers_url,
 a.country_regions_url,
 a.region_islands_url,
@@ -158,7 +159,7 @@ span.gel_is_valid, span.reaction_worked { color: #005700; }
  * RELATED ID SEARCH BOX
  */
 li.ui-menu-item { text-align: left; font-size: 11px; }
-#sample_location_search, #strain_sample_search, #dna_extraction_strain_search, #project_strain_search {
+#sample_location_search, #patent_deposit_location_search, #strain_sample_search, #dna_extraction_strain_search, #project_strain_search {
 	color: #888;
 	font-size: 11px;
 	min-height: 15px;

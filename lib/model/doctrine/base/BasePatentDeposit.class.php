@@ -16,8 +16,6 @@
  * @property boolean $has_dna
  * @property string $gen_sequence
  * @property integer $location_id
- * @property string $latitude
- * @property string $longitude
  * @property integer $environment_id
  * @property integer $habitat_id
  * @property date $collection_date
@@ -65,8 +63,6 @@
  * @method boolean                getHasDna()                     Returns the current record's "has_dna" value
  * @method string                 getGenSequence()                Returns the current record's "gen_sequence" value
  * @method integer                getLocationId()                 Returns the current record's "location_id" value
- * @method string                 getLatitude()                   Returns the current record's "latitude" value
- * @method string                 getLongitude()                  Returns the current record's "longitude" value
  * @method integer                getEnvironmentId()              Returns the current record's "environment_id" value
  * @method integer                getHabitatId()                  Returns the current record's "habitat_id" value
  * @method date                   getCollectionDate()             Returns the current record's "collection_date" value
@@ -113,8 +109,6 @@
  * @method PatentDeposit          setHasDna()                     Sets the current record's "has_dna" value
  * @method PatentDeposit          setGenSequence()                Sets the current record's "gen_sequence" value
  * @method PatentDeposit          setLocationId()                 Sets the current record's "location_id" value
- * @method PatentDeposit          setLatitude()                   Sets the current record's "latitude" value
- * @method PatentDeposit          setLongitude()                  Sets the current record's "longitude" value
  * @method PatentDeposit          setEnvironmentId()              Sets the current record's "environment_id" value
  * @method PatentDeposit          setHabitatId()                  Sets the current record's "habitat_id" value
  * @method PatentDeposit          setCollectionDate()             Sets the current record's "collection_date" value
@@ -210,16 +204,6 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('latitude', 'string', 10, array(
-             'type' => 'string',
-             'fixed' => 1,
-             'length' => 10,
-             ));
-        $this->hasColumn('longitude', 'string', 10, array(
-             'type' => 'string',
-             'fixed' => 1,
-             'length' => 10,
-             ));
         $this->hasColumn('environment_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
@@ -239,12 +223,15 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              ));
         $this->hasColumn('depositor_id', 'integer', null, array(
              'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('deposition_date', 'date', null, array(
              'type' => 'date',
+             'notnull' => true,
              ));
         $this->hasColumn('depositor_code', 'string', 40, array(
              'type' => 'string',
+             'notnull' => true,
              'length' => 40,
              ));
         $this->hasColumn('maintenance_status_id', 'integer', null, array(

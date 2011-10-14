@@ -14,8 +14,6 @@
       <th>Has dna</th>
       <th>Gen sequence</th>
       <th>Location</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
       <th>Environment</th>
       <th>Habitat</th>
       <th>Collection date</th>
@@ -51,8 +49,6 @@
       <td><?php echo $patent_deposit->getHasDna() ?></td>
       <td><?php echo $patent_deposit->getGenSequence() ?></td>
       <td><?php echo $patent_deposit->getLocationId() ?></td>
-      <td><?php echo $patent_deposit->getLatitude() ?></td>
-      <td><?php echo $patent_deposit->getLongitude() ?></td>
       <td><?php echo $patent_deposit->getEnvironmentId() ?></td>
       <td><?php echo $patent_deposit->getHabitatId() ?></td>
       <td><?php echo $patent_deposit->getCollectionDate() ?></td>

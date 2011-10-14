@@ -45,14 +45,6 @@
       <td><?php echo $patent_deposit->getLocationId() ?></td>
     </tr>
     <tr>
-      <th>Latitude:</th>
-      <td><?php echo $patent_deposit->getLatitude() ?></td>
-    </tr>
-    <tr>
-      <th>Longitude:</th>
-      <td><?php echo $patent_deposit->getLongitude() ?></td>
-    </tr>
-    <tr>
       <th>Environment:</th>
       <td><?php echo $patent_deposit->getEnvironmentId() ?></td>
     </tr>
