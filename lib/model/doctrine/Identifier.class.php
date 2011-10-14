@@ -21,4 +21,19 @@ class Identifier extends BaseIdentifier {
 			->where('s.identifier_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getNbPatentDeposits() {
+		return Doctrine_Query::create()
+			->from('PatentDeposit s')
+			->where('s.identifier_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbMaintenanceDeposits() {
+		return Doctrine_Query::create()
+			->from('MaintenanceDeposit s')
+			->where('s.identifier_id = ?', $this->getId())
+			->count();
+	}
+	
 }

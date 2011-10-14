@@ -29,4 +29,11 @@ class Isolator extends BaseIsolator {
 			->count();
 	}
 	
+	public function getNbMaintenanceDeposits() {
+		return Doctrine_Query::create()
+			->from('MaintenanceDepositIsolators s')
+			->where('s.isolator_id = ?', $this->getId())
+			->count();
+	}
+	
 }

@@ -163,12 +163,12 @@
 				<?php foreach ($form['Relatives'] as $widget): ?>
 				<?php $relative = $widget->getValue() ?>
 				<li>
-					<input type="hidden" name="strain[Relatives][<?php echo $i ?>][name]" value="<?php echo $relative['name'] ?>" id="strain_Relatives_<?php echo $i ?>_name" />
-					<input type="hidden" name="strain[Relatives][<?php echo $i ?>][id]" value="<?php echo $relative['id'] ?>" id="strain_Relatives_<?php echo $i ?>_id" />
+					<input type="hidden" name="patent_deposit[Relatives][<?php echo $i ?>][name]" value="<?php echo $relative['name'] ?>" id="patent_deposit_Relatives_<?php echo $i ?>_name" />
+					<input type="hidden" name="patent_deposit[Relatives][<?php echo $i ?>][id]" value="<?php echo $relative['id'] ?>" id="patent_deposit_Relatives_<?php echo $i ?>_id" />
 					<div class="model_text_input_value">
 						<span><?php echo $relative['name'] ?></span>
 						<div class="model_text_input_value_checkbox">
-							<input type="checkbox" name="strain[Relatives][<?php echo $i ?>][delete_object]" id="strain_Relatives_<?php echo $i ?>_delete_object" />
+							<input type="checkbox" name="patent_deposit[Relatives][<?php echo $i ?>][delete_object]" id="patent_deposit_Relatives_<?php echo $i ?>_delete_object" />
 							delete
 						</div>
 					</div>

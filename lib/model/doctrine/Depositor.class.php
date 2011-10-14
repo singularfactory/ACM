@@ -21,4 +21,12 @@ class Depositor extends BaseDepositor {
 			->where('p.depositor_id = ?', $this->getId())
 			->count();
 	}
+	
+	public function getNbMaintenanceDeposits() {
+		return Doctrine_Query::create()
+			->from('MaintenanceDeposits p')
+			->where('p.depositor_id = ?', $this->getId())
+			->count();
+	}
+	
 }

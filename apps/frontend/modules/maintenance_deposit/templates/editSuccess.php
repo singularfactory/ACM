@@ -1,3 +1,4 @@
-<h1>Edit Maintenance deposit</h1>
+<?php use_helper('CrossAppLink') ?>
 
+<?php slot('main_header', 'Edit this maintenance deposit') ?>
 <?php include_partial('form', array('form' => $form)) ?>

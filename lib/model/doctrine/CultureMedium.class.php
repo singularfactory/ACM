@@ -25,6 +25,20 @@ class CultureMedium extends BaseCultureMedium {
 			->count();
 	}
 	
+	public function getNbPatentDeposits() {
+		return Doctrine_Query::create()
+			->from('PatentDepositCultureMedia s')
+			->where('s.culture_medium_id = ?', $this->getId())
+			->count();
+	}
+	
+	public function getNbMaintenanceDeposits() {
+		return Doctrine_Query::create()
+			->from('MaintenanceDepositCultureMedia s')
+			->where('s.culture_medium_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getFormattedLink() {
 		if ( $link = $this->_get('link') ) {
 			return $link;

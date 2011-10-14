@@ -165,7 +165,7 @@ $(document).ready(function(){
 	});
 	
 	
-	// Add a search box for Location in Sample and PatentDeposit form
+	// Add a search box for Location in Sample, PatentDeposit and MaintenanceDeposit form
 	var locationSearchBoxDefault = "Type a location...";
 	$('#sample_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
@@ -231,6 +231,39 @@ $(document).ready(function(){
 		select: function(event, ui) {
 			$( "#patent_deposit_location_search" ).val( ui.item.label );
 			$( "#patent_deposit_location_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	$('#maintenance_deposit_location_search').focus(function(){
+		if ( $(this).attr("value") == locationSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#maintenance_deposit_location_search').blur(function(){
+		if( $(this).attr("value") == "" ) {
+			$(this).attr("value", locationSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#maintenance_deposit_location_search').val() != locationSearchBoxDefault ) {
+		$('#maintenance_deposit_location_search').css("color", "black");
+		$('#maintenance_deposit_location_search').css("font-size", "12px");
+	}
+	
+	$("#maintenance_deposit_location_search").autocomplete({
+		minLength: 3,
+		source: function(term, add) {
+			var url = $('a.maintenance_deposit_location_coordinates_url').attr('href') + $("#maintenance_deposit_location_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#maintenance_deposit_location_search" ).val( ui.item.label );
+			$( "#maintenance_deposit_location_id" ).val( ui.item.id );
 			return false;
 		},
 	});
