@@ -11,9 +11,45 @@
 class patent_depositActions extends MyActions {
 	
 	public function executeIndex(sfWebRequest $request) {
-		$this->patent_deposits = Doctrine_Core::getTable('PatentDeposit')
-			->createQuery('a')
-			->execute();
+		// Initiate the pager with default parameters but delay pagination until search criteria has been added
+		$this->pager = $this->buildPagination($request, 'PatentDeposit', array('init' => false, 'sort_column' => 'depositor_code'));
+		
+		// Deal with search criteria
+		if ( $text = $request->getParameter('criteria') ) {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.Genus g")
+				->leftJoin("{$this->mainAlias()}.Species s")
+				->leftJoin("{$this->mainAlias()}.Depositor d")
+				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.depositor_code LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.deposition_date LIKE ?", "%$text%")
+				->orWhere('tc.name LIKE ?', "%$text%")
+				->orWhere('g.name LIKE ?', "%$text%")
+				->orWhere('s.name LIKE ?', "%$text%")
+				->orWhere('d.name LIKE ?', "%$text%")
+				->orWhere('d.surname LIKE ?', "%$text%");
+				
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
+		}
+		else {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.Genus g")
+				->leftJoin("{$this->mainAlias()}.Species s")
+				->leftJoin("{$this->mainAlias()}.Depositor d");
+			
+			$this->getUser()->setAttribute('search.criteria', null);
+		}
+		$this->pager->setQuery($query);
+		$this->pager->init();
+		
+		// Keep track of the last page used in list
+		$this->getUser()->setAttribute('patent_deposit.index_page', $request->getParameter('page'));
+		
+		// Add a form to filter results
+		$this->form = new PatentDepositForm();
 	}
 	
 	public function executeShow(sfWebRequest $request) {

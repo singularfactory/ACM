@@ -1,76 +1,55 @@
-<h1>Patent deposits List</h1>
+<?php use_helper('Date') ?>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Taxonomic class</th>
-      <th>Genus</th>
-      <th>Species</th>
-      <th>Authority</th>
-      <th>Is epitype</th>
-      <th>Is axenic</th>
-      <th>Is public</th>
-      <th>Has dna</th>
-      <th>Gen sequence</th>
-      <th>Location</th>
-      <th>Environment</th>
-      <th>Habitat</th>
-      <th>Collection date</th>
-      <th>Isolation date</th>
-      <th>Identifier</th>
-      <th>Depositor</th>
-      <th>Deposition date</th>
-      <th>Depositor code</th>
-      <th>Maintenance status</th>
-      <th>Cryopreservation method</th>
-      <th>Transfer interval</th>
-      <th>Viability test</th>
-      <th>Observation</th>
-      <th>Citations</th>
-      <th>Remarks</th>
-      <th>Bp1 link</th>
-      <th>Bp4 link</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($patent_deposits as $patent_deposit): ?>
-    <tr>
-      <td><a href="<?php echo url_for('patent_deposit/show?id='.$patent_deposit->getId()) ?>"><?php echo $patent_deposit->getId() ?></a></td>
-      <td><?php echo $patent_deposit->getTaxonomicClassId() ?></td>
-      <td><?php echo $patent_deposit->getGenusId() ?></td>
-      <td><?php echo $patent_deposit->getSpeciesId() ?></td>
-      <td><?php echo $patent_deposit->getAuthorityId() ?></td>
-      <td><?php echo $patent_deposit->getIsEpitype() ?></td>
-      <td><?php echo $patent_deposit->getIsAxenic() ?></td>
-      <td><?php echo $patent_deposit->getIsPublic() ?></td>
-      <td><?php echo $patent_deposit->getHasDna() ?></td>
-      <td><?php echo $patent_deposit->getGenSequence() ?></td>
-      <td><?php echo $patent_deposit->getLocationId() ?></td>
-      <td><?php echo $patent_deposit->getEnvironmentId() ?></td>
-      <td><?php echo $patent_deposit->getHabitatId() ?></td>
-      <td><?php echo $patent_deposit->getCollectionDate() ?></td>
-      <td><?php echo $patent_deposit->getIsolationDate() ?></td>
-      <td><?php echo $patent_deposit->getIdentifierId() ?></td>
-      <td><?php echo $patent_deposit->getDepositorId() ?></td>
-      <td><?php echo $patent_deposit->getDepositionDate() ?></td>
-      <td><?php echo $patent_deposit->getDepositorCode() ?></td>
-      <td><?php echo $patent_deposit->getMaintenanceStatusId() ?></td>
-      <td><?php echo $patent_deposit->getCryopreservationMethodId() ?></td>
-      <td><?php echo $patent_deposit->getTransferInterval() ?></td>
-      <td><?php echo $patent_deposit->getViabilityTest() ?></td>
-      <td><?php echo $patent_deposit->getObservation() ?></td>
-      <td><?php echo $patent_deposit->getCitations() ?></td>
-      <td><?php echo $patent_deposit->getRemarks() ?></td>
-      <td><?php echo $patent_deposit->getBp1Link() ?></td>
-      <td><?php echo $patent_deposit->getBp4Link() ?></td>
-      <td><?php echo $patent_deposit->getCreatedAt() ?></td>
-      <td><?php echo $patent_deposit->getUpdatedAt() ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+<?php slot('main_header') ?>
+<span>All patent deposits</span>
+	<?php include_partial('global/search_box_header_action', array('route' => '@patent_deposit_search?criteria=')) ?>
+<?php include_partial('global/new_header_action', array('message' => 'Add a new patent_deposit', 'route' => '@patent_deposit_new')) ?>
+<?php end_slot() ?>
+
+<?php if ( $pager->count() ): ?>
+<table id="patent_deposit_list">
+	<tbody>
+		<tr>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th><?php echo link_to('Code', '@patent_deposit?sort_column=depositor_code&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Depositor', '@patent_deposit?sort_column=Depositor.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Deposition date', '@patent_deposit?sort_column=deposition_date&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Taxonomy', '@strain?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th></th>
+		</tr>
+		
+		<?php foreach ($pager->getResults() as $patentDeposit): ?>
+		<tr>
+			<?php $url = url_for('@patent_deposit_show?id='.$patentDeposit->getId()) ?>
+			<td class="patent_deposit_depositor_code"><?php echo link_to($patentDeposit->getDepositorCode(), $url) ?></td>
+			<td class="depositor_name"><?php echo link_to($patentDeposit->getDepositor(), $url) ?></td>
+			<td class="patent_deposit_deposition_date"><?php echo link_to($patentDeposit->getDepositionDate(), $url) ?></td>
+			<?php
+				$patentDepositName = $patentDeposit->getTaxonomicClass().'&nbsp;<span class="species_name">'.$patentDeposit->getGenus().'</span>&nbsp;';
+				if ( $patentDeposit->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
+					$patentDepositName .= '<span class="species_name">'.$patentDeposit->getSpecies().'</span>';
+				}
+				else {
+					$patentDepositName .= $patentDeposit->getSpecies();
+				}
+			?>
+			<td class="patent_deposit_name"><?php echo link_to($patentDepositName, $url) ?></td>
+
+			<td class="actions">
+				<a href="<?php echo $url ?>">
+					<?php echo link_to('Edit', '@patent_deposit_edit?id='.$patentDeposit->getId()) ?>
+					<?php echo link_to('Delete', '@patent_deposit_delete?id='.$patentDeposit->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				</a>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
 </table>
 
-  <a href="<?php echo url_for('patent_deposit/new') ?>">New</a>
+<?php if ($pager->haveToPaginate()): ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'patent_deposit')) ?>
+<?php endif ?>
+
+<?php else: ?>
+	<p>There are no patent deposits to show.</p>
+<?php endif; ?>
