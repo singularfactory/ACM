@@ -343,7 +343,7 @@ project_search_pagination:
 ###
 patent_deposit:
   class:   sfDoctrineRouteCollection
-  options: { model: Project }
+  options: { model: PatentDeposit }
 
 patent_deposit_find_locations:
   url:    patent_deposit/findLocations/:term
@@ -363,6 +363,34 @@ patent_deposit_pagination:
 patent_deposit_search_pagination:
   url:          patent_deposit/search/:criteria/page/:page
   param:        { module: patent_deposit, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
+# MaintenanceDeposit model related routes
+###
+maintenance_deposit:
+  class:   sfDoctrineRouteCollection
+  options: { model: MaintenanceDeposit }
+
+maintenance_deposit_find_locations:
+  url:    maintenance_deposit/findLocations/:term
+  param:  { module: maintenance_deposit, action: findLocations }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+maintenance_deposit_search:
+  url:          maintenance_deposit/search/:criteria
+  param:        { module: maintenance_deposit, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+maintenance_deposit_pagination:
+  url:          maintenance_deposit/page/:page
+  param:        { module: maintenance_deposit, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+maintenance_deposit_search_pagination:
+  url:          maintenance_deposit/search/:criteria/page/:page
+  param:        { module: maintenance_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
 

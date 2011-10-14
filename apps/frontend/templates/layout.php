@@ -93,7 +93,7 @@
 						?>
 					</li>
 					
-					<li>
+					<li id="header_menu_separator_tab">
 						<?php
 						if ( !preg_match('/^((project)(\/_)?)/', $currentRoute) )
 							echo link_to('Projects', '@project');
@@ -108,6 +108,15 @@
 							echo link_to('Patent deposits', '@patent_deposit');
 						else
 							echo link_to('Patent deposits', '@patent_deposit', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
+					<li>
+						<?php
+						if ( !preg_match('/^((maintenance_deposit)(\/_)?)/', $currentRoute) )
+							echo link_to('Maintenance deposits', '@maintenance_deposit');
+						else
+							echo link_to('Maintenance deposits', '@maintenance_deposit', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 					
