@@ -156,13 +156,13 @@ class strainActions extends MyActions {
   }
 
   public function executeEdit(sfWebRequest $request) {
-    $this->forward404Unless($strain = Doctrine_Core::getTable('Strain')->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
-    $this->form = new StrainForm($strain);
+		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
+		$this->form = new StrainForm($strain);
   }
 
   public function executeUpdate(sfWebRequest $request) {
     $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($strain = Doctrine_Core::getTable('Strain')->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
+    $this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
     $this->form = new StrainForm($strain);
 
     $this->processForm($request, $this->form);
