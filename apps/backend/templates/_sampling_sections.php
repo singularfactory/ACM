@@ -1,6 +1,6 @@
 <ul>
-	<?php $routes = array('radiation', 'habitat', 'environment') ?>
-	<?php $subsectionNames = array( $routes[0] => 'Radiations', $routes[1] => 'Habitats', $routes[2] => 'Environments') ?>
+	<?php $routes = array('radiation', 'habitat', 'environment', 'purification_method') ?>
+	<?php $subsectionNames = array( $routes[0] => 'Radiations', $routes[1] => 'Habitats', $routes[2] => 'Environments', $routes[3] => 'Purification methods') ?>
 	
 	<?php foreach ( $routes as $routeValue ): ?>
 		<li>

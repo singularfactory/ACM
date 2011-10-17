@@ -1,3 +1,12 @@
+purification_method:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                PurificationMethod
+    module:               purification_method
+    prefix_path:          /admin/purification_method
+    column:               id
+    with_wildcard_routes: true
+
 container:
   class: sfDoctrineRouteCollection
   options:
