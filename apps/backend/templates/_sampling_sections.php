@@ -4,7 +4,7 @@
 	
 	<?php foreach ( $routes as $routeValue ): ?>
 		<li>
-		<?php if ( preg_match('/^'.$routeValue.'_?/', $route) ): ?>
+		<?php if ( preg_match('/^'.$routeValue.'_?/', $route) || ($route == 'homepage' && $routeValue == 'radiation') ): ?>
 			<?php echo $subsectionNames[$routeValue] ?>
 		<?php else: ?>
 			<?php echo link_to($subsectionNames[$routeValue], '@'.$routeValue) ?>

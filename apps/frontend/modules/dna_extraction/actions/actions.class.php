@@ -57,29 +57,6 @@ class dna_extractionActions extends MyActions {
 		$this->form = new DnaExtractionForm();
 	}
 	
-	/**
-	 * Find the strains that matches a search term when creating or editing a dna extraction
-	 *
-	 * @param sfWebRequest $request 
-	 * @return JSON object with strain id and number
-	 * @author Eliezer Talon
-	 * @version 2011-07-07
-	*/
-	public function executeFindStrains(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Strain')->findByTerm($request->getParameter('term'));
-			$strains = array();
-			foreach ($results as $strain) {
-				$strains[] = array(
-					'id' => $strain->getId(),
-					'label' => $strain->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
-				);
-			}
-			$this->getResponse()->setContent(json_encode($strains));
-		}
-		return sfView::NONE;
-	}
-	
 	public function executeShow(sfWebRequest $request) {
 		$this->dnaExtraction = DnaExtractionTable::getInstance()->find(array($request->getParameter('id')));
 		

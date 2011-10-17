@@ -52,12 +52,11 @@
 			<div id="header_menu">
 				<ul id="header_menu_tabs">
 					<?php $route = sfContext::getInstance()->getRouting()->getCurrentRouteName() ?>
-
 					<li>
 						<?php echo link_to('Locations', '@country', (preg_match('/^(country|region|island)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Sampling', '@radiation', (preg_match('/^((radiation|habitat|environment|purification_method)_?|homepage)/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Sampling', '@radiation', (preg_match('/^(radiation|habitat|environment|purification_method)_?|homepage/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('Cryopreservation', '@cryopreservation_method', (preg_match('/^(cryopreservation_method)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -89,7 +88,7 @@
 		</div>
 
 		<div id="main">
-			<?php if ( preg_match('/^(radiation|habitat|environment|purification_method)_?/', $route) ): ?>
+			<?php if ( preg_match('/^(radiation|habitat|environment|purification_method)_?|homepage/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/sampling_sections', array('route' => $route)) ?>
 			</div>

@@ -57,30 +57,7 @@ class projectActions extends MyActions {
 		// Add a form to filter results
 		$this->form = new ProjectForm();
 	}
-	
-	/**
-	 * Find the strains that matches a search term when creating or editing a project
-	 *
-	 * @param sfWebRequest $request 
-	 * @return JSON object with strain id and number
-	 * @author Eliezer Talon
-	 * @version 2011-10-13
-	*/
-	public function executeFindStrains(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Strain')->findByTerm($request->getParameter('term'));
-			$strains = array();
-			foreach ($results as $strain) {
-				$strains[] = array(
-					'id' => $strain->getId(),
-					'label' => $strain->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
-				);
-			}
-			$this->getResponse()->setContent(json_encode($strains));
-		}
-		return sfView::NONE;
-	}
-	
+		
 	public function executeShow(sfWebRequest $request) {
 		$this->project = ProjectTable::getInstance()->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->project);

@@ -8,9 +8,7 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class IsolationCultureMediaForm extends BaseIsolationCultureMediaForm
-{
-  public function configure()
-  {
+class IsolationCultureMediaForm extends BaseIsolationCultureMediaForm {
+  public function configure() {
   }
 }

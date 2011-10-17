@@ -56,30 +56,7 @@ class maintenance_depositActions extends MyActions {
 		$this->maintenanceDeposit = MaintenanceDepositTable::getInstance()->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->maintenanceDeposit);
 	}
-	
-	/**
-	 * Find the locations that matches a search term when creating or editing a maintenance deposit
-	 *
-	 * @param sfWebRequest $request 
-	 * @return JSON object with location id, name and GPS coordinates
-	 * @author Eliezer Talon
-	 * @version 2011-10-14
-	 */
-	public function executeFindLocations(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = LocationTable::getInstance()->findByTerm($request->getParameter('term'));
-			$locations = array();
-			foreach ($results as $location) {
-				$locations[] = array(
-					'id' => $location->getId(),
-					'label' => $location->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
-				);
-			}
-			$this->getResponse()->setContent(json_encode($locations));
-		}
-		return sfView::NONE;
-	}
-	
+		
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastDeposit = $this->getUser()->getAttribute('maintenance_deposit.last_object_created') ) {
 			$maintenanceDeposit = new MaintenanceDeposit();

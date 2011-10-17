@@ -299,4 +299,75 @@ class MyActions extends sfActions {
 		return $filename;
 	}
 	
+	/**
+	 * Find the locations that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with location id, name and GPS coordinates
+	 * @author Eliezer Talon
+	 * @version 2011-04-20
+	 */
+	public function executeFindLocations(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = LocationTable::getInstance()->findByTerm($request->getParameter('term'));
+			$locations = array();
+			foreach ($results as $location) {
+				$locations[] = array(
+					'id' => $location->getId(),
+					'label' => $location->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'latitude' => $location->getLatitude(),
+					'longitude' => $location->getLongitude(),
+				);
+			}
+			$this->getResponse()->setContent(json_encode($locations));
+		}
+		return sfView::NONE;
+	}
+	
+	/**
+	 * Find the samples that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with sample id and code
+	 * @author Eliezer Talon
+	 * @version 2011-06-28
+	 */
+	public function executeFindSamples(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = SampleTable::getInstance()->findByTerm($request->getParameter('term'));
+			$samples = array();
+			foreach ($results as $sample) {
+				$samples[] = array(
+					'id' => $sample->getId(),
+					'label' => $sample->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($samples));
+		}
+		return sfView::NONE;
+	}
+	
+	/**
+	 * Find the strains that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with strain id and code
+	 * @author Eliezer Talon
+	 * @version 2011-07-07
+	*/
+	public function executeFindStrains(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = StrainTable::getInstance()->findByTerm($request->getParameter('term'));
+			$strains = array();
+			foreach ($results as $strain) {
+				$strains[] = array(
+					'id' => $strain->getId(),
+					'label' => $strain->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($strains));
+		}
+		return sfView::NONE;
+	}
+	
 }

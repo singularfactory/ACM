@@ -165,7 +165,7 @@ $(document).ready(function(){
 	});
 	
 	
-	// Add a search box for Location in Sample, PatentDeposit and MaintenanceDeposit form
+	// Add a search box for Location in Sample, PatentDeposit, MaintenanceDeposit and Isolation forms
 	var locationSearchBoxDefault = "Type a location...";
 	$('#sample_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
@@ -268,8 +268,41 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#isolation_location_search').focus(function(){
+		if ( $(this).attr("value") == locationSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#isolation_location_search').blur(function(){
+		if( $(this).attr("value") == "" ) {
+			$(this).attr("value", locationSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#isolation_location_search').val() != locationSearchBoxDefault ) {
+		$('#isolation_location_search').css("color", "black");
+		$('#isolation_location_search').css("font-size", "12px");
+	}
 	
-	// Add a search box for Sample in Strain form
+	$("#isolation_location_search").autocomplete({
+		minLength: 3,
+		source: function(term, add) {
+			var url = $('a.isolation_location_coordinates_url').attr('href') + $("#isolation_location_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#isolation_location_search" ).val( ui.item.label );
+			$( "#isolation_location_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	
+	// Add a search box for Sample in Strain and Isolation forms
 	var sampleSearchBoxDefault = "Type a sample code...";
 	$('#strain_sample_search').focus(function(){
 		if ( $(this).attr("value") === sampleSearchBoxDefault ){
@@ -304,8 +337,41 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#isolation_sample_search').focus(function(){
+		if ( $(this).attr("value") === sampleSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#isolation_sample_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", sampleSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#isolation_sample_search').val() !== sampleSearchBoxDefault ) {
+		$('#isolation_sample_search').css("color", "black");
+		$('#isolation_sample_search').css("font-size", "12px");
+	}
 	
-	// Add a search box for Strain in DnaExtraction form
+	$("#isolation_sample_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.isolation_sample_numbers_url').attr('href') + $("#isolation_sample_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#isolation_sample_search" ).val( ui.item.label );
+			$( "#isolation_sample_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	
+	// Add a search box for Strain in DnaExtraction, Project and Isolation forms
 	var strainSearchBoxDefault = "Type a strain code...";
 	$('#dna_extraction_strain_search').focus(function(){
 		if ( $(this).attr("value") === strainSearchBoxDefault ){
@@ -339,9 +405,7 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
-	
-	// Add a search box for Strain in Project form
+		
 	$('#project_strain_search').focus(function(){
 		if ( $(this).attr("value") === strainSearchBoxDefault ){
 			$(this).attr("value", "");
@@ -375,6 +439,39 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#isolation_strain_search').focus(function(){
+		if ( $(this).attr("value") === strainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#isolation_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", strainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#isolation_strain_search').val() !== strainSearchBoxDefault ) {
+		$('#isolation_strain_search').css("color", "black");
+		$('#isolation_strain_search').css("font-size", "12px");
+	}
+	
+	$("#isolation_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.isolation_strain_numbers_url').attr('href') + $("#isolation_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#isolation_strain_search" ).val( ui.item.label );
+			$( "#isolation_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
 	
 	// Add a "create" option to taxonomic class, genus, species and authority select elements in strain creation forms
 	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority"];
@@ -398,7 +495,8 @@ $(document).ready(function(){
 		});
 	};
 	
-	// Make an AJAX call to generate a new API token
+	
+	// Generate a new API token when requested
 	$("#token_regeneration_link").click(function(event){
 		event.preventDefault();
 		
@@ -406,6 +504,13 @@ $(document).ready(function(){
 			$('#token_value_ipad').html(data);
 		});
 	});
+	
+	
+	// Change the Isolation form on demand
+	$("#isolation_isolation_subject").change(function(){
+		location.href = $('a.isolation_isolation_subject_url').attr('href') + $(this).attr('value');
+	});
+	
 	
 	//$("#amount input").numeric({ "minValue": 0, emptyValue: false, increment: 1 });
 	

@@ -401,9 +401,24 @@ isolation:
   class:   sfDoctrineRouteCollection
   options: { model: Isolation }
 
+isolation_filter_by_subject_new:
+  url:          isolation/new/:subject
+  param:        { module: isolation, action: new, subject: sample }
+  requirements: { subject: "(sample)|(strain)|(external)" }
+
 isolation_find_locations:
   url:    isolation/findLocations/:term
   param:  { module: isolation, action: findLocations }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+isolation_find_samples:
+  url:    isolation/findSamples/:term
+  param:  { module: isolation, action: findSamples }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+isolation_find_strains:
+  url:          isolation/findStrains/:term
+  param:        { module: isolation, action: findStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
 isolation_search:

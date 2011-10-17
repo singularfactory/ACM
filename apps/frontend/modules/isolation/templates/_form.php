@@ -1,158 +1,176 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<form action="<?php echo url_for('isolation/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-<?php if (!$form->getObject()->isNew()): ?>
-<input type="hidden" name="sf_method" value="put" />
-<?php endif; ?>
-  <table>
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('isolation/index') ?>">Back to list</a>
-          <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'isolation/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
-          <?php endif; ?>
-          <input type="submit" value="Save" />
-        </td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <?php echo $form->renderGlobalErrors() ?>
-      <tr>
-        <th><?php echo $form['reception_date']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['reception_date']->renderError() ?>
-          <?php echo $form['reception_date'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['isolation_subject']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['isolation_subject']->renderError() ?>
-          <?php echo $form['isolation_subject'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['sample_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['sample_id']->renderError() ?>
-          <?php echo $form['sample_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['strain_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['strain_id']->renderError() ?>
-          <?php echo $form['strain_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['external_code']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['external_code']->renderError() ?>
-          <?php echo $form['external_code'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['taxonomic_class_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['taxonomic_class_id']->renderError() ?>
-          <?php echo $form['taxonomic_class_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['genus_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['genus_id']->renderError() ?>
-          <?php echo $form['genus_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['species_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['species_id']->renderError() ?>
-          <?php echo $form['species_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['authority_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['authority_id']->renderError() ?>
-          <?php echo $form['authority_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['location_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['location_id']->renderError() ?>
-          <?php echo $form['location_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['environment_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['environment_id']->renderError() ?>
-          <?php echo $form['environment_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['habitat_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['habitat_id']->renderError() ?>
-          <?php echo $form['habitat_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['delivery_date']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['delivery_date']->renderError() ?>
-          <?php echo $form['delivery_date'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['purification_method_id']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['purification_method_id']->renderError() ?>
-          <?php echo $form['purification_method_id'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['purification_details']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['purification_details']->renderError() ?>
-          <?php echo $form['purification_details'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['observation']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['observation']->renderError() ?>
-          <?php echo $form['observation'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['remarks']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['remarks']->renderError() ?>
-          <?php echo $form['remarks'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['isolators_list']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['isolators_list']->renderError() ?>
-          <?php echo $form['isolators_list'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['culture_media_list']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['culture_media_list']->renderError() ?>
-          <?php echo $form['culture_media_list'] ?>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<?php echo form_tag_for($form, '@isolation') ?>
+	<?php echo $form->renderHiddenFields() ?>
+  
+	<div id="left_side_form">
+		
+		<div id="isolation_subject">
+			<?php echo $form['isolation_subject']->renderLabel() ?>
+			<?php echo $form['isolation_subject']->renderError() ?>
+			<?php echo $form['isolation_subject']->renderHelp() ?>
+			<?php echo $form['isolation_subject'] ?>
+			<a href="<?php echo url_for('@isolation_filter_by_subject_new?subject=') ?>" class="isolation_isolation_subject_url"></a>
+		</div>
+		
+		<?php if ( isset($form['sample_id']) ): ?>
+		<div id="sample_id">
+			<?php echo $form['sample_id']->renderLabel() ?>
+			<?php echo $form['sample_id']->renderError() ?>
+			<?php echo $form['sample_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a sample code...':$form->getObject()->getSample()->getCode(); ?>" id="isolation_sample_search" />
+			<a href="<?php echo url_for('@isolation_find_samples?term=') ?>" class="isolation_sample_numbers_url"></a>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['strain_id']) ): ?>
+		<div id="strain_id">
+			<?php echo $form['strain_id']->renderLabel() ?>
+			<?php echo $form['strain_id']->renderError() ?>
+			<?php echo $form['strain_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getCode(); ?>" id="isolation_strain_search" />
+			<a href="<?php echo url_for('@isolation_find_strains?term=') ?>" class="isolation_strain_numbers_url"></a>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['external_code']) ): ?>
+		<div id="external_code">
+			<?php echo $form['external_code']->renderLabel() ?>
+			<?php echo $form['external_code']->renderError() ?>
+			<?php echo $form['external_code']->renderHelp() ?>
+			<?php echo $form['external_code'] ?>
+		</div>
+		<?php endif ?>
+		
+		<div id="reception_date" class="date_field">
+			<?php echo $form['reception_date']->renderLabel() ?>
+			<?php echo $form['reception_date']->renderError() ?>
+			<?php echo $form['reception_date']->renderHelp() ?>
+			<?php echo $form['reception_date'] ?>
+		</div>
+		
+		<?php if ( isset($form['location_id']) ): ?>
+		<div id="location">
+			<?php echo $form['location_id']->renderLabel() ?>
+			<?php echo $form['location_id']->renderError() ?>
+			<?php echo $form['location_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a location...':$form->getObject()->getLocation()->getName(); ?>" id="isolation_location_search" />
+			<a href="<?php echo url_for('@isolation_find_locations?term=') ?>" class="isolation_location_coordinates_url"></a>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['environment_id']) ): ?>
+		<div id="environment">
+			<?php echo $form['environment_id']->renderLabel() ?>
+			<?php echo $form['environment_id']->renderHelp() ?>
+			<?php echo $form['environment_id'] ?>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['habitat_id']) ): ?>
+		<div id="habitat">
+			<?php echo $form['habitat_id']->renderLabel() ?>
+			<?php echo $form['habitat_id']->renderHelp() ?>
+			<?php echo $form['habitat_id'] ?>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['taxonomic_class_id']) ): ?>
+		<div id="taxonomic_class">
+			<?php echo $form['taxonomic_class_id']->renderLabel() ?>
+			<?php echo $form['taxonomic_class_id']->renderError() ?>
+			<?php echo $form['taxonomic_class_id']->renderHelp() ?>
+			<?php echo $form['taxonomic_class_id'] ?>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['genus_id']) ): ?>
+		<div id="genus">
+			<?php echo $form['genus_id']->renderLabel() ?>
+			<?php echo $form['genus_id']->renderError() ?>
+			<?php echo $form['genus_id']->renderHelp() ?>
+			<?php echo $form['genus_id'] ?>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['species_id']) ): ?>
+		<div id="species">
+			<?php echo $form['species_id']->renderLabel() ?>
+			<?php echo $form['species_id']->renderError() ?>
+			<?php echo $form['species_id']->renderHelp() ?>
+			<?php echo $form['species_id'] ?>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['authority_id']) ): ?>
+		<div id="authority">
+			<?php echo $form['authority_id']->renderLabel() ?>
+			<?php echo $form['authority_id']->renderError() ?>
+			<?php echo $form['authority_id']->renderHelp() ?>
+			<?php echo $form['authority_id'] ?>
+		</div>
+		<?php endif ?>
+		
+		<div id="culture_media_list" class="list_field">
+			<?php echo $form['culture_media_list']->renderLabel() ?>
+			<?php echo $form['culture_media_list']->renderError() ?>
+			<?php echo $form['culture_media_list']->renderHelp() ?>
+			<?php echo $form['culture_media_list'] ?>
+		</div>
+		
+		<div id="isolators_list" class="list_field">
+			<?php echo $form['isolators_list']->renderLabel() ?>
+			<?php echo $form['isolators_list']->renderError() ?>
+			<?php echo $form['isolators_list']->renderHelp() ?>
+			<?php echo $form['isolators_list'] ?>
+		</div>
+	</div>
+	
+	<div id="right_side_form">
+		<div id="delivery_date" class="date_field">
+			<?php echo $form['delivery_date']->renderLabel() ?>
+			<?php echo $form['delivery_date']->renderError() ?>
+			<?php echo $form['delivery_date']->renderHelp() ?>
+			<?php echo $form['delivery_date'] ?>
+		</div>
+		
+		<div id="purification_method">
+			<?php echo $form['purification_method_id']->renderLabel() ?>
+			<?php echo $form['purification_method_id']->renderError() ?>
+			<?php echo $form['purification_method_id']->renderHelp() ?>
+			<?php echo $form['purification_method_id'] ?>
+		</div>
+		
+		<div id="purification_details">
+			<?php echo $form['purification_details']->renderLabel() ?>
+			<?php echo $form['purification_details']->renderError() ?>
+			<?php echo $form['purification_details']->renderHelp() ?>
+			<?php echo $form['purification_details'] ?>
+		</div>
+		
+		<div id="observation">
+			<?php echo $form['observation']->renderLabel() ?>
+			<?php echo $form['observation']->renderError() ?>
+			<?php echo $form['observation']->renderHelp() ?>
+			<?php echo $form['observation'] ?>
+		</div>
+			
+		<div id="remarks">
+			<?php echo $form['remarks']->renderLabel() ?>
+			<?php echo $form['remarks']->renderError() ?>
+			<?php echo $form['remarks']->renderHelp() ?>
+			<?php echo $form['remarks'] ?>
+		</div>
+	</div>
+	
+	<div class="submit">
+		<?php if ( $form->getObject()->isNew() ): ?>
+			<input type="submit" value="Create this isolation">
+			<input type="submit" name="_save_and_add" value="Create and add">
+		<?php else: ?>
+			<input type="submit" value="Save changes">
+		<?php endif; ?>	
+		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+	</div>
 </form>

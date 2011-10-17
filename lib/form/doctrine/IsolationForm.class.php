@@ -1,16 +1,37 @@
 <?php
 
 /**
- * Isolation form.
- *
- * @package    bna_green_house
- * @subpackage form
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
- */
-class IsolationForm extends BaseIsolationForm
-{
-  public function configure()
-  {
-  }
+* Isolation form.
+*
+* @package    bna_green_house
+* @subpackage form
+* @author     Eliezer Talon <elitalon@inventiaplus.com>
+* @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+*/
+class IsolationForm extends BaseIsolationForm {
+	public function configure() {
+		// Configure date formats
+		for ($i=1990; $i <= date('Y'); $i++) { $years[$i] = $i; }
+		$this->setWidget('reception_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
+		$this->setWidget('delivery_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years), array('class' => 'noauto')));
+				
+		// Configure search boxes
+		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => LocationTable::getInstance()->getDefaultLocationId())));
+		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => SampleTable::getInstance()->getDefaultSampleId())));
+		$this->setWidget('strain_id', new sfWidgetFormInputHidden(array('default' => StrainTable::getInstance()->getDefaultStrainId())));
+		
+		// Configure many-to-many relationships
+		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'method' => 'getName')));
+		
+		// Configure labels
+		$this->widgetSchema->setLabel('isolation_subject', 'Isolation material');
+		
+		// Configure help messages
+		$this->widgetSchema->setHelp('isolation_subject', 'Choose the type of material received');
+		$this->widgetSchema->setHelp('external_code', 'Code assigned by the entity that request the isolation');
+		$this->widgetSchema->setHelp('reception_date', 'Year, month and day');
+		$this->widgetSchema->setHelp('purification_details', 'Notes and conclusions about the purification process');
+		$this->widgetSchema->setHelp('delivery_date', 'Year, month and day');
+	}
+	
 }

@@ -50,31 +50,6 @@ class sampleActions extends MyActions {
 		// Add a form to filter results
 		$this->form = new SampleForm();
 	}
-
-	/**
-	 * Find the locations that matches a search term when creating or editing a sample
-	 *
-	 * @param sfWebRequest $request 
-	 * @return JSON object with location id, name and GPS coordinates
-	 * @author Eliezer Talon
-	 * @version 2011-04-20
-	 */
-	public function executeFindLocations(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Location')->findByTerm($request->getParameter('term'));
-			$locations = array();
-			foreach ($results as $location) {
-				$locations[] = array(
-					'id' => $location->getId(),
-					'label' => $location->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
-					'latitude' => $location->getLatitude(),
-					'longitude' => $location->getLongitude(),
-				);
-			}
-			$this->getResponse()->setContent(json_encode($locations));
-		}
-		return sfView::NONE;
-	}
 	
 	public function executeShow(sfWebRequest $request) {
 		$this->sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id')));
@@ -99,7 +74,7 @@ class sampleActions extends MyActions {
 		
 		$this->forward404Unless($this->sample);
 	}
-
+	
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastSample = $this->getUser()->getAttribute('sample.last_object_created') ) {
 			$sample = new Sample();
@@ -128,7 +103,7 @@ class sampleActions extends MyActions {
 		
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 	}
-
+	
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
@@ -139,12 +114,12 @@ class sampleActions extends MyActions {
 		
 		$this->setTemplate('new');
 	}
-
+	
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
 		$this->form = new SampleForm($sample);
 	}
-
+	
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
@@ -154,7 +129,7 @@ class sampleActions extends MyActions {
 
 		$this->setTemplate('edit');
 	}
-
+	
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		$uploadedFiles = $request->getFiles();

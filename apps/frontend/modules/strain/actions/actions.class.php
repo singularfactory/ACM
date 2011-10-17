@@ -60,29 +60,6 @@ class strainActions extends MyActions {
 		$this->form = new StrainForm();
   }
 	
-	/**
-	 * Find the samples that matches a search term when creating or editing a strain
-	 *
-	 * @param sfWebRequest $request 
-	 * @return JSON object with sample id and number
-	 * @author Eliezer Talon
-	 * @version 2011-06-28
-	 */
-	public function executeFindSamples(sfWebRequest $request) {
-		if ( $request->isXmlHttpRequest() ) {
-			$results = Doctrine_Core::getTable('Sample')->findByTerm($request->getParameter('term'));
-			$samples = array();
-			foreach ($results as $sample) {
-				$samples[] = array(
-					'id' => $sample->getId(),
-					'label' => $sample->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
-				);
-			}
-			$this->getResponse()->setContent(json_encode($samples));
-		}
-		return sfView::NONE;
-	}
-	
   public function executeShow(sfWebRequest $request) {
 		$this->strain = StrainTable::getInstance()->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->strain);
