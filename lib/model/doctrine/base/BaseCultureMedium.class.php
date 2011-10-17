@@ -13,6 +13,7 @@
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
+ * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
@@ -22,6 +23,7 @@
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method CultureMedium       setId()                  Sets the current record's "id" value
  * @method CultureMedium       setName()                Sets the current record's "name" value
  * @method CultureMedium       setDescription()         Sets the current record's "description" value
@@ -30,6 +32,7 @@
  * @method CultureMedium       setStrains()             Sets the current record's "Strains" collection
  * @method CultureMedium       setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method CultureMedium       setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
+ * @method CultureMedium       setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -97,6 +100,11 @@ abstract class BaseCultureMedium extends sfDoctrineRecord
              'refClass' => 'MaintenanceDepositCultureMedia',
              'local' => 'culture_medium_id',
              'foreign' => 'maintenance_deposit_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
+             'refClass' => 'IsolationCultureMedia',
+             'local' => 'culture_medium_id',
+             'foreign' => 'isolation_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

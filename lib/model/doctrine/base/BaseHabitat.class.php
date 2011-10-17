@@ -11,6 +11,7 @@
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
+ * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
@@ -18,12 +19,14 @@
  * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Habitat             setId()                  Sets the current record's "id" value
  * @method Habitat             setName()                Sets the current record's "name" value
  * @method Habitat             setDescription()         Sets the current record's "description" value
  * @method Habitat             setSamples()             Sets the current record's "Samples" collection
  * @method Habitat             setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Habitat             setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
+ * @method Habitat             setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -74,6 +77,10 @@ abstract class BaseHabitat extends sfDoctrineRecord
              'foreign' => 'habitat_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'local' => 'id',
+             'foreign' => 'habitat_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
              'local' => 'id',
              'foreign' => 'habitat_id'));
 

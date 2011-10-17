@@ -227,6 +227,7 @@ Isolator:
     Strains:        { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
     PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: isolator_id, foreign: patent_deposit_id, refClass: PatentDepositIsolators }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: isolator_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositIsolators }
+    Isolations:     { foreignAlias: Isolations, class: Isolation, local: isolator_id, foreign: isolation_id, refClass: IsolationIsolators }
   indexes:
     isolator_name:
       fields:
@@ -331,6 +332,7 @@ CultureMedium:
       Strains:        { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
       PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: culture_medium_id, foreign: patent_deposit_id, refClass: PatentDepositCultureMedia }
       MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: culture_medium_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCultureMedia }
+      Isolations:     { foreignAlias: Isolations, class: Isolation, local: culture_medium_id, foreign: isolation_id, refClass: IsolationCultureMedia }
   indexes:
     culture_medium_name:
       fields:
@@ -828,4 +830,58 @@ PurificationMethod:
     purification_method_name:
       fields:
         name: { length: 20 }
+
+
+Isolation:
+  columns:
+    id:                     { type: integer, primary: true, autoincrement: true }
+    reception_date:         { type: date, notnull: true }
+    isolation_subject:      { type: enum, values: [sample, strain, external] }
+    sample_id:              { type: integer }
+    strain_id:              { type: integer }
+    external_code:          { type: string(128) }
+    taxonomic_class_id:     { type: integer } # Only for external, not applicable to sample
+    genus_id:               { type: integer } # Only for external, not applicable to sample
+    species_id:             { type: integer } # Only for external, not applicable to sample
+    authority_id:           { type: integer } # Only for external, not applicable to sample
+    location_id:            { type: integer } # Only for external, automatically retrieved for sample and strain
+    environment_id:         { type: integer } # Only for external, automatically retrieved for sample and strain
+    habitat_id:             { type: integer } # Only for external, automatically retrieved for sample and strain
+    delivery_date:          { type: date }
+    purification_method_id: { type: integer, notnull: true }
+    purification_details:   { type: string }
+    observation:            { type: string }
+    remarks:                { type: string }
+  relations:
+    Sample:             { foreignAlias: Isolations }
+    Strain:             { foreignAlias: Isolations }
+    TaxonomicClass:     { foreignAlias: Isolations }
+    Genus:              { foreignAlias: Isolations }
+    Species:            { foreignAlias: Isolations }
+    Authority:          { foreignAlias: Isolations }
+    Location:           { foreignAlias: Isolations }
+    Environment:        { foreignAlias: Isolations }
+    Habitat:            { foreignAlias: Isolations }
+    PurificationMethod: { foreignAlias: Isolations }
+    Isolators:          { foreignAlias: Isolators, class: Isolator, local: isolation_id, foreign: isolator_id, refClass: IsolationIsolators }
+    CultureMedia:       { foreignAlias: CultureMedia, class: CultureMedium, local: isolation_id, foreign: culture_medium_id, refClass: IsolationCultureMedia }
+  actAs:
+    Timestampable:
+    Date:
+
+
+IsolationCultureMedia:
+  columns:
+    isolation_id:       { type: integer, primary: true }
+    culture_medium_id:  { type: integer, primary: true }
+  relations:
+    Isolation:  { onDelete: cascade }
+
+
+IsolationIsolators:
+  columns:
+    isolation_id: { type: integer, primary: true }
+    isolator_id:  { type: integer, primary: true }
+  relations:
+    Isolation:  { onDelete: cascade }
 

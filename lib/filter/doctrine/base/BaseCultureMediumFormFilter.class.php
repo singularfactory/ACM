@@ -22,6 +22,7 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
       'strains_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
+      'isolations_list'           => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolation')),
     ));
 
     $this->setValidators(array(
@@ -34,6 +35,7 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
       'strains_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
+      'isolations_list'           => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolation', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('culture_medium_filters[%s]');
@@ -99,6 +101,24 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
+  public function addIsolationsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.IsolationCultureMedia IsolationCultureMedia')
+      ->andWhereIn('IsolationCultureMedia.isolation_id', $values)
+    ;
+  }
+
   public function getModelName()
   {
     return 'CultureMedium';
@@ -117,6 +137,7 @@ abstract class BaseCultureMediumFormFilter extends BaseFormFilterDoctrine
       'strains_list'              => 'ManyKey',
       'patent_deposits_list'      => 'ManyKey',
       'maintenance_deposits_list' => 'ManyKey',
+      'isolations_list'           => 'ManyKey',
     );
   }
 }

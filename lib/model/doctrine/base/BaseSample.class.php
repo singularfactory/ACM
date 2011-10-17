@@ -31,6 +31,7 @@
  * @property Doctrine_Collection $MicroscopicPictures
  * @property Doctrine_Collection $SampleCollectors
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method integer             getNotebookCode()        Returns the current record's "notebook_code" value
@@ -58,6 +59,7 @@
  * @method Doctrine_Collection getMicroscopicPictures() Returns the current record's "MicroscopicPictures" collection
  * @method Doctrine_Collection getSampleCollectors()    Returns the current record's "SampleCollectors" collection
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Sample              setId()                  Sets the current record's "id" value
  * @method Sample              setNotebookCode()        Sets the current record's "notebook_code" value
  * @method Sample              setLocationId()          Sets the current record's "location_id" value
@@ -84,6 +86,7 @@
  * @method Sample              setMicroscopicPictures() Sets the current record's "MicroscopicPictures" collection
  * @method Sample              setSampleCollectors()    Sets the current record's "SampleCollectors" collection
  * @method Sample              setStrains()             Sets the current record's "Strains" collection
+ * @method Sample              setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -208,6 +211,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'foreign' => 'sample_id'));
 
         $this->hasMany('Strain as Strains', array(
+             'local' => 'id',
+             'foreign' => 'sample_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
              'local' => 'id',
              'foreign' => 'sample_id'));
 

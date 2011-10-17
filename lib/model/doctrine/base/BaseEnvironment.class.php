@@ -10,17 +10,20 @@
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
+ * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
  * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Environment         setId()                  Sets the current record's "id" value
  * @method Environment         setName()                Sets the current record's "name" value
  * @method Environment         setSamples()             Sets the current record's "Samples" collection
  * @method Environment         setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Environment         setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
+ * @method Environment         setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -68,6 +71,10 @@ abstract class BaseEnvironment extends sfDoctrineRecord
              'foreign' => 'environment_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'local' => 'id',
+             'foreign' => 'environment_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
              'local' => 'id',
              'foreign' => 'environment_id'));
 

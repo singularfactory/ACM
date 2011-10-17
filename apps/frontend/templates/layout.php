@@ -120,6 +120,15 @@
 						?>
 					</li>
 					
+					<li>
+						<?php
+						if ( !preg_match('/^((isolation)(\/_)?)/', $currentRoute) )
+							echo link_to('Isolations', '@isolation');
+						else
+							echo link_to('Isolations', '@isolation', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+					
 					<li class="header_menu_right_tab">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>

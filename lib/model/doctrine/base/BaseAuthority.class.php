@@ -10,17 +10,20 @@
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
+ * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Authority           setId()                  Sets the current record's "id" value
  * @method Authority           setName()                Sets the current record's "name" value
  * @method Authority           setStrains()             Sets the current record's "Strains" collection
  * @method Authority           setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Authority           setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
+ * @method Authority           setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -68,6 +71,10 @@ abstract class BaseAuthority extends sfDoctrineRecord
              'foreign' => 'authority_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'local' => 'id',
+             'foreign' => 'authority_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
              'local' => 'id',
              'foreign' => 'authority_id'));
 

@@ -25,6 +25,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       'strains_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
+      'isolations_list'           => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolation')),
     ));
 
     $this->setValidators(array(
@@ -38,6 +39,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       'strains_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
+      'isolations_list'           => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolation', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('culture_medium[%s]');
@@ -73,6 +75,11 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       $this->setDefault('maintenance_deposits_list', $this->object->MaintenanceDeposits->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['isolations_list']))
+    {
+      $this->setDefault('isolations_list', $this->object->Isolations->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
@@ -80,6 +87,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
     $this->saveStrainsList($con);
     $this->savePatentDepositsList($con);
     $this->saveMaintenanceDepositsList($con);
+    $this->saveIsolationsList($con);
 
     parent::doSave($con);
   }
@@ -195,6 +203,44 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('MaintenanceDeposits', array_values($link));
+    }
+  }
+
+  public function saveIsolationsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['isolations_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Isolations->getPrimaryKeys();
+    $values = $this->getValue('isolations_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Isolations', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Isolations', array_values($link));
     }
   }
 

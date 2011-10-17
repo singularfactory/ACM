@@ -87,6 +87,11 @@ all:
     purchase_product_genomic_dna:     2
     notify_sent_public_web_url:       http://bea.marinebiotechnology.org/
     
+    # Isolation constants
+    isolation_subject_sample:   0
+    isolation_subject_strain:   1
+    isolation_subject_external: 2
+    
     # Google Maps API management constants
     map_pictures_dir:   /images/maps
     default_latitude:   27.991232

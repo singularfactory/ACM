@@ -42,6 +42,7 @@
  * @property Doctrine_Collection $StrainCultureMedia
  * @property Doctrine_Collection $DnaExtractions
  * @property Doctrine_Collection $Projects
+ * @property Doctrine_Collection $Isolations
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
@@ -80,6 +81,7 @@
  * @method Doctrine_Collection    getStrainCultureMedia()         Returns the current record's "StrainCultureMedia" collection
  * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
  * @method Doctrine_Collection    getProjects()                   Returns the current record's "Projects" collection
+ * @method Doctrine_Collection    getIsolations()                 Returns the current record's "Isolations" collection
  * @method Strain                 setId()                         Sets the current record's "id" value
  * @method Strain                 setSampleId()                   Sets the current record's "sample_id" value
  * @method Strain                 setIsEpitype()                  Sets the current record's "is_epitype" value
@@ -117,6 +119,7 @@
  * @method Strain                 setStrainCultureMedia()         Sets the current record's "StrainCultureMedia" collection
  * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
  * @method Strain                 setProjects()                   Sets the current record's "Projects" collection
+ * @method Strain                 setIsolations()                 Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -278,6 +281,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'strain_id'));
 
         $this->hasMany('Project as Projects', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 

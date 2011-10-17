@@ -7,11 +7,14 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property Doctrine_Collection $Isolations
  * 
- * @method integer            getId()   Returns the current record's "id" value
- * @method string             getName() Returns the current record's "name" value
- * @method PurificationMethod setId()   Sets the current record's "id" value
- * @method PurificationMethod setName() Sets the current record's "name" value
+ * @method integer             getId()         Returns the current record's "id" value
+ * @method string              getName()       Returns the current record's "name" value
+ * @method Doctrine_Collection getIsolations() Returns the current record's "Isolations" collection
+ * @method PurificationMethod  setId()         Sets the current record's "id" value
+ * @method PurificationMethod  setName()       Sets the current record's "name" value
+ * @method PurificationMethod  setIsolations() Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -50,6 +53,10 @@ abstract class BasePurificationMethod extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Isolation as Isolations', array(
+             'local' => 'id',
+             'foreign' => 'purification_method_id'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }
