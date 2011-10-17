@@ -253,7 +253,7 @@ class apiActions extends MyActions {
 						$sample->setNotebookCode($records['notebook_code']);
 					}
 					if ( isset($records['collection_date']) ) {
-						$sample->setCollectionDate(($records['collection_date'])?$records['collection_date']:date('Y-m-d'));
+						$sample->setCollectionDate(($records['collection_date'])?date('Y-m-d', $records['collection_date']):date('Y-m-d'));
 					}
 					
 					// Manage the relationship with Location
