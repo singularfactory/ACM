@@ -364,7 +364,9 @@ class apiActions extends MyActions {
 			$skippedLocations = array();
 			if ( isset($json['location']) ) {
 				foreach ( $json['location'] as $records ) {
-					$location = LocationTable::getInstance()->find($records['id']);
+					if ( !($location = LocationTable::getInstance()->find($records['id'])) ) {
+						continue;
+					}
 					
 					// Decide if this location should be updated using timestamps
 					if ( !isset($records['updated_at']) ) {
@@ -375,7 +377,7 @@ class apiActions extends MyActions {
 						$skippedLocations[] = $location->getId();
 						continue;
 					}
-
+					
 					if ( isset($records['name']) ) {
 						$location->setName($records['name']);
 					}
@@ -403,7 +405,8 @@ class apiActions extends MyActions {
 					if ( isset($records['remarks']) ) {
 						$location->setRemarks($records['remarks']);
 					}
-
+					
+					$location->setUpdatedAt(date('Y-m-d H:i:s'));
 					$location->save();
 				}
 			}
@@ -413,11 +416,15 @@ class apiActions extends MyActions {
 					if ( in_array($records['location_id'], $skippedLocations) ) {
 						continue;
 					}
+					
+					if ( !($location = LocationTable::getInstance()->find($records['location_id'])) ) {
+						continue;
+					}
 
 					// Delete actual pictures
 					$filenames = array();
 					$ids = array();
-					foreach ( LocationTable::getInstance()->find($records['location_id'])->getPictures() as $picture ) {
+					foreach ( $location->getPictures() as $picture ) {
 						$filenames[] = $picture->getFilename();
 						$ids[] = $picture->getId();
 					}
