@@ -11,9 +11,52 @@
 class isolationActions extends MyActions {
 	
 	public function executeIndex(sfWebRequest $request) {
-		$this->isolations = Doctrine_Core::getTable('Isolation')
-			->createQuery('a')
-			->execute();
+		// Initiate the pager with default parameters but delay pagination until search criteria has been added
+		$this->pager = $this->buildPagination($request, 'Isolation', array('init' => false, 'sort_column' => 'reception_date'));
+		
+		// Deal with search criteria
+		if ( $text = $request->getParameter('criteria') ) {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Strain st")
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("s.TaxonomicClass tc")
+				->leftJoin("s.Genus g")
+				->leftJoin("s.Species sp")
+				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.external_code LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.reception_date LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.delivery_date LIKE ?", "%$text%")
+				->orWhere('tc.name LIKE ?', "%$text%")
+				->orWhere('g.name LIKE ?', "%$text%")
+				->orWhere('sp.name LIKE ?', "%$text%")
+				->orWhere('st.id LIKE ?', "%$text%")
+				->orWhere('sa.id LIKE ?', "%$text%");
+						
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
+		}
+		else {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Strain st")
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.Genus g")
+				->leftJoin("{$this->mainAlias()}.Species sp")
+				->leftJoin("st.TaxonomicClass sttc")
+				->leftJoin("st.Genus stg")
+				->leftJoin("st.Species stsp")
+			;
+			
+			$this->getUser()->setAttribute('search.criteria', null);
+		}
+		$this->pager->setQuery($query);
+		$this->pager->init();
+		
+		// Keep track of the last page used in list
+		$this->getUser()->setAttribute('isolation.index_page', $request->getParameter('page'));
+		
+		// Add a form to filter results
+		$this->form = new IsolationForm();
 	}
 	
 	public function executeShow(sfWebRequest $request) {

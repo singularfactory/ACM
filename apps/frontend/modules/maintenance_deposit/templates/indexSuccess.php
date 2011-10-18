@@ -26,7 +26,7 @@
 			<td class="maintenance_deposit_deposition_date"><?php echo link_to($maintenanceDeposit->getDepositionDate(), $url) ?></td>
 			<?php
 				$maintenanceDepositName = $maintenanceDeposit->getTaxonomicClass().'&nbsp;<span class="species_name">'.$maintenanceDeposit->getGenus().'</span>&nbsp;';
-				if ( $maintenanceDeposit->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
+				if ( $maintenanceDeposit->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
 					$maintenanceDepositName .= '<span class="species_name">'.$maintenanceDeposit->getSpecies().'</span>';
 				}
 				else {

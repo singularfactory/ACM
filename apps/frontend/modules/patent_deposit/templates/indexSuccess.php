@@ -26,7 +26,7 @@
 			<td class="patent_deposit_deposition_date"><?php echo link_to($patentDeposit->getDepositionDate(), $url) ?></td>
 			<?php
 				$patentDepositName = $patentDeposit->getTaxonomicClass().'&nbsp;<span class="species_name">'.$patentDeposit->getGenus().'</span>&nbsp;';
-				if ( $patentDeposit->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
+				if ( $patentDeposit->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
 					$patentDepositName .= '<span class="species_name">'.$patentDeposit->getSpecies().'</span>';
 				}
 				else {

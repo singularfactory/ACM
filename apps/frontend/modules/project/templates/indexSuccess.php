@@ -28,7 +28,7 @@
 			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 			<?php
 				$strainName = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
-				if ( $strain->getSpecies() !== sfConfig::get('app_unkown_species_name') ) {
+				if ( $strain->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
 					$strainName .= '<span class="species_name">'.$strain->getSpecies().'</span>';
 				}
 				else {

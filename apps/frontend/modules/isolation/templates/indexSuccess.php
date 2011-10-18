@@ -1,56 +1,72 @@
-<h1>Isolations List</h1>
+<?php use_helper('Date') ?>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Reception date</th>
-      <th>Isolation subject</th>
-      <th>Sample</th>
-      <th>Strain</th>
-      <th>External code</th>
-      <th>Taxonomic class</th>
-      <th>Genus</th>
-      <th>Species</th>
-      <th>Authority</th>
-      <th>Location</th>
-      <th>Environment</th>
-      <th>Habitat</th>
-      <th>Delivery date</th>
-      <th>Purification method</th>
-      <th>Purification details</th>
-      <th>Observation</th>
-      <th>Remarks</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($isolations as $isolation): ?>
-    <tr>
-      <td><a href="<?php echo url_for('isolation/show?id='.$isolation->getId()) ?>"><?php echo $isolation->getId() ?></a></td>
-      <td><?php echo $isolation->getReceptionDate() ?></td>
-      <td><?php echo $isolation->getIsolationSubject() ?></td>
-      <td><?php echo $isolation->getSampleId() ?></td>
-      <td><?php echo $isolation->getStrainId() ?></td>
-      <td><?php echo $isolation->getExternalCode() ?></td>
-      <td><?php echo $isolation->getTaxonomicClassId() ?></td>
-      <td><?php echo $isolation->getGenusId() ?></td>
-      <td><?php echo $isolation->getSpeciesId() ?></td>
-      <td><?php echo $isolation->getAuthorityId() ?></td>
-      <td><?php echo $isolation->getLocationId() ?></td>
-      <td><?php echo $isolation->getEnvironmentId() ?></td>
-      <td><?php echo $isolation->getHabitatId() ?></td>
-      <td><?php echo $isolation->getDeliveryDate() ?></td>
-      <td><?php echo $isolation->getPurificationMethodId() ?></td>
-      <td><?php echo $isolation->getPurificationDetails() ?></td>
-      <td><?php echo $isolation->getObservation() ?></td>
-      <td><?php echo $isolation->getRemarks() ?></td>
-      <td><?php echo $isolation->getCreatedAt() ?></td>
-      <td><?php echo $isolation->getUpdatedAt() ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+<?php slot('main_header') ?>
+<span>All isolations</span>
+	<?php include_partial('global/search_box_header_action', array('route' => '@isolation_search?criteria=')) ?>
+	<?php include_partial('global/new_header_action', array('message' => 'Add a new isolation', 'route' => '@isolation_new')) ?>
+<?php end_slot() ?>
+
+<?php if ( $pager->count() ): ?>
+<table id="isolation_list">
+	<tbody>
+		<tr>
+			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th>Code</th>
+			<th><?php echo link_to('Material', '@isolation?sort_column=isolation_subject&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Class', '@isolation?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@isolation?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
+			<th class="date"><?php echo link_to('Reception date', '@isolation?sort_column=reception_date&sort_direction='.$sortDirection) ?></th>
+			<th class="date"><?php echo link_to('Delivery date', '@isolation?sort_column=delivery_date&sort_direction='.$sortDirection) ?></th>
+			<th></th>
+		</tr>
+		
+		<?php foreach ($pager->getResults() as $isolation): ?>
+		<tr>
+			<?php $url = url_for('@isolation_show?id='.$isolation->getId()) ?>
+			<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
+			<?php $genus = sfConfig::get('app_no_data_message') ?>
+			<?php $species = '' ?>
+			
+			<?php if ( $sample = $isolation->getSample() ): ?>
+				<?php $code = $sample->getCode() ?>
+			<?php elseif ( $strain = $isolation->getStrain() ): ?>
+				<?php $code = $strain->getCode() ?>
+				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
+				<?php $genus = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;' ?>
+				<?php if ( $strain->getSpecies() !== sfConfig::get('app_unknown_species_name') ): ?>
+						<?php $species = '<span class="species_name">'.$strain->getSpecies().'</span>' ?>
+				<?php endif ?>
+			<?php else: ?>
+				<?php $code = $isolation->getExternalCode() ?>
+				<?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
+				<?php $genus = '<span class="species_name">'.$isolation->getFormattedGenus().'</span>&nbsp;' ?>
+				<?php if ( $isolation->getSpecies() !== sfConfig::get('app_unknown_species_name') ): ?>
+						<?php $species = '<span class="species_name">'.$isolation->getFormattedSpecies().'</span>' ?>
+				<?php endif ?>
+			<?php endif ?>
+			
+			<td class="isolation_code"><?php echo link_to($code, $url) ?></td>
+			<td class="isolation_subject"><?php echo link_to($isolation->getIsolationSubject(), $url) ?></td>
+			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
+			<td class="isolation_name"><?php echo link_to("$genus $species", $url) ?></td>
+			<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>
+			<td class="date delivery_date"><?php echo link_to($isolation->getDeliveryDate(), $url) ?></td>
+
+			<td class="actions">
+				<a href="<?php echo $url ?>">
+					<?php echo link_to('Edit', '@isolation_edit?id='.$isolation->getId()) ?>
+					<?php echo link_to('Delete', '@isolation_delete?id='.$isolation->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				</a>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
 </table>
 
-  <a href="<?php echo url_for('isolation/new') ?>">New</a>
+<?php if ($pager->haveToPaginate()): ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'isolation')) ?>
+<?php endif ?>
+
+<?php else: ?>
+	<p>There are no isolations to show.</p>
+<?php endif; ?>
