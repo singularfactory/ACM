@@ -63,7 +63,7 @@ class apiActions extends MyActions {
 	}
 	
 	protected function validateTimestamp($timestamp = null) {
-		return (date("Y-m-d H:i:s", $timestamp) != false);
+		return date('Y-m-d H:i:s', $timestamp);
 	}
 	
 	protected function validateRequestMethod(sfWebRequest $request = null, $method) {
@@ -83,8 +83,7 @@ class apiActions extends MyActions {
 			return $this->requestExitStatus(self::InvalidToken);
 		}
 		
-		$timestamp = $request->getParameter('timestamp');
-		if ( !$this->validateTimestamp($timestamp) ) {
+		if ( !($timestamp = $this->validateTimestamp($request->getParameter('timestamp'))) ) {
 			return $this->requestExitStatus(self::InvalidTimestamp);
 		}
 		
