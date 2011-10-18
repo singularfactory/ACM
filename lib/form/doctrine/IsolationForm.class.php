@@ -9,6 +9,7 @@
 * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
 class IsolationForm extends BaseIsolationForm {
+	
 	public function configure() {
 		// Configure date formats
 		for ($i=1990; $i <= date('Y'); $i++) { $years[$i] = $i; }
@@ -23,6 +24,9 @@ class IsolationForm extends BaseIsolationForm {
 		// Configure many-to-many relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'method' => 'getName')));
 		
+		// Configure a custom post validator to manage changes in isolation_subject
+    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'cleanFieldsByIsolationSubject'))));
+
 		// Configure labels
 		$this->widgetSchema->setLabel('isolation_subject', 'Isolation material');
 		
@@ -32,6 +36,42 @@ class IsolationForm extends BaseIsolationForm {
 		$this->widgetSchema->setHelp('reception_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('purification_details', 'Notes and conclusions about the purification process');
 		$this->widgetSchema->setHelp('delivery_date', 'Year, month and day');
+	}
+	
+	public function cleanFieldsByIsolationSubject($validator, $values) {	
+		switch( $values['isolation_subject'] ) {
+			case 'strain':
+				$values['external_code'] = null;
+				$values['location_id'] = null;
+				$values['sample_id'] = null;
+				$values['environment_id'] = null;
+				$values['habitat_id'] = null;
+				$values['taxonomic_class_id'] = null;
+				$values['genus_id'] = null;
+				$values['species_id'] = null;
+				$values['authority_id'] = null;
+				break;
+			
+			case 'external':
+				$values['sample_id'] = null;
+				$values['strain_id'] = null;
+				break;
+				
+			case 'sample':
+			default:
+				$values['external_code'] = null;
+				$values['location_id'] = null;
+				$values['strain_id'] = null;
+				$values['environment_id'] = null;
+				$values['habitat_id'] = null;
+				$values['taxonomic_class_id'] = null;
+				$values['genus_id'] = null;
+				$values['species_id'] = null;
+				$values['authority_id'] = null;
+				break;
+		}
+		
+		return $values;
 	}
 	
 }

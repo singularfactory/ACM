@@ -13,6 +13,10 @@
 class Sample extends BaseSample {
 	
 	public function getCode() {
+		if ( !($id = $this->getId()) ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		
 		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
 		$countryCode = $regionCode = $islandCode = '';
 		$dateCode = date('ymd', strtotime($this->getCollectionDate()));

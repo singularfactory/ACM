@@ -404,7 +404,12 @@ isolation:
 isolation_filter_by_subject_new:
   url:          isolation/new/:subject
   param:        { module: isolation, action: new, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external)" }
+  requirements: { subject: "(sample)|(strain)|(external)", sf_method: [get, head] }
+
+isolation_filter_by_subject_edit:
+  url:          isolation/:id/edit/:subject
+  param:        { module: isolation, action: edit, subject: sample }
+  requirements: { subject: "(sample)|(strain)|(external)", id: \d+, sf_method: [get, head] }
 
 isolation_find_locations:
   url:    isolation/findLocations/:term

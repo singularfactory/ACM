@@ -147,13 +147,22 @@ class isolationActions extends MyActions {
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($isolation = IsolationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object isolation does not exist (%s).', $request->getParameter('id')));
 		$this->form = new IsolationForm($isolation);
+		
+		if ( $subject = $request->getParameter('subject') ) {
+			$this->configureFormByIsolationSubject($this->form, $subject);
+		}
+		else {
+			$this->configureFormByIsolationSubject($this->form, $isolation->getIsolationSubject());
+		}
 	}
 	
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($isolation = IsolationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object isolation does not exist (%s).', $request->getParameter('id')));
+		
 		$this->form = new IsolationForm($isolation);
-
+		$isolation = $request->getParameter('isolation');
+		$this->configureFormByIsolationSubject($this->form, $isolation['isolation_subject']);
 		$this->processForm($request, $this->form);
 
 		$this->setTemplate('edit');

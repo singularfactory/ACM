@@ -11,7 +11,12 @@
 			<?php echo $form['isolation_subject']->renderError() ?>
 			<?php echo $form['isolation_subject']->renderHelp() ?>
 			<?php echo $form['isolation_subject'] ?>
-			<a href="<?php echo url_for('@isolation_filter_by_subject_new?subject=') ?>" class="isolation_isolation_subject_url"></a>
+			<?php if ( $form->getObject()->isNew() ): ?>
+				<?php $route = '@isolation_filter_by_subject_new?subject=' ?>
+			<?php else: ?>
+				<?php $route = '@isolation_filter_by_subject_edit?id='.$form->getObject()->getId().'&subject=' ?>
+			<?php endif; ?>
+			<a href="<?php echo url_for($route) ?>" class="isolation_isolation_subject_url"></a>
 		</div>
 		
 		<?php if ( isset($form['sample_id']) ): ?>
@@ -19,7 +24,7 @@
 			<?php echo $form['sample_id']->renderLabel() ?>
 			<?php echo $form['sample_id']->renderError() ?>
 			<?php echo $form['sample_id']->renderHelp() ?>
-			<input type="text" value="<?php echo ($form->isNew())?'Type a sample code...':$form->getObject()->getSample()->getCode(); ?>" id="isolation_sample_search" />
+			<input type="text" value="<?php echo ($form->isNew() || !$form->getObject()->getSample()->exists())?'Type a sample code...':$form->getObject()->getSample()->getCode(); ?>" id="isolation_sample_search" />
 			<a href="<?php echo url_for('@isolation_find_samples?term=') ?>" class="isolation_sample_numbers_url"></a>
 		</div>
 		<?php endif ?>
@@ -166,11 +171,14 @@
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
+			<?php $route = '@isolation' ?>
 			<input type="submit" value="Create this isolation">
 			<input type="submit" name="_save_and_add" value="Create and add">
 		<?php else: ?>
+			<?php $route = '@isolation_show?id='.$form->getObject()->getId() ?>
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
-		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+
+		or <?php echo link_to('cancel', $route, array('class' => 'cancel_form_link')) ?>
 	</div>
 </form>
