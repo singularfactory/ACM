@@ -66,6 +66,13 @@
 					}
 				?>
 			</dd>
+			<dt>Isolations:</dt>
+			<dd>
+				<?php echo $nbIsolations = $sample->getNbIsolations() ?>
+				<?php if ( $nbIsolations > 0 ): ?>
+					<a href="#sample_isolations_list" title="List of isolations applied to this sample" class="page_jump">see below</a>
+				<?php endif; ?>
+			</dd>
 			<dt>Remarks:</dt>
 			<dd><?php echo $sample->getRemarks() ?></dd>
 		</dl>
@@ -167,6 +174,29 @@
 			<tr>
 				<td><?php echo $collector->getName() ?> <?php echo $collector->getSurname() ?></td>
 				<td class="object_count_long"><?php echo $collector->getNbSamples() ?></span></td>
+			</tr>
+		<?php endforeach ?>
+		</table>
+	</div>
+	<?php endif ?>
+	
+	<?php if ( $nbIsolations > 0): ?>
+	<div id="sample_isolations_list" class="object_related_model_long_list">
+		<h2>Isolations</h2>
+		<table>
+			<tr>
+				<th class="date reception_date">Reception date</th>
+				<th class="date delivery_date">Delivery date</th>
+				<th class="purification_method">Purification method</th>
+				<th class="purification_details">Purification details</th>
+			</tr>
+			<?php foreach ($sample->getIsolations() as $isolation ): ?>
+			<?php $url = '@isolation_show?id='.$isolation->getId() ?>
+			<tr>
+				<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>
+				<td class="date delivery_date"><?php echo link_to($isolation->getDeliveryDate(), $url) ?></td>
+				<td class="purification_method"></td>
+				<td class="purification_details"></td>
 			</tr>
 		<?php endforeach ?>
 		</table>

@@ -172,6 +172,13 @@ class Sample extends BaseSample {
 			->count();
 	}
 	
+	public function getNbIsolations() {
+		return Doctrine_Query::create()
+			->from('Isolation i')
+			->where('i.sample_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getNbCollectors() {
 		return count($this->getCollectors());
 	}
