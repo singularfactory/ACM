@@ -70,6 +70,13 @@ class Strain extends BaseStrain {
 			->count();
 	}
 	
+	public function getNbIsolations() {
+		return Doctrine_Query::create()
+			->from('Isolation i')
+			->where('i.strain_id = ?', $this->getId())
+			->count();
+	}
+	
 	public function getNbPictures() {
 		return Doctrine_Query::create()
 			->from('StrainPicture sp')

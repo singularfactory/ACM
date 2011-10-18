@@ -112,6 +112,30 @@
 		</div>
 		<?php endif ?>
 		
+		<?php $nbIsolations = $strain->getNbIsolations() ?>
+		<?php if ( $nbIsolations > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Isolations</h2>
+			<table>
+				<tr>
+					<th class="date reception_date">Reception date</th>
+					<th class="date delivery_date">Delivery date</th>
+					<th class="purification_method">Purification method</th>
+					<th class="purification_details">Purification details</th>
+				</tr>
+				<?php foreach ($strain->getIsolations() as $isolation ): ?>
+				<?php $url = '@isolation_show?id='.$isolation->getId() ?>
+				<tr>
+					<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>
+					<td class="date delivery_date"><?php echo link_to($isolation->getDeliveryDate(), $url) ?></td>
+					<td class="purification_method"></td>
+					<td class="purification_details"></td>
+				</tr>
+			<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 		<?php if ( $strain->getNbPictures() > 0 ): ?>
 		<div class="object_related_model_list">
 			<h2>Pictures</h2>
@@ -189,9 +213,6 @@
 			<dt>Culture media:</dt>
 			<dd><?php echo $nbCultureMedia ?></dd>
 			
-			<dt>Projects:</dt>
-			<dd><?php echo $nbProjects ?></dd>
-			
 			<dt>DNA extractions:</dt>
 			<dd>
 				<?php echo $nbDnaExtractions = $strain->getNbDnaExtractions() ?>
@@ -199,6 +220,12 @@
 					<a href="#strain_dna_extractions_list" title="List of DNA extractions linked to this strain" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
+			
+			<dt>Projects:</dt>
+			<dd><?php echo $nbProjects ?></dd>
+			
+			<dt>Isolations:</dt>
+			<dd><?php echo $nbIsolations ?></dd>
 			
 			<dt>Transfer interval:</dt>
 			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
