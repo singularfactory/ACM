@@ -23,6 +23,14 @@ class Strain extends BaseStrain {
 		return 'BEA'.$code.$axenicCode;
 	}
 	
+	public function getTaxonomicName() {
+		return sprintf('%s %s %s', $this->getTaxonomicClass(), $this->getGenus(), $this->getSpecies());
+	}
+	
+	public function getGenusAndSpecies() {
+		return sprintf('%s %s', $this->getGenus(), $this->getSpecies());
+	}
+	
 	public function getFormattedSampleCode() {
 		if ( $this->getSample() ) {
 			return $this->getSample()->getCode();

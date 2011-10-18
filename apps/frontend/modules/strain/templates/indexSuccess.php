@@ -24,16 +24,7 @@
 		<tr>
 			<?php $url = url_for('@strain_show?id='.$strain->getId()) ?>
 			<td class="strain_code"><?php echo link_to($strain->getCode(), $url) ?></td>
-			<?php
-				$strainName = $strain->getTaxonomicClass().'&nbsp;<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
-				if ( $strain->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
-					$strainName .= '<span class="species_name">'.$strain->getSpecies().'</span>';
-				}
-				else {
-					$strainName .= $strain->getSpecies();
-				}
-			?>
-			<td class="strain_name"><?php echo link_to($strainName, $url) ?></td>
+			<td class="strain_name"><?php echo $strain->getTaxonomicClass() ?> <span class="species_name"><?php echo $strain->getGenus() ?> <?php echo $strain->getSpecies() ?></span></td>
 			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleCode(), $url) ?></td>
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
 			<td class="isolation_date"><?php echo link_to($strain->getFormattedIsolationDate(), $url) ?></td>

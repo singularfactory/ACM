@@ -23,32 +23,22 @@
 		<?php foreach ($pager->getResults() as $isolation): ?>
 		<tr>
 			<?php $url = url_for('@isolation_show?id='.$isolation->getId()) ?>
-			<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
-			<?php $genus = sfConfig::get('app_no_data_message') ?>
-			<?php $species = '' ?>
+			<?php $code = $isolation->getExternalCode() ?>
+			<?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
+			<?php $genusAndSpecies = $isolation->getGenusAndSpecies() ?>
 			
 			<?php if ( $sample = $isolation->getSample() ): ?>
 				<?php $code = $sample->getCode() ?>
 			<?php elseif ( $strain = $isolation->getStrain() ): ?>
 				<?php $code = $strain->getCode() ?>
 				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
-				<?php $genus = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;' ?>
-				<?php if ( $strain->getSpecies() !== sfConfig::get('app_unknown_species_name') ): ?>
-						<?php $species = '<span class="species_name">'.$strain->getSpecies().'</span>' ?>
-				<?php endif ?>
-			<?php else: ?>
-				<?php $code = $isolation->getExternalCode() ?>
-				<?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
-				<?php $genus = '<span class="species_name">'.$isolation->getFormattedGenus().'</span>&nbsp;' ?>
-				<?php if ( $isolation->getSpecies() !== sfConfig::get('app_unknown_species_name') ): ?>
-						<?php $species = '<span class="species_name">'.$isolation->getFormattedSpecies().'</span>' ?>
-				<?php endif ?>
+				<?php $genusAndSpecies = $strain->getGenusAndSpecies() ?>
 			<?php endif ?>
 			
 			<td class="isolation_code"><?php echo link_to($code, $url) ?></td>
 			<td class="isolation_subject"><?php echo link_to($isolation->getIsolationSubject(), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
-			<td class="isolation_name"><?php echo link_to("$genus $species", $url) ?></td>
+			<td class="isolation_name"><span class="species_name"><?php echo link_to($genusAndSpecies, $url) ?></span></td>
 			<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>
 			<td class="date delivery_date"><?php echo link_to($isolation->getDeliveryDate(), $url) ?></td>
 

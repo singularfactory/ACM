@@ -1,90 +1,88 @@
-<table>
-  <tbody>
-    <tr>
-      <th>Id:</th>
-      <td><?php echo $isolation->getId() ?></td>
-    </tr>
-    <tr>
-      <th>Reception date:</th>
-      <td><?php echo $isolation->getReceptionDate() ?></td>
-    </tr>
-    <tr>
-      <th>Isolation subject:</th>
-      <td><?php echo $isolation->getIsolationSubject() ?></td>
-    </tr>
-    <tr>
-      <th>Sample:</th>
-      <td><?php echo $isolation->getSampleId() ?></td>
-    </tr>
-    <tr>
-      <th>Strain:</th>
-      <td><?php echo $isolation->getStrainId() ?></td>
-    </tr>
-    <tr>
-      <th>External code:</th>
-      <td><?php echo $isolation->getExternalCode() ?></td>
-    </tr>
-    <tr>
-      <th>Taxonomic class:</th>
-      <td><?php echo $isolation->getTaxonomicClassId() ?></td>
-    </tr>
-    <tr>
-      <th>Genus:</th>
-      <td><?php echo $isolation->getGenusId() ?></td>
-    </tr>
-    <tr>
-      <th>Species:</th>
-      <td><?php echo $isolation->getSpeciesId() ?></td>
-    </tr>
-    <tr>
-      <th>Authority:</th>
-      <td><?php echo $isolation->getAuthorityId() ?></td>
-    </tr>
-    <tr>
-      <th>Location:</th>
-      <td><?php echo $isolation->getLocationId() ?></td>
-    </tr>
-    <tr>
-      <th>Environment:</th>
-      <td><?php echo $isolation->getEnvironmentId() ?></td>
-    </tr>
-    <tr>
-      <th>Habitat:</th>
-      <td><?php echo $isolation->getHabitatId() ?></td>
-    </tr>
-    <tr>
-      <th>Delivery date:</th>
-      <td><?php echo $isolation->getDeliveryDate() ?></td>
-    </tr>
-    <tr>
-      <th>Purification method:</th>
-      <td><?php echo $isolation->getPurificationMethodId() ?></td>
-    </tr>
-    <tr>
-      <th>Purification details:</th>
-      <td><?php echo $isolation->getPurificationDetails() ?></td>
-    </tr>
-    <tr>
-      <th>Observation:</th>
-      <td><?php echo $isolation->getObservation() ?></td>
-    </tr>
-    <tr>
-      <th>Remarks:</th>
-      <td><?php echo $isolation->getRemarks() ?></td>
-    </tr>
-    <tr>
-      <th>Created at:</th>
-      <td><?php echo $isolation->getCreatedAt() ?></td>
-    </tr>
-    <tr>
-      <th>Updated at:</th>
-      <td><?php echo $isolation->getUpdatedAt() ?></td>
-    </tr>
-  </tbody>
-</table>
+<?php use_helper('Date'); ?>
 
-<hr />
+<?php $isolationSubject = sfInflector::camelize($isolation->getIsolationSubject()) ?>
+<?php $code = $isolation->getExternalCode() ?>
+<?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
+<?php $genus = $isolation->getFormattedGenus() ?>
+<?php $species = $isolation->getFormattedSpecies() ?>
+<?php $authority = $isolation->getFormattedAuthority() ?>
+<?php $location = $isolation->getFormattedLocation() ?>
+<?php $environment = $isolation->getFormattedEnvironment() ?>
+<?php $habitat = $isolation->getFormattedHabitat() ?>
 
-<a href="<?php echo url_for('isolation/edit?id='.$isolation->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('isolation/index') ?>">List</a>
+<?php if ( $isolation->getStrain()->exists() ): ?>
+	<?php $strain = $isolation->getStrain() ?>
+	<?php $code = $strain->getCode() ?>
+	<?php $route = "@strain_show?id={$strain->getId()}" ?>
+	<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
+	<?php $genus = $strain->getGenus() ?>
+	<?php $species = $strain->getSpecies() ?>
+	<?php $authority = $strain->getAuthority() ?>
+	<?php $location = link_to($strain->getSample()->getLocation(), "@location_show?id={$strain->getSample()->getLocationId()}") ?>
+	<?php $environment = $strain->getSample()->getEnvironment() ?>
+	<?php $habitat = $strain->getSample()->getHabitat() ?>
+<?php elseif( $isolation->getSample()->exists() ): ?>
+	<?php $sample = $isolation->getSample() ?>
+	<?php $code = $sample->getCode() ?>
+	<?php $location = link_to($sample->getLocation(), "@location_show?id={$sample->getLocationId()}") ?>
+	<?php $environment = $sample->getEnvironment() ?>
+	<?php $habitat = $sample->getHabitat() ?>
+	<?php $route = "@sample_show?id={$sample->getId()}" ?>
+<?php endif ?>
+
+<?php slot('main_header') ?>
+<span><?php echo $isolationSubject ?> <?php echo $code ?></span>
+<?php include_partial('global/back_header_action', array('module' => 'isolation')) ?>
+<?php include_partial('global/edit_header_action', array('module' => 'isolation', 'id' => $isolation->getId())) ?>
+<?php include_partial('global/delete_header_action', array('module' => 'isolation', 'id' => $isolation->getId())) ?>
+<?php end_slot() ?>
+
+<div id="main_view_show">
+	<div id="object_data_list">
+		<dl>
+			<dt><?php echo $isolationSubject ?>:</dt>
+			<dd><?php echo (isset($route))?link_to($code, $route):$code ?></dd>
+
+			<dt>Class:</dt>
+			<dd><?php echo $taxonomicClass ?></dd>
+
+			<dt>Genus:</dt>
+			<dd><span class="species_name"><?php echo $genus ?></span></dd>
+
+			<dt>Species:</dt>
+			<dd><span class="species_name"><?php echo $species ?></span></dd>
+			
+			<dt>Authority:</dt>
+			<dd><?php echo $authority ?></dd>
+			
+			<dt>Location:</dt>
+			<dd><?php echo $location ?></dd>
+			
+			<dt>Environment:</dt>
+			<dd><?php echo $environment ?></dd>
+			
+			<dt>Habitat:</dt>
+			<dd><?php echo $habitat ?></dd>
+
+			<dt>Reception date:</dt>
+			<dd><?php echo $isolation->getReceptionDate() ?></dd>
+
+			<dt>Delivery date:</dt>
+			<dd><?php echo $isolation->getDeliveryDate() ?></dd>
+
+			<dt>Purification method:</dt>
+			<dd><?php echo $isolation->getPurificationMethod() ?></dd>
+
+			<dt>Purification details:</dt>
+			<dd><?php echo $isolation->getPurificationDetails() ?></dd>
+
+			<dt>Observation:</dt>
+			<dd><?php echo $isolation->getObservation() ?></dd>
+
+			<dt>Remarks:</dt>
+			<dd><?php echo $isolation->getRemarks() ?></dd>
+		</dl>
+	</div>
+	
+	<div class="clear"></div>
+</div>

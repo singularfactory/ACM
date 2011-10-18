@@ -31,27 +31,81 @@ class Isolation extends BaseIsolation {
 	}
 	
 	public function getFormattedTaxonomicClass() {
-		if ( $taxonomicClass = $this->getTaxonomicClass() ) {
-			return $taxonomicClass->getName();
+		if ( $object = $this->getTaxonomicClass() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
 		}
 		
 		return sfConfig::get('app_no_data_message');
 	}
 	
 	public function getFormattedGenus() {
-		if ( $genus = $this->getGenus() ) {
-			return $genus->getName();
+		if ( $object = $this->getGenus() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
 		}
 		
 		return sfConfig::get('app_no_data_message');
 	}
 	
 	public function getFormattedSpecies() {
-		if ( $species = $this->getSpecies() ) {
-			return $species->getName();
+		if ( $object = $this->getSpecies() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
 		}
 		
-		return '';
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getFormattedAuthority() {
+		if ( $object = $this->getAuthority() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getFormattedLocation() {
+		if ( $object = $this->getLocation() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getFormattedEnvironment() {
+		if ( $object = $this->getEnvironment() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getFormattedHabitat() {
+		if ( $object = $this->getHabitat() ) {
+			if ( $object->exists() ) {
+				return $object->getName();
+			}
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getTaxonomicName() {
+		return sprintf('%s %s %s', $this->getFormattedTaxonomicClass(), $this->getFormattedGenus(), $this->getFormattedSpecies());
+	}
+	
+	public function getGenusAndSpecies() {
+		return sprintf('%s %s', $this->getFormattedGenus(), $this->getFormattedSpecies());
 	}
 	
 }
