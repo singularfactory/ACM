@@ -71,13 +71,6 @@ class PatentDeposit extends BasePatentDeposit {
 		return 'no';
 	}
 	
-	public function getFormattedIsPublic() {
-		if ( $this->getIsPublic() ) {
-			return 'yes';
-		}
-		return 'no';
-	}
-	
 	public function getFormattedCitations() {
 		if ( $citations = $this->_get('citations') ) {
 			return $citations;

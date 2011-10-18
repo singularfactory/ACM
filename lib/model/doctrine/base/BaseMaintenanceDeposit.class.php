@@ -12,7 +12,6 @@
  * @property integer $authority_id
  * @property boolean $is_epitype
  * @property boolean $is_axenic
- * @property boolean $is_public
  * @property boolean $has_dna
  * @property string $gen_sequence
  * @property integer $location_id
@@ -58,7 +57,6 @@
  * @method integer                getAuthorityId()                    Returns the current record's "authority_id" value
  * @method boolean                getIsEpitype()                      Returns the current record's "is_epitype" value
  * @method boolean                getIsAxenic()                       Returns the current record's "is_axenic" value
- * @method boolean                getIsPublic()                       Returns the current record's "is_public" value
  * @method boolean                getHasDna()                         Returns the current record's "has_dna" value
  * @method string                 getGenSequence()                    Returns the current record's "gen_sequence" value
  * @method integer                getLocationId()                     Returns the current record's "location_id" value
@@ -103,7 +101,6 @@
  * @method MaintenanceDeposit     setAuthorityId()                    Sets the current record's "authority_id" value
  * @method MaintenanceDeposit     setIsEpitype()                      Sets the current record's "is_epitype" value
  * @method MaintenanceDeposit     setIsAxenic()                       Sets the current record's "is_axenic" value
- * @method MaintenanceDeposit     setIsPublic()                       Sets the current record's "is_public" value
  * @method MaintenanceDeposit     setHasDna()                         Sets the current record's "has_dna" value
  * @method MaintenanceDeposit     setGenSequence()                    Sets the current record's "gen_sequence" value
  * @method MaintenanceDeposit     setLocationId()                     Sets the current record's "location_id" value
@@ -179,11 +176,6 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
              'default' => false,
              ));
         $this->hasColumn('is_axenic', 'boolean', null, array(
-             'type' => 'boolean',
-             'notnull' => true,
-             'default' => false,
-             ));
-        $this->hasColumn('is_public', 'boolean', null, array(
              'type' => 'boolean',
              'notnull' => true,
              'default' => false,

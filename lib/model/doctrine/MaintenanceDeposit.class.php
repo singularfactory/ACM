@@ -71,13 +71,6 @@ class MaintenanceDeposit extends BaseMaintenanceDeposit {
 		return 'no';
 	}
 	
-	public function getFormattedIsPublic() {
-		if ( $this->getIsPublic() ) {
-			return 'yes';
-		}
-		return 'no';
-	}
-	
 	public function getFormattedCitations() {
 		if ( $citations = $this->_get('citations') ) {
 			return $citations;

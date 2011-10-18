@@ -140,9 +140,6 @@
 			<dt>Is axenic:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedIsAxenic() ?></dd>
 
-			<dt>Is public:</dt>
-			<dd><?php echo $maintenanceDeposit->getFormattedIsPublic() ?></dd>
-			
 			<dt>Culture media:</dt>
 			<dd><?php echo $nbCultureMedia ?></dd>
 			

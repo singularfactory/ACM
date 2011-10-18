@@ -96,12 +96,6 @@
 			<?php echo $form['is_axenic'] ?>
 		</div>
 		
-		<div id="public" class="checkbox">
-			<?php echo $form['is_public']->renderLabel() ?>
-			<?php echo $form['is_public'] ?>
-			<?php echo $form['is_public']->renderHelp() ?>
-		</div>
-				
 		<div id="culture_media_list" class="list_field">
 			<?php echo $form['culture_media_list']->renderLabel() ?>
 			<?php echo $form['culture_media_list']->renderError() ?>

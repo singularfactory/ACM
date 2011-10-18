@@ -64,7 +64,6 @@ class PatentDepositForm extends BasePatentDepositForm {
 		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain culture');
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
-		$this->widgetSchema->setHelp('is_public', 'Whether the strain must be shown in public catalog or not');
 		$this->widgetSchema->setHelp('amount', 'Items in stock');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this deposit. Select more than one with Ctrl or Cmd key.');
