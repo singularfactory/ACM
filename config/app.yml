@@ -87,6 +87,9 @@ all:
     purchase_product_genomic_dna:     2
     notify_sent_public_web_url:       http://bea.marinebiotechnology.org/
     
+    # Projects constants
+    project_amount_unit: ml
+    
     # Isolation constants
     isolation_subject_sample:   0
     isolation_subject_strain:   1

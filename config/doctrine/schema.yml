@@ -625,7 +625,7 @@ Project:
   columns:
     id:               { type: integer, primary: true, autoincrement: true }
     strain_id:        { type: integer, notnull: true }
-    amount:           { type: float, notnull: true }
+    amount:           { type: float, notnull: true, default: 0.0 }
     provider_id:      { type: integer, notnull: true }
     inoculation_date: { type: date, notnull: true }
     purpose:          { type: string, notnull: true }

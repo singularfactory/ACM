@@ -98,7 +98,7 @@
 				<tr>
 					<th class="project_inoculation_date">Date</th>
 					<th class="provider_name">Provider</th>
-					<th class="project_amount">Amount</th>
+					<th class="project_amount">Amount (<?php echo sfConfig::get('app_project_amount_unit') ?>)</th>
 				</tr>
 				<?php foreach ($strain->getProjects() as $project ): ?>
 					<?php $url = '@project_show?id='.$project->getId() ?>

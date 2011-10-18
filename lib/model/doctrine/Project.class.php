@@ -30,4 +30,8 @@ class Project extends BaseProject {
 		}
 	}
 	
+	public function getFormattedAmount() {
+		return sprintf('%.2f %s', $this->_get('amount'), sfConfig::get('app_project_amount_unit'));
+	}
+	
 }

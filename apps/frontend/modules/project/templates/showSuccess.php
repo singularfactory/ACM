@@ -33,7 +33,7 @@
 			<dt>Provider:</dt>
 			<dd><?php echo $project->getProvider()->getName() ?></dd>
 			<dt>Amount:</dt>
-			<dd><?php echo $project->getAmount() ?></dd>
+			<dd><?php echo $project->getFormattedAmount() ?></dd>
 			<dt>Delivery date:</dt>
 			<dd><?php echo $project->getDeliveryDate() ?></dd>
 			<dt>Purpose:</dt>
