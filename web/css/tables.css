@@ -25,7 +25,7 @@ tr:hover a:link, tr:hover a:visited { color: #2aa2f8; }
 td a:hover { color: #333; background: transparent; }
 
 /* Actions column styles */
-td.actions { width: 150px; text-align: right; }
+td.actions { width: 80px; text-align: right; }
 td.actions a:link, td.actions a:visited { display: none; }
 tr:hover td.actions a { color: #2aa2f8; font-weight: lighter; display: inline; text-decoration: underline; }
 tr:hover td.actions a:hover { color: #fff; background: #2aa2f8; text-decoration: none; }
@@ -79,7 +79,7 @@ th.object_count, td.object_count { width: 35px; }
 th.object_count_long, td.object_count_long { width: 100px; }
 th.aliquots, td.aliquots { width: 60px; }
 th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band, td.project_strain_code { width: 100px; }
-td.date { width: 110px; }
+td.date { width: 100px; }
 td.extraction_kit, td.isolation_date, td.isolation_subject { width: 120px; }
 td.dna_extraction_code, td.sample_code { width: 135px; }
 td.isolation_code { width: 150px; }
@@ -93,12 +93,12 @@ td.location_name { width: 300px; }
 td.taxonomic_class_name, td.inoculation_date { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount, td.is_public { width: 80px; }
-td.notification_date, td.purchase_order_date { width: 130px; }
+td.notification_date, td.purchase_order_date, td.extraction_date { width: 130px; }
 td.purchase_order_items { width: 100px; }
 td.purchase_order_status, td.purchase_item_status { width: 100px; }
 td.purchase_order_code { width: 150px; }
 td.purchase_item_product { width: 150px; }
-td.collectors_name { width: 240px; }
+td.collectors_name { width: 280px }
 
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,
