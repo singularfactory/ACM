@@ -103,6 +103,6 @@
 		<?php endif; ?>
 	</div>
 	
-	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'location', 'progressBar' => true)) ?>	
+	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'location', 'progressBar' => true)) ?>
 
 </form>

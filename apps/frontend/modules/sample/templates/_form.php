@@ -277,15 +277,6 @@
 		</div>
 	</div>
 	
-	<div class="submit">
-		<?php if ( $form->getObject()->isNew() ): ?>
-			<input type="submit" value="Create this sample">
-			<input type="submit" name="_save_and_add" value="Create and add">
-		<?php else: ?>
-			<input type="submit" value="Save changes">
-		<?php endif; ?>	
-		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
-		
-		<?php echo progress_bar() ?>
-	</div>
+	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'sample', 'progressBar' => true)) ?>
+
 </form>
