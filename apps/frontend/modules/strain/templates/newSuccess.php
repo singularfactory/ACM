@@ -19,5 +19,5 @@ elseif ( ! $hasCryopreservationMethods )
 elseif ( ! $hasCultureMedia )
 	echo '<p>You must '.link_to('add a culture medium', '@culture_medium_new').' first before creating strains.</p>';
 else
-	include_partial('form', array('form' => $form));
+	include_partial('form', array('form' => $form, 'sampleCode' => $sampleCode));
 ?>

@@ -79,28 +79,31 @@ class strainActions extends MyActions {
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSample());
-			$strain->setIsEpitype($lastStrain->getIsEpitype());
-			$strain->setIsAxenic($lastStrain->getIsAxenic());
-			$strain->setIsPublic($lastStrain->getIsPublic());
 			$strain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
 			$strain->setGenusId($lastStrain->getGenusId());
 			$strain->setSpeciesId($lastStrain->getSpeciesId());
 			$strain->setAuthorityId($lastStrain->getAuthorityId());
-			$strain->setIdentifierId($lastStrain->getIdentifierId());
+			$strain->setIsEpitype($lastStrain->getIsEpitype());
+			$strain->setIsPublic($lastStrain->getIsPublic());
+			$strain->setContainerId($lastStrain->getContainerId());
 			$strain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());
 			$strain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
+			$strain->setIsolationDate($lastStrain->getIsolationDate());
+			$strain->setIdentifierId($lastStrain->getIdentifierId());
+			$strain->setIsAxenic($lastStrain->getIsAxenic());
 			$strain->setTransferInterval($lastStrain->getTransferInterval());
 			$strain->setObservation($lastStrain->getObservation());
 			$strain->setCitations($lastStrain->getCitations());
-			$strain->setIsolationDate($lastStrain->getIsolationDate());
-			$strain->setIdentifierDate($lastStrain->getIdentificationId());
 			$strain->setRemarks($lastStrain->getRemarks());
+			$strain->setWebNotes($lastStrain->getWebNotes());
 			
 			$this->form = new StrainForm($strain);
+			$this->sampleCode = $lastStrain->getSample()->getCode();
 			$this->getUser()->setAttribute('strain.last_object_created', null);
 		}
 		else {
 			$this->form = new StrainForm();
+			$this->sampleCode = null;
 		}
 		
 		$this->hasSamples = (Doctrine::getTable('Sample')->count() > 0)?true:false;
