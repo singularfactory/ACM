@@ -1,6 +1,7 @@
 <?php if ( isset($form) && isset($module) ): ?>
 
 	<?php if ( !isset($add) ) $add = true ?>
+	<?php if ( !isset($progressBar) ) $progressBar = false ?>
 	<?php $route = "@$module" ?>
 	
 	<div class="submit">
@@ -15,6 +16,8 @@
 		<?php endif; ?>	
 
 		or <?php echo link_to('cancel', $route, array('class' => 'cancel_form_link')) ?>
+		
+		<?php if ( $progressBar ) echo progress_bar(); ?>
 	</div>
 
 <?php endif ?>
