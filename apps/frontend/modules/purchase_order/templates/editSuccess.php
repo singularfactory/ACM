@@ -51,8 +51,5 @@
 		<p><strong>Refunded</strong> means that the purchase order has been refunded to the customer. Changing to this status also updates the public web.</p>
 	</div>	
 	
-	<div class="submit">
-		<input type="submit" value="Save changes">
-		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
-	</div>
+	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'purchase_order', 'add' => false)) ?>
 </form>
