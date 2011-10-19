@@ -12,6 +12,7 @@
  * @property string $remarks
  * @property timestamp $activation_date
  * @property timestamp $delivery_date
+ * @property string $delivery_code
  * @property Doctrine_Collection $Items
  * 
  * @method integer             getId()              Returns the current record's "id" value
@@ -21,6 +22,7 @@
  * @method string              getRemarks()         Returns the current record's "remarks" value
  * @method timestamp           getActivationDate()  Returns the current record's "activation_date" value
  * @method timestamp           getDeliveryDate()    Returns the current record's "delivery_date" value
+ * @method string              getDeliveryCode()    Returns the current record's "delivery_code" value
  * @method Doctrine_Collection getItems()           Returns the current record's "Items" collection
  * @method PurchaseOrder       setId()              Sets the current record's "id" value
  * @method PurchaseOrder       setStatus()          Sets the current record's "status" value
@@ -29,6 +31,7 @@
  * @method PurchaseOrder       setRemarks()         Sets the current record's "remarks" value
  * @method PurchaseOrder       setActivationDate()  Sets the current record's "activation_date" value
  * @method PurchaseOrder       setDeliveryDate()    Sets the current record's "delivery_date" value
+ * @method PurchaseOrder       setDeliveryCode()    Sets the current record's "delivery_code" value
  * @method PurchaseOrder       setItems()           Sets the current record's "Items" collection
  * 
  * @package    bna_green_house
@@ -54,14 +57,18 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
               1 => 'processing',
               2 => 'ready',
               3 => 'sent',
+              4 => 'canceled',
+              5 => 'refunded',
              ),
              ));
         $this->hasColumn('code', 'string', 40, array(
              'type' => 'string',
+             'notnull' => true,
              'length' => 40,
              ));
         $this->hasColumn('customer', 'string', 512, array(
              'type' => 'string',
+             'notnull' => true,
              'length' => 512,
              ));
         $this->hasColumn('remarks', 'string', null, array(
@@ -72,6 +79,10 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
              ));
         $this->hasColumn('delivery_date', 'timestamp', null, array(
              'type' => 'timestamp',
+             ));
+        $this->hasColumn('delivery_code', 'string', 80, array(
+             'type' => 'string',
+             'length' => 80,
              ));
 
 

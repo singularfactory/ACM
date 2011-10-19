@@ -59,6 +59,7 @@ abstract class BaseProject extends sfDoctrineRecord
         $this->hasColumn('amount', 'float', null, array(
              'type' => 'float',
              'notnull' => true,
+             'default' => 0,
              ));
         $this->hasColumn('provider_id', 'integer', null, array(
              'type' => 'integer',

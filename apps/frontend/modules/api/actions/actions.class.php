@@ -26,35 +26,42 @@ class apiActions extends MyActions {
 	const InvalidJSON = 4;
 	const ServerError = 5;
 	
-	protected function requestExitStatus($error = self::RequestSuccess, $content = 0) {
+	protected function requestExitStatus($error = self::RequestSuccess, $details = '') {
 		switch ( $error ) {
 			case self::InvalidRequestMethod:
-				$content = (empty($content))?'Invalid request method':$content;
+				$status = 'Invalid request method_exists';
 				$exitStatus = self::HttpInvalidRequestMethod;
 				break;
 			case self::InvalidToken:
-				$content = (empty($content))?'Invalid token':$content;
+				$status = 'Invalid token';
 				$exitStatus = self::HttpInvalidToken;
 				break;
 			case self::InvalidTimestamp:
-				$content = (empty($content))?'Invalid timestamp':$content;
+				$status = 'Invalid timestamp';
 				$exitStatus = self::HttpInvalidTimestamp;
 				break;
 			case self::InvalidJSON:
-				$content = (empty($content))?'Invalid JSON':$content;
+				$status = 'Invalid JSON';
 				$exitStatus = self::HttpInvalidJSON;
 				break;
 			case self::ServerError:
-				$content = (empty($content))?'Server error':$content;
+				$status = 'Server error';
 				$exitStatus = self::HttpServerError;
 				break;
 			default:
+				$status = 0;
 				$exitStatus = self::HttpRequestSuccess;
 				break;
 		}
 		
+		if ( $details )
+			$details = sprintf('%s: %s', $status, $details);
+		else {
+			$details = $status;
+		}
+		
 		$this->getResponse()->setStatusCode($exitStatus);
-		$this->getResponse()->setContent($content);
+		$this->getResponse()->setContent($details);
 		return sfView::NONE;
 	}
 	
@@ -478,11 +485,15 @@ class apiActions extends MyActions {
 		);
 		
 		if ( !isset($json['code']) ) {
-			return $this->requestExitStatus(self::InvalidJSON);
+			return $this->requestExitStatus(self::InvalidJSON, 'Missing purchase order code');
 		}
 		
 		if ( !isset($json['items']) ) {
-			return $this->requestExitStatus(self::InvalidJSON);
+			return $this->requestExitStatus(self::InvalidJSON, 'Missing products information');
+		}
+		
+		if ( !isset($json['customer']) ) {
+			return $this->requestExitStatus(self::InvalidJSON, 'Missing customer information');
 		}
 		
 		try {
@@ -490,15 +501,24 @@ class apiActions extends MyActions {
 			$purchaseOrder = new PurchaseOrder();
 			$purchaseOrder->setStatus(sfConfig::get('app_purchase_order_pending'));
 			$purchaseOrder->setCode($json['code']);
+			$purchaseOrder->setCustomer($json['customer']);
 			unset($json['code']);
+			unset($json['customer']);
 			
 			// Add items to the purchase order
 			$purchaseItems = $purchaseOrder->getItems();
 			foreach ( $json['items'] as $details ) {
-				// Check if the product type is valid
 				$productType = $details['product_type'];
 				if ( !in_array($productType, array_keys($productTypes)) ) {
-					return $this->requestExitStatus(self::InvalidJSON);
+					return $this->requestExitStatus(self::InvalidJSON, 'Missing product type of item ');
+				}
+				
+				if ( !isset($details['id']) ) {
+					return $this->requestExitStatus(self::InvalidJSON, 'Missing product code');
+				}
+				
+				if ( !isset($details['amount']) ) {
+					return $this->requestExitStatus(self::InvalidJSON, 'Missing product amount');
 				}
 
 				// Create the purchase item
@@ -507,7 +527,6 @@ class apiActions extends MyActions {
 				$purchaseItem->setProduct($productType);
 				$purchaseItem->setCode($details['id']);
 				$purchaseItem->setAmount($details['amount']);
-				$purchaseItem->setCustomer($details['customer']);
 
 				// Check if the product exists
 				$id = preg_replace($productTypes[$productType]['regex'], '$1', $details['id']);
@@ -532,7 +551,7 @@ class apiActions extends MyActions {
 			}
 		}
 		catch (Exception $e) {
-			return $this->requestExitStatus(self::ServerError, "The purchase order could not be saved to the database. {$e->getMessage()}");
+			return $this->requestExitStatus(self::ServerError, "The purchase order could not be created. {$e->getMessage()}");
 		}
 		
 		// The creation of a purchase order and notifications to users must be wrapped under a database transaction

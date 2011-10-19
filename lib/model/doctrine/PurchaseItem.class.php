@@ -38,8 +38,7 @@ class PurchaseItem extends BasePurchaseItem {
 			case sfConfig::get('app_purchase_item_ready');
 				return 'ready';
 				break;
-		}
-		
+		}		
 		return 'processing';
 	}
 	

@@ -78,6 +78,7 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
              ));
         $this->hasColumn('code', 'string', 40, array(
              'type' => 'string',
+             'notnull' => true,
              'length' => 40,
              ));
         $this->hasColumn('amount', 'integer', null, array(

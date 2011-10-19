@@ -49,6 +49,8 @@
 			<dd><?php echo $purchaseOrder->getDeliveryDate() ?></dd>
 			<dt>Status:</dt>
 			<dd><?php echo $purchaseOrder->getFormattedStatus() ?></dd>
+			<dt>Delivery code:</dt>
+			<dd><?php echo $purchaseOrder->getDeliveryCode() ?></dd>
 			<dt>Items:</dt>
 			<dd><?php echo $nbPurchaseItems ?></dd>
 			<dt>Remarks:</dt>

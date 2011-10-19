@@ -33,7 +33,7 @@ abstract class BasePurchaseItemForm extends BaseFormDoctrine
       'status'            => new sfValidatorChoice(array('choices' => array(0 => 'pending', 1 => 'processing', 2 => 'ready'), 'required' => false)),
       'product'           => new sfValidatorChoice(array('choices' => array(0 => 'strain', 1 => 'culture_medium', 2 => 'genomic_dna'), 'required' => false)),
       'product_id'        => new sfValidatorInteger(array('required' => false)),
-      'code'              => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+      'code'              => new sfValidatorString(array('max_length' => 40)),
       'amount'            => new sfValidatorInteger(array('required' => false)),
       'remarks'           => new sfValidatorString(array('required' => false)),
       'purchase_order_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PurchaseOrder'))),

@@ -57,7 +57,7 @@ class PurchaseOrder extends BasePurchaseOrder {
 			$this->setActivationDate(date('Y-m-d H:i:s'));
 		}
 		
-		if ( $this->getStatus() != sfConfig::get('app_purchase_order_sent') && $status == sfConfig::get('app_purchase_order_sent') ) {
+		if ( $this->getStatus() != sfConfig::get('app_purchase_order_sent') && $status >= sfConfig::get('app_purchase_order_sent') ) {
 			$this->setDeliveryDate(date('Y-m-d H:i:s'));
 		}
 		
@@ -78,9 +78,22 @@ class PurchaseOrder extends BasePurchaseOrder {
 			case sfConfig::get('app_purchase_order_sent');
 				return 'sent';
 				break;
+			case sfConfig::get('app_purchase_item_canceled');
+				return 'canceled';
+				break;
+			case sfConfig::get('app_purchase_item_refund');
+				return 'refund';
+				break;		
 		}
 		
 		return 'processing';
+	}
+	
+	public function getDeliveryCode() {
+		if ( $code = $this->_get('delivery_code') ) {
+			return $code;
+		}
+		return sfConfig::get('app_no_data_message');
 	}
 	
 	public function getNbItems() {

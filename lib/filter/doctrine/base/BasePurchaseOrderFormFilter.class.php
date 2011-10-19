@@ -13,23 +13,25 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'status'          => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent'))),
-      'code'            => new sfWidgetFormFilterInput(),
-      'customer'        => new sfWidgetFormFilterInput(),
+      'status'          => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent', 'canceled' => 'canceled', 'refunded' => 'refunded'))),
+      'code'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'customer'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'remarks'         => new sfWidgetFormFilterInput(),
       'activation_date' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'delivery_date'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'delivery_code'   => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'status'          => new sfValidatorChoice(array('required' => false, 'choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent'))),
+      'status'          => new sfValidatorChoice(array('required' => false, 'choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent', 'canceled' => 'canceled', 'refunded' => 'refunded'))),
       'code'            => new sfValidatorPass(array('required' => false)),
       'customer'        => new sfValidatorPass(array('required' => false)),
       'remarks'         => new sfValidatorPass(array('required' => false)),
       'activation_date' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'delivery_date'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'delivery_code'   => new sfValidatorPass(array('required' => false)),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
@@ -58,6 +60,7 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
       'remarks'         => 'Text',
       'activation_date' => 'Date',
       'delivery_date'   => 'Date',
+      'delivery_code'   => 'Text',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',
     );

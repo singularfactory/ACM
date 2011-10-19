@@ -30,7 +30,7 @@ abstract class BaseProjectForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'strain_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'))),
-      'amount'           => new sfValidatorNumber(),
+      'amount'           => new sfValidatorNumber(array('required' => false)),
       'provider_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'))),
       'inoculation_date' => new sfValidatorDate(),
       'purpose'          => new sfValidatorString(),

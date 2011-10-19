@@ -153,6 +153,7 @@ a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_loca
 
 #concentration input, #ratio_260_230 input, #ratio_260_280 input, #aliquots input { width: 50px; }
 #genbank_link input { width: 350px; }
+#customer input { width: 350px; }
 
 span.gel_is_valid, span.reaction_worked { color: #005700; }
 

@@ -16,7 +16,7 @@ abstract class BasePurchaseItemFormFilter extends BaseFormFilterDoctrine
       'status'            => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready'))),
       'product'           => new sfWidgetFormChoice(array('choices' => array('' => '', 'strain' => 'strain', 'culture_medium' => 'culture_medium', 'genomic_dna' => 'genomic_dna'))),
       'product_id'        => new sfWidgetFormFilterInput(),
-      'code'              => new sfWidgetFormFilterInput(),
+      'code'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'amount'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'remarks'           => new sfWidgetFormFilterInput(),
       'purchase_order_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PurchaseOrder'), 'add_empty' => true)),

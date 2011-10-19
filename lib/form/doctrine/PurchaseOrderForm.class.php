@@ -11,12 +11,16 @@
 class PurchaseOrderForm extends BasePurchaseOrderForm {
 
 	public function configure() {
+		$this->setWidget('customer', new sfWidgetFormInputText());
+		
 		$this->setWidget('status', new sfWidgetFormChoice(array(
 			'choices' => array(
 				sfConfig::get('app_purchase_order_pending') => 'pending',
 				sfConfig::get('app_purchase_order_processing') => 'processing',
 				sfConfig::get('app_purchase_order_ready') => 'ready',
 				sfConfig::get('app_purchase_order_sent') => 'sent',
+				sfConfig::get('app_purchase_order_canceled') => 'canceled',
+				sfConfig::get('app_purchase_order_refunded') => 'refunded',
 		))));
 		
 		$this->setValidator('status', new sfValidatorChoice(array(
@@ -24,7 +28,9 @@ class PurchaseOrderForm extends BasePurchaseOrderForm {
 				sfConfig::get('app_purchase_order_pending'),
 				sfConfig::get('app_purchase_order_processing'),
 				sfConfig::get('app_purchase_order_ready'),
-				sfConfig::get('app_purchase_order_sent')), 
+				sfConfig::get('app_purchase_order_sent'),
+				sfConfig::get('app_purchase_order_canceled'),
+				sfConfig::get('app_purchase_order_refunded'),),
 			'required' => false)
 		));
 

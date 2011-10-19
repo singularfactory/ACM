@@ -16,24 +16,26 @@ abstract class BasePurchaseOrderForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
-      'status'          => new sfWidgetFormChoice(array('choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent'))),
+      'status'          => new sfWidgetFormChoice(array('choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent', 'canceled' => 'canceled', 'refunded' => 'refunded'))),
       'code'            => new sfWidgetFormInputText(),
       'customer'        => new sfWidgetFormTextarea(),
       'remarks'         => new sfWidgetFormTextarea(),
       'activation_date' => new sfWidgetFormDateTime(),
       'delivery_date'   => new sfWidgetFormDateTime(),
+      'delivery_code'   => new sfWidgetFormInputText(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'status'          => new sfValidatorChoice(array('choices' => array(0 => 'pending', 1 => 'processing', 2 => 'ready', 3 => 'sent'), 'required' => false)),
-      'code'            => new sfValidatorString(array('max_length' => 40, 'required' => false)),
-      'customer'        => new sfValidatorString(array('max_length' => 512, 'required' => false)),
+      'status'          => new sfValidatorChoice(array('choices' => array(0 => 'pending', 1 => 'processing', 2 => 'ready', 3 => 'sent', 4 => 'canceled', 5 => 'refunded'), 'required' => false)),
+      'code'            => new sfValidatorString(array('max_length' => 40)),
+      'customer'        => new sfValidatorString(array('max_length' => 512)),
       'remarks'         => new sfValidatorString(array('required' => false)),
       'activation_date' => new sfValidatorDateTime(array('required' => false)),
       'delivery_date'   => new sfValidatorDateTime(array('required' => false)),
+      'delivery_code'   => new sfValidatorString(array('max_length' => 80, 'required' => false)),
       'created_at'      => new sfValidatorDateTime(),
       'updated_at'      => new sfValidatorDateTime(),
     ));
