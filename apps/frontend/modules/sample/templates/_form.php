@@ -23,7 +23,14 @@
 			<input type="text" value="<?php echo ($form->isNew())?'Type a location...':$form->getObject()->getLocation()->getName(); ?>" id="sample_location_search" />
 			<a href="<?php echo url_for('@sample_find_locations?term=') ?>" class="sample_location_coordinates_url"></a>
 		</div>
-
+		
+		<div id="location_details">
+			<?php echo $form['location_details']->renderLabel() ?>
+			<?php echo $form['location_details']->renderError() ?>
+			<?php echo $form['location_details']->renderHelp() ?>
+			<?php echo $form['location_details'] ?>
+		</div>
+		
 		<div id="gps_coordinates">
 			<?php echo $form['latitude']->renderLabel() ?>
 			

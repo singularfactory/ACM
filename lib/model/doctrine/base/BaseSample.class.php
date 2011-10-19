@@ -8,6 +8,7 @@
  * @property integer $id
  * @property string $notebook_code
  * @property integer $location_id
+ * @property string $location_details
  * @property string $latitude
  * @property string $longitude
  * @property integer $environment_id
@@ -36,6 +37,7 @@
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getNotebookCode()        Returns the current record's "notebook_code" value
  * @method integer             getLocationId()          Returns the current record's "location_id" value
+ * @method string              getLocationDetails()     Returns the current record's "location_details" value
  * @method string              getLatitude()            Returns the current record's "latitude" value
  * @method string              getLongitude()           Returns the current record's "longitude" value
  * @method integer             getEnvironmentId()       Returns the current record's "environment_id" value
@@ -63,6 +65,7 @@
  * @method Sample              setId()                  Sets the current record's "id" value
  * @method Sample              setNotebookCode()        Sets the current record's "notebook_code" value
  * @method Sample              setLocationId()          Sets the current record's "location_id" value
+ * @method Sample              setLocationDetails()     Sets the current record's "location_details" value
  * @method Sample              setLatitude()            Sets the current record's "latitude" value
  * @method Sample              setLongitude()           Sets the current record's "longitude" value
  * @method Sample              setEnvironmentId()       Sets the current record's "environment_id" value
@@ -111,6 +114,10 @@ abstract class BaseSample extends sfDoctrineRecord
         $this->hasColumn('location_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
+             ));
+        $this->hasColumn('location_details', 'string', 80, array(
+             'type' => 'string',
+             'length' => 80,
              ));
         $this->hasColumn('latitude', 'string', 10, array(
              'type' => 'string',

@@ -23,7 +23,7 @@
 		<tr>
 			<?php $url = url_for('@sample_show?id='.$sample->getId()) ?>
 			<td class="sample_code"><?php echo link_to($sample->getCode(), $url) ?></td>
-			<td class="location_name"><?php echo link_to($sample->getLocation()->getName(), $url) ?></td>
+			<td class="location_name"><?php echo link_to($sample->getLocationNameAndDetails(), $url) ?></td>
 			<td class="collectors_name"><?php echo link_to($sample->getFormattedCollectors(), $url) ?></td>
 			<td class="date"><?php echo link_to($sample->getFormattedCollectionDate(), $url) ?></td>
 			<td class="object_count"><?php echo link_to($sample->getNbStrains(), $url) ?></td>

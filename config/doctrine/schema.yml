@@ -151,6 +151,7 @@ Sample:
     id:                   { type: integer, primary: true, autoincrement: true }
     notebook_code:        { type: string(40), notnull: true }
     location_id:          { type: integer, notnull: true }
+    location_details:     { type: string(80) }
     latitude:             { type: string(10), fixed: true }
     longitude:            { type: string(10), fixed: true }
     environment_id:       { type: integer, notnull: true }

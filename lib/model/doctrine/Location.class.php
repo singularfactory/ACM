@@ -44,5 +44,5 @@ class Location extends BaseLocation {
 		
 		return $coordinates['latitude'].', '.$coordinates['longitude'];
 	}
-	
+		
 }

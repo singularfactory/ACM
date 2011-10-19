@@ -19,6 +19,8 @@
 			<dd><?php echo $sample->getNotebookCode() ?></dd>
 			<dt>Location:</dt>
 			<dd><?php echo link_to($sample->getLocation()->getName(), "@location_show?id={$sample->getLocation()->getId()}") ?></dd>
+			<dt>Location details:</dt>
+			<dd><?php echo $sample->getLocationDetails() ?></dd>
 			<dt>Environment:</dt>
 			<dd><?php echo $sample->getEnvironment()->getName() ?></dd>
 			<dt>Is extremophile:</dt>

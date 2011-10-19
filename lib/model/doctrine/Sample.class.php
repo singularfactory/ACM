@@ -218,4 +218,11 @@ class Sample extends BaseSample {
 		}
 	}
 	
+	public function getLocationNameAndDetails() {
+		if ( $details = $this->_get('location_details') ) {
+			return sprintf('%s - %s', $this->getLocation()->getName(), $details);
+		}
+		return $this->getLocation()->getName();
+	}
+	
 }
