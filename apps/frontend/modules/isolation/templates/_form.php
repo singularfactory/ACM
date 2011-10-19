@@ -169,16 +169,5 @@
 		</div>
 	</div>
 	
-	<div class="submit">
-		<?php if ( $form->getObject()->isNew() ): ?>
-			<?php $route = '@isolation' ?>
-			<input type="submit" value="Create this isolation">
-			<input type="submit" name="_save_and_add" value="Create and add">
-		<?php else: ?>
-			<?php $route = '@isolation_show?id='.$form->getObject()->getId() ?>
-			<input type="submit" value="Save changes">
-		<?php endif; ?>	
-
-		or <?php echo link_to('cancel', $route, array('class' => 'cancel_form_link')) ?>
-	</div>
+	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'isolation')) ?>	
 </form>
