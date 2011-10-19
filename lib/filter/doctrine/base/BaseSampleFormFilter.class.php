@@ -34,7 +34,7 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'notebook_code'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'notebook_code'   => new sfValidatorPass(array('required' => false)),
       'location_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Location'), 'column' => 'id')),
       'latitude'        => new sfValidatorPass(array('required' => false)),
       'longitude'       => new sfValidatorPass(array('required' => false)),
@@ -90,7 +90,7 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'              => 'Number',
-      'notebook_code'   => 'Number',
+      'notebook_code'   => 'Text',
       'location_id'     => 'ForeignKey',
       'latitude'        => 'Text',
       'longitude'       => 'Text',

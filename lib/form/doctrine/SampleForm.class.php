@@ -71,10 +71,10 @@ class SampleForm extends BaseSampleForm {
 			array('pattern' => '/^\-?\d{1,3}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
 				
-		$this->setValidator('notebook_code', new sfValidatorInteger(array('required' => true), array(
+		$this->setValidator('notebook_code', new sfValidatorString(array('max_length' => 40, 'required' => true), array(
 			'invalid' => 'Only an integer number allowed',
 			'required' => 'Provide the notebook code')));
-						
+		
 		// Configure labels
 		$this->widgetSchema->setLabel('ph', 'pH');
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
