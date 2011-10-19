@@ -269,6 +269,10 @@ MaintenanceStatus:
     maintenance_status_name:
       fields:
         name: { length: 20 }
+  relations:
+    Strains:        { foreignAlias: Strains, class: Strain, local: maintenance_status_id, foreign: strain_id, refClass: StrainMaintenanceStatus }
+    PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: maintenance_status_id, foreign: patent_deposit_id, refClass: PatentDepositMaintenanceStatus }
+    MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: maintenance_status_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositMaintenanceStatus }
 
 
 CryopreservationMethod:
@@ -398,7 +402,6 @@ Strain:
     authority_id:               { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
     identifier_id:              { type: integer }
-    maintenance_status_id:      { type: integer, notnull: true }
     cryopreservation_method_id: { type: integer }
     container_id:               { type: integer }
     transfer_interval:          { type: string(40) }
@@ -416,10 +419,10 @@ Strain:
     Authority:              { foreignAlias: Strains }
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators }
     Identifier:             { foreignAlias: Strains }
-    MaintenanceStatus:      { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
     Container:              { foreignAlias: Strains }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
+    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
@@ -431,6 +434,14 @@ StrainCultureMedia:
     culture_medium_id:  { type: integer, primary: true }
   relations:
     Strain:             { onDelete: cascade }
+
+
+StrainMaintenanceStatus:
+  columns:
+    strain_id:              { type: integer, primary: true }
+    maintenance_status_id:  { type: integer, primary: true }
+  relations:
+    Strain:      { onDelete: cascade }
 
 
 sfGuardUser:
@@ -705,6 +716,7 @@ PatentDeposit:
     Collectors:             { foreignAlias: Collectors, class: Collector, local: patent_deposit_id, foreign: collector_id, refClass: PatentDepositCollectors }
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: patent_deposit_id, foreign: isolator_id, refClass: PatentDepositIsolators }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: patent_deposit_id, foreign: culture_medium_id, refClass: PatentDepositCultureMedia }
+    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: patent_deposit_id, foreign: maintenance_status_id, refClass: PatentDepositMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
@@ -743,6 +755,14 @@ PatentDepositCollectors:
     PatentDeposit:      { onDelete: cascade }
 
 
+PatentDepositMaintenanceStatus:
+  columns:
+    patent_deposit_id:      { type: integer, primary: true }
+    maintenance_status_id:  { type: integer, primary: true }
+  relations:
+    PatentDeposit:      { onDelete: cascade }
+
+
 MaintenanceDeposit:
   columns:
     id:                         { type: integer, primary: true, autoincrement: true }
@@ -763,7 +783,6 @@ MaintenanceDeposit:
     depositor_id:               { type: integer, notnull: true }
     deposition_date:            { type: date, notnull: true }
     depositor_code:             { type: string(40), notnull: true }
-    maintenance_status_id:      { type: integer, notnull: true }
     cryopreservation_method_id: { type: integer }
     transfer_interval:          { type: string(40) }
     viability_test:             { type: string }
@@ -781,11 +800,11 @@ MaintenanceDeposit:
     Habitat:                { foreignAlias: MaintenanceDeposits }
     Identifier:             { foreignAlias: MaintenanceDeposits }
     Depositor:              { foreignAlias: MaintenanceDeposits }
-    MaintenanceStatus:      { foreignAlias: MaintenanceDeposits }
     CryopreservationMethod: { foreignAlias: MaintenanceDeposits }
     Collectors:             { foreignAlias: Collectors, class: Collector, local: maintenance_deposit_id, foreign: collector_id, refClass: MaintenanceDepositCollectors }
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: maintenance_deposit_id, foreign: isolator_id, refClass: MaintenanceDepositIsolators }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: maintenance_deposit_id, foreign: culture_medium_id, refClass: MaintenanceDepositCultureMedia }
+    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: maintenance_deposit_id, foreign: maintenance_status_id, refClass: MaintenanceDepositMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
@@ -822,6 +841,14 @@ MaintenanceDepositCollectors:
     collector_id:           { type: integer, primary: true }
   relations:
     MaintenanceDeposit:     { onDelete: cascade }
+
+
+MaintenanceDepositMaintenanceStatus:
+  columns:
+    maintenance_deposit_id: { type: integer, primary: true }
+    maintenance_status_id:  { type: integer, primary: true }
+  relations:
+    MaintenanceDeposit:      { onDelete: cascade }
 
 
 PurificationMethod:
