@@ -475,7 +475,7 @@ class apiActions extends MyActions {
 		
 		$json = $this->validateJson($request->getParameter('jsonData'));
 		if ( !is_array($json) ) {
-			return $this->requestExitStatus(self::InvalidJSON);
+			return $this->requestExitStatus(self::InvalidJSON, 'The data received in \'jsonData\' could not be decoded');
 		}
 		
 		$productTypes = array(
