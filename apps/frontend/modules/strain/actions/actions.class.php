@@ -79,14 +79,13 @@ class strainActions extends MyActions {
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSample());
-			$strain->setIsEpytipe($lastStrain->getIsEpytipe());
+			$strain->setIsEpitype($lastStrain->getIsEpitype());
 			$strain->setIsAxenic($lastStrain->getIsAxenic());
 			$strain->setIsPublic($lastStrain->getIsPublic());
 			$strain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
 			$strain->setGenusId($lastStrain->getGenusId());
 			$strain->setSpeciesId($lastStrain->getSpeciesId());
 			$strain->setAuthorityId($lastStrain->getAuthorityId());
-			//$strain->setIsolatorId($lastStrain->getIsolatorId());
 			$strain->setIdentifierId($lastStrain->getIdentifierId());
 			$strain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());
 			$strain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
