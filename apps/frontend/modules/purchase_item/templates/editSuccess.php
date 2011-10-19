@@ -36,6 +36,6 @@
 	
 	<div class="submit">
 		<input type="submit" value="Save changes">
-		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+		or <?php echo link_to('cancel', '@purchase_order_show?id='.$form->getObject()->getPurchaseOrderId(), array('class' => 'cancel_form_link')) ?>
 	</div>
 </form>

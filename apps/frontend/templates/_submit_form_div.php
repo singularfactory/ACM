@@ -6,7 +6,7 @@
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
-			<input type="submit" value="Create this isolation">
+			<input type="submit" value="Create this <?php echo $module ?>">
 			
 			<?php if ( $add ): ?><input type="submit" name="_save_and_add" value="Create and add"><?php endif ?>
 			
