@@ -90,15 +90,16 @@ class sampleActions extends MyActions {
 			$sample->setSalinity($lastSample->getSalinity());
 			$sample->setAltitude($lastSample->getAltitude());
 			$sample->setRadiationId($lastSample->getRadiationId());
-			//$sample->setCollectorId($lastSample->getCollectorId());
 			$sample->setCollectionDate($lastSample->getCollectionDate());
 			$sample->setRemarks($lastSample->getRemarks());
 			
 			$this->form = new SampleForm($sample);
+			$this->locationName = $lastSample->getLocation()->getName();
 			$this->getUser()->setAttribute('sample.last_object_created', null);
 		}
 		else {
 			$this->form = new SampleForm();
+			$this->locationName = null;
 		}
 		
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
