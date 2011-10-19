@@ -165,6 +165,13 @@ pcr_new:
   requirements: { sf_method: [get, head] }
   options:      { model: Pcr, type: object }
 
+pcr_create:
+  url:          /pcr/:dna_extraction
+  class:        sfDoctrineRoute
+  param:        { module: pcr, action: create }
+  requirements: { sf_method: post, dna_extraction: "\d+" }
+  options:      { model: Pcr, type: object }
+
 
 ###
 # PcrGel model related routes

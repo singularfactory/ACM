@@ -1,7 +1,8 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<?php echo form_tag_for($form, '@pcr') ?>
+
+<?php echo $form->renderFormTag(url_for('@pcr_create?dna_extraction='.$sf_request->getParameter('dna_extraction'))) ?>
 	<?php echo $form->renderHiddenFields() ?>
 	
 	<div id="left_side_form">
@@ -126,12 +127,13 @@
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
+			<?php $route = '@dna_extraction_show?id='.$sf_request->getParameter('dna_extraction') ?>
 			<input type="submit" value="Create this PCR">
 			<input type="submit" name="_save_and_add" value="Create and add">
 		<?php else: ?>
+			<?php $route = '@pcr_show?id='.$form->getObject()->getId() ?>
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
-		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+		or <?php echo link_to('cancel', $route, array('class' => 'cancel_form_link')) ?>
 	</div>
-	
 </form>
