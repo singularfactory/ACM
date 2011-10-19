@@ -1,7 +1,7 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-<?php echo form_tag_for($form, '@dna_sequence') ?>
+<?php echo $form->renderFormTag(url_for('@dna_sequence_create?pcr='.$sf_request->getParameter('pcr'))) ?>
 	<?php echo $form->renderHiddenFields() ?>
 	
 	<div id="left_side_form">
@@ -89,12 +89,14 @@
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
+			<?php $route = '@pcr_show?id='.$sf_request->getParameter('pcr') ?>
 			<input type="submit" value="Register this sequence">
 			<input type="submit" name="_save_and_add" value="Send and register another">
 		<?php else: ?>
+			<?php $route = '@pcr_show?id='.$form->getObject()->getPcrId() ?>
 			<input type="submit" value="Save changes">
 		<?php endif; ?>	
-		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
+		or <?php echo link_to('cancel', $route, array('class' => 'cancel_form_link')) ?>
 	</div>
 	
 </form>
