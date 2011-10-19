@@ -74,7 +74,29 @@ class locationActions extends MyActions {
 	}
 
 	public function executeNew(sfWebRequest $request) {
-		$this->form = new LocationForm();
+		if ( $lastLocation = $this->getUser()->getAttribute('location.last_object_created') ) {
+			$location = new Location();
+			$location->setCountryId($lastLocation->getCountryId());
+			$location->setRegionId($lastLocation->getRegionId());
+			$location->setLatitude($lastLocation->getLatitude());
+			$location->setLongitude($lastLocation->getLongitude());
+			$location->setRemarks($lastLocation->getRemarks());
+			
+			$this->form = new LocationForm($location);
+			$this->form->setIslandChoicesByRegion($lastLocation->getRegionId());
+			$this->form->setDefault('island_id', $lastLocation->getIslandId());
+			
+			$this->getUser()->setAttribute('location.last_object_created', null);
+		}
+		else {
+			$this->form = new LocationForm();
+			$countryId = CountryTable::getInstance()->getDefaultCountryId();
+			$regionId = RegionTable::getInstance()->getDefaultRegionId($countryId);
+			$islandId = IslandTable::getInstance()->getDefaultIslandId($regionId);
+			$this->form->setDefault('country_id', $countryId);
+			$this->form->setDefault('region_id', $regionId);
+			$this->form->setDefault('island_id', $islandId);
+		}		
 	}
 
 	public function executeCreate(sfWebRequest $request) {
@@ -132,6 +154,7 @@ class locationActions extends MyActions {
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Location created successfully. Now you can add another one';
 					$url = '@location_new';
+					$this->getUser()->setAttribute('location.last_object_created', $location);
 				}
 				elseif ( !$isNew ) {
 					$message = 'Changes saved';

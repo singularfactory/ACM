@@ -27,21 +27,17 @@ class LocationForm extends BaseLocationForm {
 		));
 		
 		// Configure country, region and island widgets to display default options
-		$defaultCountryId = $this->getObject()->getCountry()->getTable()->getDefaultCountryId();
-		$defaultRegionId = $this->getObject()->getRegion()->getTable()->getDefaultRegionId($defaultCountryId);
-		$defaultIslandId = $this->getObject()->getIsland()->getTable()->getDefaultIslandId($defaultRegionId);
+		$defaultCountryId = CountryTable::getInstance()->getDefaultCountryId();
+		$defaultRegionId = RegionTable::getInstance()->getDefaultRegionId($defaultCountryId);
 		
-		$this->widgetSchema->setDefault('country_id', $defaultCountryId);
 		$this->setWidget('region_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Region'),
 			'query' => $this->getObject()->getRegion()->getTable()->getRegionsQuery($defaultCountryId),
-			'default' => $defaultRegionId,
 		)));
 		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Island'),
 			'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($defaultRegionId),
 			'add_empty' => '---',
-			'default' => $defaultIslandId,
 		)));
 		
 		// Configure custom validators
@@ -60,6 +56,22 @@ class LocationForm extends BaseLocationForm {
 		// Configure labels
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
 		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
+	}
+	
+	/**
+	 * Set the choices of the Island widget based on a Region
+	 *
+	 * @param integer $regionId
+	 * @return void
+	 * @author Eliezer Talon
+	 * @version 2011-10-19
+	*/
+	public function setIslandChoicesByRegion($regionId) {
+		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
+			'model' => $this->getRelatedModelName('Island'),
+			'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($regionId),
+			'add_empty' => '---',
+		)));
 	}
 	
 	/**
