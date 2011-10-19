@@ -31,6 +31,4 @@
 		<?php endif; ?>	
 		or <?php echo link_to('cancel', $sf_request->getReferer(), array('class' => 'cancel_form_link')) ?>
 	</div>
-	
-	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'pcr_reaction')) ?>
 </form>

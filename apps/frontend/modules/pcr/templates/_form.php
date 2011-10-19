@@ -1,8 +1,11 @@
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
-
+<?php if ( $form->getObject()->isNew() ): ?>
 <?php echo $form->renderFormTag(url_for('@pcr_create?dna_extraction='.$sf_request->getParameter('dna_extraction'))) ?>
+<?php else: ?>
+<?php echo $form->renderFormTag(url_for('@pcr_update?id='.$form->getObject()->getId().'&dna_extraction='.$form->getObject()->getDnaExtractionId())) ?>
+<?php endif ?>
 	<?php echo $form->renderHiddenFields() ?>
 	
 	<div id="left_side_form">
