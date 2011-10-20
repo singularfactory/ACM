@@ -494,6 +494,11 @@ class apiActions extends MyActions {
 		}
 		
 		try {
+			// Avoid duplication of purchase orders
+			if ( PurchaseOrderTable::getInstance()->findByCode($json['code'])->count() ) {
+				return $this->requestExitStatus(self::ServerError, "The purchase order {$json['code']} has already been created");
+			}
+			
 			// Create a purchase order
 			$purchaseOrder = new PurchaseOrder();
 			$purchaseOrder->setStatus(sfConfig::get('app_purchase_order_pending'));
