@@ -26,42 +26,39 @@ class apiActions extends MyActions {
 	const InvalidJSON = 4;
 	const ServerError = 5;
 	
-	protected function requestExitStatus($error = self::RequestSuccess, $details = '') {
+	protected function requestExitStatus($error = self::RequestSuccess, $response = 0) {
 		switch ( $error ) {
 			case self::InvalidRequestMethod:
-				$status = 'Invalid request method_exists';
+				$message = 'Invalid request method_exists';
 				$exitStatus = self::HttpInvalidRequestMethod;
 				break;
 			case self::InvalidToken:
-				$status = 'Invalid token';
+				$message = 'Invalid token';
 				$exitStatus = self::HttpInvalidToken;
 				break;
 			case self::InvalidTimestamp:
-				$status = 'Invalid timestamp';
+				$message = 'Invalid timestamp';
 				$exitStatus = self::HttpInvalidTimestamp;
 				break;
 			case self::InvalidJSON:
-				$status = 'Invalid JSON';
+				$message = 'Invalid JSON';
 				$exitStatus = self::HttpInvalidJSON;
 				break;
 			case self::ServerError:
-				$status = 'Server error';
+				$message = 'Server error';
 				$exitStatus = self::HttpServerError;
 				break;
 			default:
-				$status = 0;
 				$exitStatus = self::HttpRequestSuccess;
 				break;
 		}
 		
-		if ( $details )
-			$details = sprintf('%s: %s', $status, $details);
-		else {
-			$details = $status;
+		if ( $error != self::RequestSuccess ) {
+			$response = sprintf('%s: %s', $message, $response);
 		}
 		
 		$this->getResponse()->setStatusCode($exitStatus);
-		$this->getResponse()->setContent($details);
+		$this->getResponse()->setContent($response);
 		return sfView::NONE;
 	}
 	
@@ -83,7 +80,7 @@ class apiActions extends MyActions {
 	
 	public function executeSamplingInformation(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
-			return $this->requestExitStatus(self::InvalidRequestMethod);
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
 		}
 		
 		if ( !$this->validateToken($request->getParameter('token')) ) {
@@ -91,7 +88,7 @@ class apiActions extends MyActions {
 		}
 		
 		if ( !($timestamp = $this->validateTimestamp($request->getParameter('timestamp'))) ) {
-			return $this->requestExitStatus(self::InvalidTimestamp);
+			return $this->requestExitStatus(self::InvalidTimestamp, $request->getParameter('timestamp'));
 		}
 		
 		// Retrieve the information
@@ -161,7 +158,7 @@ class apiActions extends MyActions {
 		
 	public function executeAddSamplingInformation(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::POST) ) {
-			return $this->requestExitStatus(self::InvalidRequestMethod);
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits POST requests');
 		}
 		
 		if ( !$this->validateToken($request->getParameter('token')) ) {
@@ -170,7 +167,7 @@ class apiActions extends MyActions {
 		
 		$json = $this->validateJson($request->getParameter('jsonData'));
 		if ( !is_array($json) ) {
-			return $this->requestExitStatus(self::InvalidJSON);
+			return $this->requestExitStatus(self::InvalidJSON, 'The data received in \'jsonData\' could not be decoded');
 		}
 		
 		// The creation of locations and samples must be wrapped under a database transaction
@@ -342,7 +339,7 @@ class apiActions extends MyActions {
 		}
 		catch (Exception $e) {
 			$dbConnection->rollback();
-			return $this->requestExitStatus(self::ServerError, "The sampling information could not be saved to the database (".$e->getMessage().")");
+			return $this->requestExitStatus(self::ServerError, "The sampling information could not be saved to the database. {$e->getMessage()}");
 		}
 		
 		return $this->requestExitStatus();
@@ -350,7 +347,7 @@ class apiActions extends MyActions {
 	
 	public function executeSyncLocationInformation(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::POST) ) {
-			return $this->requestExitStatus(self::InvalidRequestMethod);
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits POST requests');
 		}
 		
 		if ( !$this->validateToken($request->getParameter('token')) ) {
@@ -359,7 +356,7 @@ class apiActions extends MyActions {
 		
 		$json = $this->validateJson($request->getParameter('jsonData'));
 		if ( !is_array($json) ) {
-			return $this->requestExitStatus(self::InvalidJSON);
+			return $this->requestExitStatus(self::InvalidJSON, 'The data received in \'jsonData\' could not be decoded');
 		}
 		
 		// Merging remote and local Location objects must be wrapped under a database transaction
@@ -458,7 +455,7 @@ class apiActions extends MyActions {
 		}
 		catch (Exception $e) {
 			$dbConnection->rollback();
-			return $this->requestExitStatus(self::ServerError, "The location merging could not be saved to the database (".$e->getMessage().")");
+			return $this->requestExitStatus(self::ServerError, "The location merging could not be saved to the database. {$e->getMessage()}");
 		}
 		
 		return $this->requestExitStatus();
@@ -466,7 +463,7 @@ class apiActions extends MyActions {
 	
 	public function executeNewPurchaseOrder(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::POST) ) {
-			return $this->requestExitStatus(self::InvalidRequestMethod);
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits POST requests');
 		}
 		
 		if ( !$this->validateToken($request->getParameter('token')) ) {
@@ -508,17 +505,17 @@ class apiActions extends MyActions {
 			// Add items to the purchase order
 			$purchaseItems = $purchaseOrder->getItems();
 			foreach ( $json['items'] as $details ) {
-				$productType = $details['product_type'];
-				if ( !in_array($productType, array_keys($productTypes)) ) {
-					return $this->requestExitStatus(self::InvalidJSON, 'Missing product type of item ');
-				}
-				
 				if ( !isset($details['id']) ) {
 					return $this->requestExitStatus(self::InvalidJSON, 'Missing product code');
 				}
 				
+				$productType = $details['product_type'];
+				if ( !in_array($productType, array_keys($productTypes)) ) {
+					return $this->requestExitStatus(self::InvalidJSON, "Missing product type of item {$details['id']}");
+				}
+				
 				if ( !isset($details['amount']) ) {
-					return $this->requestExitStatus(self::InvalidJSON, 'Missing product amount');
+					return $this->requestExitStatus(self::InvalidJSON, "Missing product amount of item {$details['id']}");
 				}
 
 				// Create the purchase item
