@@ -2,11 +2,12 @@
 
 	<?php if ( !isset($add) ) $add = true ?>
 	<?php if ( !isset($progressBar) ) $progressBar = false ?>
+	<?php if ( !isset($title) ) $title = $module ?>
 	<?php $route = "@$module" ?>
 	
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
-			<input type="submit" value="Create this <?php echo $module ?>">
+			<input type="submit" value="Create this <?php echo $title ?>">
 			
 			<?php if ( $add ): ?><input type="submit" name="_save_and_add" value="Create and add"><?php endif ?>
 			
