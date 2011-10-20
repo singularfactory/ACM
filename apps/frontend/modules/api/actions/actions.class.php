@@ -576,4 +576,117 @@ class apiActions extends MyActions {
 		return $this->requestExitStatus();
 	}
 	
+	public function executeStoreCatalog(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
+		}
+		
+		if ( !$this->validateToken($request->getParameter('token')) ) {
+			return $this->requestExitStatus(self::InvalidToken);
+		}
+		
+		$catalog = array();
+
+		// Get locations
+		foreach ( LocationTable::getInstance()->createQuery('l')->leftJoin('l.Samples')->execute() as $location ) {
+			$tmp = array();
+			$tmp['country'] = $location->getCountry()->getName();
+			$tmp['region'] = $location->getRegion()->getName();
+			if ( $island = $location->getIsland() ) {
+				$tmp['island'] = $island->getName();
+			}
+			
+			$location = array_merge($tmp, $location->toArray());
+			unset($location['Country']);
+			unset($location['Region']);
+			unset($location['Island']);
+			unset($location['Samples']);
+			unset($location['country_id']);
+			unset($location['region_id']);
+			unset($location['island_id']);
+			$catalog['location'][] = $location;
+		}
+		
+		// Get samples
+		foreach ( SampleTable::getInstance()->createQuery('s')->leftJoin('s.Strains')->execute() as $sample ) {
+			$tmp = array();
+			$tmp['environment'] = $sample->getEnvironment()->getName();
+			$tmp['habitat'] = $sample->getHabitat()->getName();
+			if ( $radiation = $sample->getRadiation() ) {
+				$tmp['radiation'] = $radiation->getName();
+			}
+			
+			$sample = array_merge($tmp, $sample->toArray());
+			unset($sample['Location']);
+			unset($sample['Strains']);
+			unset($sample['Environment']);
+			unset($sample['Habitat']);
+			unset($sample['Radiation']);
+			unset($sample['environment_id']);
+			unset($sample['habitat_id']);
+			unset($sample['radiation_id']);
+			$catalog['sample'][] = $sample;
+		}
+		
+		// Get culture media
+		$catalog['culture_medium'] = CultureMediumTable::getInstance()->findByIsPublic(1)->toArray();
+		
+		// Get isolators
+		$catalog['isolator'] = IsolatorTable::getInstance()->findAll()->toArray();
+		
+		// Get strains
+		foreach ( StrainTable::getInstance()->findByIsPublic(1) as $strain ) {
+			$record = $strain->toArray();
+			
+			// Get culture media of this strain
+			unset($record['CultureMedia']);
+			foreach ( $strain->getCultureMedia()->toArray() as $medium ) {
+				$record['culture_media'][] = $medium['id'];
+			}
+			
+			// Get isolators of this strain
+			unset($record['Isolators']);
+			foreach ( $strain->getIsolators()->toArray() as $isolator ) {
+				$record['isolators'][] = $isolator['id'];
+			}
+			
+			// Get maintenance statuses of this strain
+			unset($record['maintenance_status_id']);
+			$record['maintenance_status'] = $strain->getMaintenanceStatus()->getName();
+			// foreach ( $strain->getMaintenanceStatus()->toArray() as $status ) {
+			// 				$record['maintenance_status'][] = $status['name'];
+			// 			}
+			
+			// Get DNA of this strain
+			$record['has_dna'] = $strain->hasDna() > 0;
+			$record['aliquots'] = $strain->getDnaAmount();
+			
+			// Get taxonomic information
+			unset($record['taxonomic_class_id']);
+			$record['taxonomic_class'] = $strain->getTaxonomicClass()->getName();
+			unset($record['genus']);
+			$record['genus'] = $strain->getGenus()->getName();
+			unset($record['species']);
+			$record['species_id'] = $strain->getSpecies()->getName();
+			unset($record['authority_id']);
+			$record['authority'] = $strain->getAuthority()->getName();
+			
+			unset($record['identifier_id']);
+			$record['identifier'] = sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname());
+			
+			unset($record['depositor_id']);
+			$record['depositor'] = sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname());
+			
+			unset($record['container_id']);
+			$record['container'] = $strain->getContainer()->getName();
+			
+			unset($record['Sample']);
+						
+			$catalog['strain'][] = $record;
+		}
+		
+		// Return the information as a JSON object
+		return $this->requestExitStatus(self::RequestSuccess, json_encode($catalog));
+	}
+	
 }

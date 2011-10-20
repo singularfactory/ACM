@@ -262,6 +262,11 @@ api_new_purchase_order:
   param:        { module: api, action: newPurchaseOrder }
   requirements: { sf_method: post }
 
+api_store_catalog:
+  url:          /api/:token/storeCatalog
+  param:        { module: api, action: storeCatalog }
+  requirements: { sf_method: get }
+
 
 ###
 # Inbox routes
