@@ -1,0 +1,4 @@
+PurificationMethod:
+  microcapillary: { name: "microcapillary technique" }
+  dip-and-drag:   { name: "dip-and-drag technique" }
+  sorting:        { name: "sorting" }
