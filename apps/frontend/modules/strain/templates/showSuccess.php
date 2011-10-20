@@ -168,6 +168,8 @@
 					}
 				?>
 			</dd>
+			<dt>Depositor:</dt>
+			<dd><?php echo $strain->getDepositor() ?></dd>
 			<dt>Has DNA:</dt>
 			<dd><?php echo $strain->getFormattedHasDna() ?></dd>
 			<dt>Is epitype:</dt>

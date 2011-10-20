@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property integer $sample_id
+ * @property integer $depositor_id
  * @property boolean $is_epitype
  * @property boolean $is_axenic
  * @property boolean $is_public
@@ -25,6 +26,7 @@
  * @property string $web_notes
  * @property string $remarks
  * @property Sample $Sample
+ * @property Depositor $Depositor
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -46,6 +48,7 @@
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
+ * @method integer                getDepositorId()                Returns the current record's "depositor_id" value
  * @method boolean                getIsEpitype()                  Returns the current record's "is_epitype" value
  * @method boolean                getIsAxenic()                   Returns the current record's "is_axenic" value
  * @method boolean                getIsPublic()                   Returns the current record's "is_public" value
@@ -64,6 +67,7 @@
  * @method string                 getWebNotes()                   Returns the current record's "web_notes" value
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
+ * @method Depositor              getDepositor()                  Returns the current record's "Depositor" value
  * @method TaxonomicClass         getTaxonomicClass()             Returns the current record's "TaxonomicClass" value
  * @method Genus                  getGenus()                      Returns the current record's "Genus" value
  * @method Species                getSpecies()                    Returns the current record's "Species" value
@@ -84,6 +88,7 @@
  * @method Doctrine_Collection    getIsolations()                 Returns the current record's "Isolations" collection
  * @method Strain                 setId()                         Sets the current record's "id" value
  * @method Strain                 setSampleId()                   Sets the current record's "sample_id" value
+ * @method Strain                 setDepositorId()                Sets the current record's "depositor_id" value
  * @method Strain                 setIsEpitype()                  Sets the current record's "is_epitype" value
  * @method Strain                 setIsAxenic()                   Sets the current record's "is_axenic" value
  * @method Strain                 setIsPublic()                   Sets the current record's "is_public" value
@@ -102,6 +107,7 @@
  * @method Strain                 setWebNotes()                   Sets the current record's "web_notes" value
  * @method Strain                 setRemarks()                    Sets the current record's "remarks" value
  * @method Strain                 setSample()                     Sets the current record's "Sample" value
+ * @method Strain                 setDepositor()                  Sets the current record's "Depositor" value
  * @method Strain                 setTaxonomicClass()             Sets the current record's "TaxonomicClass" value
  * @method Strain                 setGenus()                      Sets the current record's "Genus" value
  * @method Strain                 setSpecies()                    Sets the current record's "Species" value
@@ -137,6 +143,9 @@ abstract class BaseStrain extends sfDoctrineRecord
              'autoincrement' => true,
              ));
         $this->hasColumn('sample_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('depositor_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('is_epitype', 'boolean', null, array(
@@ -212,6 +221,10 @@ abstract class BaseStrain extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Sample', array(
              'local' => 'sample_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Depositor', array(
+             'local' => 'depositor_id',
              'foreign' => 'id'));
 
         $this->hasOne('TaxonomicClass', array(

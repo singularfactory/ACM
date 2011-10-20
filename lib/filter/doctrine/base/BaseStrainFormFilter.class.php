@@ -14,6 +14,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
+      'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'is_epitype'                 => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'is_axenic'                  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'is_public'                  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
@@ -39,6 +40,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'sample_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Sample'), 'column' => 'id')),
+      'depositor_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Depositor'), 'column' => 'id')),
       'is_epitype'                 => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'is_axenic'                  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'is_public'                  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
@@ -117,6 +119,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                         => 'Number',
       'sample_id'                  => 'ForeignKey',
+      'depositor_id'               => 'ForeignKey',
       'is_epitype'                 => 'Boolean',
       'is_axenic'                  => 'Boolean',
       'is_public'                  => 'Boolean',

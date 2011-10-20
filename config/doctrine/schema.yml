@@ -388,6 +388,7 @@ Strain:
   columns:
     id:                         { type: integer, primary: true, autoincrement: true }
     sample_id:                  { type: integer }
+    depositor_id:               { type: integer }
     is_epitype:                 { type: boolean, notnull: true, default: false }
     is_axenic:                  { type: boolean, notnull: true, default: false }
     is_public:                  { type: boolean, notnull: true, default: false }
@@ -408,6 +409,7 @@ Strain:
     remarks:                    { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }
+    Depositor:              { foreignAlias: Strains }
     TaxonomicClass:         { foreignAlias: Strains }
     Genus:                  { foreignAlias: Strains }
     Species:                { foreignAlias: Strains }

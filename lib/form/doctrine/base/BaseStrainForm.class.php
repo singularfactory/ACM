@@ -17,6 +17,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
+      'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'is_epitype'                 => new sfWidgetFormInputCheckbox(),
       'is_axenic'                  => new sfWidgetFormInputCheckbox(),
       'is_public'                  => new sfWidgetFormInputCheckbox(),
@@ -43,6 +44,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'sample_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'required' => false)),
+      'depositor_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'required' => false)),
       'is_epitype'                 => new sfValidatorBoolean(array('required' => false)),
       'is_axenic'                  => new sfValidatorBoolean(array('required' => false)),
       'is_public'                  => new sfValidatorBoolean(array('required' => false)),

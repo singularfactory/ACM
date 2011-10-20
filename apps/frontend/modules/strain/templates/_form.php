@@ -31,6 +31,13 @@
 			<a href="<?php echo url_for('@strain_find_samples?term=') ?>" class="strain_sample_numbers_url"></a>
 		</div>
 		
+		<div id="depositor">
+			<?php echo $form['depositor_id']->renderLabel() ?>
+			<?php echo $form['depositor_id']->renderError() ?>
+			<?php echo $form['depositor_id']->renderHelp() ?>
+			<?php echo $form['depositor_id'] ?>
+		</div>
+		
 		<div id="taxonomic_class">
 			<?php echo $form['taxonomic_class_id']->renderLabel() ?>
 			<?php echo $form['taxonomic_class_id']->renderError() ?>
