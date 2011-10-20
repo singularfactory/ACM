@@ -30,7 +30,7 @@ class PurchaseOrder extends BasePurchaseOrder {
 		return $this->formatFriendlyDate($this->getCreatedAt());
 	}
 	
-	public function getActivationDate() {
+	public function getFormattedActivationDate() {
 		if ( $activationDate = $this->_get('activation_date') ) {
 			return $this->formatFriendlyDate($activationDate);
 		}
@@ -38,7 +38,7 @@ class PurchaseOrder extends BasePurchaseOrder {
 		return sfConfig::get('app_no_data_message');
 	}
 	
-	public function getDeliveryDate() {
+	public function getFormattedDeliveryDate() {
 		if ( $deliveryDate = $this->_get('delivery_date') ) {
 			return $this->formatFriendlyDate($deliveryDate);
 		}
@@ -78,10 +78,10 @@ class PurchaseOrder extends BasePurchaseOrder {
 			case sfConfig::get('app_purchase_order_sent');
 				return 'sent';
 				break;
-			case sfConfig::get('app_purchase_item_canceled');
+			case sfConfig::get('app_purchase_order_canceled');
 				return 'canceled';
 				break;
-			case sfConfig::get('app_purchase_item_refund');
+			case sfConfig::get('app_purchase_order_refund');
 				return 'refund';
 				break;		
 		}

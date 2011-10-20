@@ -44,9 +44,9 @@
 			<dt>Received:</dt>
 			<dd><?php echo $purchaseOrder->getDate() ?></dd>
 			<dt>Activated:</dt>
-			<dd><?php echo $purchaseOrder->getActivationDate() ?></dd>
+			<dd><?php echo $purchaseOrder->getFormattedActivationDate() ?></dd>
 			<dt>Delivered:</dt>
-			<dd><?php echo $purchaseOrder->getDeliveryDate() ?></dd>
+			<dd><?php echo $purchaseOrder->getFormattedDeliveryDate() ?></dd>
 			<dt>Status:</dt>
 			<dd><?php echo $purchaseOrder->getFormattedStatus() ?></dd>
 			<dt>Delivery code:</dt>

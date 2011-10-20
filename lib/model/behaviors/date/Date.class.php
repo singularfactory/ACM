@@ -40,7 +40,12 @@ class Date extends Doctrine_Template {
 		}
 		
 		if ( $interval < 86400 ) {
-			return 'Today at '.date("H:i", $received);
+			if ( date('d', $received) < date('d', $now) ) {
+				return 'Yesterday at '.date("H:i", $received);
+			}
+			else {
+				return 'Today at '.date("H:i", $received);
+			}
 		}
 		
 		return date("M S, H:i", $received);

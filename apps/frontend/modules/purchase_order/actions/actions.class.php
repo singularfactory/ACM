@@ -75,15 +75,15 @@ class purchase_orderActions extends MyActions {
 				$url = '@purchase_order_show?id='.$purchaseOrder->getId();
 				
 				$purchaseOrder->updateItemsStatus();
-				if ( $purchaseOrder->getStatus() == sfConfig::get('app_purchase_order_sent') ) {
+				if ( $purchaseOrder->getStatus() >= sfConfig::get('app_purchase_order_sent') ) {
 					$this->notifyPurchaseOrderSent($purchaseOrder);
 				}
 			}
 			catch (Exception $e) {
-				$message = $e->getMessage();
 				if ( $purchaseOrder != null ) {
-					$message = 'Changes were saved but either status of items could not be updated or notifications could not be sent';
+					$message = 'Changes were saved but either the status of items could not be updated or the public web was not notified';
 				}
+				$message = sprintf('%s. %s', $message, $e->getMessage());
 			}
 			
 			if ( $purchaseOrder != null ) {
@@ -103,10 +103,49 @@ class purchase_orderActions extends MyActions {
 			return;
 		}
 		
+		if ( $purchaseOrder->getDeliveryDate() ) {
+			return;
+		}
+		
 		// Notify the public web
-		$remoteUrl = sfConfig::get('app_notify_sent_public_web_url');
-		$purchaseOrder->setDeliveryDate(date('Y-m-d- H:i:s'));
-		$purchaseOrder->trySave();
+		try {
+			$status = $purchaseOrder->getStatus();
+			if ( $status == sfConfig::get('app_purchase_order_canceled') ) {
+				$status = 'X';
+			}
+			elseif ( $status == sfConfig::get('app_purchase_order_refunded') ) {
+				$status = 'R';
+			}
+			else {
+				$status = 'S';
+			}
+			
+			$remoteUrl = sprintf('%s/index.php?option=com_api&task=changestate&order=%s&status=%s',
+				rtrim(sfConfig::get('app_notify_sent_public_web_url'), '/'),
+				md5($purchaseOrder->getCode()),
+				$status);
+			
+			$requestHandler = curl_init($remoteUrl);
+			curl_setopt($requestHandler, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($requestHandler, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($requestHandler, CURLOPT_HEADER, false);
+			if ( !curl_exec($requestHandler) ) {
+				throw new Exception(curl_error($requestHandler));
+			}
+			curl_close($requestHandler);
+		}
+		catch (Exception $e) {
+			throw new Exception("The public web could not be notified about the status of the purchase order ({$e->getMessage()})");
+		}
+		
+		// Update delivery date
+		try {
+			$purchaseOrder->setDeliveryDate(date('Y-m-d H:i:s'));
+			$purchaseOrder->save();
+		}
+		catch (Exception $e) {
+			throw new Exception('The delivery date of purchase order could not be updated');
+		}
 		
 		// Notify via application's inbox
 		$message = "The purchase order #{$purchaseOrder->getCode()} has been sent to the customer";
