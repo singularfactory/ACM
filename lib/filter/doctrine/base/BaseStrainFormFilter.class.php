@@ -24,7 +24,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'authority_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => true)),
       'isolation_date'             => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'identifier_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
-      'maintenance_status_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceStatus'), 'add_empty' => true)),
       'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => true)),
       'container_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'add_empty' => true)),
       'transfer_interval'          => new sfWidgetFormFilterInput(),
@@ -36,6 +35,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
+      'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
 
     $this->setValidators(array(
@@ -50,7 +50,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'authority_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Authority'), 'column' => 'id')),
       'isolation_date'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'identifier_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Identifier'), 'column' => 'id')),
-      'maintenance_status_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('MaintenanceStatus'), 'column' => 'id')),
       'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('CryopreservationMethod'), 'column' => 'id')),
       'container_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Container'), 'column' => 'id')),
       'transfer_interval'          => new sfValidatorPass(array('required' => false)),
@@ -62,6 +61,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
+      'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('strain_filters[%s]');
@@ -109,6 +109,24 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
+  public function addMaintenanceStatusListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.StrainMaintenanceStatus StrainMaintenanceStatus')
+      ->andWhereIn('StrainMaintenanceStatus.maintenance_status_id', $values)
+    ;
+  }
+
   public function getModelName()
   {
     return 'Strain';
@@ -129,7 +147,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'authority_id'               => 'ForeignKey',
       'isolation_date'             => 'Date',
       'identifier_id'              => 'ForeignKey',
-      'maintenance_status_id'      => 'ForeignKey',
       'cryopreservation_method_id' => 'ForeignKey',
       'container_id'               => 'ForeignKey',
       'transfer_interval'          => 'Text',
@@ -141,6 +158,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'updated_at'                 => 'Date',
       'isolators_list'             => 'ManyKey',
       'culture_media_list'         => 'ManyKey',
+      'maintenance_status_list'    => 'ManyKey',
     );
   }
 }

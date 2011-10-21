@@ -64,16 +64,19 @@ abstract class BaseMaintenanceStatus extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Strain as Strains', array(
-             'local' => 'id',
-             'foreign' => 'maintenance_status_id'));
+             'refClass' => 'StrainMaintenanceStatus',
+             'local' => 'maintenance_status_id',
+             'foreign' => 'strain_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
-             'local' => 'id',
-             'foreign' => 'maintenance_status_id'));
+             'refClass' => 'PatentDepositMaintenanceStatus',
+             'local' => 'maintenance_status_id',
+             'foreign' => 'patent_deposit_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
-             'local' => 'id',
-             'foreign' => 'maintenance_status_id'));
+             'refClass' => 'MaintenanceDepositMaintenanceStatus',
+             'local' => 'maintenance_status_id',
+             'foreign' => 'maintenance_deposit_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

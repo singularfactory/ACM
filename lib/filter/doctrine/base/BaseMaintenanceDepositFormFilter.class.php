@@ -30,7 +30,6 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
       'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'deposition_date'            => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'depositor_code'             => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'maintenance_status_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceStatus'), 'add_empty' => true)),
       'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => true)),
       'transfer_interval'          => new sfWidgetFormFilterInput(),
       'viability_test'             => new sfWidgetFormFilterInput(),
@@ -43,6 +42,7 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
       'collectors_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Collector')),
       'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
+      'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
 
     $this->setValidators(array(
@@ -63,7 +63,6 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
       'depositor_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Depositor'), 'column' => 'id')),
       'deposition_date'            => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'depositor_code'             => new sfValidatorPass(array('required' => false)),
-      'maintenance_status_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('MaintenanceStatus'), 'column' => 'id')),
       'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('CryopreservationMethod'), 'column' => 'id')),
       'transfer_interval'          => new sfValidatorPass(array('required' => false)),
       'viability_test'             => new sfValidatorPass(array('required' => false)),
@@ -76,6 +75,7 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
       'collectors_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Collector', 'required' => false)),
       'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
+      'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('maintenance_deposit_filters[%s]');
@@ -141,6 +141,24 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
+  public function addMaintenanceStatusListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.MaintenanceDepositMaintenanceStatus MaintenanceDepositMaintenanceStatus')
+      ->andWhereIn('MaintenanceDepositMaintenanceStatus.maintenance_status_id', $values)
+    ;
+  }
+
   public function getModelName()
   {
     return 'MaintenanceDeposit';
@@ -167,7 +185,6 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
       'depositor_id'               => 'ForeignKey',
       'deposition_date'            => 'Date',
       'depositor_code'             => 'Text',
-      'maintenance_status_id'      => 'ForeignKey',
       'cryopreservation_method_id' => 'ForeignKey',
       'transfer_interval'          => 'Text',
       'viability_test'             => 'Text',
@@ -180,6 +197,7 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
       'collectors_list'            => 'ManyKey',
       'isolators_list'             => 'ManyKey',
       'culture_media_list'         => 'ManyKey',
+      'maintenance_status_list'    => 'ManyKey',
     );
   }
 }

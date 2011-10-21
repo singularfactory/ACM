@@ -23,7 +23,6 @@
  * @property integer $depositor_id
  * @property date $deposition_date
  * @property string $depositor_code
- * @property integer $maintenance_status_id
  * @property integer $cryopreservation_method_id
  * @property string $transfer_interval
  * @property string $viability_test
@@ -40,104 +39,105 @@
  * @property Habitat $Habitat
  * @property Identifier $Identifier
  * @property Depositor $Depositor
- * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Doctrine_Collection $Collectors
  * @property Doctrine_Collection $Isolators
  * @property Doctrine_Collection $CultureMedia
+ * @property Doctrine_Collection $MaintenanceStatus
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $MaintenanceDepositCultureMedia
  * @property Doctrine_Collection $MaintenanceDepositIsolators
  * @property Doctrine_Collection $MaintenanceDepositCollectors
+ * @property Doctrine_Collection $MaintenanceDepositMaintenanceStatus
  * 
- * @method integer                getId()                             Returns the current record's "id" value
- * @method integer                getTaxonomicClassId()               Returns the current record's "taxonomic_class_id" value
- * @method integer                getGenusId()                        Returns the current record's "genus_id" value
- * @method integer                getSpeciesId()                      Returns the current record's "species_id" value
- * @method integer                getAuthorityId()                    Returns the current record's "authority_id" value
- * @method boolean                getIsEpitype()                      Returns the current record's "is_epitype" value
- * @method boolean                getIsAxenic()                       Returns the current record's "is_axenic" value
- * @method boolean                getHasDna()                         Returns the current record's "has_dna" value
- * @method string                 getGenSequence()                    Returns the current record's "gen_sequence" value
- * @method integer                getLocationId()                     Returns the current record's "location_id" value
- * @method integer                getEnvironmentId()                  Returns the current record's "environment_id" value
- * @method integer                getHabitatId()                      Returns the current record's "habitat_id" value
- * @method date                   getCollectionDate()                 Returns the current record's "collection_date" value
- * @method date                   getIsolationDate()                  Returns the current record's "isolation_date" value
- * @method integer                getIdentifierId()                   Returns the current record's "identifier_id" value
- * @method integer                getDepositorId()                    Returns the current record's "depositor_id" value
- * @method date                   getDepositionDate()                 Returns the current record's "deposition_date" value
- * @method string                 getDepositorCode()                  Returns the current record's "depositor_code" value
- * @method integer                getMaintenanceStatusId()            Returns the current record's "maintenance_status_id" value
- * @method integer                getCryopreservationMethodId()       Returns the current record's "cryopreservation_method_id" value
- * @method string                 getTransferInterval()               Returns the current record's "transfer_interval" value
- * @method string                 getViabilityTest()                  Returns the current record's "viability_test" value
- * @method string                 getObservation()                    Returns the current record's "observation" value
- * @method string                 getCitations()                      Returns the current record's "citations" value
- * @method string                 getRemarks()                        Returns the current record's "remarks" value
- * @method string                 getMf1Link()                        Returns the current record's "mf1_link" value
- * @method TaxonomicClass         getTaxonomicClass()                 Returns the current record's "TaxonomicClass" value
- * @method Genus                  getGenus()                          Returns the current record's "Genus" value
- * @method Species                getSpecies()                        Returns the current record's "Species" value
- * @method Authority              getAuthority()                      Returns the current record's "Authority" value
- * @method Location               getLocation()                       Returns the current record's "Location" value
- * @method Environment            getEnvironment()                    Returns the current record's "Environment" value
- * @method Habitat                getHabitat()                        Returns the current record's "Habitat" value
- * @method Identifier             getIdentifier()                     Returns the current record's "Identifier" value
- * @method Depositor              getDepositor()                      Returns the current record's "Depositor" value
- * @method MaintenanceStatus      getMaintenanceStatus()              Returns the current record's "MaintenanceStatus" value
- * @method CryopreservationMethod getCryopreservationMethod()         Returns the current record's "CryopreservationMethod" value
- * @method Doctrine_Collection    getCollectors()                     Returns the current record's "Collectors" collection
- * @method Doctrine_Collection    getIsolators()                      Returns the current record's "Isolators" collection
- * @method Doctrine_Collection    getCultureMedia()                   Returns the current record's "CultureMedia" collection
- * @method Doctrine_Collection    getRelatives()                      Returns the current record's "Relatives" collection
- * @method Doctrine_Collection    getMaintenanceDepositCultureMedia() Returns the current record's "MaintenanceDepositCultureMedia" collection
- * @method Doctrine_Collection    getMaintenanceDepositIsolators()    Returns the current record's "MaintenanceDepositIsolators" collection
- * @method Doctrine_Collection    getMaintenanceDepositCollectors()   Returns the current record's "MaintenanceDepositCollectors" collection
- * @method MaintenanceDeposit     setId()                             Sets the current record's "id" value
- * @method MaintenanceDeposit     setTaxonomicClassId()               Sets the current record's "taxonomic_class_id" value
- * @method MaintenanceDeposit     setGenusId()                        Sets the current record's "genus_id" value
- * @method MaintenanceDeposit     setSpeciesId()                      Sets the current record's "species_id" value
- * @method MaintenanceDeposit     setAuthorityId()                    Sets the current record's "authority_id" value
- * @method MaintenanceDeposit     setIsEpitype()                      Sets the current record's "is_epitype" value
- * @method MaintenanceDeposit     setIsAxenic()                       Sets the current record's "is_axenic" value
- * @method MaintenanceDeposit     setHasDna()                         Sets the current record's "has_dna" value
- * @method MaintenanceDeposit     setGenSequence()                    Sets the current record's "gen_sequence" value
- * @method MaintenanceDeposit     setLocationId()                     Sets the current record's "location_id" value
- * @method MaintenanceDeposit     setEnvironmentId()                  Sets the current record's "environment_id" value
- * @method MaintenanceDeposit     setHabitatId()                      Sets the current record's "habitat_id" value
- * @method MaintenanceDeposit     setCollectionDate()                 Sets the current record's "collection_date" value
- * @method MaintenanceDeposit     setIsolationDate()                  Sets the current record's "isolation_date" value
- * @method MaintenanceDeposit     setIdentifierId()                   Sets the current record's "identifier_id" value
- * @method MaintenanceDeposit     setDepositorId()                    Sets the current record's "depositor_id" value
- * @method MaintenanceDeposit     setDepositionDate()                 Sets the current record's "deposition_date" value
- * @method MaintenanceDeposit     setDepositorCode()                  Sets the current record's "depositor_code" value
- * @method MaintenanceDeposit     setMaintenanceStatusId()            Sets the current record's "maintenance_status_id" value
- * @method MaintenanceDeposit     setCryopreservationMethodId()       Sets the current record's "cryopreservation_method_id" value
- * @method MaintenanceDeposit     setTransferInterval()               Sets the current record's "transfer_interval" value
- * @method MaintenanceDeposit     setViabilityTest()                  Sets the current record's "viability_test" value
- * @method MaintenanceDeposit     setObservation()                    Sets the current record's "observation" value
- * @method MaintenanceDeposit     setCitations()                      Sets the current record's "citations" value
- * @method MaintenanceDeposit     setRemarks()                        Sets the current record's "remarks" value
- * @method MaintenanceDeposit     setMf1Link()                        Sets the current record's "mf1_link" value
- * @method MaintenanceDeposit     setTaxonomicClass()                 Sets the current record's "TaxonomicClass" value
- * @method MaintenanceDeposit     setGenus()                          Sets the current record's "Genus" value
- * @method MaintenanceDeposit     setSpecies()                        Sets the current record's "Species" value
- * @method MaintenanceDeposit     setAuthority()                      Sets the current record's "Authority" value
- * @method MaintenanceDeposit     setLocation()                       Sets the current record's "Location" value
- * @method MaintenanceDeposit     setEnvironment()                    Sets the current record's "Environment" value
- * @method MaintenanceDeposit     setHabitat()                        Sets the current record's "Habitat" value
- * @method MaintenanceDeposit     setIdentifier()                     Sets the current record's "Identifier" value
- * @method MaintenanceDeposit     setDepositor()                      Sets the current record's "Depositor" value
- * @method MaintenanceDeposit     setMaintenanceStatus()              Sets the current record's "MaintenanceStatus" value
- * @method MaintenanceDeposit     setCryopreservationMethod()         Sets the current record's "CryopreservationMethod" value
- * @method MaintenanceDeposit     setCollectors()                     Sets the current record's "Collectors" collection
- * @method MaintenanceDeposit     setIsolators()                      Sets the current record's "Isolators" collection
- * @method MaintenanceDeposit     setCultureMedia()                   Sets the current record's "CultureMedia" collection
- * @method MaintenanceDeposit     setRelatives()                      Sets the current record's "Relatives" collection
- * @method MaintenanceDeposit     setMaintenanceDepositCultureMedia() Sets the current record's "MaintenanceDepositCultureMedia" collection
- * @method MaintenanceDeposit     setMaintenanceDepositIsolators()    Sets the current record's "MaintenanceDepositIsolators" collection
- * @method MaintenanceDeposit     setMaintenanceDepositCollectors()   Sets the current record's "MaintenanceDepositCollectors" collection
+ * @method integer                getId()                                  Returns the current record's "id" value
+ * @method integer                getTaxonomicClassId()                    Returns the current record's "taxonomic_class_id" value
+ * @method integer                getGenusId()                             Returns the current record's "genus_id" value
+ * @method integer                getSpeciesId()                           Returns the current record's "species_id" value
+ * @method integer                getAuthorityId()                         Returns the current record's "authority_id" value
+ * @method boolean                getIsEpitype()                           Returns the current record's "is_epitype" value
+ * @method boolean                getIsAxenic()                            Returns the current record's "is_axenic" value
+ * @method boolean                getHasDna()                              Returns the current record's "has_dna" value
+ * @method string                 getGenSequence()                         Returns the current record's "gen_sequence" value
+ * @method integer                getLocationId()                          Returns the current record's "location_id" value
+ * @method integer                getEnvironmentId()                       Returns the current record's "environment_id" value
+ * @method integer                getHabitatId()                           Returns the current record's "habitat_id" value
+ * @method date                   getCollectionDate()                      Returns the current record's "collection_date" value
+ * @method date                   getIsolationDate()                       Returns the current record's "isolation_date" value
+ * @method integer                getIdentifierId()                        Returns the current record's "identifier_id" value
+ * @method integer                getDepositorId()                         Returns the current record's "depositor_id" value
+ * @method date                   getDepositionDate()                      Returns the current record's "deposition_date" value
+ * @method string                 getDepositorCode()                       Returns the current record's "depositor_code" value
+ * @method integer                getCryopreservationMethodId()            Returns the current record's "cryopreservation_method_id" value
+ * @method string                 getTransferInterval()                    Returns the current record's "transfer_interval" value
+ * @method string                 getViabilityTest()                       Returns the current record's "viability_test" value
+ * @method string                 getObservation()                         Returns the current record's "observation" value
+ * @method string                 getCitations()                           Returns the current record's "citations" value
+ * @method string                 getRemarks()                             Returns the current record's "remarks" value
+ * @method string                 getMf1Link()                             Returns the current record's "mf1_link" value
+ * @method TaxonomicClass         getTaxonomicClass()                      Returns the current record's "TaxonomicClass" value
+ * @method Genus                  getGenus()                               Returns the current record's "Genus" value
+ * @method Species                getSpecies()                             Returns the current record's "Species" value
+ * @method Authority              getAuthority()                           Returns the current record's "Authority" value
+ * @method Location               getLocation()                            Returns the current record's "Location" value
+ * @method Environment            getEnvironment()                         Returns the current record's "Environment" value
+ * @method Habitat                getHabitat()                             Returns the current record's "Habitat" value
+ * @method Identifier             getIdentifier()                          Returns the current record's "Identifier" value
+ * @method Depositor              getDepositor()                           Returns the current record's "Depositor" value
+ * @method CryopreservationMethod getCryopreservationMethod()              Returns the current record's "CryopreservationMethod" value
+ * @method Doctrine_Collection    getCollectors()                          Returns the current record's "Collectors" collection
+ * @method Doctrine_Collection    getIsolators()                           Returns the current record's "Isolators" collection
+ * @method Doctrine_Collection    getCultureMedia()                        Returns the current record's "CultureMedia" collection
+ * @method Doctrine_Collection    getMaintenanceStatus()                   Returns the current record's "MaintenanceStatus" collection
+ * @method Doctrine_Collection    getRelatives()                           Returns the current record's "Relatives" collection
+ * @method Doctrine_Collection    getMaintenanceDepositCultureMedia()      Returns the current record's "MaintenanceDepositCultureMedia" collection
+ * @method Doctrine_Collection    getMaintenanceDepositIsolators()         Returns the current record's "MaintenanceDepositIsolators" collection
+ * @method Doctrine_Collection    getMaintenanceDepositCollectors()        Returns the current record's "MaintenanceDepositCollectors" collection
+ * @method Doctrine_Collection    getMaintenanceDepositMaintenanceStatus() Returns the current record's "MaintenanceDepositMaintenanceStatus" collection
+ * @method MaintenanceDeposit     setId()                                  Sets the current record's "id" value
+ * @method MaintenanceDeposit     setTaxonomicClassId()                    Sets the current record's "taxonomic_class_id" value
+ * @method MaintenanceDeposit     setGenusId()                             Sets the current record's "genus_id" value
+ * @method MaintenanceDeposit     setSpeciesId()                           Sets the current record's "species_id" value
+ * @method MaintenanceDeposit     setAuthorityId()                         Sets the current record's "authority_id" value
+ * @method MaintenanceDeposit     setIsEpitype()                           Sets the current record's "is_epitype" value
+ * @method MaintenanceDeposit     setIsAxenic()                            Sets the current record's "is_axenic" value
+ * @method MaintenanceDeposit     setHasDna()                              Sets the current record's "has_dna" value
+ * @method MaintenanceDeposit     setGenSequence()                         Sets the current record's "gen_sequence" value
+ * @method MaintenanceDeposit     setLocationId()                          Sets the current record's "location_id" value
+ * @method MaintenanceDeposit     setEnvironmentId()                       Sets the current record's "environment_id" value
+ * @method MaintenanceDeposit     setHabitatId()                           Sets the current record's "habitat_id" value
+ * @method MaintenanceDeposit     setCollectionDate()                      Sets the current record's "collection_date" value
+ * @method MaintenanceDeposit     setIsolationDate()                       Sets the current record's "isolation_date" value
+ * @method MaintenanceDeposit     setIdentifierId()                        Sets the current record's "identifier_id" value
+ * @method MaintenanceDeposit     setDepositorId()                         Sets the current record's "depositor_id" value
+ * @method MaintenanceDeposit     setDepositionDate()                      Sets the current record's "deposition_date" value
+ * @method MaintenanceDeposit     setDepositorCode()                       Sets the current record's "depositor_code" value
+ * @method MaintenanceDeposit     setCryopreservationMethodId()            Sets the current record's "cryopreservation_method_id" value
+ * @method MaintenanceDeposit     setTransferInterval()                    Sets the current record's "transfer_interval" value
+ * @method MaintenanceDeposit     setViabilityTest()                       Sets the current record's "viability_test" value
+ * @method MaintenanceDeposit     setObservation()                         Sets the current record's "observation" value
+ * @method MaintenanceDeposit     setCitations()                           Sets the current record's "citations" value
+ * @method MaintenanceDeposit     setRemarks()                             Sets the current record's "remarks" value
+ * @method MaintenanceDeposit     setMf1Link()                             Sets the current record's "mf1_link" value
+ * @method MaintenanceDeposit     setTaxonomicClass()                      Sets the current record's "TaxonomicClass" value
+ * @method MaintenanceDeposit     setGenus()                               Sets the current record's "Genus" value
+ * @method MaintenanceDeposit     setSpecies()                             Sets the current record's "Species" value
+ * @method MaintenanceDeposit     setAuthority()                           Sets the current record's "Authority" value
+ * @method MaintenanceDeposit     setLocation()                            Sets the current record's "Location" value
+ * @method MaintenanceDeposit     setEnvironment()                         Sets the current record's "Environment" value
+ * @method MaintenanceDeposit     setHabitat()                             Sets the current record's "Habitat" value
+ * @method MaintenanceDeposit     setIdentifier()                          Sets the current record's "Identifier" value
+ * @method MaintenanceDeposit     setDepositor()                           Sets the current record's "Depositor" value
+ * @method MaintenanceDeposit     setCryopreservationMethod()              Sets the current record's "CryopreservationMethod" value
+ * @method MaintenanceDeposit     setCollectors()                          Sets the current record's "Collectors" collection
+ * @method MaintenanceDeposit     setIsolators()                           Sets the current record's "Isolators" collection
+ * @method MaintenanceDeposit     setCultureMedia()                        Sets the current record's "CultureMedia" collection
+ * @method MaintenanceDeposit     setMaintenanceStatus()                   Sets the current record's "MaintenanceStatus" collection
+ * @method MaintenanceDeposit     setRelatives()                           Sets the current record's "Relatives" collection
+ * @method MaintenanceDeposit     setMaintenanceDepositCultureMedia()      Sets the current record's "MaintenanceDepositCultureMedia" collection
+ * @method MaintenanceDeposit     setMaintenanceDepositIsolators()         Sets the current record's "MaintenanceDepositIsolators" collection
+ * @method MaintenanceDeposit     setMaintenanceDepositCollectors()        Sets the current record's "MaintenanceDepositCollectors" collection
+ * @method MaintenanceDeposit     setMaintenanceDepositMaintenanceStatus() Sets the current record's "MaintenanceDepositMaintenanceStatus" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -223,10 +223,6 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
              'notnull' => true,
              'length' => 40,
              ));
-        $this->hasColumn('maintenance_status_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
         $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
              'type' => 'integer',
              ));
@@ -294,10 +290,6 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
              'local' => 'depositor_id',
              'foreign' => 'id'));
 
-        $this->hasOne('MaintenanceStatus', array(
-             'local' => 'maintenance_status_id',
-             'foreign' => 'id'));
-
         $this->hasOne('CryopreservationMethod', array(
              'local' => 'cryopreservation_method_id',
              'foreign' => 'id'));
@@ -317,6 +309,11 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
              'local' => 'maintenance_deposit_id',
              'foreign' => 'culture_medium_id'));
 
+        $this->hasMany('MaintenanceStatus', array(
+             'refClass' => 'MaintenanceDepositMaintenanceStatus',
+             'local' => 'maintenance_deposit_id',
+             'foreign' => 'maintenance_status_id'));
+
         $this->hasMany('MaintenanceDepositRelative as Relatives', array(
              'local' => 'id',
              'foreign' => 'maintenance_deposit_id'));
@@ -330,6 +327,10 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
              'foreign' => 'maintenance_deposit_id'));
 
         $this->hasMany('MaintenanceDepositCollectors', array(
+             'local' => 'id',
+             'foreign' => 'maintenance_deposit_id'));
+
+        $this->hasMany('MaintenanceDepositMaintenanceStatus', array(
              'local' => 'id',
              'foreign' => 'maintenance_deposit_id'));
 

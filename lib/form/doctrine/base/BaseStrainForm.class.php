@@ -27,7 +27,6 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'authority_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => false)),
       'isolation_date'             => new sfWidgetFormDate(),
       'identifier_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
-      'maintenance_status_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceStatus'), 'add_empty' => false)),
       'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => true)),
       'container_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'add_empty' => true)),
       'transfer_interval'          => new sfWidgetFormInputText(),
@@ -39,6 +38,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'updated_at'                 => new sfWidgetFormDateTime(),
       'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
+      'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
 
     $this->setValidators(array(
@@ -54,7 +54,6 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'authority_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'))),
       'isolation_date'             => new sfValidatorDate(),
       'identifier_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'required' => false)),
-      'maintenance_status_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceStatus'))),
       'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'required' => false)),
       'container_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'required' => false)),
       'transfer_interval'          => new sfValidatorString(array('max_length' => 40, 'required' => false)),
@@ -66,6 +65,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'updated_at'                 => new sfValidatorDateTime(),
       'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
+      'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('strain[%s]');
@@ -96,12 +96,18 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       $this->setDefault('culture_media_list', $this->object->CultureMedia->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['maintenance_status_list']))
+    {
+      $this->setDefault('maintenance_status_list', $this->object->MaintenanceStatus->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
   {
     $this->saveIsolatorsList($con);
     $this->saveCultureMediaList($con);
+    $this->saveMaintenanceStatusList($con);
 
     parent::doSave($con);
   }
@@ -179,6 +185,44 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('CultureMedia', array_values($link));
+    }
+  }
+
+  public function saveMaintenanceStatusList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['maintenance_status_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->MaintenanceStatus->getPrimaryKeys();
+    $values = $this->getValue('maintenance_status_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('MaintenanceStatus', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('MaintenanceStatus', array_values($link));
     }
   }
 

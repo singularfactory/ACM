@@ -17,7 +17,6 @@
  * @property integer $authority_id
  * @property date $isolation_date
  * @property integer $identifier_id
- * @property integer $maintenance_status_id
  * @property integer $cryopreservation_method_id
  * @property integer $container_id
  * @property string $transfer_interval
@@ -33,15 +32,16 @@
  * @property Authority $Authority
  * @property Doctrine_Collection $Isolators
  * @property Identifier $Identifier
- * @property MaintenanceStatus $MaintenanceStatus
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Container $Container
  * @property Doctrine_Collection $CultureMedia
+ * @property Doctrine_Collection $MaintenanceStatus
  * @property Doctrine_Collection $StrainIsolators
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $AxenityTests
  * @property Doctrine_Collection $Pictures
  * @property Doctrine_Collection $StrainCultureMedia
+ * @property Doctrine_Collection $StrainMaintenanceStatus
  * @property Doctrine_Collection $DnaExtractions
  * @property Doctrine_Collection $Projects
  * @property Doctrine_Collection $Isolations
@@ -58,7 +58,6 @@
  * @method integer                getAuthorityId()                Returns the current record's "authority_id" value
  * @method date                   getIsolationDate()              Returns the current record's "isolation_date" value
  * @method integer                getIdentifierId()               Returns the current record's "identifier_id" value
- * @method integer                getMaintenanceStatusId()        Returns the current record's "maintenance_status_id" value
  * @method integer                getCryopreservationMethodId()   Returns the current record's "cryopreservation_method_id" value
  * @method integer                getContainerId()                Returns the current record's "container_id" value
  * @method string                 getTransferInterval()           Returns the current record's "transfer_interval" value
@@ -74,15 +73,16 @@
  * @method Authority              getAuthority()                  Returns the current record's "Authority" value
  * @method Doctrine_Collection    getIsolators()                  Returns the current record's "Isolators" collection
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
- * @method MaintenanceStatus      getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Container              getContainer()                  Returns the current record's "Container" value
  * @method Doctrine_Collection    getCultureMedia()               Returns the current record's "CultureMedia" collection
+ * @method Doctrine_Collection    getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" collection
  * @method Doctrine_Collection    getStrainIsolators()            Returns the current record's "StrainIsolators" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getAxenityTests()               Returns the current record's "AxenityTests" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
  * @method Doctrine_Collection    getStrainCultureMedia()         Returns the current record's "StrainCultureMedia" collection
+ * @method Doctrine_Collection    getStrainMaintenanceStatus()    Returns the current record's "StrainMaintenanceStatus" collection
  * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
  * @method Doctrine_Collection    getProjects()                   Returns the current record's "Projects" collection
  * @method Doctrine_Collection    getIsolations()                 Returns the current record's "Isolations" collection
@@ -98,7 +98,6 @@
  * @method Strain                 setAuthorityId()                Sets the current record's "authority_id" value
  * @method Strain                 setIsolationDate()              Sets the current record's "isolation_date" value
  * @method Strain                 setIdentifierId()               Sets the current record's "identifier_id" value
- * @method Strain                 setMaintenanceStatusId()        Sets the current record's "maintenance_status_id" value
  * @method Strain                 setCryopreservationMethodId()   Sets the current record's "cryopreservation_method_id" value
  * @method Strain                 setContainerId()                Sets the current record's "container_id" value
  * @method Strain                 setTransferInterval()           Sets the current record's "transfer_interval" value
@@ -114,15 +113,16 @@
  * @method Strain                 setAuthority()                  Sets the current record's "Authority" value
  * @method Strain                 setIsolators()                  Sets the current record's "Isolators" collection
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
- * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * @method Strain                 setContainer()                  Sets the current record's "Container" value
  * @method Strain                 setCultureMedia()               Sets the current record's "CultureMedia" collection
+ * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" collection
  * @method Strain                 setStrainIsolators()            Sets the current record's "StrainIsolators" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
  * @method Strain                 setAxenityTests()               Sets the current record's "AxenityTests" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
  * @method Strain                 setStrainCultureMedia()         Sets the current record's "StrainCultureMedia" collection
+ * @method Strain                 setStrainMaintenanceStatus()    Sets the current record's "StrainMaintenanceStatus" collection
  * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
  * @method Strain                 setProjects()                   Sets the current record's "Projects" collection
  * @method Strain                 setIsolations()                 Sets the current record's "Isolations" collection
@@ -186,10 +186,6 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasColumn('identifier_id', 'integer', null, array(
              'type' => 'integer',
              ));
-        $this->hasColumn('maintenance_status_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
         $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
              'type' => 'integer',
              ));
@@ -252,10 +248,6 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'identifier_id',
              'foreign' => 'id'));
 
-        $this->hasOne('MaintenanceStatus', array(
-             'local' => 'maintenance_status_id',
-             'foreign' => 'id'));
-
         $this->hasOne('CryopreservationMethod', array(
              'local' => 'cryopreservation_method_id',
              'foreign' => 'id'));
@@ -268,6 +260,11 @@ abstract class BaseStrain extends sfDoctrineRecord
              'refClass' => 'StrainCultureMedia',
              'local' => 'strain_id',
              'foreign' => 'culture_medium_id'));
+
+        $this->hasMany('MaintenanceStatus', array(
+             'refClass' => 'StrainMaintenanceStatus',
+             'local' => 'strain_id',
+             'foreign' => 'maintenance_status_id'));
 
         $this->hasMany('StrainIsolators', array(
              'local' => 'id',
@@ -286,6 +283,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'strain_id'));
 
         $this->hasMany('StrainCultureMedia', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('StrainMaintenanceStatus', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 

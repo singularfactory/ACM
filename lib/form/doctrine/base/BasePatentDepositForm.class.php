@@ -33,7 +33,6 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => false)),
       'deposition_date'            => new sfWidgetFormDate(),
       'depositor_code'             => new sfWidgetFormInputText(),
-      'maintenance_status_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceStatus'), 'add_empty' => false)),
       'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => true)),
       'transfer_interval'          => new sfWidgetFormInputText(),
       'viability_test'             => new sfWidgetFormTextarea(),
@@ -47,6 +46,7 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       'collectors_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Collector')),
       'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
+      'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
 
     $this->setValidators(array(
@@ -68,7 +68,6 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       'depositor_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'))),
       'deposition_date'            => new sfValidatorDate(),
       'depositor_code'             => new sfValidatorString(array('max_length' => 40)),
-      'maintenance_status_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceStatus'))),
       'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'required' => false)),
       'transfer_interval'          => new sfValidatorString(array('max_length' => 40, 'required' => false)),
       'viability_test'             => new sfValidatorString(array('required' => false)),
@@ -82,6 +81,7 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       'collectors_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Collector', 'required' => false)),
       'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
+      'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('patent_deposit[%s]');
@@ -117,6 +117,11 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       $this->setDefault('culture_media_list', $this->object->CultureMedia->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['maintenance_status_list']))
+    {
+      $this->setDefault('maintenance_status_list', $this->object->MaintenanceStatus->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
@@ -124,6 +129,7 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
     $this->saveCollectorsList($con);
     $this->saveIsolatorsList($con);
     $this->saveCultureMediaList($con);
+    $this->saveMaintenanceStatusList($con);
 
     parent::doSave($con);
   }
@@ -239,6 +245,44 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('CultureMedia', array_values($link));
+    }
+  }
+
+  public function saveMaintenanceStatusList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['maintenance_status_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->MaintenanceStatus->getPrimaryKeys();
+    $values = $this->getValue('maintenance_status_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('MaintenanceStatus', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('MaintenanceStatus', array_values($link));
     }
   }
 

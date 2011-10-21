@@ -89,8 +89,8 @@ class Version98 extends Doctrine_Migration_Base {
 	
 	public function postDown() {
 		foreach ( $this->strainIsolators as $strainIsolator ) {
-			$strain = Doctrine_Core::getTable('Strain')->find($strainIsolator->getSampleId());
-			$strain->setCollectorId($strainIsolator->getCollectorId());
+			$strain = Doctrine_Core::getTable('Strain')->find($strainIsolator->getStrainId());
+			$strain->setIsolatorId($strainIsolator->getIsolatorId());
 			$strain->trySave();
 		}
 	}
