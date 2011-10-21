@@ -585,48 +585,43 @@ class apiActions extends MyActions {
 			return $this->requestExitStatus(self::InvalidToken);
 		}
 		
-		$catalog = array();
-
-		// Get locations
-		foreach ( LocationTable::getInstance()->createQuery('l')->leftJoin('l.Samples')->execute() as $location ) {
-			$tmp = array();
-			$tmp['country'] = $location->getCountry()->getName();
-			$tmp['region'] = $location->getRegion()->getName();
-			if ( $island = $location->getIsland() ) {
-				$tmp['island'] = $island->getName();
-			}
-			
-			$location = array_merge($tmp, $location->toArray());
-			unset($location['Country']);
-			unset($location['Region']);
-			unset($location['Island']);
-			unset($location['Samples']);
-			unset($location['country_id']);
-			unset($location['region_id']);
-			unset($location['island_id']);
-			$catalog['location'][] = $location;
+		// Get referenced models
+		$habitats = array();
+		foreach ( HabitatTable::getInstance()->createQuery('h')->innerJoin('h.Samples')->execute() as $habitat ) {
+			$habitats[$habitat['id']] = $habitat->getName();
 		}
+		unset($habitat);
 		
-		// Get samples
-		foreach ( SampleTable::getInstance()->createQuery('s')->leftJoin('s.Strains')->execute() as $sample ) {
-			$tmp = array();
-			$tmp['environment'] = $sample->getEnvironment()->getName();
-			$tmp['habitat'] = $sample->getHabitat()->getName();
-			if ( $radiation = $sample->getRadiation() ) {
-				$tmp['radiation'] = $radiation->getName();
-			}
-			
-			$sample = array_merge($tmp, $sample->toArray());
-			unset($sample['Location']);
-			unset($sample['Strains']);
-			unset($sample['Environment']);
-			unset($sample['Habitat']);
-			unset($sample['Radiation']);
-			unset($sample['environment_id']);
-			unset($sample['habitat_id']);
-			unset($sample['radiation_id']);
-			$catalog['sample'][] = $sample;
+		$countries = array();
+		foreach ( CountryTable::getInstance()->createQuery('c')->innerJoin('c.Locations')->execute() as $country ) {
+			$countries[$country['id']] = $country->getName();
 		}
+		unset($country);
+		
+		$regions = array();
+		foreach ( RegionTable::getInstance()->createQuery('r')->innerJoin('r.Locations')->execute() as $region ) {
+			$regions[$region['id']] = $region->getName();
+		}
+		unset($region);
+		
+		$islands = array();
+		foreach ( IslandTable::getInstance()->createQuery('i')->innerJoin('i.Locations')->execute() as $island ) {
+			$islands[$island['id']] = $island->getName();
+		}
+		unset($island);
+		
+		$locations = array();
+		foreach ( LocationTable::getInstance()->createQuery('l')->innerJoin('l.Samples')->execute() as $location ) {
+			$id = $location->getId();
+			$country = $countries[$location->getCountryId()];
+			$region = sprintf(', %s', $regions[$location->getRegionId()]);
+			$island = (isset($islands[$location->getIslandId()])) ? sprintf(', %s', $islands[$location->getIslandId()]) : '';
+			
+			$locations[$id] = sprintf('%s %s %s, %s', $country, $region, $island, $location->getName());
+		}
+		unset($location);
+		
+		$catalog = array();
 		
 		// Get culture media
 		$catalog['culture_medium'] = CultureMediumTable::getInstance()->findByIsPublic(1)->toArray();
@@ -639,51 +634,48 @@ class apiActions extends MyActions {
 		
 		// Get strains
 		foreach ( StrainTable::getInstance()->findByIsPublic(1) as $strain ) {
-			$record = $strain->toArray();
+			$record = array(
+				'id' => $strain->getId(),
+				'culture_media' => array(),
+				'isolators' => array(),
+				'maintenance_status' => array(),
+				'location' => $locations[$strain->getSample()->getLocationId()],
+				'habitat' => $habitats[$strain->getSample()->getHabitatId()],
+				'is_epitype' => $strain->getIsEpitype(),
+				'is_axenic' => $strain->getIsAxenic(),
+				'taxonomic_class' => $strain->getTaxonomicClass()->getName(),
+				'genus' => $strain->getGenus()->getName(),
+				'species' => $strain->getSpecies()->getName(),
+				'authority' => $strain->getAuthority()->getName(),
+				'isolation_date' => $strain->getIsolationDate(),
+				'identifier' => sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname()),
+				'cryopreservation_method' => $strain->getCryopreservationMethod()->getName(),
+				'transfer_interval' => $strain->getTransferInterval(),
+				'observation' => $strain->getObservation(),
+				'citations' => $strain->getCitations(),
+				'remarks' => $strain->getRemarks(),
+				'web_notes' => $strain->getWebNotes(),
+				'container' => $strain->getContainer()->getName(),
+				'depositor' => sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname()),
+				'has_dna' => ($strain->hasDna() > 0),
+				'aliquots' => $strain->getDnaAmount(),
+			);
 			
 			// Get culture media of this strain
-			unset($record['CultureMedia']);
-			foreach ( $strain->getCultureMedia()->toArray() as $medium ) {
-				$record['culture_media'][] = $medium['id'];
+			foreach ( $strain->getCultureMedia() as $medium ) {
+				$record['culture_media'][] = $medium->getId();
 			}
 			
 			// Get isolators of this strain
-			unset($record['Isolators']);
-			foreach ( $strain->getIsolators()->toArray() as $isolator ) {
-				$record['isolators'][] = $isolator['id'];
+			foreach ( $strain->getIsolators() as $isolator ) {
+				$record['isolators'][] = $isolator->getId();
 			}
 			
 			// Get maintenance statuses of this strain
-			unset($record['MaintenanceStatus']);
-			foreach ( $strain->getMaintenanceStatus()->toArray() as $status ) {
-				$record['maintenance_status'][] = $status['id'];
+			foreach ( $strain->getMaintenanceStatus() as $status ) {
+				$record['maintenance_status'][] = $status->getId();
 			}
 			
-			// Get DNA of this strain
-			$record['has_dna'] = $strain->hasDna() > 0;
-			$record['aliquots'] = $strain->getDnaAmount();
-			
-			// Get taxonomic information
-			unset($record['taxonomic_class_id']);
-			$record['taxonomic_class'] = $strain->getTaxonomicClass()->getName();
-			unset($record['genus']);
-			$record['genus'] = $strain->getGenus()->getName();
-			unset($record['species']);
-			$record['species_id'] = $strain->getSpecies()->getName();
-			unset($record['authority_id']);
-			$record['authority'] = $strain->getAuthority()->getName();
-			
-			unset($record['identifier_id']);
-			$record['identifier'] = sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname());
-			
-			unset($record['depositor_id']);
-			$record['depositor'] = sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname());
-			
-			unset($record['container_id']);
-			$record['container'] = $strain->getContainer()->getName();
-			
-			unset($record['Sample']);
-						
 			$catalog['strain'][] = $record;
 		}
 		
