@@ -634,6 +634,9 @@ class apiActions extends MyActions {
 		// Get isolators
 		$catalog['isolator'] = IsolatorTable::getInstance()->findAll()->toArray();
 		
+		// Get maintenance status
+		$catalog['maintenance_status'] = MaintenanceStatusTable::getInstance()->findAll()->toArray();
+		
 		// Get strains
 		foreach ( StrainTable::getInstance()->findByIsPublic(1) as $strain ) {
 			$record = $strain->toArray();
@@ -651,11 +654,10 @@ class apiActions extends MyActions {
 			}
 			
 			// Get maintenance statuses of this strain
-			unset($record['maintenance_status_id']);
-			$record['maintenance_status'] = $strain->getMaintenanceStatus()->getName();
-			// foreach ( $strain->getMaintenanceStatus()->toArray() as $status ) {
-			// 				$record['maintenance_status'][] = $status['name'];
-			// 			}
+			unset($record['MaintenanceStatus']);
+			foreach ( $strain->getMaintenanceStatus()->toArray() as $status ) {
+				$record['maintenance_status'][] = $status['id'];
+			}
 			
 			// Get DNA of this strain
 			$record['has_dna'] = $strain->hasDna() > 0;
