@@ -199,9 +199,26 @@
 			<dd><?php echo $strain->getAuthority() ?></dd>
 			
 			<dt>Maintenance status:</dt>
-			<dd><?php echo $strain->getMaintenanceStatus() ?></dd>
+			<dd>
+			<?php
+				$isCryopreserved = false;
+				$firstMaintenanceStatus = true;
+				foreach ($strain->getMaintenanceStatus() as $status ) {
+					if ( $status->getName() === sfConfig::get('app_maintenance_status_cryopreserved') ) {
+						$isCryopreserved = true;
+					}
+					
+					if ( !$firstMaintenanceStatus ) {
+						echo sprintf(', %s', sfInflector::tableize($status->getName()));
+						continue;
+					}
+					echo $status->getName();
+					$firstMaintenanceStatus = false;
+				}
+			?>
+			</dd>
 									
-			<?php if ( $strain->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
+			<?php if ( $isCryopreserved ): ?>
 			<dt>Cryopreservation:</dt>
 			<dd><?php echo $strain->getCryopreservationMethod() ?></dd>
 			<?php endif; ?>
