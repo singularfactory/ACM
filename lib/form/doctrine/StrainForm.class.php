@@ -107,6 +107,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('container_id', 'Type of container where the strain grows better');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
   }
 
 
@@ -114,8 +115,8 @@ class StrainForm extends BaseStrainForm {
 		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
 			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
 			->getId();
-			
-		if ( $values['maintenance_status_id'] != $cryopreservedStatusId ) {
+		
+		if ( !in_array($cryopreservedStatusId, $values['maintenance_status_list']) ) {
 			$values['cryopreservation_method_id'] = null;
 		}
 		else {
@@ -124,7 +125,7 @@ class StrainForm extends BaseStrainForm {
 				throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
 			}
 		}
-
+		
 		// cryopreserved method is consistent with maintenance status, return the clean values
 		return $values;
 	}

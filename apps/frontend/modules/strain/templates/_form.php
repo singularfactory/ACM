@@ -95,9 +95,11 @@
 		</div> 
 		-->
 		
-		<div id="maintenance_status">
-			<?php echo $form['maintenance_status_id']->renderLabel() ?>
-			<?php echo $form['maintenance_status_id'] ?>
+		<div id="maintenance_status" class="list_field">
+			<?php echo $form['maintenance_status_list']->renderLabel() ?>
+			<?php echo $form['maintenance_status_list']->renderError() ?>
+			<?php echo $form['maintenance_status_list']->renderHelp() ?>
+			<?php echo $form['maintenance_status_list'] ?>
 		</div>
 		
 		<div id="cryopreservation_method">
@@ -107,7 +109,7 @@
 			<?php echo $form['cryopreservation_method_id'] ?>
 		</div>
 		
-		<div id="isolators">
+		<div id="isolators" class="list_field">
 			<?php echo $form['isolators_list']->renderLabel() ?>
 			<?php echo $form['isolators_list']->renderError() ?>
 			<?php echo $form['isolators_list']->renderHelp() ?>

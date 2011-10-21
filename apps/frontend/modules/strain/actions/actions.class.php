@@ -185,7 +185,8 @@ class strainActions extends MyActions {
 			
 			$nValidTests = count($validTests);
 			if ( $nValidTests == 0 ) {
-				unset($taintedValues['new_AxenityTests']);
+				//unset($taintedValues['new_AxenityTests']);
+				$taintedValues['new_AxenityTests'] = array();
 			}
 			else if ( $nValidTests > 0 && $nValidTests < count($taintedValues['new_AxenityTests']) ) {
 				$taintedValues['new_AxenityTests'] = $validTests;
