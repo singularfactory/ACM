@@ -626,14 +626,14 @@ class apiActions extends MyActions {
 		// Get culture media
 		$catalog['culture_medium'] = array();
 		foreach ( CultureMediumTable::getInstance()->findByIsPublic(1) as $medium ) {
-			$catalog['culture_medium'][$medium->getId()] = $medium->getName();
+			$catalog['culture_medium'][$medium->getId()][] = array('name' => $medium->getName(), 'link' => $medium->getLink());
 		}
 		unset($medium);
 		
 		// Get isolators
 		$catalog['isolators'] = array();
 		foreach ( IsolatorTable::getInstance()->findAll() as $isolator ) {
-			$catalog['isolators'][$isolator->getId()] = $isolator->getName();
+			$catalog['isolators'][$isolator->getId()] = "$isolator";
 		}
 		unset($isolator);
 		
