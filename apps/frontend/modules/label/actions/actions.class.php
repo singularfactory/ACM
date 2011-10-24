@@ -37,6 +37,7 @@ class labelActions extends myActions {
 				$matches[] = array(
 					'id' => $match->getId(),
 					'label' => $match->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'transfer_interval' => ($table == 'StrainTable') ? $match->getTransferInterval():null,
 				);
 			}
 			$this->getResponse()->setContent(json_encode($matches));

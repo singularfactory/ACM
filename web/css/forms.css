@@ -219,5 +219,5 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
 /**
  * NUMERIC PLUGIN
  */
-#culture_medium_amount, #strain_amount { float:left; width: 40px; }
-#culture_medium_amount_buttons, #strain_amount_buttons { padding:0; float: right; margin-left: 3px; }
+#culture_medium_amount, #strain_amount, #label_transfer_interval input { float:left; width: 40px; }
+#culture_medium_amount_buttons, #strain_amount_buttons, #transfer_interval_buttons { padding:0; float: right; margin-left: 3px; }

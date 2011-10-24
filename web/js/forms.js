@@ -556,6 +556,11 @@ $(document).ready(function(){
 		select: function(event, ui) {
 			$( "#label_code_search" ).val( ui.item.label );
 			$( "#label_code_search_id" ).val( ui.item.id );
+			
+			if ( isNumber(ui.item.transfer_interval) ) {
+				$( "#label_transfer_interval input" ).val( ui.item.transfer_interval );
+			}
+			
 			return false;
 		},
 	});
@@ -564,5 +569,7 @@ $(document).ready(function(){
 			$('#label_code_search').autocomplete('search', $(this).val());
 		}
 	});
+	
+	$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
 	
 });

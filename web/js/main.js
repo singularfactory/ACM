@@ -1,6 +1,11 @@
 // Store default text in search boxes
 var search_box_hint = '';
 
+// Custom test for number
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 $(document).ready(function(){
 	// Store default text in search boxes
 	search_box_hint = $('#search_box_criteria').val();

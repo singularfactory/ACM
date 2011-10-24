@@ -31,6 +31,20 @@
 			 
 		</div>
 		
+		<div id="label_supervisor">
+			<?php echo $form['supervisor']->renderLabel() ?>
+			<?php echo $form['supervisor']->renderError() ?>
+			<?php echo $form['supervisor']->renderHelp() ?>
+			<?php echo $form['supervisor'] ?>
+		</div>
+		
+		<div id="label_transfer_interval">
+			<?php echo $form['transfer_interval']->renderLabel() ?>
+			<?php echo $form['transfer_interval']->renderError() ?>
+			<?php echo $form['transfer_interval']->renderHelp() ?>
+			<?php echo $form['transfer_interval'] ?>
+		</div>
+		
 	</div>
 	<div class="submit">
 		<input type="submit" value="Create labels">
