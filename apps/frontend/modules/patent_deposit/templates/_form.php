@@ -104,8 +104,8 @@
 		</div>
 		
 		<div id="maintenance_status">
-			<?php echo $form['maintenance_status_id']->renderLabel() ?>
-			<?php echo $form['maintenance_status_id'] ?>
+			<?php echo $form['maintenance_status_list']->renderLabel() ?>
+			<?php echo $form['maintenance_status_list'] ?>
 		</div>
 		
 		<div id="cryopreservation_method">

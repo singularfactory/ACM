@@ -12,6 +12,10 @@
 */
 class Project extends BaseProject {
 	
+	public function getCode() {
+		return $this->getStrain()->getCode();
+	}
+	
 	public function getInoculationDate() {
 		if ( $date = $this->_get('inoculation_date') ) {
 			return $this->formatDate($date);

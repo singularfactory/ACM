@@ -88,53 +88,56 @@ $(document).ready(function(){
 	})
 	
 	// Display a Google Map to pick the latitude and longitude of a place
-	$('#gps_coordinates_picker_link').colorbox({
-		inline: true,
-		href: "#gps_coordinates_picker",
-		transition: "fade",
-		
-		onComplete: function(){
-			$('#gps_coordinates_picker_map').goMap({
-				latitude: 27.991232,		// Latitude of BEA headquarters
-		    longitude: -15.368787,	// Longitude of BEA headquarters 
-				zoom: 7,
-				width: 300,
-				disableDoubleClickZoom: false,
-				icon: '/images/maps/location.png',
-			});
-			$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
-				$('#gps_coordinates_picker_latitude').val(decimalDegreesToDMS(event.latLng.lat()));
-				$('#gps_coordinates_picker_longitude').val(decimalDegreesToDMS(event.latLng.lng()));
-				$.goMap.clearMarkers();
-				$.goMap.createMarker({
-					latitude: event.latLng.lat(),
-			    longitude: event.latLng.lng(),
+	if ( $('#gps_coordinates_picker_link').length ) {
+		$('#gps_coordinates_picker_link').colorbox({
+			inline: true,
+			href: "#gps_coordinates_picker",
+			transition: "fade",
+
+			onComplete: function(){
+				$('#gps_coordinates_picker_map').goMap({
+					latitude: 27.991232,		// Latitude of BEA headquarters
+			    longitude: -15.368787,	// Longitude of BEA headquarters 
+					zoom: 7,
+					width: 300,
+					disableDoubleClickZoom: false,
+					icon: '/images/maps/location.png',
 				});
-				$.goMap.setMap({
-					zoom: ($.goMap.getMap().zoom + 1),
-					latitude: event.latLng.lat(),
-					longitude: event.latLng.lng(),
+				$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
+					$('#gps_coordinates_picker_latitude').val(decimalDegreesToDMS(event.latLng.lat()));
+					$('#gps_coordinates_picker_longitude').val(decimalDegreesToDMS(event.latLng.lng()));
+					$.goMap.clearMarkers();
+					$.goMap.createMarker({
+						latitude: event.latLng.lat(),
+				    longitude: event.latLng.lng(),
+					});
+					$.goMap.setMap({
+						zoom: ($.goMap.getMap().zoom + 1),
+						latitude: event.latLng.lat(),
+						longitude: event.latLng.lng(),
+					});
 				});
-			});
-		},
-		
-		onCleanup: function(){
-			$('#gps_coordinates input').each(function(){
-				var id = $(this).attr('id');
-				if ( id != null ) {
-					var latitude_regexp = /_latitude$/;
-					if ( latitude_regexp.test(id) ) {
-						$(this).val($('#gps_coordinates_picker_latitude').val());
+			},
+
+			onCleanup: function(){
+				$('#gps_coordinates input').each(function(){
+					var id = $(this).attr('id');
+					if ( id != null ) {
+						var latitude_regexp = /_latitude$/;
+						if ( latitude_regexp.test(id) ) {
+							$(this).val($('#gps_coordinates_picker_latitude').val());
+						}
+
+						var longitude_regexp = /_longitude$/;
+						if ( longitude_regexp.test(id) ) {
+							$(this).val($('#gps_coordinates_picker_longitude').val());
+						}
 					}
-					
-					var longitude_regexp = /_longitude$/;
-					if ( longitude_regexp.test(id) ) {
-						$(this).val($('#gps_coordinates_picker_longitude').val());
-					}
-				}
-			});
-		}
-	});
+				});
+			}
+		});
+	}
+	
 
 	// Update Region select and Island select when selecting a Country in Location form
 	$('#location_country_id').change(function(){
@@ -513,5 +516,53 @@ $(document).ready(function(){
 	
 	
 	//$("#amount input").numeric({ "minValue": 0, emptyValue: false, increment: 1 });
+	
+	// Add a search box for products in Labels module
+	var labelCodeSearchBoxDefault = 'Type a product code...';
+	if ( !$('#label_code_search').val() ) {
+		$('#label_code_search').val(labelCodeSearchBoxDefault);
+	}
+	
+	$('#label_code_search').focus(function(){
+		if ( $(this).val() == labelCodeSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#label_code_search').blur(function(){
+		if( $(this).attr("value") == "" ) {
+			$(this).attr("value", labelCodeSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+	$('#label_all_products input').change(function(){
+		if ( $(this).is(':checked') ) {
+			$('#label_code_search').attr('disabled', 'disabled');
+		}
+		else {
+			$('#label_code_search').removeAttr('disabled');
+		}
+	});
+	$('#label_code_search').autocomplete({
+		minLength: 1,
+		source: function(term, add) {
+			var url = $('a.label_find_products_url').attr('href') + $("#label_code_search").val();
+			url = url.replace('__PRODUCT__', $('#label_product #product').val());
+			
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#label_code_search" ).val( ui.item.label );
+			$( "#label_code_search_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	$('#label_product #product').change(function(){
+		if ( $('#label_code_search').val() != labelCodeSearchBoxDefault ){
+			$('#label_code_search').autocomplete('search', $(this).val());
+		}
+	});
 	
 });

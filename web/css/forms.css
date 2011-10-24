@@ -26,6 +26,7 @@ span.input_error {
 }
 p.input_help { font-size: 11px; color: #919191; margin: 0px; margin-top: -2px; padding: 0px; }
 p.input_long_help { width: 500px; }
+span.input_alternative { font-weight: bold; color: #000000; font-size: 12px; margin-left: 5px; margin-right: 5px; }
 
 input, textarea { display: block; clear: both; font-size: 12px; padding: 1px; }
 textarea { width: 350px; height: 100px; }
@@ -139,7 +140,8 @@ a.country_regions_url,
 a.region_islands_url,
 a.dna_extraction_strain_numbers_url,
 a.project_strain_numbers_url,
-a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_location_coordinates_url, a.isolation_isolation_subject_url { display: none; }
+a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_location_coordinates_url, a.isolation_isolation_subject_url,
+a.label_find_products_url { display: none; }
 
 #email_address input,
 #username input,
@@ -156,6 +158,13 @@ a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_loca
 #customer input { width: 350px; }
 
 span.gel_is_valid, span.reaction_worked { color: #005700; }
+
+
+#label_code label { display: block; }
+#label_code input { display: inline; min-width: 170px; color: #888; font-size: 11px; min-height: 15px; padding: 1px; }
+#label_code #label_all_products { display: inline; margin: 0px; padding: 0px; }
+#label_code #label_all_products label { display: inline; margin-left: 0px; margin-right: 0px; }
+#label_code #label_all_products input { display: inline; margin-right: 0px; }
 
 
 /**

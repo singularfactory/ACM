@@ -463,6 +463,18 @@ label:
   requirements: { sf_method: [get, head] }
 
 
+label_create:
+  url:          /label
+  param:        { module: label, action: create }
+  requirements: { sf_method: post }
+
+
+label_find_products:
+  url:    label/findProducts/:product/:term
+  param:  { module: label, action: findProducts, product: sample }
+  requirements: { product: "[^/]+" }
+
+
 ###
 # Default rules
 ###

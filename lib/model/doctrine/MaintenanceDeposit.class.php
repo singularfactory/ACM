@@ -12,6 +12,10 @@
 */
 class MaintenanceDeposit extends BaseMaintenanceDeposit {
 	
+	public function getCode() {
+		return $this->getDepositorCode();
+	}
+	
 	public function getNbCultureMedia() {
 		return MaintenanceDepositCultureMediaTable::getInstance()->createQuery('cm')
 			->where('cm.maintenance_deposit_id = ?', $this->getId())

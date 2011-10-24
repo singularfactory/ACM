@@ -12,6 +12,18 @@
 */
 class Isolation extends BaseIsolation {
 	
+	public function getCode() {
+		if ( $code = $this->getExternalCode() ) {
+			return $code;
+		}
+		else if ( $sample = $this->getSample() ) {
+			return $sample->getCode();
+		}
+		else if ( $strain = $this->getStrain() ) {
+			return $strain->getCode();
+		}
+	}
+	
 	public function getReceptionDate() {
 		if ( $date = $this->_get('reception_date') ) {
 			return $this->formatDate($date);

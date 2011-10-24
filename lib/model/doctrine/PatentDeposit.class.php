@@ -12,6 +12,10 @@
 */
 class PatentDeposit extends BasePatentDeposit {
 	
+	public function getCode() {
+		return $this->getDepositorCode();
+	}
+	
 	public function getNbCultureMedia() {
 		return PatentDepositCultureMediaTable::getInstance()->createQuery('cm')
 			->where('cm.patent_deposit_id = ?', $this->getId())
