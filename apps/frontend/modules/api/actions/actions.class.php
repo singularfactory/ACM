@@ -639,6 +639,7 @@ class apiActions extends MyActions {
 				'culture_media' => array(),
 				'isolators' => array(),
 				'maintenance_status' => array(),
+				'relatives' => array(),
 				'location' => $locations[$strain->getSample()->getLocationId()],
 				'habitat' => $habitats[$strain->getSample()->getHabitatId()],
 				'is_epitype' => $strain->getIsEpitype(),
@@ -661,6 +662,11 @@ class apiActions extends MyActions {
 				'aliquots' => $strain->getDnaAmount(),
 			);
 			
+			// Get relatives of this strain
+			foreach ( $strain->getRelatives() as $relative ) {
+				$record['relatives'][] = $medium->getName();
+			}
+			
 			// Get culture media of this strain
 			foreach ( $strain->getCultureMedia() as $medium ) {
 				$record['culture_media'][] = $medium->getId();
@@ -676,7 +682,7 @@ class apiActions extends MyActions {
 				$record['maintenance_status'][] = $status->getId();
 			}
 			
-			$catalog['strain'][] = $record;
+			$catalog['strain'][$strain->getId()] = $record;
 		}
 		
 		// Return the information as a JSON object
