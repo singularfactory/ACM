@@ -13,7 +13,7 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'status'          => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent', 'canceled' => 'canceled', 'refunded' => 'refunded'))),
+      'status'          => new sfWidgetFormChoice(array('choices' => array('' => '', 'pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready'))),
       'code'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'customer'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'remarks'         => new sfWidgetFormFilterInput(),
@@ -25,7 +25,7 @@ abstract class BasePurchaseOrderFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'status'          => new sfValidatorChoice(array('required' => false, 'choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent', 'canceled' => 'canceled', 'refunded' => 'refunded'))),
+      'status'          => new sfValidatorChoice(array('required' => false, 'choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready'))),
       'code'            => new sfValidatorPass(array('required' => false)),
       'customer'        => new sfValidatorPass(array('required' => false)),
       'remarks'         => new sfValidatorPass(array('required' => false)),

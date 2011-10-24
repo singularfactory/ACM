@@ -49,4 +49,5 @@ class Picture extends Doctrine_Template {
 		
 		return "$path/$filename";
 	}
+	
 }

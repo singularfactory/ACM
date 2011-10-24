@@ -120,6 +120,8 @@ abstract class BasePurchaseItem extends sfDoctrineRecord
              'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
+        $saleable0 = new Saleable();
         $this->actAs($timestampable0);
+        $this->actAs($saleable0);
     }
 }

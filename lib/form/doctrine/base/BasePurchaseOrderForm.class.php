@@ -16,7 +16,7 @@ abstract class BasePurchaseOrderForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
-      'status'          => new sfWidgetFormChoice(array('choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready', 'sent' => 'sent', 'canceled' => 'canceled', 'refunded' => 'refunded'))),
+      'status'          => new sfWidgetFormChoice(array('choices' => array('pending' => 'pending', 'processing' => 'processing', 'ready' => 'ready'))),
       'code'            => new sfWidgetFormInputText(),
       'customer'        => new sfWidgetFormTextarea(),
       'remarks'         => new sfWidgetFormTextarea(),
@@ -29,7 +29,7 @@ abstract class BasePurchaseOrderForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'              => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'status'          => new sfValidatorChoice(array('choices' => array(0 => 'pending', 1 => 'processing', 2 => 'ready', 3 => 'sent', 4 => 'canceled', 5 => 'refunded'), 'required' => false)),
+      'status'          => new sfValidatorChoice(array('choices' => array(0 => 'pending', 1 => 'processing', 2 => 'ready'), 'required' => false)),
       'code'            => new sfValidatorString(array('max_length' => 40)),
       'customer'        => new sfValidatorString(array('max_length' => 512)),
       'remarks'         => new sfValidatorString(array('required' => false)),

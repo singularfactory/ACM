@@ -11,7 +11,7 @@
 class PurchaseItemForm extends BasePurchaseItemForm {
 
 	public function configure() {
-		unset($this['product'], $this['amount']);
+		unset($this['product'], $this['amount'], $this['code']);
 		
 		$this->setWidget('status', new sfWidgetFormChoice(array(
 			'choices' => array(

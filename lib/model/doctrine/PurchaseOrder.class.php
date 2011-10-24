@@ -53,11 +53,11 @@ class PurchaseOrder extends BasePurchaseOrder {
 	}
 	
 	public function setStatus($status) {
-		if ( $this->getStatus() == sfConfig::get('app_purchase_order_pending') && $status > $this->getStatus() == sfConfig::get('app_purchase_order_pending') ) {
+		if ( $this->getStatus() == sfConfig::get('app_purchase_order_pending') && $status > sfConfig::get('app_purchase_order_pending') ) {
 			$this->setActivationDate(date('Y-m-d H:i:s'));
 		}
 		
-		if ( $this->getStatus() != sfConfig::get('app_purchase_order_sent') && $status >= sfConfig::get('app_purchase_order_sent') ) {
+		if ( $this->getStatus() != sfConfig::get('app_purchase_order_ready') && $status >= sfConfig::get('app_purchase_order_ready') ) {
 			$this->setDeliveryDate(date('Y-m-d H:i:s'));
 		}
 		
@@ -75,15 +75,6 @@ class PurchaseOrder extends BasePurchaseOrder {
 			case sfConfig::get('app_purchase_order_ready');
 				return 'ready';
 				break;
-			case sfConfig::get('app_purchase_order_sent');
-				return 'sent';
-				break;
-			case sfConfig::get('app_purchase_order_canceled');
-				return 'canceled';
-				break;
-			case sfConfig::get('app_purchase_order_refund');
-				return 'refund';
-				break;		
 		}
 		
 		return 'processing';
@@ -120,9 +111,10 @@ class PurchaseOrder extends BasePurchaseOrder {
 			$this->trySave();
 		}
 		
-		if ( $this->getStatus() != sfConfig::get('app_purchase_order_sent') && $itemStatus == sfConfig::get('app_purchase_item_ready') ) {
+		if ( $itemStatus == sfConfig::get('app_purchase_item_ready') ) {
 			if ( $this->getNbReadyItems() == $this->getNbItems() ) {
 				$this->setStatus(sfConfig::get('app_purchase_order_ready'));
+				$this->setDeliveryDate(date('Y-m-d H:i:s'));
 				$this->trySave();
 			}
 			else {

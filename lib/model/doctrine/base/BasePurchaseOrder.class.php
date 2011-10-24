@@ -56,9 +56,6 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
               0 => 'pending',
               1 => 'processing',
               2 => 'ready',
-              3 => 'sent',
-              4 => 'canceled',
-              5 => 'refunded',
              ),
              ));
         $this->hasColumn('code', 'string', 40, array(
@@ -104,7 +101,9 @@ abstract class BasePurchaseOrder extends sfDoctrineRecord
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $date0 = new Date();
+        $saleable0 = new Saleable();
         $this->actAs($timestampable0);
         $this->actAs($date0);
+        $this->actAs($saleable0);
     }
 }

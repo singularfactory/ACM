@@ -78,9 +78,6 @@ all:
     purchase_order_pending:           0
     purchase_order_processing:        1
     purchase_order_ready:             2
-    purchase_order_sent:              3
-    purchase_order_canceled:          4
-    purchase_order_refunded:          5
     purchase_item_pending:            0
     purchase_item_processing:         1
     purchase_item_ready:              2

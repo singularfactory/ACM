@@ -602,7 +602,7 @@ Notification:
 PurchaseOrder:
   columns:
     id:               { type: integer, primary: true, autoincrement: true }
-    status:           { type: enum, values: [pending, processing, ready, sent, canceled, refunded] }
+    status:           { type: enum, values: [pending, processing, ready] }
     code:             { type: string(40), notnull: true }
     customer:         { type: string(512), notnull: true }
     remarks:          { type: string }
@@ -612,6 +612,7 @@ PurchaseOrder:
   actAs:
     Timestampable:
     Date:
+    Saleable:
   indexes:
     purchase_order_status:
       fields: [status]
@@ -631,6 +632,9 @@ PurchaseItem:
   relations:
     PurchaseOrder:      { foreignAlias: Items, onDelete: cascade }
     Supervisor:         { foreignAlias: Items, class: sfGuardUser, local: supervisor_id }
+  actAs:
+    Timestampable:
+    Saleable:
   indexes:
     purchase_item_status:
       fields: [status]
