@@ -59,7 +59,7 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^(sample(\/_)?|homepage)/', $currentRoute) )
+						if ( !preg_match('/^(sample(\/_)?)/', $currentRoute) )
 							echo link_to('Samples', '@sample');
 						else
 							echo link_to('Samples', '@sample', array('class' => 'header_menu_current_tab'));
@@ -68,7 +68,7 @@
 					
 					<li>
 						<?php
-						if ( !preg_match('/^(strain(\/_)?)/', $currentRoute) )
+						if ( !preg_match('/^(strain(\/_)?|homepage)/', $currentRoute) )
 							echo link_to('Strains', '@strain');
 						else
 							echo link_to('Strains', '@strain', array('class' => 'header_menu_current_tab'));

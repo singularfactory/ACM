@@ -240,35 +240,6 @@ upload_progress:
 
 
 ###
-# API routes
-###
-api_sampling_information:
-  url:          /api/:token/samplingInformation/:timestamp
-  param:        { module: api, action: samplingInformation }
-  requirements: { sf_method: get, timestamp: \d+ }
-
-api_add_sampling_information:
-  url:          /api/:token/addSamplingInformation
-  param:        { module: api, action: addSamplingInformation }
-  requirements: { sf_method: post }
-
-api_sync_location_information:
-  url:          /api/:token/syncLocationInformation
-  param:        { module: api, action: syncLocationInformation }
-  requirements: { sf_method: post }
-
-api_new_purchase_order:
-  url:          /api/:token/newPurchaseOrder
-  param:        { module: api, action: newPurchaseOrder }
-  requirements: { sf_method: post }
-
-api_store_catalog:
-  url:          /api/:token/storeCatalog
-  param:        { module: api, action: storeCatalog }
-  requirements: { sf_method: get }
-
-
-###
 # Inbox routes
 ###
 inbox:
@@ -455,9 +426,38 @@ isolation_search_pagination:
 
 
 ###
+# API routes
+###
+api_sampling_information:
+  url:          /api/:token/samplingInformation/:timestamp
+  param:        { module: api, action: samplingInformation }
+  requirements: { sf_method: get, timestamp: \d+ }
+
+api_add_sampling_information:
+  url:          /api/:token/addSamplingInformation
+  param:        { module: api, action: addSamplingInformation }
+  requirements: { sf_method: post }
+
+api_sync_location_information:
+  url:          /api/:token/syncLocationInformation
+  param:        { module: api, action: syncLocationInformation }
+  requirements: { sf_method: post }
+
+api_new_purchase_order:
+  url:          /api/:token/newPurchaseOrder
+  param:        { module: api, action: newPurchaseOrder }
+  requirements: { sf_method: post }
+
+api_store_catalog:
+  url:          /api/:token/storeCatalog
+  param:        { module: api, action: storeCatalog }
+  requirements: { sf_method: get }
+
+
+###
 # Default rules
 ###
 homepage:
   url:    /
-  param:  { module: sample, action: index }
+  param:  { module: strain, action: index }
 
