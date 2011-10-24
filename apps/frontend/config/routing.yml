@@ -455,6 +455,15 @@ api_store_catalog:
 
 
 ###
+# Label module routes
+###
+label:
+  url:          /label
+  param:        { module: label, action: configure }
+  requirements: { sf_method: [get, head] }
+
+
+###
 # Default rules
 ###
 homepage:
