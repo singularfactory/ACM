@@ -588,25 +588,25 @@ class apiActions extends MyActions {
 		// Get referenced models
 		$habitats = array();
 		foreach ( HabitatTable::getInstance()->createQuery('h')->innerJoin('h.Samples')->execute() as $habitat ) {
-			$habitats[$habitat['id']] = $habitat->getName();
+			$habitats[$habitat->getId()] = $habitat->getName();
 		}
 		unset($habitat);
 		
 		$countries = array();
 		foreach ( CountryTable::getInstance()->createQuery('c')->innerJoin('c.Locations')->execute() as $country ) {
-			$countries[$country['id']] = $country->getName();
+			$countries[$country->getId()] = $country->getName();
 		}
 		unset($country);
 		
 		$regions = array();
 		foreach ( RegionTable::getInstance()->createQuery('r')->innerJoin('r.Locations')->execute() as $region ) {
-			$regions[$region['id']] = $region->getName();
+			$regions[$region->getId()] = $region->getName();
 		}
 		unset($region);
 		
 		$islands = array();
 		foreach ( IslandTable::getInstance()->createQuery('i')->innerJoin('i.Locations')->execute() as $island ) {
-			$islands[$island['id']] = $island->getName();
+			$islands[$island->getId()] = $island->getName();
 		}
 		unset($island);
 		
@@ -624,14 +624,26 @@ class apiActions extends MyActions {
 		$catalog = array();
 		
 		// Get culture media
-		$catalog['culture_medium'] = CultureMediumTable::getInstance()->findByIsPublic(1)->toArray();
+		$catalog['culture_medium'] = array();
+		foreach ( CultureMediumTable::getInstance()->findByIsPublic(1) as $medium ) {
+			$catalog['culture_medium'][$medium->getId()] = $medium->getName();
+		}
+		unset($medium);
 		
 		// Get isolators
-		$catalog['isolator'] = IsolatorTable::getInstance()->findAll()->toArray();
+		$catalog['isolators'] = array();
+		foreach ( IsolatorTable::getInstance()->findAll() as $isolator ) {
+			$catalog['isolators'][$isolator->getId()] = $isolator->getName();
+		}
+		unset($isolator);
 		
 		// Get maintenance status
-		$catalog['maintenance_status'] = MaintenanceStatusTable::getInstance()->findAll()->toArray();
-		
+		$catalog['maintenance_status'] = array();
+		foreach ( MaintenanceStatusTable::getInstance()->findAll() as $status ) {
+			$catalog['maintenance_status'][$status->getId()] = $status->getName();
+		}
+		unset($status);
+				
 		// Get strains
 		foreach ( StrainTable::getInstance()->findByIsPublic(1) as $strain ) {
 			$record = array(
