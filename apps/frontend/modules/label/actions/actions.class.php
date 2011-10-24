@@ -51,7 +51,22 @@ class labelActions extends myActions {
 	* @param sfRequest $request A request object
 	*/
 	public function executeCreate(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+
 		$this->form = new LabelForm();
+		
+		// Process form
+		$this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
+		if ($form->isValid()) {
+			
+		}
+		
+		$this->form->setDefaults(array(
+			'product' => $request->getParameter('product'),
+			'transfer_interval' => $request->getParameter('transfer_interval'),
+		));
+		
+		$this->setTemplate('configure');
 	}
-	
+		
 }

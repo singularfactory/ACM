@@ -5,7 +5,10 @@
 <span>Create labels</span>
 <?php end_slot() ?>
 
-<form action="<?php echo url_for('@label_create') ?>" method="post">
+<form action="<?php echo url_for('@label_create') ?>" method="POST">
+	<?php echo $form->renderHiddenFields() ?>
+	<input type="hidden" name="sf_method" value="post" />
+	
 	<div id="left_side_form">
 		<div id="label_product">
 			<?php echo $form['product']->renderLabel() ?>
