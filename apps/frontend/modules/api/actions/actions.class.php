@@ -626,7 +626,7 @@ class apiActions extends MyActions {
 		// Get culture media
 		$catalog['culture_medium'] = array();
 		foreach ( CultureMediumTable::getInstance()->findByIsPublic(1) as $medium ) {
-			$catalog['culture_medium'][$medium->getId()][] = array('name' => $medium->getName(), 'link' => $medium->getLink());
+			$catalog['culture_medium'][$medium->getId()] = array('name' => $medium->getName(), 'link' => $medium->getLink());
 		}
 		unset($medium);
 		
