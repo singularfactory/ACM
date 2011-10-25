@@ -45,6 +45,7 @@ class LabelForm extends BaseForm {
 
 		$this->setValidators(array(
 			'product' => new sfValidatorChoice(array('choices' => array_keys(self::$products), 'required' => false)),
+			'all_products' => new sfValidatorBoolean(array('required' => false)),
 			'code' => new sfValidatorInteger(array('required' => true, 'trim' => true)),
 			'supervisor' => new sfValidatorString(array('max_length' => 10, 'required' => false, 'trim' => true)),
 			'transfer_interval' => new sfValidatorInteger(array('required' => false, 'trim' => true)),

@@ -57,9 +57,13 @@ class labelActions extends myActions {
 		$this->form = new LabelForm();
 		$this->productCode = $request->getParameter('code_search');
 		
-		// Process form
+		// Process form values
 		$taintedValues = $request->getPostParameters();
 		unset($taintedValues['code_search']);
+		if ( $taintedValues['all_products'] ) {
+			$taintedValues['code'] = 0;
+		}
+		
 		$this->form->bind($taintedValues);
 		if ( !$this->form->isValid() ) {
 			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');
