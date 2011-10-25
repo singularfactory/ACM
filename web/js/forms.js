@@ -522,6 +522,10 @@ $(document).ready(function(){
 	if ( !$('#label_code_search').val() ) {
 		$('#label_code_search').val(labelCodeSearchBoxDefault);
 	}
+	else {
+		$('#label_code_search').css("color", "black");
+		$('#label_code_search').css("font-size", "12px");
+	}
 	
 	$('#label_code_search').focus(function(){
 		if ( $(this).val() == labelCodeSearchBoxDefault ){
@@ -555,7 +559,7 @@ $(document).ready(function(){
 		},
 		select: function(event, ui) {
 			$( "#label_code_search" ).val( ui.item.label );
-			$( "#label_code_search_id" ).val( ui.item.id );
+			$( "#code" ).val( ui.item.id );
 			
 			if ( isNumber(ui.item.transfer_interval) ) {
 				$( "#label_transfer_interval input" ).val( ui.item.transfer_interval );

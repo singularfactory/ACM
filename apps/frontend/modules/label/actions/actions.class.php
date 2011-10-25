@@ -17,6 +17,7 @@ class labelActions extends myActions {
 	*/
 	public function executeConfigure(sfWebRequest $request) {
 		$this->form = new LabelForm();
+		$this->productCode = '';
 	}
 	
 	/**
@@ -54,19 +55,20 @@ class labelActions extends myActions {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$this->form = new LabelForm();
+		$this->productCode = $request->getParameter('code_search');
 		
 		// Process form
-		$this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
-		if ($form->isValid()) {
-			
+		$taintedValues = $request->getPostParameters();
+		unset($taintedValues['code_search']);
+		$this->form->bind($taintedValues);
+		if ( !$this->form->isValid() ) {
+			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');
+			$this->setTemplate('configure');
 		}
-		
-		$this->form->setDefaults(array(
-			'product' => $request->getParameter('product'),
-			'transfer_interval' => $request->getParameter('transfer_interval'),
-		));
-		
-		$this->setTemplate('configure');
+		else {
+			$this->getUser()->setFlash('notice', 'Labels successfully created');
+			$this->redirect('@label');
+		}
 	}
 		
 }

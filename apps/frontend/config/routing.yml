@@ -460,12 +460,12 @@ api_store_catalog:
 label:
   url:          /label
   param:        { module: label, action: configure }
-  requirements: { sf_method: get }
+  requirements: { sf_method: [get] }
 
 label_create:
-  url:          /label
+  url:          /label/create
   param:        { module: label, action: create }
-  requirements: { sf_method: post }
+  requirements: { sf_method: [post] }
 
 label_find_products:
   url:          /label/findProducts/:product/:term

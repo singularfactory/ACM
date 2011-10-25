@@ -7,7 +7,6 @@
 
 <form action="<?php echo url_for('@label_create') ?>" method="POST">
 	<?php echo $form->renderHiddenFields() ?>
-	<input type="hidden" name="sf_method" value="post" />
 	
 	<div id="left_side_form">
 		<div id="label_product">
@@ -19,19 +18,18 @@
 		
 		<div id="label_code">
 			<?php echo $form['code']->renderLabel() ?>
-			<?php echo $form['code']->renderError() ?>
 			<?php echo $form['code']->renderHelp() ?>
-			
-			<input type="text" value="" id="label_code_search" />
+			<input type="text" value="<?php echo $productCode ?>" id="label_code_search" name="code_search" />
 			<a href="<?php echo url_for('@label_find_products?product=__PRODUCT__&term=') ?>" class="label_find_products_url"></a>
 			
 			<span class="input_alternative">or</span>
 			
 			<div id="label_all_products">
 				<?php echo $form['all_products'] ?>
-				<label for="all_products" class="labelinline_label">Create labels for every product</label>
+				<label for="all_products" class="inline_label">Create labels for every product</label>
 			</div>
-			 
+			
+			<?php echo $form['code']->renderError() ?> 
 		</div>
 		
 		<div id="label_supervisor">

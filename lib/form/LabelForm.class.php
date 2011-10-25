@@ -36,7 +36,7 @@ class LabelForm extends BaseForm {
 	
 	public function configure() {		
 		$this->setWidgets(array(
-			'product' => new sfWidgetFormSelect(array('choices' => self::$products)),
+			'product' => new sfWidgetFormChoice(array('choices' => self::$products)),
 			'all_products' => new sfWidgetFormInputCheckbox(),
 			'code' => new sfWidgetFormInputHidden(),
 			'supervisor' => new sfWidgetFormInputText(),
@@ -44,8 +44,10 @@ class LabelForm extends BaseForm {
 		));
 
 		$this->setValidators(array(
-			'product' => new sfValidatorChoice(array('choices' => self::$products, 'required' => true)),
-			'transfer_interval' => new sfValidatorInteger(array('required' => false)),
+			'product' => new sfValidatorChoice(array('choices' => array_keys(self::$products), 'required' => false)),
+			'code' => new sfValidatorInteger(array('required' => true, 'trim' => true)),
+			'supervisor' => new sfValidatorString(array('max_length' => 10, 'required' => false, 'trim' => true)),
+			'transfer_interval' => new sfValidatorInteger(array('required' => false, 'trim' => true)),
 		));
 
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
@@ -56,7 +58,7 @@ class LabelForm extends BaseForm {
 			'all_products' => 'Create labels for every product',
 		));
 		
-		$this->widgetSchema->setHelp('supervisor', 'Name of the supervisor that will appear in the label');
+		$this->widgetSchema->setHelp('supervisor', 'Name of the supervisor that will appear in the label (10 characters maximum)');
 		$this->widgetSchema->setHelp('transfer_interval', 'Overrides the interval specified for the product');
 		
 		$this->setup();
