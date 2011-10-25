@@ -521,8 +521,10 @@ $(document).ready(function(){
 	var labelCodeSearchBoxDefault = 'Type a product code...';
 	if ( !$('#label_code_search').val() ) {
 		$('#label_code_search').val(labelCodeSearchBoxDefault);
+		$(this).css("color", "#888");
+		$(this).css("font-size", "11px");
 	}
-	else {
+	else if ( $('#label_code_search').val() != labelCodeSearchBoxDefault ) {
 		$('#label_code_search').css("color", "black");
 		$('#label_code_search').css("font-size", "12px");
 	}
