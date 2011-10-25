@@ -519,24 +519,26 @@ $(document).ready(function(){
 	
 	// Add a search box for products in Labels module
 	var labelCodeSearchBoxDefault = 'Type a product code...';
-	if ( !$('#label_code_search').val() ) {
-		$('#label_code_search').val(labelCodeSearchBoxDefault);
-		$(this).css("color", "#888");
-		$(this).css("font-size", "11px");
+	if ( !$('#label_product_id_search').val() ) {
+		var input = $('#label_product_id_search');
+		input.val(labelCodeSearchBoxDefault);
+		input.css("color", "#888");
+		input.css("font-size", "11px");
 	}
-	else if ( $('#label_code_search').val() != labelCodeSearchBoxDefault ) {
-		$('#label_code_search').css("color", "black");
-		$('#label_code_search').css("font-size", "12px");
+	else if ( $('#label_product_id_search').val() != labelCodeSearchBoxDefault ) {
+		var input = $('#label_product_id_search');
+		input.css("color", "black");
+		input.css("font-size", "12px");
 	}
 	
-	$('#label_code_search').focus(function(){
+	$('#label_product_id_search').focus(function(){
 		if ( $(this).val() == labelCodeSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
 		} 
 	});
-	$('#label_code_search').blur(function(){
+	$('#label_product_id_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
 			$(this).attr("value", labelCodeSearchBoxDefault);
 			$(this).css("color", "#888");
@@ -544,38 +546,43 @@ $(document).ready(function(){
 		}
 	});
 	$('#label_all_products input').change(function(){
+		var input = $('#label_product_id_search');
 		if ( $(this).is(':checked') ) {
-			$('#label_code_search').attr('disabled', 'disabled');
+			input.attr('disabled', 'disabled');
 		}
 		else {
-			$('#label_code_search').removeAttr('disabled');
+			input.removeAttr('disabled');
 		}
 	});
-	$('#label_code_search').autocomplete({
+	$('#label_product_id_search').autocomplete({
 		minLength: 1,
 		source: function(term, add) {
-			var url = $('a.label_find_products_url').attr('href') + $("#label_code_search").val();
-			url = url.replace('__PRODUCT__', $('#label_product #product').val());
+			var url = $('a.label_find_products_url').attr('href') + $("#label_product_id_search").val();
+			url = url.replace('__PRODUCT__', $('#label_product_type #product_type').val());
 			
 			$.getJSON(url, function(data){ add(data); });
 		},
 		select: function(event, ui) {
-			$( "#label_code_search" ).val( ui.item.label );
-			$( "#code" ).val( ui.item.id );
+			$("#label_product_id_search").val(ui.item.label);
+			$("#product_id").val(ui.item.id);
 			
 			if ( isNumber(ui.item.transfer_interval) ) {
-				$( "#label_transfer_interval input" ).val( ui.item.transfer_interval );
+				$("#label_transfer_interval input").val(ui.item.transfer_interval);
 			}
 			
 			return false;
 		},
 	});
-	$('#label_product #product').change(function(){
-		if ( $('#label_code_search').val() != labelCodeSearchBoxDefault ){
-			$('#label_code_search').autocomplete('search', $(this).val());
-		}
+	$('#label_product_type #product_type').change(function(){
+		var url = $(this).parents('form').attr('action').replace('create', $('#label_product_type #product_type').val());
+		$.get(url, function(html){
+			$('#label_product_form').empty();
+			$('#label_product_form').html(html);
+			$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
+		});
 	});
-	
-	$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
+	if ( $('#label_transfer_interval input').length ) {
+		$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
+	}
 	
 });

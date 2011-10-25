@@ -16,7 +16,16 @@ class labelActions extends myActions {
 	* @param sfRequest $request A request object
 	*/
 	public function executeConfigure(sfWebRequest $request) {
+		if ( !($productType = $request->getParameter('product_type')) ) {
+			$productType = 'strain';
+		}
+		
+		if ( $request->isXmlHttpRequest() ) {
+			return $this->renderPartial("{$product_type}_form", array('form' => new LabelForm()));
+		}
+		
 		$this->form = new LabelForm();
+		$this->productType = $productType;
 		$this->productCode = '';
 	}
 	
@@ -38,6 +47,8 @@ class labelActions extends myActions {
 				$matches[] = array(
 					'id' => $match->getId(),
 					'label' => $match->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					
+					// Strain attributes
 					'transfer_interval' => ($table == 'StrainTable') ? $match->getTransferInterval():null,
 				);
 			}
@@ -53,26 +64,50 @@ class labelActions extends myActions {
 	*/
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
-
-		$this->form = new LabelForm();
-		$this->productCode = $request->getParameter('code_search');
 		
-		// Process form values
+		// Clean useless form values
 		$taintedValues = $request->getPostParameters();
-		unset($taintedValues['code_search']);
+		unset($taintedValues['product_id_search']);
 		if ( isset($taintedValues['all_products']) ) {
-			$taintedValues['code'] = 0;
+			$taintedValues['product_id'] = 0;
 		}
 		
+		// Validate form
+		$this->form = new LabelForm();
 		$this->form->bind($taintedValues);
+		$this->productType = $request->getParameter('product_type');
+		$this->productId = $request->getParameter('product_id');
+		$this->productCode = $request->getParameter('product_id_search');
+	
 		if ( !$this->form->isValid() ) {
-			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');
+			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');		
 			$this->setTemplate('configure');
 		}
 		else {
-			$this->getUser()->setFlash('notice', 'Labels successfully created');
-			$this->redirect('@label');
+			// Get common parameters
+			$this->allProducts = ($request->getParameter('all_products')) ? true : false;
+			$this->supervisor = $request->getParameter('supervisor');
+			
+			// Get results
+			$this->labels = array();
+			switch ( $this->productType ) {
+				case 'strain':
+					$this->transferInterval = $request->getParameter('transfer_interval');
+					$this->cultureMedium = CultureMediumTable::getInstance()->find($request->getParameter('culture_medium_id'));
+					
+					if ( $this->allProducts ) {
+						$this->labels = StrainTable::getInstance()->findAll();
+					}
+					else {
+						$this->labels = StrainTable::getInstance()->find($this->productId);
+					}
+					break;
+			}
+			
+			$this->maxColumns = 4;
+			$this->maxRows = 7;
+			$this->setLayout(false);
 		}
 	}
-		
+	
 }

@@ -9,17 +9,17 @@
 	<?php echo $form->renderHiddenFields() ?>
 	
 	<div id="left_side_form">
-		<div id="label_product">
-			<?php echo $form['product']->renderLabel() ?>
-			<?php echo $form['product']->renderError() ?>
-			<?php echo $form['product']->renderHelp() ?>
-			<?php echo $form['product'] ?>
+		<div id="label_product_type">
+			<?php echo $form['product_type']->renderLabel() ?>
+			<?php echo $form['product_type']->renderError() ?>
+			<?php echo $form['product_type']->renderHelp() ?>
+			<?php echo $form['product_type'] ?>
 		</div>
 		
-		<div id="label_code">
-			<?php echo $form['code']->renderLabel() ?>
-			<?php echo $form['code']->renderHelp() ?>
-			<input type="text" value="<?php echo $productCode ?>" id="label_code_search" name="code_search" />
+		<div id="label_product_id">
+			<?php echo $form['product_id']->renderLabel() ?>
+			<?php echo $form['product_id']->renderHelp() ?>
+			<input type="text" value="<?php echo $productCode ?>" id="label_product_id_search" name="product_id_search" />
 			<a href="<?php echo url_for('@label_find_products?product=__PRODUCT__&term=') ?>" class="label_find_products_url"></a>
 			
 			<span class="input_alternative">or</span>
@@ -29,7 +29,7 @@
 				<label for="all_products" class="inline_label">Create labels for every product</label>
 			</div>
 			
-			<?php echo $form['code']->renderError() ?> 
+			<?php echo $form['product_id']->renderError() ?> 
 		</div>
 		
 		<div id="label_supervisor">
@@ -39,11 +39,10 @@
 			<?php echo $form['supervisor'] ?>
 		</div>
 		
-		<div id="label_transfer_interval">
-			<?php echo $form['transfer_interval']->renderLabel() ?>
-			<?php echo $form['transfer_interval']->renderError() ?>
-			<?php echo $form['transfer_interval']->renderHelp() ?>
-			<?php echo $form['transfer_interval'] ?>
+		<div id="label_product_form">
+			<?php if ( $productType === 'strain' ): ?>
+			<?php include_partial('strain_form', array('form' => $form)) ?>
+			<?php endif ?>
 		</div>
 		
 	</div>

@@ -160,11 +160,13 @@ a.label_find_products_url { display: none; }
 span.gel_is_valid, span.reaction_worked { color: #005700; }
 
 
-#label_code label { display: block; }
-#label_code input { display: inline; min-width: 170px; color: #888; font-size: 11px; min-height: 15px; padding: 1px; }
-#label_code #label_all_products { display: inline; margin: 0px; padding: 0px; }
-#label_code #label_all_products label { display: inline; margin-left: 0px; margin-right: 0px; }
-#label_code #label_all_products input { display: inline; margin-right: 0px; }
+#label_product_id label { display: block; }
+#label_product_id input { display: inline; min-width: 170px; color: #888; font-size: 11px; min-height: 15px; padding: 1px; }
+#label_product_id #label_all_products { display: inline; margin: 0px; padding: 0px; }
+#label_product_id #label_all_products label { display: inline; margin-left: 0px; margin-right: 0px; }
+#label_product_id #label_all_products input { display: inline; margin-right: 0px; }
+#label_transfer_interval label { display: block; }
+#label_product_form { margin: 0px; padding: 0px; }
 
 
 /**
@@ -215,6 +217,7 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
 #progressbar_wrapper p { padding: 0px; margin: 0px; font-size: 12px; font-style: italic; margin-bottom: 3px; }
 #progressbar { height: 15px; margin: 0px; padding: 0px; }
 #progressbar div { padding: 0px; }	/* disables previous padding in form input fields */
+
 
 /**
  * NUMERIC PLUGIN

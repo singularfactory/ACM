@@ -223,4 +223,5 @@ class sampleActions extends MyActions {
 		
 		$this->getUser()->setFlash('notice', 'The information on this sample has some errors you need to fix', false);
 	}
+	
 }
