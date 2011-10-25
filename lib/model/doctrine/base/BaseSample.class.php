@@ -108,7 +108,6 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('notebook_code', 'string', 40, array(
              'type' => 'string',
-             'notnull' => true,
              'length' => 40,
              ));
         $this->hasColumn('location_id', 'integer', null, array(

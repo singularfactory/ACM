@@ -39,7 +39,7 @@ abstract class BaseSampleForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'notebook_code'    => new sfValidatorString(array('max_length' => 40)),
+      'notebook_code'    => new sfValidatorString(array('max_length' => 40, 'required' => false)),
       'location_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Location'))),
       'location_details' => new sfValidatorString(array('max_length' => 80, 'required' => false)),
       'latitude'         => new sfValidatorString(array('max_length' => 10, 'required' => false)),

@@ -13,7 +13,7 @@ abstract class BaseSampleFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'notebook_code'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'notebook_code'    => new sfWidgetFormFilterInput(),
       'location_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Location'), 'add_empty' => true)),
       'location_details' => new sfWidgetFormFilterInput(),
       'latitude'         => new sfWidgetFormFilterInput(),
