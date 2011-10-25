@@ -60,7 +60,7 @@ class labelActions extends myActions {
 		// Process form values
 		$taintedValues = $request->getPostParameters();
 		unset($taintedValues['code_search']);
-		if ( $taintedValues['all_products'] ) {
+		if ( isset($taintedValues['all_products']) ) {
 			$taintedValues['code'] = 0;
 		}
 		
