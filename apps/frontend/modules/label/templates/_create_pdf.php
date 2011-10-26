@@ -21,29 +21,18 @@
 
 						<?php if ( $columns == 0 ): ?><tr class="label_items"><?php endif ?>
 						<td class="label_item">
-							<p class="label_item_code">
-								<?php echo $label->getCode() ?>
-							</p>
+							<?php echo getQr($label->getCode()) ?>
+							<p class="label_item_code"><?php echo $label->getCode() ?></p>
 
-							<p class="label_item_genus">
-								<?php echo $label->getGenus() ?>
-							</p>
+							<p class="label_item_genus"><?php echo $label->getGenus() ?></p>
 
-							<p class="label_item_species">
-								<?php echo $label->getSpecies() ?>
-							</p>
+							<p class="label_item_species"><?php echo $label->getSpecies() ?></p>
 
-							<p class="label_item_taxonomic_class">
-								<?php echo $label->getTaxonomicClass() ?>
-							</p>
+							<p class="label_item_taxonomic_class"><?php echo $label->getTaxonomicClass() ?></p>
 
-							<p class="label_item_culture_medium">
-								<?php echo $cultureMedium ?>
-							</p>
+							<p class="label_item_culture_medium"><?php echo $cultureMedium ?></p>
 
-							<p class="label_item_transfer_interval">
-								<?php echo $supervisor.substr($label->getTaxonomicClass(), 0, 3).$transferInterval ?>
-							</p>
+							<p class="label_item_transfer_interval"><?php echo $supervisor.substr($label->getTaxonomicClass(), 0, 3).$transferInterval ?></p>
 						</td>
 						<?php $columns++ ?>
 

@@ -106,6 +106,8 @@ class labelActions extends myActions {
 			
 			$this->createPdf($this->productType, $this->labels);
 		}
+		
+		return sfView::NONE;
 	}
 	
 	/**
@@ -127,6 +129,7 @@ class labelActions extends myActions {
 		
 		$pdf = new WKPDF();
 		$pdf->set_html($html);
+		$pdf->set_orientation('Landscape');
 		$pdf->render();
 		$pdf->output(WKPDF::$PDF_EMBEDDED, "{$productType}_labels.pdf");
 		

@@ -2,17 +2,13 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	background: white;
 	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
-	color: #000000;
 	font-size: 12px;
 	text-align: center;
 }
 
 table {
-	background: white;
-	margin: 30px auto;
-	width: 800px;
+	margin: 10px;
 	border-collapse: collapse;
 	text-align: left;
 }
@@ -23,12 +19,12 @@ p { margin: 0px; padding: 3px 0px; }
 tr.label_items { }
 
 /* Column styles */
-td.label_item { font-weight: lighter; padding: 0px 30px 35px 0px; }
+td.label_item { width: 200px; padding: 0px 20px 30px 0px; }
 
 p.label_item_code { font-size: 13px; margin-bottom: 3px; }
-p.label_item_genus, p.label_item_species { display: inline; font-style: italic; font-weight: bold; }
+p.label_item_genus, p.label_item_species { display:inline; font-style: italic; font-weight: bold; padding: 0px; }
 p.label_item_taxonomic_class { }
 p.label_item_culture_medium { display: inline; }
 p.label_item_transfer_interval { display: inline; font-size: 10px; margin-left: 5px; }
 
-img { float:right; }
+img { float:right; margin-right: 15px; }
