@@ -52,17 +52,18 @@
 					<?php endforeach ?>
 				<?php else: ?>
 					<?php $label = $labels ?>
-					<?php for ( $i = 0; $i < 28; $i++ ): ?>
+					<?php $qrImage = getQr($label->getCode()) ?>
+					<?php for ( $i = 0; $i < 12; $i++ ): ?>
 
 						<?php if ( $columns == 0 ): ?><tr class="label_items"><?php endif ?>
 						<td class="label_item">
+							<?php echo $qrImage ?>
 							<p class="label_item_code"><?php echo $label->getCode() ?></p>
 							<p class="label_item_genus"><?php echo $label->getGenus() ?></p>
 							<p class="label_item_species"><?php echo $label->getSpecies() ?></p>
 							<p class="label_item_taxonomic_class"><?php echo $label->getTaxonomicClass() ?></p>
 							<p class="label_item_culture_medium"><?php echo $cultureMedium ?></p>
 							<p class="label_item_transfer_interval"><?php echo $supervisor.substr($label->getTaxonomicClass(), 0, 3).$transferInterval ?></p>
-							<?php echo getQr($label->getCode()) ?>
 						</td>
 						<?php $columns++ ?>
 
