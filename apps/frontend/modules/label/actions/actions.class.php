@@ -104,10 +104,31 @@ class labelActions extends myActions {
 					break;
 			}
 			
-			$this->maxColumns = 4;
-			$this->maxRows = 7;
-			$this->setLayout(false);
+			$this->createPdf($this->productType, $this->labels);
 		}
+	}
+	
+	/**
+	 * Creates a PDF using wkhtmltopdf
+	 *
+	 * @param string $productType Type of product to create labels for
+	 * @param Doctrine_Record | Doctrine Collection $labels Object or collection of objects that
+	 * contains the information to create the labels
+	 * 
+	 * @return boolean False if something goes wrong. Otherwise the execution stops here
+	 * 
+	 * @author Eliezer Talon
+	 * @version 2011-10-26
+	 * @throws sfStopException
+	*/
+	protected function createPdf($productType = 'strain', $labels) {
+		// Create empty PDF with default configuration
+		$this->setLayout(false);
+		$this->renderPartial('create_pdf');
+		
+		return sfView::NONE;
+	  // Close and send PDF document	  
+	  throw new sfStopException();
 	}
 	
 }
