@@ -3,4 +3,4 @@ cache
 log
 uploads
 config/databases.yml
-/lib/vendor/wkhtmltopdf/tmp/*.html
+/web/uploads/tmp/*.html

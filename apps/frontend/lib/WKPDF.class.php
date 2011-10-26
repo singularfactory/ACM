@@ -27,10 +27,8 @@ class WKPDF {
 	private $copies = 1;
 	private $grayscale = false;
 	private $title = '';
-	private static $cpu = 'amd64';
-	
+	private static $cpu = '';
 	private $path = '';
-	private $site = '';
 
 	/**
 	* Advanced execution routine.
@@ -39,18 +37,22 @@ class WKPDF {
 	* @return array An array of execution data; stdout, stderr and return "error" code.
 	*/
 	private static function _pipeExec($cmd, $input='') {
-		$proc=proc_open($cmd,array(0=>array('pipe','r'),1=>array('pipe','w'),2=>array('pipe','w')),$pipes);
-		fwrite($pipes[0],$input);
+		$proc = proc_open($cmd, array(
+			0 => array('pipe','r'),
+			1 => array('pipe','w'),
+			2 => array('pipe','w'),
+		), $pipes);
+		fwrite($pipes[0], $input);
 		fclose($pipes[0]);
 		
-		$stdout=stream_get_contents($pipes[1]);
+		$stdout = stream_get_contents($pipes[1]);
 		fclose($pipes[1]);
 		
-		$stderr=stream_get_contents($pipes[2]);
+		$stderr = stream_get_contents($pipes[2]);
 		fclose($pipes[2]);
 		
-		$rtn=proc_close($proc);
-		return array('stdout'=>$stdout, 'stderr'=>$stderr, 'return'=>$rtn);
+		$rtn = proc_close($proc);
+		return array('stdout' => $stdout, 'stderr' => $stderr, 'return' => $rtn);
 	}
 
 	/**
@@ -59,15 +61,22 @@ class WKPDF {
 	*/
 	private static function _getCPU(){
 		if ( self::$cpu == '' ) {
-			if (`grep -i amd /proc/cpuinfo` != '') {
-				self::$cpu='amd64';
+			// $arch = `uname -m`;
+			$arch = php_uname('m');
+			$os = php_uname('s');
+			
+			if ( $os === 'Darwin' ) {
+				self::$cpu = 'osx-i386';
 			}
-			elseif ( `grep -i intel /proc/cpuinfo` != '' ) {
-				self::$cpu='i386';
+			elseif ( preg_match("/^x(86_)*64$/", $arch) ) {
+				self::$cpu = 'amd64';
+			}
+			elseif (preg_match("/^(i[3-6]|x)86$/", $arch)) {
+				self::$cpu = 'i386';
 			}
 			else {
 				throw new Exception('WKPDF couldn\'t determine CPU ("'.`grep -i vendor_id /proc/cpuinfo`.'").');
-			} 
+			}
 		}
 		
 		return self::$cpu;
@@ -108,7 +117,6 @@ class WKPDF {
 	*/
 	public function __construct(){
 		$this->path = sfConfig::get('sf_lib_dir').'/'.sfConfig::get('app_wkhtmltopdf_path');
-		$this->site = 'http://'.$_SERVER['SERVER_NAME'].'/';
 		
 		$this->cmd = $this->path.'/wkhtmltopdf-'.self::_getCPU();
 		if ( !file_exists($this->cmd) ) {
@@ -116,7 +124,7 @@ class WKPDF {
 		}
 		
 		do {
-			$this->tmp = $this->path.'/tmp/'.mt_rand().'.html';
+			$this->tmp = sfConfig::get('sf_upload_dir').'/tmp/'.mt_rand().'.html';
 		}
 		while( file_exists($this->tmp) );
 	}
@@ -205,7 +213,9 @@ class WKPDF {
 	* Convert HTML to PDF.
 	*/
 	public function render(){
-		$web = $this->site.$this->path.'/tmp/'.basename($this->tmp);
+		$site = 'http://'.$_SERVER['SERVER_NAME'].'/uploads/tmp';
+		$web = $site.'/'.basename($this->tmp);
+		
 		$this->pdf = self::_pipeExec(
 			'"'.$this->cmd.'"'
 			.(($this->copies>1)?' --copies '.$this->copies:'')			// number of copies
@@ -216,20 +226,24 @@ class WKPDF {
 			.(($this->title!='')?' --title "'.$this->title.'"':'')	// title
 			.' "'.$web.'" -'																				// URL and optional to write to STDOUT
 		);
+
+		// if ( strpos(strtolower($this->pdf['stderr']), 'error') !== false ) {
+		// 			unlink($this->tmp);
+		// 			throw new Exception('WKPDF system error: <pre>'.$this->pdf['stderr'].'</pre>');
+		// 		}
+		// 		
+		// 		if ( $this->pdf['stdout'] == '' ) {
+		// 			unlink($this->tmp);
+		// 			throw new Exception('WKPDF didn\'t return any data. <pre>'.$this->pdf['stderr'].'</pre>');
+		// 		}
+		// 		
+		// 		if ( ((int)$this->pdf['return']) > 1 ) {
+		// 			unlink($this->tmp);
+		// 			throw new Exception('WKPDF shell error, return code '.(int)$this->pdf['return'].'.');
+		// 		}
+		// 		
+		// 		$this->status = $this->pdf['stderr'];
 		
-		if ( strpos(strtolower($this->pdf['stderr']),'error') !== false ) {
-			throw new Exception('WKPDF system error: <pre>'.$this->pdf['stderr'].'</pre>');
-		}
-		
-		if ( $this->pdf['stdout'] == '' ) {
-			throw new Exception('WKPDF didn\'t return any data. <pre>'.$this->pdf['stderr'].'</pre>');
-		}
-		
-		if ( ((int)$this->pdf['return']) > 1 ) {
-			throw new Exception('WKPDF shell error, return code '.(int)$this->pdf['return'].'.');
-		}
-		
-		$this->status = $this->pdf['stderr'];
 		$this->pdf = $this->pdf['stdout'];
 		unlink($this->tmp);
 	}

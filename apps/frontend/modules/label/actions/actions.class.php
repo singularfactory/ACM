@@ -122,19 +122,14 @@ class labelActions extends myActions {
 	 * @throws sfStopException
 	*/
 	protected function createPdf($productType = 'strain', $labels) {
-		// Create empty PDF with default configuration
 		$this->setLayout(false);
-		//$this->renderPartial('create_pdf');
+		$html = $this->getPartial('create_pdf');
 		
 		$pdf = new WKPDF();
-		// $pdf->set_html($html);
-		// $pdf->render();
-		// $pdf->output(WKPDF::$PDF_EMBEDDED,'sample.pdf');
-
+		$pdf->set_html($html);
+		$pdf->render();
+		$pdf->output(WKPDF::$PDF_EMBEDDED, "{$productType}_labels.pdf");
 		
-		
-		return sfView::NONE;
-	  // Close and send PDF document	  
 	  throw new sfStopException();
 	}
 	

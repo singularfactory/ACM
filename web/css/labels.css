@@ -29,4 +29,4 @@ p.label_item_code { font-size: 13px; margin-bottom: 3px; }
 p.label_item_genus, p.label_item_species { display: inline; font-style: italic; font-weight: bold; }
 p.label_item_taxonomic_class { }
 p.label_item_culture_medium { display: inline; }
-p.label_item_transfer_interval { display: inline; font-size: 10px; }
+p.label_item_transfer_interval { display: inline; font-size: 10px; margin-left: 5px; }
