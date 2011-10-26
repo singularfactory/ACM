@@ -112,6 +112,10 @@ class StrainForm extends BaseStrainForm {
 
 
 	public function checkCryopreservedStatusHasMethod($validator, $values) {
+		if ( !isset($values['maintenance_status_list']) ) {
+			return $values;
+		}
+		
 		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
 			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
 			->getId();

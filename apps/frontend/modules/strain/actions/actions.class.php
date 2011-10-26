@@ -86,7 +86,6 @@ class strainActions extends MyActions {
 			$strain->setIsEpitype($lastStrain->getIsEpitype());
 			$strain->setIsPublic($lastStrain->getIsPublic());
 			$strain->setContainerId($lastStrain->getContainerId());
-			$strain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());
 			$strain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
 			$strain->setIsolationDate($lastStrain->getIsolationDate());
 			$strain->setIdentifierId($lastStrain->getIdentifierId());
