@@ -124,7 +124,14 @@ class labelActions extends myActions {
 	protected function createPdf($productType = 'strain', $labels) {
 		// Create empty PDF with default configuration
 		$this->setLayout(false);
-		$this->renderPartial('create_pdf');
+		//$this->renderPartial('create_pdf');
+		
+		$pdf = new WKPDF();
+		// $pdf->set_html($html);
+		// $pdf->render();
+		// $pdf->output(WKPDF::$PDF_EMBEDDED,'sample.pdf');
+
+		
 		
 		return sfView::NONE;
 	  // Close and send PDF document	  
