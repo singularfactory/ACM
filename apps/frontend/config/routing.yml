@@ -426,7 +426,7 @@ isolation_search_pagination:
 
 
 ###
-# API routes
+# Application API routes
 ###
 api_sampling_information:
   url:          /api/:token/samplingInformation/:timestamp
@@ -451,6 +451,15 @@ api_new_purchase_order:
 api_store_catalog:
   url:          /api/:token/storeCatalog
   param:        { module: api, action: storeCatalog }
+  requirements: { sf_method: get }
+
+
+###
+# Darwin Core API routes
+###
+dwc_api:
+  url:          /dwc_api/:token
+  param:        { module: dwc_api, action: index }
   requirements: { sf_method: get }
 
 
