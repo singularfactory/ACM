@@ -10,6 +10,30 @@
 */
 class dwc_apiActions extends GreenhouseAPI {
 	
+	protected $xmlErrors = false;
+	
+	protected function createEmptyXml() {
+		// Clear previous XML errors
+		$this->xmlErrors = false;
+		
+		// Load the XML document template
+		libxml_use_internal_errors(true);
+		$xml = simplexml_load_string($this->getPartial('xml_empty'));
+		
+		// Retrieve the messages in case of error
+		if ( !$xml ) {
+			$errors = libxml_get_errors();
+			$separator = (count($errors)) ? '' : '';
+			
+			foreach( $errors as $error ) {
+				$this->xmlErrors .= $error->message.$separator;
+			}
+			$this->xmlErrors = str_replace("\n", '', $this->xmlErrors);
+		}
+		
+		return $xml;
+	}
+	
 	public function executeIndex(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
 			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
@@ -19,7 +43,13 @@ class dwc_apiActions extends GreenhouseAPI {
 			return $this->requestExitStatus(self::InvalidToken);
 		}
 		
-		return $this->requestExitStatus(self::RequestSuccess, 'Darwin Core');
+		// Create an empty XML document
+		$xml = $this->createEmptyXml();
+		if ( $this->xmlErrors ) {
+			return $this->requestExitStatus(self::ServerError, "The XML document could not be created ({$this->xmlErrors})");
+		}
+		
+		return $this->requestExitStatus(self::RequestSuccess, $xml->asXML());
 	}
 
 }
