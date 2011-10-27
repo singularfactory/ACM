@@ -457,9 +457,14 @@ api_store_catalog:
 ###
 # Darwin Core API routes
 ###
+dwc_api_strains:
+  url:  /dwc_api/:token/strains.xml
+  param: { module: dwc_api, action: getStrains }
+  requirements: { sf_method: get }
+
 dwc_api:
   url:          /dwc_api/:token
-  param:        { module: dwc_api, action: index }
+  param:        { module: dwc_api, action: getStrains }
   requirements: { sf_method: get }
 
 
