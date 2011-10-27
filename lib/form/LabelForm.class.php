@@ -1,32 +1,19 @@
 <?php
 
 /**
-* Authority form base class.
-*
-* @method Authority getObject() Returns the current form's model object
+* Label form class.
 *
 * @package    bna_green_house
 * @subpackage form
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
+* @version    2011-10-25
 */
 class LabelForm extends BaseForm {
 	
 	protected static $products = array(
 		'strain' => 'Strain',
 	);
-	
-	public function setup() {
-		// Remove <br /> tag after labels and set custom tag
-		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
 		
-		// Change default errors formatter
-		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('%errors%');
-		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<span class="input_error">%error%</span>');
-		
-		parent::setup();
-	}
-	
 	public function configure() {
 		$this->setWidgets(array(
 			'product_type'		=> new sfWidgetFormChoice(array('choices' => self::$products)),

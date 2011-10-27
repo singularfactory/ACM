@@ -143,6 +143,15 @@
 					</li>
 					
 					<li class="header_menu_right_tab">
+						<?php 
+						if ( !preg_match('/^((report)(\/_)?)/', $currentRoute) )
+							echo link_to('Reports', '@report');
+						else
+							echo link_to('Reports', '@report', array('class' => 'header_menu_current_tab'));
+						?>	
+					</li>
+					
+					<li class="header_menu_right_tab">
 						<?php
 						$unreadMessages = $user->getNbUnreadNotifications();
 						if ( $unreadMessages ) {

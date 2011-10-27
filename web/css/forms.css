@@ -168,6 +168,8 @@ span.gel_is_valid, span.reaction_worked { color: #005700; }
 #label_transfer_interval label { display: block; }
 #label_product_form { margin: 0px; padding: 0px; }
 
+#report_subject_form { margin: 0px; padding: 0px; }
+
 
 /**
  * RELATED ID SEARCH BOX

@@ -488,6 +488,20 @@ label_find_products:
 
 
 ###
+# Label module routes
+###
+report_generate:
+  url:          /report/generate
+  param:        { module: report, action: generate }
+  requirements: { sf_method: [post] }
+
+report:
+  url:          /report/:subject
+  param:        { module: report, action: configure, subject: location }
+  requirements: { sf_method: [get], requirement: "(location)" }
+
+
+###
 # Default rules
 ###
 homepage:
