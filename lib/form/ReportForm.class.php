@@ -18,9 +18,9 @@ class ReportForm extends BaseForm {
 	);
 	
 	protected static $booleanChoices = array(
-		-1 => '',
-		0 => 'No',
-		1 => 'Yes',
+		0 => '',
+		1 => 'No',
+		2 => 'Yes',
 	);
 	
 	protected static $locationGroupByChoices = array(
