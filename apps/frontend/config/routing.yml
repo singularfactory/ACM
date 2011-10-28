@@ -500,6 +500,21 @@ report:
   param:        { module: report, action: configure, subject: location }
   requirements: { sf_method: [get], requirement: "(location)" }
 
+report_find_countries:
+  url:          /report/findCountries/:country
+  param:        { module: report, action: findCountries }
+  requirements: { sf_method: get, country: "[^/]+" }
+
+report_find_regions:
+  url:          /report/findRegions/:region
+  param:        { module: report, action: findRegions }
+  requirements: { sf_method: get, country: "[^/]+" }
+
+report_find_islands:
+  url:          /report/findIslands/:island
+  param:        { module: report, action: findIslands }
+  requirements: { sf_method: get, country: "[^/]+" }
+
 
 ###
 # Default rules

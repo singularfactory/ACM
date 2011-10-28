@@ -32,5 +32,6 @@ class CountryTable extends Doctrine_Table {
 		}
 		
 		return null;
-	}	
+	}
+		
 }

@@ -29,12 +29,99 @@ class reportActions extends sfActions {
 	}
 	
 	/**
+	 * Find the countries that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with country ID and name
+	 * @author Eliezer Talon
+	 * @version 2011-10-28
+	 */
+	public function executeFindCountries(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$countries = CountryTable::getInstance()->createQuery('c')
+				->where('c.name LIKE ?', '%'.$request->getParameter('country').'%')->execute();
+			
+			$matches = array();
+			foreach ( $countries as $match ) {
+				$matches[] = array(
+					'id' => $match->getId(),
+					'label' => $match->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($matches));
+		}
+		return sfView::NONE;
+	}
+	
+	/**
+	 * Find the regions that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with region ID and name
+	 * @author Eliezer Talon
+	 * @version 2011-10-28
+	 */
+	public function executeFindRegions(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$regions = RegionTable::getInstance()->createQuery('r')
+				->where('r.name LIKE ?', '%'.$request->getParameter('region').'%')->execute();
+			
+			$matches = array();
+			foreach ( $regions as $match ) {
+				$matches[] = array(
+					'id' => $match->getId(),
+					'label' => $match->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($matches));
+		}
+		return sfView::NONE;
+	}
+	
+	/**
+	 * Find the islands that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with island ID and code
+	 * @author Eliezer Talon
+	 * @version 2011-10-28
+	 */
+	public function executeFindIslands(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$islands = IslandTable::getInstance()->createQuery('i')
+				->where('i.name LIKE ?', '%'.$request->getParameter('island').'%')->execute();
+			
+			$matches = array();
+			foreach ( $islands as $match ) {
+				$matches[] = array(
+					'id' => $match->getId(),
+					'label' => $match->getName(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($matches));
+		}
+		return sfView::NONE;
+	}
+	
+	/**
 	* Executes generate action
 	*
 	* @param sfRequest $request A request object
 	*/
 	public function executeGenerate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
+		
+		// Clean useless form values
+		$taintedValues = $request->getPostParameters();
+		if ( array_key_exists('location_country_search', $taintedValues) ) {
+			unset($taintedValues['location_country_search']);
+		}
+		if ( array_key_exists('location_region_search', $taintedValues) ) {
+			unset($taintedValues['location_region_search']);
+		}
+		if ( array_key_exists('location_island_search', $taintedValues) ) {
+			unset($taintedValues['location_island_search']);
+		}
 		
 		// Validate form
 		$this->form = new ReportForm();
@@ -46,7 +133,25 @@ class reportActions extends sfActions {
 			$this->setTemplate('configure');
 		}
 		else {
-			
+			$this->results = array();
+			switch ( $request->getParameter('subject') ) {
+				case 'sample':
+					
+					break;
+				
+				case 'strain':
+					
+					break;
+				
+				case 'dna_extraction':
+					
+					break;
+				
+				case 'location':
+				default:
+					
+					break;
+			}
 		}
 	}
 	

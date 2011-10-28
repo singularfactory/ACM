@@ -58,7 +58,7 @@ function updateIslandsSelect(options) {
 	}
 }
 
-$(document).ready(function(){		
+$(document).ready(function(){
 	// Display reset option when a file is specified
 	$('input[type=file]').change(function(){
 		if ( !$(this).next('span.reset_picture').length ) {

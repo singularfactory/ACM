@@ -141,7 +141,8 @@ a.region_islands_url,
 a.dna_extraction_strain_numbers_url,
 a.project_strain_numbers_url,
 a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_location_coordinates_url, a.isolation_isolation_subject_url,
-a.label_find_products_url { display: none; }
+a.label_find_products_url,
+a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url { display: none; }
 
 #email_address input,
 #username input,
@@ -177,7 +178,8 @@ span.gel_is_valid, span.reaction_worked { color: #005700; }
 li.ui-menu-item { text-align: left; font-size: 11px; }
 #sample_location_search, #maintenance_deposit_location_search, #patent_deposit_location_search, #strain_sample_search,
 #dna_extraction_strain_search, #project_strain_search,
-#isolation_location_search, #isolation_sample_search, #isolation_strain_search {
+#isolation_location_search, #isolation_sample_search, #isolation_strain_search,
+#report_location_country_search, #report_location_region_search, #report_location_island_search {
 	color: #888;
 	font-size: 11px;
 	min-height: 15px;
@@ -185,6 +187,13 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 	padding: 1px;
 }
 #strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search { width: 150px; }
+
+
+/**
+ * REPORTS
+ */
+#report_location_country, #report_location_region, #report_location_island { float:left; }
+#report_location_country_search, #report_location_region_search, #report_location_island_search { width: 200px; margin-right: 13px; }
 
 
 /**
