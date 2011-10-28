@@ -17,19 +17,19 @@ class ReportForm extends BaseForm {
 		'dna_extraction' => 'DNA extraction',
 	);
 	
-	protected static $booleanChoices = array(
+	public static $booleanChoices = array(
 		0 => '',
 		1 => 'No',
 		2 => 'Yes',
 	);
 	
-	protected static $locationGroupByChoices = array(
+	public static $locationGroupByChoices = array(
 		'country' => 'Country',
 		'region' => 'Region',
 		'island' => 'Island'
 	);
 	
-	protected static $sampleGroupByChoices = array(
+	public static $sampleGroupByChoices = array(
 		'environment' => 'Environment',
 		'habitat' => 'Habitat',
 		'radiation' => 'Radiation',
@@ -41,7 +41,7 @@ class ReportForm extends BaseForm {
 		'location' => 'Location',
 	);
 	
-	protected static $strainGroupByChoices = array(
+	public static $strainGroupByChoices = array(
 		'taxonomic_class' => 'Taxonomic class',
 		'genus' => 'Genus',
 		'species' => 'Species',
