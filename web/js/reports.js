@@ -74,4 +74,26 @@ $(document).ready(function(){
 		
 	});
 	
+	// Clear report form on demand
+	$('#report_clear_values_link').click(function(event){
+		event.preventDefault();
+		var form = $(this).closest('form');
+		
+		form.find('input[type=text]').each(function(){
+			var name = parseSearchBoxTarget($(this));
+			
+			if ( name !== 'country' && name !== 'region' && name !== 'island' ) {
+				$(this).val('');
+			}
+		});
+		
+		form.find('select').each(function(){
+			var name = parseSearchBoxTarget($(this));
+			
+			if ( name !== 'subject' ) {
+				$(this).val(0);
+			}
+		});
+	});
+	
 });

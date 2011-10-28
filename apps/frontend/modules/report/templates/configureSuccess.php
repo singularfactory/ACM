@@ -24,6 +24,6 @@
 	</div>
 	
 	<div class="submit">
-		<input type="submit" value="Generate report">
+		<input type="submit" value="Generate report"> or <a href="#" id="report_clear_values_link" class="cancel_form_link">clear values</a>
 	</div>
 </form>
