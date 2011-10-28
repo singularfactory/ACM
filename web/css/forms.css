@@ -192,8 +192,9 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 /**
  * REPORTS
  */
-#report_location_country, #report_location_region, #report_location_island { float:left; }
+div.report_inline_where { float:left; }
 #report_location_country_search, #report_location_region_search, #report_location_island_search { width: 200px; margin-right: 13px; }
+#report_sample_environment select, #report_sample_habitat select, #report_sample_radiation select { width: 170px; margin-right: 13px; }
 
 
 /**

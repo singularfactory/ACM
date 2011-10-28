@@ -585,13 +585,4 @@ $(document).ready(function(){
 		$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
 	}
 	
-	// Manage onChange event in report generation
-	$('#report_subject #subject').change(function(){
-		var url = $(this).parents('form').attr('action').replace('generate', $('#report_subject #subject').val());
-		$.get(url, function(html){
-			$('#report_subject_form').empty();
-			$('#report_subject_form').html(html);
-		});
-	});
-	
 });

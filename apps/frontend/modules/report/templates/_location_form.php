@@ -5,7 +5,7 @@
 	<?php echo $form['location_group_by'] ?>
 </div>
 
-<div id="report_location_country">
+<div id="report_location_country" class="report_inline_where">
 	<?php echo $form['location_country']->renderLabel() ?>
 	<?php echo $form['location_country']->renderError() ?>
 	<?php echo $form['location_country']->renderHelp() ?>
@@ -13,7 +13,7 @@
 	<a href="<?php echo url_for('@report_find_countries?country=') ?>" class="report_find_countries_url"></a>
 </div>
 
-<div id="report_location_region">
+<div id="report_location_region" class="report_inline_where">
 	<?php echo $form['location_region']->renderLabel() ?>
 	<?php echo $form['location_region']->renderError() ?>
 	<?php echo $form['location_region']->renderHelp() ?>
@@ -21,7 +21,7 @@
 	<a href="<?php echo url_for('@report_find_regions?region=') ?>" class="report_find_regions_url"></a>
 </div>
 
-<div id="report_location_island">
+<div id="report_location_island" class="report_inline_where">
 	<?php echo $form['location_island']->renderLabel() ?>
 	<?php echo $form['location_island']->renderError() ?>
 	<?php echo $form['location_island']->renderHelp() ?>

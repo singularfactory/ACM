@@ -25,6 +25,7 @@ class reportActions extends sfActions {
 		}
 		
 		$this->form = new ReportForm();
+		$this->form->setDefault('subject', $subject);
 		$this->subject = $subject;
 	}
 	

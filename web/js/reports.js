@@ -13,6 +13,16 @@ function parseSearchBoxSubject (htmlInput) {
 
 
 $(document).ready(function(){
+	// Manage onChange event in report generation
+	$('#report_subject #subject').change(function(){
+		var url = $(this).parents('form').attr('action').replace('generate', $('#report_subject #subject').val());
+		var subjectForm = $('#report_subject_form');
+		
+		$.get(url, function(html){
+			subjectForm.empty();
+			subjectForm.html(html);
+		});
+	});
 	
 	// Handle search boxes
 	$('input.report_search_box').each(function(){
