@@ -54,6 +54,15 @@ class ReportForm extends BaseForm {
 		'sample' => 'Sample',
 	);
 	
+	protected static $dnaExtractionGroupByChoices = array(
+		'extraction_kit' => 'Extraction kit',
+		'concentration' => 'Concentration',
+		'aliquots' => 'Number of aliquots',
+		'260_280_ratio' => '260:280 DNA quality ratio',
+		'260_230_ratio' => '260:230 DNA quality ratio',
+		'strain' => 'Strain',
+	);
+	
 	
 	public function configure() {
 		$this->setWidgets(array(
@@ -83,6 +92,14 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => new sfWidgetFormInputText(),
 			'strain_epitype' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
 			'strain_axenic' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
+			
+			// DNA extraction attributes
+			'dna_extraction_group_by' => new sfWidgetFormChoice(array('choices' => self::$dnaExtractionGroupByChoices)),
+			'dna_extraction_extraction_kit' => new sfWidgetFormDoctrineChoice(array('model' => 'ExtractionKit', 'add_empty' => true)),
+			'dna_extraction_aliquots' => new sfWidgetFormInputText(),
+			'dna_extraction_concentration' => new sfWidgetFormInputText(),
+			'dna_extraction_260_280_ratio' => new sfWidgetFormInputText(),
+			'dna_extraction_260_230_ratio' => new sfWidgetFormInputText(),
 		));
 
 		$this->setValidators(array(
@@ -112,6 +129,14 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
 			'strain_epitype' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
 			'strain_axenic' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
+			
+			// DNA extraction attributes
+			'dna_extraction_group_by' => new sfValidatorChoice(array('choices' => array_keys(self::$dnaExtractionGroupByChoices), 'required' => false)),
+			'dna_extraction_extraction_kit' => new sfValidatorDoctrineChoice(array('model' => 'ExtractionKit', 'required' => false)),
+			'dna_extraction_aliquots' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+			'dna_extraction_concentration' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+			'dna_extraction_260_280_ratio' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+			'dna_extraction_260_230_ratio' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
 		));
 
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
@@ -134,15 +159,23 @@ class ReportForm extends BaseForm {
 			
 			// Strain attributes
 			'strain_group_by' => 'Group by',
-			'strain_taxonomic_class' => 'Taxonomic class',
-			'strain_genus' => 'Genus',
-			'strain_species' => 'Species',
-			'strain_authority' => 'Authority',
-			'strain_maintenance_status' => 'Maintenance status',
-			'strain_culture_medium' => 'Culture medium',
+			'strain_taxonomic_class' => 'Limited to taxonomic class',
+			'strain_genus' => 'Limited to genus',
+			'strain_species' => 'Limited to species',
+			'strain_authority' => 'Limited to authority',
+			'strain_maintenance_status' => 'Limited to maintenance status',
+			'strain_culture_medium' => 'Limited to culture medium',
 			'strain_transfer_interval' => 'Transfer interval',
 			'strain_epitype' => 'Is epitype?',
 			'strain_axenic' => 'Is axenic?',
+			
+			// DNA extraction attributes
+			'dna_extraction_group_by' => 'Group by',
+			'dna_extraction_extraction_kit' => 'Limited to extraction kit',
+			'dna_extraction_aliquots' => 'Aliquots',
+			'dna_extraction_concentration' => 'Concentration',
+			'dna_extraction_260_280_ratio' => '260:280 DNA quality ratio',
+			'dna_extraction_260_230_ratio' => '260:230 DNA quality ratio',
 		));
 		
 		$this->widgetSchema->setHelps(array(
@@ -171,6 +204,14 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => '',
 			'strain_epitype' => '',
 			'strain_axenic' => '',
+			
+			// DNA extraction
+			'dna_extraction_group_by' => 'Choose a criteria to group the results',
+			'dna_extraction_extraction_kit' => '',
+			'dna_extraction_aliquots' => '',
+			'dna_extraction_concentration' => '',
+			'dna_extraction_260_280_ratio' => '',
+			'dna_extraction_260_230_ratio' => '',
 		));
 		
 		$this->setup();
