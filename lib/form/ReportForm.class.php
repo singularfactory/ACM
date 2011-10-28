@@ -41,6 +41,19 @@ class ReportForm extends BaseForm {
 		'location' => 'Location',
 	);
 	
+	protected static $strainGroupByChoices = array(
+		'taxonomic_class' => 'Taxonomic class',
+		'genus' => 'Genus',
+		'species' => 'Species',
+		'authority' => 'Authority',
+		'maintenance_status' => 'Maintenance status',
+		'culture_medium' => 'Culture medium',
+		'transfer_interval' => 'Transfer interval',
+		'is_epitype' => 'Is epitype',
+		'is_axenic' => 'Is axenic',
+		'sample' => 'Sample',
+	);
+	
 	
 	public function configure() {
 		$this->setWidgets(array(
@@ -58,6 +71,18 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => new sfWidgetFormDoctrineChoice(array('model' => 'Habitat', 'add_empty' => true)),
 			'sample_radiation' => new sfWidgetFormDoctrineChoice(array('model' => 'Radiation', 'add_empty' => true)),
 			'sample_extremophile' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
+			
+			// Strain attributes
+			'strain_group_by' => new sfWidgetFormChoice(array('choices' => self::$strainGroupByChoices)),
+			'strain_taxonomic_class' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_genus' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_species' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_authority' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_maintenance_status' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_culture_medium' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_transfer_interval' => new sfWidgetFormInputText(),
+			'strain_epitype' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
+			'strain_axenic' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
 		));
 
 		$this->setValidators(array(
@@ -75,6 +100,18 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => new sfValidatorDoctrineChoice(array('model' => 'Habitat', 'required' => false)),
 			'sample_radiation' => new sfValidatorDoctrineChoice(array('model' => 'Radiation', 'required' => false)),
 			'sample_extremophile' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
+			
+			// Strain attributes
+			'strain_group_by' => new sfValidatorChoice(array('choices' => array_keys(self::$strainGroupByChoices), 'required' => false)),
+			'strain_taxonomic_class' => new sfValidatorDoctrineChoice(array('model' => 'TaxonomicClass', 'required' => false)),
+			'strain_genus' => new sfValidatorDoctrineChoice(array('model' => 'Genus', 'required' => false)),
+			'strain_species' => new sfValidatorDoctrineChoice(array('model' => 'Species', 'required' => false)),
+			'strain_authority' => new sfValidatorDoctrineChoice(array('model' => 'Authority', 'required' => false)),
+			'strain_maintenance_status' => new sfValidatorDoctrineChoice(array('model' => 'MaintenanceStatus', 'required' => false)),
+			'strain_culture_medium' => new sfValidatorDoctrineChoice(array('model' => 'CultureMedium', 'required' => false)),
+			'strain_transfer_interval' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+			'strain_epitype' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
+			'strain_axenic' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
 		));
 
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
@@ -94,6 +131,18 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => 'Limited to habitat',
 			'sample_radiation' => 'Limited to radiation',
 			'sample_extremophile' => 'Is extremophile?',
+			
+			// Strain attributes
+			'strain_group_by' => 'Group by',
+			'strain_taxonomic_class' => 'Taxonomic class',
+			'strain_genus' => 'Genus',
+			'strain_species' => 'Species',
+			'strain_authority' => 'Authority',
+			'strain_maintenance_status' => 'Maintenance status',
+			'strain_culture_medium' => 'Culture medium',
+			'strain_transfer_interval' => 'Transfer interval',
+			'strain_epitype' => 'Is epitype?',
+			'strain_axenic' => 'Is axenic?',
 		));
 		
 		$this->widgetSchema->setHelps(array(
@@ -106,11 +155,22 @@ class ReportForm extends BaseForm {
 			'location_island' => '',
 			
 			// Sample attributes
-			'sample_group_by' => 'Group by',
+			'sample_group_by' => 'Choose a criteria to group the results',
 			'sample_environment' => '',
 			'sample_habitat' => '',
 			'sample_radiation' => '',
 			'sample_extremophile' => '',
+			
+			'strain_group_by' => 'Choose a criteria to group the results',
+			'strain_taxonomic_class' => '',
+			'strain_genus' => '',
+			'strain_species' => '',
+			'strain_authority' => '',
+			'strain_maintenance_status' => '',
+			'strain_culture_medium' => '',
+			'strain_transfer_interval' => '',
+			'strain_epitype' => '',
+			'strain_axenic' => '',
 		));
 		
 		$this->setup();
