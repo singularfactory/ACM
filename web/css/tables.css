@@ -120,3 +120,27 @@ th.object_count_long, td.object_count_long { text-align: center; }
 
 td.notification_new { font-weight: bold; }
 td.purchase_order_pending { font-weight: bold; }
+
+
+/**
+* REPORTS
+*/
+th.report_object_count, td.report_object_count { width: 100px; text-align: center; }
+#report_results_conditions {
+	margin: 13px 13px 21px 13px;
+	padding: 13px;
+	border: 2px solid #c5c5c5;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-ms-border-radius: 5px;
+	border-radius: 5px;
+}
+#report_results_conditions span { font-size: 12px; }
+#report_results_conditions dl {
+	font-size: 12px;
+	margin: 0px; padding: 13px 15px 13px 0px;
+	position: relative;
+}
+#report_results_conditions dt { background: #f0f0f0; }

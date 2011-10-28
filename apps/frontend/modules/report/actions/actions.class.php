@@ -134,25 +134,62 @@ class reportActions extends sfActions {
 			$this->setTemplate('configure');
 		}
 		else {
+			$table = call_user_func(array(sfInflector::camelize($this->subject).'Table', 'getInstance'));
+			$alias = substr($this->subject, 0, 1);
+			$query = $table->createQuery($alias)->where('1 = ?', 1);
+			
 			$this->results = array();
 			switch ( $request->getParameter('subject') ) {
 				case 'sample':
-					
+					$this->modelToGroupBy = $request->getParameter('sample_group_by');
 					break;
 				
 				case 'strain':
-					
+					$this->modelToGroupBy = $request->getParameter('strain_group_by');
 					break;
 				
 				case 'dna_extraction':
-					
+					$this->modelToGroupBy = $request->getParameter('dna_extraction_group_by');
 					break;
 				
 				case 'location':
 				default:
+					$query = $query->select("$alias.*");
+					// Group by
+					if ( $this->modelToGroupBy = $request->getParameter('location_group_by') ) {
+						$query = $query
+							->addSelect("COUNT($alias.id) as n_locations")
+							->innerJoin("$alias.".sfInflector::camelize($this->modelToGroupBy)." m")
+							->leftJoin("$alias.Samples s")
+							->addSelect("COUNT(s.id) as n_samples")
+							->groupBy("$alias.".sfInflector::foreign_key($this->modelToGroupBy))
+							->addSelect('m.name as name');
+					}
+					
+					// Filter
+					$this->filters = array();
+					if ( $countryId = $request->getParameter('location_country') ) {
+						$this->filters['Country'] = CountryTable::getInstance()->find($countryId)->getName();
+						$query = $query->andWhere("$alias.country_id = ?", $countryId);
+					}
+					
+					if ( $regionId = $request->getParameter('location_region') ) {
+						$this->filters['Region'] = RegionTable::getInstance()->find($regionId)->getName();
+						$query = $query->andWhere("$alias.region_id = ?", $regionId);
+					}
+					
+					if ( $islandId = $request->getParameter('location_island') ) {
+						$this->filters['Island'] = IslandTable::getInstance()->find($islandId)->getName();
+						$query = $query->andWhere("$alias.region_id = ?", $islandId);
+					}
 					
 					break;
 			}
+			
+			if ( $this->modelToGroupBy === '0' ) {
+				$this->modelToGroupBy = false;
+			}
+			$this->results = $query->execute();
 		}
 	}
 	

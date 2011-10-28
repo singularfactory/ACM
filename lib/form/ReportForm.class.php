@@ -24,12 +24,14 @@ class ReportForm extends BaseForm {
 	);
 	
 	public static $locationGroupByChoices = array(
+		0 => '',
 		'country' => 'Country',
 		'region' => 'Region',
 		'island' => 'Island'
 	);
 	
 	public static $sampleGroupByChoices = array(
+		0 => '',
 		'environment' => 'Environment',
 		'habitat' => 'Habitat',
 		'radiation' => 'Radiation',
@@ -42,6 +44,7 @@ class ReportForm extends BaseForm {
 	);
 	
 	public static $strainGroupByChoices = array(
+		0 => '',
 		'taxonomic_class' => 'Taxonomic class',
 		'genus' => 'Genus',
 		'species' => 'Species',
@@ -55,6 +58,7 @@ class ReportForm extends BaseForm {
 	);
 	
 	protected static $dnaExtractionGroupByChoices = array(
+		0 => '',
 		'extraction_kit' => 'Extraction kit',
 		'concentration' => 'Concentration',
 		'aliquots' => 'Number of aliquots',

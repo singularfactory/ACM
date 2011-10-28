@@ -1,3 +1,7 @@
 configureSuccess:
   stylesheets:  [cupertino/jquery-ui.custom.css, forms.css]
   javascripts:  [reports.js]
+
+generateSuccess:
+  stylesheets:  [cupertino/jquery-ui.custom.css, tables.css]
+  javascripts:  [reports.js]
