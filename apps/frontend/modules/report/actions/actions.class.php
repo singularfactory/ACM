@@ -136,7 +136,7 @@ class reportActions extends sfActions {
 		else {
 			$table = call_user_func(array(sfInflector::camelize($this->subject).'Table', 'getInstance'));
 			$alias = substr($this->subject, 0, 1);
-			$query = $table->createQuery($alias)->where('1 = ?', 1);
+			$query = $table->createQuery($alias)->where('1 = ?', 1)->select("$alias.*");
 			
 			$this->results = array();
 			switch ( $request->getParameter('subject') ) {
@@ -154,7 +154,6 @@ class reportActions extends sfActions {
 				
 				case 'location':
 				default:
-					$query = $query->select("$alias.*");
 					// Group by
 					if ( $this->modelToGroupBy = $request->getParameter('location_group_by') ) {
 						$query = $query
