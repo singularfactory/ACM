@@ -181,7 +181,6 @@ class reportActions extends sfActions {
 						$this->filters['Island'] = IslandTable::getInstance()->find($islandId)->getName();
 						$query = $query->andWhere("$alias.region_id = ?", $islandId);
 					}
-					
 					break;
 			}
 			

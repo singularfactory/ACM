@@ -1,19 +1,6 @@
-<?php if ( $modelToGroupBy ): ?>
-	<div id="report_results_conditions">
-		<span>Results <strong>grouped by <?php echo $modelToGroupBy ?></strong>
-		<?php if ( count($filters) ): ?>
-			and limited to the following conditions:</span>
-			<dl>
-			<?php foreach ( $filters as $key => $value ): ?>
-				<dt><?php echo $key ?>:</dt>
-				<dd><?php echo $value ?></dd>
-			<?php endforeach ?>
-			</dl>
-		<?php else: ?>
-			</span>
-		<?php endif ?>
-	</div>
+<?php include_partial('report_conditions', array('modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
 
+<?php if ( $modelToGroupBy ): ?>
 	<table id="report_results_list">
 		<tbody>
 			<tr>
@@ -31,18 +18,6 @@
 		</tbody>
 	</table>
 <?php else: ?>
-	<div id="report_results_conditions">		
-		<?php if ( count($filters) ): ?>
-			<span>Results limited to the following conditions:</span>
-			<dl>
-			<?php foreach ( $filters as $key => $value ): ?>
-				<dt><?php echo $key ?>:</dt>
-				<dd><?php echo $value ?></dd>
-			<?php endforeach ?>
-			</dl>
-		<?php endif ?>
-	</div>		
-	
 	<table id="report_results_list">
 		<tbody>
 			<tr>

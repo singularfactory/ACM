@@ -1,16 +1,7 @@
-<table id="report_results_list">
-	<tbody>
-		<tr>
-			<th>Column</th>
-			<th class="object_count">Samples</th>
-		</tr>
+<?php include_partial('report_conditions', array('modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
 
-		<?php foreach ( $results as $sample ): ?>
-		<tr>
-			<td>Value</td>
-			<td class="object_count">0</td>
+<?php if ( $modelToGroupBy ): ?>
 
-		</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+<?php else: ?>
+
+<?php endif ?>
