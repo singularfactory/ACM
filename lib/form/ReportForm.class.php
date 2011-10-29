@@ -87,12 +87,12 @@ class ReportForm extends BaseForm {
 			
 			// Strain attributes
 			'strain_group_by' => new sfWidgetFormChoice(array('choices' => self::$strainGroupByChoices)),
-			'strain_taxonomic_class' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
-			'strain_genus' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
-			'strain_species' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
-			'strain_authority' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
-			'strain_maintenance_status' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
-			'strain_culture_medium' => new sfWidgetFormDoctrineChoice(array('model' => 'Environment', 'add_empty' => true)),
+			'strain_taxonomic_class' => new sfWidgetFormDoctrineChoice(array('model' => 'TaxonomicClass', 'add_empty' => true)),
+			'strain_genus' => new sfWidgetFormDoctrineChoice(array('model' => 'Genus', 'add_empty' => true)),
+			'strain_species' => new sfWidgetFormDoctrineChoice(array('model' => 'Species', 'add_empty' => true)),
+			'strain_authority' => new sfWidgetFormDoctrineChoice(array('model' => 'Authority', 'add_empty' => true)),
+			'strain_maintenance_status' => new sfWidgetFormDoctrineChoice(array('model' => 'MaintenanceStatus', 'add_empty' => true)),
+			'strain_culture_medium' => new sfWidgetFormDoctrineChoice(array('model' => 'CultureMedium', 'add_empty' => true)),
 			'strain_transfer_interval' => new sfWidgetFormInputText(),
 			'strain_epitype' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
 			'strain_axenic' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
