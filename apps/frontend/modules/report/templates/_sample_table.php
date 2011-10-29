@@ -1,5 +1,3 @@
-<?php include_partial('report_conditions', array('modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
-
 <?php if ( $modelToGroupBy ): ?>
 	<table id="report_results_list">
 		<tbody>
