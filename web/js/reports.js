@@ -17,11 +17,15 @@ $(document).ready(function(){
 	$('#report_subject #subject').change(function(){
 		var url = $(this).parents('form').attr('action').replace('generate', $('#report_subject #subject').val());
 		var subjectForm = $('#report_subject_form');
+
+		// Load subform using AJAX
+		// $.get(url, function(html){
+		// 	subjectForm.empty();
+		// 	subjectForm.html(html);
+		// });
 		
-		$.get(url, function(html){
-			subjectForm.empty();
-			subjectForm.html(html);
-		});
+		// Redirect the whole page
+		location.href = url;
 	});
 	
 	// Handle search boxes
