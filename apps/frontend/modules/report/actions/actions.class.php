@@ -290,7 +290,72 @@ class reportActions extends sfActions {
 					break;
 				
 				case 'dna_extraction':
-					$this->modelToGroupBy = $request->getParameter('dna_extraction_group_by');
+					// Group by
+					if ( $this->modelToGroupBy = $request->getParameter('dna_extraction_group_by') ) {
+						if ( in_array($this->modelToGroupBy, array('concentration', 'aliquots', '260_280_ratio', '260_230_ratio')) ) {
+							$relatedAlias = $this->modelToGroupBy;
+							$relatedForeignKey = $this->modelToGroupBy;
+							$recursive = false;
+						}
+						else {
+							$relatedAlias = sfInflector::camelize($this->modelToGroupBy);
+							$relatedForeignKey = sfInflector::foreign_key($this->modelToGroupBy);
+							$recursive = true;
+						}
+
+						$query = $query->addSelect("COUNT($alias.id) as n_dna_extractions");
+						if ( $recursive ) {
+							$query = $query->innerJoin("$alias.$relatedAlias m");
+						}
+
+						$query = $query->groupBy("$alias.$relatedForeignKey");
+
+						if ( $recursive ) {
+							if ( $this->modelToGroupBy == 'strain' ) {
+								$query = $query->addSelect('m.id as value, m.is_axenic as axenic');
+							}
+							else {
+								$query = $query->addSelect('m.id as value');
+							}
+						}
+						else {
+							$query = $query->addSelect("$alias.$relatedAlias as value");
+						}
+					}
+					
+					// Filters
+					$this->filters = array();
+					$relatedModels = array('extraction_kit');
+					foreach ( $relatedModels as $model ) {
+						if ( $id = $request->getParameter("dna_extraction_$model") ) {
+							$foreignKey = sfInflector::foreign_key($model);
+							$model = sfInflector::camelize($model);
+							$table = call_user_func(array("{$model}Table", 'getInstance'));
+							
+							$this->filters[$model] = $table->find($id)->getName();
+							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
+						}
+					}
+										
+					if ( $aliquots = $request->getParameter('dna_extraction_aliquots') ) {
+						$this->filters['Aliquots'] = $aliquots;
+						$query = $query->andWhere("$alias.aliquots = ?", $aliquots);
+					}
+					
+					if ( $concentration = $request->getParameter('dna_extraction_concentration') ) {
+						$this->filters['Concentration'] = $concentration;
+						$query = $query->andWhere("$alias.concentration = ?", $concentration);
+					}
+					
+					if ( $ratio280 = $request->getParameter('dna_extraction_260_280_ratio') ) {
+						$this->filters['260_280_ratio'] = $ratio280;
+						$query = $query->andWhere("$alias.260_280_ratio = ?", $ratio280);
+					}
+					
+					if ( $ratio230 = $request->getParameter('dna_extraction_260_230_ratio') ) {
+						$this->filters['260_230_ratio'] = $ratio230;
+						$query = $query->andWhere("$alias.260_230_ratio = ?", $ratio230);
+					}
 					break;
 				
 				case 'location':
