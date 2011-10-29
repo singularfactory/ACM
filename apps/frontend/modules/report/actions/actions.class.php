@@ -142,6 +142,61 @@ class reportActions extends sfActions {
 			switch ( $request->getParameter('subject') ) {
 				case 'sample':
 					$this->modelToGroupBy = $request->getParameter('sample_group_by');
+					// Group by
+					if ( $this->modelToGroupBy = $request->getParameter('sample_group_by') ) {
+						if ( in_array($this->modelToGroupBy, array('ph', 'conductivity', 'temperature', 'salinity', 'altitude')) ) {
+							$relatedAlias = $this->modelToGroupBy;
+							$relatedForeignKey = $this->modelToGroupBy;
+							$recursive = false;
+						}
+						else {
+							$relatedAlias = sfInflector::camelize($this->modelToGroupBy);
+							$relatedForeignKey = sfInflector::foreign_key($this->modelToGroupBy);
+							$recursive = true;
+						}
+						
+						$query = $query->addSelect("COUNT($alias.id) as n_samples");
+						if ( $recursive ) {
+							$query = $query->innerJoin("$alias.$relatedAlias m");
+						}
+						
+						$query = $query
+							->leftJoin("$alias.Strains st")
+							->addSelect("COUNT(st.id) as n_strains")
+							->groupBy("$alias.$relatedForeignKey");
+						
+						if ( $recursive ) {
+							$query = $query->addSelect('m.name as value');
+						}
+						else {
+							$query = $query->addSelect("$alias.$relatedAlias as value");
+						}
+					}
+					
+					// Filters
+					$this->filters = array();
+					$relatedModels = array('environment', 'habitat', 'radiation');
+					foreach ( $relatedModels as $model ) {
+						if ( $id = $request->getParameter("sample_$model") ) {
+							$foreignKey = sfInflector::foreign_key($model);
+							$model = sfInflector::camelize($model);
+							$table = call_user_func(array("{$model}Table", 'getInstance'));
+							
+							$this->filters[$model] = $table->find($id)->getName();
+							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
+						}
+					}
+					
+					if ( $isExtremophile = $request->getParameter('sample_extremophile') ) {
+						if ( $isExtremophile == 1 ) {
+							$this->filters['Extremophile'] = 'no';
+							$query = $query->andWhere("$alias.is_extremophile = ?", 0);
+						}
+						elseif ( $isExtremophile == 2 ) {
+							$this->filters['Extremophile'] = 'yes';
+							$query = $query->andWhere("$alias.is_extremophile = ?", 1);
+						}
+					}
 					break;
 				
 				case 'strain':
@@ -162,24 +217,21 @@ class reportActions extends sfActions {
 							->leftJoin("$alias.Samples s")
 							->addSelect("COUNT(s.id) as n_samples")
 							->groupBy("$alias.".sfInflector::foreign_key($this->modelToGroupBy))
-							->addSelect('m.name as name');
+							->addSelect('m.name as value');
 					}
 					
-					// Filter
+					// Filters
 					$this->filters = array();
-					if ( $countryId = $request->getParameter('location_country') ) {
-						$this->filters['Country'] = CountryTable::getInstance()->find($countryId)->getName();
-						$query = $query->andWhere("$alias.country_id = ?", $countryId);
-					}
-					
-					if ( $regionId = $request->getParameter('location_region') ) {
-						$this->filters['Region'] = RegionTable::getInstance()->find($regionId)->getName();
-						$query = $query->andWhere("$alias.region_id = ?", $regionId);
-					}
-					
-					if ( $islandId = $request->getParameter('location_island') ) {
-						$this->filters['Island'] = IslandTable::getInstance()->find($islandId)->getName();
-						$query = $query->andWhere("$alias.region_id = ?", $islandId);
+					$relatedModels = array('country', 'region', 'island');
+					foreach ( $relatedModels as $model ) {
+						if ( $id = $request->getParameter("location_$model") ) {
+							$foreignKey = sfInflector::foreign_key($model);
+							$model = sfInflector::camelize($model);
+							$table = call_user_func(array("{$model}Table", 'getInstance'));
+							
+							$this->filters[$model] = $table->find($id)->getName();
+							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
+						}
 					}
 					break;
 			}

@@ -10,7 +10,7 @@
 			</tr>
 			<?php foreach ( $results as $location ): ?>
 			<tr>
-				<td><?php echo $location->name ?></td>
+				<td><?php echo $location->value ?></td>
 				<td class="report_object_count"><?php echo $location->n_locations ?></td>
 				<td class="report_object_count"><?php echo $location->n_samples ?></td>
 			</tr>
