@@ -196,12 +196,12 @@ div.report_inline_where { float:left; }
 #report_subject_form div.clear { margin: 0px; padding: 0px; }
 #report_location_country_search, #report_location_region_search, #report_location_island_search { width: 200px; margin-right: 13px; }
 #report_sample_environment select, #report_sample_habitat select, #report_sample_radiation select,
-#report_strain_taxonomic_class select, #report_strain_genus select, #report_strain_species select,
-#report_strain_authority select, #report_strain_maintenance_status select, #report_strain_culture_medium select,
-#report_strain_transfer_interval input, #report_strain_epitype select, #report_strain_axenic select,
 #report_dna_extraction_extraction_kit select, #report_dna_extraction_concentration input, #report_dna_extraction_aliquots input,
 #report_dna_extraction_260_280_ratio input, #report_dna_extraction_260_230_ratio input { width: 170px; margin-right: 13px; }
 
+#report_strain_taxonomic_class select, #report_strain_genus select, #report_strain_species select,
+#report_strain_authority select, #report_strain_maintenance_status select, #report_strain_culture_medium select,
+#report_strain_transfer_interval input, #report_strain_epitype select, #report_strain_axenic select { width: 190px; margin-right: 13px; }
 
 /**
  * DATE PICKER

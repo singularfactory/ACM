@@ -141,7 +141,6 @@ class reportActions extends sfActions {
 			$this->results = array();
 			switch ( $request->getParameter('subject') ) {
 				case 'sample':
-					$this->modelToGroupBy = $request->getParameter('sample_group_by');
 					// Group by
 					if ( $this->modelToGroupBy = $request->getParameter('sample_group_by') ) {
 						if ( in_array($this->modelToGroupBy, array('ph', 'conductivity', 'temperature', 'salinity', 'altitude')) ) {
@@ -200,7 +199,94 @@ class reportActions extends sfActions {
 					break;
 				
 				case 'strain':
-					$this->modelToGroupBy = $request->getParameter('strain_group_by');
+					// Group by
+					if ( $this->modelToGroupBy = $request->getParameter('strain_group_by') ) {
+						if ( in_array($this->modelToGroupBy, array('transfer_interval', 'is_epitype', 'is_axenic')) ) {
+							$relatedAlias = $this->modelToGroupBy;
+							$relatedForeignKey = $this->modelToGroupBy;
+							$recursive = false;
+						}
+						else {
+							$relatedAlias = sfInflector::camelize($this->modelToGroupBy);
+							$relatedForeignKey = sfInflector::foreign_key($this->modelToGroupBy);
+							$recursive = true;
+						}
+
+						$query = $query->addSelect("COUNT($alias.id) as n_strains");
+						if ( $recursive ) {
+							$query = $query->innerJoin("$alias.$relatedAlias m");
+						}
+
+						$query = $query
+							->leftJoin("$alias.DnaExtractions d")
+							->addSelect("COUNT(d.id) as n_dna_extractions")
+							->groupBy("$alias.$relatedForeignKey");
+
+						if ( $recursive ) {
+							$query = $query->addSelect('m.name as value');
+						}
+						else {
+							$query = $query->addSelect("$alias.$relatedAlias as value");
+						}
+					}
+					
+					// Filters
+					$this->filters = array();
+					$relatedModels = array('taxonomic_class', 'genus', 'species', 'authority');
+					foreach ( $relatedModels as $model ) {
+						if ( $id = $request->getParameter("strain_$model") ) {
+							$foreignKey = sfInflector::foreign_key($model);
+							$model = sfInflector::camelize($model);
+							$table = call_user_func(array("{$model}Table", 'getInstance'));
+							
+							$this->filters[$model] = $table->find($id)->getName();
+							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
+						}
+					}
+					
+					$relatedModels = array('maintenance_status', 'culture_medium');
+					foreach ( $relatedModels as $model ) {
+						if ( $id = $request->getParameter("strain_$model") ) {
+							$foreignKey = sfInflector::foreign_key($model);
+							$model = sfInflector::camelize($model);
+							$table = call_user_func(array("{$model}Table", 'getInstance'));
+							
+							$intermediateModel = $model;
+							if ( $model == 'CultureMedium' ) {
+								$intermediateModel = 'CultureMedia';
+							}
+							
+							$this->filters[$model] = $table->find($id)->getName();
+							$query = $query->andWhere("$alias.Strain$intermediateModel.$foreignKey = ?", $id);
+						}
+					}
+					
+					if ( $isEpitype = $request->getParameter('strain_epitype') ) {
+						if ( $isEpitype == 1 ) {
+							$this->filters['Epitype'] = 'no';
+							$query = $query->andWhere("$alias.is_epitype = ?", 0);
+						}
+						elseif ( $isEpitype == 2 ) {
+							$this->filters['Epitype'] = 'yes';
+							$query = $query->andWhere("$alias.is_epity = ?", 1);
+						}
+					}
+					
+					if ( $isAxenic = $request->getParameter('strain_axenic') ) {
+						if ( $isAxenic == 1 ) {
+							$this->filters['Axenic'] = 'no';
+							$query = $query->andWhere("$alias.is_axenic = ?", 0);
+						}
+						elseif ( $isAxenic == 2 ) {
+							$this->filters['Axenic'] = 'yes';
+							$query = $query->andWhere("$alias.is_axenic = ?", 1);
+						}
+					}
+					
+					if ( $transferInterval = $request->getParameter('strain_transfer_interval') ) {
+						$this->filters['TransferInterval'] = $transferInterval;
+						$query = $query->andWhere("$alias.transfer_interval = ?", $transferInterval);
+					}
 					break;
 				
 				case 'dna_extraction':

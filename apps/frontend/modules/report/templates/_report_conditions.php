@@ -1,12 +1,14 @@
 <div id="report_results_conditions">
 <?php if ( $modelToGroupBy ): ?>
+	<?php $modelToGroupBy = preg_replace('/^is_/', '', $modelToGroupBy) ?>
+	<?php $modelToGroupBy = str_replace('_', ' ', $modelToGroupBy) ?>
 	<span>Results <strong>grouped by <?php echo $modelToGroupBy ?></strong>
 	
 	<?php if ( count($filters) ): ?>
 		and limited to the following conditions:</span>
 		<dl>
 		<?php foreach ( $filters as $key => $value ): ?>
-			<dt><?php echo $key ?>:</dt>
+			<dt><?php echo sfInflector::humanize(sfInflector::tableize($key)) ?>:</dt>
 			<dd><?php echo $value ?></dd>
 		<?php endforeach ?>
 		</dl>
@@ -21,7 +23,7 @@
 		<span>Results limited to the following conditions:</span>
 		<dl>
 		<?php foreach ( $filters as $key => $value ): ?>
-			<dt><?php echo $key ?>:</dt>
+			<dt><?php echo sfInflector::humanize(sfInflector::tableize($key)) ?>:</dt>
 			<dd><?php echo $value ?></dd>
 		<?php endforeach ?>
 		</dl>

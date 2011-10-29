@@ -125,7 +125,7 @@ td.purchase_order_pending { font-weight: bold; }
 /**
 * REPORTS
 */
-th.report_object_count, td.report_object_count { width: 100px; text-align: center; }
+th.report_object_count, td.report_object_count { width: 150px; text-align: center; }
 #report_results_conditions {
 	margin: 13px 21px 21px 13px;
 	padding: 13px;
