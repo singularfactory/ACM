@@ -21,23 +21,21 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
-				->leftJoin("{$this->mainAlias()}.Isolators i")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere('s.id LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('i.name LIKE ?', "%$text%")
-				->orWhere('i.surname LIKE ?', "%$text%");
-				
-			// Parse search term to catch boolean-type columns
-			if ( preg_match('/\d[Bb]/', $text) ) {
-				$query = $query->orWhere("{$this->mainAlias()}.is_axenic = 0");
-			}
-		
+				->orWhere('sp.name LIKE ?', "%$text%");
+					
 			// Parse search term to catch strain codes
-			if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
+			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {
 				$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
+			}
+			else {
+				$query = $query->orWhere("{$this->mainAlias()}.id LIKE ?", "%$text%");
+			}
+			
+			// Parse search term to catch sample codes
+			if ( preg_match('/0*(\d+)(\w{1,3})_?(\w{1,3})?(\w{1,3}|00)?(\d{2,6})?/', $text, $matches) ) {
+				$query = $query->orWhere("s.id = ?", (int)$matches[1]);
 			}
 			
 			// Keep track of search terms for pagination
