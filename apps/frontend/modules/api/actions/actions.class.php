@@ -303,7 +303,7 @@ class apiActions extends GreenhouseAPI {
 						continue;
 					}
 					
-					// Decide if this location should be updated using timestamps
+					// Decide if this location should be updated
 					if ( !isset($records['updated_at']) ) {
 						throw new Exception("Missing updated_at field");
 					}
@@ -355,7 +355,7 @@ class apiActions extends GreenhouseAPI {
 					if ( !($location = LocationTable::getInstance()->find($records['location_id'])) ) {
 						continue;
 					}
-
+					
 					// Delete actual pictures
 					$filenames = array();
 					$ids = array();
