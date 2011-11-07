@@ -26,17 +26,22 @@ class LocationForm extends BaseLocationForm {
 			),
 		));
 		
-		// Configure country, region and island widgets to display default options
-		$defaultCountryId = CountryTable::getInstance()->getDefaultCountryId();
-		$defaultRegionId = RegionTable::getInstance()->getDefaultRegionId($defaultCountryId);
-		
+		// Configure country, region and island widgets
+		if ( $this->getObject()->isNew() ) {
+			$countryId = CountryTable::getInstance()->getDefaultCountryId();
+			$regionId = RegionTable::getInstance()->getDefaultRegionId($countryId);
+		}
+		else {
+			$countryId = $this->getObject()->getCountryId();
+			$regionId = $this->getObject()->getRegionId();
+		}
 		$this->setWidget('region_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Region'),
-			'query' => $this->getObject()->getRegion()->getTable()->getRegionsQuery($defaultCountryId),
+			'query' => $this->getObject()->getRegion()->getTable()->getRegionsQuery($countryId),
 		)));
 		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Island'),
-			'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($defaultRegionId),
+			'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($regionId),
 			'add_empty' => '---',
 		)));
 		
