@@ -13,6 +13,8 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'code'                       => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'clone_number'               => new sfWidgetFormFilterInput(),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'is_epitype'                 => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
@@ -39,6 +41,8 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'code'                       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'clone_number'               => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'sample_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Sample'), 'column' => 'id')),
       'depositor_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Depositor'), 'column' => 'id')),
       'is_epitype'                 => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
@@ -136,6 +140,8 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                         => 'Number',
+      'code'                       => 'Number',
+      'clone_number'               => 'Number',
       'sample_id'                  => 'ForeignKey',
       'depositor_id'               => 'ForeignKey',
       'is_epitype'                 => 'Boolean',

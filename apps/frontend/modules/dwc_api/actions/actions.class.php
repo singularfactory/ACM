@@ -63,8 +63,8 @@ class dwc_apiActions extends GreenhouseAPI {
 				$record->addChild('dwc:collectionCode', 'Algae strains');
 				
 				// Strain attributes
-				$record->addChild('dwc:occurrenceID', $strain->getCode());
-				$record->addChild('dwc:catalogNumber', $strain->getCode());
+				$record->addChild('dwc:occurrenceID', $strain->getFullCode());
+				$record->addChild('dwc:catalogNumber', $strain->getFullCode());
 				$record->addChild('dcterms:modified', $strain->getUpdatedAt());
 				$record->addChild('dwc:eventDate', $strain->getIsolationDate());
 				$record->addChild('dwc:eventRemarks', $strain->getObservation());

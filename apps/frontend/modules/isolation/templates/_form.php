@@ -34,7 +34,7 @@
 			<?php echo $form['strain_id']->renderLabel() ?>
 			<?php echo $form['strain_id']->renderError() ?>
 			<?php echo $form['strain_id']->renderHelp() ?>
-			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getCode(); ?>" id="isolation_strain_search" />
+			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getFullCode(); ?>" id="isolation_strain_search" />
 			<a href="<?php echo url_for('@isolation_find_strains?term=') ?>" class="isolation_strain_numbers_url"></a>
 		</div>
 		<?php endif ?>

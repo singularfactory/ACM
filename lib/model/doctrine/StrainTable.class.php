@@ -27,7 +27,7 @@ class StrainTable extends Doctrine_Table {
 	public function findByTerm($term = '') {
 		if ( preg_match('/0*(\d+)/', $term, $matches) ) {
 			return $this->createQuery('s')
-				->where('s.id LIKE ?', $matches[1])
+				->where('s.code LIKE ?', $matches[1])
 				->execute();
 		}
 		else {

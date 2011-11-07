@@ -13,7 +13,7 @@
 class Project extends BaseProject {
 	
 	public function getCode() {
-		return $this->getStrain()->getCode();
+		return $this->getStrain()->getFullCode();
 	}
 	
 	public function getInoculationDate() {

@@ -53,7 +53,7 @@
 			<?php foreach ($cultureMedium->getStrains() as $strain ): ?>
 			<?php $url = '@strain_show?id='.$strain->getId() ?>
 			<tr>
-				<td><?php echo link_to($strain->getCode(), $url) ?></td>
+				<td><?php echo link_to($strain->getFullCode(), $url) ?></td>
 				<td><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 				<td><span class="species_name"><?php echo link_to($strain->getGenus(), $url) ?></span></td>
 				<td>

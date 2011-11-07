@@ -27,10 +27,10 @@ class strainActions extends MyActions {
 					
 			// Parse search term to catch strain codes
 			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {
-				$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
+				$query = $query->orWhere("{$this->mainAlias()}.code = ?", (int)$matches[2]);
 			}
 			else {
-				$query = $query->orWhere("{$this->mainAlias()}.id LIKE ?", "%$text%");
+				$query = $query->orWhere("{$this->mainAlias()}.code LIKE ?", "%$text%");
 			}
 			
 			// Parse search term to catch sample codes

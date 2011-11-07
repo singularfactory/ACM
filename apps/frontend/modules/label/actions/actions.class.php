@@ -46,7 +46,7 @@ class labelActions extends myActions {
 			foreach ( $tableInstance->findByTerm($request->getParameter('term')) as $match ) {
 				$matches[] = array(
 					'id' => $match->getId(),
-					'label' => $match->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'label' => ($table == 'StrainTable') ? $match->getFullCode() : $match->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
 					
 					// Strain attributes
 					'transfer_interval' => ($table == 'StrainTable') ? $match->getTransferInterval():null,

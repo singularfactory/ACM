@@ -30,7 +30,7 @@
 			<?php if ( $sample = $isolation->getSample() ): ?>
 				<?php $code = $sample->getCode() ?>
 			<?php elseif ( $strain = $isolation->getStrain() ): ?>
-				<?php $code = $strain->getCode() ?>
+				<?php $code = $strain->getFullCode() ?>
 				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $strain->getGenusAndSpecies() ?>
 			<?php endif ?>

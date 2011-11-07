@@ -63,7 +63,7 @@
 			</tr>
 			<?php foreach ( $results as $strain ): ?>
 			<tr>
-				<td><?php echo $strain->getCode() ?></td>
+				<td><?php echo $strain->getFullCode() ?></td>
 
 				<?php if ( !$filters->offsetExists('TaxonomicClass') ): ?>
 				<td><?php echo $strain->getTaxonomicClass() ?></td>

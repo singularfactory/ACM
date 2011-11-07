@@ -20,7 +20,7 @@ class Isolation extends BaseIsolation {
 			return $sample->getCode();
 		}
 		else if ( $strain = $this->getStrain() ) {
-			return $strain->getCode();
+			return $strain->getFullCode();
 		}
 	}
 	

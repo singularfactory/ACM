@@ -24,7 +24,7 @@
 		<tr>
 			<?php $url = url_for('@project_show?id='.$project->getId()) ?>
 			<?php $strain = $project->getStrain() ?>
-			<td class="project_strain_code"><?php echo link_to($strain->getCode(), $url) ?></td>
+			<td class="project_strain_code"><?php echo link_to($strain->getFullCode(), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 			<?php
 				$strainName = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';

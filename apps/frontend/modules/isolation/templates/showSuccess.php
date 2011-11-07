@@ -12,7 +12,7 @@
 
 <?php if ( $isolation->getStrain()->exists() ): ?>
 	<?php $strain = $isolation->getStrain() ?>
-	<?php $code = $strain->getCode() ?>
+	<?php $code = $strain->getFullCode() ?>
 	<?php $route = "@strain_show?id={$strain->getId()}" ?>
 	<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 	<?php $genus = $strain->getGenus() ?>

@@ -362,7 +362,7 @@ class MyActions extends sfActions {
 			foreach ($results as $strain) {
 				$strains[] = array(
 					'id' => $strain->getId(),
-					'label' => $strain->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+					'label' => $strain->getFullCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
 				);
 			}
 			$this->getResponse()->setContent(json_encode($strains));

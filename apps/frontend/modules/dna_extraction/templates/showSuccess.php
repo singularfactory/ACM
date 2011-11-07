@@ -14,7 +14,7 @@
 	<div id="object_data_list">
 		<dl>
 			<dt>Strain:</dt>
-			<dd><?php echo link_to($dnaExtraction->getStrain()->getCode(), "@strain_show?id={$dnaExtraction->getStrain()->getId()}") ?></dd>
+			<dd><?php echo link_to($dnaExtraction->getStrain()->getFullCode(), "@strain_show?id={$dnaExtraction->getStrain()->getId()}") ?></dd>
 			<dt>Arrival date:</dt>
 			<dd><?php echo format_date($dnaExtraction->getArrivalDate(), 'p') ?></dd>
 			<dt>Extraction date:</dt>

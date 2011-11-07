@@ -12,15 +12,20 @@
  */
 class Strain extends BaseStrain {
 	
-	public function getCode() {
-		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
+	public function getFullCode() {
+		$code = str_pad($this->_get('code'), 4, '0', STR_PAD_LEFT);
 		
 		$axenicCode = '';
 		if ( ! $this->getIsAxenic() ) {
 			$axenicCode = 'B';
 		}
 		
-		return 'BEA'.$code.$axenicCode;
+		$cloneCode = '';
+		if ( $cloneNumber = $this->getCloneNumber() ) {
+			$cloneCode = "/$cloneNumber";
+		}
+		
+		return "BEA$code$cloneCode$axenicCode";
 	}
 	
 	public function getTaxonomicName() {

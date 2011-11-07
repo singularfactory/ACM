@@ -391,6 +391,8 @@ Container:
 Strain:
   columns:
     id:                         { type: integer, primary: true, autoincrement: true }
+    code:                       { type: integer, notnull: true }
+    clone_number:               { type: integer }
     sample_id:                  { type: integer }
     depositor_id:               { type: integer }
     is_epitype:                 { type: boolean, notnull: true, default: false }
@@ -426,6 +428,8 @@ Strain:
   actAs:
     Timestampable:
     Date:
+  indexes:
+    unique_code_and_clone:  { fields: [code, clone_number], type: unique }
 
 
 StrainCultureMedia:

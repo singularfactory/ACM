@@ -2,7 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	Project transference from strain <?php echo $project->getStrain()->getCode() ?>
+	Project transference from strain <?php echo $project->getStrain()->getFullCode() ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'project')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'project', 'id' => $project->getId())) ?>
@@ -14,7 +14,7 @@
 		<dl>
 			<?php $strain = $project->getStrain() ?>
 			<dt>Strain:</dt>
-			<dd><?php echo link_to($strain->getCode(), "@strain_show?id={$strain->getId()}") ?></dd>
+			<dd><?php echo link_to($strain->getFullCode(), "@strain_show?id={$strain->getId()}") ?></dd>
 			
 			<dt>Class:</dt>
 			<dd><?php echo $strain->getTaxonomicClass() ?></dd>

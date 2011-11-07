@@ -16,6 +16,8 @@ abstract class BaseStrainForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
+      'code'                       => new sfWidgetFormInputText(),
+      'clone_number'               => new sfWidgetFormInputText(),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'depositor_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
       'is_epitype'                 => new sfWidgetFormInputCheckbox(),
@@ -43,6 +45,8 @@ abstract class BaseStrainForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'code'                       => new sfValidatorInteger(),
+      'clone_number'               => new sfValidatorInteger(array('required' => false)),
       'sample_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'required' => false)),
       'depositor_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'required' => false)),
       'is_epitype'                 => new sfValidatorBoolean(array('required' => false)),
@@ -67,6 +71,10 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
       'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'Strain', 'column' => array('code', 'clone_number')))
+    );
 
     $this->widgetSchema->setNameFormat('strain[%s]');
 

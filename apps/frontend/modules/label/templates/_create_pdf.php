@@ -21,8 +21,8 @@
 
 						<?php if ( $columns == 0 ): ?><tr class="label_items"><?php endif ?>
 						<td class="label_item">
-							<?php echo getQr($label->getCode()) ?>
-							<p class="label_item_code"><?php echo $label->getCode() ?></p>
+							<?php echo getQr($label->getFullCode()) ?>
+							<p class="label_item_code"><?php echo $label->getFullCode() ?></p>
 
 							<p class="label_item_genus"><?php echo $label->getGenus() ?></p>
 
@@ -41,13 +41,13 @@
 					<?php endforeach ?>
 				<?php else: ?>
 					<?php $label = $labels ?>
-					<?php $qrImage = getQr($label->getCode()) ?>
+					<?php $qrImage = getQr($label->getFullCode()) ?>
 					<?php for ( $i = 0; $i < 12; $i++ ): ?>
 
 						<?php if ( $columns == 0 ): ?><tr class="label_items"><?php endif ?>
 						<td class="label_item">
 							<?php echo $qrImage ?>
-							<p class="label_item_code"><?php echo $label->getCode() ?></p>
+							<p class="label_item_code"><?php echo $label->getFullCode() ?></p>
 							<p class="label_item_genus"><?php echo $label->getGenus() ?></p>
 							<p class="label_item_species"><?php echo $label->getSpecies() ?></p>
 							<p class="label_item_taxonomic_class"><?php echo $label->getTaxonomicClass() ?></p>

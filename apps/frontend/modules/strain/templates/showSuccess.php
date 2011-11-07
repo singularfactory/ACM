@@ -2,7 +2,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	<?php echo $strain->getCode() ?> - <?php echo $strainClass = $strain->getTaxonomicClass() ?>
+	<?php echo $strain->getFullCode() ?> - <?php echo $strainClass = $strain->getTaxonomicClass() ?>
 	<span class="species_name"><?php echo $strainGenus = $strain->getGenus() ?></span>
 	<?php if ( ($strainSpecies = $strain->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
 		<span class="species_name"><?php echo $strainSpecies ?></span>

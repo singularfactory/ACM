@@ -9,7 +9,7 @@
 			<?php echo $form['strain_id']->renderLabel() ?>
 			<?php echo $form['strain_id']->renderError() ?>
 			<?php echo $form['strain_id']->renderHelp() ?>
-			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getCode(); ?>" id="project_strain_search" />
+			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getFullCode(); ?>" id="project_strain_search" />
 			<a href="<?php echo url_for('@project_find_strains?term=') ?>" class="project_strain_numbers_url"></a>
 		</div>
 		

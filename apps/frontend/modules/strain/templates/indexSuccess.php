@@ -23,7 +23,7 @@
 		<?php foreach ($pager->getResults() as $strain): ?>
 		<tr>
 			<?php $url = url_for('@strain_show?id='.$strain->getId()) ?>
-			<td class="strain_code"><?php echo link_to($strain->getCode(), $url) ?></td>
+			<td class="strain_code"><?php echo link_to($strain->getFullCode(), $url) ?></td>
 			<td class="strain_name"><?php echo link_to("{$strain->getTaxonomicClass()} <span class=\"species_name\">{$strain->getGenus()} {$strain->getSpecies()}</span>", $url) ?></td>
 			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleCode(), $url) ?></td>
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
