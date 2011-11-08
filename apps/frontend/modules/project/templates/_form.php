@@ -20,11 +20,18 @@
 			<?php echo $form['name'] ?>
 		</div>
 		
-		<div id="provider_id">
-			<?php echo $form['provider_id']->renderLabel() ?>
-			<?php echo $form['provider_id']->renderError() ?>
-			<?php echo $form['provider_id']->renderHelp() ?>
-			<?php echo $form['provider_id'] ?>
+		<div id="petitioner_id">
+			<?php echo $form['petitioner_id']->renderLabel() ?>
+			<?php echo $form['petitioner_id']->renderError() ?>
+			<?php echo $form['petitioner_id']->renderHelp() ?>
+			<?php echo $form['petitioner_id'] ?>
+		</div>
+		
+		<div id="purpose">
+			<?php echo $form['purpose']->renderLabel() ?>
+			<?php echo $form['purpose']->renderError() ?>
+			<?php echo $form['purpose']->renderHelp() ?>
+			<?php echo $form['purpose'] ?>
 		</div>
 		
 		<div id="amount">
@@ -40,16 +47,16 @@
 			<?php echo $form['inoculation_date']->renderHelp() ?>
 			<?php echo $form['inoculation_date'] ?>
 		</div>
-		
-		<div id="purpose">
-			<?php echo $form['purpose']->renderLabel() ?>
-			<?php echo $form['purpose']->renderError() ?>
-			<?php echo $form['purpose']->renderHelp() ?>
-			<?php echo $form['purpose'] ?>
-		</div>
 	</div>
 	
 	<div id="right_side_form">
+		<div id="provider_id">
+			<?php echo $form['provider_id']->renderLabel() ?>
+			<?php echo $form['provider_id']->renderError() ?>
+			<?php echo $form['provider_id']->renderHelp() ?>
+			<?php echo $form['provider_id'] ?>
+		</div>
+		
 		<div id="delivery_date" class="date_field">
 			<?php echo $form['delivery_date']->renderLabel() ?>
 			<?php echo $form['delivery_date']->renderError() ?>

@@ -17,15 +17,15 @@ class Version122 extends Doctrine_Migration_Base {
 		
 		$strainTable = Doctrine_Core::getTable('Strain');
 		$strainTable->setColumn('maintenance_status_id', 'integer', null, array('type' => 'integer'));
-		$this->strains = $strainTable->findAll()->toArray();
+		$this->strains = $strainTable->getInstance()->createQuery('s')->select('s.id, s.maintenance_status_id')->execute();
 		
 		$maintenanceDepositTable = Doctrine_Core::getTable('MaintenanceDeposit');
 		$maintenanceDepositTable->setColumn('maintenance_status_id', 'integer', null, array('type' => 'integer'));
-		$this->maintenanceDeposits = $maintenanceDepositTable->findAll()->toArray();
+		$this->maintenanceDeposits = $maintenanceDepositTable->getInstance()->createQuery('m')->select('m.id, m.maintenance_status_id')->execute();
 		
 		$patentDepositTable = Doctrine_Core::getTable('PatentDeposit');
 		$patentDepositTable->setColumn('maintenance_status_id', 'integer', null, array('type' => 'integer'));
-		$this->patentDeposits = $patentDepositTable->findAll()->toArray();
+		$this->patentDeposits = $patentDepositTable->getInstance()->createQuery('p')->select('p.id, p.maintenance_status_id')->execute();
 
 		echo sprintf("%d strains, %d maintenance deposits and %d patent deposits\n", count($this->strains), count($this->maintenanceDeposits), count($this->patentDeposits));
 	}
@@ -132,33 +132,30 @@ class Version122 extends Doctrine_Migration_Base {
 		echo ">> postUp(): initializing strain_maintenance_status table\n";
 		foreach ( $this->strains as $strain ) {
 			$strainMaintenanceStatus = new StrainMaintenanceStatus();
-			$strainMaintenanceStatus->setStrainId($strain['id']);
-			$strainMaintenanceStatus->setMaintenanceStatusId($strain['maintenance_status_id']);
+			$strainMaintenanceStatus->setStrainId($strain->getId());
+			$strainMaintenanceStatus->setMaintenanceStatusId($strain->getMaintenanceStatusId());
 			if ( $strainMaintenanceStatus->trySave() ) {
-				echo ">> postUp(): strain {$strain['id']}\n";
-				echo ">> postUp(): maintenance status {$strain['maintenance_status_id']}\n";
+				echo ">> postUp(): strain {$strain->getId()} => maintenance status {$strain->getMaintenanceStatusId()}\n";
 			}
 		}
 		
 		echo ">> postUp(): initializing maintenance_deposit_maintenance_status table\n";
 		foreach ( $this->maintenanceDeposits as $deposit ) {
 			$maintenanceDepositMaintenanceStatus = new MaintenanceDepositMaintenanceStatus();
-			$maintenanceDepositMaintenanceStatus->setMaintenanceDepositId($deposit['id']);
-			$maintenanceDepositMaintenanceStatus->setMaintenanceStatusId($deposit['maintenance_status_id']);
+			$maintenanceDepositMaintenanceStatus->setMaintenanceDepositId($deposit->getId());
+			$maintenanceDepositMaintenanceStatus->setMaintenanceStatusId($deposit->getMaintenanceStatusId());
 			if ( $maintenanceDepositMaintenanceStatus->trySave() ) {
-				echo ">> postUp(): maintenance deposit {$deposit['id']}\n";
-				echo ">> postUp(): maintenance status {$deposit['maintenance_status_id']}\n";
+				echo ">> postUp(): maintenance deposit {$deposit->getId()} => maintenance status {$deposit->getMaintenanceStatusId()}\n";
 			}
 		}
 		
 		echo ">> postUp(): initializing patent_deposit_maintenance_status table\n";
 		foreach ( $this->patentDeposits as $deposit ) {
 			$patentDepositMaintenanceStatus = new PatentDepositMaintenanceStatus();
-			$patentDepositMaintenanceStatus->setPatentDepositId($deposit['id']);
-			$patentDepositMaintenanceStatus->setMaintenanceStatusId($deposit['maintenance_status_id']);
+			$patentDepositMaintenanceStatus->setPatentDepositId($deposit->getId());
+			$patentDepositMaintenanceStatus->setMaintenanceStatusId($deposit->getMaintenanceStatusId());
 			if ( $patentDepositMaintenanceStatus->trySave() ) {
-				echo ">> postUp(): patent deposit {$deposit['id']}\n";
-				echo ">> postUp(): maintenance status {$deposit['maintenance_status_id']}\n";
+				echo ">> postUp(): patent deposit {$deposit->getId()} => maintenance status {$deposit->getMaintenanceStatusId()}\n";
 			}
 		}
 	}

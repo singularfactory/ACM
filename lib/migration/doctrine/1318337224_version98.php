@@ -13,7 +13,7 @@ class Version98 extends Doctrine_Migration_Base {
 		
 		$strainTable = Doctrine_Core::getTable('Strain');
 		$strainTable->setColumn('isolator_id', 'integer', null, array('type' => 'integer'));
-		$this->strains = $strainTable->findAll()->toArray();
+		$this->strains = $strainTable->getInstance()->createQuery('s')->select('s.id, s.isolator_id')->execute();
 
 		echo count($this->strains);
 		echo " strains\n";
@@ -58,11 +58,10 @@ class Version98 extends Doctrine_Migration_Base {
 		echo ">> postUp(): initializing strain_isolators table\n";
 		foreach ( $this->strains as $strain ) {
 			$strainIsolator = new StrainIsolators();
-			$strainIsolator->setStrainId($strain['id']);
-			$strainIsolator->setIsolatorId($strain['isolator_id']);
+			$strainIsolator->setStrainId($strain->getId());
+			$strainIsolator->setIsolatorId($strain->getIsolatorId());
 			if ( $strainIsolator->trySave() ) {
-				echo ">> postUp(): strain {$strain['id']}\n";
-				echo ">> postUp(): isolator {$strain['isolator_id']}\n";
+				echo ">> postUp(): strain {$strain->getId()} => isolator {$strain->getIsolatorId()}\n";
 			}
 		}
 	}

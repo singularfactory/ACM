@@ -18,6 +18,8 @@
 			
 			<dt>Name:</dt>
 			<dd><?php echo $project->getName() ?></dd>
+			<dt>Petitioner:</dt>
+			<dd><?php echo $project->getPetitioner()->getName() ?></dd>
 			
 			<dt>Class:</dt>
 			<dd><?php echo $strain->getTaxonomicClass() ?></dd>
@@ -31,12 +33,14 @@
 					<?php echo $strainSpecies ?>
 				<?php endif; ?>
 			</dd>
+			
+			<dt>Provider:</dt>
+			<dd><?php echo $project->getProvider()->getName() ?></dd>
 			<dt>Inoculation date:</dt>
 			<dd><?php echo $project->getInoculationDate() ?></dd>
-			<dt>Petitioner:</dt>
-			<dd><?php echo $project->getProvider()->getName() ?></dd>
 			<dt>Amount:</dt>
 			<dd><?php echo $project->getFormattedAmount() ?></dd>
+			
 			<dt>Delivery date:</dt>
 			<dd><?php echo $project->getDeliveryDate() ?></dd>
 			<dt>Purpose:</dt>

@@ -15,10 +15,10 @@ class Version125 extends Doctrine_Migration_Base {
 	
 	public function postUp() {
 		echo ">> postUp(): initializing code column in strain table\n";
-		foreach ( Doctrine_Core::getTable('Strain')->findAll() as $strain ) {
+		foreach ( StrainTable::getInstance()->createQuery('s')->select('s.id, s.code')->execute() as $strain ) {
 			$strain->setCode($strain->getId());
 			if ( $strain->trySave() ) {
-				echo ">> postUp(): id {$strain['id']} => code {$strain['code']}\n";
+				echo ">> postUp(): id {$strain->getId()} => code {$strain->getCode()}\n";
 			}
 		}
 	}

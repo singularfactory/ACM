@@ -17,9 +17,10 @@ abstract class BaseProjectForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),
       'name'             => new sfWidgetFormInputText(),
+      'petitioner_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Petitioner'), 'add_empty' => false)),
       'strain_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => false)),
       'amount'           => new sfWidgetFormInputText(),
-      'provider_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'), 'add_empty' => false)),
+      'provider_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'), 'add_empty' => true)),
       'inoculation_date' => new sfWidgetFormDate(),
       'purpose'          => new sfWidgetFormTextarea(),
       'delivery_date'    => new sfWidgetFormDate(),
@@ -31,9 +32,10 @@ abstract class BaseProjectForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'name'             => new sfValidatorString(array('max_length' => 200)),
+      'petitioner_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Petitioner'))),
       'strain_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'))),
       'amount'           => new sfValidatorNumber(array('required' => false)),
-      'provider_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'))),
+      'provider_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'), 'required' => false)),
       'inoculation_date' => new sfValidatorDate(),
       'purpose'          => new sfValidatorString(),
       'delivery_date'    => new sfValidatorDate(array('required' => false)),

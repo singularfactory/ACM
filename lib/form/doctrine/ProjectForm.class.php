@@ -18,7 +18,7 @@ class ProjectForm extends BaseProjectForm {
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$this->setWidget('inoculation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%','years' => $years)));
 		$this->setWidget('delivery_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%','years' => $years), array('class' => 'noauto')));
-				
+		
 		// Configure custom validators
 		$this->setValidator('strain_id', new sfValidatorDoctrineChoice(
 			array('model' => $this->getRelatedModelName('Strain')),
@@ -26,7 +26,6 @@ class ProjectForm extends BaseProjectForm {
 		
 		// Configure labels
 		$this->widgetSchema->setLabel('strain_id', 'Strain code');
-		$this->widgetSchema->setLabel('provider_id', 'Petitioner');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('amount', 'Amount of strain inoculation');

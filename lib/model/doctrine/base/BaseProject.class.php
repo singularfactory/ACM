@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property integer $petitioner_id
  * @property integer $strain_id
  * @property float $amount
  * @property integer $provider_id
@@ -16,9 +17,11 @@
  * @property string $remarks
  * @property Strain $Strain
  * @property sfGuardUser $Provider
+ * @property sfGuardUser $Petitioner
  * 
  * @method integer     getId()               Returns the current record's "id" value
  * @method string      getName()             Returns the current record's "name" value
+ * @method integer     getPetitionerId()     Returns the current record's "petitioner_id" value
  * @method integer     getStrainId()         Returns the current record's "strain_id" value
  * @method float       getAmount()           Returns the current record's "amount" value
  * @method integer     getProviderId()       Returns the current record's "provider_id" value
@@ -28,8 +31,10 @@
  * @method string      getRemarks()          Returns the current record's "remarks" value
  * @method Strain      getStrain()           Returns the current record's "Strain" value
  * @method sfGuardUser getProvider()         Returns the current record's "Provider" value
+ * @method sfGuardUser getPetitioner()       Returns the current record's "Petitioner" value
  * @method Project     setId()               Sets the current record's "id" value
  * @method Project     setName()             Sets the current record's "name" value
+ * @method Project     setPetitionerId()     Sets the current record's "petitioner_id" value
  * @method Project     setStrainId()         Sets the current record's "strain_id" value
  * @method Project     setAmount()           Sets the current record's "amount" value
  * @method Project     setProviderId()       Sets the current record's "provider_id" value
@@ -39,6 +44,7 @@
  * @method Project     setRemarks()          Sets the current record's "remarks" value
  * @method Project     setStrain()           Sets the current record's "Strain" value
  * @method Project     setProvider()         Sets the current record's "Provider" value
+ * @method Project     setPetitioner()       Sets the current record's "Petitioner" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -60,6 +66,10 @@ abstract class BaseProject extends sfDoctrineRecord
              'notnull' => true,
              'length' => 200,
              ));
+        $this->hasColumn('petitioner_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
         $this->hasColumn('strain_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
@@ -71,7 +81,6 @@ abstract class BaseProject extends sfDoctrineRecord
              ));
         $this->hasColumn('provider_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('inoculation_date', 'date', null, array(
              'type' => 'date',
@@ -107,6 +116,10 @@ abstract class BaseProject extends sfDoctrineRecord
 
         $this->hasOne('sfGuardUser as Provider', array(
              'local' => 'provider_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('sfGuardUser as Petitioner', array(
+             'local' => 'petitioner_id',
              'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();

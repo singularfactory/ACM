@@ -13,8 +13,8 @@ class Version88 extends Doctrine_Migration_Base {
 		
 		$sampleTable = Doctrine_Core::getTable('Sample');
 		$sampleTable->setColumn('collector_id', 'integer', null, array('type' => 'integer'));
-		$this->samples = $sampleTable->findAll()->toArray();
-
+		$this->samples = $sampleTable->createQuery('s')->select('s.id, s.collector_id')->execute();
+		
 		echo count($this->samples);
 		echo " samples\n";
 	}
@@ -58,11 +58,10 @@ class Version88 extends Doctrine_Migration_Base {
 		echo ">> postUp(): initializing sample_collectors table\n";
 		foreach ( $this->samples as $sample ) {
 			$sampleCollector = new SampleCollectors();
-			$sampleCollector->setSampleId($sample['id']);
-			$sampleCollector->setCollectorId($sample['collector_id']);
+			$sampleCollector->setSampleId($sample->getId());
+			$sampleCollector->setCollectorId($sample->getCollectorId());
 			if ( $sampleCollector->trySave() ) {
-				echo ">> postUp(): sample {$sample['id']}\n";
-				echo ">> postUp(): collector {$sample['collector_id']}\n";
+				echo ">> postUp(): sample {$sample->getId()} => collector {$sample->getCollectorId()}\n";
 			}
 		}
 	}

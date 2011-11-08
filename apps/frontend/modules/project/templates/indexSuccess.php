@@ -16,7 +16,7 @@
 			<th><?php echo link_to('Class', '@project?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Genus', '@project?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Inoculation date', '@project?sort_column=inoculation_date&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Petitioner', '@project?sort_column=Provider.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Petitioner', '@project?sort_column=Petitioner.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Delivery date', '@project?sort_column=delivery_date&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
@@ -39,7 +39,7 @@
 			?>
 			<td class="genus_name"><?php echo link_to($strainName, $url) ?></td>
 			<td class="date inoculation_date"><?php echo link_to($project->getInoculationDate(), $url) ?></td>
-			<td class="provider_name"><?php echo link_to($project->getProvider()->getName(), $url) ?></td>
+			<td class="petitioner_name"><?php echo link_to($project->getPetitioner()->getName(), $url) ?></td>
 			<td class="date delivery_date"><?php echo link_to($project->getDeliveryDate(), $url) ?></td>
 
 			<td class="actions">
