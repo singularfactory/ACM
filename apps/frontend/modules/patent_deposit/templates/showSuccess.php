@@ -144,7 +144,24 @@
 			<dd><?php echo $nbCultureMedia ?></dd>
 			
 			<dt>Maintenance status:</dt>
-			<dd><?php echo $patentDeposit->getMaintenanceStatus() ?></dd>
+			<dd>
+			<?php
+				$isCryopreserved = false;
+				$firstMaintenanceStatus = true;
+				foreach ($patentDeposit->getMaintenanceStatus() as $status ) {
+					if ( $status->getName() === sfConfig::get('app_maintenance_status_cryopreserved') ) {
+						$isCryopreserved = true;
+					}
+					
+					if ( !$firstMaintenanceStatus ) {
+						echo sprintf(', %s', sfInflector::tableize($status->getName()));
+						continue;
+					}
+					echo $status->getName();
+					$firstMaintenanceStatus = false;
+				}
+			?>
+			</dd>
 									
 			<?php if ( $patentDeposit->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
 			<dt>Cryopreservation:</dt>
@@ -183,11 +200,23 @@
 			<dt>Remarks:</dt>
 			<dd><?php echo $patentDeposit->getRemarks() ?></dd>
 			
-			<dt>BP1 link:</dt>
-			<dd><?php echo $patentDeposit->getBp1Link() ?></dd>
+			<dt>BP1 document:</dt>
+			<dd>
+				<?php if ( $url = $patentDeposit->getBp1DocumentUrl() ): ?>
+				<?php echo link_to($patentDeposit->getBp1Document(), $url) ?>
+				<?php else: ?>
+				<?php echo sfConfig::get('app_no_data_message') ?>
+				<?php endif; ?>
+			</dd>
 			
-			<dt>BP4 link:</dt>
-			<dd><?php echo $patentDeposit->getBp4Link() ?></dd>
+			<dt>BP4 document:</dt>
+			<dd>
+				<?php if ( $url = $patentDeposit->getBp4DocumentUrl() ): ?>
+				<?php echo link_to($patentDeposit->getBp4Document(), $url) ?>
+				<?php else: ?>
+				<?php echo sfConfig::get('app_no_data_message') ?>
+				<?php endif; ?>
+			</dd>
 		</dl>
 	</div>
 	

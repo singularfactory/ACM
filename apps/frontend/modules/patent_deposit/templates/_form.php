@@ -219,18 +219,18 @@
 			<?php echo $form['remarks'] ?>
 		</div>		
 		
-		<div id="bp1_link">
-			<?php echo $form['bp1_link']->renderLabel() ?>
-			<?php echo $form['bp1_link']->renderError() ?>
-			<?php echo $form['bp1_link']->renderHelp() ?>
-			<?php echo $form['bp1_link'] ?>
+		<div id="bp1_document">
+			<?php echo $form['bp1_document']->renderLabel() ?>
+			<?php echo $form['bp1_document']->renderError() ?>
+			<?php echo $form['bp1_document']->renderHelp() ?>
+			<?php echo $form['bp1_document'] ?>
 		</div>
 		
-		<div id="bp4_link">
-			<?php echo $form['bp4_link']->renderLabel() ?>
-			<?php echo $form['bp4_link']->renderError() ?>
-			<?php echo $form['bp4_link']->renderHelp() ?>
-			<?php echo $form['bp4_link'] ?>
+		<div id="bp4_document">
+			<?php echo $form['bp4_document']->renderLabel() ?>
+			<?php echo $form['bp4_document']->renderError() ?>
+			<?php echo $form['bp4_document']->renderHelp() ?>
+			<?php echo $form['bp4_document'] ?>
 		</div>		
 	</div>
 	

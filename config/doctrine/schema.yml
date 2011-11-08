@@ -712,8 +712,8 @@ PatentDeposit:
     observation:                { type: string }
     citations:                  { type: string }
     remarks:                    { type: string }
-    bp1_link:                   { type: string(1024), notnull: true }
-    bp4_link:                   { type: string(1024), notnull: true }
+    bp1_document:               { type: string(255), notnull: true }
+    bp4_document:               { type: string(255), notnull: true }
   relations:
     TaxonomicClass:         { foreignAlias: PatentDeposits }
     Genus:                  { foreignAlias: PatentDeposits }
@@ -801,7 +801,7 @@ MaintenanceDeposit:
     observation:                { type: string }
     citations:                  { type: string }
     remarks:                    { type: string }
-    mf1_link:                   { type: string(1024), notnull: true }
+    mf1_document:               { type: string(255), notnull: true }
   relations:
     TaxonomicClass:         { foreignAlias: MaintenanceDeposits }
     Genus:                  { foreignAlias: MaintenanceDeposits }

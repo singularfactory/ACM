@@ -128,7 +128,7 @@ div.model_text_input_dna_primer select { margin-left: 3px; display: inline; vert
  * SPECIFIC FIELDS
  */
 #name input { width: 250px; }	/* Location */
-#description input[type=file] { display: inline; }	/* Culture media*/
+#description input[type=file], #bp4_document input[type=file], #bp1_document input[type=file], #mf1_document input[type=file] { display: inline; }
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 

@@ -130,5 +130,28 @@ class PatentDeposit extends BasePatentDeposit {
 		}
 	}
 	
+	public function getBp1DocumentUrl() {
+		$path = sfConfig::get('app_documents_dir').sfConfig::get('app_patent_deposit_dir');
+		$filename = $this->getBp1Document();
+		
+		if ( empty($filename) ) {
+			return null;
+		}
+		else {
+			return "$path/$filename";
+		}
+	}
+	
+	public function getBp4DocumentUrl() {
+		$path = sfConfig::get('app_documents_dir').sfConfig::get('app_patent_deposit_dir');
+		$filename = $this->getBp4Document();
+		
+		if ( empty($filename) ) {
+			return null;
+		}
+		else {
+			return "$path/$filename";
+		}
+	}
 	
 }

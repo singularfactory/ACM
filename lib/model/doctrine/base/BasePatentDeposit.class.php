@@ -29,8 +29,8 @@
  * @property string $observation
  * @property string $citations
  * @property string $remarks
- * @property string $bp1_link
- * @property string $bp4_link
+ * @property string $bp1_document
+ * @property string $bp4_document
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -75,8 +75,8 @@
  * @method string                 getObservation()                    Returns the current record's "observation" value
  * @method string                 getCitations()                      Returns the current record's "citations" value
  * @method string                 getRemarks()                        Returns the current record's "remarks" value
- * @method string                 getBp1Link()                        Returns the current record's "bp1_link" value
- * @method string                 getBp4Link()                        Returns the current record's "bp4_link" value
+ * @method string                 getBp1Document()                    Returns the current record's "bp1_document" value
+ * @method string                 getBp4Document()                    Returns the current record's "bp4_document" value
  * @method TaxonomicClass         getTaxonomicClass()                 Returns the current record's "TaxonomicClass" value
  * @method Genus                  getGenus()                          Returns the current record's "Genus" value
  * @method Species                getSpecies()                        Returns the current record's "Species" value
@@ -120,8 +120,8 @@
  * @method PatentDeposit          setObservation()                    Sets the current record's "observation" value
  * @method PatentDeposit          setCitations()                      Sets the current record's "citations" value
  * @method PatentDeposit          setRemarks()                        Sets the current record's "remarks" value
- * @method PatentDeposit          setBp1Link()                        Sets the current record's "bp1_link" value
- * @method PatentDeposit          setBp4Link()                        Sets the current record's "bp4_link" value
+ * @method PatentDeposit          setBp1Document()                    Sets the current record's "bp1_document" value
+ * @method PatentDeposit          setBp4Document()                    Sets the current record's "bp4_document" value
  * @method PatentDeposit          setTaxonomicClass()                 Sets the current record's "TaxonomicClass" value
  * @method PatentDeposit          setGenus()                          Sets the current record's "Genus" value
  * @method PatentDeposit          setSpecies()                        Sets the current record's "Species" value
@@ -245,15 +245,15 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',
              ));
-        $this->hasColumn('bp1_link', 'string', 1024, array(
+        $this->hasColumn('bp1_document', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => 1024,
+             'length' => 255,
              ));
-        $this->hasColumn('bp4_link', 'string', 1024, array(
+        $this->hasColumn('bp4_document', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => 1024,
+             'length' => 255,
              ));
 
         $this->option('type', 'INNODB');

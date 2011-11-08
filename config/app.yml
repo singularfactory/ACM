@@ -90,6 +90,10 @@ all:
     # Projects constants
     project_amount_unit: ml
     
+    # Deposits related constants
+    maintenance_deposit_dir:  /maintenance_deposits
+    patent_deposit_dir:       /patent_deposits
+    
     # Isolation constants
     isolation_subject_sample:   0
     isolation_subject_strain:   1

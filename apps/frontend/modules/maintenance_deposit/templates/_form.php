@@ -219,11 +219,11 @@
 			<?php echo $form['remarks'] ?>
 		</div>		
 		
-		<div id="mf1_link">
-			<?php echo $form['mf1_link']->renderLabel() ?>
-			<?php echo $form['mf1_link']->renderError() ?>
-			<?php echo $form['mf1_link']->renderHelp() ?>
-			<?php echo $form['mf1_link'] ?>
+		<div id="mf1_document">
+			<?php echo $form['mf1_document']->renderLabel() ?>
+			<?php echo $form['mf1_document']->renderError() ?>
+			<?php echo $form['mf1_document']->renderHelp() ?>
+			<?php echo $form['mf1_document'] ?>
 		</div>		
 	</div>
 	

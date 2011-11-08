@@ -28,6 +28,35 @@ class PatentDepositForm extends BasePatentDepositForm {
 			'method' => 'getName',
 		)));
 		
+		$this->setWidget('bp1_document', new sfWidgetFormInputFile());
+		$this->setWidget('bp4_document', new sfWidgetFormInputFile());
+		$this->setValidator('bp1_document', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_document_size'),
+			'mime_types' => sfConfig::get('app_document_mime_types'),
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_patent_deposit_dir'),
+			'required' => false,
+			'validated_file_class' => 'myDocument',
+			),
+			array(
+				'invalid' => 'Invalid file',
+				'required' => 'Select a file to upload',
+				'mime_types' => 'The file must be a supported type',
+			)
+		));
+		$this->setValidator('bp4_document', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_document_size'),
+			'mime_types' => sfConfig::get('app_document_mime_types'),
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_patent_deposit_dir'),
+			'required' => false,
+			'validated_file_class' => 'myDocument',
+			),
+			array(
+				'invalid' => 'Invalid file',
+				'required' => 'Select a file to upload',
+				'mime_types' => 'The file must be a supported type',
+			)
+		));
+		
 		// Create an embedded form to add or edit pictures, relatives and axenity tests
 		$this->embedRelations(array(
 			'Relatives' => array(
@@ -52,8 +81,8 @@ class PatentDepositForm extends BasePatentDepositForm {
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('collectors_list', 'Collectors');
-		$this->widgetSchema->setLabel('bp1_link', 'BP1 link');
-		$this->widgetSchema->setLabel('bp4_link', 'BP4 link');
+		$this->widgetSchema->setLabel('bp1_document', 'BP1 document');
+		$this->widgetSchema->setLabel('bp4_document', 'BP4 document');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
@@ -68,6 +97,8 @@ class PatentDepositForm extends BasePatentDepositForm {
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this deposit. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this deposit. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('bp1_document', 'Enclosed BP1 document');
+		$this->widgetSchema->setHelp('bp4_document', 'Enclosed BP4 document');
   }
 	
 	public function checkCryopreservedStatusHasMethod($validator, $values) {

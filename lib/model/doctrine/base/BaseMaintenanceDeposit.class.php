@@ -29,7 +29,7 @@
  * @property string $observation
  * @property string $citations
  * @property string $remarks
- * @property string $mf1_link
+ * @property string $mf1_document
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -74,7 +74,7 @@
  * @method string                 getObservation()                         Returns the current record's "observation" value
  * @method string                 getCitations()                           Returns the current record's "citations" value
  * @method string                 getRemarks()                             Returns the current record's "remarks" value
- * @method string                 getMf1Link()                             Returns the current record's "mf1_link" value
+ * @method string                 getMf1Document()                         Returns the current record's "mf1_document" value
  * @method TaxonomicClass         getTaxonomicClass()                      Returns the current record's "TaxonomicClass" value
  * @method Genus                  getGenus()                               Returns the current record's "Genus" value
  * @method Species                getSpecies()                             Returns the current record's "Species" value
@@ -118,7 +118,7 @@
  * @method MaintenanceDeposit     setObservation()                         Sets the current record's "observation" value
  * @method MaintenanceDeposit     setCitations()                           Sets the current record's "citations" value
  * @method MaintenanceDeposit     setRemarks()                             Sets the current record's "remarks" value
- * @method MaintenanceDeposit     setMf1Link()                             Sets the current record's "mf1_link" value
+ * @method MaintenanceDeposit     setMf1Document()                         Sets the current record's "mf1_document" value
  * @method MaintenanceDeposit     setTaxonomicClass()                      Sets the current record's "TaxonomicClass" value
  * @method MaintenanceDeposit     setGenus()                               Sets the current record's "Genus" value
  * @method MaintenanceDeposit     setSpecies()                             Sets the current record's "Species" value
@@ -242,10 +242,10 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',
              ));
-        $this->hasColumn('mf1_link', 'string', 1024, array(
+        $this->hasColumn('mf1_document', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => 1024,
+             'length' => 255,
              ));
 
         $this->option('type', 'INNODB');

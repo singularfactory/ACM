@@ -28,6 +28,21 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 			'method' => 'getName',
 		)));
 		
+		$this->setWidget('mf1_document', new sfWidgetFormInputFile());
+		$this->setValidator('mf1_document', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_document_size'),
+			'mime_types' => sfConfig::get('app_document_mime_types'),
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_maintenance_deposit_dir'),
+			'required' => false,
+			'validated_file_class' => 'myDocument',
+			),
+			array(
+				'invalid' => 'Invalid file',
+				'required' => 'Select a file to upload',
+				'mime_types' => 'The file must be a supported type',
+			)
+		));
+		
 		// Create an embedded form to add or edit pictures, relatives and axenity tests
 		$this->embedRelations(array(
 			'Relatives' => array(
@@ -52,7 +67,7 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('collectors_list', 'Collectors');
-		$this->widgetSchema->setLabel('mf1_link', 'MF1 link');
+		$this->widgetSchema->setLabel('mf1_document', 'MF1 document');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
@@ -67,6 +82,7 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this deposit. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this deposit. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('mf1_document', 'Enclosed MF1 document');
   }
 	
 	public function checkCryopreservedStatusHasMethod($validator, $values) {

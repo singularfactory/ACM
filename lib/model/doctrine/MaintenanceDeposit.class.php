@@ -130,4 +130,16 @@ class MaintenanceDeposit extends BaseMaintenanceDeposit {
 		}
 	}
 	
+	public function getMf1DocumentUrl() {
+		$path = sfConfig::get('app_documents_dir').sfConfig::get('app_maintenance_deposit_dir');
+		$filename = $this->getMf1Document();
+		
+		if ( empty($filename) ) {
+			return null;
+		}
+		else {
+			return "$path/$filename";
+		}
+	}
+	
 }
