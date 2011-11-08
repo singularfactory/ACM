@@ -12,7 +12,7 @@ class strainActions extends MyActions {
 	
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
-		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'id'));
+		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'code'));
 		
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
@@ -73,10 +73,43 @@ class strainActions extends MyActions {
 		}
 	}
 	
+	/**
+	 * Find an existing strain that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with strain id and code
+	 * @author Eliezer Talon
+	 * @version 2011-07-07
+	*/
+	public function executeFindClone(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			
+			$strain = StrainTable::getInstance()->createQuery('s')
+				->where('s.code = ?', $request->getParameter('term'))
+				->andWhere('s.clone_number IS NULL')
+				->fetchOne();
+			
+			$data = array();
+			if ( $strain ) {
+				$data[] = array(
+					'label' => $strain->getId(),
+					'sample_code' => $strain->getSample()->getCode(),
+					'sample_id' => $strain->getSampleId(),
+					'taxonomic_class_id' => $strain->getTaxonomicClassId(),
+					'genus_id' => $strain->getGenusId(),
+					'species_id' => $strain->getSpeciesId(),
+				);
+			}
+			
+			$this->getResponse()->setContent(json_encode($data));
+		}
+		return sfView::NONE;
+	}
+	
   public function executeNew(sfWebRequest $request) {
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
-			$strain->setSampleId($lastStrain->getSample());
+			$strain->setSampleId($lastStrain->getSampleId());
 			$strain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
 			$strain->setGenusId($lastStrain->getGenusId());
 			$strain->setSpeciesId($lastStrain->getSpeciesId());
@@ -125,6 +158,7 @@ class strainActions extends MyActions {
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
 		$this->hasCryopreservationMethods = (Doctrine::getTable('CryopreservationMethod')->count() > 0)?true:false;
 		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
+		$this->sampleCode = null;
 
     $this->processForm($request, $this->form);
 

@@ -7,11 +7,23 @@
 	<?php echo progress_key() ?>
 	
 	<div id="left_side_form">
-		<div id="id">
-			<?php echo $form['id']->renderLabel() ?>
-			<?php echo $form['id']->renderError() ?>
-			<?php echo $form['id']->renderHelp() ?>
-			<?php echo $form['id'] ?>
+		<div id="bea_code">
+			<div id="code">
+				<?php echo $form['code']->renderLabel() ?>
+				<?php echo $form['code']->renderError() ?>
+				<?php echo $form['code']->renderHelp() ?>
+				<?php echo $form['code'] ?>
+				<a href="<?php echo url_for('@strain_find_clone?term=') ?>" class="strain_find_clone_url"></a>
+			</div>
+			<div id="clone_number">
+				<?php echo $form['clone_number']->renderLabel() ?>
+				<?php echo $form['clone_number']->renderError() ?>
+				<?php echo $form['clone_number']->renderHelp() ?>
+				<?php echo $form['clone_number'] ?>
+			</div>
+			<img src="/images/progress.gif" height="13" width="13" alt="..." id="strain_clone_search_progress"/>
+			
+			<div class="clear"></div>
 		</div>
 		
 		<div id="sample_id">

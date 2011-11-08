@@ -476,6 +476,36 @@ $(document).ready(function(){
 	});
 	
 	
+	// Add a search box for Strain clones
+	$("#bea_code #code input").blur(function(){
+		if ( $(this).val().length == 0 ) {
+			$( "#strain_sample_id" ).val('');
+			$( "#strain_sample_search" ).val(sampleSearchBoxDefault);
+		}
+	});
+	$("#bea_code #code input").autocomplete({
+		minLength: 1,
+		source: function(term, add) {
+			var url = $('a.strain_find_clone_url').attr('href') + $("#bea_code #code input").val();
+			$( "#strain_clone_search_progress" ).fadeIn();
+			$.getJSON(url, function(data){ add(data); $( "#strain_clone_search_progress" ).fadeOut(); });
+			$( "#strain_sample_id" ).val('');
+			$( "#strain_sample_search" ).val(sampleSearchBoxDefault);
+		},
+		select: function(event, ui) {
+			$( "#bea_code #code input" ).val( ui.item.label );
+			$( "#strain_sample_id" ).val( ui.item.sample_id );
+			$( "#strain_sample_search" ).val( ui.item.sample_code );
+			
+			$( "#strain_taxonomic_class_id" ).val( ui.item.taxonomic_class_id );
+			$( "#strain_genus_id" ).val( ui.item.genus_id );
+			$( "#strain_species_id" ).val( ui.item.species_id );
+			
+			return false;
+		},
+	});
+	
+	
 	// Add a "create" option to taxonomic class, genus, species and authority select elements in strain creation forms
 	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority"];
 	var selectCreateOptionValue = 'create';

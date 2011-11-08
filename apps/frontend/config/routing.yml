@@ -84,6 +84,11 @@ strain_find_samples:
   param:  { module: strain, action: findSamples }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
+strain_find_clone:
+  url:    strain/findClone/:term
+  param:  { module: strain, action: findClone }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
 strain_pagination:
   url:          strain/page/:page
   param:        { module: strain, action: index, page: 1 }

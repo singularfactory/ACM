@@ -142,7 +142,8 @@ a.dna_extraction_strain_numbers_url,
 a.project_strain_numbers_url,
 a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_location_coordinates_url, a.isolation_isolation_subject_url,
 a.label_find_products_url,
-a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url { display: none; }
+a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url,
+a.strain_find_clone_url { display: none; }
 
 #email_address input,
 #username input,
@@ -170,6 +171,18 @@ span.gel_is_valid, span.reaction_worked { color: #005700; }
 #label_product_form { margin: 0px; padding: 0px; }
 
 #report_subject_form { margin: 0px; padding: 0px; }
+
+
+/**
+ * BEA CODE FOR STRAINS, INCLUDING CLONE NUMBERS
+ */
+#bea_code { position: relative; width: 310px; }
+#bea_code div.clear { margin: 0px; padding: 0px; }
+#bea_code #code, #clone_number { margin: 0px; padding: 0px; }
+#bea_code #code { float: left; }
+#clone_number { float:right; }
+#clone_number input { width: 30px; }
+#strain_clone_search_progress { display: none; margin-top: 35px; }
 
 
 /**
