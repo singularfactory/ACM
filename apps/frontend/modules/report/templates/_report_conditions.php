@@ -1,3 +1,4 @@
+<?php if ( $modelToGroupBy && $filters ): ?>
 <div id="report_results_conditions">
 <?php if ( $modelToGroupBy ): ?>
 	<?php $modelToGroupBy = preg_replace('/^is_/', '', $modelToGroupBy) ?>
@@ -51,3 +52,4 @@
 
 <?php endif ?>
 </div>
+<?php endif ?>
