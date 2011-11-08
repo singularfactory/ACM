@@ -117,7 +117,7 @@ class Isolation extends BaseIsolation {
 	}
 	
 	public function getGenusAndSpecies() {
-		return sprintf('%s %s', $this->getFormattedGenus(), $this->getFormattedSpecies());
+		return sprintf('%s %s', $this->getFormattedGenus(), $this->getSpecies());
 	}
 	
 }

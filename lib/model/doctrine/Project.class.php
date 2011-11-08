@@ -13,7 +13,14 @@
 class Project extends BaseProject {
 	
 	public function getCode() {
-		return $this->getStrain()->getFullCode();
+		if ( $sample = $this->getSample() ) {
+			return $sample->getCode();
+		}
+		else if ( $strain = $this->getStrain() ) {
+			return $strain->getFullCode();
+		}
+		
+		return sfConfig::get('app_no_data_message');
 	}
 	
 	public function getInoculationDate() {

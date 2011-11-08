@@ -17,11 +17,13 @@ class projectActions extends MyActions {
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.Strain s")
+				->leftJoin("{$this->mainAlias()}.Strain st")
+				->leftJoin("{$this->mainAlias()}.Sample sa")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp")
-				->leftJoin("{$this->mainAlias()}.Provider p")
+				->leftJoin("{$this->mainAlias()}.Provider pr")
+				->leftJoin("{$this->mainAlias()}.Petitioner pe")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.amount LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
@@ -31,9 +33,12 @@ class projectActions extends MyActions {
 				->orWhere('tc.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
 				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('s.id LIKE ?', "%$text%")
-				->orWhere('p.first_name LIKE ?', "%$text%")
-				->orWhere('p.last_name LIKE ?', "%$text%");
+				->orWhere('st.id LIKE ?', "%$text%")
+				->orWhere('sa.id LIKE ?', "%$text%")
+				->orWhere('pr.first_name LIKE ?', "%$text%")
+				->orWhere('pr.last_name LIKE ?', "%$text%")
+				->orWhere('pe.first_name LIKE ?', "%$text%")
+				->orWhere('pe.last_name LIKE ?', "%$text%");
 						
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
@@ -41,7 +46,8 @@ class projectActions extends MyActions {
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain s")
-				->leftJoin("{$this->mainAlias()}.Provider p")
+				->leftJoin("{$this->mainAlias()}.Provider pr")
+				->leftJoin("{$this->mainAlias()}.Petitioner pe")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp");
@@ -63,11 +69,27 @@ class projectActions extends MyActions {
 		$this->forward404Unless($this->project);
 	}
 	
+	protected function configureFormByProjectSubject(sfForm $form, $subject = 'sample') {
+		$form->setDefault('subject', $subject);
+		switch( $subject ) {
+			case 'strain':
+				unset($form['sample_id']);
+				break;
+				
+			case 'sample':
+			default:
+				unset($form['strain_id']);
+				break;
+		}
+	}
+	
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastProject = $this->getUser()->getAttribute('project.last_object_created') ) {
 			$project = new Project();
 			
 			$project->setStrainId($lastProject->getStrainId());
+			$project->setSampleId($lastProject->getSampleId());
+			$project->setPetitionerId($lastProject->getPetitionerId());
 			
 			$this->form = new ProjectForm($project);
 			$this->getUser()->setAttribute('project.last_object_created', null);
@@ -76,14 +98,25 @@ class projectActions extends MyActions {
 			$this->form = new ProjectForm();
 		}
 		
+		if ( $subject = $request->getParameter('subject') ) {
+			$this->configureFormByProjectSubject($this->form, $subject);
+		}
+		else {
+			$this->configureFormByProjectSubject($this->form);
+		}
+		
 		$this->hasStrains = (StrainTable::getInstance()->count() > 0)?true:false;
+		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 	}
 	
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
 		$this->form = new ProjectForm();
+		$project = $request->getParameter('project');
+		$this->configureFormByProjectSubject($this->form, $project['subject']);
 		$this->hasStrains = (StrainTable::getInstance()->count() > 0)?true:false;
+		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 		
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
@@ -92,15 +125,24 @@ class projectActions extends MyActions {
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($project = ProjectTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object project does not exist (%s).', $request->getParameter('id')));
 		$this->form = new ProjectForm($project);
+		
+		if ( $subject = $request->getParameter('subject') ) {
+			$this->configureFormByProjectSubject($this->form, $subject);
+		}
+		else {
+			$this->configureFormByProjectSubject($this->form, $project->getSubject());
+		}
 	}
 	
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($project = ProjectTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object project does not exist (%s).', $request->getParameter('id')));
+		
 		$this->form = new ProjectForm($project);
-
+		$project = $request->getParameter('project');
+		$this->configureFormByProjectSubject($this->form, $project['subject']);
 		$this->processForm($request, $this->form);
-
+		
 		$this->setTemplate('edit');
 	}
 	

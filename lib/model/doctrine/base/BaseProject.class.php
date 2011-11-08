@@ -8,13 +8,16 @@
  * @property integer $id
  * @property string $name
  * @property integer $petitioner_id
+ * @property enum $subject
  * @property integer $strain_id
+ * @property integer $sample_id
  * @property float $amount
  * @property integer $provider_id
  * @property date $inoculation_date
  * @property string $purpose
  * @property date $delivery_date
  * @property string $remarks
+ * @property Sample $Sample
  * @property Strain $Strain
  * @property sfGuardUser $Provider
  * @property sfGuardUser $Petitioner
@@ -22,26 +25,32 @@
  * @method integer     getId()               Returns the current record's "id" value
  * @method string      getName()             Returns the current record's "name" value
  * @method integer     getPetitionerId()     Returns the current record's "petitioner_id" value
+ * @method enum        getSubject()          Returns the current record's "subject" value
  * @method integer     getStrainId()         Returns the current record's "strain_id" value
+ * @method integer     getSampleId()         Returns the current record's "sample_id" value
  * @method float       getAmount()           Returns the current record's "amount" value
  * @method integer     getProviderId()       Returns the current record's "provider_id" value
  * @method date        getInoculationDate()  Returns the current record's "inoculation_date" value
  * @method string      getPurpose()          Returns the current record's "purpose" value
  * @method date        getDeliveryDate()     Returns the current record's "delivery_date" value
  * @method string      getRemarks()          Returns the current record's "remarks" value
+ * @method Sample      getSample()           Returns the current record's "Sample" value
  * @method Strain      getStrain()           Returns the current record's "Strain" value
  * @method sfGuardUser getProvider()         Returns the current record's "Provider" value
  * @method sfGuardUser getPetitioner()       Returns the current record's "Petitioner" value
  * @method Project     setId()               Sets the current record's "id" value
  * @method Project     setName()             Sets the current record's "name" value
  * @method Project     setPetitionerId()     Sets the current record's "petitioner_id" value
+ * @method Project     setSubject()          Sets the current record's "subject" value
  * @method Project     setStrainId()         Sets the current record's "strain_id" value
+ * @method Project     setSampleId()         Sets the current record's "sample_id" value
  * @method Project     setAmount()           Sets the current record's "amount" value
  * @method Project     setProviderId()       Sets the current record's "provider_id" value
  * @method Project     setInoculationDate()  Sets the current record's "inoculation_date" value
  * @method Project     setPurpose()          Sets the current record's "purpose" value
  * @method Project     setDeliveryDate()     Sets the current record's "delivery_date" value
  * @method Project     setRemarks()          Sets the current record's "remarks" value
+ * @method Project     setSample()           Sets the current record's "Sample" value
  * @method Project     setStrain()           Sets the current record's "Strain" value
  * @method Project     setProvider()         Sets the current record's "Provider" value
  * @method Project     setPetitioner()       Sets the current record's "Petitioner" value
@@ -70,9 +79,19 @@ abstract class BaseProject extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
+        $this->hasColumn('subject', 'enum', null, array(
+             'type' => 'enum',
+             'values' => 
+             array(
+              0 => 'sample',
+              1 => 'strain',
+             ),
+             ));
         $this->hasColumn('strain_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
+             ));
+        $this->hasColumn('sample_id', 'integer', null, array(
+             'type' => 'integer',
              ));
         $this->hasColumn('amount', 'float', null, array(
              'type' => 'float',
@@ -110,6 +129,10 @@ abstract class BaseProject extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Sample', array(
+             'local' => 'sample_id',
+             'foreign' => 'id'));
+
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
              'foreign' => 'id'));

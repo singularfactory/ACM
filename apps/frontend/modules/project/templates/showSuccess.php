@@ -1,8 +1,24 @@
 <?php use_helper('Date'); ?>
 
+<?php if ( $project->getStrain()->exists() ): ?>
+	<?php $strain = $project->getStrain() ?>
+	<?php $code = $strain->getFullCode() ?>
+	<?php $route = "@strain_show?id={$strain->getId()}" ?>
+	<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
+	<?php $genus = $strain->getGenus() ?>
+	<?php $species = $strain->getSpecies() ?>
+<?php elseif( $project->getSample()->exists() ): ?>
+	<?php $sample = $project->getSample() ?>
+	<?php $code = $sample->getCode() ?>
+	<?php $route = "@sample_show?id={$sample->getId()}" ?>
+	<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
+	<?php $genus = sfConfig::get('app_no_data_message') ?>
+	<?php $species = sfConfig::get('app_no_data_message') ?>
+<?php endif ?>
+
 <?php slot('main_header') ?>
 <span>
-	Project transference from strain <?php echo $project->getStrain()->getFullCode() ?>
+	Project transference from <?php echo $project->getSubject() ?> <?php echo $code ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'project')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'project', 'id' => $project->getId())) ?>
@@ -13,8 +29,8 @@
 	<div id="object_data_list">
 		<dl>
 			<?php $strain = $project->getStrain() ?>
-			<dt>Strain:</dt>
-			<dd><?php echo link_to($strain->getFullCode(), "@strain_show?id={$strain->getId()}") ?></dd>
+			<dt>Code:</dt>
+			<dd><?php echo link_to($code, $route) ?></dd>
 			
 			<dt>Name:</dt>
 			<dd><?php echo $project->getName() ?></dd>
@@ -22,17 +38,11 @@
 			<dd><?php echo $project->getPetitioner()->getName() ?></dd>
 			
 			<dt>Class:</dt>
-			<dd><?php echo $strain->getTaxonomicClass() ?></dd>
+			<dd><?php echo $taxonomicClass ?></dd>
 			<dt>Genus:</dt>
-			<dd><span class="species_name"><?php echo $strain->getGenus() ?></span></dd>
+			<dd><span class="species_name"><?php echo $genus ?></span></dd>
 			<dt>Species:</dt>
-			<dd>
-				<?php if ( ($strainSpecies = $strain->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
-					<span class="species_name"><?php echo $strainSpecies ?></span>
-				<?php else: ?>
-					<?php echo $strainSpecies ?>
-				<?php endif; ?>
-			</dd>
+			<dd><span class="species_name"><?php echo $species ?>&nbsp;</span></dd>
 			
 			<dt>Provider:</dt>
 			<dd><?php echo $project->getProvider()->getName() ?></dd>

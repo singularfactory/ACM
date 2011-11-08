@@ -649,7 +649,9 @@ Project:
     id:               { type: integer, primary: true, autoincrement: true }
     name:             { type: string(200), notnull: true }
     petitioner_id:    { type: integer, notnull: true }
-    strain_id:        { type: integer, notnull: true }
+    subject:          { type: enum, values: [sample, strain] }
+    strain_id:        { type: integer }
+    sample_id:        { type: integer }
     amount:           { type: float, notnull: true, default: 0.0 }
     provider_id:      { type: integer }
     inoculation_date: { type: date, notnull: true }
@@ -657,6 +659,7 @@ Project:
     delivery_date:    { type: date }
     remarks:          { type: string }
   relations:
+    Sample:     { foreignAlias: Projects }
     Strain:     { foreignAlias: Projects }
     Provider:   { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
     Petitioner: { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }

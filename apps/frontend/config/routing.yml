@@ -310,6 +310,21 @@ project_search:
   param:        { module: project, action: index }
   requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
+project_filter_by_subject_new:
+  url:          project/new/:subject
+  param:        { module: project, action: new, subject: sample }
+  requirements: { subject: "(sample)|(strain)", sf_method: [get, head] }
+
+project_filter_by_subject_edit:
+  url:          project/:id/edit/:subject
+  param:        { module: project, action: edit, subject: sample }
+  requirements: { subject: "(sample)|(strain)", id: \d+, sf_method: [get, head] }
+
+project_find_samples:
+  url:    project/findSamples/:term
+  param:  { module: project, action: findSamples }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
 project_find_strains:
   url:          project/findStrains/:term
   param:        { module: project, action: findStrains }

@@ -373,6 +373,39 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#project_sample_search').focus(function(){
+		if ( $(this).attr("value") === sampleSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#project_sample_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", sampleSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#project_sample_search').val() !== sampleSearchBoxDefault ) {
+		$('#project_sample_search').css("color", "black");
+		$('#project_sample_search').css("font-size", "12px");
+	}
+	
+	$("#project_sample_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.project_sample_numbers_url').attr('href') + $("#project_sample_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#project_sample_search" ).val( ui.item.label );
+			$( "#project_sample_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
 	
 	// Add a search box for Strain in DnaExtraction, Project and Isolation forms
 	var strainSearchBoxDefault = "Type a strain code...";
@@ -542,6 +575,11 @@ $(document).ready(function(){
 	// Change the Isolation form on demand
 	$("#isolation_isolation_subject").change(function(){
 		location.href = $('a.isolation_isolation_subject_url').attr('href') + $(this).attr('value');
+	});
+	
+	// Change the Project form on demand
+	$("#project_subject").change(function(){
+		location.href = $('a.project_subject_url').attr('href') + $(this).attr('value');
 	});
 	
 	

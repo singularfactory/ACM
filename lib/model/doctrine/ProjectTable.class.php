@@ -18,12 +18,14 @@ class ProjectTable extends Doctrine_Table {
 	public function findByTerm($term = '') {
 		if ( preg_match('/^(BEA)?0*([1-9]\d*)/', $term, $matches) ) {
 			return $this->createQuery('p')
+				->leftJoin('p.Sample sa')
 				->leftJoin('p.Strain st')
-				->where('st.id LIKE ?', "%{$matches[2]}%")
+				->where('sa.id LIKE ?', "%{$matches[2]}%")
+				->orWhere('st.id LIKE ?', "%{$matches[2]}%")
 				->execute();
 		}
 		else {
-			return $this->createQuery('s')->execute();
+			return $this->createQuery('p')->execute();
 		}
 	}
 	

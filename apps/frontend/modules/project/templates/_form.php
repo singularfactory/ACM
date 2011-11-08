@@ -5,6 +5,31 @@
 	<?php echo $form->renderHiddenFields() ?>
   
 	<div id="left_side_form">
+		
+		<div id="subject">
+			<?php echo $form['subject']->renderLabel() ?>
+			<?php echo $form['subject']->renderError() ?>
+			<?php echo $form['subject']->renderHelp() ?>
+			<?php echo $form['subject'] ?>
+			<?php if ( $form->getObject()->isNew() ): ?>
+				<?php $route = '@project_filter_by_subject_new?subject=' ?>
+			<?php else: ?>
+				<?php $route = '@project_filter_by_subject_edit?id='.$form->getObject()->getId().'&subject=' ?>
+			<?php endif; ?>
+			<a href="<?php echo url_for($route) ?>" class="project_subject_url"></a>
+		</div>
+		
+		<?php if ( isset($form['sample_id']) ): ?>
+		<div id="sample_id">
+			<?php echo $form['sample_id']->renderLabel() ?>
+			<?php echo $form['sample_id']->renderError() ?>
+			<?php echo $form['sample_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew() || !$form->getObject()->getSample()->exists())?'Type a sample code...':$form->getObject()->getSample()->getCode(); ?>" id="project_sample_search" />
+			<a href="<?php echo url_for('@project_find_samples?term=') ?>" class="project_sample_numbers_url"></a>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( isset($form['strain_id']) ): ?>
 		<div id="strain_id">
 			<?php echo $form['strain_id']->renderLabel() ?>
 			<?php echo $form['strain_id']->renderError() ?>
@@ -12,6 +37,7 @@
 			<input type="text" value="<?php echo ($form->isNew())?'Type a strain code...':$form->getObject()->getStrain()->getFullCode(); ?>" id="project_strain_search" />
 			<a href="<?php echo url_for('@project_find_strains?term=') ?>" class="project_strain_numbers_url"></a>
 		</div>
+		<?php endif ?>
 		
 		<div id="name">
 			<?php echo $form['name']->renderLabel() ?>
