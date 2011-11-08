@@ -26,6 +26,7 @@ class ProjectForm extends BaseProjectForm {
 		
 		// Configure labels
 		$this->widgetSchema->setLabel('strain_id', 'Strain code');
+		$this->widgetSchema->setLabel('provider_id', 'Petitioner');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('amount', 'Amount of strain inoculation');

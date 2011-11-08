@@ -16,6 +16,7 @@ abstract class BaseProjectForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'               => new sfWidgetFormInputHidden(),
+      'name'             => new sfWidgetFormInputText(),
       'strain_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => false)),
       'amount'           => new sfWidgetFormInputText(),
       'provider_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'), 'add_empty' => false)),
@@ -29,6 +30,7 @@ abstract class BaseProjectForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'name'             => new sfValidatorString(array('max_length' => 200)),
       'strain_id'        => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'))),
       'amount'           => new sfValidatorNumber(array('required' => false)),
       'provider_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Provider'))),

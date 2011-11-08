@@ -12,10 +12,11 @@
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Strain', '@project?sort_column=Strain.id&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@project?sort_column=name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Class', '@project?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Name', '@project?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Genus', '@project?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Inoculation date', '@project?sort_column=inoculation_date&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Provider', '@project?sort_column=Provider.name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Petitioner', '@project?sort_column=Provider.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Delivery date', '@project?sort_column=delivery_date&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
@@ -25,6 +26,7 @@
 			<?php $url = url_for('@project_show?id='.$project->getId()) ?>
 			<?php $strain = $project->getStrain() ?>
 			<td class="project_strain_code"><?php echo link_to($strain->getFullCode(), $url) ?></td>
+			<td class="project_name"><?php echo link_to($project->getName(), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 			<?php
 				$strainName = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
@@ -35,7 +37,7 @@
 					$strainName .= $strain->getSpecies();
 				}
 			?>
-			<td class="project_name"><?php echo link_to($strainName, $url) ?></td>
+			<td class="genus_name"><?php echo link_to($strainName, $url) ?></td>
 			<td class="date inoculation_date"><?php echo link_to($project->getInoculationDate(), $url) ?></td>
 			<td class="provider_name"><?php echo link_to($project->getProvider()->getName(), $url) ?></td>
 			<td class="date delivery_date"><?php echo link_to($project->getDeliveryDate(), $url) ?></td>

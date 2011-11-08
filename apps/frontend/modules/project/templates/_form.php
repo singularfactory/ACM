@@ -13,6 +13,13 @@
 			<a href="<?php echo url_for('@project_find_strains?term=') ?>" class="project_strain_numbers_url"></a>
 		</div>
 		
+		<div id="name">
+			<?php echo $form['name']->renderLabel() ?>
+			<?php echo $form['name']->renderError() ?>
+			<?php echo $form['name']->renderHelp() ?>
+			<?php echo $form['name'] ?>
+		</div>
+		
 		<div id="provider_id">
 			<?php echo $form['provider_id']->renderLabel() ?>
 			<?php echo $form['provider_id']->renderError() ?>

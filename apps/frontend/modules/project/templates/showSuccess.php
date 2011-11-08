@@ -16,6 +16,9 @@
 			<dt>Strain:</dt>
 			<dd><?php echo link_to($strain->getFullCode(), "@strain_show?id={$strain->getId()}") ?></dd>
 			
+			<dt>Name:</dt>
+			<dd><?php echo $project->getName() ?></dd>
+			
 			<dt>Class:</dt>
 			<dd><?php echo $strain->getTaxonomicClass() ?></dd>
 			<dt>Genus:</dt>
@@ -30,7 +33,7 @@
 			</dd>
 			<dt>Inoculation date:</dt>
 			<dd><?php echo $project->getInoculationDate() ?></dd>
-			<dt>Provider:</dt>
+			<dt>Petitioner:</dt>
 			<dd><?php echo $project->getProvider()->getName() ?></dd>
 			<dt>Amount:</dt>
 			<dd><?php echo $project->getFormattedAmount() ?></dd>

@@ -647,6 +647,7 @@ PurchaseItem:
 Project:
   columns:
     id:               { type: integer, primary: true, autoincrement: true }
+    name:             { type: string(200), notnull: true }
     strain_id:        { type: integer, notnull: true }
     amount:           { type: float, notnull: true, default: 0.0 }
     provider_id:      { type: integer, notnull: true }
