@@ -202,6 +202,7 @@ class strainActions extends MyActions {
   public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
 		$this->form = new StrainForm($strain);
+		$this->sampleCode = $strain->getSample()->getCode();
   }
 
   public function executeUpdate(sfWebRequest $request) {
