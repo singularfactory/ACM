@@ -84,15 +84,15 @@ class strainActions extends MyActions {
 	public function executeFindClone(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			
-			$strain = StrainTable::getInstance()->createQuery('s')
-				->where('s.code = ?', $request->getParameter('term'))
+			$strains = StrainTable::getInstance()->createQuery('s')
+				->where('s.code LIKE ?', '%'.$request->getParameter('term').'%')
 				->andWhere('s.clone_number IS NULL')
-				->fetchOne();
+				->execute();
 			
 			$data = array();
-			if ( $strain ) {
+			foreach ($strains as $strain) {
 				$data[] = array(
-					'label' => $strain->getId(),
+					'label' => $strain->getCode(),
 					'sample_code' => $strain->getSample()->getCode(),
 					'sample_id' => $strain->getSampleId(),
 					'taxonomic_class_id' => $strain->getTaxonomicClassId(),
@@ -141,7 +141,16 @@ class strainActions extends MyActions {
 	}
 	
   public function executeNew(sfWebRequest $request) {
-		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
+		
+		$lastStrain = false;
+		if ( $request->hasParameter('id') ) {
+			$lastStrain = StrainTable::getInstance()->find(array($request->getParameter('id')));
+		}
+		elseif ( $this->getUser()->hasAttribute('strain.last_object_created') ) {
+			$lastStrain = $this->getUser()->getAttribute('strain.last_object_created');
+		}
+		
+		if ( $lastStrain ) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSampleId());
 			$strain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
@@ -192,7 +201,7 @@ class strainActions extends MyActions {
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
 		$this->hasCryopreservationMethods = (Doctrine::getTable('CryopreservationMethod')->count() > 0)?true:false;
 		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
-		$this->sampleCode = null;
+		$this->sampleCode = ($request->hasParameter('strain_sample_search')) ? $request->getParameter('strain_sample_search') : null;
 
     $this->processForm($request, $this->form);
 

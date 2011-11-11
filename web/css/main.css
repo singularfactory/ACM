@@ -338,6 +338,11 @@ div.http_error a {
 #main_header #main_header_action_delete a:hover {
 	background: url(../images/delete.png) no-repeat 0 center;
 }
+#main_header #main_header_action_create_from_template a:link,
+#main_header #main_header_action_create_from_template a:visited,
+#main_header #main_header_action_create_from_template a:hover {
+	background: url(../images/new.png) no-repeat 0 center;
+}
 
 #main_header #search_box { margin: -3px 0px 0px 5px; padding: 0px; }
 #main_header #search_box input { margin: 0px; padding: 3px; color: #888; width: 150px; }

@@ -510,10 +510,14 @@ $(document).ready(function(){
 	
 	
 	// Add a search box for Strain clones
+	var strainIsClone = false;
 	$("#bea_code #code input").blur(function(){
-		if ( $(this).val().length == 0 ) {
+		if ( $(this).val().length == 0 && strainIsClone ) {
 			$( "#strain_sample_id" ).val('');
 			$( "#strain_sample_search" ).val(sampleSearchBoxDefault);
+			$('#strain_sample_search').css("color", "888");
+			$('#strain_sample_search').css("font-size", "11px");
+			strainIsClone = false;
 		}
 	});
 	$("#bea_code #code input").autocomplete({
@@ -522,18 +526,20 @@ $(document).ready(function(){
 			var url = $('a.strain_find_clone_url').attr('href') + $("#bea_code #code input").val();
 			$( "#strain_clone_search_progress" ).fadeIn();
 			$.getJSON(url, function(data){ add(data); $( "#strain_clone_search_progress" ).fadeOut(); });
-			$( "#strain_sample_id" ).val('');
-			$( "#strain_sample_search" ).val(sampleSearchBoxDefault);
 		},
 		select: function(event, ui) {
 			$( "#bea_code #code input" ).val( ui.item.label );
-			$( "#strain_sample_id" ).val( ui.item.sample_id );
-			$( "#strain_sample_search" ).val( ui.item.sample_code );
 			
 			$( "#strain_taxonomic_class_id" ).val( ui.item.taxonomic_class_id );
 			$( "#strain_genus_id" ).val( ui.item.genus_id );
 			$( "#strain_species_id" ).val( ui.item.species_id );
 			
+			$( "#strain_sample_id" ).val( ui.item.sample_id );
+			$( "#strain_sample_search" ).val( ui.item.sample_code );
+			$('#strain_sample_search').css("color", "black");
+			$('#strain_sample_search').css("font-size", "12px");
+			
+			strainIsClone = true;
 			return false;
 		},
 	});

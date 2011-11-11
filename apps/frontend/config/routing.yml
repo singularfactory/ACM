@@ -109,6 +109,11 @@ strain_update_isolators_order:
   param:        { module: strain, action: updateIsolatorsOrder }
   requirements: { sf_method: post, strain_id: \d+ }
 
+strain_create_from_template:
+  url:          strain/new/:id
+  param:        { module: strain, action: new }
+  requirements: { sf_method: [get, head], id: \d+ }
+
 
 ###
 # CultureMedium model related routes

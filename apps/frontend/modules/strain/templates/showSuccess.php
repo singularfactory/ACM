@@ -11,6 +11,7 @@
 	<?php endif; ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'strain')) ?>
+<?php include_partial('global/create_from_template_header_action', array('module' => 'strain', 'id' => $strain->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'strain', 'id' => $strain->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'strain', 'id' => $strain->getId())) ?>
 <?php end_slot() ?>
