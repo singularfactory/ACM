@@ -89,7 +89,7 @@ td.date { width: 100px; }
 td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject { width: 120px; }
 td.dna_extraction_code, td.sample_code { width: 135px; }
 td.isolation_code, td.project_code { width: 150px; }
-td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
+td.petitioner_name, th.petitioner_name td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
 td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.reception_date, td.delivery_date, td.purification_method { width: 150px; }
 td.strain_name, td.isolation_name { width: 240px; }
@@ -99,7 +99,7 @@ td.location_name { width: 300px; }
 td.taxonomic_class_name, td.inoculation_date { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount, td.is_public { width: 80px; }
-td.notification_date, td.purchase_order_date, td.extraction_date { width: 130px; }
+td.project_inoculation_date, td.notification_date, td.purchase_order_date, td.extraction_date { width: 130px; }
 td.purchase_order_items { width: 100px; }
 td.purchase_order_status, td.purchase_item_status { width: 100px; }
 td.purchase_order_code { width: 150px; }

@@ -104,14 +104,14 @@
 			<table>
 				<tr>
 					<th class="project_inoculation_date">Date</th>
-					<th class="provider_name">Provider</th>
+					<th class="petitioner_name">Petitioner</th>
 					<th class="project_amount">Amount (<?php echo sfConfig::get('app_project_amount_unit') ?>)</th>
 				</tr>
 				<?php foreach ($strain->getProjects() as $project ): ?>
 					<?php $url = '@project_show?id='.$project->getId() ?>
 					<tr>
 						<td class="project_inoculation_date"><?php echo link_to($project->getInoculationDate(), $url) ?></td>
-						<td class="provider_name"><?php echo link_to($project->getProvider()->getName(), $url) ?></td>
+						<td class="petitioner_name"><?php echo link_to($project->getPetitioner()->getName(), $url) ?></td>
 						<td class="project_amount"><?php echo link_to($project->getAmount(), $url) ?></td>
 					</tr>
 				<?php endforeach ?>
