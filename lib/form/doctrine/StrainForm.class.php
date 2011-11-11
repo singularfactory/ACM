@@ -20,7 +20,7 @@ class StrainForm extends BaseStrainForm {
 			unset($this['container_id']);
 		}
 				
-		// Configure sample code (commented out to temporarily allow NULL values)
+		// Configure sample code
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
 		
 		// Configure date formats
@@ -33,6 +33,13 @@ class StrainForm extends BaseStrainForm {
 			'multiple' => true,
 			'model' => 'CultureMedium',
 			'method' => 'getName',
+		)));
+		
+		// Configure list of isolators
+		$this->setWidget('isolators_list', new sfWidgetFormDoctrineChoice(array(
+			'model' => 'Isolator',
+			'method' => 'getFullName',
+			'multiple' => true,
 		)));
 		
 		// Calculate maximum number of images the user can upload
@@ -108,8 +115,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
   }
-
-
+	
 	public function checkCryopreservedStatusHasMethod($validator, $values) {
 		if ( !isset($values['maintenance_status_list']) ) {
 			return $values;

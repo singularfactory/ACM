@@ -15,6 +15,10 @@ class Isolator extends BaseIsolator {
 		return $this->getName().' '.$this->getSurname();
 	}
 	
+	public function getFullName() {
+		return $this->__toString();
+	}
+	
 	public function getNbStrains() {
 		return Doctrine_Query::create()
 			->from('StrainIsolators s')

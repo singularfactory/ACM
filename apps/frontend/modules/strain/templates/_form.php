@@ -89,7 +89,6 @@
 			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
 		
-		
 		<?php if ( isset($form['container_id']) ): ?>
 		<div id="container">
 			<?php echo $form['container_id']->renderLabel() ?>
@@ -121,7 +120,7 @@
 			<?php echo $form['cryopreservation_method_id'] ?>
 		</div>
 		
-		<div id="isolators" class="list_field">
+		<div id="isolators_list" class="list_field">
 			<?php echo $form['isolators_list']->renderLabel() ?>
 			<?php echo $form['isolators_list']->renderError() ?>
 			<?php echo $form['isolators_list']->renderHelp() ?>

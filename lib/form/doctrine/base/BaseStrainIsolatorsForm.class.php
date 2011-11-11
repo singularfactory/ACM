@@ -17,6 +17,7 @@ abstract class BaseStrainIsolatorsForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'strain_id'   => new sfWidgetFormInputHidden(),
       'isolator_id' => new sfWidgetFormInputHidden(),
+      'sort_order'  => new sfWidgetFormInputText(),
       'created_at'  => new sfWidgetFormDateTime(),
       'updated_at'  => new sfWidgetFormDateTime(),
     ));
@@ -24,9 +25,14 @@ abstract class BaseStrainIsolatorsForm extends BaseFormDoctrine
     $this->setValidators(array(
       'strain_id'   => new sfValidatorChoice(array('choices' => array($this->getObject()->get('strain_id')), 'empty_value' => $this->getObject()->get('strain_id'), 'required' => false)),
       'isolator_id' => new sfValidatorChoice(array('choices' => array($this->getObject()->get('isolator_id')), 'empty_value' => $this->getObject()->get('isolator_id'), 'required' => false)),
+      'sort_order'  => new sfValidatorInteger(),
       'created_at'  => new sfValidatorDateTime(),
       'updated_at'  => new sfValidatorDateTime(),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'StrainIsolators', 'column' => array('strain_id', 'isolator_id', 'sort_order')))
+    );
 
     $this->widgetSchema->setNameFormat('strain_isolators[%s]');
 

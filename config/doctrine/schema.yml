@@ -242,8 +242,11 @@ StrainIsolators:
   columns:
     strain_id:    { type: integer, primary: true }
     isolator_id:  { type: integer, primary: true }
+    sort_order:   { type: integer, notnull: true }
   relations:
     Strain:       { onDelete: cascade }
+  indexes:
+    unique_order:  { fields: [strain_id, isolator_id, sort_order], type: unique }  
 
 
 Identifier:
@@ -419,7 +422,7 @@ Strain:
     Genus:                  { foreignAlias: Strains }
     Species:                { foreignAlias: Strains }
     Authority:              { foreignAlias: Strains }
-    Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators }
+    Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators, orderBy: sort_order }
     Identifier:             { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
     Container:              { foreignAlias: Strains }

@@ -106,6 +106,40 @@ class strainActions extends MyActions {
 		return sfView::NONE;
 	}
 	
+	/**
+	 * Reorder the list of isolators of a strain
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with strain id and code
+	 * @author Eliezer Talon
+	 * @version 2011-11-10
+	*/
+	public function executeUpdateIsolatorsOrder(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			try {
+				$table = StrainIsolatorsTable::getInstance();
+				$order = 0;
+				$strainId = $request->getParameter('strain_id');
+				
+				foreach ( $request->getParameter('isolators') as $id ) {
+					$table->createQuery('si')
+						->update()
+						->set('si.sort_order', $order++)
+						->where('si.isolator_id = ?', $id)
+						->andWhere('si.strain_id = ?', $strainId)
+						->execute();
+				}
+				
+				$this->getResponse()->setContent('');
+			}
+			catch (Exception $e) {
+				$this->getResponse()->setContent($e->getMessage());
+			}
+			
+		}
+		return sfView::NONE;
+	}
+	
   public function executeNew(sfWebRequest $request) {
 		if ( $lastStrain = $this->getUser()->getAttribute('strain.last_object_created') ) {
 			$strain = new Strain();
@@ -183,6 +217,27 @@ class strainActions extends MyActions {
   protected function processForm(sfWebRequest $request, sfForm $form) {
 		$taintedValues = $request->getParameter($form->getName());
 		
+		// Keep track of isolators
+		$isolatorsOrder = array();
+		if ( isset($taintedValues['isolators_list']) ) {
+			if ( $form->getObject()->isNew() ) {
+				$order = 0;
+				foreach ( $taintedValues['isolators_list'] as $id ) {
+					$isolatorsOrder[$id] = $order++;
+				}
+			}
+			else {
+				$strainId = $form->getObject()->getId();
+				$table = StrainIsolatorsTable::getInstance();
+				$nextOrder = $table->createQuery('si')->select('MAX(si.sort_order) as order')->where('si.strain_id = ?', $strainId)->fetchOne()->order + 1;
+				foreach ( $taintedValues['isolators_list'] as $id ) {
+					if ( $table->createQuery('si')->where('si.isolator_id = ?', $id)->andWhere('si.strain_id = ?', $strainId)->count() <= 0 ) {
+						$isolatorsOrder[$id] = $nextOrder++;
+					}
+				}
+			}
+		}
+				
 		// Look for related models embedded forms
 		$relatedModels = array('taxonomic_class', 'genus', 'species', 'authority');
 		foreach ( $relatedModels as $modelName ) {
@@ -250,8 +305,30 @@ class strainActions extends MyActions {
 			
 			// Save object
 			$strain = null;
+			$dbConnection = Doctrine_Manager::connection();
 			try {
+				$dbConnection->beginTransaction();
 				$strain = $form->save();
+				
+				// Initialize sort_order of new records in StrainIsolator
+				foreach ( $isolatorsOrder as $id => $order ) {
+					StrainIsolatorsTable::getInstance()->createQuery('si')
+						->update()
+						->set('si.sort_order', $order)
+						->where('si.isolator_id = ?', $id)
+						->andWhere('si.strain_id = ?', $strain->getId())
+						->execute();
+				}
+				
+				// Normalize sort_order values
+				$isolators = StrainIsolatorsTable::getInstance()->createQuery('si')->where('si.strain_id = ?', $strain->getId())->orderBy('si.sort_order')->execute();
+				$order = 0;
+				foreach ($isolators as $isolator) {
+					$isolator->setSortOrder($order++);
+					$isolator->save();
+				}
+					
+				$dbConnection->commit();
 				
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Strain created successfully. Now you can add another one';
@@ -273,6 +350,7 @@ class strainActions extends MyActions {
 				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_strain_pictures_dir'));
 			}
 			catch (Exception $e) {
+				$dbConnection->rollback();
 				$message = $e->getMessage();
 			}
 			

@@ -264,7 +264,8 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasMany('Isolator as Isolators', array(
              'refClass' => 'StrainIsolators',
              'local' => 'strain_id',
-             'foreign' => 'isolator_id'));
+             'foreign' => 'isolator_id',
+             'orderBy' => 'sort_order'));
 
         $this->hasOne('Identifier', array(
              'local' => 'identifier_id',

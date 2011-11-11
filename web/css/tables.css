@@ -61,6 +61,12 @@ div.object_related_model_list { padding-top: 0px; margin: 0px 0px 32px 0px; over
 div.object_related_model_list table { margin: 0px; padding: 0px; width: 578px; }
 div.object_related_model_list th, div.object_related_model_list td { font-size: 11px; }
 
+a.strain_isolators_list_url { display: none; }
+#strain_isolators_list tr:hover td { cursor: move; }
+#strain_isolators_list tr td.isolator_id, #strain_isolators_list tr th.isolator_id { display: none; }
+#strain_isolators_list tr td.isolator_name { width: auto; min-width: 470px; }
+#strain_isolators_list tr td.object_count_long { width: auto; width: 100px; }
+
 
 /**
 * GOOGLE MAPS IN SHOW ACTION

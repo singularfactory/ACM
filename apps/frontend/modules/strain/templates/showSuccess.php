@@ -41,17 +41,24 @@
 		<?php if ( $nbIsolators > 0): ?>
 		<div class="object_related_model_list">
 			<h2>Isolators</h2>
-			<table>
+			<a href="<?php echo url_for('@strain_update_isolators_order?strain_id='.$strain->getId()) ?>" class="strain_isolators_list_url"></a>
+			<table id="strain_isolators_list">
+				<thead>
 				<tr>
+					<th class="isolator_id">Id</th>
 					<th class="isolator_name">Name</th>
 					<th class="object_count_long">Total strains</th>
 				</tr>
-				<?php foreach ($strain->getIsolators() as $isolator ): ?>
-				<tr>
-					<td class="isolator_name"><?php echo $isolator->getName() ?> <?php echo $isolator->getSurname() ?></td>
-					<td class="object_count_long"><?php echo $isolator->getNbStrains() ?></span></td>
-				</tr>
-			<?php endforeach ?>
+				</thead>
+				<tbody>
+					<?php foreach ($strain->getIsolators() as $isolator ): ?>
+					<tr>
+						<td class="isolator_id"><?php echo $isolator->getId() ?></td>
+						<td class="isolator_name"><?php echo $isolator->getName() ?> <?php echo $isolator->getSurname() ?></td>
+						<td class="object_count_long"><?php echo $isolator->getNbStrains() ?></span></td>
+					</tr>
+					<?php endforeach ?>
+				</tbody>
 			</table>
 		</div>
 		<?php endif ?>

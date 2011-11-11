@@ -104,6 +104,11 @@ strain_new_related_model_form:
   param:        { module: strain, action: newRelatedModelEmbeddedForm }
   requirements: { sf_method: get, related_model: "[^/]+" }
 
+strain_update_isolators_order:
+  url:          strain/update_isolators_order/:strain_id
+  param:        { module: strain, action: updateIsolatorsOrder }
+  requirements: { sf_method: post, strain_id: \d+ }
+
 
 ###
 # CultureMedium model related routes
