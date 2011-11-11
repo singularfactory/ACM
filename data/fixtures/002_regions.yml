@@ -73,8 +73,6 @@ Region:
   PT-07: { code: 07, name: "Évora", Country: [PT] }
   CV-BV: { code: BV, name: "Boa Vista", Country: [CV] }
   CV-BR: { code: BR, name: "Brava", Country: [CV] }
-  CV-B: { code: B, name: "Ilhas de Barlavento", Country: [CV] }
-  CV-S: { code: S, name: "Ilhas de Sotavento", Country: [CV] }
   CV-MA: { code: MA, name: "Maio", Country: [CV] }
   CV-MO: { code: MO, name: "Mosteiros", Country: [CV] }
   CV-PA: { code: PA, name: "Paul", Country: [CV] }
@@ -83,12 +81,13 @@ Region:
   CV-RB: { code: RB, name: "Ribeira Brava", Country: [CV] }
   CV-RG: { code: RG, name: "Ribeira Grande", Country: [CV] }
   CV-RS: { code: RS, name: "Ribeira Grande de Santiago", Country: [CV] }
+  CV-SL: { code: SL, name: "Sal", Country: [CV] }
   CV-CA: { code: CA, name: "Santa Catarina", Country: [CV] }
   CV-CF: { code: CF, name: "Santa Catarina do Fogo", Country: [CV] }
   CV-CR: { code: CR, name: "Santa Cruz", Country: [CV] }
   CV-SD: { code: SD, name: "São Domingos", Country: [CV] }
   CV-SF: { code: SF, name: "São Filipe", Country: [CV] }
-  CV-SL: { code: SL, name: "São Lourenço dos Órgãos", Country: [CV] }
+  CV-SL2: { code: SL, name: "São Lourenço dos Órgãos", Country: [CV] }
   CV-SM: { code: SM, name: "São Miguel", Country: [CV] }
   CV-SS: { code: SS, name: "São Salvador do Mundo", Country: [CV] }
   CV-SV: { code: SV, name: "São Vicente", Country: [CV] }
