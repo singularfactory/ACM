@@ -89,8 +89,7 @@ class Version29 extends Doctrine_Migration_Base {
 		));
 		$this->createTable('maintenance_status', array(
 			'id' => array('type' => 'integer','primary' => '1','autoincrement' => '1','length' => '8',),
-			'name' => array('type' => 'enum',
-			'values' => array(0 => 'Liquid',1 => 'Solid',2 => 'Cryopreserved',),'length' => '',),
+			'name' => array('type' => 'enum','values' => array(0 => 'Liquid',1 => 'Solid',2 => 'Cryopreserved',),'length' => '',),
 			'created_at' => array('notnull' => '1','type' => 'timestamp','length' => '25',),
 			'updated_at' => array('notnull' => '1','type' => 'timestamp','length' => '25',),
 			),

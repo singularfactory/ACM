@@ -1,0 +1,36 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           MaintenanceStatus
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          maintenance_status
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields: ~
+      list:
+        title: Maintenance status
+        display: [name, updated_at]
+        fields:
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: [name, asc]
+      filter:
+        display: [name]
+      form:
+        fields:
+          name:
+            help: Status of preservation of strains. This will appear in application lists
+        display:  [name]
+      edit:
+        title: Edit "%%name%%" status
+      new:
+        title: Create a new maintenance status

@@ -59,10 +59,7 @@
 						<?php echo link_to('Sampling', '@radiation', (preg_match('/^(radiation|habitat|environment|purification_method)_?|homepage/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
-						<?php echo link_to('Cryopreservation', '@cryopreservation_method', (preg_match('/^(cryopreservation_method)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
-					</li>
-					<li>
-						<?php echo link_to('Containers', '@container', (preg_match('/^(container)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Strains maintenance', '@maintenance_status', (preg_match('/^(maintenance_status|cryopreservation_method|container)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -97,6 +94,12 @@
 			<?php if ( preg_match('/^(country|region|island)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/location_sections', array('route' => $route)) ?>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ( preg_match('/^(maintenance_status|cryopreservation_method|container)_?/', $route) ): ?>
+			<div id="subsections_header">
+				<?php include_partial('global/maintenance_sections', array('route' => $route)) ?>
 			</div>
 			<?php endif; ?>
 			

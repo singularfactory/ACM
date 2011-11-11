@@ -267,7 +267,7 @@ Identifier:
 MaintenanceStatus:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: enum, values: [Liquid, Solid, Cryopreserved] }
+    name:     { type: string(127), notnull: true }
   indexes:
     maintenance_status_name:
       fields:
