@@ -73,7 +73,6 @@ class StrainForm extends BaseStrainForm {
 		));
 		
 		// Configure custom validators
-		$this->setValidator('id', new sfValidatorString(array('max_length' => 4, 'required' => false)));
 		$this->setValidator('code', new sfValidatorString(array('max_length' => 4, 'required' => true)));
 		
 		// (commented out to temporarily allow NULL values)
