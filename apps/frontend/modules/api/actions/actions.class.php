@@ -575,6 +575,20 @@ class apiActions extends GreenhouseAPI {
 			$catalog['maintenance_status'][$status->getId()] = $status->getName();
 		}
 		unset($status);
+		
+		// Get DNA extractions
+		$catalog['dna_extraction'] = array();
+		foreach ( DnaExtractionTable::getInstance()->findByIsPublic(1) as $extraction ) {
+			$catalog['dna_extraction'][$extraction->getId()] = array(
+				'arrival_date' => $extraction->getArrivalDate(),
+				'extraction_date' => $extraction->getExtractionDate(),
+				'extraction_method' => $extraction->getExtractionKit(),
+				'concentration' => $extraction->getConcentration(),
+				'260_280_ratio' => $extraction->getFormatted260280Ratio(),
+				'260_230_ratio' => $extraction->getFormatted260230Ratio(),
+			);
+		}
+		unset($extraction);
 				
 		// Get strains
 		foreach ( StrainTable::getInstance()->findByIsPublic(1) as $strain ) {
@@ -584,8 +598,8 @@ class apiActions extends GreenhouseAPI {
 				'isolators' => array(),
 				'maintenance_status' => array(),
 				'relatives' => array(),
-				'location' => $locations[$strain->getSample()->getLocationId()],
-				'habitat' => $habitats[$strain->getSample()->getHabitatId()],
+				'location' => ($strain->getSampleId()) ? $locations[$strain->getSample()->getLocationId()] : null,
+				'habitat' => ($strain->getSampleId()) ? $habitats[$strain->getSample()->getHabitatId()] : null,
 				'is_epitype' => $strain->getIsEpitype(),
 				'is_axenic' => $strain->getIsAxenic(),
 				'taxonomic_class' => $strain->getTaxonomicClass()->getName(),
@@ -602,8 +616,8 @@ class apiActions extends GreenhouseAPI {
 				'web_notes' => $strain->getWebNotes(),
 				'container' => $strain->getContainer()->getName(),
 				'depositor' => sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname()),
-				'has_dna' => ($strain->hasDna() > 0),
-				'aliquots' => $strain->getDnaAmount(),
+				'has_dna' => $strain->publicHasDna(),
+				'aliquots' => $strain->getPublicDnaAmount(),
 			);
 			
 			// Get relatives of this strain
@@ -624,6 +638,11 @@ class apiActions extends GreenhouseAPI {
 			// Get maintenance statuses of this strain
 			foreach ( $strain->getMaintenanceStatus() as $status ) {
 				$record['maintenance_status'][] = $status->getId();
+			}
+			
+			// Get DNA extractions of this strain
+			foreach ( $strain->getDnaExtractions() as $extraction ) {
+				$record['dna_extractions'][] = $extraction->getId();
 			}
 			
 			$catalog['strain'][$strain->getId()] = $record;

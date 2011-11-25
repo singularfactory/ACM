@@ -96,6 +96,13 @@ class Strain extends BaseStrain {
 		return false;
 	}
 	
+	public function publicHasDna() {
+		if ( count(DnaExtractionTable::getInstance()->findByIsPublicAndStrainId(1, $this->getId())) > 0 ) {
+			return true;
+		}
+		return false;
+	}
+	
 	public function getFormattedIsEpitype() {
 		if ( $this->getIsEpitype() ) {
 			return 'yes';
@@ -145,6 +152,18 @@ class Strain extends BaseStrain {
 		return sfConfig::get('app_no_data_message');
 	}
 	
+	public function getPublicAliquots() {
+		$aliquots = 0;
+		foreach ($this->getDnaExtractions() as $dnaExtraction) {
+			if ( $dnaExtraction->getIsPublic() ) {
+				$aliquots += $dnaExtraction->getAliquots();
+			}
+			
+		}
+		
+		return $aliquots;
+	}
+	
 	public function getAliquots() {
 		$aliquots = 0;
 		foreach ($this->getDnaExtractions() as $dnaExtraction) {
@@ -156,6 +175,10 @@ class Strain extends BaseStrain {
 	
 	public function getDnaAmount() {
 		return $this->getAliquots();
+	}
+	
+	public function getPublicDnaAmount() {
+		return $this->getPublicAliquots();
 	}
 	
 	public function getFormattedIsolationDate() {
