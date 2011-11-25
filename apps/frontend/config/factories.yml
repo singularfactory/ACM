@@ -41,7 +41,7 @@ all:
   storage:
     class: sfSessionStorage
     param:
-      session_name: bea_greenhouse
+      session_name: bea_acm
 
   view_cache_manager:
     class: sfViewCacheManager

@@ -3,7 +3,7 @@ default:
     content-type: text/html
 
   metas:
-    title:        Banco Español de Algas | Green House
+    title:        Banco Español de Algas | Algae Culture Management
     description:  Algae cultures management of Banco Español de Algas
     keywords:     algae, bna, bea, banco, nacional, algas, español, marine, biotechnology, strains, culture
     language:     en
