@@ -700,11 +700,10 @@ class apiActions extends GreenhouseAPI {
 		Barcode::gd($im, $black, $x, $y, 0, 'codabar', array('code' => $code), 2, $height);
 				
 		// Set response and content
-		$this->getResponse()->setContentType('image/png');
-		$view = $this->requestExitStatus(self::RequestSuccess, imagepng($im));
+		header('Content-type: image/png');
+		imagepng($im);
 		imagedestroy($im);
-		
-		return $view;
+		exit();
 	}
 	
 }
