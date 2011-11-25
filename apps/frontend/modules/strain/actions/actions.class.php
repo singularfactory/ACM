@@ -55,6 +55,7 @@ class strainActions extends MyActions {
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
+		
 		$this->pager->setQuery($query);
 		$this->pager->init();
 		
@@ -62,7 +63,7 @@ class strainActions extends MyActions {
 		$this->getUser()->setAttribute('strain.index_page', $request->getParameter('page'));
 		
 		// Add a form to filter results
-		$this->form = new StrainForm();
+		$this->form = new StrainForm(array(), array('search' => true));
   }
 	
   public function executeShow(sfWebRequest $request) {

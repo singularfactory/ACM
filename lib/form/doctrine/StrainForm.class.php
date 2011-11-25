@@ -11,6 +11,11 @@
 class StrainForm extends BaseStrainForm {
   
 	public function configure() {
+		// Skip the whole configuration if this a search form 
+		if ( $this->getOption('search') ) {
+			return;
+		}
+		
 		// Unset select fields that do not have values
 		if ( IdentifierTable::getInstance()->count() == 0 ) {
 			unset($this['identifier_id']);
