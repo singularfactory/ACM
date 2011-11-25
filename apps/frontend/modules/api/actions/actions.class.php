@@ -519,31 +519,31 @@ class apiActions extends GreenhouseAPI {
 		
 		// Get referenced models
 		$habitats = array();
-		foreach ( HabitatTable::getInstance()->createQuery('h')->innerJoin('h.Samples')->execute() as $habitat ) {
+		foreach ( HabitatTable::getInstance()->createQuery('h')->select('DISTINCT h.*')->innerJoin('h.Samples')->execute() as $habitat ) {
 			$habitats[$habitat->getId()] = $habitat->getName();
 		}
 		unset($habitat);
 		
 		$countries = array();
-		foreach ( CountryTable::getInstance()->createQuery('c')->innerJoin('c.Locations')->execute() as $country ) {
+		foreach ( CountryTable::getInstance()->createQuery('c')->select('DISTINCT c.*')->innerJoin('c.Locations')->execute() as $country ) {
 			$countries[$country->getId()] = $country->getName();
 		}
 		unset($country);
 		
 		$regions = array();
-		foreach ( RegionTable::getInstance()->createQuery('r')->innerJoin('r.Locations')->execute() as $region ) {
+		foreach ( RegionTable::getInstance()->createQuery('r')->select('DISTINCT r.*')->innerJoin('r.Locations')->execute() as $region ) {
 			$regions[$region->getId()] = $region->getName();
 		}
 		unset($region);
 		
 		$islands = array();
-		foreach ( IslandTable::getInstance()->createQuery('i')->innerJoin('i.Locations')->execute() as $island ) {
+		foreach ( IslandTable::getInstance()->createQuery('i')->select('DISTINCT i.*')->innerJoin('i.Locations')->execute() as $island ) {
 			$islands[$island->getId()] = $island->getName();
 		}
 		unset($island);
 		
 		$locations = array();
-		foreach ( LocationTable::getInstance()->createQuery('l')->innerJoin('l.Samples')->execute() as $location ) {
+		foreach ( LocationTable::getInstance()->createQuery('l')->select('DISTINCT l.*')->innerJoin('l.Samples')->execute() as $location ) {
 			$id = $location->getId();
 			$country = $countries[$location->getCountryId()];
 			$region = sprintf(', %s', $regions[$location->getRegionId()]);
@@ -589,9 +589,26 @@ class apiActions extends GreenhouseAPI {
 			);
 		}
 		unset($extraction);
-				
+		
 		// Get strains
-		foreach ( StrainTable::getInstance()->findByIsPublic(1) as $strain ) {
+		$strains = StrainTable::getInstance()->createQuery('s')
+			->leftJoin('s.Sample sa')
+			->leftJoin('s.TaxonomicClass tc')
+			->leftJoin('s.Genus g')
+			->leftJoin('s.Species sp')
+			->leftJoin('s.Authority au')
+			->leftJoin('s.Identifier i')
+			->leftJoin('s.CryopreservationMethod cm')
+			->leftJoin('s.Container co')
+			->leftJoin('s.Depositor dep')
+			->leftJoin('s.DnaExtractions dna')
+			->leftJoin('s.Relatives r')
+			->leftJoin('s.CultureMedia cu')
+			->leftJoin('s.Isolators iso')
+			->leftJoin('s.MaintenanceStatus ms')
+			->where('s.is_public = ?', 1)
+			->execute();
+		foreach ( $strains as $strain ) {
 			$record = array(
 				'id' => $strain->getId(),
 				'culture_media' => array(),
@@ -607,15 +624,15 @@ class apiActions extends GreenhouseAPI {
 				'species' => $strain->getSpecies()->getName(),
 				'authority' => $strain->getAuthority()->getName(),
 				'isolation_date' => $strain->getIsolationDate(),
-				'identifier' => sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname()),
-				'cryopreservation_method' => $strain->getCryopreservationMethod()->getName(),
+				'identifier' => ($strain->getIdentifier()) ? sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname()) : null,
+				'cryopreservation_method' => ($strain->getCryopreservationMethod()) ? $strain->getCryopreservationMethod()->getName() : null,
 				'transfer_interval' => $strain->getTransferInterval(),
 				'observation' => $strain->getObservation(),
 				'citations' => $strain->getCitations(),
 				'remarks' => $strain->getRemarks(),
 				'web_notes' => $strain->getWebNotes(),
-				'container' => $strain->getContainer()->getName(),
-				'depositor' => sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname()),
+				'container' => ($strain->getContainer()) ? $strain->getContainer()->getName() : null,
+				'depositor' => ($strain->getDepositor()) ? sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname()) : null,
 				'has_dna' => $strain->publicHasDna(),
 				'aliquots' => $strain->getPublicDnaAmount(),
 			);
@@ -645,7 +662,7 @@ class apiActions extends GreenhouseAPI {
 				$record['dna_extractions'][] = $extraction->getId();
 			}
 			
-			$catalog['strain'][$strain->getId()] = $record;
+			$catalog['strain'][$strain->getId()] = $record;			
 		}
 		
 		// Return the information as a JSON object
