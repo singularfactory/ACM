@@ -43,8 +43,15 @@ class strainActions extends MyActions {
 		}
 		else {
 			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.Sample s")
-				->leftJoin("{$this->mainAlias()}.Isolators i");
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("sa.Location loc")
+				->leftJoin("loc.Country")
+				->leftJoin("loc.Region")
+				->leftJoin("loc.Island")
+				->leftJoin("{$this->mainAlias()}.Isolators i")
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
+				->leftJoin("{$this->mainAlias()}.Genus g")
+				->leftJoin("{$this->mainAlias()}.Species sp");
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
