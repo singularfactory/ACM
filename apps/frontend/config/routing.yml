@@ -483,6 +483,11 @@ api_store_catalog:
   param:        { module: api, action: storeCatalog }
   requirements: { sf_method: get }
 
+api_generate_barcode:
+  url:          /api/generateBarcode/:code
+  param:        { module: api, action: generateBarcode }
+  requirements: { sf_method: get, code: "([Bb][Ee][Aa])?\d+" }
+
 
 ###
 # Darwin Core API routes

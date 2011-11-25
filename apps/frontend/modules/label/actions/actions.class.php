@@ -126,12 +126,12 @@ class labelActions extends myActions {
 	protected function createPdf($productType = 'strain', $labels) {
 		$this->setLayout(false);
 		$html = $this->getPartial('create_pdf');
-		
+				
 		$pdf = new WKPDF();
 		$pdf->set_html($html);
 		$pdf->set_orientation('Landscape');
 		$pdf->render();
-		$pdf->output(WKPDF::$PDF_EMBEDDED, "{$productType}_labels.pdf");
+		$pdf->output(WKPDF::$PDF_DOWNLOAD, "{$productType}_labels.pdf");
 		
 	  throw new sfStopException();
 	}

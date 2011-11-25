@@ -16,6 +16,7 @@ class GreenhouseAPI extends MyActions {
 	const HttpInvalidToken = 401;
 	const HttpInvalidTimestamp = 400;
 	const HttpInvalidJSON = 400;
+	const HttpInvalidBeaCode = 400;
 	const HttpServerError = 500;
 	
 	// Error codes
@@ -25,6 +26,7 @@ class GreenhouseAPI extends MyActions {
 	const InvalidTimestamp = 3;
 	const InvalidJSON = 4;
 	const ServerError = 5;
+	const InvalidBeaCode = 6;
 	
 	protected function requestExitStatus($error = self::RequestSuccess, $response = 0) {
 		switch ( $error ) {
@@ -43,6 +45,10 @@ class GreenhouseAPI extends MyActions {
 			case self::InvalidJSON:
 				$message = 'Invalid JSON';
 				$exitStatus = self::HttpInvalidJSON;
+				break;
+			case self::InvalidBeaCode:
+				$message = 'Invalid BEA code';
+				$exitStatus = self::HttpInvalidBeaCode;
 				break;
 			case self::ServerError:
 				$message = 'Server error';
@@ -76,6 +82,13 @@ class GreenhouseAPI extends MyActions {
 	
 	protected function validateJson($data = '') {
 		return json_decode($data, true);
+	}
+	
+	protected function validateBeaCode($code = '') {
+		if ( preg_match('/^([Bb][Ee][Aa])?\s*(\d+)$/', $code, $matches) ) {
+			return $matches[2];
+		}
+		return false;
 	}
 		
 }

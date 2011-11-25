@@ -1,4 +1,4 @@
-<?php use_helper('QRCode'); ?>
+<?php use_helper('BarCode'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
@@ -21,7 +21,7 @@
 
 						<?php if ( $columns == 0 ): ?><tr class="label_items"><?php endif ?>
 						<td class="label_item">
-							<?php echo getQr($label->getFullCode()) ?>
+							<?php echo getBarCode($label->getFullCode()) ?>
 							<p class="label_item_code"><?php echo $label->getFullCode() ?></p>
 
 							<p class="label_item_genus"><?php echo $label->getGenus() ?></p>
@@ -41,7 +41,7 @@
 					<?php endforeach ?>
 				<?php else: ?>
 					<?php $label = $labels ?>
-					<?php $qrImage = getQr($label->getFullCode()) ?>
+					<?php $qrImage = getBarCode($label->getFullCode()) ?>
 					<?php for ( $i = 0; $i < 12; $i++ ): ?>
 
 						<?php if ( $columns == 0 ): ?><tr class="label_items"><?php endif ?>

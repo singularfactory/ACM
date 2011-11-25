@@ -111,7 +111,10 @@ all:
     success_signout_url:    /login
   
   # Directory of wkhtmltopdf inside sf_lib_dir
-  wkhtmltopdf_path: vendor/wkhtmltopdf 
+  wkhtmltopdf_path: vendor/wkhtmltopdf
+  
+  # Directory of php-barcode inside sf_lib_dir
+  php_barcode_path: vendor/php-barcode
 
   google:
     maps_api_keys:

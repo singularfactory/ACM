@@ -669,4 +669,42 @@ class apiActions extends GreenhouseAPI {
 		return $this->requestExitStatus(self::RequestSuccess, json_encode($catalog));
 	}
 	
+	public function executeGenerateBarcode(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
+		}
+		
+		if ( !($code = $this->validateBeaCode($request->getParameter('code'))) ) {
+			return $this->requestExitStatus(self::InvalidBeaCode);
+		}
+		
+		// Load barcode generator
+		try {
+			require_once(sfConfig::get('sf_lib_dir').'/'.sfConfig::get('app_php_barcode_path').'/php-barcode.php');
+		}
+		catch (Exception $e) {
+			return $this->requestExitStatus(self::ServerError, "The barcode could not be generated. {$e->getMessage()}");
+		}
+		
+		// Allocate GD resource
+		$height = 30;
+		$width = 150;
+		$x = 64;
+		$y = 16;
+		$im = imagecreatetruecolor($width, $height);
+		$black = ImageColorAllocate($im, 0x00, 0x00, 0x00);
+		$white = ImageColorAllocate($im, 0xff, 0xff, 0xff);
+		imagefilledrectangle($im, 0, 0, $width, $height, $white);
+		
+		// Create barcode
+		Barcode::gd($im, $black, $x, $y, 0, 'codabar', array('code' => $code), 2, $height);
+				
+		// Set response and content
+		$this->getResponse()->setContentType('image/png');
+		$view = $this->requestExitStatus(self::RequestSuccess, imagepng($im));
+		imagedestroy($im);
+		
+		return $view;
+	}
+	
 }
