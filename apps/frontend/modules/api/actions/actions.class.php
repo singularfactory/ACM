@@ -669,6 +669,7 @@ class apiActions extends GreenhouseAPI {
 		return $this->requestExitStatus(self::RequestSuccess, json_encode($catalog));
 	}
 	
+	/*
 	public function executeGenerateBarcode(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
 			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
@@ -704,6 +705,30 @@ class apiActions extends GreenhouseAPI {
 		imagepng($im);
 		imagedestroy($im);
 		exit();
+	}
+	*/
+	
+	public function executeGenerateBarcode(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
+		}
+		
+		if ( !($code = $this->validateBeaCode($request->getParameter('code'))) ) {
+			return $this->requestExitStatus(self::InvalidBeaCode);
+		}
+		
+		// Load barcode generator
+		$barcode = new TCPDF2DBarcode('0001', 'PDF417');
+		echo $barcode->getBarcodePNG();
+		die;
+		try {
+			$barcode = new TCPDF2DBarcode($code, 'PDF417');
+			echo $barcode->getBarcodePNG();
+			exit();
+		}
+		catch (Exception $e) {
+			return $this->requestExitStatus(self::ServerError, "The barcode could not be generated. {$e->getMessage()}");
+		}		
 	}
 	
 }
