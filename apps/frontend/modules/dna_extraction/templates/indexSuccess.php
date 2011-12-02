@@ -55,7 +55,7 @@
 			<td class="concentration"><?php echo link_to($dnaExtraction->getFormattedConcentration(), $url) ?></td>
 			<td class="aliquots"><?php echo link_to($dnaExtraction->getFormattedAliquots(), $url) ?></td>
 			<td class="object_count"><?php echo link_to($dnaExtraction->getNbPcr(), $url) ?></td>
-			<td class="sequence_availability">-</td>
+			<td class="sequence_availability"><?php echo link_to($dnaExtraction->getFormattedHasDnaSequence(), $url) ?></td>
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">

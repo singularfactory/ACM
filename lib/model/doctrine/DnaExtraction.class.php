@@ -89,4 +89,20 @@ class DnaExtraction extends BaseDnaExtraction {
 			->andWhere('pcr.can_be_sequenced = ?', 1)
 			->count() > 0;
 	}
+	
+	public function hasDnaSequence() {
+		$result = DnaExtractionTable::getInstance()->createQuery('d')
+			->select('count(s.id) as dna_sequence_count')
+			->leftJoin('d.Pcr p')
+			->leftJoin('p.Sequence s')
+			->where('d.id = ?', $this->getId())
+			->fetchOne();
+		
+		return $result->dna_sequence_count > 0;
+	}
+	
+	public function getFormattedHasDnaSequence() {
+		return $this->hasDnaSequence() ? 'yes' : 'no';
+	}
+	
 }
