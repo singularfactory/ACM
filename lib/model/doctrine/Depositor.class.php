@@ -29,4 +29,10 @@ class Depositor extends BaseDepositor {
 			->count();
 	}
 	
+	public function getNbStrains() {
+		return Doctrine_Query::create()
+			->from('Strain s')
+			->where('s.depositor_id = ?', $this->getId())
+			->count();
+	}
 }
