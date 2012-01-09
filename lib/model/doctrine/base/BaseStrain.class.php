@@ -26,6 +26,7 @@
  * @property string $citations
  * @property string $web_notes
  * @property string $remarks
+ * @property integer $supervisor_id
  * @property Sample $Sample
  * @property Depositor $Depositor
  * @property TaxonomicClass $TaxonomicClass
@@ -33,6 +34,7 @@
  * @property Species $Species
  * @property Authority $Authority
  * @property Doctrine_Collection $Isolators
+ * @property sfGuardUser $Supervisor
  * @property Identifier $Identifier
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Container $Container
@@ -69,6 +71,7 @@
  * @method string                 getCitations()                  Returns the current record's "citations" value
  * @method string                 getWebNotes()                   Returns the current record's "web_notes" value
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
+ * @method integer                getSupervisorId()               Returns the current record's "supervisor_id" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
  * @method Depositor              getDepositor()                  Returns the current record's "Depositor" value
  * @method TaxonomicClass         getTaxonomicClass()             Returns the current record's "TaxonomicClass" value
@@ -76,6 +79,7 @@
  * @method Species                getSpecies()                    Returns the current record's "Species" value
  * @method Authority              getAuthority()                  Returns the current record's "Authority" value
  * @method Doctrine_Collection    getIsolators()                  Returns the current record's "Isolators" collection
+ * @method sfGuardUser            getSupervisor()                 Returns the current record's "Supervisor" value
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Container              getContainer()                  Returns the current record's "Container" value
@@ -111,6 +115,7 @@
  * @method Strain                 setCitations()                  Sets the current record's "citations" value
  * @method Strain                 setWebNotes()                   Sets the current record's "web_notes" value
  * @method Strain                 setRemarks()                    Sets the current record's "remarks" value
+ * @method Strain                 setSupervisorId()               Sets the current record's "supervisor_id" value
  * @method Strain                 setSample()                     Sets the current record's "Sample" value
  * @method Strain                 setDepositor()                  Sets the current record's "Depositor" value
  * @method Strain                 setTaxonomicClass()             Sets the current record's "TaxonomicClass" value
@@ -118,6 +123,7 @@
  * @method Strain                 setSpecies()                    Sets the current record's "Species" value
  * @method Strain                 setAuthority()                  Sets the current record's "Authority" value
  * @method Strain                 setIsolators()                  Sets the current record's "Isolators" collection
+ * @method Strain                 setSupervisor()                 Sets the current record's "Supervisor" value
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * @method Strain                 setContainer()                  Sets the current record's "Container" value
@@ -221,6 +227,9 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasColumn('remarks', 'string', null, array(
              'type' => 'string',
              ));
+        $this->hasColumn('supervisor_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
 
 
         $this->index('unique_code_and_clone', array(
@@ -266,6 +275,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'strain_id',
              'foreign' => 'isolator_id',
              'orderBy' => 'sort_order'));
+
+        $this->hasOne('sfGuardUser as Supervisor', array(
+             'local' => 'supervisor_id',
+             'foreign' => 'id'));
 
         $this->hasOne('Identifier', array(
              'local' => 'identifier_id',

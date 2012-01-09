@@ -26,6 +26,7 @@
  * @property sfGuardRememberKey $RememberKeys
  * @property sfGuardForgotPassword $ForgotPassword
  * @property Doctrine_Collection $Events
+ * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $Notifications
  * @property Doctrine_Collection $Items
  * @property Doctrine_Collection $Projects
@@ -51,6 +52,7 @@
  * @method sfGuardRememberKey    getRememberKeys()          Returns the current record's "RememberKeys" value
  * @method sfGuardForgotPassword getForgotPassword()        Returns the current record's "ForgotPassword" value
  * @method Doctrine_Collection   getEvents()                Returns the current record's "Events" collection
+ * @method Doctrine_Collection   getStrains()               Returns the current record's "Strains" collection
  * @method Doctrine_Collection   getNotifications()         Returns the current record's "Notifications" collection
  * @method Doctrine_Collection   getItems()                 Returns the current record's "Items" collection
  * @method Doctrine_Collection   getProjects()              Returns the current record's "Projects" collection
@@ -75,6 +77,7 @@
  * @method sfGuardUser           setRememberKeys()          Sets the current record's "RememberKeys" value
  * @method sfGuardUser           setForgotPassword()        Sets the current record's "ForgotPassword" value
  * @method sfGuardUser           setEvents()                Sets the current record's "Events" collection
+ * @method sfGuardUser           setStrains()               Sets the current record's "Strains" collection
  * @method sfGuardUser           setNotifications()         Sets the current record's "Notifications" collection
  * @method sfGuardUser           setItems()                 Sets the current record's "Items" collection
  * @method sfGuardUser           setProjects()              Sets the current record's "Projects" collection
@@ -196,6 +199,10 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
         $this->hasMany('Event as Events', array(
              'local' => 'id',
              'foreign' => 'user_id'));
+
+        $this->hasMany('Strain as Strains', array(
+             'local' => 'id',
+             'foreign' => 'supervisor_id'));
 
         $this->hasMany('Notification as Notifications', array(
              'local' => 'id',

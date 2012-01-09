@@ -415,6 +415,7 @@ Strain:
     web_notes:                  { type: string }
     # amount:                     { type: integer, notnull: true, default: 0 }
     remarks:                    { type: string }
+    supervisor_id:              { type: integer }
   relations:
     Sample:                 { foreignAlias: Strains }
     Depositor:              { foreignAlias: Strains }
@@ -423,6 +424,7 @@ Strain:
     Species:                { foreignAlias: Strains }
     Authority:              { foreignAlias: Strains }
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators, orderBy: sort_order }
+    Supervisor:             { class: sfGuardUser, local: supervisor_id, foreignAlias: Strains }
     Identifier:             { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
     Container:              { foreignAlias: Strains }
