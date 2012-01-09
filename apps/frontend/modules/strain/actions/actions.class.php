@@ -21,9 +21,12 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
+				->leftJoin("{$this->mainAlias()}.Supervisor su")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%");
+				->orWhere('sp.name LIKE ?', "%$text%")
+				->orWhere('su.first_name LIKE ?', "%$text%")
+				->orWhere('su.last_name LIKE ?', "%$text%");
 					
 			// Parse search term to catch strain codes
 			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {

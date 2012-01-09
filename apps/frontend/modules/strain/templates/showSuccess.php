@@ -257,6 +257,11 @@
 			<dt>Transfer interval:</dt>
 			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
 			
+			<?php if ( $strain->getSupervisor()->getName() ): ?>
+			<dt>Supervisor:</dt>
+			<dd><?php echo $strain->getSupervisor() ?></dd>
+			<?php endif; ?>
+			
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getFormattedObservation() ?></dd>
 			

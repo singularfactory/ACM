@@ -279,6 +279,11 @@
 			<?php echo $form['transfer_interval'] ?>
 		</div>
 		
+		<div id="supervisor">
+			<?php echo $form['supervisor_id']->renderLabel() ?>
+			<?php echo $form['supervisor_id'] ?>
+		</div>
+		
 		<div id="observation">
 			<?php echo $form['observation']->renderLabel() ?>
 			<?php echo $form['observation']->renderError() ?>
