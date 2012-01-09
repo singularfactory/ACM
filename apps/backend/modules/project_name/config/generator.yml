@@ -27,7 +27,7 @@ generator:
         sort: ~
       filter:
         display: [name]
-      form:    ~
+      form: ~
       edit:
         title: Edit the project name
       new:

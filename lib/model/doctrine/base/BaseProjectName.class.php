@@ -7,14 +7,20 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property string $description
+ * @property string $obligations
  * @property Doctrine_Collection $Projects
  * 
- * @method integer             getId()       Returns the current record's "id" value
- * @method string              getName()     Returns the current record's "name" value
- * @method Doctrine_Collection getProjects() Returns the current record's "Projects" collection
- * @method ProjectName         setId()       Sets the current record's "id" value
- * @method ProjectName         setName()     Sets the current record's "name" value
- * @method ProjectName         setProjects() Sets the current record's "Projects" collection
+ * @method integer             getId()          Returns the current record's "id" value
+ * @method string              getName()        Returns the current record's "name" value
+ * @method string              getDescription() Returns the current record's "description" value
+ * @method string              getObligations() Returns the current record's "obligations" value
+ * @method Doctrine_Collection getProjects()    Returns the current record's "Projects" collection
+ * @method ProjectName         setId()          Sets the current record's "id" value
+ * @method ProjectName         setName()        Sets the current record's "name" value
+ * @method ProjectName         setDescription() Sets the current record's "description" value
+ * @method ProjectName         setObligations() Sets the current record's "obligations" value
+ * @method ProjectName         setProjects()    Sets the current record's "Projects" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -35,6 +41,12 @@ abstract class BaseProjectName extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => 200,
+             ));
+        $this->hasColumn('description', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('obligations', 'string', null, array(
+             'type' => 'string',
              ));
 
 

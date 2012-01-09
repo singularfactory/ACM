@@ -933,8 +933,10 @@ IsolationIsolators:
 
 ProjectName:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(200), notnull: true }
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(200), notnull: true }
+    description:  { type: string }
+    obligations:  { type: string }
   indexes:
     project_name_name:
       fields: [name]
