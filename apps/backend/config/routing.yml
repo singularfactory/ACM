@@ -1,3 +1,12 @@
+project_name:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                ProjectName
+    module:               project_name
+    prefix_path:          /admin/project_name
+    column:               id
+    with_wildcard_routes: true
+
 maintenance_status:
   class: sfDoctrineRouteCollection
   options:
