@@ -97,6 +97,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
+		$this->widgetSchema->setLabel('in_g_catalog', 'In G catalog');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('code', 'Only the number');

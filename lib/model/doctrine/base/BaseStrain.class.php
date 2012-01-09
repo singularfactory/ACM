@@ -27,6 +27,7 @@
  * @property string $web_notes
  * @property string $remarks
  * @property integer $supervisor_id
+ * @property boolean $in_g_catalog
  * @property Sample $Sample
  * @property Depositor $Depositor
  * @property TaxonomicClass $TaxonomicClass
@@ -72,6 +73,7 @@
  * @method string                 getWebNotes()                   Returns the current record's "web_notes" value
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
  * @method integer                getSupervisorId()               Returns the current record's "supervisor_id" value
+ * @method boolean                getInGCatalog()                 Returns the current record's "in_g_catalog" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
  * @method Depositor              getDepositor()                  Returns the current record's "Depositor" value
  * @method TaxonomicClass         getTaxonomicClass()             Returns the current record's "TaxonomicClass" value
@@ -116,6 +118,7 @@
  * @method Strain                 setWebNotes()                   Sets the current record's "web_notes" value
  * @method Strain                 setRemarks()                    Sets the current record's "remarks" value
  * @method Strain                 setSupervisorId()               Sets the current record's "supervisor_id" value
+ * @method Strain                 setInGCatalog()                 Sets the current record's "in_g_catalog" value
  * @method Strain                 setSample()                     Sets the current record's "Sample" value
  * @method Strain                 setDepositor()                  Sets the current record's "Depositor" value
  * @method Strain                 setTaxonomicClass()             Sets the current record's "TaxonomicClass" value
@@ -229,6 +232,11 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('supervisor_id', 'integer', null, array(
              'type' => 'integer',
+             ));
+        $this->hasColumn('in_g_catalog', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => false,
              ));
 
 

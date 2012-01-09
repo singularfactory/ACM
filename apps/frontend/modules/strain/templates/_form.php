@@ -83,6 +83,11 @@
 			<?php echo $form['is_epitype'] ?>
 		</div>
 		
+		<div id="in_g_catalog" class="checkbox">
+			<?php echo $form['in_g_catalog']->renderLabel() ?>
+			<?php echo $form['in_g_catalog'] ?>
+		</div>
+		
 		<div id="public" class="checkbox">
 			<?php echo $form['is_public']->renderLabel() ?>
 			<?php echo $form['is_public'] ?>

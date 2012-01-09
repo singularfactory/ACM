@@ -416,6 +416,7 @@ Strain:
     # amount:                     { type: integer, notnull: true, default: 0 }
     remarks:                    { type: string }
     supervisor_id:              { type: integer }
+    in_g_catalog:               { type: boolean, notnull: true, default: false }
   relations:
     Sample:                 { foreignAlias: Strains }
     Depositor:              { foreignAlias: Strains }

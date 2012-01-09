@@ -131,6 +131,13 @@ class Strain extends BaseStrain {
 		return 'no';
 	}
 	
+	public function getFormattedInGCatalog() {
+		if ( $this->getInGCatalog() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
 	public function getFormattedCitations() {
 		if ( $citations = $this->_get('citations') ) {
 			return $citations;

@@ -184,6 +184,8 @@
 			<dd><?php echo $strain->getFormattedIsEpitype() ?></dd>
 			<dt>Is axenic:</dt>
 			<dd><?php echo $strain->getFormattedIsAxenic() ?></dd>
+			<dt>In G catalog:</dt>
+			<dd><?php echo $strain->getFormattedInGCatalog() ?></dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
 			<!--
@@ -272,7 +274,7 @@
 			<dt>Identifier:</dt>
 			<dd><?php echo $strain->getIdentifier() ?></dd>
 			<?php endif; ?>
-
+			
 			<dt>Citations:</dt>
 			<dd><?php echo $strain->getFormattedCitations() ?></dd>
 			
