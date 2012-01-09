@@ -22,6 +22,7 @@ class dna_extractionActions extends MyActions {
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp")
 				->leftJoin("{$this->mainAlias()}.ExtractionKit c")
+				->leftJoin("{$this->mainAlias()}.Pcr p")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere('tc.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
@@ -41,6 +42,7 @@ class dna_extractionActions extends MyActions {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain s")
 				->leftJoin("{$this->mainAlias()}.ExtractionKit k")
+				->leftJoin("{$this->mainAlias()}.Pcr p")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp");
