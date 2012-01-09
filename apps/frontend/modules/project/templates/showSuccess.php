@@ -33,7 +33,7 @@
 			<dd><?php echo link_to($code, $route) ?></dd>
 			
 			<dt>Name:</dt>
-			<dd><?php echo $project->getName() ?></dd>
+			<dd><?php echo $project->getProjectName()->getName() ?></dd>
 			<dt>Petitioner:</dt>
 			<dd><?php echo $project->getPetitioner()->getName() ?></dd>
 			

@@ -650,7 +650,7 @@ PurchaseItem:
 Project:
   columns:
     id:               { type: integer, primary: true, autoincrement: true }
-    name:             { type: string(200), notnull: true }
+    project_name_id:  { type: integer, notnull: true }
     petitioner_id:    { type: integer, notnull: true }
     subject:          { type: enum, values: [sample, strain] }
     strain_id:        { type: integer }
@@ -662,10 +662,11 @@ Project:
     delivery_date:    { type: date }
     remarks:          { type: string }
   relations:
-    Sample:     { foreignAlias: Projects }
-    Strain:     { foreignAlias: Projects }
-    Provider:   { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
-    Petitioner: { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
+    ProjectName:  { foreignAlias: Projects }
+    Sample:       { foreignAlias: Projects }
+    Strain:       { foreignAlias: Projects }
+    Provider:     { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
+    Petitioner:   { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
   indexes:
     project_inoculation_date:
       fields: [inoculation_date]
@@ -928,4 +929,13 @@ IsolationIsolators:
     isolator_id:  { type: integer, primary: true }
   relations:
     Isolation:  { onDelete: cascade }
+
+
+ProjectName:
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string(200), notnull: true }
+  indexes:
+    project_name_name:
+      fields: [name]
 
