@@ -47,6 +47,9 @@
 			<div id="header_menu">
 				<ul id="header_menu_tabs">
 					<?php $currentRoute = sfContext::getInstance()->getRouting()->getCurrentRouteName() ?>
+					<?php if ( $currentRoute === 'module_full_index' )
+						$currentRoute = sfContext::getInstance()->getModuleName();
+					?>
 					
 					<li>
 						<?php

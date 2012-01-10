@@ -85,6 +85,10 @@ class MyActions extends sfActions {
 			$pager->init();
 		}
 		
+		if ( $request->hasParameter('all') ) {
+			$pager->setMaxPerPage(Doctrine::getTable($table)->count());
+		}
+		
 		return $pager;
 	}
 	
