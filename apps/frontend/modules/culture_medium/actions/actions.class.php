@@ -17,6 +17,7 @@ class culture_mediumActions extends MyActions {
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Strains s")
 				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.description LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.link LIKE ?", "%$text%");
@@ -25,7 +26,9 @@ class culture_mediumActions extends MyActions {
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
-			$query = $this->pager->getQuery();
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Strains s");
+			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		
