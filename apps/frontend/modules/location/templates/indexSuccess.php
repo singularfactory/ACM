@@ -18,17 +18,18 @@
 		</tr>
 
 		<?php foreach ($pager->getResults() as $location): ?>
+		<?php $locationId = $location->getId() ?>
 		<tr>
-			<?php $url = url_for('@location_show?id='.$location->getId()) ?>
+			<?php $url = url_for('@location_show?id='.$locationId) ?>
 			<td class="location_name"><?php echo link_to($location->getName(), $url) ?></td>
-			<td class="country_name"><?php echo link_to($location->getCountry()->getName(), $url) ?></td>
-			<td class="region_name"><?php echo link_to($location->getRegion()->getName(), $url) ?></td>
-			<td class="island_name"><?php echo link_to(($location->getIslandId())?$location->getIsland()->getName():'-', $url) ?></td>
+			<td class="country_name"><?php echo link_to($location->getCountry(), $url) ?></td>
+			<td class="region_name"><?php echo link_to($location->getRegion(), $url) ?></td>
+			<td class="island_name"><?php echo link_to(($location->getIslandId())?$location->getIsland():'-', $url) ?></td>
 			<td class="object_count"><?php echo link_to($location->getNbSamples(), $url) ?></td>
 		
 			<td class="actions">
-				<?php echo link_to('Edit', '@location_edit?id='.$location->getId()) ?>
-				<?php echo link_to('Delete', '@location_delete?id='.$location->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+				<?php echo link_to('Edit', '@location_edit?id='.$locationId) ?>
+				<?php echo link_to('Delete', '@location_delete?id='.$locationId, array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

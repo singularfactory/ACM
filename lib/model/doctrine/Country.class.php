@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Country
  * 
@@ -11,6 +10,7 @@
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
 class Country extends BaseCountry {
+	
 	public function getNbLocations() {
 		return Doctrine_Query::create()
 			->from('Location l')
@@ -24,4 +24,5 @@ class Country extends BaseCountry {
 			->where('r.country_id = ?', $this->getId())
 			->count();
 	}
+	
 }

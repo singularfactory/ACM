@@ -20,6 +20,7 @@ class locationActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Country c")
 				->leftJoin("{$this->mainAlias()}.Region r")
 				->leftJoin("{$this->mainAlias()}.Island i")
+				->leftJoin("{$this->mainAlias()}.Samples s")
 				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
 				->orWhere("c.name LIKE ?", "%$text%")
 				->orWhere("r.name LIKE ?", "%$text%")
@@ -33,7 +34,8 @@ class locationActions extends MyActions {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Country c")
 				->leftJoin("{$this->mainAlias()}.Region r")
-				->leftJoin("{$this->mainAlias()}.Island i");
+				->leftJoin("{$this->mainAlias()}.Island i")
+				->leftJoin("{$this->mainAlias()}.Samples s");
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
