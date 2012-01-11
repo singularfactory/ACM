@@ -94,14 +94,6 @@
 			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
 		
-		<?php if ( isset($form['container_id']) ): ?>
-		<div id="container">
-			<?php echo $form['container_id']->renderLabel() ?>
-			<?php echo $form['container_id']->renderHelp() ?>
-			<?php echo $form['container_id'] ?>
-		</div>
-		<?php endif; ?>
-		
 		<!--
 		<div id="amount">
 			<?php //echo $form['amount']->renderLabel() ?>
@@ -278,6 +270,14 @@
 		<?php endif; ?>
 		<?php endif; ?>
 		<br />
+		
+		<?php if ( isset($form['container_id']) ): ?>
+		<div id="container">
+			<?php echo $form['container_id']->renderLabel() ?>
+			<?php echo $form['container_id']->renderHelp() ?>
+			<?php echo $form['container_id'] ?>
+		</div>
+		<?php endif; ?>
 		
 		<div id="transfer_interval">
 			<?php echo $form['transfer_interval']->renderLabel() ?>
