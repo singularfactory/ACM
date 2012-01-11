@@ -98,6 +98,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('in_g_catalog', 'In G catalog');
+		$this->widgetSchema->setLabel('containers_list', 'Available containers');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('code', 'Only the number');
@@ -119,6 +120,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('container_id', 'Type of container where the strain grows better');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('containers_list', 'Containers where a culture of this strain is available. Select more than one with Ctrl or Cmd key.');
   }
 	
 	public function checkCryopreservedStatusHasMethod($validator, $values) {

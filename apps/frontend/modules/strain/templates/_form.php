@@ -277,6 +277,13 @@
 			<?php echo $form['container_id']->renderHelp() ?>
 			<?php echo $form['container_id'] ?>
 		</div>
+		
+		<div id="containers_list" class="list_field">
+			<?php echo $form['containers_list']->renderLabel() ?>
+			<?php echo $form['containers_list']->renderError() ?>
+			<?php echo $form['containers_list']->renderHelp() ?>
+			<?php echo $form['containers_list'] ?>
+		</div>
 		<?php endif; ?>
 		
 		<div id="transfer_interval">
