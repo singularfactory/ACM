@@ -39,12 +39,14 @@
  * @property Identifier $Identifier
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Container $Container
+ * @property Doctrine_Collection $Containers
  * @property Doctrine_Collection $CultureMedia
  * @property Doctrine_Collection $MaintenanceStatus
  * @property Doctrine_Collection $StrainIsolators
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $AxenityTests
  * @property Doctrine_Collection $Pictures
+ * @property Doctrine_Collection $StrainContainers
  * @property Doctrine_Collection $StrainCultureMedia
  * @property Doctrine_Collection $StrainMaintenanceStatus
  * @property Doctrine_Collection $DnaExtractions
@@ -85,12 +87,14 @@
  * @method Identifier             getIdentifier()                 Returns the current record's "Identifier" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Container              getContainer()                  Returns the current record's "Container" value
+ * @method Doctrine_Collection    getContainers()                 Returns the current record's "Containers" collection
  * @method Doctrine_Collection    getCultureMedia()               Returns the current record's "CultureMedia" collection
  * @method Doctrine_Collection    getMaintenanceStatus()          Returns the current record's "MaintenanceStatus" collection
  * @method Doctrine_Collection    getStrainIsolators()            Returns the current record's "StrainIsolators" collection
  * @method Doctrine_Collection    getRelatives()                  Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getAxenityTests()               Returns the current record's "AxenityTests" collection
  * @method Doctrine_Collection    getPictures()                   Returns the current record's "Pictures" collection
+ * @method Doctrine_Collection    getStrainContainers()           Returns the current record's "StrainContainers" collection
  * @method Doctrine_Collection    getStrainCultureMedia()         Returns the current record's "StrainCultureMedia" collection
  * @method Doctrine_Collection    getStrainMaintenanceStatus()    Returns the current record's "StrainMaintenanceStatus" collection
  * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
@@ -130,12 +134,14 @@
  * @method Strain                 setIdentifier()                 Sets the current record's "Identifier" value
  * @method Strain                 setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * @method Strain                 setContainer()                  Sets the current record's "Container" value
+ * @method Strain                 setContainers()                 Sets the current record's "Containers" collection
  * @method Strain                 setCultureMedia()               Sets the current record's "CultureMedia" collection
  * @method Strain                 setMaintenanceStatus()          Sets the current record's "MaintenanceStatus" collection
  * @method Strain                 setStrainIsolators()            Sets the current record's "StrainIsolators" collection
  * @method Strain                 setRelatives()                  Sets the current record's "Relatives" collection
  * @method Strain                 setAxenityTests()               Sets the current record's "AxenityTests" collection
  * @method Strain                 setPictures()                   Sets the current record's "Pictures" collection
+ * @method Strain                 setStrainContainers()           Sets the current record's "StrainContainers" collection
  * @method Strain                 setStrainCultureMedia()         Sets the current record's "StrainCultureMedia" collection
  * @method Strain                 setStrainMaintenanceStatus()    Sets the current record's "StrainMaintenanceStatus" collection
  * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
@@ -300,6 +306,11 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'container_id',
              'foreign' => 'id'));
 
+        $this->hasMany('Container as Containers', array(
+             'refClass' => 'StrainContainers',
+             'local' => 'strain_id',
+             'foreign' => 'container_id'));
+
         $this->hasMany('CultureMedium as CultureMedia', array(
              'refClass' => 'StrainCultureMedia',
              'local' => 'strain_id',
@@ -323,6 +334,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'strain_id'));
 
         $this->hasMany('StrainPicture as Pictures', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('StrainContainers', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 

@@ -54,8 +54,9 @@ abstract class BaseContainer extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('Strain as Strains', array(
-             'local' => 'id',
-             'foreign' => 'container_id'));
+             'refClass' => 'StrainContainers',
+             'local' => 'container_id',
+             'foreign' => 'strain_id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

@@ -385,6 +385,8 @@ Container:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(255), notnull: true }
+  relations:
+    Strains:  { foreignAlias: Strains, class: Strain, local: container_id, foreign: strain_id, refClass: StrainContainers }
   indexes:
     container_name:
       fields:
@@ -429,6 +431,7 @@ Strain:
     Identifier:             { foreignAlias: Strains }
     CryopreservationMethod: { foreignAlias: Strains }
     Container:              { foreignAlias: Strains }
+    Containers:             { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
     MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
   actAs:
@@ -436,6 +439,14 @@ Strain:
     Date:
   indexes:
     unique_code_and_clone:  { fields: [code, clone_number], type: unique }
+
+
+StrainContainers:
+  columns:
+    strain_id:          { type: integer, primary: true }
+    container_id:  { type: integer, primary: true }
+  relations:
+    Strain:             { onDelete: cascade }
 
 
 StrainCultureMedia:
