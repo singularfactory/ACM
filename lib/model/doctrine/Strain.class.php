@@ -47,6 +47,10 @@ class Strain extends BaseStrain {
 		return count($this->getCultureMedia());
 	}
 	
+	public function getNbContainers() {
+		return count($this->getContainers());
+	}
+	
 	public function getNbDnaExtractions() {
 		return Doctrine_Query::create()
 			->from('DnaExtraction dna')

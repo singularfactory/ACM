@@ -11,4 +11,10 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Container extends BaseContainer {
+	public function getNbStrains() {
+		return Doctrine_Query::create()
+			->from('StrainContainers s')
+			->where('s.container_id = ?', $this->getId())
+			->count();
+	}
 }

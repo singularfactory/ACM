@@ -120,6 +120,25 @@
 		</div>
 		<?php endif ?>
 		
+		<?php $nbContainers = $strain->getNbContainers() ?>
+		<?php if ( $nbContainers > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Containers</h2>
+			<table>
+				<tr>
+					<th class="container_name">Name</th>
+					<th class="object_count_long">Total strains</th>
+				</tr>
+				<?php foreach ($strain->getContainers() as $container ): ?>
+					<tr>
+						<td class="container_name"><?php echo $container->getName() ?></td>
+						<td class="object_count_long"><?php echo $container->getNbStrains() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 		<?php $nbIsolations = $strain->getNbIsolations() ?>
 		<?php if ( $nbIsolations > 0): ?>
 		<div class="object_related_model_list">
