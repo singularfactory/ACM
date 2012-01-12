@@ -43,6 +43,16 @@ Island:
         name: { length: 20 }
 
 
+LocationCategory:
+  columns:
+    id:         { type: integer, primary: true, autoincrement: true }
+    name:       { type: string(255), notnull: true }
+  indexes:
+    location_category_name:
+      fields:
+        name: { length: 20 }
+
+
 LocationPicture:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
@@ -58,18 +68,20 @@ LocationPicture:
 
 Location:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    name:       { type: string(255), notnull: true }
-    latitude:   { type: string(10), fixed: true }
-    longitude:  { type: string(10), fixed: true }
-    country_id: { type: integer, notnull: true }
-    region_id:  { type: integer, notnull: true }
-    island_id:  { type: integer }
-    remarks:    { type:string }
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+    category_id:  { type: integer }
+    latitude:     { type: string(10), fixed: true }
+    longitude:    { type: string(10), fixed: true }
+    country_id:   { type: integer, notnull: true }
+    region_id:    { type: integer, notnull: true }
+    island_id:    { type: integer }
+    remarks:      { type:string }
   relations:
-    Country:    { foreignAlias: Locations }
-    Region:     { foreignAlias: Locations }
-    Island:     { foreignAlias: Locations }
+    Category: { class: LocationCategory, local: category_id, foreignAlias: Locations }
+    Country:  { foreignAlias: Locations }
+    Region:   { foreignAlias: Locations }
+    Island:   { foreignAlias: Locations }
   indexes:
     location_name:
       fields:
