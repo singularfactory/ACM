@@ -1,3 +1,12 @@
+location_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                LocationCategory
+    module:               location_category
+    prefix_path:          /admin/location_category
+    column:               id
+    with_wildcard_routes: true
+
 project_name:
   class: sfDoctrineRouteCollection
   options:

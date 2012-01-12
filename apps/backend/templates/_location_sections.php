@@ -1,6 +1,6 @@
 <ul>
-	<?php $routes = array('country', 'region', 'island') ?>
-	<?php $subsectionNames = array( $routes[0] => 'Countries', $routes[1] => 'Regions', $routes[2] => 'Islands') ?>
+	<?php $routes = array('country', 'region', 'island', 'location_category') ?>
+	<?php $subsectionNames = array( $routes[0] => 'Countries', $routes[1] => 'Regions', $routes[2] => 'Islands', $routes[3] => 'Categories') ?>
 	
 	<?php foreach ( $routes as $routeValue ): ?>
 		<li>
