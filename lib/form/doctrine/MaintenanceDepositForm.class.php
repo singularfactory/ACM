@@ -74,6 +74,8 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 		$this->widgetSchema->setHelp('genus_id', 'Taxonomic genus');
 		$this->widgetSchema->setHelp('species_id', 'Taxonomic species');
 		$this->widgetSchema->setHelp('authority_id', 'Taxonomic authority');
+		$this->widgetSchema->setHelp('environment_id', 'Leave it blank if you do not know the value');
+		$this->widgetSchema->setHelp('habitat_id', 'Leave it blank if you do not know the value');
 		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_Relatives', 'Codes used in alternate databases or publications');
 		$this->widgetSchema->setHelp('observation', 'Notes about strain culture');

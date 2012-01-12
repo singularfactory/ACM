@@ -133,7 +133,6 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('environment_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('is_extremophile', 'boolean', null, array(
              'type' => 'boolean',
@@ -142,7 +141,6 @@ abstract class BaseSample extends sfDoctrineRecord
              ));
         $this->hasColumn('habitat_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('ph', 'float', null, array(
              'type' => 'float',

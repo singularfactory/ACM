@@ -108,10 +108,10 @@
 			<dt>Location:</dt>
 			<dd><?php echo link_to($maintenanceDeposit->getLocation()->getName(), "@location_show?id={$maintenanceDeposit->getLocationId()}") ?></dd>
 			<dt>Environment:</dt>
-			<dd><?php echo $maintenanceDeposit->getEnvironment() ?></dd>
+			<dd><?php echo $maintenanceDeposit->getFormattedEnvironment() ?></dd>
 
 			<dt>Habitat:</dt>
-			<dd><?php echo $maintenanceDeposit->getHabitat() ?></dd>
+			<dd><?php echo $maintenanceDeposit->getFormattedHabitat() ?></dd>
 			
 			<dt>Class:</dt>
 			<dd><?php echo $maintenanceDepositClass ?></dd>

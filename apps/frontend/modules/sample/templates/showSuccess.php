@@ -22,11 +22,11 @@
 			<dt>Location details:</dt>
 			<dd><?php echo $sample->getLocationDetails() ?></dd>
 			<dt>Environment:</dt>
-			<dd><?php echo $sample->getEnvironment()->getName() ?></dd>
+			<dd><?php echo $sample->getFormattedEnvironment() ?></dd>
 			<dt>Is extremophile:</dt>
 			<dd><?php echo $sample->getFormattedIsExtremophile() ?></dd>
 			<dt>Habitat:</dt>
-			<dd><?php echo $sample->getHabitat()->getName() ?></dd>
+			<dd><?php echo $sample->getFormattedHabitat() ?></dd>
 			<dt>Ph:</dt>
 			<dd><?php echo $sample->getFormattedPh() ?></dd>
 			<dt>Conductivity:</dt>

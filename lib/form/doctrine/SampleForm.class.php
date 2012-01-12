@@ -91,6 +91,8 @@ class SampleForm extends BaseSampleForm {
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		$this->widgetSchema->setHelp('radiation_id', 'Leave it blank if you do not know the value');
+		$this->widgetSchema->setHelp('environment_id', 'Leave it blank if you do not know the value');
+		$this->widgetSchema->setHelp('habitat_id', 'Leave it blank if you do not know the value');
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this sample. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_FieldPictures', 'Select up to '.($defaultMaxFieldPictures - $actualFieldPictures).' pictures in JPEG, PNG or TIFF format');

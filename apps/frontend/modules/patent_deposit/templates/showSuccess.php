@@ -108,10 +108,10 @@
 			<dt>Location:</dt>
 			<dd><?php echo link_to($patentDeposit->getLocation()->getName(), "@location_show?id={$patentDeposit->getLocationId()}") ?></dd>
 			<dt>Environment:</dt>
-			<dd><?php echo $patentDeposit->getEnvironment() ?></dd>
+			<dd><?php echo $patentDeposit->getFormattedEnvironment() ?></dd>
 
 			<dt>Habitat:</dt>
-			<dd><?php echo $patentDeposit->getHabitat() ?></dd>
+			<dd><?php echo $patentDeposit->getFormattedHabitat() ?></dd>
 			
 			<dt>Class:</dt>
 			<dd><?php echo $patentDepositClass ?></dd>

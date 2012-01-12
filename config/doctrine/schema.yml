@@ -154,9 +154,9 @@ Sample:
     location_details:     { type: string(80) }
     latitude:             { type: string(10), fixed: true }
     longitude:            { type: string(10), fixed: true }
-    environment_id:       { type: integer, notnull: true }
+    environment_id:       { type: integer }
     is_extremophile:      { type: boolean, notnull: true, default: false }
-    habitat_id:           { type: integer, notnull: true }
+    habitat_id:           { type: integer }
     ph:                   { type: float }
     conductivity:         { type: float }
     temperature:          { type: float }
@@ -716,8 +716,8 @@ PatentDeposit:
     has_dna:                    { type: boolean, notnull: true, default: false }
     gen_sequence:               { type: string(256) }
     location_id:                { type: integer, notnull: true }
-    environment_id:             { type: integer, notnull: true }
-    habitat_id:                 { type: integer, notnull: true }
+    environment_id:             { type: integer }
+    habitat_id:                 { type: integer }
     collection_date:            { type: date }
     isolation_date:             { type: date }
     identifier_id:              { type: integer }
@@ -805,8 +805,8 @@ MaintenanceDeposit:
     has_dna:                    { type: boolean, notnull: true, default: false }
     gen_sequence:               { type: string(256) }
     location_id:                { type: integer, notnull: true }
-    environment_id:             { type: integer, notnull: true }
-    habitat_id:                 { type: integer, notnull: true }
+    environment_id:             { type: integer }
+    habitat_id:                 { type: integer }
     collection_date:            { type: date }
     isolation_date:             { type: date }
     identifier_id:              { type: integer }
