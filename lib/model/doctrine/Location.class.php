@@ -50,5 +50,13 @@ class Location extends BaseLocation {
 		
 		return $coordinates['latitude'].', '.$coordinates['longitude'];
 	}
+	
+	public function getFormattedCategory() {
+		$category = $this->getCategory();
+		if ( $category->exists() ) {
+			return $category->getName();
+		}
+		return sfConfig::get('app_no_data_message');
+	}
 		
 }

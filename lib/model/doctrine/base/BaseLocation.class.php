@@ -7,12 +7,14 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property integer $category_id
  * @property string $latitude
  * @property string $longitude
  * @property integer $country_id
  * @property integer $region_id
  * @property integer $island_id
  * @property string $remarks
+ * @property LocationCategory $Category
  * @property Country $Country
  * @property Region $Region
  * @property Island $Island
@@ -24,12 +26,14 @@
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
+ * @method integer             getCategoryId()          Returns the current record's "category_id" value
  * @method string              getLatitude()            Returns the current record's "latitude" value
  * @method string              getLongitude()           Returns the current record's "longitude" value
  * @method integer             getCountryId()           Returns the current record's "country_id" value
  * @method integer             getRegionId()            Returns the current record's "region_id" value
  * @method integer             getIslandId()            Returns the current record's "island_id" value
  * @method string              getRemarks()             Returns the current record's "remarks" value
+ * @method LocationCategory    getCategory()            Returns the current record's "Category" value
  * @method Country             getCountry()             Returns the current record's "Country" value
  * @method Region              getRegion()              Returns the current record's "Region" value
  * @method Island              getIsland()              Returns the current record's "Island" value
@@ -40,12 +44,14 @@
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Location            setId()                  Sets the current record's "id" value
  * @method Location            setName()                Sets the current record's "name" value
+ * @method Location            setCategoryId()          Sets the current record's "category_id" value
  * @method Location            setLatitude()            Sets the current record's "latitude" value
  * @method Location            setLongitude()           Sets the current record's "longitude" value
  * @method Location            setCountryId()           Sets the current record's "country_id" value
  * @method Location            setRegionId()            Sets the current record's "region_id" value
  * @method Location            setIslandId()            Sets the current record's "island_id" value
  * @method Location            setRemarks()             Sets the current record's "remarks" value
+ * @method Location            setCategory()            Sets the current record's "Category" value
  * @method Location            setCountry()             Sets the current record's "Country" value
  * @method Location            setRegion()              Sets the current record's "Region" value
  * @method Location            setIsland()              Sets the current record's "Island" value
@@ -74,6 +80,9 @@ abstract class BaseLocation extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => 255,
+             ));
+        $this->hasColumn('category_id', 'integer', null, array(
+             'type' => 'integer',
              ));
         $this->hasColumn('latitude', 'string', 10, array(
              'type' => 'string',
@@ -116,6 +125,10 @@ abstract class BaseLocation extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('LocationCategory as Category', array(
+             'local' => 'category_id',
+             'foreign' => 'id'));
+
         $this->hasOne('Country', array(
              'local' => 'country_id',
              'foreign' => 'id'));

@@ -21,6 +21,8 @@
 			<dd><?php echo $location->getRegion()->getName() ?></dd>
 			<dt>Island:</dt>
 			<dd><?php echo $location->getIsland()->getName() ?></dd>
+			<dt>Category:</dt>
+			<dd><?php echo $location->getFormattedCategory() ?></dd>
 			<dt>GPS coordinates:</dt>
 			<dd>
 			<?php 
