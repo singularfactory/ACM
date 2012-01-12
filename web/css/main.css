@@ -256,7 +256,7 @@ div.http_error a {
 #header_menu ul#header_menu_tabs a:link,
 #header_menu ul#header_menu_tabs a:visited {
 	float: left; /* for IE6 */
-	font-size: 12px;
+	font-size: 11px;
 	line-height: 12px;
 	font-weight: bold;
 	padding: 5px 9px 7px;
@@ -275,7 +275,7 @@ div.http_error a {
 	background: #2aa2f8;
 }
 .header_menu_right_tab { float: right; }
-#header_menu ul#header_menu_tabs #header_menu_separator_tab a { margin-left: 50px; }
+#header_menu ul#header_menu_tabs #header_menu_separator_tab a { margin-left: 20px; }
 #header_menu ul#header_menu_tabs a.header_menu_tab_count { color: #ffffff; background: #bf0426; }
 
 /**
