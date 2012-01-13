@@ -38,6 +38,7 @@ class StrainForm extends BaseStrainForm {
 			'multiple' => true,
 			'model' => 'CultureMedium',
 			'method' => 'getName',
+			'order_by' => array('name', 'asc'),
 		)));
 		
 		// Configure list of isolators
@@ -45,6 +46,23 @@ class StrainForm extends BaseStrainForm {
 			'model' => 'Isolator',
 			'method' => 'getFullName',
 			'multiple' => true,
+			'order_by' => array('name', 'asc'),
+		)));
+		
+		// Configure list of containers
+		$this->setWidget('containers_list', new sfWidgetFormDoctrineChoice(array(
+			'model' => 'Container',
+			'method' => 'getName',
+			'multiple' => true,
+			'order_by' => array('name', 'asc'),
+		)));
+		
+		// Configure list of maintenance statuses
+		$this->setWidget('maintenance_status_list', new sfWidgetFormDoctrineChoice(array(
+			'model' => 'MaintenanceStatus',
+			'method' => 'getName',
+			'multiple' => true,
+			'order_by' => array('name', 'asc'),
 		)));
 		
 		// Calculate maximum number of images the user can upload

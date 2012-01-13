@@ -20,6 +20,13 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		$dateWidgetForm = new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => $years));
 		$this->setWidget('arrival_date', $dateWidgetForm);
 		$this->setWidget('extraction_date', $dateWidgetForm);
+		
+		// Configure list of extraction kits
+		$this->setWidget('extraction_kit_id', new sfWidgetFormDoctrineChoice(array(
+			'model' => 'ExtractionKit',
+			'add_empty' => false,
+			'order_by' => array('name', 'asc'),
+		)));
 				
 		// Configure custom validators
 		$this->setValidator('strain_id', new sfValidatorDoctrineChoice(

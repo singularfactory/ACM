@@ -37,6 +37,13 @@ class SampleForm extends BaseSampleForm {
 		$this->setOption('max_sample_detailed_pictures', $defaultMaxDetailedPictures - $actualDetailedPictures);
 		$this->setOption('max_sample_microscopic_pictures', $defaultMaxMicroscopicPictures - $actualMicroscopicPictures);
 		
+		// Configure list of colectors
+		$this->setWidget('collectors_list', new sfWidgetFormDoctrineChoice(array(
+			'model' => 'Collector',
+			'multiple' => true,
+			'order_by' => array('name', 'asc'),
+		)));
+		
 		// Create an embedded form to add or edit pictures
 		$this->embedRelations(array(
 			'FieldPictures' => array(
