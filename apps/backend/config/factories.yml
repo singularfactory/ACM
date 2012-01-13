@@ -3,10 +3,14 @@
 
 prod:
   logger:
-    class:   sfNoLogger
+    class:   sfAggregateLogger
     param:
       level:   err
-      loggers: ~
+      sf_file_debug:
+        class: sfFileLogger
+        param:
+          level: err
+          file: %SF_LOG_DIR%/%SF_APP%_%SF_ENVIRONMENT%.log
 
 test:
   storage:
