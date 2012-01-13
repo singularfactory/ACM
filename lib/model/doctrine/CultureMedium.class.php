@@ -19,10 +19,15 @@ class CultureMedium extends BaseCultureMedium {
 	}
 	
 	public function getNbStrains() {
-		return Doctrine_Query::create()
-			->from('StrainCultureMedia s')
-			->where('s.culture_medium_id = ?', $this->getId())
-			->count();
+		if ( $strains = $this->getStrains() ) {
+			return count($strains);
+		}
+		else {
+			return Doctrine_Query::create()
+				->from('StrainCultureMedia s')
+				->where('s.culture_medium_id = ?', $this->getId())
+				->count();
+		}
 	}
 	
 	public function getNbPatentDeposits() {

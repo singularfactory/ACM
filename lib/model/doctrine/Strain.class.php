@@ -47,6 +47,10 @@ class Strain extends BaseStrain {
 		return count($this->getCultureMedia());
 	}
 	
+	public function getNbContainers() {
+		return count($this->getContainers());
+	}
+	
 	public function getNbDnaExtractions() {
 		return Doctrine_Query::create()
 			->from('DnaExtraction dna')
@@ -126,6 +130,13 @@ class Strain extends BaseStrain {
 	
 	public function getFormattedIsPublic() {
 		if ( $this->getIsPublic() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
+	public function getFormattedInGCatalog() {
+		if ( $this->getInGCatalog() ) {
 			return 'yes';
 		}
 		return 'no';

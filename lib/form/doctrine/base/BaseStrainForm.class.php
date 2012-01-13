@@ -36,9 +36,12 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'citations'                  => new sfWidgetFormTextarea(),
       'web_notes'                  => new sfWidgetFormTextarea(),
       'remarks'                    => new sfWidgetFormTextarea(),
+      'supervisor_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
+      'in_g_catalog'               => new sfWidgetFormInputCheckbox(),
       'created_at'                 => new sfWidgetFormDateTime(),
       'updated_at'                 => new sfWidgetFormDateTime(),
       'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
+      'containers_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Container')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
       'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
@@ -65,9 +68,12 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'citations'                  => new sfValidatorString(array('required' => false)),
       'web_notes'                  => new sfValidatorString(array('required' => false)),
       'remarks'                    => new sfValidatorString(array('required' => false)),
+      'supervisor_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'required' => false)),
+      'in_g_catalog'               => new sfValidatorBoolean(array('required' => false)),
       'created_at'                 => new sfValidatorDateTime(),
       'updated_at'                 => new sfValidatorDateTime(),
       'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
+      'containers_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Container', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
       'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
@@ -99,6 +105,11 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       $this->setDefault('isolators_list', $this->object->Isolators->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['containers_list']))
+    {
+      $this->setDefault('containers_list', $this->object->Containers->getPrimaryKeys());
+    }
+
     if (isset($this->widgetSchema['culture_media_list']))
     {
       $this->setDefault('culture_media_list', $this->object->CultureMedia->getPrimaryKeys());
@@ -114,6 +125,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
   protected function doSave($con = null)
   {
     $this->saveIsolatorsList($con);
+    $this->saveContainersList($con);
     $this->saveCultureMediaList($con);
     $this->saveMaintenanceStatusList($con);
 
@@ -155,6 +167,44 @@ abstract class BaseStrainForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('Isolators', array_values($link));
+    }
+  }
+
+  public function saveContainersList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['containers_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Containers->getPrimaryKeys();
+    $values = $this->getValue('containers_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Containers', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Containers', array_values($link));
     }
   }
 

@@ -32,3 +32,10 @@
 	<?php echo $form['sample_extremophile']->renderHelp() ?>
 	<?php echo $form['sample_extremophile'] ?>
 </div>
+
+<div id="report_sample_location_details">
+	<?php echo $form['sample_location_details']->renderLabel() ?>
+	<?php echo $form['sample_location_details']->renderError() ?>
+	<?php echo $form['sample_location_details']->renderHelp() ?>
+	<?php echo $form['sample_location_details'] ?>
+</div>

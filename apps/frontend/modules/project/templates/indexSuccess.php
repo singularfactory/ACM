@@ -41,7 +41,7 @@
 			
 			<td class="project_code"><?php echo link_to($code, $url) ?></td>
 			<td class="project_subject"><?php echo link_to($project->getSubject(), $url) ?></td>
-			<td class="project_name"><?php echo link_to($project->getName(), $url) ?></td>
+			<td class="project_name"><?php echo link_to($project->getProjectName()->getName(), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
 			<td class="genus_name"><span class="species_name"><?php echo link_to($genusAndSpecies, $url) ?></span></td>
 			<td class="date inoculation_date"><?php echo link_to($project->getInoculationDate(), $url) ?></td>

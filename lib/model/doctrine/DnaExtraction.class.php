@@ -20,6 +20,10 @@ class DnaExtraction extends BaseDnaExtraction {
 	}
 	
 	public function getNbPcr() {
+		if ( $this->getPcr() ) {
+			return count($this->getPcr());
+		}
+		
 		return Doctrine_Query::create()
 			->from('PCR pcr')
 			->where('pcr.dna_extraction_id = ?', $this->getId())

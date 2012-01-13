@@ -53,6 +53,13 @@
 			<?php echo $form['island_id']->renderHelp() ?>
 			<?php echo $form['island_id'] ?>
 		</div>
+		
+		<div id="category">
+			<?php echo $form['category_id']->renderLabel() ?>
+			<?php echo $form['category_id']->renderError() ?>
+			<?php echo $form['category_id']->renderHelp() ?>
+			<?php echo $form['category_id'] ?>
+		</div>
 	</div>
 
 	<div id="right_side_form">

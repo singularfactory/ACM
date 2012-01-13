@@ -94,7 +94,21 @@ class Sample extends BaseSample {
 		}
 		return $altitude;
 	}
-
+	
+	public function getFormattedEnvironment() {
+		if ( $this->getEnvironment()->exists() ) {
+			return $this->getEnvironment()->getName();
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getFormattedHabitat() {
+		if ( $this->getHabitat()->exists() ) {
+			return $this->getHabitat()->getName();
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+	
 	public function getGPSCoordinates() {
 		return array(
 			'latitude' => $this->getLatitude(),

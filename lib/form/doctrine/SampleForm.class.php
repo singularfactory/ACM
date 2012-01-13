@@ -37,6 +37,13 @@ class SampleForm extends BaseSampleForm {
 		$this->setOption('max_sample_detailed_pictures', $defaultMaxDetailedPictures - $actualDetailedPictures);
 		$this->setOption('max_sample_microscopic_pictures', $defaultMaxMicroscopicPictures - $actualMicroscopicPictures);
 		
+		// Configure list of colectors
+		$this->setWidget('collectors_list', new sfWidgetFormDoctrineChoice(array(
+			'model' => 'Collector',
+			'multiple' => true,
+			'order_by' => array('name', 'asc'),
+		)));
+		
 		// Create an embedded form to add or edit pictures
 		$this->embedRelations(array(
 			'FieldPictures' => array(
@@ -91,6 +98,8 @@ class SampleForm extends BaseSampleForm {
 		$this->widgetSchema->setHelp('salinity', 'Value for salinity (ppm)');
 		$this->widgetSchema->setHelp('altitude', 'Integer value for altitude in meters (e.g. 1595)');
 		$this->widgetSchema->setHelp('radiation_id', 'Leave it blank if you do not know the value');
+		$this->widgetSchema->setHelp('environment_id', 'Leave it blank if you do not know the value');
+		$this->widgetSchema->setHelp('habitat_id', 'Leave it blank if you do not know the value');
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this sample. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('collection_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('new_FieldPictures', 'Select up to '.($defaultMaxFieldPictures - $actualFieldPictures).' pictures in JPEG, PNG or TIFF format');

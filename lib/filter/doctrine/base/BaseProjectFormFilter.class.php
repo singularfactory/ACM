@@ -13,7 +13,7 @@ abstract class BaseProjectFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'name'             => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'project_name_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ProjectName'), 'add_empty' => true)),
       'petitioner_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Petitioner'), 'add_empty' => true)),
       'subject'          => new sfWidgetFormChoice(array('choices' => array('' => '', 'sample' => 'sample', 'strain' => 'strain'))),
       'strain_id'        => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
@@ -29,7 +29,7 @@ abstract class BaseProjectFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'name'             => new sfValidatorPass(array('required' => false)),
+      'project_name_id'  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('ProjectName'), 'column' => 'id')),
       'petitioner_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Petitioner'), 'column' => 'id')),
       'subject'          => new sfValidatorChoice(array('required' => false, 'choices' => array('sample' => 'sample', 'strain' => 'strain'))),
       'strain_id'        => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Strain'), 'column' => 'id')),
@@ -62,7 +62,7 @@ abstract class BaseProjectFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'               => 'Number',
-      'name'             => 'Text',
+      'project_name_id'  => 'ForeignKey',
       'petitioner_id'    => 'ForeignKey',
       'subject'          => 'Enum',
       'strain_id'        => 'ForeignKey',

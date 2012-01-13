@@ -24,6 +24,7 @@ class projectActions extends MyActions {
 				->leftJoin("s.Species sp")
 				->leftJoin("{$this->mainAlias()}.Provider pr")
 				->leftJoin("{$this->mainAlias()}.Petitioner pe")
+				->leftJoin("{$this->mainAlias()}.ProjectName pn")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.amount LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
@@ -38,7 +39,8 @@ class projectActions extends MyActions {
 				->orWhere('pr.first_name LIKE ?', "%$text%")
 				->orWhere('pr.last_name LIKE ?', "%$text%")
 				->orWhere('pe.first_name LIKE ?', "%$text%")
-				->orWhere('pe.last_name LIKE ?', "%$text%");
+				->orWhere('pe.last_name LIKE ?', "%$text%")
+				->orWhere('pn.name LIKE ?', "%$text%");
 						
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
@@ -50,7 +52,8 @@ class projectActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Petitioner pe")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
-				->leftJoin("s.Species sp");
+				->leftJoin("s.Species sp")
+				->leftJoin("{$this->mainAlias()}.ProjectName pn");
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
@@ -87,6 +90,7 @@ class projectActions extends MyActions {
 		if ( $lastProject = $this->getUser()->getAttribute('project.last_object_created') ) {
 			$project = new Project();
 			
+			$project->setProjectNameId($lastProject->getProjectNameId());
 			$project->setStrainId($lastProject->getStrainId());
 			$project->setSampleId($lastProject->getSampleId());
 			$project->setPetitionerId($lastProject->getPetitionerId());

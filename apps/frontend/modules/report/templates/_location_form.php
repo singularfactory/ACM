@@ -28,3 +28,10 @@
 	<input type="text" value="" id="report_location_island_search" name="location_island_search" class="report_search_box" />
 	<a href="<?php echo url_for('@report_find_islands?island=') ?>" class="report_find_islands_url"></a>
 </div>
+
+<div id="report_location_category" class="report_inline_where">
+	<?php echo $form['location_category']->renderLabel() ?>
+	<?php echo $form['location_category']->renderError() ?>
+	<?php echo $form['location_category']->renderHelp() ?>
+	<?php echo $form['location_category'] ?>
+</div>

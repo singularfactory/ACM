@@ -83,19 +83,16 @@
 			<?php echo $form['is_epitype'] ?>
 		</div>
 		
+		<div id="in_g_catalog" class="checkbox">
+			<?php echo $form['in_g_catalog']->renderLabel() ?>
+			<?php echo $form['in_g_catalog'] ?>
+		</div>
+		
 		<div id="public" class="checkbox">
 			<?php echo $form['is_public']->renderLabel() ?>
 			<?php echo $form['is_public'] ?>
 			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
-		
-		<?php if ( isset($form['container_id']) ): ?>
-		<div id="container">
-			<?php echo $form['container_id']->renderLabel() ?>
-			<?php echo $form['container_id']->renderHelp() ?>
-			<?php echo $form['container_id'] ?>
-		</div>
-		<?php endif; ?>
 		
 		<!--
 		<div id="amount">
@@ -274,9 +271,29 @@
 		<?php endif; ?>
 		<br />
 		
+		<?php if ( isset($form['container_id']) ): ?>
+		<div id="container">
+			<?php echo $form['container_id']->renderLabel() ?>
+			<?php echo $form['container_id']->renderHelp() ?>
+			<?php echo $form['container_id'] ?>
+		</div>
+		
+		<div id="containers_list" class="list_field">
+			<?php echo $form['containers_list']->renderLabel() ?>
+			<?php echo $form['containers_list']->renderError() ?>
+			<?php echo $form['containers_list']->renderHelp() ?>
+			<?php echo $form['containers_list'] ?>
+		</div>
+		<?php endif; ?>
+		
 		<div id="transfer_interval">
 			<?php echo $form['transfer_interval']->renderLabel() ?>
 			<?php echo $form['transfer_interval'] ?>
+		</div>
+		
+		<div id="supervisor">
+			<?php echo $form['supervisor_id']->renderLabel() ?>
+			<?php echo $form['supervisor_id'] ?>
 		</div>
 		
 		<div id="observation">

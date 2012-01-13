@@ -198,11 +198,9 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              ));
         $this->hasColumn('environment_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('habitat_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('collection_date', 'date', null, array(
              'type' => 'date',

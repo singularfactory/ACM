@@ -27,7 +27,8 @@ class ReportForm extends BaseForm {
 		0 => '',
 		'country' => 'Country',
 		'region' => 'Region',
-		'island' => 'Island'
+		'island' => 'Island',
+		'category' => 'Category',
 	);
 	
 	public static $sampleGroupByChoices = array(
@@ -77,6 +78,7 @@ class ReportForm extends BaseForm {
 			'location_country'	=> new sfWidgetFormInputHidden(),
 			'location_region'	=> new sfWidgetFormInputHidden(),
 			'location_island'	=> new sfWidgetFormInputHidden(),
+			'location_category' => new sfWidgetFormDoctrineChoice(array('model' => 'LocationCategory', 'add_empty' => true)),
 			
 			// Sample attributes
 			'sample_group_by'	=> new sfWidgetFormChoice(array('choices' => self::$sampleGroupByChoices)),
@@ -84,6 +86,7 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => new sfWidgetFormDoctrineChoice(array('model' => 'Habitat', 'add_empty' => true)),
 			'sample_radiation' => new sfWidgetFormDoctrineChoice(array('model' => 'Radiation', 'add_empty' => true)),
 			'sample_extremophile' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
+			'sample_location_details' => new sfWidgetFormInputText(),
 			
 			// Strain attributes
 			'strain_group_by' => new sfWidgetFormChoice(array('choices' => self::$strainGroupByChoices)),
@@ -114,6 +117,7 @@ class ReportForm extends BaseForm {
 			'location_country'	=> new sfValidatorInteger(array('required' => false)),
 			'location_region'	=> new sfValidatorInteger(array('required' => false)),
 			'location_island'	=> new sfValidatorInteger(array('required' => false)),
+			'location_category' => new sfValidatorDoctrineChoice(array('model' => 'LocationCategory', 'required' => false)),
 			
 			// Sample attributes
 			'sample_group_by' => new sfValidatorChoice(array('choices' => array_keys(self::$sampleGroupByChoices), 'required' => false)),
@@ -121,6 +125,7 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => new sfValidatorDoctrineChoice(array('model' => 'Habitat', 'required' => false)),
 			'sample_radiation' => new sfValidatorDoctrineChoice(array('model' => 'Radiation', 'required' => false)),
 			'sample_extremophile' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
+			'sample_location_details' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
 			
 			// Strain attributes
 			'strain_group_by' => new sfValidatorChoice(array('choices' => array_keys(self::$strainGroupByChoices), 'required' => false)),
@@ -153,6 +158,7 @@ class ReportForm extends BaseForm {
 			'location_country' => 'Limited to country',
 			'location_region' => 'Limited to region',
 			'location_island' => 'Limited to island',
+			'location_category' => 'Limited to category',
 			
 			// Sample attributes
 			'sample_group_by' => 'Group by',
@@ -160,6 +166,7 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => 'Limited to habitat',
 			'sample_radiation' => 'Limited to radiation',
 			'sample_extremophile' => 'Is extremophile?',
+			'sample_location_details' => 'Location details',
 			
 			// Strain attributes
 			'strain_group_by' => 'Group by',

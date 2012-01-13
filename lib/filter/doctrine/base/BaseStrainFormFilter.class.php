@@ -33,9 +33,12 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'citations'                  => new sfWidgetFormFilterInput(),
       'web_notes'                  => new sfWidgetFormFilterInput(),
       'remarks'                    => new sfWidgetFormFilterInput(),
+      'supervisor_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
+      'in_g_catalog'               => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'                 => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
+      'containers_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Container')),
       'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
       'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
@@ -61,9 +64,12 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'citations'                  => new sfValidatorPass(array('required' => false)),
       'web_notes'                  => new sfValidatorPass(array('required' => false)),
       'remarks'                    => new sfValidatorPass(array('required' => false)),
+      'supervisor_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Supervisor'), 'column' => 'id')),
+      'in_g_catalog'               => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'                 => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
+      'containers_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Container', 'required' => false)),
       'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
       'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
@@ -92,6 +98,24 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     $query
       ->leftJoin($query->getRootAlias().'.StrainIsolators StrainIsolators')
       ->andWhereIn('StrainIsolators.isolator_id', $values)
+    ;
+  }
+
+  public function addContainersListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.StrainContainers StrainContainers')
+      ->andWhereIn('StrainContainers.container_id', $values)
     ;
   }
 
@@ -160,9 +184,12 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'citations'                  => 'Text',
       'web_notes'                  => 'Text',
       'remarks'                    => 'Text',
+      'supervisor_id'              => 'ForeignKey',
+      'in_g_catalog'               => 'Boolean',
       'created_at'                 => 'Date',
       'updated_at'                 => 'Date',
       'isolators_list'             => 'ManyKey',
+      'containers_list'            => 'ManyKey',
       'culture_media_list'         => 'ManyKey',
       'maintenance_status_list'    => 'ManyKey',
     );

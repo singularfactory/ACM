@@ -11,11 +11,17 @@
  * @version    SVN: $Id: Builder.php 7691 2011-02-04 15:43:29Z jwage $
  */
 class Location extends BaseLocation {
+	
 	public function getNbSamples() {
-		return Doctrine_Query::create()
-			->from('Sample s')
-			->where('s.location_id = ?', $this->getId())
-			->count();
+		if ( $samples = $this->getSamples() ) {
+			return count($samples);
+		}
+		else {
+			return Doctrine_Query::create()
+				->from('Sample s')
+				->where('s.location_id = ?', $this->getId())
+				->count();
+		}
 	}
 	
 	public function getNbPictures() {
@@ -43,6 +49,14 @@ class Location extends BaseLocation {
 		}
 		
 		return $coordinates['latitude'].', '.$coordinates['longitude'];
+	}
+	
+	public function getFormattedCategory() {
+		$category = $this->getCategory();
+		if ( $category->exists() ) {
+			return $category->getName();
+		}
+		return sfConfig::get('app_no_data_message');
 	}
 		
 }

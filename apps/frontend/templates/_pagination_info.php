@@ -19,4 +19,7 @@
 		<?php echo link_to(image_tag('next.png', array('alt' => 'Next page', 'title' => 'Next page')), $url.$pager->getNextPage(), array('class' => 'button')) ?>
 		<?php echo link_to(image_tag('last.png', array('alt' => 'Last page', 'title' => 'Last page')), $url.$pager->getLastPage(), array('class' => 'button')) ?>
 	</span>
+	<span id="pagination_cancelation">
+		<?php echo link_to('Show all records', "@module_full_index?module=$model", array('confirm' => 'Displaying all results may take some time depending on the number of results .Do you want to continue?')) ?>
+	</span>
 </div>

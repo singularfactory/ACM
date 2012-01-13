@@ -120,6 +120,25 @@
 		</div>
 		<?php endif ?>
 		
+		<?php $nbContainers = $strain->getNbContainers() ?>
+		<?php if ( $nbContainers > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Containers</h2>
+			<table>
+				<tr>
+					<th class="container_name">Name</th>
+					<th class="object_count_long">Total strains</th>
+				</tr>
+				<?php foreach ($strain->getContainers() as $container ): ?>
+					<tr>
+						<td class="container_name"><?php echo $container->getName() ?></td>
+						<td class="object_count_long"><?php echo $container->getNbStrains() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+		
 		<?php $nbIsolations = $strain->getNbIsolations() ?>
 		<?php if ( $nbIsolations > 0): ?>
 		<div class="object_related_model_list">
@@ -184,6 +203,8 @@
 			<dd><?php echo $strain->getFormattedIsEpitype() ?></dd>
 			<dt>Is axenic:</dt>
 			<dd><?php echo $strain->getFormattedIsAxenic() ?></dd>
+			<dt>In G catalog:</dt>
+			<dd><?php echo $strain->getFormattedInGCatalog() ?></dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
 			<!--
@@ -257,6 +278,11 @@
 			<dt>Transfer interval:</dt>
 			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
 			
+			<?php if ( $strain->getSupervisor()->getName() ): ?>
+			<dt>Supervisor:</dt>
+			<dd><?php echo $strain->getSupervisor() ?></dd>
+			<?php endif; ?>
+			
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getFormattedObservation() ?></dd>
 			
@@ -267,7 +293,7 @@
 			<dt>Identifier:</dt>
 			<dd><?php echo $strain->getIdentifier() ?></dd>
 			<?php endif; ?>
-
+			
 			<dt>Citations:</dt>
 			<dd><?php echo $strain->getFormattedCitations() ?></dd>
 			

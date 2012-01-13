@@ -1,0 +1,35 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           LocationCategory
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          location_category
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title:  Categories
+        display: [name, updated_at]
+        fields:
+          name:
+            label: Name
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name]
+      form:    ~
+      edit:
+        title: Edit the category name
+      new:
+        title: Add a new category
+    

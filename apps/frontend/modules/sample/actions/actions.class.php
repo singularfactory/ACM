@@ -24,6 +24,7 @@ class sampleActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Collectors c")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.location_details LIKE ?", "%$text%")
 				->orWhere('l.name LIKE ?', "%$text%")
 				->orWhere('e.name LIKE ?', "%$text%")
 				->orWhere('h.name LIKE ?', "%$text%")

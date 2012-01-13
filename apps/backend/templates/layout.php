@@ -53,7 +53,7 @@
 				<ul id="header_menu_tabs">
 					<?php $route = sfContext::getInstance()->getRouting()->getCurrentRouteName() ?>
 					<li>
-						<?php echo link_to('Locations', '@country', (preg_match('/^(country|region|island)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to('Locations', '@country', (preg_match('/^(country|region|island|location_category)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('Sampling', '@radiation', (preg_match('/^(radiation|habitat|environment|purification_method)_?|homepage/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -66,6 +66,9 @@
 					</li>
 					<li>
 						<?php echo link_to('DNA Lab', '@extraction_kit', (preg_match('/^(extraction_kit|dna_polymerase|dna_primer|pcr_program)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
+					<li>
+						<?php echo link_to('Projects', '@project_name', (preg_match('/^(project_name)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li>
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -91,7 +94,7 @@
 			</div>
 			<?php endif; ?>
 			
-			<?php if ( preg_match('/^(country|region|island)_?/', $route) ): ?>
+			<?php if ( preg_match('/^(country|region|island|location_category)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/location_sections', array('route' => $route)) ?>
 			</div>
@@ -106,6 +109,12 @@
 			<?php if ( preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/taxonomy_sections', array('route' => $route)) ?>
+			</div>
+			<?php endif; ?>
+			
+			<?php if ( preg_match('/^(project_name)_?/', $route) && false ): ?>
+			<div id="subsections_header">
+				<?php include_partial('global/project_sections', array('route' => $route)) ?>
 			</div>
 			<?php endif; ?>
 			
