@@ -196,6 +196,12 @@ class reportActions extends sfActions {
 							$query = $query->andWhere("$alias.is_extremophile = ?", 1);
 						}
 					}
+					
+					if ( $locationDetails = $request->getParameter('sample_location_details') ) {
+						$this->filters['LocationDetails'] = $locationDetails;
+						$query = $query->andWhere("$alias.location_details LIKE ?", "%$locationDetails%");
+					}
+					
 					break;
 				
 				case 'strain':

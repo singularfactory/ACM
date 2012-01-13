@@ -86,6 +86,7 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => new sfWidgetFormDoctrineChoice(array('model' => 'Habitat', 'add_empty' => true)),
 			'sample_radiation' => new sfWidgetFormDoctrineChoice(array('model' => 'Radiation', 'add_empty' => true)),
 			'sample_extremophile' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
+			'sample_location_details' => new sfWidgetFormInputText(),
 			
 			// Strain attributes
 			'strain_group_by' => new sfWidgetFormChoice(array('choices' => self::$strainGroupByChoices)),
@@ -124,6 +125,7 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => new sfValidatorDoctrineChoice(array('model' => 'Habitat', 'required' => false)),
 			'sample_radiation' => new sfValidatorDoctrineChoice(array('model' => 'Radiation', 'required' => false)),
 			'sample_extremophile' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
+			'sample_location_details' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
 			
 			// Strain attributes
 			'strain_group_by' => new sfValidatorChoice(array('choices' => array_keys(self::$strainGroupByChoices), 'required' => false)),
@@ -164,6 +166,7 @@ class ReportForm extends BaseForm {
 			'sample_habitat' => 'Limited to habitat',
 			'sample_radiation' => 'Limited to radiation',
 			'sample_extremophile' => 'Is extremophile?',
+			'sample_location_details' => 'Location details',
 			
 			// Strain attributes
 			'strain_group_by' => 'Group by',
