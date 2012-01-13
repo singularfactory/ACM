@@ -33,6 +33,10 @@
 				<th>Island</th>
 				<?php endif ?>
 				
+				<?php if ( !$filters->offsetExists('LocationCategory') ): ?>
+				<th>Category</th>
+				<?php endif ?>
+				
 				<th class="report_object_count">Samples</th>
 			</tr>
 			<?php foreach ( $results as $location ): ?>
@@ -49,6 +53,10 @@
 				
 				<?php if ( !$filters->offsetExists('Island') ): ?>
 				<td><?php echo $location->getIsland() ?></td>
+				<?php endif ?>
+				
+				<?php if ( !$filters->offsetExists('LocationCategory') ): ?>
+				<td><?php echo $location->getCategory() ?></td>
 				<?php endif ?>
 				
 				<td class="report_object_count"><?php echo $location->getNbSamples() ?></td>

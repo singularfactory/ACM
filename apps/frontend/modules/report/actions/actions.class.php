@@ -373,12 +373,17 @@ class reportActions extends sfActions {
 					
 					// Filters
 					$this->filters = array();
-					$relatedModels = array('country', 'region', 'island');
+					$relatedModels = array('country', 'region', 'island', 'category');
 					foreach ( $relatedModels as $model ) {
 						if ( $id = $request->getParameter("location_$model") ) {
 							$foreignKey = sfInflector::foreign_key($model);
 							$model = sfInflector::camelize($model);
-							$table = call_user_func(array("{$model}Table", 'getInstance'));
+							if ( $model === 'Category' ) {
+								$table = call_user_func(array("LocationCategoryTable", 'getInstance'));
+							}
+							else {
+								$table = call_user_func(array("{$model}Table", 'getInstance'));
+							}
 							
 							$this->filters[$model] = $table->find($id)->getName();
 							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
