@@ -67,6 +67,11 @@ a.strain_isolators_list_url { display: none; }
 #strain_isolators_list tr td.isolator_name { width: auto; min-width: 470px; }
 #strain_isolators_list tr td.object_count_long { width: auto; width: 100px; }
 
+#project_description_obligations p {
+	background-color: #DDD;
+	margin-right: 21px;
+}
+
 
 /**
 * GOOGLE MAPS IN SHOW ACTION

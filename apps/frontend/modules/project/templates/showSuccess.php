@@ -60,5 +60,21 @@
 		</dl>
 	</div>
 	
+	<div id="project_description_obligations" class="object_related_model_long_list">
+		<?php if ( $description = $project->getProjectName()->getDescription() ): ?>
+		<div id="project_description">
+			<h2>Project description</h2>
+			<p><?php echo $description ?></p>
+		</div>
+		<?php endif ?>
+		
+		<?php if ( $obligations = $project->getProjectName()->getObligations() ): ?>
+		<div id="project_obligations">
+			<h2>Project obligations</h2>
+			<p><?php echo $obligations ?></p>
+		</div>
+		<?php endif ?>
+	</div>
+	
 	<div class="clear"></div>
 </div>
