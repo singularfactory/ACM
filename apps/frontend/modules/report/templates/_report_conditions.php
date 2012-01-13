@@ -1,4 +1,4 @@
-<?php if ( $modelToGroupBy || $filters ): ?>
+<?php if ( $modelToGroupBy || count($filters) ): ?>
 <div id="report_results_conditions">
 <?php if ( $modelToGroupBy ): ?>
 	<?php $modelToGroupBy = preg_replace('/^is_/', '', $modelToGroupBy) ?>
