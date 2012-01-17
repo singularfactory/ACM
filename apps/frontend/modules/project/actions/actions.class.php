@@ -111,6 +111,7 @@ class projectActions extends MyActions {
 		
 		$this->hasStrains = (StrainTable::getInstance()->count() > 0)?true:false;
 		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
+		$this->hasProjectNames = (ProjectNameTable::getInstance()->count() > 0)?true:false;
 	}
 	
 	public function executeCreate(sfWebRequest $request) {
@@ -121,6 +122,7 @@ class projectActions extends MyActions {
 		$this->configureFormByProjectSubject($this->form, $project['subject']);
 		$this->hasStrains = (StrainTable::getInstance()->count() > 0)?true:false;
 		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
+		$this->hasProjectNames = (ProjectNameTable::getInstance()->count() > 0)?true:false;
 		
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');

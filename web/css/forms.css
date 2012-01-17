@@ -203,7 +203,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 	width: 300px;
 	padding: 1px;
 }
-#strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_strain_search { width: 150px; }
+#strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_sample_search, #cryopreservation_strain_search, #cryopreservation_sample_search { width: 150px; }
 
 /**
  * REPORTS

@@ -39,11 +39,11 @@
 		</div>
 		<?php endif ?>
 		
-		<div id="name">
-			<?php echo $form['name']->renderLabel() ?>
-			<?php echo $form['name']->renderError() ?>
-			<?php echo $form['name']->renderHelp() ?>
-			<?php echo $form['name'] ?>
+		<div id="project_name_id">
+			<?php echo $form['project_name_id']->renderLabel() ?>
+			<?php echo $form['project_name_id']->renderError() ?>
+			<?php echo $form['project_name_id']->renderHelp() ?>
+			<?php echo $form['project_name_id'] ?>
 		</div>
 		
 		<div id="petitioner_id">
