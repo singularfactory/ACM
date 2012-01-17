@@ -1,9 +1,27 @@
-<?php $url = "@{$model}_pagination?page=" ?>
-<?php
-	if ( $text = $sf_user->getAttribute('search.criteria') ) {
-		$url = "@{$model}_search_pagination?criteria=$text&page=";
-	}
-?>
+<?php $url = "@{$model}_pagination?" ?>
+<?php if ( $text = $sf_user->getAttribute('search.criteria') ): ?>
+<?php $url = "@{$model}_search_pagination?" ?>
+<?php endif ?>
+
+<?php $url_parameters = array() ?>
+
+<?php if ( isset($sort_column) & !empty($sort_column) ): ?>
+<?php $url_parameters['sort_column'] = $sort_column ?>
+<?php endif ?>
+
+<?php if ( isset($sort_direction) & !empty($sort_direction) ): ?>
+<?php $url_parameters['sort_direction'] = ($sort_direction === 'asc') ? 'desc' : 'asc' ?>
+<?php endif ?>
+
+<?php if ( $text = $sf_user->getAttribute('search.criteria') ): ?>
+<?php $url_parameters['criteria'] = urlencode($text) ?>
+<?php endif ?>
+
+<?php foreach ( $url_parameters as $parameter => $value ): ?>
+<?php $url .= "$parameter=$value&" ?>
+<?php endforeach ?>
+
+<?php $url .= "page=" ?>
 
 <div id="pagination">
 	<?php echo count($pager) ?> items - showing page <?php echo $pager->getPage() ?> of <?php echo $pager->getLastPage() ?>
