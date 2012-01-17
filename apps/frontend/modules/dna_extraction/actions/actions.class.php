@@ -18,17 +18,20 @@ class dna_extractionActions extends MyActions {
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain s")
+				->leftJoin("{$this->mainAlias()}.ExtractionKit c")
+				->leftJoin("{$this->mainAlias()}.Pcr p")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp")
-				->leftJoin("{$this->mainAlias()}.ExtractionKit c")
-				->leftJoin("{$this->mainAlias()}.Pcr p")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.concentration = ?", $text)
+				->orWhere("{$this->mainAlias()}.extraction_date LIKE ?", "%$text%")
+				->orWhere('s.code LIKE ?', "%$text%")
+				->orWhere('s.id LIKE ?', "%$text%")
+				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('tc.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('s.id LIKE ?', "%$text%")
-				->orWhere('k.name LIKE ?', "%$text%");
+				->orWhere('sp.name LIKE ?', "%$text%");
 						
 			// Parse search term to catch extraction codes
 			if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
