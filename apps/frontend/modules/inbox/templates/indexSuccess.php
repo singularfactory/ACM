@@ -35,7 +35,7 @@
 </table>
 
 <?php if ($pager->haveToPaginate()): ?>
-	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'notification')) ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'notification', 'sort_direction' => $sortDirection, 'sort_column' => $sortColumn)) ?>
 <?php endif ?>
 
 <?php else: ?>

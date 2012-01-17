@@ -56,7 +56,7 @@
 </table>
 
 <?php if ($pager->haveToPaginate()): ?>
-	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'cryopreservation')) ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'cryopreservation', 'sort_direction' => $sortDirection, 'sort_column' => $sortColumn)) ?>
 <?php endif ?>
 
 <?php else: ?>

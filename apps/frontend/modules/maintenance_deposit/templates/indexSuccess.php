@@ -47,7 +47,7 @@
 </table>
 
 <?php if ($pager->haveToPaginate()): ?>
-	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'maintenance_deposit')) ?>
+	<?php include_partial('global/pagination_info', array('pager' => $pager, 'model' => 'maintenance_deposit', 'sort_direction' => $sortDirection, 'sort_column' => $sortColumn)) ?>
 <?php endif ?>
 
 <?php else: ?>
