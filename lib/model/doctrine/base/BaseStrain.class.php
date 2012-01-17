@@ -52,6 +52,7 @@
  * @property Doctrine_Collection $DnaExtractions
  * @property Doctrine_Collection $Projects
  * @property Doctrine_Collection $Isolations
+ * @property Doctrine_Collection $Cryopreservations
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method integer                getCode()                       Returns the current record's "code" value
@@ -100,6 +101,7 @@
  * @method Doctrine_Collection    getDnaExtractions()             Returns the current record's "DnaExtractions" collection
  * @method Doctrine_Collection    getProjects()                   Returns the current record's "Projects" collection
  * @method Doctrine_Collection    getIsolations()                 Returns the current record's "Isolations" collection
+ * @method Doctrine_Collection    getCryopreservations()          Returns the current record's "Cryopreservations" collection
  * @method Strain                 setId()                         Sets the current record's "id" value
  * @method Strain                 setCode()                       Sets the current record's "code" value
  * @method Strain                 setCloneNumber()                Sets the current record's "clone_number" value
@@ -147,6 +149,7 @@
  * @method Strain                 setDnaExtractions()             Sets the current record's "DnaExtractions" collection
  * @method Strain                 setProjects()                   Sets the current record's "Projects" collection
  * @method Strain                 setIsolations()                 Sets the current record's "Isolations" collection
+ * @method Strain                 setCryopreservations()          Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -358,6 +361,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'strain_id'));
 
         $this->hasMany('Isolation as Isolations', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('Cryopreservation as Cryopreservations', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 
