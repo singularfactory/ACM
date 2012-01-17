@@ -104,9 +104,6 @@ class StrainForm extends BaseStrainForm {
 		// 	array('required' => 'The origin sample of the strain is required')
 		// ));
 		
-		// Configure a custom post validator for cryopreservation method
-    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
-		
 		// Configure labels
 		$this->widgetSchema->setLabel('code', 'Strain code');
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
@@ -140,28 +137,5 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('containers_list', 'Containers where a culture of this strain is available. Select more than one with Ctrl or Cmd key.');
   }
-	
-	public function checkCryopreservedStatusHasMethod($validator, $values) {
-		if ( !isset($values['maintenance_status_list']) ) {
-			return $values;
-		}
-		
-		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
-			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
-			->getId();
-		
-		if ( !in_array($cryopreservedStatusId, $values['maintenance_status_list']) ) {
-			$values['cryopreservation_method_id'] = null;
-		}
-		else {
-			if ( empty($values['cryopreservation_method_id']) ) {
-				$error = new sfValidatorError($validator, 'You must chose a cryopreservation method');
-				throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
-			}
-		}
-		
-		// cryopreserved method is consistent with maintenance status, return the clean values
-		return $values;
-	}
 	
 }

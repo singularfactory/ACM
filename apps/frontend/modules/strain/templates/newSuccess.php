@@ -14,8 +14,6 @@ elseif ( ! $hasAuthorities )
 	echo '<p>You must '.link_to('add an authority', link_to_backend('authority_new')).' first before creating strains.</p>';
 elseif ( ! $hasIsolators )
 	echo '<p>You must '.link_to('add an isolator', link_to_backend('isolator_new')).' first before creating strains.</p>';
-elseif ( ! $hasCryopreservationMethods )
-	echo '<p>You must '.link_to('add a cryopreservation method', link_to_backend('cryopreservation_method_new')).' first before creating strains.</p>';
 elseif ( ! $hasCultureMedia )
 	echo '<p>You must '.link_to('add a culture medium', '@culture_medium_new').' first before creating strains.</p>';
 else

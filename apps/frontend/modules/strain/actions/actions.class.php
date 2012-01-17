@@ -171,7 +171,6 @@ class strainActions extends MyActions {
 			$strain->setIsEpitype($lastStrain->getIsEpitype());
 			$strain->setIsPublic($lastStrain->getIsPublic());
 			$strain->setContainerId($lastStrain->getContainerId());
-			$strain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
 			$strain->setIsolationDate($lastStrain->getIsolationDate());
 			$strain->setIdentifierId($lastStrain->getIdentifierId());
 			$strain->setIsAxenic($lastStrain->getIsAxenic());
@@ -196,7 +195,6 @@ class strainActions extends MyActions {
 		$this->hasSpecies = (Doctrine::getTable('Species')->count() > 0)?true:false;
 		$this->hasAuthorities = (Doctrine::getTable('Authority')->count() > 0)?true:false;
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
-		$this->hasCryopreservationMethods = (Doctrine::getTable('CryopreservationMethod')->count() > 0)?true:false;
 		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
   }
 
@@ -210,7 +208,6 @@ class strainActions extends MyActions {
 		$this->hasSpecies = (Doctrine::getTable('Species')->count() > 0)?true:false;
 		$this->hasAuthorities = (Doctrine::getTable('Authority')->count() > 0)?true:false;
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
-		$this->hasCryopreservationMethods = (Doctrine::getTable('CryopreservationMethod')->count() > 0)?true:false;
 		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
 		$this->sampleCode = ($request->hasParameter('strain_sample_search')) ? $request->getParameter('strain_sample_search') : null;
 

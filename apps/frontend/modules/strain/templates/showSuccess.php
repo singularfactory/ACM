@@ -230,13 +230,8 @@
 			<dt>Maintenance status:</dt>
 			<dd>
 			<?php
-				$isCryopreserved = false;
 				$firstMaintenanceStatus = true;
 				foreach ($strain->getMaintenanceStatus() as $status ) {
-					if ( $status->getName() === sfConfig::get('app_maintenance_status_cryopreserved') ) {
-						$isCryopreserved = true;
-					}
-					
 					if ( !$firstMaintenanceStatus ) {
 						echo sprintf(', %s', sfInflector::tableize($status->getName()));
 						continue;
@@ -247,11 +242,6 @@
 			?>
 			</dd>
 									
-			<?php if ( $isCryopreserved ): ?>
-			<dt>Cryopreservation:</dt>
-			<dd><?php echo $strain->getCryopreservationMethod() ?></dd>
-			<?php endif; ?>
-			
 			<dt>Best container:</dt>
 			<dd><?php echo $strain->getFormattedContainer() ?></dd>
 			

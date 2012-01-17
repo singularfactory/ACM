@@ -421,7 +421,6 @@ Strain:
     authority_id:               { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
     identifier_id:              { type: integer }
-    cryopreservation_method_id: { type: integer }
     container_id:               { type: integer }
     transfer_interval:          { type: string(40) }
     observation:                { type: string }
@@ -441,7 +440,6 @@ Strain:
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators, orderBy: sort_order }
     Supervisor:             { class: sfGuardUser, local: supervisor_id, foreignAlias: Strains }
     Identifier:             { foreignAlias: Strains }
-    CryopreservationMethod: { foreignAlias: Strains }
     Container:              { foreignAlias: Strains }
     Containers:             { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
