@@ -12,7 +12,7 @@ class dna_extractionActions extends MyActions {
 	
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
-		$this->pager = $this->buildPagination($request, 'DnaExtraction', array('init' => false, 'sort_column' => 'id'));
+		$this->pager = $this->buildPagination($request, 'DnaExtraction', array('init' => false, 'sort_column' => 'Strain.code'));
 		
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
