@@ -456,6 +456,49 @@ isolation_search_pagination:
 
 
 ###
+# Cryopreservation model related routes
+###
+cryopreservation:
+  class:   sfDoctrineRouteCollection
+  options: { model: Project }
+
+cryopreservation_search:
+  url:          cryopreservation/search/:criteria
+  param:        { module: cryopreservation, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_filter_by_subject_new:
+  url:          cryopreservation/new/:subject
+  param:        { module: cryopreservation, action: new, subject: sample }
+  requirements: { subject: "(sample)|(strain)", sf_method: [get, head] }
+
+cryopreservation_filter_by_subject_edit:
+  url:          cryopreservation/:id/edit/:subject
+  param:        { module: cryopreservation, action: edit, subject: sample }
+  requirements: { subject: "(sample)|(strain)", id: \d+, sf_method: [get, head] }
+
+cryopreservation_find_samples:
+  url:    cryopreservation/findSamples/:term
+  param:  { module: cryopreservation, action: findSamples }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_find_strains:
+  url:          cryopreservation/findStrains/:term
+  param:        { module: cryopreservation, action: findStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_pagination:
+  url:          cryopreservation/page/:page
+  param:        { module: cryopreservation, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+cryopreservation_search_pagination:
+  url:          cryopreservation/search/:criteria/page/:page
+  param:        { module: cryopreservation, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Application API routes
 ###
 api_sampling_information:

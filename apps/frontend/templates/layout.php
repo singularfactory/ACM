@@ -132,6 +132,15 @@
 						?>
 					</li>
 					
+					<li class="header_menu_services">
+						<?php
+						if ( !preg_match('/^((cryopreservation)(\/_)?)/', $currentRoute) )
+							echo link_to('Cryopreservations', '@cryopreservation');
+						else
+							echo link_to('Cryopreservations', '@cryopreservation', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+
 					<li class="header_menu_right_tab header_menu_tools">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>
