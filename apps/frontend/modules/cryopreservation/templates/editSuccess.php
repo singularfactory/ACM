@@ -1,3 +1,2 @@
-<h1>Edit Cryopreservation</h1>
-
+<?php slot('main_header', 'Edit this cryopreservation') ?>
 <?php include_partial('form', array('form' => $form)) ?>

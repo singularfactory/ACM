@@ -10,6 +10,38 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Cryopreservation extends BaseCryopreservation
-{
+class Cryopreservation extends BaseCryopreservation {
+	public function getCode() {
+		if ( $sample = $this->getSample() ) {
+			return $sample->getCode();
+		}
+		else if ( $strain = $this->getStrain() ) {
+			return $strain->getFullCode();
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+	
+	public function getCryopreservationDate() {
+		if ( $date = $this->_get('cryopreservation_date') ) {
+			return $this->formatDate($date);
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+	
+	public function getRevivalDate() {
+		if ( $date = $this->_get('revival_date') ) {
+			return $this->formatDate($date);
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+	
+	public function getFormattedDensity() {
+		return sprintf('%.2f %s', $this->_get('density'), sfConfig::get('app_cryopreservation_density_unit'));
+	}
+	
 }

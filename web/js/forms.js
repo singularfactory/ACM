@@ -406,6 +406,39 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#cryopreservation_sample_search').focus(function(){
+		if ( $(this).attr("value") === sampleSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#cryopreservation_sample_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", sampleSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#cryopreservation_sample_search').val() !== sampleSearchBoxDefault ) {
+		$('#cryopreservation_sample_search').css("color", "black");
+		$('#cryopreservation_sample_search').css("font-size", "12px");
+	}
+
+	$("#cryopreservation_sample_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.cryopreservation_sample_numbers_url').attr('href') + $("#cryopreservation_sample_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#cryopreservation_sample_search" ).val( ui.item.label );
+			$( "#cryopreservation_sample_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
 	
 	// Add a search box for Strain in DnaExtraction, Project and Isolation forms
 	var strainSearchBoxDefault = "Type a strain code...";
@@ -471,6 +504,39 @@ $(document).ready(function(){
 		select: function(event, ui) {
 			$( "#project_strain_search" ).val( ui.item.label );
 			$( "#project_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	$('#cryopreservation_strain_search').focus(function(){
+		if ( $(this).attr("value") === strainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#cryopreservation_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", strainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#cryopreservation_strain_search').val() !== strainSearchBoxDefault ) {
+		$('#cryopreservation_strain_search').css("color", "black");
+		$('#cryopreservation_strain_search').css("font-size", "12px");
+	}
+
+	$("#cryopreservation_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.cryopreservation_strain_numbers_url').attr('href') + $("#cryopreservation_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#cryopreservation_strain_search" ).val( ui.item.label );
+			$( "#cryopreservation_strain_id" ).val( ui.item.id );
 			return false;
 		},
 	});
@@ -586,6 +652,11 @@ $(document).ready(function(){
 	// Change the Project form on demand
 	$("#project_subject").change(function(){
 		location.href = $('a.project_subject_url').attr('href') + $(this).attr('value');
+	});
+	
+	// Change the Cryopreservation form on demand
+	$("#cryopreservation_subject").change(function(){
+		location.href = $('a.cryopreservation_subject_url').attr('href') + $(this).attr('value');
 	});
 	
 	

@@ -86,11 +86,11 @@ a.strain_isolators_list_url { display: none; }
 th.object_count, td.object_count { width: 35px; }
 th.object_count_long, td.object_count_long { width: 100px; }
 th.aliquots, td.aliquots { width: 60px; }
-th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band, td.project_strain_code { width: 100px; }
+th.dna_availability, td.dna_availability, th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band, td.project_strain_code, td.cryopreservation_strain_code { width: 100px; }
 td.date { width: 100px; }
-td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject { width: 120px; }
+td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject, td.cryopreservation_subject { width: 120px; }
 td.dna_extraction_code, td.sample_code { width: 135px; }
-td.isolation_code, td.project_code { width: 150px; }
+td.isolation_code, td.project_code, td.cryopreservation_code { width: 150px; }
 td.petitioner_name, th.petitioner_name td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
 td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.reception_date, td.delivery_date, td.purification_method { width: 150px; }
@@ -102,6 +102,7 @@ td.taxonomic_class_name, td.inoculation_date { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount, td.is_public { width: 80px; }
 td.project_inoculation_date, td.notification_date, td.purchase_order_date, td.extraction_date { width: 130px; }
+td.cryopreservation_date { width: 160px; }
 td.purchase_order_items { width: 100px; }
 td.purchase_order_status, td.purchase_item_status { width: 100px; }
 td.purchase_order_code { width: 150px; }
@@ -111,6 +112,7 @@ td.collectors_name { width: 280px }
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,
 th.extraction_date, td.extraction_date,
+th.cryopreservation_date, td.cryopreservation_date,
 th.concentration, td.concentration,
 th.aliquots, td.aliquots,
 th.dna_availability, td.dna_availability,
