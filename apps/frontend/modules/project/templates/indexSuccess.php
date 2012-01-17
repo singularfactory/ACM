@@ -13,7 +13,7 @@
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th>Code</th>
 			<th><?php echo link_to('Subject', '@project?sort_column=subject&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Name', '@project?sort_column=name&sort_direction='.$sortDirection) ?></th>
+			<th><?php echo link_to('Name', '@project?sort_column=Project.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Class', '@project?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Genus', '@project?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Inoculation date', '@project?sort_column=inoculation_date&sort_direction='.$sortDirection) ?></th>
