@@ -9,10 +9,35 @@
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
 class identificationActions extends MyActions {
+
 	public function executeIndex(sfWebRequest $request) {
-		$this->identifications = Doctrine_Core::getTable('Identification')
-			->createQuery('a')
-			->execute();
+		// Initiate the pager with default parameters but delay pagination until search criteria has been added
+		$this->pager = $this->buildPagination($request, 'Identification', array('init' => false, 'sort_column' => 'id'));
+		
+		// Deal with search criteria
+		if ( $text = $request->getParameter('criteria') ) {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->where("{$this->mainAlias()}.identification_date LIKE ?", "%$text%")
+				->orWhere('sa.id LIKE ?', "%$text%");
+						
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
+		}
+		else {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Sample sa");
+			
+			$this->getUser()->setAttribute('search.criteria', null);
+		}
+		$this->pager->setQuery($query);
+		$this->pager->init();
+		
+		// Keep track of the last page used in list
+		$this->getUser()->setAttribute('identification.index_page', $request->getParameter('page'));
+		
+		// Add a form to filter results
+		$this->form = new IdentificationForm();
 	}
 
 	public function executeShow(sfWebRequest $request) {
