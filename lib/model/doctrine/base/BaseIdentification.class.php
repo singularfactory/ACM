@@ -71,13 +71,11 @@ abstract class BaseIdentification extends sfDoctrineRecord
              'type' => 'string',
              'length' => 255,
              ));
-        $this->hasColumn('microscopy_identification', 'string', 255, array(
+        $this->hasColumn('microscopy_identification', 'string', null, array(
              'type' => 'string',
-             'length' => 255,
              ));
-        $this->hasColumn('molecular_identification', 'string', 255, array(
+        $this->hasColumn('molecular_identification', 'string', null, array(
              'type' => 'string',
-             'length' => 255,
              ));
         $this->hasColumn('request_document', 'string', 255, array(
              'type' => 'string',

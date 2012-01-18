@@ -1000,8 +1000,8 @@ Identification:
     sample_id:                  { type: integer, notnull: true}
     petitioner:                 { type: string(255) }
     sample_picture:             { type: string(255) }
-    microscopy_identification:  { type: string(255) }
-    molecular_identification:   { type: string(255) }
+    microscopy_identification:  { type: string }
+    molecular_identification:   { type: string }
     request_document:           { type: string(255) }
     report_document:            { type: string(255) }
     remarks:                    { type: string }
