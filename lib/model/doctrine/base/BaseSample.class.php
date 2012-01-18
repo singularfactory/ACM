@@ -35,6 +35,7 @@
  * @property Doctrine_Collection $Projects
  * @property Doctrine_Collection $Isolations
  * @property Doctrine_Collection $Cryopreservations
+ * @property Doctrine_Collection $Identifications
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getNotebookCode()        Returns the current record's "notebook_code" value
@@ -66,6 +67,7 @@
  * @method Doctrine_Collection getProjects()            Returns the current record's "Projects" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Doctrine_Collection getCryopreservations()   Returns the current record's "Cryopreservations" collection
+ * @method Doctrine_Collection getIdentifications()     Returns the current record's "Identifications" collection
  * @method Sample              setId()                  Sets the current record's "id" value
  * @method Sample              setNotebookCode()        Sets the current record's "notebook_code" value
  * @method Sample              setLocationId()          Sets the current record's "location_id" value
@@ -96,6 +98,7 @@
  * @method Sample              setProjects()            Sets the current record's "Projects" collection
  * @method Sample              setIsolations()          Sets the current record's "Isolations" collection
  * @method Sample              setCryopreservations()   Sets the current record's "Cryopreservations" collection
+ * @method Sample              setIdentifications()     Sets the current record's "Identifications" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -234,6 +237,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'foreign' => 'sample_id'));
 
         $this->hasMany('Cryopreservation as Cryopreservations', array(
+             'local' => 'id',
+             'foreign' => 'sample_id'));
+
+        $this->hasMany('Identification as Identifications', array(
              'local' => 'id',
              'foreign' => 'sample_id'));
 
