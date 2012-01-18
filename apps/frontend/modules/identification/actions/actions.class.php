@@ -16,7 +16,7 @@ class identificationActions extends MyActions {
 	}
 
 	public function executeShow(sfWebRequest $request) {
-		$this->identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id')));
+		$this->identification = IdentificationTable::getInstance()->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->identification);
 	}
 
