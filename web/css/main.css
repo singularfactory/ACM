@@ -356,6 +356,10 @@ div.http_error a {
 span.species_name { font-style: italic; }
 span.field_warning { font-size: 10px; color: #666; font-style: lighter; }
 
+dl.identification dt { min-width: 165px; }
+dl.identification dd { margin-left: 170px; }
+
+
 /**
 * FOOTER
 */
