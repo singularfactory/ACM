@@ -1,3 +1,2 @@
-<h1>Edit Identification</h1>
-
+<?php slot('main_header', 'Edit this identification request') ?>
 <?php include_partial('form', array('form' => $form)) ?>

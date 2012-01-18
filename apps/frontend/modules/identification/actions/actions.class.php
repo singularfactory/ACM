@@ -46,9 +46,8 @@ class identificationActions extends MyActions {
 		$this->setTemplate('new');
 	}
 
-	public function executeEdit(sfWebRequest $request)
-	{
-		$this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
+	public function executeEdit(sfWebRequest $request) {
+		$this->forward404Unless($identification = IdentificationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
 		$this->form = new IdentificationForm($identification);
 	}
 
