@@ -1,79 +1,86 @@
 <?php
 
 /**
- * identification actions.
- *
- * @package    bna_green_house
- * @subpackage identification
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
- */
-class identificationActions extends MyActions
-{
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->identifications = Doctrine_Core::getTable('Identification')
-      ->createQuery('a')
-      ->execute();
-  }
+* identification actions.
+*
+* @package    bna_green_house
+* @subpackage identification
+* @author     Eliezer Talon <elitalon@inventiaplus.com>
+* @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+*/
+class identificationActions extends MyActions {
+	public function executeIndex(sfWebRequest $request) {
+		$this->identifications = Doctrine_Core::getTable('Identification')
+			->createQuery('a')
+			->execute();
+	}
 
-  public function executeShow(sfWebRequest $request)
-  {
-    $this->identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id')));
-    $this->forward404Unless($this->identification);
-  }
+	public function executeShow(sfWebRequest $request) {
+		$this->identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id')));
+		$this->forward404Unless($this->identification);
+	}
 
-  public function executeNew(sfWebRequest $request)
-  {
-    $this->form = new IdentificationForm();
-  }
+	public function executeNew(sfWebRequest $request) {
+		if ( $lastIdentification = $this->getUser()->getAttribute('identification.last_object_created') ) {
+			$identification = new Identification();
+			$identification->setSampleId($lastIdentification->getSampleId());
 
-  public function executeCreate(sfWebRequest $request)
-  {
-    $this->forward404Unless($request->isMethod(sfRequest::POST));
+			$this->form = new identificationForm($identification);
+			$this->getUser()->setAttribute('identification.last_object_created', null);
+		}
+		else {
+			$this->form = new IdentificationForm();
+		}
+		
+		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
+	}
 
-    $this->form = new IdentificationForm();
+	public function executeCreate(sfWebRequest $request)
+	{
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->processForm($request, $this->form);
+		$this->form = new IdentificationForm();
 
-    $this->setTemplate('new');
-  }
+		$this->processForm($request, $this->form);
 
-  public function executeEdit(sfWebRequest $request)
-  {
-    $this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
-    $this->form = new IdentificationForm($identification);
-  }
+		$this->setTemplate('new');
+	}
 
-  public function executeUpdate(sfWebRequest $request)
-  {
-    $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
-    $this->form = new IdentificationForm($identification);
+	public function executeEdit(sfWebRequest $request)
+	{
+		$this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
+		$this->form = new IdentificationForm($identification);
+	}
 
-    $this->processForm($request, $this->form);
+	public function executeUpdate(sfWebRequest $request)
+	{
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
+		$this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
+		$this->form = new IdentificationForm($identification);
 
-    $this->setTemplate('edit');
-  }
+		$this->processForm($request, $this->form);
 
-  public function executeDelete(sfWebRequest $request)
-  {
-    $request->checkCSRFProtection();
+		$this->setTemplate('edit');
+	}
 
-    $this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
-    $identification->delete();
+	public function executeDelete(sfWebRequest $request)
+	{
+		$request->checkCSRFProtection();
 
-    $this->redirect('identification/index');
-  }
+		$this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
+		$identification->delete();
 
-  protected function processForm(sfWebRequest $request, sfForm $form)
-  {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    if ($form->isValid())
-    {
-      $identification = $form->save();
+		$this->redirect('identification/index');
+	}
 
-      $this->redirect('identification/edit?id='.$identification->getId());
-    }
-  }
+	protected function processForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$identification = $form->save();
+
+			$this->redirect('identification/edit?id='.$identification->getId());
+		}
+	}
 }
