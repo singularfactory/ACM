@@ -86,14 +86,50 @@ class identificationActions extends MyActions {
     $this->setTemplate('edit');
 	}
 
-	protected function processForm(sfWebRequest $request, sfForm $form)
-	{
+	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		if ($form->isValid())
-		{
-			$identification = $form->save();
-
-			$this->redirect('identification/edit?id='.$identification->getId());
+		
+		// Validate form
+		if ( $form->isValid() ) {
+			$message = null;
+			$url = null;
+			$isNew = $form->getObject()->isNew();
+						
+			// Save object
+			$identification = null;
+			try {
+				$identification = $form->save();
+				
+				if ( $request->hasParameter('_save_and_add') ) {
+					$message = 'Identification request created successfully. Now you can add another one';
+					$url = '@identification_new';
+					
+					// Reuse last object values
+					$this->getUser()->setAttribute('identification.last_object_created', $identification);
+				}
+				elseif ( !$isNew ) {
+					$message = 'Changes saved';
+					$url = '@identification_show?id='.$identification->getId();
+				}
+				else {
+					$message = 'Identification request created successfully';
+					$url = '@identification_show?id='.$identification->getId();
+				}
+			}
+			catch (Exception $e) {
+				$message = $e->getMessage();
+			}
+			
+			if ( $identification != null ) {
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $identification->getId())));
+				$this->getUser()->setFlash('notice', $message);
+				if ( $url !== null ) {
+					$this->redirect($url);
+				}
+			}
 		}
+		
+		$this->getUser()->setFlash('notice', 'The information on this identification request has some errors you need to fix', false);
 	}
+
 }
