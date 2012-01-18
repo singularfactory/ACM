@@ -992,3 +992,27 @@ Cryopreservation:
     Timestampable:
     Date:
 
+
+Identification:
+  columns:
+    id:                         { type: integer, primary: true, autoincrement: true }
+    identification_date:        { type: date, notnull: true }
+    sample_id:                  { type: integer, notnull: true}
+    petitioner:                 { type: string(255) }
+    sample_picture:             { type: string(255) }
+    microscopy_identification:  { type: string(255) }
+    molecular_identification:   { type: string(255) }
+    request_document:           { type: string(255) }
+    report_document:            { type: string(255) }
+    remarks:                    { type: string }
+  relations:
+    Sample: { foreignAlias: Identifications }
+  indexes:
+    identification_date:
+      fields: [identification_date]
+  actAs:
+    Timestampable:
+    Date:
+    Picture:
+      moduleName: identification
+
