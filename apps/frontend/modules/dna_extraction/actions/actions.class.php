@@ -23,11 +23,8 @@ class dna_extractionActions extends MyActions {
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.concentration = ?", $text)
+				->where("{$this->mainAlias()}.concentration = ?", $text)
 				->orWhere("{$this->mainAlias()}.extraction_date LIKE ?", "%$text%")
-				->orWhere('s.code LIKE ?', "%$text%")
-				->orWhere('s.id LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('tc.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
@@ -35,7 +32,7 @@ class dna_extractionActions extends MyActions {
 						
 			// Parse search term to catch extraction codes
 			if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
-				$query = $query->orWhere("{$this->mainAlias()}.id = ?", (int)$matches[2]);
+				$query = $query->orWhere("s.code = ?", (int)$matches[2]);
 			}
 			
 			// Keep track of search terms for pagination
