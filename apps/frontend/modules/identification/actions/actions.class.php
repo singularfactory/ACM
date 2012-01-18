@@ -61,16 +61,6 @@ class identificationActions extends MyActions {
     $this->setTemplate('edit');
 	}
 
-	public function executeDelete(sfWebRequest $request)
-	{
-		$request->checkCSRFProtection();
-
-		$this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
-		$identification->delete();
-
-		$this->redirect('identification/index');
-	}
-
 	protected function processForm(sfWebRequest $request, sfForm $form)
 	{
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
