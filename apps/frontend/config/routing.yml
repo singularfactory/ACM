@@ -499,6 +499,34 @@ cryopreservation_search_pagination:
 
 
 ###
+# Identification model related routes
+###
+identification:
+  class:   sfDoctrineRouteCollection
+  options: { model: Isolation }
+
+identification_find_samples:
+  url:    identification/findSamples/:term
+  param:  { module: identification, action: findSamples }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+identification_search:
+  url:          identification/search/:criteria
+  param:        { module: identification, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+identification_pagination:
+  url:          identification/page/:page
+  param:        { module: identification, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+identification_search_pagination:
+  url:          identification/search/:criteria/page/:page
+  param:        { module: identification, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Application API routes
 ###
 api_sampling_information:
@@ -600,7 +628,7 @@ report_find_islands:
 module_full_index:
   url:          /:module/all
   param:        { module: strain, action: index, all: true }
-  requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order" }
+  requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification" }
 
 
 homepage:
