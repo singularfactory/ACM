@@ -88,7 +88,7 @@ span.remove_input_text:hover { cursor: pointer; text-decoration: none; }
 /**
  * RELATED MODEL FIELDS
  */
-#model_pictures { clear: both; }
+#model_pictures, #sample_picture { clear: both; }
 div.model_picture_list label { display: block; }
 div.model_picture_filename { margin: 0px; padding: 0px; }
 div.sample_picture_handler { margin-bottom: 17px; border-bottom: 1px solid #d3d3d3; }
@@ -128,7 +128,8 @@ div.model_text_input_dna_primer select { margin-left: 3px; display: inline; vert
  * SPECIFIC FIELDS
  */
 #name input { width: 250px; }	/* Location */
-#description input[type=file], #bp4_document input[type=file], #bp1_document input[type=file], #mf1_document input[type=file] { display: inline; }
+#description input[type=file], #bp4_document input[type=file], #bp1_document input[type=file], #mf1_document input[type=file],
+#request_document input[type=file], #report_document input[type=file] { display: inline; }
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 
@@ -146,6 +147,7 @@ a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_loca
 a.project_strain_numbers_url, a.project_sample_numbers_url, a.project_subject_url,
 a.cryopreservation_strain_numbers_url, a.cryopreservation_sample_numbers_url, a.cryopreservation_subject_url,
 a.label_find_products_url,
+a.identification_sample_numbers_url,
 a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url,
 a.strain_find_clone_url { display: none; }
 
@@ -165,6 +167,8 @@ a.strain_find_clone_url { display: none; }
 
 span.gel_is_valid, span.reaction_worked { color: #005700; }
 
+#identification_petitioner { width: 200px; }
+div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; padding-bottom: 0 ! important; }
 
 #label_product_id label { display: block; }
 #label_product_id input { display: inline; min-width: 170px; color: #888; font-size: 11px; min-height: 15px; padding: 1px; }
@@ -198,6 +202,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 #isolation_location_search, #isolation_sample_search, #isolation_strain_search,
 #project_sample_search, #project_strain_search,
 #cryopreservation_sample_search, #cryopreservation_strain_search,
+#identification_sample_search,
 #report_location_country_search, #report_location_region_search, #report_location_island_search {
 	color: #888;
 	font-size: 11px;
@@ -205,7 +210,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 	width: 300px;
 	padding: 1px;
 }
-#strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_sample_search, #cryopreservation_strain_search, #cryopreservation_sample_search { width: 150px; }
+#strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_sample_search, #cryopreservation_strain_search, #cryopreservation_sample_search, #identification_sample_search { width: 150px; }
 
 /**
  * REPORTS

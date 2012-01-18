@@ -1,0 +1,4 @@
+editSuccess:
+  javascripts:  [datepicker.js, forms.js, colorbox.js, thumbnails.js, numeric.js, picture_upload.js]
+newSuccess:
+  javascripts:  [datepicker.js, forms.js, colorbox.js, numeric.js, picture_upload.js]

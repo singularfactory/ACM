@@ -94,6 +94,9 @@ class identificationActions extends MyActions {
 			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
+			
+			// Retain the actual sample picture to delete after form save if necessary 
+			$oldSamplePicture = $form->getObject()->getSamplePicture();
 						
 			// Save object
 			$identification = null;
@@ -114,6 +117,14 @@ class identificationActions extends MyActions {
 				else {
 					$message = 'Identification request created successfully';
 					$url = '@identification_show?id='.$identification->getId();
+				}
+				
+				// Delete previous picture
+				$newSamplePicture = $identification->getSamplePicture();
+				if ( $oldSamplePicture !== $newSamplePicture ) {
+					$path = sfConfig::get('sf_upload_dir').sfConfig::get('app_identification_pictures_dir');
+					$filename = $path.'/'.$oldSamplePicture;
+					unlink($filename);
 				}
 			}
 			catch (Exception $e) {

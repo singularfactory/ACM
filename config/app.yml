@@ -93,6 +93,10 @@ all:
     # Cryopreservations constants
     cryopreservation_density_unit: µgCl/ml
     
+    # Identifications constants
+    identification_dir:           /identifications
+    identification_pictures_dir:  /identification_pictures
+    
     # Deposits related constants
     maintenance_deposit_dir:  /maintenance_deposits
     patent_deposit_dir:       /patent_deposits

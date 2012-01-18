@@ -439,6 +439,38 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#identification_sample_search').focus(function(){
+		if ( $(this).attr("value") === sampleSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#identification_sample_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", sampleSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#identification_sample_search').val() !== sampleSearchBoxDefault ) {
+		$('#identification_sample_search').css("color", "black");
+		$('#identification_sample_search').css("font-size", "12px");
+	}
+
+	$("#identification_sample_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.identification_sample_numbers_url').attr('href') + $("#identification_sample_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#identification_sample_search" ).val( ui.item.label );
+			$( "#identification_sample_id" ).val( ui.item.id );
+			return false;
+		},
+	});
 	
 	// Add a search box for Strain in DnaExtraction, Project and Isolation forms
 	var strainSearchBoxDefault = "Type a strain code...";

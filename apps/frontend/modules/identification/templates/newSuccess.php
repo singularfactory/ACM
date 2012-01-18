@@ -1,3 +1,4 @@
+<?php use_helper('Thumbnail', 'PictureUpload') ?>
 <?php slot('main_header', 'Add a new identification request') ?>
 <?php
 if ( ! $hasSamples )
