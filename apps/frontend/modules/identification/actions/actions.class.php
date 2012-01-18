@@ -35,15 +35,15 @@ class identificationActions extends MyActions {
 		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 	}
 
-	public function executeCreate(sfWebRequest $request)
-	{
+	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-		$this->form = new IdentificationForm();
+    $this->form = new IdentificationForm();
+		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
+		
+    $this->processForm($request, $this->form);
 
-		$this->processForm($request, $this->form);
-
-		$this->setTemplate('new');
+    $this->setTemplate('new');
 	}
 
 	public function executeEdit(sfWebRequest $request) {
@@ -51,15 +51,14 @@ class identificationActions extends MyActions {
 		$this->form = new IdentificationForm($identification);
 	}
 
-	public function executeUpdate(sfWebRequest $request)
-	{
+	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-		$this->forward404Unless($identification = Doctrine_Core::getTable('Identification')->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
-		$this->form = new IdentificationForm($identification);
+    $this->forward404Unless($identification = IdentificationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
+    $this->form = new IdentificationForm($identification);
 
-		$this->processForm($request, $this->form);
+    $this->processForm($request, $this->form);
 
-		$this->setTemplate('edit');
+    $this->setTemplate('edit');
 	}
 
 	public function executeDelete(sfWebRequest $request)
