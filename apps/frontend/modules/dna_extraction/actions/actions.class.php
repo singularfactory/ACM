@@ -52,6 +52,14 @@ class dna_extractionActions extends MyActions {
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
+		
+		// Simplify ORDER BY aliquots to yes/no values
+		if ( $sort_column = $request->getParameter('sort_column') ) {
+			if ( $sort_column === 'aliquots' ) {
+				$query = $query->orderBy(sprintf('%s.aliquots>0 %s, s.code ASC', $this->mainAlias, $this->sortDirection));
+			}
+		}
+		
 		$this->pager->setQuery($query);
 		$this->pager->init();
 		
