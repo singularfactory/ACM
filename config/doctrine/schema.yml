@@ -1016,3 +1016,13 @@ Identification:
     Picture:
       moduleName: identification
 
+
+GlossaryTerm:
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    term:     { type: string(100) }
+    synonyms: { type: string }
+  indexes:
+    glossary_term:
+      fields: [term]
+
