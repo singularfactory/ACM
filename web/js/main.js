@@ -90,5 +90,31 @@ $(document).ready(function(){
 		event.preventDefault();
 		location.reload();
 	});
+
+	$(".header_menu_item").hover(
+		function(){
+			$("#header_menu_services a").first().css('-webkit-border-top-right-radius', '5px');
+			$("#header_menu_services a").first().css('-moz-border-radius-topright', '5px');
+			$("#header_menu_services a").first().css('border-top-right-radius', '5px');
+			$("#header_menu_services a").last().css('-webkit-border-bottom-right-radius', '5px');
+			$("#header_menu_services a").last().css('-moz-border-radius-bottomright', '5px');
+			$("#header_menu_services a").last().css('border-bottom-right-radius', '5px');
+			$("#header_menu_services a").last().css('-webkit-border-bottom-left-radius', '5px');
+			$("#header_menu_services a").last().css('-moz-border-radius-bottomleft', '5px');
+			$("#header_menu_services a").last().css('border-bottom-left-radius', '5px');
+		},
+		function(){
+			
+		}
+	);
+
+	$("#header_menu_services a").hover(
+		function(){
+			$(this).parents(".header_menu_item").children('a').css('background-color', '#6CF');
+		},
+		function(){
+			$(this).parents(".header_menu_item").children('a').css('background-color', '#18498A');
+		}
+	);
 	
 });

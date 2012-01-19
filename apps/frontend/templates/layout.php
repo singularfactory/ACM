@@ -51,7 +51,7 @@
 						$currentRoute = sfContext::getInstance()->getModuleName();
 					?>
 					
-					<li class="header_menu_database">
+					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
 							echo link_to('Locations', '@location');
@@ -60,7 +60,7 @@
 						?>
 					</li>
 					
-					<li class="header_menu_database">
+					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^(sample(\/_)?)/', $currentRoute) )
 							echo link_to('Samples', '@sample');
@@ -69,7 +69,7 @@
 						?>
 					</li>
 					
-					<li class="header_menu_database">
+					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^(strain(\/_)?|homepage)/', $currentRoute) )
 							echo link_to('Strains', '@strain');
@@ -78,7 +78,7 @@
 						?>
 					</li>
 					
-					<li class="header_menu_database">
+					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^(culture_medium(\/_)?)/', $currentRoute) )
 							echo link_to('Culture media', '@culture_medium');
@@ -87,7 +87,7 @@
 						?>
 					</li>
 					
-					<li class="header_menu_database">
+					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^((dna_extraction|pcr|dna)(\/_)?)/', $currentRoute) )
 							echo link_to('DNA Lab', '@dna_extraction');
@@ -96,65 +96,28 @@
 						?>
 					</li>
 					
-					<li id="header_menu_separator_tab" class="header_menu_services">
+					<li class="header_menu_item">
 						<?php
-						if ( !preg_match('/^((project)(\/_)?)/', $currentRoute) )
-							echo link_to('Projects', '@project');
+						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|cryopreservation|isolation)(\/_)?)/', $currentRoute) )
+							echo link_to('Services', '@project');
 						else
-							echo link_to('Projects', '@project', array('class' => 'header_menu_current_tab'));
+							echo link_to('Services', '@project', array('class' => 'header_menu_current_tab'));
 						?>
+						<ul id="header_menu_services">
+							<li><?php echo link_to('Projects', '@project') ?></li>
+							<li><?php echo link_to('Patent deposits', '@patent_deposit') ?></li>
+							<li><?php echo link_to('Maintenance deposits', '@maintenance_deposit') ?></li>
+							<li><?php echo link_to('Isolations', '@isolation') ?></li>
+							<li><?php echo link_to('Cryopreservations', '@cryopreservation') ?></li>
+							<li><?php echo link_to('Identifications', '@identification') ?></li>
+						</ul>
 					</li>
 					
-					<li class="header_menu_services">
-						<?php
-						if ( !preg_match('/^((patent_deposit)(\/_)?)/', $currentRoute) )
-							echo link_to('Patent deposits', '@patent_deposit');
-						else
-							echo link_to('Patent deposits', '@patent_deposit', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-					
-					<li class="header_menu_services">
-						<?php
-						if ( !preg_match('/^((maintenance_deposit)(\/_)?)/', $currentRoute) )
-							echo link_to('Maintenance deposits', '@maintenance_deposit');
-						else
-							echo link_to('Maintenance deposits', '@maintenance_deposit', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-					
-					<li class="header_menu_services">
-						<?php
-						if ( !preg_match('/^((isolation)(\/_)?)/', $currentRoute) )
-							echo link_to('Isolations', '@isolation');
-						else
-							echo link_to('Isolations', '@isolation', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-					
-					<li class="header_menu_services">
-						<?php
-						if ( !preg_match('/^((cryopreservation)(\/_)?)/', $currentRoute) )
-							echo link_to('Cryopreservations', '@cryopreservation');
-						else
-							echo link_to('Cryopreservations', '@cryopreservation', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-					
-					<li class="header_menu_services">
-						<?php
-						if ( !preg_match('/^((identification)(\/_)?)/', $currentRoute) )
-							echo link_to('Identifications', '@identification');
-						else
-							echo link_to('Identifications', '@identification', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-
-					<li class="header_menu_right_tab header_menu_tools">
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>
 					
-					<li class="header_menu_right_tab header_menu_tools">
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php 
 						if ( !preg_match('/^((label)(\/_)?)/', $currentRoute) )
 							echo link_to('Labels', '@label');
@@ -163,7 +126,7 @@
 						?>	
 					</li>
 					
-					<li class="header_menu_right_tab header_menu_tools">
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php 
 						if ( !preg_match('/^((report)(\/_)?)/', $currentRoute) )
 							echo link_to('Reports', '@report');
@@ -172,7 +135,7 @@
 						?>	
 					</li>
 					
-					<li class="header_menu_right_tab header_menu_tools">
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php
 						$unreadMessages = $user->getNbUnreadNotifications();
 						if ( $unreadMessages ) {
@@ -188,7 +151,7 @@
 						?>	
 					</li>
 					
-					<li class="header_menu_right_tab header_menu_tools">
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php
 						$itemsCountCssClass = array();
 						$newOrders = $user->getNbPendingPurchaseOrders();

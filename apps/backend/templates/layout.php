@@ -52,35 +52,35 @@
 			<div id="header_menu">
 				<ul id="header_menu_tabs">
 					<?php $route = sfContext::getInstance()->getRouting()->getCurrentRouteName() ?>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('Locations', '@country', (preg_match('/^(country|region|island|location_category)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('Sampling', '@radiation', (preg_match('/^(radiation|habitat|environment|purification_method)_?|homepage/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('Strains maintenance', '@maintenance_status', (preg_match('/^(maintenance_status|cryopreservation_method|container)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('DNA Lab', '@extraction_kit', (preg_match('/^(extraction_kit|dna_polymerase|dna_primer|pcr_program)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('Projects', '@project_name', (preg_match('/^(project_name)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php //echo link_to('Roles', '@sf_guard_group', (preg_match('/^sf_guard_group_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
-					<li>
+					<li class="header_menu_item">
 						<?php //echo link_to('Permissions', '@sf_guard_permission', (preg_match('/^sf_guard_permission_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					
-					<li class="header_menu_right_tab">
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php echo link_to('Back to application', '/') ?>
 					</li>					
 				</ul>
