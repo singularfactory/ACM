@@ -116,6 +116,15 @@
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>
+
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
+						<?php 
+						if ( !preg_match('/^((glossary)(\/_)?)/', $currentRoute) )
+							echo link_to('Glossary', '@glossary');
+						else
+							echo link_to('Glossary', '@glossary', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
 					
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php 
@@ -123,7 +132,7 @@
 							echo link_to('Labels', '@label');
 						else
 							echo link_to('Labels', '@label', array('class' => 'header_menu_current_tab'));
-						?>	
+						?>
 					</li>
 					
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">

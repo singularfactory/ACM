@@ -525,6 +525,28 @@ identification_search_pagination:
   param:        { module: identification, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+###
+# Glossary model related routes
+###
+glossary:
+  url:           glossary
+  param:        { module: glossary, actions: index }
+  requirements: { sf_method: [get, head] }
+
+glossary_search:
+  url:          glossary/search/:criteria
+  param:        { module: glossary, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+glossary_pagination:
+  url:          glossary/page/:page
+  param:        { module: glossary, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+glossary_search_pagination:
+  url:          glossary/search/:criteria/page/:page
+  param:        { module: glossary, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
 
 ###
 # Application API routes
@@ -628,7 +650,7 @@ report_find_islands:
 module_full_index:
   url:          /:module/all
   param:        { module: strain, action: index, all: true }
-  requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification" }
+  requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary" }
 
 
 homepage:

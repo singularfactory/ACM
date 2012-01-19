@@ -1,3 +1,12 @@
+glossary_term:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                GlossaryTerm
+    module:               glossary_term
+    prefix_path:          /admin/glossary
+    column:               id
+    with_wildcard_routes: true
+
 location_category:
   class: sfDoctrineRouteCollection
   options:

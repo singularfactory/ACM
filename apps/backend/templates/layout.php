@@ -71,6 +71,9 @@
 						<?php echo link_to('Projects', '@project_name', (preg_match('/^(project_name)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li class="header_menu_item">
+						<?php echo link_to('Glossary', '@glossary_term', (preg_match('/^(glossary_term)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
+					<li class="header_menu_item">
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li class="header_menu_item">
@@ -115,6 +118,12 @@
 			<?php if ( preg_match('/^(project_name)_?/', $route) && false ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/project_sections', array('route' => $route)) ?>
+			</div>
+			<?php endif; ?>
+
+			<?php if ( preg_match('/^(glossary_term)_?/', $route) && false ): ?>
+			<div id="subsections_header">
+				<?php include_partial('global/glossary_term_sections', array('route' => $route)) ?>
 			</div>
 			<?php endif; ?>
 			

@@ -109,6 +109,7 @@ td.purchase_order_status, td.purchase_item_status { width: 100px; }
 td.purchase_order_code { width: 150px; }
 td.purchase_item_product { width: 150px; }
 td.collectors_name { width: 280px }
+td.glossary_term { width: 280px }
 
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,

@@ -1,0 +1,35 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           GlossaryTerm
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          glossary_term
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title: Terms
+        display: [term, synonyms, updated_at]
+        fields:
+          term:
+            label: Term
+          synonyms:
+            label: Synonyms
+          updated_at:
+            label: Last update
+            date_format: f
+      filter:
+        display: [term]
+      form:    ~
+      edit:
+        title:  Edit glossary term "%%term%%"
+      new:
+        title: Add a new glossary term
