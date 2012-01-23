@@ -32,6 +32,7 @@ class SampleTable extends Doctrine_Table {
 			->leftJoin('l.Region r')
 			->leftJoin('l.Island i')
 			->where('s.id LIKE ?', "%$id%")
+			->orWhere('s.notebook_code LIKE ?', "%$term%")
 			->orWhere('c.code LIKE ?', "%$term%")
 			->orWhere('r.code LIKE ?', "%$term%")
 			->orWhere('i.code LIKE ?', "%$term%")
