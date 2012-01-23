@@ -44,4 +44,13 @@ class Cryopreservation extends BaseCryopreservation {
 		return sprintf('%.2f %s', $this->_get('density'), sfConfig::get('app_cryopreservation_density_unit'));
 	}
 	
+	public function getFormattedViability() {
+		if ( $this->_get('viability') ) {
+			return 'Yes';
+		}
+		else {
+			return 'No';
+		}
+	}
+	
 }

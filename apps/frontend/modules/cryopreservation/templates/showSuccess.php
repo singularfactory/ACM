@@ -56,7 +56,7 @@
 			<dt>Revival date:</dt>
 			<dd><?php echo $cryopreservation->getRevivalDate() ?></dd>
 			<dt>Viability:</dt>
-			<dd><?php echo $cryopreservation->getViability() ?></dd>
+			<dd><?php echo $cryopreservation->getFormattedViability() ?></dd>
 			<dt>Remarks:</dt>
 			<dd><?php echo $cryopreservation->getRemarks() ?></dd>
 		</dl>
