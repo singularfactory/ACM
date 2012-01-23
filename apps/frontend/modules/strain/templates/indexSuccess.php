@@ -15,6 +15,7 @@
 			<th><?php echo link_to('Name', '@strain?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Sample', '@strain?sort_column=Sample.id&sort_direction='.$sortDirection) ?></th>
 			<th class="dna_availability">Has DNA</th>
+			<th class="is_public">Is public?</th>
 			<th><?php echo link_to('Isolation date', '@strain?sort_column=isolation_date&sort_direction='.$sortDirection) ?></th>
 			<!-- <th class="amount"><?php //echo link_to('Amount', '@strain?sort_column=amount&sort_direction='.$sortDirection) ?></th> -->
 			<th></th>
@@ -27,6 +28,7 @@
 			<td class="strain_name"><?php echo link_to("{$strain->getTaxonomicClass()} <span class=\"species_name\">{$strain->getGenus()} {$strain->getSpecies()}</span>", $url) ?></td>
 			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleCode(), $url) ?></td>
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
+			<td class="is_public"><?php echo link_to($strain->getFormattedIsPublic(), $url) ?></td>
 			<td class="isolation_date"><?php echo link_to($strain->getFormattedIsolationDate(), $url) ?></td>
 			<!-- <td class="amount"><?php //echo link_to($strain->getAmount(), $url) ?></td> -->
 
