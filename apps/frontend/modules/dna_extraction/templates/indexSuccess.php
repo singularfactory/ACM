@@ -10,14 +10,15 @@
 <table id="dna_extraction_list">
 	<tbody>
 		<tr>
+			<?php if ( $allResults ) $allResults = '&all=1'; else $allResults = '' ?>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Number', '@dna_extraction?sort_column=id&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Class', '@dna_extraction?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Name', '@dna_extraction?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
-			<th class="date extraction_date"><?php echo link_to('Extraction date', '@dna_extraction?sort_column=extraction_date&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Extraction kit', '@dna_extraction?sort_column=ExtractionKit.name&sort_direction='.$sortDirection) ?></th>
-			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', '@dna_extraction?sort_column=concentration&sort_direction='.$sortDirection) ?></th>
-			<th class="dna_availability"><?php echo link_to('DNA bank', '@dna_extraction?sort_column=aliquots&sort_direction='.$sortDirection)?></th>
+			<th><?php echo link_to('Number', '@dna_extraction?sort_column=id&sort_direction='.$sortDirection.$allResults) ?></th>
+			<th><?php echo link_to('Class', '@dna_extraction?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection.$allResults) ?></th>
+			<th><?php echo link_to('Name', '@dna_extraction?sort_column=Strain.Genus.name&sort_direction='.$sortDirection.$allResults) ?></th>
+			<th class="date extraction_date"><?php echo link_to('Extraction date', '@dna_extraction?sort_column=extraction_date&sort_direction='.$sortDirection.$allResults) ?></th>
+			<th><?php echo link_to('Extraction kit', '@dna_extraction?sort_column=ExtractionKit.name&sort_direction='.$sortDirection.$allResults) ?></th>
+			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', '@dna_extraction?sort_column=concentration&sort_direction='.$sortDirection.$allResults) ?></th>
+			<th class="dna_availability"><?php echo link_to('DNA bank', '@dna_extraction?sort_column=aliquots&sort_direction='.$sortDirection.$allResults)?></th>
 			<th class="object_count">PCR</th>
 			<th class="sequence_availability">Has sequence?</th>
 			<th></th>

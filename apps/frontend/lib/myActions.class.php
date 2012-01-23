@@ -82,14 +82,20 @@ class MyActions extends sfActions {
 			$pager->setQuery($query->orderBy("{$this->mainAlias}.{$this->paginationOptions['sort_column']} ".$this->sortDirection));
 		}
 		
+		
 		$pager->setPage($request->getParameter('page', 1));
 		
 		if ( $this->paginationOptions['init'] ) {
 			$pager->init();
 		}
 		
+		// Set results limit
 		if ( $request->hasParameter('all') ) {
 			$pager->setMaxPerPage(Doctrine::getTable($table)->count());
+			$this->allResults = true;
+		}
+		else {
+			$this->allResults = false;
 		}
 		
 		return $pager;
