@@ -33,6 +33,12 @@ class StrainForm extends BaseStrainForm {
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$this->setWidget('isolation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 		
+		// Set sorting order in taxonomy related fields
+		$this['taxonomic_class_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['genus_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['species_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['authority_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		
 		// Configure culture media relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
 			'multiple' => true,
