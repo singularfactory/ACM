@@ -252,43 +252,12 @@ class Version47 extends Doctrine_Migration_Base {
 			),
 			));
 		$this->createTable('pcr_gel', array(
-			'id' => 
-		array(
-			'type' => 'integer',
-			'primary' => '1',
-			'autoincrement' => '1',
-			'length' => '8',
-			),
-			'ratio' => 
-		array(
-			'type' => 'decimal',
-			'length' => '18',
-			),
-			'pcr_id' => 
-		array(
-			'type' => 'integer',
-			'notnull' => '1',
-			'length' => '8',
-			),
-			'is_valid' => 
-		array(
-			'type' => 'boolean',
-			'notnull' => '1',
-			'default' => '0',
-			'length' => '25',
-			),
-			'created_at' => 
-		array(
-			'notnull' => '1',
-			'type' => 'timestamp',
-			'length' => '25',
-			),
-			'updated_at' => 
-		array(
-			'notnull' => '1',
-			'type' => 'timestamp',
-			'length' => '25',
-			),
+			'id' => array('type' => 'integer','primary' => '1','autoincrement' => '1','length' => '8',),
+			'ratio' => array('type' => 'decimal','length' => '18',),
+			'pcr_id' => array('type' => 'integer','notnull' => '1','length' => '8',),
+			'is_valid' => array('type' => 'boolean','notnull' => '1','default' => '0','length' => '25',),
+			'created_at' => array('notnull' => '1','type' => 'timestamp','length' => '25',),
+			'updated_at' => array('notnull' => '1','type' => 'timestamp','length' => '25',),
 		), array(
 			'type' => 'INNODB',
 			'primary' => 

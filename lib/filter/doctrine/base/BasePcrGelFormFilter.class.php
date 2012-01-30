@@ -23,7 +23,7 @@ abstract class BasePcrGelFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'number'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'band'       => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'band'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'pcr_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Pcr'), 'column' => 'id')),
       'is_valid'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),

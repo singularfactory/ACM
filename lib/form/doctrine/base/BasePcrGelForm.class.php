@@ -27,7 +27,7 @@ abstract class BasePcrGelForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'number'     => new sfValidatorInteger(),
-      'band'       => new sfValidatorNumber(array('required' => false)),
+      'band'       => new sfValidatorInteger(array('required' => false)),
       'pcr_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Pcr'))),
       'is_valid'   => new sfValidatorBoolean(array('required' => false)),
       'created_at' => new sfValidatorDateTime(),

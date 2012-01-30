@@ -7,14 +7,14 @@
  * 
  * @property integer $id
  * @property integer $number
- * @property decimal $band
+ * @property integer $band
  * @property integer $pcr_id
  * @property boolean $is_valid
  * @property Pcr $Pcr
  * 
  * @method integer getId()       Returns the current record's "id" value
  * @method integer getNumber()   Returns the current record's "number" value
- * @method decimal getBand()     Returns the current record's "band" value
+ * @method integer getBand()     Returns the current record's "band" value
  * @method integer getPcrId()    Returns the current record's "pcr_id" value
  * @method boolean getIsValid()  Returns the current record's "is_valid" value
  * @method Pcr     getPcr()      Returns the current record's "Pcr" value
@@ -44,8 +44,8 @@ abstract class BasePcrGel extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('band', 'decimal', null, array(
-             'type' => 'decimal',
+        $this->hasColumn('band', 'integer', null, array(
+             'type' => 'integer',
              ));
         $this->hasColumn('pcr_id', 'integer', null, array(
              'type' => 'integer',

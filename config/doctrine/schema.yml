@@ -565,7 +565,7 @@ PcrGel:
   columns:
     id:       { type: integer, primary: true, autoincrement: true }
     number:   { type: integer, notnull: true }
-    band:     { type: decimal }
+    band:     { type: integer }
     pcr_id:   { type: integer, notnull: true }
     is_valid: { type: boolean, notnull: true, default: false }
   relations:
