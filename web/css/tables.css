@@ -92,7 +92,7 @@ td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject, 
 td.dna_extraction_code, td.sample_code { width: 140px; }
 td.microscopy_identification, td.molecular_identification { width: 200px; }
 td.isolation_code, td.project_code, td.cryopreservation_code { width: 150px; }
-td.petitioner_name, th.petitioner_name td.collector_name, td.isolator_name, th.concentration, td.concentration { width: 150px; }
+td.petitioner_name, th.petitioner_name td.collector_name, td.isolator_name, th.concentration, td.concentration, td.supervisor { width: 150px; }
 td.country_name, td.region_name, td.island_name {	width: 160px; }
 td.reception_date, td.delivery_date, td.purification_method { width: 150px; }
 td.strain_name, td.isolation_name, td.identification_petitioner { width: 240px; }

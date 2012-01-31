@@ -223,4 +223,11 @@ class Strain extends BaseStrain {
 		}
 	}
 	
+	public function getFormattedSupervisor() {
+		if ( !$this->getSupervisorId() ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		
+		return $this->getSupervisor();
+	}
 }
