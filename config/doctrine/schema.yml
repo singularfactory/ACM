@@ -71,8 +71,8 @@ Location:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
     category_id:  { type: integer }
-    latitude:     { type: string(10), fixed: true }
-    longitude:    { type: string(10), fixed: true }
+    latitude:     { type: string(12), fixed: true }
+    longitude:    { type: string(12), fixed: true }
     country_id:   { type: integer, notnull: true }
     region_id:    { type: integer, notnull: true }
     island_id:    { type: integer }
@@ -164,8 +164,8 @@ Sample:
     notebook_code:        { type: string(40) }
     location_id:          { type: integer, notnull: true }
     location_details:     { type: string(80) }
-    latitude:             { type: string(10), fixed: true }
-    longitude:            { type: string(10), fixed: true }
+    latitude:             { type: string(12), fixed: true }
+    longitude:            { type: string(12), fixed: true }
     environment_id:       { type: integer }
     is_extremophile:      { type: boolean, notnull: true, default: false }
     habitat_id:           { type: integer }

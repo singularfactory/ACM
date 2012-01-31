@@ -127,15 +127,15 @@ abstract class BaseSample extends sfDoctrineRecord
              'type' => 'string',
              'length' => 80,
              ));
-        $this->hasColumn('latitude', 'string', 10, array(
+        $this->hasColumn('latitude', 'string', 12, array(
              'type' => 'string',
              'fixed' => 1,
-             'length' => 10,
+             'length' => 12,
              ));
-        $this->hasColumn('longitude', 'string', 10, array(
+        $this->hasColumn('longitude', 'string', 12, array(
              'type' => 'string',
              'fixed' => 1,
-             'length' => 10,
+             'length' => 12,
              ));
         $this->hasColumn('environment_id', 'integer', null, array(
              'type' => 'integer',

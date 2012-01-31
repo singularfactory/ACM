@@ -84,15 +84,15 @@ abstract class BaseLocation extends sfDoctrineRecord
         $this->hasColumn('category_id', 'integer', null, array(
              'type' => 'integer',
              ));
-        $this->hasColumn('latitude', 'string', 10, array(
+        $this->hasColumn('latitude', 'string', 12, array(
              'type' => 'string',
              'fixed' => 1,
-             'length' => 10,
+             'length' => 12,
              ));
-        $this->hasColumn('longitude', 'string', 10, array(
+        $this->hasColumn('longitude', 'string', 12, array(
              'type' => 'string',
              'fixed' => 1,
-             'length' => 10,
+             'length' => 12,
              ));
         $this->hasColumn('country_id', 'integer', null, array(
              'type' => 'integer',
