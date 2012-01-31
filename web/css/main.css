@@ -298,7 +298,10 @@ div.http_error a {
 }
 #main_header #main_header_action_back a:link,
 #main_header #main_header_action_back a:visited,
-#main_header #main_header_action_back a:hover {
+#main_header #main_header_action_back a:hover,
+#main_header #main_header_action_list a:link,
+#main_header #main_header_action_list a:visited,
+#main_header #main_header_action_list a:hover {
 	background: url(../images/list.png) no-repeat 0 center;
 }
 #main_header #main_header_action_delete a:link,

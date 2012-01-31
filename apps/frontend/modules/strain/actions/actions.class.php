@@ -15,7 +15,7 @@ class strainActions extends MyActions {
 		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'code'));
 		
 		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
+		if ( ($text = $request->getParameter('criteria')) && $text != 'deceased' ) {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Sample s")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
@@ -54,8 +54,14 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Isolators i")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
-				->leftJoin("{$this->mainAlias()}.Species sp")
-				->where("{$this->mainAlias()}.deceased = ?", 0);
+				->leftJoin("{$this->mainAlias()}.Species sp");
+			
+			if ( $request->hasParameter('criteria') ) {
+				$query->where("{$this->mainAlias()}.deceased = ?", 1);
+			}
+			elseif ( !$request->hasParameter('all') ) {
+				$query->where("{$this->mainAlias()}.deceased = ?", 0);
+			}
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
