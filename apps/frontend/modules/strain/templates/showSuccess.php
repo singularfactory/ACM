@@ -207,6 +207,8 @@
 			<dd><?php echo $strain->getFormattedInGCatalog() ?></dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
+			<dt>Deceased:</dt>
+			<dd><?php echo $strain->getFormattedDeceased() ?></dd>
 			<!--
 			<dt>Amount:</dt>
 			<dd><?php //echo $strain->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>

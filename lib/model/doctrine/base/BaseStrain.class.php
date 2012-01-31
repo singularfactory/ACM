@@ -13,6 +13,7 @@
  * @property boolean $is_epitype
  * @property boolean $is_axenic
  * @property boolean $is_public
+ * @property boolean $deceased
  * @property integer $taxonomic_class_id
  * @property integer $genus_id
  * @property integer $species_id
@@ -60,6 +61,7 @@
  * @method boolean             getIsEpitype()               Returns the current record's "is_epitype" value
  * @method boolean             getIsAxenic()                Returns the current record's "is_axenic" value
  * @method boolean             getIsPublic()                Returns the current record's "is_public" value
+ * @method boolean             getDeceased()                Returns the current record's "deceased" value
  * @method integer             getTaxonomicClassId()        Returns the current record's "taxonomic_class_id" value
  * @method integer             getGenusId()                 Returns the current record's "genus_id" value
  * @method integer             getSpeciesId()               Returns the current record's "species_id" value
@@ -106,6 +108,7 @@
  * @method Strain              setIsEpitype()               Sets the current record's "is_epitype" value
  * @method Strain              setIsAxenic()                Sets the current record's "is_axenic" value
  * @method Strain              setIsPublic()                Sets the current record's "is_public" value
+ * @method Strain              setDeceased()                Sets the current record's "deceased" value
  * @method Strain              setTaxonomicClassId()        Sets the current record's "taxonomic_class_id" value
  * @method Strain              setGenusId()                 Sets the current record's "genus_id" value
  * @method Strain              setSpeciesId()               Sets the current record's "species_id" value
@@ -184,6 +187,11 @@ abstract class BaseStrain extends sfDoctrineRecord
              'default' => false,
              ));
         $this->hasColumn('is_public', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => false,
+             ));
+        $this->hasColumn('deceased', 'boolean', null, array(
              'type' => 'boolean',
              'notnull' => true,
              'default' => false,

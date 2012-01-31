@@ -135,6 +135,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('citations', 'Scientific publications where the strain was used');
 		$this->widgetSchema->setHelp('web_notes', 'Comments that will appear in the public web');
 		$this->widgetSchema->setHelp('is_public', 'Whether the strain must be shown in public catalog or not');
+		$this->widgetSchema->setHelp('deceased', 'Whether the strain is deceased or not');
 		//$this->widgetSchema->setHelp('amount', 'Items in stock');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');

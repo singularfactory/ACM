@@ -94,6 +94,12 @@
 			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
 		
+		<div id="deceased" class="checkbox">
+			<?php echo $form['deceased']->renderLabel() ?>
+			<?php echo $form['deceased'] ?>
+			<?php echo $form['deceased']->renderHelp() ?>
+		</div>
+		
 		<!--
 		<div id="amount">
 			<?php //echo $form['amount']->renderLabel() ?>

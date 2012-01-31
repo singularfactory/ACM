@@ -135,6 +135,13 @@ class Strain extends BaseStrain {
 		return 'no';
 	}
 	
+	public function getFormattedDeceased() {
+		if ( $this->getDeceased() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+	
 	public function getFormattedInGCatalog() {
 		if ( $this->getInGCatalog() ) {
 			return 'yes';
