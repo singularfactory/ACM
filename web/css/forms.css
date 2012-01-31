@@ -224,7 +224,7 @@ div.report_inline_where { float:left; }
 
 #report_strain_taxonomic_class select, #report_strain_genus select, #report_strain_species select,
 #report_strain_authority select, #report_strain_maintenance_status select, #report_strain_culture_medium select,
-#report_strain_transfer_interval input, #report_strain_epitype select, #report_strain_axenic select { width: 190px; margin-right: 13px; }
+#report_strain_transfer_interval input, #report_strain_epitype select, #report_strain_axenic select, #report_strain_deceased select { width: 190px; margin-right: 13px; }
 
 /**
  * DATE PICKER

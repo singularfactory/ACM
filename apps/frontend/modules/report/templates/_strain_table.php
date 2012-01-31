@@ -11,7 +11,7 @@
 				<td>
 					<?php
 						$value = $strain->value;
-						if ( $modelToGroupBy == 'is_epitype' || $modelToGroupBy == 'is_axenic' ) {
+						if ( $modelToGroupBy == 'is_epitype' || $modelToGroupBy == 'is_axenic' || $modelToGroupBy == 'deceased' ) {
 							echo ($value)? 'yes' : 'no' ;
 						}
 						else {
@@ -55,6 +55,10 @@
 				<th>Axenic?</th>
 				<?php endif ?>
 				
+				<?php if ( !$filters->offsetExists('Deceased') ): ?>
+				<th>Deceased?</th>
+				<?php endif ?>
+				
 				<?php if ( !$filters->offsetExists('TransferInterval') ): ?>
 				<th class="report_object_count">Transference (weeks)</th>
 				<?php endif ?>
@@ -87,6 +91,10 @@
 				
 				<?php if ( !$filters->offsetExists('Axenic') ): ?>
 				<td><?php echo $strain->getFormattedIsAxenic() ?></td>
+				<?php endif ?>
+				
+				<?php if ( !$filters->offsetExists('Deceased') ): ?>
+				<td><?php echo $strain->getFormattedDeceased() ?></td>
 				<?php endif ?>
 				
 				<?php if ( !$filters->offsetExists('TransferInterval') ): ?>

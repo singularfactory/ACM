@@ -71,3 +71,10 @@
 	<?php echo $form['strain_axenic']->renderHelp() ?>
 	<?php echo $form['strain_axenic'] ?>
 </div>
+
+<div id="report_strain_deceased" class="report_inline_where">
+	<?php echo $form['strain_deceased']->renderLabel() ?>
+	<?php echo $form['strain_deceased']->renderError() ?>
+	<?php echo $form['strain_deceased']->renderHelp() ?>
+	<?php echo $form['strain_deceased'] ?>
+</div>

@@ -289,6 +289,17 @@ class reportActions extends sfActions {
 						}
 					}
 					
+					if ( $deceased = $request->getParameter('strain_deceased') ) {
+						if ( $deceased == 1 ) {
+							$this->filters['Deceased'] = 'no';
+							$query = $query->andWhere("$alias.deceased = ?", 0);
+						}
+						elseif ( $deceased == 2 ) {
+							$this->filters['Deceased'] = 'yes';
+							$query = $query->andWhere("$alias.deceased = ?", 1);
+						}
+					}
+					
 					if ( $transferInterval = $request->getParameter('strain_transfer_interval') ) {
 						$this->filters['TransferInterval'] = $transferInterval;
 						$query = $query->andWhere("$alias.transfer_interval = ?", $transferInterval);
