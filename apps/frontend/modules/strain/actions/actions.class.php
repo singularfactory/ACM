@@ -54,7 +54,8 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Isolators i")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
-				->leftJoin("{$this->mainAlias()}.Species sp");
+				->leftJoin("{$this->mainAlias()}.Species sp")
+				->where("{$this->mainAlias()}.deceased = ?", 0);
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
