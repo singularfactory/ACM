@@ -580,6 +580,7 @@ class apiActions extends GreenhouseAPI {
 		$catalog['dna_extraction'] = array();
 		foreach ( DnaExtractionTable::getInstance()->findByIsPublic(1) as $extraction ) {
 			$catalog['dna_extraction'][$extraction->getId()] = array(
+				'bea_code' => $extraction->getStrain()->getFullCode(),
 				'arrival_date' => $extraction->getArrivalDate(),
 				'extraction_date' => $extraction->getExtractionDate(),
 				'extraction_method' => $extraction->getExtractionKit(),
@@ -610,6 +611,7 @@ class apiActions extends GreenhouseAPI {
 		foreach ( $strains as $strain ) {
 			$record = array(
 				'id' => $strain->getId(),
+				'bea_code' => $strain->getFullCode(),
 				'culture_media' => array(),
 				'isolators' => array(),
 				'maintenance_status' => array(),
