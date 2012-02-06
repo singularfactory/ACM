@@ -598,7 +598,6 @@ class apiActions extends GreenhouseAPI {
 			->leftJoin('s.Species sp')
 			->leftJoin('s.Authority au')
 			->leftJoin('s.Identifier i')
-			->leftJoin('s.CryopreservationMethod cm')
 			->leftJoin('s.Container co')
 			->leftJoin('s.Depositor dep')
 			->leftJoin('s.DnaExtractions dna')
@@ -625,7 +624,6 @@ class apiActions extends GreenhouseAPI {
 				'authority' => $strain->getAuthority()->getName(),
 				'isolation_date' => $strain->getIsolationDate(),
 				'identifier' => ($strain->getIdentifier()) ? sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname()) : null,
-				'cryopreservation_method' => ($strain->getCryopreservationMethod()) ? $strain->getCryopreservationMethod()->getName() : null,
 				'transfer_interval' => $strain->getTransferInterval(),
 				'observation' => $strain->getObservation(),
 				'citations' => $strain->getCitations(),
