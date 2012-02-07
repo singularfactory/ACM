@@ -587,7 +587,7 @@ class apiActions extends GreenhouseAPI {
 				'bea_code' => $extraction->getStrain()->getFullCode(),
 				'arrival_date' => $extraction->getArrivalDate(),
 				'extraction_date' => $extraction->getExtractionDate(),
-				'extraction_method' => $extraction->getExtractionKit(),
+				'extraction_method' => $extraction->getExtractionKit()->getName(),
 				'concentration' => $extraction->getConcentration(),
 				'260_280_ratio' => $extraction->getFormatted260280Ratio(),
 				'260_230_ratio' => $extraction->getFormatted260230Ratio(),
@@ -613,6 +613,13 @@ class apiActions extends GreenhouseAPI {
 			->where('s.is_public = ?', 1)
 			->execute();
 		foreach ( $strains as $strain ) {
+			$location = $habitat = null;
+			if ( $strain->getSampleId() ) {
+				$sample = $strain->getSample();
+				$location = $sample->getLocationId() ? $locations[$sample->getLocationId()] : null;
+				$habitat = $sample->getHabitatId() ? $habitats[$sample->getHabitatId()] : null;
+			}
+						
 			$record = array(
 				'id' => $strain->getId(),
 				'bea_code' => $strain->getFullCode(),
@@ -620,13 +627,13 @@ class apiActions extends GreenhouseAPI {
 				'isolators' => array(),
 				'maintenance_status' => array(),
 				'relatives' => array(),
-				'location' => ($strain->getSampleId()) ? $locations[$strain->getSample()->getLocationId()] : null,
-				'habitat' => ($strain->getSampleId()) ? $habitats[$strain->getSample()->getHabitatId()] : null,
+				'location' => $location,
+				'habitat' => $habitat,
 				'is_epitype' => $strain->getIsEpitype(),
 				'is_axenic' => $strain->getIsAxenic(),
 				'taxonomic_class' => $strain->getTaxonomicClass()->getName(),
-				'genus' => $strain->getGenus()->getName(),
-				'species' => $strain->getSpecies()->getName(),
+				'genus' => $strain->getGenusId() ? $strain->getGenus()->getName() : null,
+				'species' => $strain->getSpeciesId() ? $strain->getSpecies()->getName() : null,
 				'authority' => $strain->getAuthority()->getName(),
 				'isolation_date' => $strain->getIsolationDate(),
 				'identifier' => ($strain->getIdentifier()) ? sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname()) : null,
