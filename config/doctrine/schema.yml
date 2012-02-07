@@ -227,7 +227,7 @@ Event:
     action:       { type: string(40), notnull: true }
     description:  { type: string(255), notnull: true }
   relations:
-    User:         { class: sfGuardUser, local: user_id, foreignAlias: Events }
+    User:         { class: sfGuardUser, local: user_id, foreignAlias: Events, onDelete: cascade }
 
 
 Isolator:
