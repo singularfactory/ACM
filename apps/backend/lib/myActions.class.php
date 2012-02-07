@@ -33,7 +33,7 @@ class MyActions extends sfActions {
 			$this->getUser()->setFlash('error', "This $moduleReadableNameLowercase cannot be deleted because it is being used in other records");
 		}
 		
-	  $this->redirect("@$module");
+	  $this->redirect('@'.sfInflector::tableize($module));
 	}
 	
 	protected function executeBatchDeleteIfNotUsed(sfWebRequest $request) {
@@ -62,7 +62,7 @@ class MyActions extends sfActions {
 			$this->getUser()->setFlash('notice', 'The selected items have been deleted successfully.');
 		}
 		
-		$this->redirect("@$module");
+		$this->redirect('@'.sfInflector::tableize($module));
 	}
 	
 }
