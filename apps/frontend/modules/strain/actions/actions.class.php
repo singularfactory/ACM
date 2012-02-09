@@ -45,6 +45,8 @@ class strainActions extends MyActions {
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
+			$this->getUser()->setAttribute('search.criteria', null);
+			
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Sample sa")
 				->leftJoin("sa.Location loc")
@@ -58,12 +60,11 @@ class strainActions extends MyActions {
 			
 			if ( $request->hasParameter('criteria') ) {
 				$query->where("{$this->mainAlias()}.deceased = ?", 1);
+				$this->getUser()->setAttribute('search.criteria', 'deceased');
 			}
 			elseif ( !$request->hasParameter('all') ) {
 				$query->where("{$this->mainAlias()}.deceased = ?", 0);
 			}
-			
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		
 		$this->pager->setQuery($query);
