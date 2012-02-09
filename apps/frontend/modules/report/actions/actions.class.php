@@ -383,7 +383,9 @@ class reportActions extends sfActions {
 							->addSelect("COUNT($alias.id) as n_locations")
 							->innerJoin("$alias.".sfInflector::camelize($this->modelToGroupBy)." m")
 							->leftJoin("$alias.Samples s")
-							->addSelect("COUNT(s.id) as n_samples")
+							->leftJoin('s.Strains st')
+							->addSelect("COUNT(DISTINCT s.id) as n_samples")
+							->addSelect("COUNT(DISTINCT st.id) as n_strains")
 							->groupBy("$alias.".sfInflector::foreign_key($this->modelToGroupBy))
 							->addSelect('m.name as value');
 					}

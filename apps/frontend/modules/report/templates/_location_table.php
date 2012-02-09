@@ -5,12 +5,14 @@
 				<th><?php echo sfInflector::camelize($modelToGroupBy) ?></th>
 				<th class="report_object_count">Locations</th>
 				<th class="report_object_count">Samples</th>
+				<th class="report_object_count">Strains</th>
 			</tr>
 			<?php foreach ( $results as $location ): ?>
 			<tr>
 				<td><?php echo $location->value ?></td>
 				<td class="report_object_count"><?php echo $location->n_locations ?></td>
 				<td class="report_object_count"><?php echo $location->n_samples ?></td>
+				<td class="report_object_count"><?php echo $location->n_strains ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -38,6 +40,8 @@
 				<?php endif ?>
 				
 				<th class="report_object_count">Samples</th>
+				
+				<th class="report_object_count">Strains</th>
 			</tr>
 			<?php foreach ( $results as $location ): ?>
 			<tr>
@@ -60,6 +64,8 @@
 				<?php endif ?>
 				
 				<td class="report_object_count"><?php echo $location->getNbSamples() ?></td>
+
+				<td class="report_object_count"><?php echo $location->getNbStrains() ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>

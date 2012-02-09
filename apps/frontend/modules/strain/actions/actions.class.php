@@ -22,11 +22,18 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
 				->leftJoin("{$this->mainAlias()}.Supervisor su")
+				->leftJoin("s.Location l")
+				->leftJoin("l.Country co")
+				->leftJoin("l.Region re")
+				->leftJoin("l.Island is")
 				->orWhere('c.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
 				->orWhere('sp.name LIKE ?', "%$text%")
 				->orWhere('su.first_name LIKE ?', "%$text%")
-				->orWhere('su.last_name LIKE ?', "%$text%");
+				->orWhere('su.last_name LIKE ?', "%$text%")
+				->orWhere('co.name LIKE ?', "%$text%")
+				->orWhere('re.name LIKE ?', "%$text%")
+				->orWhere('is.name LIKE ?', "%$text%");
 					
 			// Parse search term to catch strain codes
 			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {

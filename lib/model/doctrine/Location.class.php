@@ -31,6 +31,16 @@ class Location extends BaseLocation {
 			->count();
 	}
 	
+	public function getNbStrains() {
+		return LocationTable::getInstance()->createQuery('l')
+			->select('count(DISTINCT st.id) AS n_strains')
+			->leftJoin('l.Samples sa')
+			->leftJoin('sa.Strains st')
+			->where('l.id = ?', $this->getId())
+			->fetchOne()
+			->n_strains;
+	}
+	
 	public function getGPSCoordinates() {
 		return array(
 			'latitude' => $this->getLatitude(),

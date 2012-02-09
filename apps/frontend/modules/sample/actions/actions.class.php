@@ -22,6 +22,9 @@ class sampleActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Habitat h")
 				->leftJoin("{$this->mainAlias()}.Radiation r")
 				->leftJoin("{$this->mainAlias()}.Collectors c")
+				->leftJoin("l.Country co")
+				->leftJoin("l.Region re")
+				->leftJoin("l.Island is")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.location_details LIKE ?", "%$text%")
@@ -31,7 +34,10 @@ class sampleActions extends MyActions {
 				->orWhere('h.name LIKE ?', "%$text%")
 				->orWhere('r.name LIKE ?', "%$text%")
 				->orWhere('c.name LIKE ?', "%$text%")
-				->orWhere('c.surname LIKE ?', "%$text%");
+				->orWhere('c.surname LIKE ?', "%$text%")
+				->orWhere('co.name LIKE ?', "%$text%")
+				->orWhere('re.name LIKE ?', "%$text%")
+				->orWhere('is.name LIKE ?', "%$text%");
 				
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
