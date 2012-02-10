@@ -33,15 +33,23 @@ class CryopreservationForm extends BaseCryopreservationForm {
 		$this->widgetSchema->setHelp('revival_date', 'Year, month and day');
 	}
 
-	public function cleanFieldsByCryopreservationSubject($validator, $values) {	
+	public function cleanFieldsByCryopreservationSubject($validator, $values) {
 		switch( $values['subject'] ) {
 			case 'strain':
 				$values['sample_id'] = null;
+				if ( empty($values['strain_id']) ) {
+					$error = new sfValidatorError($validator, 'You must choose a strain before registering this cryopreservation');
+					throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
+				}
 				break;
 			
 			case 'sample':
 			default:
 				$values['strain_id'] = null;
+				if ( empty($values['sample_id']) ) {
+					$error = new sfValidatorError($validator, 'You must choose a sample before registering this cryopreservation');
+					throw new sfValidatorErrorSchema($validator, array('sample_id' => $error));
+				}
 				break;
 		}
 		
