@@ -580,6 +580,11 @@ api_store_catalog:
   param:        { module: api, action: storeCatalog }
   requirements: { sf_method: get }
 
+api_strain_thumbnail:
+  url:          /api/:token/strainThumbnail/:strain_id
+  param:        { module: api, action: strainThumbnail }
+  requirements: { sf_method: get, strain_id: \d+ }
+
 api_generate_barcode:
   url:          /api/generateBarcode/:code
   param:        { module: api, action: generateBarcode }

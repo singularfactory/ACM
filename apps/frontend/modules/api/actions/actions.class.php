@@ -648,7 +648,6 @@ class apiActions extends GreenhouseAPI {
 				'depositor' => ($strain->getDepositor()) ? sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname()) : null,
 				'has_dna' => $strain->publicHasDna(),
 				'aliquots' => $strain->getPublicDnaAmount(),
-				'thumbnail' => $strain->getPublicThumbnail(), 
 			);
 
 			// Get relatives of this strain
@@ -683,6 +682,43 @@ class apiActions extends GreenhouseAPI {
 		return $this->requestExitStatus(self::RequestSuccess, json_encode($catalog));
 	}
 
+	public function executeStrainThumbnail(sfWebRequest $request) {
+		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
+			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
+		}
+
+		if ( !$this->validateToken($request->getParameter('token')) ) {
+			return $this->requestExitStatus(self::InvalidToken);
+		}
+		
+		$id = $request->getParameter('strain_id');
+		if ( !preg_match('/^\d+$/', $id) ) {
+			return $this->requestExitStatus(self::ServerError, "The strain ID received ($id) is not valid");
+		}
+		
+		$picture = StrainPictureTable::getInstance()->findOneByStrainId($id);
+		if ( !$picture ) {
+			return null;
+		}
+		
+		// Choose the picture
+		$filename = sprintf('%s/%s', sfConfig::get('sf_upload_dir').sfConfig::get('app_strain_pictures_dir'), $picture->getFilename());
+		
+		// Create a temporary thumbnail
+		$thumbnail = new Imagick($filename);
+		$thumbnail->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
+		$thumbnail->setResolution(300, 300);
+		$thumbnail->thumbnailImage(300, 0);
+
+		$image = $thumbnail->getImageBlob();
+		$thumbnail->clear();
+		$thumbnail->destroy();
+		
+		header('Content-type: image/png');
+		echo $image;
+		exit();
+	}
+	
 	/*
 	public function executeGenerateBarcode(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
