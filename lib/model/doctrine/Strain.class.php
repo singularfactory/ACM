@@ -237,4 +237,28 @@ class Strain extends BaseStrain {
 		
 		return $this->getSupervisor();
 	}
+
+	public function getPublicThumbnail() {
+		$pictures = $this->getPictures();
+		
+		if ( count($pictures) == 0 ) {
+			return null;
+		}
+		
+		// Choose the picture
+		$picture = $pictures[0];
+		$filename = sprintf('%s/%s', sfConfig::get('sf_upload_dir').sfConfig::get('app_strain_pictures_dir'), $picture->getFilename());
+		
+		// Create a temporary thumbnail
+		$thumbnail = new Imagick($filename);
+		$thumbnail->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
+		$thumbnail->setResolution(300, 300);
+		$thumbnail->thumbnailImage(300, 0);
+		
+		$thumbnailEncoded = base64_encode($thumbnail->getImageBlob());
+		$thumbnail->clear();
+		$thumbnail->destroy();
+		
+		return $thumbnailEncoded;
+	}
 }

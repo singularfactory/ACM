@@ -648,6 +648,7 @@ class apiActions extends GreenhouseAPI {
 				'depositor' => ($strain->getDepositor()) ? sprintf('%s %s', $strain->getDepositor()->getName(), $strain->getDepositor()->getSurname()) : null,
 				'has_dna' => $strain->publicHasDna(),
 				'aliquots' => $strain->getPublicDnaAmount(),
+				'thumbnail' => $strain->getPublicThumbnail(), 
 			);
 
 			// Get relatives of this strain
