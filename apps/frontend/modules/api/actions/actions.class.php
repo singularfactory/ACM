@@ -691,12 +691,12 @@ class apiActions extends GreenhouseAPI {
 			return $this->requestExitStatus(self::InvalidToken);
 		}
 		
-		$id = $request->getParameter('strain_id');
-		if ( !preg_match('/^\d+$/', $id) ) {
-			return $this->requestExitStatus(self::ServerError, "The strain ID received ($id) is not valid");
+		if ( !($code = $this->validateBeaCode($request->getParameter('bea_code'))) ) {
+			return $this->requestExitStatus(self::InvalidBeaCode);
 		}
 		
-		$picture = StrainPictureTable::getInstance()->findOneByStrainId($id);
+		$strain = StrainTable::getInstance()->findOneByCode($code);
+		$picture = StrainPictureTable::getInstance()->findOneByStrainId($strain->getId());
 		if ( !$picture ) {
 			return null;
 		}

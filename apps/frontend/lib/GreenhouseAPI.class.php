@@ -85,7 +85,7 @@ class GreenhouseAPI extends MyActions {
 	}
 	
 	protected function validateBeaCode($code = '') {
-		if ( preg_match('/^([Bb][Ee][Aa])?\s*(\d+)$/', $code, $matches) ) {
+		if ( preg_match('/^([Bb][Ee][Aa])?\s*(\d+)\s*[bB]?$/', $code, $matches) ) {
 			return $matches[2];
 		}
 		return false;

@@ -581,9 +581,9 @@ api_store_catalog:
   requirements: { sf_method: get }
 
 api_strain_thumbnail:
-  url:          /api/:token/strainThumbnail/:strain_id
+  url:          /api/:token/strainThumbnail/:bea_code
   param:        { module: api, action: strainThumbnail }
-  requirements: { sf_method: get, strain_id: \d+ }
+  requirements: { sf_method: get, bea_code: "([Bb][Ee][Aa])?\s*\d+\s*[Bb]?" }
 
 api_generate_barcode:
   url:          /api/generateBarcode/:code
