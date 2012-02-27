@@ -32,9 +32,12 @@ class SaleableListener extends Doctrine_Record_Listener {
 
 		// Notify the public web
 		try {
+			require_once sfConfig::get('sf_lib_dir').'/vendor/procrypt/procrypt.php';
+			$encrypter = new proCrypt();
+
 			$remoteUrl = sprintf('%s/index.php?option=com_api&task=changestate&order=%s&status=%s',
 				rtrim(sfConfig::get('app_notify_sent_public_web_url'), '/'),
-				md5($purchaseOrder->getCode()),
+				$encrypter->encrypt($purchaseOrder->getCode()),
 				$status);
 
 			$requestHandler = curl_init($remoteUrl);
