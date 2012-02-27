@@ -24,7 +24,7 @@ class SaleableListener extends Doctrine_Record_Listener {
 		}
 
 		if ( ($status = $purchaseOrder->getStatus()) == sfConfig::get('app_purchase_order_ready') ) {
-			$status = 'S';
+			$status = 'B';
 		}
 		else {
 			return;
@@ -37,7 +37,7 @@ class SaleableListener extends Doctrine_Record_Listener {
 
 			$remoteUrl = sprintf('%s/index.php?option=com_api&task=changestate&order=%s&status=%s',
 				rtrim(sfConfig::get('app_notify_sent_public_web_url'), '/'),
-				$encrypter->encrypt($purchaseOrder->getCode()),
+				urlencode($encrypter->encrypt($purchaseOrder->getCode())),
 				$status);
 
 			$requestHandler = curl_init($remoteUrl);
