@@ -237,4 +237,12 @@ class Strain extends BaseStrain {
 		
 		return $this->getSupervisor();
 	}
+
+	public function getSupervisorInitials() {
+		if ( !$this->getSupervisorId() ) {
+			return '';
+		}
+
+		return $this->getSupervisor();
+	}
 }
