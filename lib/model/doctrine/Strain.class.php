@@ -238,6 +238,14 @@ class Strain extends BaseStrain {
 		return $this->getSupervisor();
 	}
 
+	public function getFormattedSupervisorWithInitials() {
+		if ( !$this->getSupervisorId() ) {
+			return sfConfig::get('app_no_data_message');
+		}
+		
+		return $this->getSupervisor()->getFullNameWithInitials();
+	}
+
 	public function getSupervisorInitials() {
 		if ( !$this->getSupervisorId() ) {
 			return '';

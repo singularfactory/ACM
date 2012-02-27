@@ -30,7 +30,7 @@
 			<td class="sample_code"><?php echo link_to($strain->getFormattedSampleCode(), $url) ?></td>
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
 			<td class="is_public"><?php echo link_to($strain->getFormattedIsPublic(), $url) ?></td>
-			<td class="supervisor"><?php echo link_to($strain->getFormattedSupervisor(), $url) ?></td>
+			<td class="supervisor"><?php echo link_to($strain->getFormattedSupervisorWithInitials(), $url) ?></td>
 			<!-- <td class="amount"><?php //echo link_to($strain->getAmount(), $url) ?></td> -->
 
 			<td class="actions">

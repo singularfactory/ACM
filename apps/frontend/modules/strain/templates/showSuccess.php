@@ -272,7 +272,7 @@
 			
 			<?php if ( $strain->getSupervisor()->getName() ): ?>
 			<dt>Supervisor:</dt>
-			<dd><?php echo $strain->getSupervisor() ?></dd>
+			<dd><?php echo $strain->getSupervisor()->getFullNameWithInitials() ?></dd>
 			<?php endif; ?>
 			
 			<dt>Observation:</dt>
