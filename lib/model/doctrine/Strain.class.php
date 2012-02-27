@@ -94,14 +94,14 @@ class Strain extends BaseStrain {
 	}
 	
 	public function hasDna() {
-		if ( count($this->getDnaExtractions()) > 0 ) {
+		if ( $this->getAliquots() > 0 ) {
 			return true;
 		}
 		return false;
 	}
 	
 	public function publicHasDna() {
-		if ( count(DnaExtractionTable::getInstance()->findByIsPublicAndStrainId(1, $this->getId())) > 0 ) {
+		if ( $this->getPublicAliquots() > 0 ) {
 			return true;
 		}
 		return false;
