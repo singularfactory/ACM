@@ -8,7 +8,7 @@ generator:
       fields: ~
       list:
         title:   Users
-        display: [=username, name, email_address, last_login]
+        display: [=username, name, initials,email_address, last_login]
         fields:
           email_address: { label: Email }
       form:
