@@ -13,6 +13,7 @@ generator:
           email_address: { label: Email }
       form:
         display:
+          "User":  [first_name, last_name, initials, email_address, username, password, password_again]
           "Notifications":  [notify_new_order, notify_ready_order]
       edit:
         title: Editing user "%%username%%"
