@@ -517,6 +517,9 @@ DnaExtraction:
       fields: [extraction_date]
     dna_extraction_date2:
       fields: [arrival_date]
+  actAs:
+    Timestampable:
+    Date:
 
 
 DnaPolymerase:

@@ -108,5 +108,20 @@ class DnaExtraction extends BaseDnaExtraction {
 	public function getFormattedHasDnaSequence() {
 		return $this->hasDnaSequence() ? 'yes' : 'no';
 	}
-	
+
+	public function getFormattedArrivalDate() {
+		if ( $arrivalDate = $this->_get('arrival_date') ) {
+			return $this->formatFriendlyDate($arrivalDate, false);
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedExtractionDate() {
+		if ( $extractionDate = $this->_get('extraction_date') ) {
+			return $this->formatFriendlyDate($extractionDate, false);
+		}
+		
+		return sfConfig::get('app_no_data_message');
+	}
 }

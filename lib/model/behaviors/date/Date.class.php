@@ -10,7 +10,7 @@ class Date extends Doctrine_Template {
 		}
 	}
 	
-	public function formatFriendlyDate($value = '') {
+	public function formatFriendlyDate($value, $withTime = true) {
 		$now = time();
 		$received = strtotime($value);
 		$interval = $now - $received;
@@ -41,14 +41,14 @@ class Date extends Doctrine_Template {
 		
 		if ( $interval < 86400 ) {
 			if ( date('d', $received) < date('d', $now) ) {
-				return 'Yesterday at '.date("H:i", $received);
+				return $withTime ? 'Yesterday at '.date("H:i", $received) : 'Yesterday';
 			}
 			else {
-				return 'Today at '.date("H:i", $received);
+				return $withTime ? 'Today at '.date("H:i", $received) : 'Today';
 			}
 		}
 		
-		return date("M S, H:i", $received);
+		return $withTime ? date("M S, H:i", $received) : date("M S", $received);
 	}
 	
 }

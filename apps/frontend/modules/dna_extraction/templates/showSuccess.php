@@ -16,9 +16,9 @@
 			<dt>Strain:</dt>
 			<dd><?php echo link_to($dnaExtraction->getStrain()->getFullCode(), "@strain_show?id={$dnaExtraction->getStrain()->getId()}") ?></dd>
 			<dt>Arrival date:</dt>
-			<dd><?php echo format_date($dnaExtraction->getArrivalDate(), 'p') ?></dd>
+			<dd><?php echo $dnaExtraction->getFormattedArrivalDate() ?></dd>
 			<dt>Extraction date:</dt>
-			<dd><?php echo format_date($dnaExtraction->getExtractionDate(), 'p') ?></dd>
+			<dd><?php echo $dnaExtraction->getFormattedExtractionDate() ?></dd>
 			<dt>Extraction kit:</dt>
 			<dd><?php echo $dnaExtraction->getExtractionKit()->getName() ?></dd>
 			<dt>Concentration:</dt>
