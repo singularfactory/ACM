@@ -671,8 +671,10 @@ class apiActions extends GreenhouseAPI {
 			}
 
 			// Get DNA extractions of this strain
-			foreach ( $strain->getDnaExtractions() as $extraction ) {
-				$record['dna_extractions'][] = $extraction->getId();
+			if ( $strain->getPublicDnaAmount() > 0 ) {
+				foreach ( $strain->getDnaExtractions() as $extraction ) {
+					$record['dna_extractions'][] = $extraction->getId();
+				}
 			}
 
 			$catalog['strain'][$strain->getId()] = $record;
