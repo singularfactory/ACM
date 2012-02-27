@@ -482,6 +482,7 @@ sfGuardUser:
     token:              { type: string(40), notnull: true }
     notify_new_order:   { type: boolean, notnull: true, default: true }
     notify_ready_order: { type: boolean, notnull: true, default: true }
+    initials:           { type: string(5), notnull: true }
 
 
 ExtractionKit:
