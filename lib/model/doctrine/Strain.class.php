@@ -243,6 +243,6 @@ class Strain extends BaseStrain {
 			return '';
 		}
 
-		return $this->getSupervisor();
+		return $this->getSupervisor()->getInitials();
 	}
 }
