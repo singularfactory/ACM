@@ -49,7 +49,8 @@ class labelActions extends myActions {
 					'label' => ($table == 'StrainTable') ? $match->getFullCode() : $match->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
 					
 					// Strain attributes
-					'transfer_interval' => ($table == 'StrainTable') ? $match->getTransferInterval():null,
+					'transfer_interval' => ($table == 'StrainTable') ? $match->getTransferInterval() : null,
+					'supervisor' => ($table == 'StrainTable') ? $match->getSupervisorInitials() : null,
 				);
 			}
 			$this->getResponse()->setContent(json_encode($matches));

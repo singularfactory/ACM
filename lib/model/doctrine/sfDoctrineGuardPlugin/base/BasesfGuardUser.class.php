@@ -19,6 +19,7 @@
  * @property string $token
  * @property boolean $notify_new_order
  * @property boolean $notify_ready_order
+ * @property string $initials
  * @property Doctrine_Collection $Groups
  * @property Doctrine_Collection $Permissions
  * @property Doctrine_Collection $sfGuardUserPermission
@@ -45,6 +46,7 @@
  * @method string                getToken()                 Returns the current record's "token" value
  * @method boolean               getNotifyNewOrder()        Returns the current record's "notify_new_order" value
  * @method boolean               getNotifyReadyOrder()      Returns the current record's "notify_ready_order" value
+ * @method string                getInitials()              Returns the current record's "initials" value
  * @method Doctrine_Collection   getGroups()                Returns the current record's "Groups" collection
  * @method Doctrine_Collection   getPermissions()           Returns the current record's "Permissions" collection
  * @method Doctrine_Collection   getSfGuardUserPermission() Returns the current record's "sfGuardUserPermission" collection
@@ -70,6 +72,7 @@
  * @method sfGuardUser           setToken()                 Sets the current record's "token" value
  * @method sfGuardUser           setNotifyNewOrder()        Sets the current record's "notify_new_order" value
  * @method sfGuardUser           setNotifyReadyOrder()      Sets the current record's "notify_ready_order" value
+ * @method sfGuardUser           setInitials()              Sets the current record's "initials" value
  * @method sfGuardUser           setGroups()                Sets the current record's "Groups" collection
  * @method sfGuardUser           setPermissions()           Sets the current record's "Permissions" collection
  * @method sfGuardUser           setSfGuardUserPermission() Sets the current record's "sfGuardUserPermission" collection
@@ -155,6 +158,11 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
              'type' => 'boolean',
              'notnull' => true,
              'default' => true,
+             ));
+        $this->hasColumn('initials', 'string', 5, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => 5,
              ));
 
 

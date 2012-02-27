@@ -742,6 +742,7 @@ $(document).ready(function(){
 		select: function(event, ui) {
 			$("#label_product_id_search").val(ui.item.label);
 			$("#product_id").val(ui.item.id);
+			$("#supervisor").val(ui.item.supervisor);
 			
 			if ( isNumber(ui.item.transfer_interval) ) {
 				$("#label_transfer_interval input").val(ui.item.transfer_interval);
