@@ -71,6 +71,14 @@ class StrainForm extends BaseStrainForm {
 			'order_by' => array('name', 'asc'),
 		)));
 		
+		// Configure list of supervisors
+		$this->setWidget('supervisor_id', new sfWidgetFormDoctrineChoice(array(
+			'model' => $this->getRelatedModelName('Supervisor'),
+			'method' => 'getFullNameWithInitials',
+			'order_by' => array('first_name', 'asc'),
+			'add_empty' => true,
+		)));
+
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_strain_pictures');
