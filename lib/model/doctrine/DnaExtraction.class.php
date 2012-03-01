@@ -14,9 +14,9 @@ class DnaExtraction extends BaseDnaExtraction {
 	
 	public function getCode() {
 		$strainNumber = $this->getStrain()->getFullCode();
-		$extractionDate = date('Ymd', strtotime($this->getExtractionDate()));
+		$arrivalDate = date('Ymd', strtotime($this->getArrivalDate()));
 		
-		return "{$strainNumber}_{$extractionDate}";
+		return "{$strainNumber}_{$arrivalDate}";
 	}
 	
 	public function getNbPcr() {
