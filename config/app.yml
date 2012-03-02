@@ -65,8 +65,8 @@ all:
     documents_dir:             /uploads
     
     # Common regular expressions
-    strain_bea_code_regex:          '/^BEA\s?(\d+)B?$/'
-    culture_medium_bea_code_regex:  '/^BEA\s?(\d+)-cm$/'
+    strain_bea_code_regex:          '/^BEA\s?(\d+)[bB]?$/'
+    culture_medium_bea_code_regex:  '/^BEA\s?(\d+)-[cC][mM]$/'
     
     # Inbox constants
     inbox_notification_new:     0

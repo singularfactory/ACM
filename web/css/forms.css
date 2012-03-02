@@ -76,7 +76,7 @@ p.token_value { padding: 0; margin: 0; margin-top: 1px; }
 /**
  * COMMON FIELDS
  */
-#gps_coordinates input { width: 70px; display: inline-block; } /* Location and Sample */
+#gps_coordinates input { width: 75px; display: inline-block; } /* Location and Sample */
 span.reset_picture { text-decoration: underline; font-size: 11px; color: #2aa2f8; margin-left: 3px; }
 span.reset_picture:hover { cursor: pointer; text-decoration: none; }
 span.value_unit { font-size: 11px; }
@@ -248,7 +248,7 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
 #gps_coordinates_picker_map { width: 800px; height: 500px; vertical-align: bottom; position: absolute; bottom: 0; }
 #gps_coordinates_picker_data { margin: 0px; padding-top: 15px; }
 #gps_coordinates_picker_data label { display: inline; margin-right: 9px; }
-#gps_coordinates_picker_data input { margin-right: 17px; width: 80px; display: inline-block; }
+#gps_coordinates_picker_data input { margin-right: 17px; width: 85px; display: inline-block; }
 
 
 /**
