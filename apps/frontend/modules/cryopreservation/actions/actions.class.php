@@ -33,7 +33,20 @@ class cryopreservationActions extends MyActions {
 				->orWhere('st.id LIKE ?', "%$text%")
 				->orWhere('sa.id LIKE ?', "%$text%")
 				->orWhere('cm.name LIKE ?', "%$text%");
-						
+
+			// Parse search term to catch strain codes
+			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {
+				$query = $query->orWhere("st.code = ?", (int)$matches[2]);
+			}
+			else {
+				$query = $query->orWhere("st.code LIKE ?", "%$text%");
+			}
+			
+			// Parse search term to catch sample codes
+			if ( preg_match('/0*(\d+)(\w{1,3})_?(\w{1,3})?(\w{1,3}|00)?(\d{2,6})?/', $text, $matches) ) {
+				$query = $query->orWhere("sa.id = ?", (int)$matches[1]);
+			}
+			
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
