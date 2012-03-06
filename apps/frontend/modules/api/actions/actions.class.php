@@ -538,7 +538,7 @@ class apiActions extends GreenhouseAPI {
 
 		$islands = array();
 		foreach ( IslandTable::getInstance()->createQuery('i')->select('DISTINCT i.*')->innerJoin('i.Locations')->execute() as $island ) {
-			$islands[$island->getId()] = $island->getName();
+			$islands[$island->getId()] = sprintf('%s Island', $island->getName());
 		}
 		unset($island);
 
