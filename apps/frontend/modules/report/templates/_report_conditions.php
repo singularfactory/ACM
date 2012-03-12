@@ -3,6 +3,7 @@
 <?php if ( $modelToGroupBy ): ?>
 	<?php $modelToGroupBy = preg_replace('/^is_/', '', $modelToGroupBy) ?>
 	<?php $modelToGroupBy = preg_replace('/^(\d+)_(\d+)_ratio$/', '$1:$2 ratio', $modelToGroupBy) ?>
+	<?php $modelToGroupBy = preg_replace('/^in_g_catalog$/', 'presence in G-catalog', $modelToGroupBy) ?>
 	<?php $modelToGroupBy = str_replace('_', ' ', $modelToGroupBy) ?>
 	
 	<span>Results <strong>grouped by <?php echo $modelToGroupBy ?></strong>

@@ -207,7 +207,7 @@ class reportActions extends sfActions {
 				case 'strain':
 					// Group by
 					if ( $this->modelToGroupBy = $request->getParameter('strain_group_by') ) {
-						if ( in_array($this->modelToGroupBy, array('transfer_interval', 'is_epitype', 'is_axenic')) ) {
+						if ( in_array($this->modelToGroupBy, array('transfer_interval', 'is_epitype', 'is_axenic', 'in_g_catalog')) ) {
 							$relatedAlias = $this->modelToGroupBy;
 							$relatedForeignKey = $this->modelToGroupBy;
 							$recursive = false;
@@ -286,6 +286,17 @@ class reportActions extends sfActions {
 						elseif ( $isAxenic == 2 ) {
 							$this->filters['Axenic'] = 'yes';
 							$query = $query->andWhere("$alias.is_axenic = ?", 1);
+						}
+					}
+					
+					if ( $inGCatalog = $request->getParameter('strain_in_g_catalog') ) {
+						if ( $inGCatalog == 1 ) {
+							$this->filters['In G-catalog'] = 'no';
+							$query = $query->andWhere("$alias.in_g_catalog = ?", 0);
+						}
+						elseif ( $inGCatalog == 2 ) {
+							$this->filters['In G-catalog'] = 'yes';
+							$query = $query->andWhere("$alias.in_g_catalog = ?", 1);
 						}
 					}
 					

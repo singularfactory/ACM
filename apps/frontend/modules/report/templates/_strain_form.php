@@ -78,3 +78,10 @@
 	<?php echo $form['strain_deceased']->renderHelp() ?>
 	<?php echo $form['strain_deceased'] ?>
 </div>
+
+<div id="report_strain_in_g_catalog" class="report_inline_where">
+	<?php echo $form['strain_in_g_catalog']->renderLabel() ?>
+	<?php echo $form['strain_in_g_catalog']->renderError() ?>
+	<?php echo $form['strain_in_g_catalog']->renderHelp() ?>
+	<?php echo $form['strain_in_g_catalog'] ?>
+</div>
