@@ -710,7 +710,7 @@ class apiActions extends GreenhouseAPI {
 		$thumbnail = new Imagick($filename);
 		$thumbnail->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
 		$thumbnail->setResolution(300, 300);
-		$thumbnail->thumbnailImage(300, 0);
+		$thumbnail->thumbnailImage(150, 0);
 
 		$image = $thumbnail->getImageBlob();
 		$thumbnail->clear();
