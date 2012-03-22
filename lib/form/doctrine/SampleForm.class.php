@@ -9,7 +9,7 @@
 * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
 class SampleForm extends BaseSampleForm {
-	
+
 	public function configure() {
 		// Configure collection date format
 		$lastYear = date('Y');
@@ -20,30 +20,30 @@ class SampleForm extends BaseSampleForm {
 			'format' => '%year%-%month%-%day%',
 			'years' => $years,
 		)));
-		
+
 		// Configure location
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
-				
+
 		// Configure picture widgets
 		$actualFieldPictures = $this->getObject()->getNbFieldPictures();
 		$actualDetailedPictures = $this->getObject()->getNbDetailedPictures();
 		$actualMicroscopicPictures = $this->getObject()->getNbMicroscopicPictures();
-		
+
 		$defaultMaxFieldPictures = sfConfig::get('app_max_sample_field_pictures');
 		$defaultMaxDetailedPictures = sfConfig::get('app_max_sample_detailed_pictures');
 		$defaultMaxMicroscopicPictures = sfConfig::get('app_max_sample_microscopic_pictures');
-		
+
 		$this->setOption('max_sample_field_pictures', $defaultMaxFieldPictures - $actualFieldPictures);
 		$this->setOption('max_sample_detailed_pictures', $defaultMaxDetailedPictures - $actualDetailedPictures);
 		$this->setOption('max_sample_microscopic_pictures', $defaultMaxMicroscopicPictures - $actualMicroscopicPictures);
-		
+
 		// Configure list of colectors
 		$this->setWidget('collectors_list', new sfWidgetFormDoctrineChoice(array(
 			'model' => 'Collector',
 			'multiple' => true,
 			'order_by' => array('name', 'asc'),
 		)));
-		
+
 		// Create an embedded form to add or edit pictures
 		$this->embedRelations(array(
 			'FieldPictures' => array(
@@ -65,29 +65,29 @@ class SampleForm extends BaseSampleForm {
 				'newRelationButtonLabel' => 'Add another picture',
 			),
 		));
-				
+
 		// Configure custom validators
 		$this->setValidator('location_id', new sfValidatorDoctrineChoice(
 			array('model' => $this->getRelatedModelName('Location')),
 			array('required' => 'The location of the sample is required')));
-		
+
 		$this->setValidator('latitude', new sfValidatorRegex(
-			array('pattern' => '/^\-?\d{1,3}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
+			array('pattern' => '/^\-?\d{1,3}º\d{1,2}(\'|’)\d{1,2}("|\'\'|’’|”)$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
 		$this->setValidator('longitude', new sfValidatorRegex(
-			array('pattern' => '/^\-?\d{1,3}º\d{1,2}\'\d{1,2}("|\'\')$/', 'required' => false),
+			array('pattern' => '/^\-?\d{1,3}º\d{1,2}(\'|’)\d{1,2}("|\'\'|’’|”)$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
-				
+
 		$this->setValidator('notebook_code', new sfValidatorString(array('max_length' => 40, 'required' => false), array(
 			'invalid' => 'Only an integer number allowed',
 			'required' => false)));
-		
+
 		// Configure labels
 		$this->widgetSchema->setLabel('ph', 'pH');
 		$this->widgetSchema->setLabel('latitude', 'GPS coordinates');
 		$this->widgetSchema->setLabel('longitude', 'GPS coordinates');
 		$this->widgetSchema->setLabel('collectors_list', 'Collectors');
-		
+
 		// Configure help messages
 		$this->widgetSchema->setHelp('notebook_code', 'Sample code assigned in collector\'s notebook');
 		$this->widgetSchema->setHelp('latitude', 'Latitude and longitude in degrees, minutes and seconds (e.g. 43º23\'23")');
@@ -116,14 +116,16 @@ class SampleForm extends BaseSampleForm {
 	 * @version 2011-04-14
 	 */
 	protected function doSave($connection = null) {
-		if ( $this->values['latitude'] && preg_match('/\'\'$/', $this->values['latitude']) ) {
-			$this->values['latitude'] = str_replace("''", '"', $this->values['latitude']);
-		}
-		
-		if ( $this->values['longitude'] && preg_match('/\'\'$/', $this->values['longitude']) ) {
-			$this->values['longitude'] = str_replace("''", '"', $this->values['longitude']);
-		}
-		
+		$this->values['latitude'] = str_replace("''", '"', $this->values['latitude']);
+		$this->values['latitude'] = str_replace("’’", '"', $this->values['latitude']);
+		$this->values['latitude'] = str_replace("’", "'", $this->values['latitude']);
+		$this->values['latitude'] = str_replace("”", '"', $this->values['latitude']);
+
+		$this->values['longitude'] = str_replace("''", '"', $this->values['longitude']);
+		$this->values['longitude'] = str_replace("’’", '"', $this->values['longitude']);
+		$this->values['longitude'] = str_replace("’", "'", $this->values['longitude']);
+		$this->values['longitude'] = str_replace("”", '"', $this->values['longitude']);
+
 		parent::doSave($connection);
 	}
 
