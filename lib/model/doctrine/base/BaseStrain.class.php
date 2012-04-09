@@ -28,6 +28,9 @@
  * @property string $remarks
  * @property integer $supervisor_id
  * @property boolean $in_g_catalog
+ * @property decimal $temperature
+ * @property decimal $photoperiod
+ * @property decimal $irradiation
  * @property Sample $Sample
  * @property Depositor $Depositor
  * @property TaxonomicClass $TaxonomicClass
@@ -76,6 +79,9 @@
  * @method string              getRemarks()                 Returns the current record's "remarks" value
  * @method integer             getSupervisorId()            Returns the current record's "supervisor_id" value
  * @method boolean             getInGCatalog()              Returns the current record's "in_g_catalog" value
+ * @method decimal             getTemperature()             Returns the current record's "temperature" value
+ * @method decimal             getPhotoperiod()             Returns the current record's "photoperiod" value
+ * @method decimal             getIrradiation()             Returns the current record's "irradiation" value
  * @method Sample              getSample()                  Returns the current record's "Sample" value
  * @method Depositor           getDepositor()               Returns the current record's "Depositor" value
  * @method TaxonomicClass      getTaxonomicClass()          Returns the current record's "TaxonomicClass" value
@@ -123,6 +129,9 @@
  * @method Strain              setRemarks()                 Sets the current record's "remarks" value
  * @method Strain              setSupervisorId()            Sets the current record's "supervisor_id" value
  * @method Strain              setInGCatalog()              Sets the current record's "in_g_catalog" value
+ * @method Strain              setTemperature()             Sets the current record's "temperature" value
+ * @method Strain              setPhotoperiod()             Sets the current record's "photoperiod" value
+ * @method Strain              setIrradiation()             Sets the current record's "irradiation" value
  * @method Strain              setSample()                  Sets the current record's "Sample" value
  * @method Strain              setDepositor()               Sets the current record's "Depositor" value
  * @method Strain              setTaxonomicClass()          Sets the current record's "TaxonomicClass" value
@@ -245,6 +254,15 @@ abstract class BaseStrain extends sfDoctrineRecord
              'type' => 'boolean',
              'notnull' => true,
              'default' => false,
+             ));
+        $this->hasColumn('temperature', 'decimal', null, array(
+             'type' => 'decimal',
+             ));
+        $this->hasColumn('photoperiod', 'decimal', null, array(
+             'type' => 'decimal',
+             ));
+        $this->hasColumn('irradiation', 'decimal', null, array(
+             'type' => 'decimal',
              ));
 
 

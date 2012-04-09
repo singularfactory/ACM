@@ -128,6 +128,9 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('in_g_catalog', 'In G catalog');
 		$this->widgetSchema->setLabel('containers_list', 'Available containers');
+		$this->widgetSchema->setLabel('temperature', 'Temperature conditions in culture');
+		$this->widgetSchema->setLabel('photoperiod', 'Photoperiod conditions in culture');
+		$this->widgetSchema->setLabel('irradiation', 'Irradiation conditions in culture');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('code', 'Only the number');

@@ -431,6 +431,9 @@ Strain:
     remarks:                    { type: string }
     supervisor_id:              { type: integer }
     in_g_catalog:               { type: boolean, notnull: true, default: false }
+    temperature:                { type: decimal }
+    photoperiod:                { type: decimal }
+    irradiation:                { type: decimal }
   relations:
     Sample:                 { foreignAlias: Strains }
     Depositor:              { foreignAlias: Strains }

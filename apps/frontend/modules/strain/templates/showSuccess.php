@@ -18,6 +18,22 @@
 
 <div id="main_view_show">
 	<div id="object_related_models">
+		<div class="object_related_model_list">
+			<h2>Culture conditions</h2>
+			<table>
+				<tr>
+					<th class="strain_temperature">Temperature</th>
+					<th class="strain_photoperiod">Photoperiod</th>
+					<th class="strain_irradiation">Irradiation</th>
+				</tr>
+				<tr>
+					<td class="strain_temperature"><?php echo $strain->getFormattedTemperature() ?></td>
+					<td class="strain_photoperiod"><?php echo $strain->getFormattedPhotoperiod() ?></td>
+					<td class="strain_irradiation"><?php echo $strain->getFormattedIrradiation() ?></td>
+				</tr>
+			</table>
+		</div>
+
 		<?php $nbCultureMedia = $strain->getNbCultureMedia() ?>
 		<?php if ( $nbCultureMedia > 0): ?>
 		<div class="object_related_model_list">
@@ -37,7 +53,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbIsolators = $strain->getNbIsolators() ?>
 		<?php if ( $nbIsolators > 0): ?>
 		<div class="object_related_model_list">
@@ -63,7 +79,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbAxenityTests = $strain->getNbAxenityTests() ?>
 		<?php if ( $nbAxenityTests > 0): ?>
 		<div class="object_related_model_list">
@@ -80,7 +96,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbRelatives = $strain->getNbRelatives() ?>
 		<?php if ( $nbRelatives > 0): ?>
 		<div class="object_related_model_list">
@@ -97,7 +113,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbProjects = $strain->getNbProjects() ?>
 		<?php if ( $nbProjects > 0): ?>
 		<div class="object_related_model_list">
@@ -119,7 +135,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbContainers = $strain->getNbContainers() ?>
 		<?php if ( $nbContainers > 0): ?>
 		<div class="object_related_model_list">
@@ -138,7 +154,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbIsolations = $strain->getNbIsolations() ?>
 		<?php if ( $nbIsolations > 0): ?>
 		<div class="object_related_model_list">
@@ -162,7 +178,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php if ( $strain->getNbPictures() > 0 ): ?>
 		<div class="object_related_model_list">
 			<h2>Pictures</h2>
@@ -181,7 +197,7 @@
 		</div>
 		<?php endif ?>
 	</div>
-	
+
 	<div id="object_data_list">
 		<dl>
 			<dt>Sample:</dt>
@@ -213,7 +229,7 @@
 			<dt>Amount:</dt>
 			<dd><?php //echo $strain->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
 			-->
-			
+
 			<dt>Class:</dt>
 			<dd><?php echo $strainClass ?></dd>
 			<dt>Genus:</dt>
@@ -228,7 +244,7 @@
 			</dd>
 			<dt>Authority:</dt>
 			<dd><?php echo $strain->getAuthority() ?></dd>
-			
+
 			<dt>Maintenance status:</dt>
 			<dd>
 			<?php
@@ -243,16 +259,16 @@
 				}
 			?>
 			</dd>
-									
+
 			<dt>Best container:</dt>
 			<dd><?php echo $strain->getFormattedContainer() ?></dd>
-			
+
 			<dt>Relatives:</dt>
 			<dd><?php echo $nbRelatives ?></dd>
-			
+
 			<dt>Culture media:</dt>
 			<dd><?php echo $nbCultureMedia ?></dd>
-			
+
 			<dt>DNA extractions:</dt>
 			<dd>
 				<?php echo $nbDnaExtractions = $strain->getNbDnaExtractions() ?>
@@ -260,43 +276,43 @@
 					<a href="#strain_dna_extractions_list" title="List of DNA extractions linked to this strain" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
-			
+
 			<dt>Projects:</dt>
 			<dd><?php echo $nbProjects ?></dd>
-			
+
 			<dt>Isolations:</dt>
 			<dd><?php echo $nbIsolations ?></dd>
-			
+
 			<dt>Transfer interval:</dt>
 			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
-			
+
 			<?php if ( $strain->getSupervisor()->getName() ): ?>
 			<dt>Supervisor:</dt>
 			<dd><?php echo $strain->getSupervisor()->getFullNameWithInitials() ?></dd>
 			<?php endif; ?>
-			
+
 			<dt>Observation:</dt>
 			<dd><?php echo $strain->getFormattedObservation() ?></dd>
-			
+
 			<dt>Isolators:</dt>
 			<dd><?php echo $nbIsolators ?>	</dd>
-			
+
 			<?php if ( $strain->getIdentifier()->getName() ): ?>
 			<dt>Identifier:</dt>
 			<dd><?php echo $strain->getIdentifier() ?></dd>
 			<?php endif; ?>
-			
+
 			<dt>Citations:</dt>
 			<dd><?php echo $strain->getFormattedCitations() ?></dd>
-			
+
 			<dt>Remarks:</dt>
 			<dd><?php echo $strain->getRemarks() ?></dd>
-			
+
 			<dt>Web notes:</dt>
 			<dd><?php echo $strain->getWebNotes() ?></dd>
 		</dl>
 	</div>
-	
+
 	<?php if ( $nbDnaExtractions > 0): ?>
 	<div id="strain_dna_extractions_list" class="object_related_model_long_list">
 		<h2>DNA extractions</h2>
@@ -330,6 +346,6 @@
 		</table>
 	</div>
 	<?php endif ?>
-	
+
 	<div class="clear"></div>
 </div>
