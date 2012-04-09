@@ -1,0 +1,6 @@
+Kingdom:
+  monera:   { name: "Monera" }
+  protista: { name: "Protista" }
+  animalia: { name: "Animalia" }
+  plantae:  { name: "Plantae" }
+  fungi:    { name: "Fungi" }

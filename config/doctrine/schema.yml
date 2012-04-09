@@ -300,12 +300,62 @@ CryopreservationMethod:
         name: { length: 20 }
 
 
+Kingdom:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+  indexes:
+    kingdom_name:
+      fields:
+        name: { length: 20 }
+
+
+Subkingdom:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+  indexes:
+    subkingdom_name:
+      fields:
+        name: { length: 20 }
+
+
+Phylum:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+  indexes:
+    phylum_name:
+      fields:
+        name: { length: 20 }
+
+
 TaxonomicClass:
   columns:
     id:           { type: integer, primary: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
   indexes:
     taxonomic_class_name:
+      fields:
+        name: { length: 20 }
+
+
+TaxonomicOrder:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+  indexes:
+    taxonomic_order_name:
+      fields:
+        name: { length: 20 }
+
+
+Family:
+  columns:
+    id:           { type: integer, primary: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+  indexes:
+    family_name:
       fields:
         name: { length: 20 }
 
