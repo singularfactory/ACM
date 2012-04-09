@@ -62,7 +62,11 @@
 						<?php echo link_to('Strains maintenance', '@maintenance_status', (preg_match('/^(maintenance_status|cryopreservation_method|container)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li class="header_menu_item">
-						<?php echo link_to('Taxonomy', '@taxonomic_class', (preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+						<?php echo link_to(
+							'Taxonomy',
+							'@taxonomic_class',
+							(preg_match('/^(kingdom|subkingdom|phylum|taxonomic_order|family|taxonomic_class|genus|species|authority)_?/', $route))?array('class' => 'header_menu_current_tab'):'')
+						?>
 					</li>
 					<li class="header_menu_item">
 						<?php echo link_to('DNA Lab', '@extraction_kit', (preg_match('/^(extraction_kit|dna_polymerase|dna_primer|pcr_program)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
@@ -109,7 +113,7 @@
 			</div>
 			<?php endif; ?>
 			
-			<?php if ( preg_match('/^(taxonomic_class|genus|species|authority)_?/', $route) ): ?>
+			<?php if ( preg_match('/^(kingdom|subkingdom|phylum|taxonomic_order|family|taxonomic_class|genus|species|authority)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/taxonomy_sections', array('route' => $route)) ?>
 			</div>

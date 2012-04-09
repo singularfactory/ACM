@@ -196,6 +196,51 @@ radiation:
     column:               id
     with_wildcard_routes: true
 
+family:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Family
+    module:               family
+    prefix_path:          /admin/family
+    column:               id
+    with_wildcard_routes: true
+
+taxonomic_order:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TaxonomicOrder
+    module:               taxonomic_order
+    prefix_path:          /admin/taxonomic_order
+    column:               id
+    with_wildcard_routes: true
+
+phylum:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Phylum
+    module:               phylum
+    prefix_path:          /admin/phylum
+    column:               id
+    with_wildcard_routes: true
+
+subkingdom:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Subkingdom
+    module:               subkingdom
+    prefix_path:          /admin/subkingdom
+    column:               id
+    with_wildcard_routes: true
+
+kingdom:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Kingdom
+    module:               kingdom
+    prefix_path:          /admin/kingdom
+    column:               id
+    with_wildcard_routes: true
+
 taxonomic_class:
   class: sfDoctrineRouteCollection
   options:

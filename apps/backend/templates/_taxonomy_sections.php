@@ -1,6 +1,16 @@
 <ul>
-	<?php $routes = array('taxonomic_class', 'genus', 'species', 'authority') ?>
-	<?php $subsectionNames = array( $routes[0] => 'Classes', $routes[1] => 'Genus', $routes[2] => 'Species', $routes[3] => 'Authorities') ?>
+	<?php $routes = array('kingdom', 'subkingdom', 'phylum', 'taxonomic_class', 'taxonomic_order', 'family', 'genus', 'species', 'authority') ?>
+	<?php $subsectionNames = array(
+		$routes[0] => 'Kingdoms',
+		$routes[1] => 'Subkingdoms',
+		$routes[2] => 'Phylums',
+		$routes[3] => 'Classes',
+		$routes[4] => 'Orders',
+		$routes[5] => 'Families',
+		$routes[6] => 'Genus',
+		$routes[7] => 'Species',
+		$routes[8] => 'Authorities',
+	) ?>
 	
 	<?php foreach ( $routes as $routeValue ): ?>
 		<li>
