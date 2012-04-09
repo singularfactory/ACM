@@ -38,6 +38,11 @@ class StrainForm extends BaseStrainForm {
 		$this['genus_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['species_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['authority_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['taxonomic_order_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['kingdom_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['subkingdom_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['phylum_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['family_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		
 		// Configure culture media relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
@@ -122,6 +127,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('code', 'Strain code');
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
+		$this->widgetSchema->setLabel('taxonomic_order_id', 'Order');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
 		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
@@ -135,7 +141,12 @@ class StrainForm extends BaseStrainForm {
 		// Configure help messages
 		$this->widgetSchema->setHelp('code', 'Only the number');
 		$this->widgetSchema->setHelp('clone_number', 'Leave empty if not applicable');
+		$this->widgetSchema->setHelp('kingdom_id', 'Taxonomic kingdom');
+		$this->widgetSchema->setHelp('subkingdom_id', 'Taxonomic subkingdom');
+		$this->widgetSchema->setHelp('phylum_id', 'Taxonomic phylum');
+		$this->widgetSchema->setHelp('family_id', 'Taxonomic family');
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
+		$this->widgetSchema->setHelp('taxonomic_order_id', 'Taxonomic order');
 		$this->widgetSchema->setHelp('genus_id', 'Taxonomic genus');
 		$this->widgetSchema->setHelp('species_id', 'Taxonomic species');
 		$this->widgetSchema->setHelp('authority_id', 'Taxonomic authority');

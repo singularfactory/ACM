@@ -280,4 +280,39 @@ class Strain extends BaseStrain {
 			return sfConfig::get('app_no_data_message');
 		}
 	}
+
+	public function getFormattedTaxonomicOrder() {
+		if ( $name = $this->getTaxonomicOrder()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedKingdom() {
+		if ( $name = $this->getKingdom()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedSubkingdom() {
+		if ( $name = $this->getSubkingdom()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedPhylum() {
+		if ( $name = $this->getPhylum()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedFamily() {
+		if ( $name = $this->getTaxonomicOrder()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
 }

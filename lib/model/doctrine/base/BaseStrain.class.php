@@ -14,7 +14,12 @@
  * @property boolean $is_axenic
  * @property boolean $is_public
  * @property boolean $deceased
+ * @property integer $kingdom_id
+ * @property integer $subkingdom_id
+ * @property integer $phylum_id
  * @property integer $taxonomic_class_id
+ * @property integer $taxonomic_order_id
+ * @property integer $family_id
  * @property integer $genus_id
  * @property integer $species_id
  * @property integer $authority_id
@@ -33,7 +38,12 @@
  * @property decimal $irradiation
  * @property Sample $Sample
  * @property Depositor $Depositor
+ * @property Kingdom $Kingdom
+ * @property Subkingdom $Subkingdom
+ * @property Phylum $Phylum
  * @property TaxonomicClass $TaxonomicClass
+ * @property TaxonomicOrder $TaxonomicOrder
+ * @property Family $Family
  * @property Genus $Genus
  * @property Species $Species
  * @property Authority $Authority
@@ -65,7 +75,12 @@
  * @method boolean             getIsAxenic()                Returns the current record's "is_axenic" value
  * @method boolean             getIsPublic()                Returns the current record's "is_public" value
  * @method boolean             getDeceased()                Returns the current record's "deceased" value
+ * @method integer             getKingdomId()               Returns the current record's "kingdom_id" value
+ * @method integer             getSubkingdomId()            Returns the current record's "subkingdom_id" value
+ * @method integer             getPhylumId()                Returns the current record's "phylum_id" value
  * @method integer             getTaxonomicClassId()        Returns the current record's "taxonomic_class_id" value
+ * @method integer             getTaxonomicOrderId()        Returns the current record's "taxonomic_order_id" value
+ * @method integer             getFamilyId()                Returns the current record's "family_id" value
  * @method integer             getGenusId()                 Returns the current record's "genus_id" value
  * @method integer             getSpeciesId()               Returns the current record's "species_id" value
  * @method integer             getAuthorityId()             Returns the current record's "authority_id" value
@@ -84,7 +99,12 @@
  * @method decimal             getIrradiation()             Returns the current record's "irradiation" value
  * @method Sample              getSample()                  Returns the current record's "Sample" value
  * @method Depositor           getDepositor()               Returns the current record's "Depositor" value
+ * @method Kingdom             getKingdom()                 Returns the current record's "Kingdom" value
+ * @method Subkingdom          getSubkingdom()              Returns the current record's "Subkingdom" value
+ * @method Phylum              getPhylum()                  Returns the current record's "Phylum" value
  * @method TaxonomicClass      getTaxonomicClass()          Returns the current record's "TaxonomicClass" value
+ * @method TaxonomicOrder      getTaxonomicOrder()          Returns the current record's "TaxonomicOrder" value
+ * @method Family              getFamily()                  Returns the current record's "Family" value
  * @method Genus               getGenus()                   Returns the current record's "Genus" value
  * @method Species             getSpecies()                 Returns the current record's "Species" value
  * @method Authority           getAuthority()               Returns the current record's "Authority" value
@@ -115,7 +135,12 @@
  * @method Strain              setIsAxenic()                Sets the current record's "is_axenic" value
  * @method Strain              setIsPublic()                Sets the current record's "is_public" value
  * @method Strain              setDeceased()                Sets the current record's "deceased" value
+ * @method Strain              setKingdomId()               Sets the current record's "kingdom_id" value
+ * @method Strain              setSubkingdomId()            Sets the current record's "subkingdom_id" value
+ * @method Strain              setPhylumId()                Sets the current record's "phylum_id" value
  * @method Strain              setTaxonomicClassId()        Sets the current record's "taxonomic_class_id" value
+ * @method Strain              setTaxonomicOrderId()        Sets the current record's "taxonomic_order_id" value
+ * @method Strain              setFamilyId()                Sets the current record's "family_id" value
  * @method Strain              setGenusId()                 Sets the current record's "genus_id" value
  * @method Strain              setSpeciesId()               Sets the current record's "species_id" value
  * @method Strain              setAuthorityId()             Sets the current record's "authority_id" value
@@ -134,7 +159,12 @@
  * @method Strain              setIrradiation()             Sets the current record's "irradiation" value
  * @method Strain              setSample()                  Sets the current record's "Sample" value
  * @method Strain              setDepositor()               Sets the current record's "Depositor" value
+ * @method Strain              setKingdom()                 Sets the current record's "Kingdom" value
+ * @method Strain              setSubkingdom()              Sets the current record's "Subkingdom" value
+ * @method Strain              setPhylum()                  Sets the current record's "Phylum" value
  * @method Strain              setTaxonomicClass()          Sets the current record's "TaxonomicClass" value
+ * @method Strain              setTaxonomicOrder()          Sets the current record's "TaxonomicOrder" value
+ * @method Strain              setFamily()                  Sets the current record's "Family" value
  * @method Strain              setGenus()                   Sets the current record's "Genus" value
  * @method Strain              setSpecies()                 Sets the current record's "Species" value
  * @method Strain              setAuthority()               Sets the current record's "Authority" value
@@ -205,9 +235,24 @@ abstract class BaseStrain extends sfDoctrineRecord
              'notnull' => true,
              'default' => false,
              ));
+        $this->hasColumn('kingdom_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('subkingdom_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('phylum_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
         $this->hasColumn('taxonomic_class_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
+             ));
+        $this->hasColumn('taxonomic_order_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('family_id', 'integer', null, array(
+             'type' => 'integer',
              ));
         $this->hasColumn('genus_id', 'integer', null, array(
              'type' => 'integer',
@@ -288,8 +333,28 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'depositor_id',
              'foreign' => 'id'));
 
+        $this->hasOne('Kingdom', array(
+             'local' => 'kingdom_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Subkingdom', array(
+             'local' => 'subkingdom_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Phylum', array(
+             'local' => 'phylum_id',
+             'foreign' => 'id'));
+
         $this->hasOne('TaxonomicClass', array(
              'local' => 'taxonomic_class_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('TaxonomicOrder', array(
+             'local' => 'taxonomic_order_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Family', array(
+             'local' => 'family_id',
              'foreign' => 'id'));
 
         $this->hasOne('Genus', array(

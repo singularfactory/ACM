@@ -50,11 +50,46 @@
 			<?php echo $form['depositor_id'] ?>
 		</div>
 
+		<div id="kingdom">
+			<?php echo $form['kingdom_id']->renderLabel() ?>
+			<?php echo $form['kingdom_id']->renderError() ?>
+			<?php echo $form['kingdom_id']->renderHelp() ?>
+			<?php echo $form['kingdom_id'] ?>
+		</div>
+
+		<div id="subkingdom">
+			<?php echo $form['subkingdom_id']->renderLabel() ?>
+			<?php echo $form['subkingdom_id']->renderError() ?>
+			<?php echo $form['subkingdom_id']->renderHelp() ?>
+			<?php echo $form['subkingdom_id'] ?>
+		</div>
+
+		<div id="phylum">
+			<?php echo $form['phylum_id']->renderLabel() ?>
+			<?php echo $form['phylum_id']->renderError() ?>
+			<?php echo $form['phylum_id']->renderHelp() ?>
+			<?php echo $form['phylum_id'] ?>
+		</div>
+
 		<div id="taxonomic_class">
 			<?php echo $form['taxonomic_class_id']->renderLabel() ?>
 			<?php echo $form['taxonomic_class_id']->renderError() ?>
 			<?php echo $form['taxonomic_class_id']->renderHelp() ?>
 			<?php echo $form['taxonomic_class_id'] ?>
+		</div>
+
+		<div id="taxonomic_order">
+			<?php echo $form['taxonomic_order_id']->renderLabel() ?>
+			<?php echo $form['taxonomic_order_id']->renderError() ?>
+			<?php echo $form['taxonomic_order_id']->renderHelp() ?>
+			<?php echo $form['taxonomic_order_id'] ?>
+		</div>
+
+		<div id="family">
+			<?php echo $form['family_id']->renderLabel() ?>
+			<?php echo $form['family_id']->renderError() ?>
+			<?php echo $form['family_id']->renderHelp() ?>
+			<?php echo $form['family_id'] ?>
 		</div>
 
 		<div id="genus">

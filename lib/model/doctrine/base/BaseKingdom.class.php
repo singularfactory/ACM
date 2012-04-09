@@ -7,11 +7,14 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property Doctrine_Collection $Strains
  * 
- * @method integer getId()   Returns the current record's "id" value
- * @method string  getName() Returns the current record's "name" value
- * @method Kingdom setId()   Sets the current record's "id" value
- * @method Kingdom setName() Sets the current record's "name" value
+ * @method integer             getId()      Returns the current record's "id" value
+ * @method string              getName()    Returns the current record's "name" value
+ * @method Doctrine_Collection getStrains() Returns the current record's "Strains" collection
+ * @method Kingdom             setId()      Sets the current record's "id" value
+ * @method Kingdom             setName()    Sets the current record's "name" value
+ * @method Kingdom             setStrains() Sets the current record's "Strains" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -50,6 +53,10 @@ abstract class BaseKingdom extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Strain as Strains', array(
+             'local' => 'id',
+             'foreign' => 'kingdom_id'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }

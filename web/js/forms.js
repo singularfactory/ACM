@@ -644,7 +644,7 @@ $(document).ready(function(){
 	
 	
 	// Add a "create" option to taxonomic class, genus, species and authority select elements in strain creation forms
-	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority"];
+	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority", "taxonomic_order", "kingdom", "subkingdom", "phylum", "family"];
 	var selectCreateOptionValue = 'create';
 	for (var i = strainRelatedModels.length - 1; i >= 0; i--) {
 		var model = strainRelatedModels[i];

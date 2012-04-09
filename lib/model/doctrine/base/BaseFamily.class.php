@@ -7,11 +7,14 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property Doctrine_Collection $Strains
  * 
- * @method integer getId()   Returns the current record's "id" value
- * @method string  getName() Returns the current record's "name" value
- * @method Family  setId()   Sets the current record's "id" value
- * @method Family  setName() Sets the current record's "name" value
+ * @method integer             getId()      Returns the current record's "id" value
+ * @method string              getName()    Returns the current record's "name" value
+ * @method Doctrine_Collection getStrains() Returns the current record's "Strains" collection
+ * @method Family              setId()      Sets the current record's "id" value
+ * @method Family              setName()    Sets the current record's "name" value
+ * @method Family              setStrains() Sets the current record's "Strains" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -50,6 +53,10 @@ abstract class BaseFamily extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Strain as Strains', array(
+             'local' => 'id',
+             'foreign' => 'family_id'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);
     }

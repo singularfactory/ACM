@@ -229,9 +229,19 @@
 			<dt>Amount:</dt>
 			<dd><?php //echo $strain->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
 			-->
-
+			
+			<dt>Kingdom:</dt>
+			<dd><?php echo $strain->getFormattedKingdom() ?></dd>
+			<dt>Subkingdom:</dt>
+			<dd><?php echo $strain->getFormattedSubkingdom() ?></dd>
+			<dt>Phylum:</dt>
+			<dd><?php echo $strain->getFormattedPhylum() ?></dd>
 			<dt>Class:</dt>
 			<dd><?php echo $strainClass ?></dd>
+			<dt>Order:</dt>
+			<dd><?php echo $strain->getFormattedTaxonomicOrder() ?></dd>
+			<dt>Family:</dt>
+			<dd><?php echo $strain->getFormattedFamily() ?></dd>
 			<dt>Genus:</dt>
 			<dd><span class="species_name"><?php echo $strainGenus ?></span></dd>
 			<dt>Species:</dt>

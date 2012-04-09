@@ -272,7 +272,7 @@ class strainActions extends MyActions {
 		}
 				
 		// Look for related models embedded forms
-		$relatedModels = array('taxonomic_class', 'genus', 'species', 'authority');
+		$relatedModels = array('taxonomic_class', 'genus', 'species', 'authority', 'taxonomic_order', 'phylum', 'family', 'kingdom', 'subkindom');
 		foreach ( $relatedModels as $modelName ) {
 			$modelInput = "new_$modelName";
 			$modelClass = sfInflector::camelize($modelName);
