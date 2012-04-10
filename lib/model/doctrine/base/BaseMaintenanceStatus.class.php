@@ -8,17 +8,20 @@
  * @property integer $id
  * @property string $name
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
  * @method MaintenanceStatus   setId()                  Sets the current record's "id" value
  * @method MaintenanceStatus   setName()                Sets the current record's "name" value
  * @method MaintenanceStatus   setStrains()             Sets the current record's "Strains" collection
+ * @method MaintenanceStatus   setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method MaintenanceStatus   setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method MaintenanceStatus   setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * 
@@ -63,6 +66,11 @@ abstract class BaseMaintenanceStatus extends sfDoctrineRecord
              'refClass' => 'StrainMaintenanceStatus',
              'local' => 'maintenance_status_id',
              'foreign' => 'strain_id'));
+
+        $this->hasMany('ExternalStrain as ExternalStrains', array(
+             'refClass' => 'ExternalStrainMaintenanceStatus',
+             'local' => 'maintenance_status_id',
+             'foreign' => 'external_strain_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
              'refClass' => 'PatentDepositMaintenanceStatus',

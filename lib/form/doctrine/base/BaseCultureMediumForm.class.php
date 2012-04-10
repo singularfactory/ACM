@@ -23,6 +23,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       'created_at'                => new sfWidgetFormDateTime(),
       'updated_at'                => new sfWidgetFormDateTime(),
       'strains_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Strain')),
+      'external_strains_list'     => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
       'isolations_list'           => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolation')),
@@ -37,6 +38,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       'created_at'                => new sfValidatorDateTime(),
       'updated_at'                => new sfValidatorDateTime(),
       'strains_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Strain', 'required' => false)),
+      'external_strains_list'     => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
       'isolations_list'           => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolation', 'required' => false)),
@@ -65,6 +67,11 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
       $this->setDefault('strains_list', $this->object->Strains->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['external_strains_list']))
+    {
+      $this->setDefault('external_strains_list', $this->object->ExternalStrains->getPrimaryKeys());
+    }
+
     if (isset($this->widgetSchema['patent_deposits_list']))
     {
       $this->setDefault('patent_deposits_list', $this->object->PatentDeposits->getPrimaryKeys());
@@ -85,6 +92,7 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
   protected function doSave($con = null)
   {
     $this->saveStrainsList($con);
+    $this->saveExternalStrainsList($con);
     $this->savePatentDepositsList($con);
     $this->saveMaintenanceDepositsList($con);
     $this->saveIsolationsList($con);
@@ -127,6 +135,44 @@ abstract class BaseCultureMediumForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('Strains', array_values($link));
+    }
+  }
+
+  public function saveExternalStrainsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['external_strains_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->ExternalStrains->getPrimaryKeys();
+    $values = $this->getValue('external_strains_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('ExternalStrains', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('ExternalStrains', array_values($link));
     }
   }
 

@@ -10,6 +10,7 @@
  * @property string $surname
  * @property string $email
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
  * @property Doctrine_Collection $Isolations
@@ -19,6 +20,7 @@
  * @method string              getSurname()             Returns the current record's "surname" value
  * @method string              getEmail()               Returns the current record's "email" value
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
@@ -27,6 +29,7 @@
  * @method Isolator            setSurname()             Sets the current record's "surname" value
  * @method Isolator            setEmail()               Sets the current record's "email" value
  * @method Isolator            setStrains()             Sets the current record's "Strains" collection
+ * @method Isolator            setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method Isolator            setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Isolator            setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * @method Isolator            setIsolations()          Sets the current record's "Isolations" collection
@@ -90,6 +93,11 @@ abstract class BaseIsolator extends sfDoctrineRecord
              'refClass' => 'StrainIsolators',
              'local' => 'isolator_id',
              'foreign' => 'strain_id'));
+
+        $this->hasMany('ExternalStrain as ExternalStrains', array(
+             'refClass' => 'ExternalStrainIsolators',
+             'local' => 'isolator_id',
+             'foreign' => 'external_strain_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
              'refClass' => 'PatentDepositIsolators',
