@@ -20,12 +20,12 @@
 				</div>
 			</div>
 		</noscript>
-		
+
 		<div id="header">
 			<?php echo image_tag('logo.png', array('id' => 'header_image', 'alt' => 'Banco Español de Algas')) ?>
 			<h1 id="header_title">Algae culture management</h1>
 			<h2 id="header_subtitle">Banco Español de Algas</h2>
-				
+
 			<div id="header_shortcuts">
 				<?php $user = $sf_user->getGuardUser() ?>
 				<div id="header_avatar">
@@ -34,23 +34,23 @@
 					<?php else: ?>
 						<?php $filename = sfConfig::get('app_default_avatar') ?>
 					<?php endif ?>
-					<?php echo image_tag($filename, array('id' => 'header_avatar', 'alt' => $user->getUsername())) ?>					
+					<?php echo image_tag($filename, array('id' => 'header_avatar', 'alt' => $user->getUsername())) ?>
 				</div>
-				
+
 				<div id="header_user_information">
 					<p id="header_username"><?php echo $user->getUsername(); ?></p>
 					<p><?php echo link_to('About me', '@profile_shortcut?id='.$user->getId()) ?></p>
 					<p><?php echo link_to('Sign out', '@logout') ?></p>
 				</div>
 			</div>
-				
+
 			<div id="header_menu">
 				<ul id="header_menu_tabs">
 					<?php $currentRoute = sfContext::getInstance()->getRouting()->getCurrentRouteName() ?>
 					<?php if ( $currentRoute === 'module_full_index' )
 						$currentRoute = sfContext::getInstance()->getModuleName();
 					?>
-					
+
 					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^location(\/_)?/', $currentRoute) )
@@ -59,7 +59,7 @@
 							echo link_to('Locations', '@location', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^(sample(\/_)?)/', $currentRoute) )
@@ -68,7 +68,7 @@
 							echo link_to('Samples', '@sample', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^(strain(\/_)?|homepage)/', $currentRoute) )
@@ -77,7 +77,7 @@
 							echo link_to('Strains', '@strain', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^(culture_medium(\/_)?)/', $currentRoute) )
@@ -86,7 +86,7 @@
 							echo link_to('Culture media', '@culture_medium', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^((dna_extraction|pcr|dna)(\/_)?)/', $currentRoute) )
@@ -95,7 +95,7 @@
 							echo link_to('DNA Lab', '@dna_extraction', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item">
 						<?php
 						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|cryopreservation|isolation|external_strain)(\/_)?)/', $currentRoute) )
@@ -113,38 +113,38 @@
 							<li><?php echo link_to('Research collection', '@external_strain') ?></li>
 						</ul>
 					</li>
-					
+
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php echo link_to('Settings', '/admin') ?>
 					</li>
 
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
-						<?php 
+						<?php
 						if ( !preg_match('/^((glossary)(\/_)?)/', $currentRoute) )
 							echo link_to('Glossary', '@glossary');
 						else
 							echo link_to('Glossary', '@glossary', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
-						<?php 
+						<?php
 						if ( !preg_match('/^((label)(\/_)?)/', $currentRoute) )
 							echo link_to('Labels', '@label');
 						else
 							echo link_to('Labels', '@label', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
-					
+
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
-						<?php 
+						<?php
 						if ( !preg_match('/^((report)(\/_)?)/', $currentRoute) )
 							echo link_to('Reports', '@report');
 						else
 							echo link_to('Reports', '@report', array('class' => 'header_menu_current_tab'));
-						?>	
+						?>
 					</li>
-					
+
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php
 						$unreadMessages = $user->getNbUnreadNotifications();
@@ -158,9 +158,9 @@
 							echo link_to("Inbox$unreadMessages", '@inbox');
 						else
 							echo link_to("Inbox$unreadMessages", '@inbox', array('class' => 'header_menu_current_tab'));
-						?>	
+						?>
 					</li>
-					
+
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php
 						$itemsCountCssClass = array();
@@ -176,9 +176,18 @@
 							echo link_to("Sales$newOrders", '@purchase_order', $itemsCountCssClass);
 						else
 							echo link_to("Sales$newOrders", '@purchase_order', array('class' => 'header_menu_current_tab'));
-						?>	
+						?>
 					</li>
-					
+
+					<li class="header_menu_item header_menu_right_tab header_menu_tools">
+						<?php
+						if ( !preg_match('/^((article)(\/_)?)/', $currentRoute) )
+							echo link_to('Articles', '@article');
+						else
+							echo link_to('Articles', '@article', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -196,7 +205,7 @@
 		</div>
 
 		<div id="footer"></div>
-		
+
 		<?php if ( $sf_user->hasFlash('notice') || $sf_user->hasFlash('error') ): ?>
 		<div id="flash">
 			<div id="flash_box">
@@ -213,7 +222,7 @@
 			</div>
 		</div>
 		<?php endif ?>
-		
+
 		<?php include_javascripts() ?>
 	</body>
 </html>

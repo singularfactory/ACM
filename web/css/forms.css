@@ -149,7 +149,7 @@ a.project_strain_numbers_url,
 a.isolation_external_strain_numbers_url, a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_location_coordinates_url, a.isolation_isolation_subject_url,
 a.project_external_strain_numbers_url, a.project_strain_numbers_url, a.project_sample_numbers_url, a.project_subject_url,
 a.cryopreservation_external_strain_numbers_url, a.cryopreservation_strain_numbers_url, a.cryopreservation_sample_numbers_url, a.cryopreservation_subject_url,
-a.label_find_products_url,
+a.label_find_products_url, a.article_strain_numbers_url,
 a.identification_sample_numbers_url,
 a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url,
 a.strain_find_clone_url { display: none; }
@@ -205,7 +205,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 #isolation_location_search, #isolation_sample_search, #isolation_strain_search, #isolation_external_strain_search,
 #project_sample_search, #project_strain_search, #project_external_strain_search,
 #cryopreservation_sample_search, #cryopreservation_strain_search, #cryopreservation_external_strain_search,
-#identification_sample_search,
+#identification_sample_search, #article_strain_search,
 #report_location_country_search, #report_location_region_search, #report_location_island_search {
 	color: #888;
 	font-size: 11px;
@@ -213,7 +213,8 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 	width: 300px;
 	padding: 1px;
 }
-#strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_sample_search, #cryopreservation_strain_search, #cryopreservation_sample_search, #identification_sample_search { width: 150px; }
+#strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_sample_search, #cryopreservation_strain_search,
+#cryopreservation_sample_search, #identification_sample_search, #article_strain_search { width: 150px; }
 #project_external_strain_search, #isolation_external_strain_search, #cryopreservation_external_strain_search { width: 190px; }
 
 /**

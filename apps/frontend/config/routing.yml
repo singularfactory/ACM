@@ -668,6 +668,25 @@ label_find_products:
 
 
 ###
+# Article module routes
+###
+article_create:
+  url:          /article/create
+  param:        { module: article, action: create }
+  requirements: { sf_method: [post] }
+
+article:
+  url:          /article
+  param:        { module: article, action: configure }
+  requirements: { sf_method: [get] }
+
+article_find_strains:
+  url:          /article/findStrains/:term
+  param:        { module: article, action: findStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+
+###
 # Label module routes
 ###
 report_generate:

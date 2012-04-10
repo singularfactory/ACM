@@ -639,6 +639,39 @@ $(document).ready(function(){
 		},
 	});
 
+	$('#article_strain_search').focus(function(){
+		if ( $(this).attr("value") === strainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		}
+	});
+	$('#article_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", strainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#article_strain_search').val() !== strainSearchBoxDefault ) {
+		$('#article_strain_search').css("color", "black");
+		$('#article_strain_search').css("font-size", "12px");
+	}
+
+	$("#article_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.article_strain_numbers_url').attr('href') + $("#article_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#article_strain_search" ).val( ui.item.label );
+			$( "#strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+
 	
 	// Add a search box for ExternalStrain in DnaExtraction, Project and Isolation forms
 	var externalStrainSearchBoxDefault = "Type a research collection code...";

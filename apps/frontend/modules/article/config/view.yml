@@ -1,0 +1,5 @@
+configureSuccess:
+  stylesheets:  [cupertino/jquery-ui.custom.css, forms.css, numeric.css, articles.css]
+  javascripts:  [forms.js, numeric.js]
+createSuccess:
+  stylesheets:  [articles.css]
