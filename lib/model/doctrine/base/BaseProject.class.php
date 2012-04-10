@@ -11,6 +11,7 @@
  * @property enum $subject
  * @property integer $strain_id
  * @property integer $sample_id
+ * @property integer $external_strain_id
  * @property float $amount
  * @property integer $provider_id
  * @property date $inoculation_date
@@ -20,43 +21,48 @@
  * @property ProjectName $ProjectName
  * @property Sample $Sample
  * @property Strain $Strain
+ * @property ExternalStrain $ExternalStrain
  * @property sfGuardUser $Provider
  * @property sfGuardUser $Petitioner
  * 
- * @method integer     getId()               Returns the current record's "id" value
- * @method integer     getProjectNameId()    Returns the current record's "project_name_id" value
- * @method integer     getPetitionerId()     Returns the current record's "petitioner_id" value
- * @method enum        getSubject()          Returns the current record's "subject" value
- * @method integer     getStrainId()         Returns the current record's "strain_id" value
- * @method integer     getSampleId()         Returns the current record's "sample_id" value
- * @method float       getAmount()           Returns the current record's "amount" value
- * @method integer     getProviderId()       Returns the current record's "provider_id" value
- * @method date        getInoculationDate()  Returns the current record's "inoculation_date" value
- * @method string      getPurpose()          Returns the current record's "purpose" value
- * @method date        getDeliveryDate()     Returns the current record's "delivery_date" value
- * @method string      getRemarks()          Returns the current record's "remarks" value
- * @method ProjectName getProjectName()      Returns the current record's "ProjectName" value
- * @method Sample      getSample()           Returns the current record's "Sample" value
- * @method Strain      getStrain()           Returns the current record's "Strain" value
- * @method sfGuardUser getProvider()         Returns the current record's "Provider" value
- * @method sfGuardUser getPetitioner()       Returns the current record's "Petitioner" value
- * @method Project     setId()               Sets the current record's "id" value
- * @method Project     setProjectNameId()    Sets the current record's "project_name_id" value
- * @method Project     setPetitionerId()     Sets the current record's "petitioner_id" value
- * @method Project     setSubject()          Sets the current record's "subject" value
- * @method Project     setStrainId()         Sets the current record's "strain_id" value
- * @method Project     setSampleId()         Sets the current record's "sample_id" value
- * @method Project     setAmount()           Sets the current record's "amount" value
- * @method Project     setProviderId()       Sets the current record's "provider_id" value
- * @method Project     setInoculationDate()  Sets the current record's "inoculation_date" value
- * @method Project     setPurpose()          Sets the current record's "purpose" value
- * @method Project     setDeliveryDate()     Sets the current record's "delivery_date" value
- * @method Project     setRemarks()          Sets the current record's "remarks" value
- * @method Project     setProjectName()      Sets the current record's "ProjectName" value
- * @method Project     setSample()           Sets the current record's "Sample" value
- * @method Project     setStrain()           Sets the current record's "Strain" value
- * @method Project     setProvider()         Sets the current record's "Provider" value
- * @method Project     setPetitioner()       Sets the current record's "Petitioner" value
+ * @method integer        getId()                 Returns the current record's "id" value
+ * @method integer        getProjectNameId()      Returns the current record's "project_name_id" value
+ * @method integer        getPetitionerId()       Returns the current record's "petitioner_id" value
+ * @method enum           getSubject()            Returns the current record's "subject" value
+ * @method integer        getStrainId()           Returns the current record's "strain_id" value
+ * @method integer        getSampleId()           Returns the current record's "sample_id" value
+ * @method integer        getExternalStrainId()   Returns the current record's "external_strain_id" value
+ * @method float          getAmount()             Returns the current record's "amount" value
+ * @method integer        getProviderId()         Returns the current record's "provider_id" value
+ * @method date           getInoculationDate()    Returns the current record's "inoculation_date" value
+ * @method string         getPurpose()            Returns the current record's "purpose" value
+ * @method date           getDeliveryDate()       Returns the current record's "delivery_date" value
+ * @method string         getRemarks()            Returns the current record's "remarks" value
+ * @method ProjectName    getProjectName()        Returns the current record's "ProjectName" value
+ * @method Sample         getSample()             Returns the current record's "Sample" value
+ * @method Strain         getStrain()             Returns the current record's "Strain" value
+ * @method ExternalStrain getExternalStrain()     Returns the current record's "ExternalStrain" value
+ * @method sfGuardUser    getProvider()           Returns the current record's "Provider" value
+ * @method sfGuardUser    getPetitioner()         Returns the current record's "Petitioner" value
+ * @method Project        setId()                 Sets the current record's "id" value
+ * @method Project        setProjectNameId()      Sets the current record's "project_name_id" value
+ * @method Project        setPetitionerId()       Sets the current record's "petitioner_id" value
+ * @method Project        setSubject()            Sets the current record's "subject" value
+ * @method Project        setStrainId()           Sets the current record's "strain_id" value
+ * @method Project        setSampleId()           Sets the current record's "sample_id" value
+ * @method Project        setExternalStrainId()   Sets the current record's "external_strain_id" value
+ * @method Project        setAmount()             Sets the current record's "amount" value
+ * @method Project        setProviderId()         Sets the current record's "provider_id" value
+ * @method Project        setInoculationDate()    Sets the current record's "inoculation_date" value
+ * @method Project        setPurpose()            Sets the current record's "purpose" value
+ * @method Project        setDeliveryDate()       Sets the current record's "delivery_date" value
+ * @method Project        setRemarks()            Sets the current record's "remarks" value
+ * @method Project        setProjectName()        Sets the current record's "ProjectName" value
+ * @method Project        setSample()             Sets the current record's "Sample" value
+ * @method Project        setStrain()             Sets the current record's "Strain" value
+ * @method Project        setExternalStrain()     Sets the current record's "ExternalStrain" value
+ * @method Project        setProvider()           Sets the current record's "Provider" value
+ * @method Project        setPetitioner()         Sets the current record's "Petitioner" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -87,12 +93,16 @@ abstract class BaseProject extends sfDoctrineRecord
              array(
               0 => 'sample',
               1 => 'strain',
+              2 => 'external_strain',
              ),
              ));
         $this->hasColumn('strain_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('sample_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('external_strain_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('amount', 'float', null, array(
@@ -141,6 +151,10 @@ abstract class BaseProject extends sfDoctrineRecord
 
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('ExternalStrain', array(
+             'local' => 'external_strain_id',
              'foreign' => 'id'));
 
         $this->hasOne('sfGuardUser as Provider', array(

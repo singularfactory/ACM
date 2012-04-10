@@ -10,6 +10,7 @@
  * @property enum $isolation_subject
  * @property integer $sample_id
  * @property integer $strain_id
+ * @property integer $external_strain_id
  * @property string $external_code
  * @property integer $taxonomic_class_id
  * @property integer $genus_id
@@ -25,6 +26,7 @@
  * @property string $remarks
  * @property Sample $Sample
  * @property Strain $Strain
+ * @property ExternalStrain $ExternalStrain
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -43,6 +45,7 @@
  * @method enum                getIsolationSubject()       Returns the current record's "isolation_subject" value
  * @method integer             getSampleId()               Returns the current record's "sample_id" value
  * @method integer             getStrainId()               Returns the current record's "strain_id" value
+ * @method integer             getExternalStrainId()       Returns the current record's "external_strain_id" value
  * @method string              getExternalCode()           Returns the current record's "external_code" value
  * @method integer             getTaxonomicClassId()       Returns the current record's "taxonomic_class_id" value
  * @method integer             getGenusId()                Returns the current record's "genus_id" value
@@ -58,6 +61,7 @@
  * @method string              getRemarks()                Returns the current record's "remarks" value
  * @method Sample              getSample()                 Returns the current record's "Sample" value
  * @method Strain              getStrain()                 Returns the current record's "Strain" value
+ * @method ExternalStrain      getExternalStrain()         Returns the current record's "ExternalStrain" value
  * @method TaxonomicClass      getTaxonomicClass()         Returns the current record's "TaxonomicClass" value
  * @method Genus               getGenus()                  Returns the current record's "Genus" value
  * @method Species             getSpecies()                Returns the current record's "Species" value
@@ -75,6 +79,7 @@
  * @method Isolation           setIsolationSubject()       Sets the current record's "isolation_subject" value
  * @method Isolation           setSampleId()               Sets the current record's "sample_id" value
  * @method Isolation           setStrainId()               Sets the current record's "strain_id" value
+ * @method Isolation           setExternalStrainId()       Sets the current record's "external_strain_id" value
  * @method Isolation           setExternalCode()           Sets the current record's "external_code" value
  * @method Isolation           setTaxonomicClassId()       Sets the current record's "taxonomic_class_id" value
  * @method Isolation           setGenusId()                Sets the current record's "genus_id" value
@@ -90,6 +95,7 @@
  * @method Isolation           setRemarks()                Sets the current record's "remarks" value
  * @method Isolation           setSample()                 Sets the current record's "Sample" value
  * @method Isolation           setStrain()                 Sets the current record's "Strain" value
+ * @method Isolation           setExternalStrain()         Sets the current record's "ExternalStrain" value
  * @method Isolation           setTaxonomicClass()         Sets the current record's "TaxonomicClass" value
  * @method Isolation           setGenus()                  Sets the current record's "Genus" value
  * @method Isolation           setSpecies()                Sets the current record's "Species" value
@@ -129,12 +135,16 @@ abstract class BaseIsolation extends sfDoctrineRecord
               0 => 'sample',
               1 => 'strain',
               2 => 'external',
+              3 => 'external_strain',
              ),
              ));
         $this->hasColumn('sample_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('strain_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('external_strain_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('external_code', 'string', 128, array(
@@ -191,6 +201,10 @@ abstract class BaseIsolation extends sfDoctrineRecord
 
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('ExternalStrain', array(
+             'local' => 'external_strain_id',
              'foreign' => 'id'));
 
         $this->hasOne('TaxonomicClass', array(

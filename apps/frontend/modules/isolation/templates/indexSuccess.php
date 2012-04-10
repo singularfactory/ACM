@@ -26,6 +26,7 @@
 			<?php $code = $isolation->getExternalCode() ?>
 			<?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
 			<?php $genusAndSpecies = $isolation->getGenusAndSpecies() ?>
+			<?php $subject = $isolation->getIsolationSubject() ?>
 			
 			<?php if ( $sample = $isolation->getSample() ): ?>
 				<?php $code = $sample->getCode() ?>
@@ -33,10 +34,15 @@
 				<?php $code = $strain->getFullCode() ?>
 				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $strain->getGenusAndSpecies() ?>
+			<?php elseif ( $externalStrain = $isolation->getExternalStrain() ): ?>
+				<?php $subject = 'research_collection' ?>
+				<?php $code = $externalStrain->getFullCode() ?>
+				<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
+				<?php $genusAndSpecies = $externalStrain->getGenusAndSpecies() ?>
 			<?php endif ?>
 			
 			<td class="isolation_code"><?php echo link_to($code, $url) ?></td>
-			<td class="isolation_subject"><?php echo link_to($isolation->getIsolationSubject(), $url) ?></td>
+			<td class="isolation_subject"><?php echo link_to(sfInflector::humanize($subject), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
 			<td class="isolation_name"><span class="species_name"><?php echo link_to($genusAndSpecies, $url) ?></span></td>
 			<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>

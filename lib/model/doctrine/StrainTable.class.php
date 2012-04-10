@@ -34,5 +34,4 @@ class StrainTable extends Doctrine_Table {
 			return $this->createQuery('s')->execute();
 		}
 	}
-	
 }

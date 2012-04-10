@@ -174,4 +174,18 @@ class ExternalStrain extends BaseExternalStrain {
 			return sfConfig::get('app_no_data_message');
 		}
 	}
+
+	public function getNbProjects() {
+		return Doctrine_Query::create()
+			->from('Project p')
+			->where('p.external_strain_id = ?', $this->getId())
+			->count();
+	}
+
+	public function getNbIsolations() {
+		return Doctrine_Query::create()
+			->from('Isolation i')
+			->where('i.external_strain_id = ?', $this->getId())
+			->count();
+	}
 }

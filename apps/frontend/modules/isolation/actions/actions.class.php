@@ -18,10 +18,14 @@ class isolationActions extends MyActions {
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain st")
+				->leftJoin("{$this->mainAlias()}.ExternalStrain est")
 				->leftJoin("{$this->mainAlias()}.Sample sa")
-				->leftJoin("s.TaxonomicClass tc")
-				->leftJoin("s.Genus g")
-				->leftJoin("s.Species sp")
+				->leftJoin("st.TaxonomicClass tc")
+				->leftJoin("st.Genus g")
+				->leftJoin("st.Species sp")
+				->leftJoin("est.TaxonomicClass etc")
+				->leftJoin("est.Genus eg")
+				->leftJoin("est.Species esp")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.external_code LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.reception_date LIKE ?", "%$text%")
@@ -29,6 +33,9 @@ class isolationActions extends MyActions {
 				->orWhere('tc.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
 				->orWhere('sp.name LIKE ?', "%$text%")
+				->orWhere('etc.name LIKE ?', "%$text%")
+				->orWhere('eg.name LIKE ?', "%$text%")
+				->orWhere('esp.name LIKE ?', "%$text%")
 				->orWhere('st.id LIKE ?', "%$text%")
 				->orWhere('sa.id LIKE ?', "%$text%");
 						
@@ -37,6 +44,7 @@ class isolationActions extends MyActions {
 		}
 		else {
 			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.ExternalStrain est")
 				->leftJoin("{$this->mainAlias()}.Strain st")
 				->leftJoin("{$this->mainAlias()}.Sample sa")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
@@ -45,7 +53,9 @@ class isolationActions extends MyActions {
 				->leftJoin("st.TaxonomicClass sttc")
 				->leftJoin("st.Genus stg")
 				->leftJoin("st.Species stsp")
-			;
+				->leftJoin("est.TaxonomicClass esttc")
+				->leftJoin("est.Genus estg")
+				->leftJoin("est.Species estsp");
 			
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
@@ -70,6 +80,7 @@ class isolationActions extends MyActions {
 			case 'external':
 				unset($form['sample_id']);
 				unset($form['strain_id']);
+				unset($form['external_strain_id']);
 				break;
 			
 			case 'strain':
@@ -82,8 +93,22 @@ class isolationActions extends MyActions {
 				unset($form['genus_id']);
 				unset($form['species_id']);
 				unset($form['authority_id']);
+				unset($form['external_strain_id']);
 				break;
-				
+
+			case 'external_strain':
+				unset($form['external_code']);
+				unset($form['location_id']);
+				unset($form['sample_id']);
+				unset($form['environment_id']);
+				unset($form['habitat_id']);
+				unset($form['taxonomic_class_id']);
+				unset($form['genus_id']);
+				unset($form['species_id']);
+				unset($form['authority_id']);
+				unset($form['strain_id']);
+				break;
+
 			case 'sample':
 			default:
 				unset($form['external_code']);
@@ -95,6 +120,7 @@ class isolationActions extends MyActions {
 				unset($form['genus_id']);
 				unset($form['species_id']);
 				unset($form['authority_id']);
+				unset($form['external_strain_id']);
 				break;
 		}
 	}
@@ -103,6 +129,7 @@ class isolationActions extends MyActions {
 		if ( $lastIsolation = $this->getUser()->getAttribute('isolation.last_object_created') ) {
 			$isolation = new Isolation();
 			
+			$isolation->setExternalStrainId($lastIsolation->getExternalStrainId());
 			$isolation->setStrainId($lastIsolation->getStrainId());
 			$isolation->setSampleId($lastIsolation->getSampleId());
 			$isolation->setReceptionDate($lastIsolation->getReceptionDate());

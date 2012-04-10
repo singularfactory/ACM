@@ -20,8 +20,10 @@ class CryopreservationTable extends Doctrine_Table {
 			return $this->createQuery('p')
 				->leftJoin('p.Sample sa')
 				->leftJoin('p.Strain st')
+				->leftJoin('p.ExternalStrain est')
 				->where('sa.id LIKE ?', "%{$matches[2]}%")
 				->orWhere('st.id LIKE ?', "%{$matches[2]}%")
+				->orWhere('est.id LIKE ?', "%{$matches[2]}%")
 				->execute();
 		}
 		else {

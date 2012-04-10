@@ -27,6 +27,7 @@
 			<?php $code = '' ?>
 			<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
 			<?php $genusAndSpecies = sfConfig::get('app_no_data_message') ?>
+			<?php $subject = $cryopreservation->getSubject() ?>
 			
 			<?php if ( $cryopreservation->getSubject() == 'sample' ): ?>
 				<?php $code = $cryopreservation->getSample()->getCode() ?>
@@ -35,10 +36,17 @@
 				<?php $code = $strain->getFullCode() ?>
 				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $strain->getGenusAndSpecies() ?>
+			<?php elseif ( $cryopreservation->getSubject() == 'external_strain' ): ?>
+				<?php $subject = 'research_collection' ?>
+				<?php $externalStrain = $cryopreservation->getExternalStrain() ?>
+				<?php $code = $externalStrain->getFullCode() ?>
+				<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
+				<?php $genusAndSpecies = $externalStrain->getGenusAndSpecies() ?>
+
 			<?php endif ?>
 			
 			<td class="cryopreservation_code"><?php echo link_to($code, $url) ?></td>
-			<td class="cryopreservation_subject"><?php echo link_to($cryopreservation->getSubject(), $url) ?></td>
+			<td class="cryopreservation_subject"><?php echo link_to(sfInflector::humanize($subject), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
 			<td class="genus_name"><span class="species_name"><?php echo link_to($genusAndSpecies, $url) ?></span></td>
 			<td class="date cryopreservation_date"><?php echo link_to($cryopreservation->getCryopreservationDate(), $url) ?></td>

@@ -1,6 +1,6 @@
 <?php use_helper('Date'); ?>
 
-<?php $isolationSubject = sfInflector::camelize($isolation->getIsolationSubject()) ?>
+<?php $isolationSubject = sfInflector::humanize($isolation->getIsolationSubject()) ?>
 <?php $code = $isolation->getExternalCode() ?>
 <?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
 <?php $genus = $isolation->getFormattedGenus() ?>
@@ -21,6 +21,17 @@
 	<?php $location = link_to($strain->getSample()->getLocation(), "@location_show?id={$strain->getSample()->getLocationId()}") ?>
 	<?php $environment = $strain->getSample()->getEnvironment() ?>
 	<?php $habitat = $strain->getSample()->getHabitat() ?>
+<?php elseif ( $isolation->getExternalStrain()->exists() ): ?>
+	<?php $isolationSubject = sfInflector::humanize('research_collection') ?>
+	<?php $externalStrain = $isolation->getExternalStrain() ?>
+	<?php $code = $externalStrain->getFullCode() ?>
+	<?php $route = "@external_strain_show?id={$externalStrain->getId()}" ?>
+	<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
+	<?php $genus = $externalStrain->getGenus() ?>
+	<?php $species = $externalStrain->getSpecies() ?>
+	<?php $authority = $externalStrain->getAuthority() ?>
+	<?php $environment = $externalStrain->getEnvironment() ?>
+	<?php $habitat = $externalStrain->getHabitat() ?>
 <?php elseif( $isolation->getSample()->exists() ): ?>
 	<?php $sample = $isolation->getSample() ?>
 	<?php $code = $sample->getCode() ?>

@@ -1,12 +1,12 @@
 <?php
 
 /**
-* MyActions actions class.
-*
-* @package    bna_green_house
-* @subpackage frontend
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-*/
+ * MyActions actions class.
+ *
+ * @package    bna_green_house
+ * @subpackage frontend
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ */
 class MyActions extends sfActions {
 
 	/**
@@ -367,7 +367,7 @@ class MyActions extends sfActions {
 	 * @return JSON object with strain id and code
 	 * @author Eliezer Talon
 	 * @version 2011-07-07
-	*/
+	 */
 	public function executeFindStrains(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			$results = StrainTable::getInstance()->findByTerm($request->getParameter('term'));
@@ -382,5 +382,27 @@ class MyActions extends sfActions {
 		}
 		return sfView::NONE;
 	}
-	
+
+	/**
+	 * Find the external strains that matches a search term
+	 *
+	 * @param sfWebRequest $request 
+	 * @return JSON object with strain id and code
+	 * @author Eliezer Talon
+	 * @version 2011-07-07
+	 */
+	public function executeFindExternalStrains(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = ExternalStrainTable::getInstance()->findByTerm($request->getParameter('term'));
+			$strains = array();
+			foreach ($results as $strain) {
+				$strains[] = array(
+					'id' => $strain->getId(),
+					'label' => $strain->getFullCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($strains));
+		}
+		return sfView::NONE;
+	}
 }

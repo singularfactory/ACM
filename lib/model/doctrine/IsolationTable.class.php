@@ -20,9 +20,11 @@ class IsolationTable extends Doctrine_Table {
 			return $this->createQuery('i')
 				->leftJoin('i.Sample sa')
 				->leftJoin('i.Strain st')
+				->leftJoin('i.ExternalStrain est')
 				->where('i.external_code LIKE ?', "%{$matches[2]}%")
 				->orWhere('sa.id LIKE ?', "%{$matches[2]}%")
 				->orWhere('st.id LIKE ?', "%{$matches[2]}%")
+				->orWhere('est.id LIKE ?', "%{$matches[2]}%")
 				->execute();
 		}
 		else {

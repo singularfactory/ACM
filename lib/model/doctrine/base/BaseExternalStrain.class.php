@@ -42,12 +42,15 @@
  * @property Doctrine_Collection $MaintenanceStatus
  * @property Doctrine_Collection $Isolators
  * @property Doctrine_Collection $Collectors
+ * @property Doctrine_Collection $Projects
  * @property Doctrine_Collection $Relatives
  * @property Doctrine_Collection $ExternalStrainContainers
  * @property Doctrine_Collection $ExternalStrainCultureMedia
  * @property Doctrine_Collection $ExternalStrainIsolators
  * @property Doctrine_Collection $ExternalStrainCollectors
  * @property Doctrine_Collection $ExternalStrainMaintenanceStatus
+ * @property Doctrine_Collection $Isolations
+ * @property Doctrine_Collection $Cryopreservations
  * 
  * @method integer                getId()                              Returns the current record's "id" value
  * @method integer                getTaxonomicClassId()                Returns the current record's "taxonomic_class_id" value
@@ -86,12 +89,15 @@
  * @method Doctrine_Collection    getMaintenanceStatus()               Returns the current record's "MaintenanceStatus" collection
  * @method Doctrine_Collection    getIsolators()                       Returns the current record's "Isolators" collection
  * @method Doctrine_Collection    getCollectors()                      Returns the current record's "Collectors" collection
+ * @method Doctrine_Collection    getProjects()                        Returns the current record's "Projects" collection
  * @method Doctrine_Collection    getRelatives()                       Returns the current record's "Relatives" collection
  * @method Doctrine_Collection    getExternalStrainContainers()        Returns the current record's "ExternalStrainContainers" collection
  * @method Doctrine_Collection    getExternalStrainCultureMedia()      Returns the current record's "ExternalStrainCultureMedia" collection
  * @method Doctrine_Collection    getExternalStrainIsolators()         Returns the current record's "ExternalStrainIsolators" collection
  * @method Doctrine_Collection    getExternalStrainCollectors()        Returns the current record's "ExternalStrainCollectors" collection
  * @method Doctrine_Collection    getExternalStrainMaintenanceStatus() Returns the current record's "ExternalStrainMaintenanceStatus" collection
+ * @method Doctrine_Collection    getIsolations()                      Returns the current record's "Isolations" collection
+ * @method Doctrine_Collection    getCryopreservations()               Returns the current record's "Cryopreservations" collection
  * @method ExternalStrain         setId()                              Sets the current record's "id" value
  * @method ExternalStrain         setTaxonomicClassId()                Sets the current record's "taxonomic_class_id" value
  * @method ExternalStrain         setGenusId()                         Sets the current record's "genus_id" value
@@ -129,12 +135,15 @@
  * @method ExternalStrain         setMaintenanceStatus()               Sets the current record's "MaintenanceStatus" collection
  * @method ExternalStrain         setIsolators()                       Sets the current record's "Isolators" collection
  * @method ExternalStrain         setCollectors()                      Sets the current record's "Collectors" collection
+ * @method ExternalStrain         setProjects()                        Sets the current record's "Projects" collection
  * @method ExternalStrain         setRelatives()                       Sets the current record's "Relatives" collection
  * @method ExternalStrain         setExternalStrainContainers()        Sets the current record's "ExternalStrainContainers" collection
  * @method ExternalStrain         setExternalStrainCultureMedia()      Sets the current record's "ExternalStrainCultureMedia" collection
  * @method ExternalStrain         setExternalStrainIsolators()         Sets the current record's "ExternalStrainIsolators" collection
  * @method ExternalStrain         setExternalStrainCollectors()        Sets the current record's "ExternalStrainCollectors" collection
  * @method ExternalStrain         setExternalStrainMaintenanceStatus() Sets the current record's "ExternalStrainMaintenanceStatus" collection
+ * @method ExternalStrain         setIsolations()                      Sets the current record's "Isolations" collection
+ * @method ExternalStrain         setCryopreservations()               Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -299,6 +308,10 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              'local' => 'external_strain_id',
              'foreign' => 'collector_id'));
 
+        $this->hasMany('Project as Projects', array(
+             'local' => 'id',
+             'foreign' => 'external_strain_id'));
+
         $this->hasMany('ExternalStrainRelative as Relatives', array(
              'local' => 'id',
              'foreign' => 'external_strain_id'));
@@ -320,6 +333,14 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              'foreign' => 'external_strain_id'));
 
         $this->hasMany('ExternalStrainMaintenanceStatus', array(
+             'local' => 'id',
+             'foreign' => 'external_strain_id'));
+
+        $this->hasMany('Isolation as Isolations', array(
+             'local' => 'id',
+             'foreign' => 'external_strain_id'));
+
+        $this->hasMany('Cryopreservation as Cryopreservations', array(
              'local' => 'id',
              'foreign' => 'external_strain_id'));
 

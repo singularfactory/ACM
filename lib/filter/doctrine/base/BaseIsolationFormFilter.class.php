@@ -14,9 +14,10 @@ abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'reception_date'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'isolation_subject'      => new sfWidgetFormChoice(array('choices' => array('' => '', 'sample' => 'sample', 'strain' => 'strain', 'external' => 'external'))),
+      'isolation_subject'      => new sfWidgetFormChoice(array('choices' => array('' => '', 'sample' => 'sample', 'strain' => 'strain', 'external' => 'external', 'external_strain' => 'external_strain'))),
       'sample_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'strain_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
+      'external_strain_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ExternalStrain'), 'add_empty' => true)),
       'external_code'          => new sfWidgetFormFilterInput(),
       'taxonomic_class_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => true)),
       'genus_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => true)),
@@ -38,9 +39,10 @@ abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'reception_date'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
-      'isolation_subject'      => new sfValidatorChoice(array('required' => false, 'choices' => array('sample' => 'sample', 'strain' => 'strain', 'external' => 'external'))),
+      'isolation_subject'      => new sfValidatorChoice(array('required' => false, 'choices' => array('sample' => 'sample', 'strain' => 'strain', 'external' => 'external', 'external_strain' => 'external_strain'))),
       'sample_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Sample'), 'column' => 'id')),
       'strain_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Strain'), 'column' => 'id')),
+      'external_strain_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('ExternalStrain'), 'column' => 'id')),
       'external_code'          => new sfValidatorPass(array('required' => false)),
       'taxonomic_class_id'     => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('TaxonomicClass'), 'column' => 'id')),
       'genus_id'               => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Genus'), 'column' => 'id')),
@@ -118,6 +120,7 @@ abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
       'isolation_subject'      => 'Enum',
       'sample_id'              => 'ForeignKey',
       'strain_id'              => 'ForeignKey',
+      'external_strain_id'     => 'ForeignKey',
       'external_code'          => 'Text',
       'taxonomic_class_id'     => 'ForeignKey',
       'genus_id'               => 'ForeignKey',

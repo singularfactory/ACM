@@ -10,7 +10,7 @@ function decimalDegreesToDMS(coordinate) {
 	var tmp = (Math.abs(coordinate) - degrees) * 60.0;
 	var minutes = Math.floor(tmp);
 	var seconds = Math.ceil((tmp - minutes) * 60);
-	
+
 	if ( coordinate < 0 ) {
 		degrees = degrees * -1;
 	}
@@ -22,11 +22,11 @@ function DMSToDecimalDegrees(coordinate) {
 	var degreesSeparatorIndex = coordinate.indexOf('º');
 	var minutesSeparatorIndex = coordinate.indexOf("'");
 	var secondsSeparatorIndex = coordinate.indexOf('"');
-	
+
 	var degrees = parseInt(coordinate.substring(0, degreesSeparatorIndex + 1));
 	var minutes = parseInt(coordinate.substring(degreesSeparatorIndex + 1, minutesSeparatorIndex));
 	var seconds = parseInt(coordinate.substring(minutesSeparatorIndex + 1, secondsSeparatorIndex));
-	
+
 	return degrees + (minutes / 60.0) + (seconds / 3600.0);
 }
 
@@ -52,7 +52,7 @@ function updateIslandsSelect(options) {
 		$.each(options, function(key, option){
 			$('#location_island_id').append('<option value="' + option.id + '">' + option.name + '</option');
 		});
-	} 
+	}
 	else {
 		$('#location_island_id').append('<option value>---</option');
 	}
@@ -63,14 +63,14 @@ $(document).ready(function(){
 	$('input[type=file]').change(function(){
 		if ( !$(this).next('span.reset_picture').length ) {
 			$(this).after('<span class="reset_picture">reset</span>');
-			
+
 			$(this).next().click(function(){	// clear input and detach when pressed
 				$(this).prev().val('');
 				$(this).detach();
 			});
 		}
 	});
-	
+
 	// Display remove option when a strain relative input has text and lose focus
 	$('div.model_text_input_name input').change(function(){
 		if ( $(this).next('span').length == 0 ) {
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			});
 		}
 	})
-	
+
 	// Display a Google Map to pick the latitude and longitude of a place
 	if ( $('#gps_coordinates_picker_link').length ) {
 		$('#gps_coordinates_picker_link').colorbox({
@@ -97,13 +97,13 @@ $(document).ready(function(){
 			onComplete: function(){
 				$('#gps_coordinates_picker_map').goMap({
 					latitude: 27.991232,		// Latitude of BEA headquarters
-			    longitude: -15.368787,	// Longitude of BEA headquarters 
+			    longitude: -15.368787,	// Longitude of BEA headquarters
 					zoom: 7,
 					width: 300,
 					disableDoubleClickZoom: false,
 					icon: '/images/maps/location.png',
 				});
-				$.goMap.createListener({type:'map'}, 'click', function(event, point) { 
+				$.goMap.createListener({type:'map'}, 'click', function(event, point) {
 					$('#gps_coordinates_picker_latitude').val(decimalDegreesToDMS(event.latLng.lat()));
 					$('#gps_coordinates_picker_longitude').val(decimalDegreesToDMS(event.latLng.lng()));
 					$.goMap.clearMarkers();
@@ -137,7 +137,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-	
+
 
 	// Update Region select and Island select when selecting a Country in Location form
 	$('#location_country_id').change(function(){
@@ -145,17 +145,17 @@ $(document).ready(function(){
 		var country_regions_url = $('a.country_regions_url').attr('href');
 		$.getJSON(country_regions_url + $(this).val(), function(json) {
 			var id = updateRegionsSelect(json);
-			
+
 			// Retrieve islands
 			var region_islands_url = $('a.region_islands_url').attr('href');
 			$.getJSON(region_islands_url + id, function(json) {
 				updateIslandsSelect(json);
 			});
 		});
-		
+
 		return false;
 	});
-	
+
 	// Update Island select when selecting a Region in Location form
 	$('#location_region_id').change(function(){
 		// Retrieve islands
@@ -163,11 +163,11 @@ $(document).ready(function(){
 		$.getJSON(region_islands_url + $(this).val(), function(json) {
 			updateIslandsSelect(json);
 		});
-		
+
 		return false;
 	});
-	
-	
+
+
 	// Add a search box for Location in Sample, PatentDeposit, MaintenanceDeposit and Isolation forms
 	var locationSearchBoxDefault = "Type a location...";
 	$('#sample_location_search').focus(function(){
@@ -175,7 +175,7 @@ $(document).ready(function(){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#sample_location_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
@@ -189,7 +189,7 @@ $(document).ready(function(){
 		$('#sample_location_search').css("color", "black");
 		$('#sample_location_search').css("font-size", "12px");
 	}
-	
+
 	$("#sample_location_search").autocomplete({
 		minLength: 3,
 		source: function(term, add) {
@@ -204,13 +204,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#patent_deposit_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#patent_deposit_location_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
@@ -224,7 +224,7 @@ $(document).ready(function(){
 		$('#patent_deposit_location_search').css("color", "black");
 		$('#patent_deposit_location_search').css("font-size", "12px");
 	}
-	
+
 	$("#patent_deposit_location_search").autocomplete({
 		minLength: 3,
 		source: function(term, add) {
@@ -237,13 +237,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#maintenance_deposit_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#maintenance_deposit_location_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
@@ -257,7 +257,7 @@ $(document).ready(function(){
 		$('#maintenance_deposit_location_search').css("color", "black");
 		$('#maintenance_deposit_location_search').css("font-size", "12px");
 	}
-	
+
 	$("#maintenance_deposit_location_search").autocomplete({
 		minLength: 3,
 		source: function(term, add) {
@@ -270,13 +270,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#isolation_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#isolation_location_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
@@ -290,7 +290,7 @@ $(document).ready(function(){
 		$('#isolation_location_search').css("color", "black");
 		$('#isolation_location_search').css("font-size", "12px");
 	}
-	
+
 	$("#isolation_location_search").autocomplete({
 		minLength: 3,
 		source: function(term, add) {
@@ -303,13 +303,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#external_strain_location_search').focus(function(){
 		if ( $(this).attr("value") == locationSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#external_strain_location_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
@@ -323,7 +323,7 @@ $(document).ready(function(){
 		$('#external_strain_location_search').css("color", "black");
 		$('#external_strain_location_search').css("font-size", "12px");
 	}
-	
+
 	$("#external_strain_location_search").autocomplete({
 		minLength: 3,
 		source: function(term, add) {
@@ -345,7 +345,7 @@ $(document).ready(function(){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#strain_sample_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -359,7 +359,7 @@ $(document).ready(function(){
 		$('#strain_sample_search').css("color", "black");
 		$('#strain_sample_search').css("font-size", "12px");
 	}
-	
+
 	$("#strain_sample_search").autocomplete({
 		minLength: 2,
 		source: function(term, add) {
@@ -372,13 +372,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#isolation_sample_search').focus(function(){
 		if ( $(this).attr("value") === sampleSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#isolation_sample_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -392,7 +392,7 @@ $(document).ready(function(){
 		$('#isolation_sample_search').css("color", "black");
 		$('#isolation_sample_search').css("font-size", "12px");
 	}
-	
+
 	$("#isolation_sample_search").autocomplete({
 		minLength: 2,
 		source: function(term, add) {
@@ -405,13 +405,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#project_sample_search').focus(function(){
 		if ( $(this).attr("value") === sampleSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#project_sample_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -425,7 +425,7 @@ $(document).ready(function(){
 		$('#project_sample_search').css("color", "black");
 		$('#project_sample_search').css("font-size", "12px");
 	}
-	
+
 	$("#project_sample_search").autocomplete({
 		minLength: 2,
 		source: function(term, add) {
@@ -438,13 +438,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#cryopreservation_sample_search').focus(function(){
 		if ( $(this).attr("value") === sampleSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#cryopreservation_sample_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -471,13 +471,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#identification_sample_search').focus(function(){
 		if ( $(this).attr("value") === sampleSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#identification_sample_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -504,7 +504,7 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	// Add a search box for Strain in DnaExtraction, Project and Isolation forms
 	var strainSearchBoxDefault = "Type a strain code...";
 	$('#dna_extraction_strain_search').focus(function(){
@@ -512,7 +512,7 @@ $(document).ready(function(){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#dna_extraction_strain_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -526,7 +526,7 @@ $(document).ready(function(){
 		$('#dna_extraction_strain_search').css("color", "black");
 		$('#dna_extraction_strain_search').css("font-size", "12px");
 	}
-	
+
 	$("#dna_extraction_strain_search").autocomplete({
 		minLength: 2,
 		source: function(term, add) {
@@ -539,13 +539,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-		
+
 	$('#project_strain_search').focus(function(){
 		if ( $(this).attr("value") === strainSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#project_strain_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -559,7 +559,7 @@ $(document).ready(function(){
 		$('#project_strain_search').css("color", "black");
 		$('#project_strain_search').css("font-size", "12px");
 	}
-	
+
 	$("#project_strain_search").autocomplete({
 		minLength: 2,
 		source: function(term, add) {
@@ -572,13 +572,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#cryopreservation_strain_search').focus(function(){
 		if ( $(this).attr("value") === strainSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#cryopreservation_strain_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -605,13 +605,13 @@ $(document).ready(function(){
 			return false;
 		},
 	});
-	
+
 	$('#isolation_strain_search').focus(function(){
 		if ( $(this).attr("value") === strainSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#isolation_strain_search').blur(function(){
 		if( $(this).attr("value") === "" ) {
@@ -625,7 +625,7 @@ $(document).ready(function(){
 		$('#isolation_strain_search').css("color", "black");
 		$('#isolation_strain_search').css("font-size", "12px");
 	}
-	
+
 	$("#isolation_strain_search").autocomplete({
 		minLength: 2,
 		source: function(term, add) {
@@ -638,6 +638,109 @@ $(document).ready(function(){
 			return false;
 		},
 	});
+
+	
+	// Add a search box for ExternalStrain in DnaExtraction, Project and Isolation forms
+	var externalStrainSearchBoxDefault = "Type a research collection code...";
+	$('#isolation_external_strain_search').focus(function(){
+		if ( $(this).attr("value") === externalStrainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		}
+	});
+	$('#isolation_external_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", externalStrainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#isolation_external_strain_search').val() !== externalStrainSearchBoxDefault ) {
+		$('#isolation_external_strain_search').css("color", "black");
+		$('#isolation_external_strain_search').css("font-size", "12px");
+	}
+
+	$("#isolation_external_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.isolation_external_strain_numbers_url').attr('href') + $("#isolation_external_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#isolation_external_strain_search" ).val( ui.item.label );
+			$( "#isolation_external_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	$('#cryopreservation_external_strain_search').focus(function(){
+		if ( $(this).attr("value") === externalStrainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		}
+	});
+	$('#cryopreservation_external_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", externalStrainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#cryopreservation_external_strain_search').val() !== externalStrainSearchBoxDefault ) {
+		$('#cryopreservation_external_strain_search').css("color", "black");
+		$('#cryopreservation_external_strain_search').css("font-size", "12px");
+	}
+
+	$("#cryopreservation_external_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.cryopreservation_external_strain_numbers_url').attr('href') + $("#cryopreservation_external_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#cryopreservation_external_strain_search" ).val( ui.item.label );
+			$( "#cryopreservation_external_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
+	$('#project_external_strain_search').focus(function(){
+		if ( $(this).attr("value") === externalStrainSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		}
+	});
+	$('#project_external_strain_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", externalStrainSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#project_external_strain_search').val() !== externalStrainSearchBoxDefault ) {
+		$('#project_external_strain_search').css("color", "black");
+		$('#project_external_strain_search').css("font-size", "12px");
+	}
+
+	$("#project_external_strain_search").autocomplete({
+		minLength: 2,
+		source: function(term, add) {
+			var url = $('a.project_external_strain_numbers_url').attr('href') + $("#project_external_strain_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#project_external_strain_search" ).val( ui.item.label );
+			$( "#project_external_strain_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+	
 	
 	
 	// Add a search box for Strain clones
@@ -660,22 +763,22 @@ $(document).ready(function(){
 		},
 		select: function(event, ui) {
 			$( "#bea_code #code input" ).val( ui.item.label );
-			
+
 			$( "#strain_taxonomic_class_id" ).val( ui.item.taxonomic_class_id );
 			$( "#strain_genus_id" ).val( ui.item.genus_id );
 			$( "#strain_species_id" ).val( ui.item.species_id );
-			
+
 			$( "#strain_sample_id" ).val( ui.item.sample_id );
 			$( "#strain_sample_search" ).val( ui.item.sample_code );
 			$('#strain_sample_search').css("color", "black");
 			$('#strain_sample_search').css("font-size", "12px");
-			
+
 			strainIsClone = true;
 			return false;
 		},
 	});
-	
-	
+
+
 	// Add a "create" option to taxonomic class, genus, species and authority select elements in strain creation forms
 	var strainRelatedModels = ["taxonomic_class", "genus", "species", "authority"];
 	var selectCreateOptionValue = 'create';
@@ -683,7 +786,7 @@ $(document).ready(function(){
 		var model = strainRelatedModels[i];
 		var element = "#strain_" + model + "_id";
 		var modelName = model.replace("taxonomic_", "");
-		
+
 		$(element).append('<option value="' + selectCreateOptionValue + '">Create another ' + modelName + '...</option>');
 		$(element).change(function(){
 			var selectInput = $(this);
@@ -697,36 +800,36 @@ $(document).ready(function(){
 			}
 		});
 	};
-	
-	
+
+
 	// Generate a new API token when requested
 	$("#token_regeneration_link").click(function(event){
 		event.preventDefault();
-		
+
 		$.get($(this).attr('href'), function(data) {
 			$('#token_value_ipad').html(data);
 		});
 	});
-	
-	
+
+
 	// Change the Isolation form on demand
 	$("#isolation_isolation_subject").change(function(){
 		location.href = $('a.isolation_isolation_subject_url').attr('href') + $(this).attr('value');
 	});
-	
+
 	// Change the Project form on demand
 	$("#project_subject").change(function(){
 		location.href = $('a.project_subject_url').attr('href') + $(this).attr('value');
 	});
-	
+
 	// Change the Cryopreservation form on demand
 	$("#cryopreservation_subject").change(function(){
 		location.href = $('a.cryopreservation_subject_url').attr('href') + $(this).attr('value');
 	});
-	
-	
+
+
 	//$("#amount input").numeric({ "minValue": 0, emptyValue: false, increment: 1 });
-	
+
 	// Add a search box for products in Labels module
 	var labelCodeSearchBoxDefault = 'Type a product code...';
 	if ( !$('#label_product_id_search').val() ) {
@@ -740,13 +843,13 @@ $(document).ready(function(){
 		input.css("color", "black");
 		input.css("font-size", "12px");
 	}
-	
+
 	$('#label_product_id_search').focus(function(){
 		if ( $(this).val() == labelCodeSearchBoxDefault ){
 			$(this).attr("value", "");
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
-		} 
+		}
 	});
 	$('#label_product_id_search').blur(function(){
 		if( $(this).attr("value") == "" ) {
@@ -769,18 +872,18 @@ $(document).ready(function(){
 		source: function(term, add) {
 			var url = $('a.label_find_products_url').attr('href') + $("#label_product_id_search").val();
 			url = url.replace('__PRODUCT__', $('#label_product_type #product_type').val());
-			
+
 			$.getJSON(url, function(data){ add(data); });
 		},
 		select: function(event, ui) {
 			$("#label_product_id_search").val(ui.item.label);
 			$("#product_id").val(ui.item.id);
 			$("#supervisor").val(ui.item.supervisor);
-			
+
 			if ( isNumber(ui.item.transfer_interval) ) {
 				$("#label_transfer_interval input").val(ui.item.transfer_interval);
 			}
-			
+
 			return false;
 		},
 	});
@@ -795,5 +898,5 @@ $(document).ready(function(){
 	if ( $('#label_transfer_interval input').length ) {
 		$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
 	}
-	
+
 });
