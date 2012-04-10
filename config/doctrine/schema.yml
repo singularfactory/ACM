@@ -201,6 +201,7 @@ Collector:
     Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
     PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: collector_id, foreign: patent_deposit_id, refClass: PatentDepositCollectors }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: collector_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCollectors }
+    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: collector_id, foreign: external_strain_id, refClass: ExternalStrainCollectors }
   indexes:
     collector_name:
       fields:
@@ -910,7 +911,6 @@ ExternalStrain:
     is_epitype:                 { type: boolean, notnull: true, default: false }
     is_axenic:                  { type: boolean, notnull: true, default: false }
     has_dna:                    { type: boolean, notnull: true, default: false }
-    gen_sequence:               { type: string(256) }
     location_id:                { type: integer, notnull: true }
     environment_id:             { type: integer }
     habitat_id:                 { type: integer }
@@ -933,7 +933,7 @@ ExternalStrain:
     Environment:            { foreignAlias: ExternalStrains }
     Habitat:                { foreignAlias: ExternalStrains }
     Identifier:             { foreignAlias: ExternalStrains }
-    Supervisor:             { foreignAlias: ExternalStrains }
+    Supervisor:             { class: sfGuardUser, local: supervisor_id, foreignAlias: ExternalStrains }
     CryopreservationMethod: { foreignAlias: ExternalStrains }
     Container:              { foreignAlias: ExternalStrains }
     Containers:             { foreignAlias: Containers, class: Container, local: external_strain_id, foreign: container_id, refClass: ExternalStrainContainers }

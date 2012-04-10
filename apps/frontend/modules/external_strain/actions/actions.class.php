@@ -10,61 +10,148 @@
 */
 class external_strainActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
-		$this->external_strains = Doctrine_Core::getTable('ExternalStrain')
-			->createQuery('a')
-			->execute();
+		// Initiate the pager with default parameters but delay pagination until search criteria has been added
+		$this->pager = $this->buildPagination($request, 'ExternalStrain', array('init' => false, 'sort_column' => 'id'));
+
+		// Deal with search criteria
+		if ( $text = $request->getParameter('criteria') ) {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.Genus g")
+				->leftJoin("{$this->mainAlias()}.Species s")
+				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
+				->orWhere('tc.name LIKE ?', "%$text%")
+				->orWhere('g.name LIKE ?', "%$text%")
+				->orWhere('s.name LIKE ?', "%$text%");
+
+			// Keep track of search terms for pagination
+			$this->getUser()->setAttribute('search.criteria', $text);
+		}
+		else {
+			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.Genus g")
+				->leftJoin("{$this->mainAlias()}.Species s");
+
+			$this->getUser()->setAttribute('search.criteria', null);
+		}
+		$this->pager->setQuery($query);
+		$this->pager->init();
+
+		// Keep track of the last page used in list
+		$this->getUser()->setAttribute('external_strain.index_page', $request->getParameter('page'));
+
+		// Add a form to filter results
+		$this->form = new ExternalStrainForm();
 	}
 
 	public function executeShow(sfWebRequest $request) {
-		$this->external_strain = Doctrine_Core::getTable('ExternalStrain')->find(array($request->getParameter('id')));
-		$this->forward404Unless($this->external_strain);
+		$this->externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id')));
+		$this->forward404Unless($this->externalStrain);
 	}
 
 	public function executeNew(sfWebRequest $request) {
-		$this->form = new ExternalStrainForm();
-	}
+		if ( $lastStrain = $this->getUser()->getAttribute('external_strain.last_object_created') ) {
+			$externalStrain = new ExternalStrain();
+			$externalStrain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
+			$externalStrain->setGenusId($lastStrain->getGenusId());
+			$externalStrain->setSpeciesId($lastStrain->getSpeciesId());
+			$externalStrain->setAuthorityId($lastStrain->getAuthorityId());
+			$externalStrain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());
+			$externalStrain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
+			$externalStrain->setEnvironmentId($lastStrain->getEnvironmentId());
+			$externalStrain->setHabitatId($lastStrain->getHabitatId());
+			$externalStrain->setDepositorId($lastStrain->getDepositorId());
+			$externalStrain->setIdentifierId($lastStrain->getIdentifierId());
+			$externalStrain->setCollectionDate($lastStrain->getCollectionDate());
+			$externalStrain->setIsolationDate($lastStrain->getIsolationDate());
+			$externalStrain->setTransferInterval($lastStrain->getTransferInterval());
+			$externalStrain->setObservation($lastStrain->getObservation());
+			$externalStrain->setCitations($lastStrain->getCitations());
+			$externalStrain->setRemarks($lastStrain->getRemarks());
 
-	public function executeCreate(sfWebRequest $request) {
-		$this->forward404Unless($request->isMethod(sfRequest::POST));
+			$this->form = new ExternalStrainForm($externalStrain);
+			$this->getUser()->setAttribute('external_strain.last_object_created', null);
+		}
+		else {
+			$this->form = new ExternalStrainForm();
+		}
 
-		$this->form = new ExternalStrainForm();
+		$this->hasIdentifiers = (IdentifierTable::getInstance()->count() > 0)?true:false;
+		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
+		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
+  }
 
-		$this->processForm($request, $this->form);
+  public function executeCreate(sfWebRequest $request) {
+  	$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-		$this->setTemplate('new');
-	}
+    $this->form = new ExternalStrainForm();
+		$this->hasIdentifiers = (IdentifierTable::getInstance()->count() > 0)?true:false;
+		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
+		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
+
+    $this->processForm($request, $this->form);
+
+    $this->setTemplate('new');
+  }
 
 	public function executeEdit(sfWebRequest $request) {
-		$this->forward404Unless($external_strain = Doctrine_Core::getTable('ExternalStrain')->find(array($request->getParameter('id'))), sprintf('Object external_strain does not exist (%s).', $request->getParameter('id')));
-		$this->form = new ExternalStrainForm($external_strain);
+		$this->forward404Unless($externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
+		$this->form = new ExternalStrainForm($externalStrain);
 	}
 
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-		$this->forward404Unless($external_strain = Doctrine_Core::getTable('ExternalStrain')->find(array($request->getParameter('id'))), sprintf('Object external_strain does not exist (%s).', $request->getParameter('id')));
-		$this->form = new ExternalStrainForm($external_strain);
+    $this->forward404Unless($externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
+    $this->form = new ExternalStrainForm($externalStrain);
 
-		$this->processForm($request, $this->form);
+    $this->processForm($request, $this->form);
 
-		$this->setTemplate('edit');
-	}
-
-	public function executeDelete(sfWebRequest $request) {
-		$request->checkCSRFProtection();
-
-		$this->forward404Unless($external_strain = Doctrine_Core::getTable('ExternalStrain')->find(array($request->getParameter('id'))), sprintf('Object external_strain does not exist (%s).', $request->getParameter('id')));
-		$external_strain->delete();
-
-		$this->redirect('external_strain/index');
+    $this->setTemplate('edit');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		if ($form->isValid())
-		{
-			$external_strain = $form->save();
 
-			$this->redirect('external_strain/edit?id='.$external_strain->getId());
+		// Validate form
+		if ( $form->isValid() ) {
+			$flashMessage = null;
+			$url = null;
+			$isNew = $form->getObject()->isNew();
+
+			$externalStrain = null;
+			try {
+				$externalStrain = $form->save();
+
+				if ( $request->hasParameter('_save_and_add') ) {
+					$message = 'Strain created successfully. Now you can add another one';
+					$url = '@external_strain_new';
+
+					// Reuse last object values
+					$this->getUser()->setAttribute('external_strain.last_object_created', $sample);
+				}
+				elseif ( !$isNew ) {
+					$message = 'Changes saved';
+					$url = '@external_strain_show?id='.$externalStrain->getId();
+				}
+				else {
+					$message = 'Deposit created successfully';
+					$url = '@external_strain_show?id='.$externalStrain->getId();
+				}
+			}
+			catch (Exception $e) {
+				$message = $e->getMessage();
+			}
+
+			if ( $externalStrain != null ) {
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $externalStrain->getId())));
+				$this->getUser()->setFlash('notice', $message);
+				if ( $url !== null ) {
+					$this->redirect($url);
+				}
+			}
 		}
+
+		$this->getUser()->setFlash('notice', 'The information on this strain has some errors you need to fix', false);
 	}
 }

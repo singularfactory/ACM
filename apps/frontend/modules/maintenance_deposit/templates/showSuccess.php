@@ -163,7 +163,7 @@
 			?>
 			</dd>
 									
-			<?php if ( $maintenanceDeposit->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
+			<?php if ( $isCryopreserved ): ?>
 			<dt>Cryopreservation:</dt>
 			<dd><?php echo $maintenanceDeposit->getCryopreservationMethod() ?></dd>
 			<?php endif; ?>

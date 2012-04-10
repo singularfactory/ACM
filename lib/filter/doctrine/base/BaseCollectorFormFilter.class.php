@@ -21,6 +21,7 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
       'samples_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Sample')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
+      'external_strains_list'     => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain')),
     ));
 
     $this->setValidators(array(
@@ -32,6 +33,7 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
       'samples_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Sample', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
+      'external_strains_list'     => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('collector_filters[%s]');
@@ -97,6 +99,24 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
+  public function addExternalStrainsListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.ExternalStrainCollectors ExternalStrainCollectors')
+      ->andWhereIn('ExternalStrainCollectors.external_strain_id', $values)
+    ;
+  }
+
   public function getModelName()
   {
     return 'Collector';
@@ -114,6 +134,7 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
       'samples_list'              => 'ManyKey',
       'patent_deposits_list'      => 'ManyKey',
       'maintenance_deposits_list' => 'ManyKey',
+      'external_strains_list'     => 'ManyKey',
     );
   }
 }

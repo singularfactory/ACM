@@ -24,6 +24,7 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
       'samples_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Sample')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
+      'external_strains_list'     => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain')),
     ));
 
     $this->setValidators(array(
@@ -36,6 +37,7 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
       'samples_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Sample', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
+      'external_strains_list'     => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('collector[%s]');
@@ -71,6 +73,11 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
       $this->setDefault('maintenance_deposits_list', $this->object->MaintenanceDeposits->getPrimaryKeys());
     }
 
+    if (isset($this->widgetSchema['external_strains_list']))
+    {
+      $this->setDefault('external_strains_list', $this->object->ExternalStrains->getPrimaryKeys());
+    }
+
   }
 
   protected function doSave($con = null)
@@ -78,6 +85,7 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
     $this->saveSamplesList($con);
     $this->savePatentDepositsList($con);
     $this->saveMaintenanceDepositsList($con);
+    $this->saveExternalStrainsList($con);
 
     parent::doSave($con);
   }
@@ -193,6 +201,44 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('MaintenanceDeposits', array_values($link));
+    }
+  }
+
+  public function saveExternalStrainsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['external_strains_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->ExternalStrains->getPrimaryKeys();
+    $values = $this->getValue('external_strains_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('ExternalStrains', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('ExternalStrains', array_values($link));
     }
   }
 

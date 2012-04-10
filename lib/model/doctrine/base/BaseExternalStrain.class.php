@@ -13,7 +13,6 @@
  * @property boolean $is_epitype
  * @property boolean $is_axenic
  * @property boolean $has_dna
- * @property string $gen_sequence
  * @property integer $location_id
  * @property integer $environment_id
  * @property integer $habitat_id
@@ -35,6 +34,7 @@
  * @property Environment $Environment
  * @property Habitat $Habitat
  * @property Identifier $Identifier
+ * @property sfGuardUser $Supervisor
  * @property CryopreservationMethod $CryopreservationMethod
  * @property Container $Container
  * @property Doctrine_Collection $Containers
@@ -57,7 +57,6 @@
  * @method boolean                getIsEpitype()                       Returns the current record's "is_epitype" value
  * @method boolean                getIsAxenic()                        Returns the current record's "is_axenic" value
  * @method boolean                getHasDna()                          Returns the current record's "has_dna" value
- * @method string                 getGenSequence()                     Returns the current record's "gen_sequence" value
  * @method integer                getLocationId()                      Returns the current record's "location_id" value
  * @method integer                getEnvironmentId()                   Returns the current record's "environment_id" value
  * @method integer                getHabitatId()                       Returns the current record's "habitat_id" value
@@ -79,6 +78,7 @@
  * @method Environment            getEnvironment()                     Returns the current record's "Environment" value
  * @method Habitat                getHabitat()                         Returns the current record's "Habitat" value
  * @method Identifier             getIdentifier()                      Returns the current record's "Identifier" value
+ * @method sfGuardUser            getSupervisor()                      Returns the current record's "Supervisor" value
  * @method CryopreservationMethod getCryopreservationMethod()          Returns the current record's "CryopreservationMethod" value
  * @method Container              getContainer()                       Returns the current record's "Container" value
  * @method Doctrine_Collection    getContainers()                      Returns the current record's "Containers" collection
@@ -100,7 +100,6 @@
  * @method ExternalStrain         setIsEpitype()                       Sets the current record's "is_epitype" value
  * @method ExternalStrain         setIsAxenic()                        Sets the current record's "is_axenic" value
  * @method ExternalStrain         setHasDna()                          Sets the current record's "has_dna" value
- * @method ExternalStrain         setGenSequence()                     Sets the current record's "gen_sequence" value
  * @method ExternalStrain         setLocationId()                      Sets the current record's "location_id" value
  * @method ExternalStrain         setEnvironmentId()                   Sets the current record's "environment_id" value
  * @method ExternalStrain         setHabitatId()                       Sets the current record's "habitat_id" value
@@ -122,6 +121,7 @@
  * @method ExternalStrain         setEnvironment()                     Sets the current record's "Environment" value
  * @method ExternalStrain         setHabitat()                         Sets the current record's "Habitat" value
  * @method ExternalStrain         setIdentifier()                      Sets the current record's "Identifier" value
+ * @method ExternalStrain         setSupervisor()                      Sets the current record's "Supervisor" value
  * @method ExternalStrain         setCryopreservationMethod()          Sets the current record's "CryopreservationMethod" value
  * @method ExternalStrain         setContainer()                       Sets the current record's "Container" value
  * @method ExternalStrain         setContainers()                      Sets the current record's "Containers" collection
@@ -181,10 +181,6 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              'type' => 'boolean',
              'notnull' => true,
              'default' => false,
-             ));
-        $this->hasColumn('gen_sequence', 'string', 256, array(
-             'type' => 'string',
-             'length' => 256,
              ));
         $this->hasColumn('location_id', 'integer', null, array(
              'type' => 'integer',
@@ -264,6 +260,10 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
 
         $this->hasOne('Identifier', array(
              'local' => 'identifier_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('sfGuardUser as Supervisor', array(
+             'local' => 'supervisor_id',
              'foreign' => 'id'));
 
         $this->hasOne('CryopreservationMethod', array(

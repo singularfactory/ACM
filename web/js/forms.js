@@ -304,7 +304,40 @@ $(document).ready(function(){
 		},
 	});
 	
+	$('#external_strain_location_search').focus(function(){
+		if ( $(this).attr("value") == locationSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		} 
+	});
+	$('#external_strain_location_search').blur(function(){
+		if( $(this).attr("value") == "" ) {
+			$(this).attr("value", locationSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#external_strain_location_search').val() != locationSearchBoxDefault ) {
+		$('#external_strain_location_search').css("color", "black");
+		$('#external_strain_location_search').css("font-size", "12px");
+	}
 	
+	$("#external_strain_location_search").autocomplete({
+		minLength: 3,
+		source: function(term, add) {
+			var url = $('a.external_strain_location_coordinates_url').attr('href') + $("#external_strain_location_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#external_strain_location_search" ).val( ui.item.label );
+			$( "#external_strain_location_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+
+
 	// Add a search box for Sample in Strain and Isolation forms
 	var sampleSearchBoxDefault = "Type a sample code...";
 	$('#strain_sample_search').focus(function(){
