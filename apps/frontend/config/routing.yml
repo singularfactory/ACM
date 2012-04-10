@@ -412,6 +412,34 @@ maintenance_deposit_search_pagination:
 
 
 ###
+# Research collection related routes
+###
+external_strain:
+  class:   sfDoctrineRouteCollection
+  options: { model: ExternalStrain }
+
+external_strain_find_locations:
+  url:    external_strain/findLocations/:term
+  param:  { module: external_strain, action: findLocations }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+external_strain_search:
+  url:          external_strain/search/:criteria
+  param:        { module: external_strain, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+external_strain_pagination:
+  url:          external_strain/page/:page
+  param:        { module: external_strain, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+external_strain_search_pagination:
+  url:          external_strain/search/:criteria/page/:page
+  param:        { module: external_strain, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Isolation model related routes
 ###
 isolation:
