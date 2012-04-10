@@ -11,6 +11,7 @@
  * @property string $link
  * @property boolean $is_public
  * @property Doctrine_Collection $Strains
+ * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
  * @property Doctrine_Collection $Isolations
@@ -21,6 +22,7 @@
  * @method string              getLink()                Returns the current record's "link" value
  * @method boolean             getIsPublic()            Returns the current record's "is_public" value
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
+ * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
@@ -30,6 +32,7 @@
  * @method CultureMedium       setLink()                Sets the current record's "link" value
  * @method CultureMedium       setIsPublic()            Sets the current record's "is_public" value
  * @method CultureMedium       setStrains()             Sets the current record's "Strains" collection
+ * @method CultureMedium       setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method CultureMedium       setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method CultureMedium       setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * @method CultureMedium       setIsolations()          Sets the current record's "Isolations" collection
@@ -90,6 +93,11 @@ abstract class BaseCultureMedium extends sfDoctrineRecord
              'refClass' => 'StrainCultureMedia',
              'local' => 'culture_medium_id',
              'foreign' => 'strain_id'));
+
+        $this->hasMany('ExternalStrain as ExternalStrains', array(
+             'refClass' => 'ExternalStrainCultureMedia',
+             'local' => 'culture_medium_id',
+             'foreign' => 'external_strain_id'));
 
         $this->hasMany('PatentDeposit as PatentDeposits', array(
              'refClass' => 'PatentDepositCultureMedia',

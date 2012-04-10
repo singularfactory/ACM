@@ -13,9 +13,10 @@ abstract class BaseCryopreservationFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'subject'                    => new sfWidgetFormChoice(array('choices' => array('' => '', 'sample' => 'sample', 'strain' => 'strain'))),
+      'subject'                    => new sfWidgetFormChoice(array('choices' => array('' => '', 'sample' => 'sample', 'strain' => 'strain', 'external_strain' => 'external_strain'))),
       'strain_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
+      'external_strain_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ExternalStrain'), 'add_empty' => true)),
       'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => true)),
       'cryopreservation_date'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'first_replicate'            => new sfWidgetFormFilterInput(),
@@ -30,9 +31,10 @@ abstract class BaseCryopreservationFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
-      'subject'                    => new sfValidatorChoice(array('required' => false, 'choices' => array('sample' => 'sample', 'strain' => 'strain'))),
+      'subject'                    => new sfValidatorChoice(array('required' => false, 'choices' => array('sample' => 'sample', 'strain' => 'strain', 'external_strain' => 'external_strain'))),
       'strain_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Strain'), 'column' => 'id')),
       'sample_id'                  => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Sample'), 'column' => 'id')),
+      'external_strain_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('ExternalStrain'), 'column' => 'id')),
       'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('CryopreservationMethod'), 'column' => 'id')),
       'cryopreservation_date'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'first_replicate'            => new sfValidatorPass(array('required' => false)),
@@ -67,6 +69,7 @@ abstract class BaseCryopreservationFormFilter extends BaseFormFilterDoctrine
       'subject'                    => 'Enum',
       'strain_id'                  => 'ForeignKey',
       'sample_id'                  => 'ForeignKey',
+      'external_strain_id'         => 'ForeignKey',
       'cryopreservation_method_id' => 'ForeignKey',
       'cryopreservation_date'      => 'Date',
       'first_replicate'            => 'Text',

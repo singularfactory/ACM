@@ -38,6 +38,16 @@
 		</div>
 		<?php endif ?>
 		
+		<?php if ( isset($form['external_strain_id']) ): ?>
+		<div id="external_strain_id">
+			<?php echo $form['external_strain_id']->renderLabel() ?>
+			<?php echo $form['external_strain_id']->renderError() ?>
+			<?php echo $form['external_strain_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a research collection code...':$form->getObject()->getExternalStrain()->getFullCode(); ?>" id="cryopreservation_external_strain_search" />
+			<a href="<?php echo url_for('@cryopreservation_find_external_strains?term=') ?>" class="cryopreservation_external_strain_numbers_url"></a>
+		</div>
+		<?php endif ?>
+		
 		<div id="cryopreservation_method_id">
 			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
 			<?php echo $form['cryopreservation_method_id']->renderError() ?>

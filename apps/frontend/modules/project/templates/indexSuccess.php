@@ -29,6 +29,7 @@
 			<?php $code = '' ?>
 			<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
 			<?php $genusAndSpecies = sfConfig::get('app_no_data_message') ?>
+			<?php $subject = $project->getSubject() ?>
 			
 			<?php if ( $project->getSubject() == 'sample' ): ?>
 				<?php $code = $project->getSample()->getCode() ?>
@@ -37,10 +38,16 @@
 				<?php $code = $strain->getFullCode() ?>
 				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $strain->getGenusAndSpecies() ?>
+			<?php elseif ( $project->getSubject() == 'external_strain' ): ?>
+				<?php $subject = 'research_collection' ?>
+				<?php $externalStrain = $project->getExternalStrain() ?>
+				<?php $code = $externalStrain->getFullCode() ?>
+				<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
+				<?php $genusAndSpecies = $externalStrain->getGenusAndSpecies() ?>
 			<?php endif ?>
 			
 			<td class="project_code"><?php echo link_to($code, $url) ?></td>
-			<td class="project_subject"><?php echo link_to($project->getSubject(), $url) ?></td>
+			<td class="project_subject"><?php echo link_to(sfInflector::humanize($subject), $url) ?></td>
 			<td class="project_name"><?php echo link_to($project->getProjectName()->getName(), $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
 			<td class="genus_name"><span class="species_name"><?php echo link_to($genusAndSpecies, $url) ?></span></td>

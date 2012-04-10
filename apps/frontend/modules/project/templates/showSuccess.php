@@ -7,6 +7,13 @@
 	<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 	<?php $genus = $strain->getGenus() ?>
 	<?php $species = $strain->getSpecies() ?>
+<?php elseif ( $project->getExternalStrain()->exists() ): ?>
+	<?php $externalStrain = $project->getExternalStrain() ?>
+	<?php $code = $externalStrain->getFullCode() ?>
+	<?php $route = "@external_strain_show?id={$externalStrain->getId()}" ?>
+	<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
+	<?php $genus = $externalStrain->getGenus() ?>
+	<?php $species = $externalStrain->getSpecies() ?>
 <?php elseif( $project->getSample()->exists() ): ?>
 	<?php $sample = $project->getSample() ?>
 	<?php $code = $sample->getCode() ?>

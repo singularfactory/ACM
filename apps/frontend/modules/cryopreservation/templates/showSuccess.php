@@ -1,5 +1,6 @@
 <?php use_helper('Date'); ?>
 
+<?php $subject = strtolower(sfInflector::humanize($cryopreservation->getSubject())) ?>
 <?php if ( $cryopreservation->getStrain()->exists() ): ?>
 	<?php $strain = $cryopreservation->getStrain() ?>
 	<?php $code = $strain->getFullCode() ?>
@@ -7,6 +8,14 @@
 	<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 	<?php $genus = $strain->getGenus() ?>
 	<?php $species = $strain->getSpecies() ?>
+<?php elseif ( $cryopreservation->getExternalStrain()->exists() ): ?>
+	<?php $subject = strtolower(sfInflector::humanize('research_collection')) ?>
+	<?php $externalStrain = $cryopreservation->getExternalStrain() ?>
+	<?php $code = $externalStrain->getFullCode() ?>
+	<?php $route = "@external_strain_show?id={$externalStrain->getId()}" ?>
+	<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
+	<?php $genus = $externalStrain->getGenus() ?>
+	<?php $species = $externalStrain->getSpecies() ?>
 <?php elseif( $cryopreservation->getSample()->exists() ): ?>
 	<?php $sample = $cryopreservation->getSample() ?>
 	<?php $code = $sample->getCode() ?>
@@ -18,7 +27,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	Cryopreservation from <?php echo $cryopreservation->getSubject() ?> <?php echo $code ?>
+	Cryopreservation from <?php echo $subject ?> <?php echo $code ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'cryopreservation')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'cryopreservation', 'id' => $cryopreservation->getId())) ?>

@@ -11,6 +11,7 @@
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
+ * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
@@ -19,6 +20,7 @@
  * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Habitat             setId()                  Sets the current record's "id" value
  * @method Habitat             setName()                Sets the current record's "name" value
@@ -26,6 +28,7 @@
  * @method Habitat             setSamples()             Sets the current record's "Samples" collection
  * @method Habitat             setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Habitat             setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
+ * @method Habitat             setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method Habitat             setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
@@ -77,6 +80,10 @@ abstract class BaseHabitat extends sfDoctrineRecord
              'foreign' => 'habitat_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'local' => 'id',
+             'foreign' => 'habitat_id'));
+
+        $this->hasMany('ExternalStrain as ExternalStrains', array(
              'local' => 'id',
              'foreign' => 'habitat_id'));
 

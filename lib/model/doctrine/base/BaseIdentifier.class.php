@@ -12,6 +12,7 @@
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
+ * @property Doctrine_Collection $ExternalStrains
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
@@ -20,6 +21,7 @@
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
+ * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Identifier          setId()                  Sets the current record's "id" value
  * @method Identifier          setName()                Sets the current record's "name" value
  * @method Identifier          setSurname()             Sets the current record's "surname" value
@@ -27,6 +29,7 @@
  * @method Identifier          setStrains()             Sets the current record's "Strains" collection
  * @method Identifier          setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Identifier          setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
+ * @method Identifier          setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -92,6 +95,10 @@ abstract class BaseIdentifier extends sfDoctrineRecord
              'foreign' => 'identifier_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'local' => 'id',
+             'foreign' => 'identifier_id'));
+
+        $this->hasMany('ExternalStrain as ExternalStrains', array(
              'local' => 'id',
              'foreign' => 'identifier_id'));
 

@@ -327,12 +327,12 @@ project_search:
 project_filter_by_subject_new:
   url:          project/new/:subject
   param:        { module: project, action: new, subject: sample }
-  requirements: { subject: "(sample)|(strain)", sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)", sf_method: [get, head] }
 
 project_filter_by_subject_edit:
   url:          project/:id/edit/:subject
   param:        { module: project, action: edit, subject: sample }
-  requirements: { subject: "(sample)|(strain)", id: \d+, sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)", id: \d+, sf_method: [get, head] }
 
 project_find_samples:
   url:    project/findSamples/:term
@@ -344,6 +344,10 @@ project_find_strains:
   param:        { module: project, action: findStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
+project_find_external_strains:
+  url:          project/findExternalStrains/:term
+  param:        { module: project, action: findExternalStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 project_pagination:
   url:          project/page/:page
   param:        { module: project, action: index, page: 1 }
@@ -353,6 +357,7 @@ project_search_pagination:
   url:          project/search/:criteria/page/:page
   param:        { module: project, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
 
 
 ###
@@ -412,6 +417,34 @@ maintenance_deposit_search_pagination:
 
 
 ###
+# Research collection related routes
+###
+external_strain:
+  class:   sfDoctrineRouteCollection
+  options: { model: ExternalStrain }
+
+external_strain_find_locations:
+  url:    external_strain/findLocations/:term
+  param:  { module: external_strain, action: findLocations }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+external_strain_search:
+  url:          external_strain/search/:criteria
+  param:        { module: external_strain, action: index }
+  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
+
+external_strain_pagination:
+  url:          external_strain/page/:page
+  param:        { module: external_strain, action: index, page: 1 }
+  requirements: { page: \d+ }
+
+external_strain_search_pagination:
+  url:          external_strain/search/:criteria/page/:page
+  param:        { module: external_strain, action: index, page: 1 }
+  requirements: { criteria: "[^/]+", page: \d+ }
+
+
+###
 # Isolation model related routes
 ###
 isolation:
@@ -421,12 +454,12 @@ isolation:
 isolation_filter_by_subject_new:
   url:          isolation/new/:subject
   param:        { module: isolation, action: new, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external)", sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external)|(external_strain)", sf_method: [get, head] }
 
 isolation_filter_by_subject_edit:
   url:          isolation/:id/edit/:subject
   param:        { module: isolation, action: edit, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external)", id: \d+, sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external)|(external_strain)", id: \d+, sf_method: [get, head] }
 
 isolation_find_locations:
   url:    isolation/findLocations/:term
@@ -443,6 +476,10 @@ isolation_find_strains:
   param:        { module: isolation, action: findStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
+isolation_find_external_strains:
+  url:          isolation/findExternalStrains/:term
+  param:        { module: isolation, action: findExternalStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 isolation_search:
   url:          isolation/search/:criteria
   param:        { module: isolation, action: index }
@@ -457,6 +494,7 @@ isolation_search_pagination:
   url:          isolation/search/:criteria/page/:page
   param:        { module: isolation, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
 
 
 ###
@@ -474,12 +512,12 @@ cryopreservation_search:
 cryopreservation_filter_by_subject_new:
   url:          cryopreservation/new/:subject
   param:        { module: cryopreservation, action: new, subject: sample }
-  requirements: { subject: "(sample)|(strain)", sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)", sf_method: [get, head] }
 
 cryopreservation_filter_by_subject_edit:
   url:          cryopreservation/:id/edit/:subject
   param:        { module: cryopreservation, action: edit, subject: sample }
-  requirements: { subject: "(sample)|(strain)", id: \d+, sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)", id: \d+, sf_method: [get, head] }
 
 cryopreservation_find_samples:
   url:    cryopreservation/findSamples/:term
@@ -500,6 +538,11 @@ cryopreservation_search_pagination:
   url:          cryopreservation/search/:criteria/page/:page
   param:        { module: cryopreservation, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
+cryopreservation_find_external_strains:
+  url:          cryopreservation/findExternalStrains/:term
+  param:        { module: cryopreservation, action: findExternalStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
 
 ###

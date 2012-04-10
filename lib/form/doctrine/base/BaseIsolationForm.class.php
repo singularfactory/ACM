@@ -17,9 +17,10 @@ abstract class BaseIsolationForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                     => new sfWidgetFormInputHidden(),
       'reception_date'         => new sfWidgetFormDate(),
-      'isolation_subject'      => new sfWidgetFormChoice(array('choices' => array('sample' => 'sample', 'strain' => 'strain', 'external' => 'external'))),
+      'isolation_subject'      => new sfWidgetFormChoice(array('choices' => array('sample' => 'sample', 'strain' => 'strain', 'external' => 'external', 'external_strain' => 'external_strain'))),
       'sample_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'strain_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
+      'external_strain_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ExternalStrain'), 'add_empty' => true)),
       'external_code'          => new sfWidgetFormInputText(),
       'taxonomic_class_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => true)),
       'genus_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => true)),
@@ -42,9 +43,10 @@ abstract class BaseIsolationForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                     => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'reception_date'         => new sfValidatorDate(),
-      'isolation_subject'      => new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external'), 'required' => false)),
+      'isolation_subject'      => new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external', 3 => 'external_strain'), 'required' => false)),
       'sample_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'required' => false)),
       'strain_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'required' => false)),
+      'external_strain_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('ExternalStrain'), 'required' => false)),
       'external_code'          => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'taxonomic_class_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'required' => false)),
       'genus_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'required' => false)),

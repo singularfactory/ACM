@@ -39,6 +39,16 @@
 		</div>
 		<?php endif ?>
 		
+		<?php if ( isset($form['external_strain_id']) ): ?>
+		<div id="external_strain_id">
+			<?php echo $form['external_strain_id']->renderLabel() ?>
+			<?php echo $form['external_strain_id']->renderError() ?>
+			<?php echo $form['external_strain_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a research collection code...':$form->getObject()->getExternalStrain()->getFullCode(); ?>" id="isolation_external_strain_search" />
+			<a href="<?php echo url_for('@isolation_find_external_strains?term=') ?>" class="isolation_external_strain_numbers_url"></a>
+		</div>
+		<?php endif ?>
+		
 		<?php if ( isset($form['external_code']) ): ?>
 		<div id="external_code">
 			<?php echo $form['external_code']->renderLabel() ?>

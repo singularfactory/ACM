@@ -201,6 +201,7 @@ Collector:
     Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
     PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: collector_id, foreign: patent_deposit_id, refClass: PatentDepositCollectors }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: collector_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCollectors }
+    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: collector_id, foreign: external_strain_id, refClass: ExternalStrainCollectors }
   indexes:
     collector_name:
       fields:
@@ -237,7 +238,8 @@ Isolator:
     surname:  { type: string(127), notnull: true }
     email:    { type: string(255) }
   relations:
-    Strains:        { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
+    Strains:          { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
+    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: isolator_id, foreign: external_strain_id, refClass: ExternalStrainIsolators }
     PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: isolator_id, foreign: patent_deposit_id, refClass: PatentDepositIsolators }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: isolator_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositIsolators }
     Isolations:     { foreignAlias: Isolations, class: Isolation, local: isolator_id, foreign: isolation_id, refClass: IsolationIsolators }
@@ -258,7 +260,7 @@ StrainIsolators:
   relations:
     Strain:       { onDelete: cascade }
   indexes:
-    unique_order:  { fields: [strain_id, isolator_id, sort_order], type: unique }  
+    unique_order:  { fields: [strain_id, isolator_id, sort_order], type: unique }
 
 
 Identifier:
@@ -285,7 +287,8 @@ MaintenanceStatus:
       fields:
         name: { length: 20 }
   relations:
-    Strains:        { foreignAlias: Strains, class: Strain, local: maintenance_status_id, foreign: strain_id, refClass: StrainMaintenanceStatus }
+    Strains:          { foreignAlias: Strains, class: Strain, local: maintenance_status_id, foreign: strain_id, refClass: StrainMaintenanceStatus }
+    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: maintenance_status_id, foreign: external_strain_id, refClass: ExternalStrainMaintenanceStatus }
     PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: maintenance_status_id, foreign: patent_deposit_id, refClass: PatentDepositMaintenanceStatus }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: maintenance_status_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositMaintenanceStatus }
 
@@ -399,7 +402,8 @@ CultureMedium:
     is_public:    { type: boolean, notnull: true, default: false }
     # amount:       { type: integer, notnull: true, default: 0 }
   relations:
-      Strains:        { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
+      Strains:          { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
+      ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: culture_medium_id, foreign: external_strain_id, refClass: ExternalStrainCultureMedia }
       PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: culture_medium_id, foreign: patent_deposit_id, refClass: PatentDepositCultureMedia }
       MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: culture_medium_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCultureMedia }
       Isolations:     { foreignAlias: Isolations, class: Isolation, local: culture_medium_id, foreign: isolation_id, refClass: IsolationCultureMedia }
@@ -448,7 +452,8 @@ Container:
     id:   { type: integer, primary: true, autoincrement: true }
     name: { type: string(255), notnull: true }
   relations:
-    Strains:  { foreignAlias: Strains, class: Strain, local: container_id, foreign: strain_id, refClass: StrainContainers }
+    Strains:          { foreignAlias: Strains, class: Strain, local: container_id, foreign: strain_id, refClass: StrainContainers }
+    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: container_id, foreign: external_strain_id, refClass: ExternalStrainContainers }
   indexes:
     container_name:
       fields:
@@ -540,7 +545,7 @@ StrainMaintenanceStatus:
 
 
 sfGuardUser:
-  columns:  
+  columns:
     avatar:             { type: string(255) }
     token:              { type: string(40), notnull: true }
     notify_new_order:   { type: boolean, notnull: true, default: true }
@@ -741,24 +746,26 @@ PurchaseItem:
 
 Project:
   columns:
-    id:               { type: integer, primary: true, autoincrement: true }
-    project_name_id:  { type: integer, notnull: true }
-    petitioner_id:    { type: integer, notnull: true }
-    subject:          { type: enum, values: [sample, strain] }
-    strain_id:        { type: integer }
-    sample_id:        { type: integer }
-    amount:           { type: float, notnull: true, default: 0.0 }
-    provider_id:      { type: integer }
-    inoculation_date: { type: date, notnull: true }
-    purpose:          { type: string, notnull: true }
-    delivery_date:    { type: date }
-    remarks:          { type: string }
+    id:                 { type: integer, primary: true, autoincrement: true }
+    project_name_id:    { type: integer, notnull: true }
+    petitioner_id:      { type: integer, notnull: true }
+    subject:            { type: enum, values: [sample, strain, "external_strain"] }
+    strain_id:          { type: integer }
+    sample_id:          { type: integer }
+    external_strain_id: { type: integer }
+    amount:             { type: float, notnull: true, default: 0.0 }
+    provider_id:        { type: integer }
+    inoculation_date:   { type: date, notnull: true }
+    purpose:            { type: string, notnull: true }
+    delivery_date:      { type: date }
+    remarks:            { type: string }
   relations:
-    ProjectName:  { foreignAlias: Projects }
-    Sample:       { foreignAlias: Projects }
-    Strain:       { foreignAlias: Projects }
-    Provider:     { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
-    Petitioner:   { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
+    ProjectName:    { foreignAlias: Projects }
+    Sample:         { foreignAlias: Projects }
+    Strain:         { foreignAlias: Projects }
+    ExternalStrain: { foreignAlias: Projects }
+    Provider:       { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
+    Petitioner:     { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
   indexes:
     project_inoculation_date:
       fields: [inoculation_date]
@@ -959,6 +966,100 @@ MaintenanceDepositMaintenanceStatus:
     MaintenanceDeposit:      { onDelete: cascade }
 
 
+ExternalStrain:
+  columns:
+    id:                         { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:         { type: integer, notnull: true }
+    genus_id:                   { type: integer, notnull: true }
+    species_id:                 { type: integer, notnull: true }
+    authority_id:               { type: integer, notnull: true }
+    is_epitype:                 { type: boolean, notnull: true, default: false }
+    is_axenic:                  { type: boolean, notnull: true, default: false }
+    has_dna:                    { type: boolean, notnull: true, default: false }
+    location_id:                { type: integer, notnull: true }
+    environment_id:             { type: integer }
+    habitat_id:                 { type: integer }
+    collection_date:            { type: date }
+    isolation_date:             { type: date }
+    identifier_id:              { type: integer }
+    supervisor_id:              { type: integer }
+    cryopreservation_method_id: { type: integer }
+    transfer_interval:          { type: string(40) }
+    observation:                { type: string }
+    citations:                  { type: string }
+    remarks:                    { type: string }
+    container_id:               { type: integer }
+  relations:
+    TaxonomicClass:         { foreignAlias: ExternalStrains }
+    Genus:                  { foreignAlias: ExternalStrains }
+    Species:                { foreignAlias: ExternalStrains }
+    Authority:              { foreignAlias: ExternalStrains }
+    Location:               { foreignAlias: ExternalStrains }
+    Environment:            { foreignAlias: ExternalStrains }
+    Habitat:                { foreignAlias: ExternalStrains }
+    Identifier:             { foreignAlias: ExternalStrains }
+    Supervisor:             { class: sfGuardUser, local: supervisor_id, foreignAlias: ExternalStrains }
+    CryopreservationMethod: { foreignAlias: ExternalStrains }
+    Container:              { foreignAlias: ExternalStrains }
+    Containers:             { foreignAlias: Containers, class: Container, local: external_strain_id, foreign: container_id, refClass: ExternalStrainContainers }
+    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: external_strain_id, foreign: culture_medium_id, refClass: ExternalStrainCultureMedia }
+    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: external_strain_id, foreign: maintenance_status_id, refClass: ExternalStrainMaintenanceStatus }
+    Isolators:              { foreignAlias: Isolators, class: Isolator, local: external_strain_id, foreign: isolator_id, refClass: ExternalStrainIsolators }
+    Collectors:             { foreignAlias: Collectors, class: Collector, local: external_strain_id, foreign: collector_id, refClass: ExternalStrainCollectors }
+  actAs:
+    Timestampable:
+    Date:
+
+
+ExternalStrainRelative:
+  columns:
+    id:                 { type: integer, primary: true, autoincrement: true }
+    name:               { type: string(255), notnull: true }
+    external_strain_id: { type: integer, notnull: true }
+  relations:
+    ExternalStrain:     { foreignAlias: Relatives, onDelete: cascade }
+
+
+ExternalStrainContainers:
+  columns:
+    external_strain_id: { type: integer, primary: true }
+    container_id:       { type: integer, primary: true }
+  relations:
+    ExternalStrain:     { onDelete: cascade }
+
+
+ExternalStrainCultureMedia:
+  columns:
+    external_strain_id: { type: integer, primary: true }
+    culture_medium_id:  { type: integer, primary: true }
+  relations:
+    ExternalStrain:     { onDelete: cascade }
+
+
+ExternalStrainIsolators:
+  columns:
+    external_strain_id: { type: integer, primary: true }
+    isolator_id:        { type: integer, primary: true }
+  relations:
+    ExternalStrain:     { onDelete: cascade }
+
+
+ExternalStrainCollectors:
+  columns:
+    external_strain_id: { type: integer, primary: true }
+    collector_id:       { type: integer, primary: true }
+  relations:
+    ExternalStrain:     { onDelete: cascade }
+
+
+ExternalStrainMaintenanceStatus:
+  columns:
+    external_strain_id:     { type: integer, primary: true }
+    maintenance_status_id:  { type: integer, primary: true }
+  relations:
+    ExternalStrain:      { onDelete: cascade }
+
+
 PurificationMethod:
   columns:
     id:   { type: integer, primary: true, autoincrement: true }
@@ -973,17 +1074,18 @@ Isolation:
   columns:
     id:                     { type: integer, primary: true, autoincrement: true }
     reception_date:         { type: date, notnull: true }
-    isolation_subject:      { type: enum, values: [sample, strain, external] }
+    isolation_subject:      { type: enum, values: [sample, strain, external, "external_strain"] }
     sample_id:              { type: integer }
     strain_id:              { type: integer }
+    external_strain_id:     { type: integer }
     external_code:          { type: string(128) }
     taxonomic_class_id:     { type: integer } # Only for external, not applicable to sample
     genus_id:               { type: integer } # Only for external, not applicable to sample
     species_id:             { type: integer } # Only for external, not applicable to sample
     authority_id:           { type: integer } # Only for external, not applicable to sample
-    location_id:            { type: integer } # Only for external, automatically retrieved for sample and strain
-    environment_id:         { type: integer } # Only for external, automatically retrieved for sample and strain
-    habitat_id:             { type: integer } # Only for external, automatically retrieved for sample and strain
+    location_id:            { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
+    environment_id:         { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
+    habitat_id:             { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
     delivery_date:          { type: date }
     purification_method_id: { type: integer, notnull: true }
     purification_details:   { type: string }
@@ -992,6 +1094,7 @@ Isolation:
   relations:
     Sample:             { foreignAlias: Isolations }
     Strain:             { foreignAlias: Isolations }
+    ExternalStrain:     { foreignAlias: Isolations }
     TaxonomicClass:     { foreignAlias: Isolations }
     Genus:              { foreignAlias: Isolations }
     Species:            { foreignAlias: Isolations }
@@ -1037,9 +1140,10 @@ ProjectName:
 Cryopreservation:
   columns:
     id:                         { type: integer, primary: true, autoincrement: true }
-    subject:                    { type: enum, values: [sample, strain] }
+    subject:                    { type: enum, values: [sample, strain, "external_strain"] }
     strain_id:                  { type: integer }
     sample_id:                  { type: integer }
+    external_strain_id:         { type: integer }
     cryopreservation_method_id: { type: integer, notnull: true }
     cryopreservation_date:      { type: date, notnull: true }
     first_replicate:            { type: string(10) }
@@ -1052,6 +1156,7 @@ Cryopreservation:
   relations:
     Sample:                 { foreignAlias: Cryopreservations }
     Strain:                 { foreignAlias: Cryopreservations }
+    ExternalStrain:         { foreignAlias: Cryopreservations }
     CryopreservationMethod: { foreignAlias: Cryopreservations }
   indexes:
     cryopreservation_date:

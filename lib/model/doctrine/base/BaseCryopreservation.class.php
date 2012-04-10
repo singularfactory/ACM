@@ -9,6 +9,7 @@
  * @property enum $subject
  * @property integer $strain_id
  * @property integer $sample_id
+ * @property integer $external_strain_id
  * @property integer $cryopreservation_method_id
  * @property date $cryopreservation_date
  * @property string $first_replicate
@@ -20,12 +21,14 @@
  * @property string $remarks
  * @property Sample $Sample
  * @property Strain $Strain
+ * @property ExternalStrain $ExternalStrain
  * @property CryopreservationMethod $CryopreservationMethod
  * 
  * @method integer                getId()                         Returns the current record's "id" value
  * @method enum                   getSubject()                    Returns the current record's "subject" value
  * @method integer                getStrainId()                   Returns the current record's "strain_id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
+ * @method integer                getExternalStrainId()           Returns the current record's "external_strain_id" value
  * @method integer                getCryopreservationMethodId()   Returns the current record's "cryopreservation_method_id" value
  * @method date                   getCryopreservationDate()       Returns the current record's "cryopreservation_date" value
  * @method string                 getFirstReplicate()             Returns the current record's "first_replicate" value
@@ -37,11 +40,13 @@
  * @method string                 getRemarks()                    Returns the current record's "remarks" value
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
  * @method Strain                 getStrain()                     Returns the current record's "Strain" value
+ * @method ExternalStrain         getExternalStrain()             Returns the current record's "ExternalStrain" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Cryopreservation       setId()                         Sets the current record's "id" value
  * @method Cryopreservation       setSubject()                    Sets the current record's "subject" value
  * @method Cryopreservation       setStrainId()                   Sets the current record's "strain_id" value
  * @method Cryopreservation       setSampleId()                   Sets the current record's "sample_id" value
+ * @method Cryopreservation       setExternalStrainId()           Sets the current record's "external_strain_id" value
  * @method Cryopreservation       setCryopreservationMethodId()   Sets the current record's "cryopreservation_method_id" value
  * @method Cryopreservation       setCryopreservationDate()       Sets the current record's "cryopreservation_date" value
  * @method Cryopreservation       setFirstReplicate()             Sets the current record's "first_replicate" value
@@ -53,6 +58,7 @@
  * @method Cryopreservation       setRemarks()                    Sets the current record's "remarks" value
  * @method Cryopreservation       setSample()                     Sets the current record's "Sample" value
  * @method Cryopreservation       setStrain()                     Sets the current record's "Strain" value
+ * @method Cryopreservation       setExternalStrain()             Sets the current record's "ExternalStrain" value
  * @method Cryopreservation       setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * 
  * @package    bna_green_house
@@ -76,12 +82,16 @@ abstract class BaseCryopreservation extends sfDoctrineRecord
              array(
               0 => 'sample',
               1 => 'strain',
+              2 => 'external_strain',
              ),
              ));
         $this->hasColumn('strain_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('sample_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('external_strain_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
@@ -138,6 +148,10 @@ abstract class BaseCryopreservation extends sfDoctrineRecord
 
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('ExternalStrain', array(
+             'local' => 'external_strain_id',
              'foreign' => 'id'));
 
         $this->hasOne('CryopreservationMethod', array(
