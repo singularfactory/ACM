@@ -33,8 +33,11 @@ class articleActions extends myActions {
 			$this->setTemplate('configure');
 		}
 		else {
-			$this->createPdf('0001');
-			return sfView::NONE;
+			$this->setLayout(false);
+			$strain = StrainTable::getInstance()->find($request->getParameter('strain_id'));
+
+			//$this->createPdf('0001');
+			//return sfView::NONE;
 		}
 	}
 
