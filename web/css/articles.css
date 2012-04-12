@@ -1,3 +1,20 @@
+span.bea_code { display:block; margin-top: 1em; }
+
+form select {
+	display: inline;
+	margin-top: -3px;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	vertical-align: top;
+}
+
+form #left_side_form { max-width: 35%; }
+form #right_side_form { max-width: 60%; }
+
+div.article_content_section h3 { padding-top: 0em; margin-top: 0em; }
+div.article_content_section p { padding-left: 0em; }
+
 #header {
 
 }

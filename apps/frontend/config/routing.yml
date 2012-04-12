@@ -670,15 +670,20 @@ label_find_products:
 ###
 # Article module routes
 ###
+article_new:
+  url:          /article/new
+  param:        { module: article, action: new }
+  requirements: { sf_method: [get] }
+
+article_configure:
+  url:          /article/configure
+  param:        { module: article, action: configure }
+  requirements: { sf_method: [post] }
+
 article_create:
   url:          /article/create
   param:        { module: article, action: create }
   requirements: { sf_method: [post] }
-
-article:
-  url:          /article
-  param:        { module: article, action: configure }
-  requirements: { sf_method: [get] }
 
 article_find_strains:
   url:          /article/findStrains/:term
@@ -707,12 +712,12 @@ report_find_countries:
 report_find_regions:
   url:          /report/findRegions/:region
   param:        { module: report, action: findRegions }
-  requirements: { sf_method: get, country: "[^/]+" }
+  requirements: { sf_method: get, region: "[^/]+" }
 
 report_find_islands:
   url:          /report/findIslands/:island
   param:        { module: report, action: findIslands }
-  requirements: { sf_method: get, country: "[^/]+" }
+  requirements: { sf_method: get, island: "[^/]+" }
 
 
 ###

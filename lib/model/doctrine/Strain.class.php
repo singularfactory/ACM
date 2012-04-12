@@ -315,4 +315,21 @@ class Strain extends BaseStrain {
 		}
 		return sfConfig::get('app_no_data_message');
 	}
+
+	public function getSequencedGenes() {
+		$sequences = DnaSequenceTable::getInstance()->createQuery('seq')
+			->select('seq.id, seq.gen')
+			->leftJoin("seq.Pcr pcr")
+			->leftJoin("pcr.DnaExtraction dna")
+			->leftJoin("dna.Strain s")
+			->where("s.id = ?", $this->getId())
+			->andWhere("seq.worked = ?", 1)
+			->execute();
+
+		$genes = array();
+		foreach ($sequences as $sequence) {
+			$genes[] = $sequence->gen;
+		}
+		return $genes;
+	}
 }

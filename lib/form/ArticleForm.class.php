@@ -6,34 +6,53 @@
 * @package    bna_green_house
 * @subpackage form
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    2011-10-25
+* @version    2012-04-10
 */
 class ArticleForm extends BaseForm {
-	
 	public function configure() {
 		$this->setWidgets(array(
-			'strain_id'			=> new sfWidgetFormInputHidden(),
-			'content'			=> new sfWidgetFormInputText(),
+			'strain_id' => new sfWidgetFormInputHidden(),
+			'strain_picture' => new sfWidgetFormSelectRadio(array(
+				'choices' => array(), 'formatter' => array($this, 'pictureRadioFormatterCallback')
+			)),
 		));
 
 		$this->setValidators(array(
-			'strain_id'		=> new sfValidatorInteger(array('required' => true)),
-			'content'		=> new sfValidatorString(array('max_length' => 5, 'required' => false, 'trim' => true)),
+			'strain_id' => new sfValidatorInteger(array('required' => true)),
+			'culture_media_list' => new sfValidatorChoice(array('choices' => array(), 'multiple' => false, 'required' => true)),
+			'strain_picture' => new sfValidatorInteger(array('required' => true)),
 		));
 
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
-		
+
 		$this->widgetSchema->setLabels(array(
-			'strain_id'		=> 'Strain code',
-			'content'		=> 'Text',
+			'strain_id' => 'Strain code',
+			'strain_picture' => 'Strain picture',
 		));
-		
+
 		$this->widgetSchema->setHelps(array(
-			'strain_id'		=> '',
-			'content'		=> 'Write the text body of the article',
+			'strain_id' => 'First choose the strain the article will refer to',
+			'strain_picture' => 'Choose the strain picture that will be displayed',
 		));
-		
+
 		$this->setup();
+	}
+
+	/**
+	 * Custom formatter for picture selection
+	 *
+	 * @param sfWidget $widget
+	 * @param array $inputs
+	 * @return void
+	 * @author Eliezer Talón <elitalon@inventiaplus.com>
+	 */
+	public function pictureRadioFormatterCallback($widget, $inputs) {
+		$rows = array();
+		foreach ($inputs as $input) {
+			$rows[] = $widget->renderContentTag('li', $input['input']);
+		}
+
+		return !$rows ? '' : $widget->renderContentTag('ul', implode($widget->getOption('separator'), $rows), array('class' => $widget->getOption('class')));
 	}
 
 }

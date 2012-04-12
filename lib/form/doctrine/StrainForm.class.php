@@ -137,6 +137,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('temperature', 'Temperature conditions in culture');
 		$this->widgetSchema->setLabel('photoperiod', 'Photoperiod conditions in culture');
 		$this->widgetSchema->setLabel('irradiation', 'Irradiation conditions in culture');
+		$this->widgetSchema->setLabel('distribution', 'Worldwide distribution');
 		
 		// Configure help messages
 		$this->widgetSchema->setHelp('code', 'Only the number');

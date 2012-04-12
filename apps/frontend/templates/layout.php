@@ -182,9 +182,9 @@
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php
 						if ( !preg_match('/^((article)(\/_)?)/', $currentRoute) )
-							echo link_to('Articles', '@article');
+							echo link_to('Articles', '@article_new');
 						else
-							echo link_to('Articles', '@article', array('class' => 'header_menu_current_tab'));
+							echo link_to('Articles', '@article_new', array('class' => 'header_menu_current_tab'));
 						?>
 					</li>
 

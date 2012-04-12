@@ -376,6 +376,20 @@
 			<?php echo $form['web_notes']->renderHelp() ?>
 			<?php echo $form['web_notes'] ?>
 		</div>
+
+		<div id="distribution">
+			<?php echo $form['distribution']->renderLabel() ?>
+			<?php echo $form['distribution']->renderError() ?>
+			<?php echo $form['distribution']->renderHelp() ?>
+			<?php echo $form['distribution'] ?>
+		</div>
+
+		<div id="article_description">
+			<?php echo $form['article_description']->renderLabel() ?>
+			<?php echo $form['article_description']->renderError() ?>
+			<?php echo $form['article_description']->renderHelp() ?>
+			<?php echo $form['article_description'] ?>
+		</div>
 	</div>
 
 	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'strain', 'progressBar' => true)) ?>

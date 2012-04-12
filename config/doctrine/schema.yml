@@ -494,6 +494,8 @@ Strain:
     temperature:                { type: decimal }
     photoperiod:                { type: decimal }
     irradiation:                { type: decimal }
+    distribution:               { type: string }
+    article_description:        { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }
     Depositor:              { foreignAlias: Strains }

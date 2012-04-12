@@ -320,6 +320,12 @@
 
 			<dt>Web notes:</dt>
 			<dd><?php echo $strain->getWebNotes() ?></dd>
+
+			<dt>Worldwide distribution:</dt>
+			<dd><?php echo $strain->getDistribution() ?></dd>
+
+			<dt>Article description:</dt>
+			<dd><?php echo $strain->getArticleDescription() ?></dd>
 		</dl>
 	</div>
 

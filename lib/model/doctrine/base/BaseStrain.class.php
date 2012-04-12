@@ -36,6 +36,8 @@
  * @property decimal $temperature
  * @property decimal $photoperiod
  * @property decimal $irradiation
+ * @property string $distribution
+ * @property string $article_description
  * @property Sample $Sample
  * @property Depositor $Depositor
  * @property Kingdom $Kingdom
@@ -97,6 +99,8 @@
  * @method decimal             getTemperature()             Returns the current record's "temperature" value
  * @method decimal             getPhotoperiod()             Returns the current record's "photoperiod" value
  * @method decimal             getIrradiation()             Returns the current record's "irradiation" value
+ * @method string              getDistribution()            Returns the current record's "distribution" value
+ * @method string              getArticleDescription()      Returns the current record's "article_description" value
  * @method Sample              getSample()                  Returns the current record's "Sample" value
  * @method Depositor           getDepositor()               Returns the current record's "Depositor" value
  * @method Kingdom             getKingdom()                 Returns the current record's "Kingdom" value
@@ -157,6 +161,8 @@
  * @method Strain              setTemperature()             Sets the current record's "temperature" value
  * @method Strain              setPhotoperiod()             Sets the current record's "photoperiod" value
  * @method Strain              setIrradiation()             Sets the current record's "irradiation" value
+ * @method Strain              setDistribution()            Sets the current record's "distribution" value
+ * @method Strain              setArticleDescription()      Sets the current record's "article_description" value
  * @method Strain              setSample()                  Sets the current record's "Sample" value
  * @method Strain              setDepositor()               Sets the current record's "Depositor" value
  * @method Strain              setKingdom()                 Sets the current record's "Kingdom" value
@@ -308,6 +314,12 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('irradiation', 'decimal', null, array(
              'type' => 'decimal',
+             ));
+        $this->hasColumn('distribution', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('article_description', 'string', null, array(
+             'type' => 'string',
              ));
 
 

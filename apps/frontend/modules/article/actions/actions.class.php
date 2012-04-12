@@ -9,12 +9,32 @@
  */
 class articleActions extends myActions {
 	/**
+	 * Executes new action
+	 *
+	 * @param sfRequest $request A request object
+	 */
+	public function executeNew(sfWebRequest $request) {
+		$this->form = new ArticleForm();
+	}
+
+	/**
 	 * Executes configure action
 	 *
 	 * @param sfRequest $request A request object
 	 */
 	public function executeConfigure(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
+		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('id')));
+
 		$this->form = new ArticleForm();
+		$this->strain = $strain;
+
+		$cultureMediaChoices = array();
+		foreach ($strain->getCultureMedia() as $cultureMedium) {
+			$cultureMediaChoices[$cultureMedium->getId()] = $cultureMedium->getName();
+		}
+		$this->form->setWidget('culture_media_list', new sfWidgetFormChoice(array('choices' => $cultureMediaChoices)));
+		$this->form->getWidget('culture_media_list')->setLabel(false);
 	}
 
 	/**
