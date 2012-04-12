@@ -13,7 +13,7 @@ form #left_side_form { max-width: 35%; }
 form #right_side_form { max-width: 60%; }
 
 div.article_content_section h3 { padding-top: 0em; margin-top: 0em; }
-div.article_content_section p { padding-left: 0em; }
+div.article_content_section p { padding-left: 0em; padding-top: 0.5em; padding-bottom: 0.5em; margin-bottom: 0em; margin-top: 0em; }
 
 .thumbnail {
 	position: relative;
@@ -26,6 +26,10 @@ div.article_content_section p { padding-left: 0em; }
 
 .thumbnail_image {
 	margin-top: 10px;
+}
+
+#phylogenetic_information .thumbnail_image {
+	padding-top: 0; margin-top: 0;
 }
 
 #header {

@@ -89,9 +89,7 @@
 				</div>
 			</div>
 			<?php endforeach; ?>
-			<div class="clear">
-
-			</div>
+			<div class="clear"></div>
 		</div>
 		<?php endif ?>
 
@@ -114,8 +112,18 @@
 			</dl>
 		</div>
 
-		<div class="article_content_section">
+		<div id="phylogenetic_information" class="article_content_section">
 			<h3>Phylogenetic tree</h3>
+			<?php if ( $strain->getPhylogeneticDescription() ): ?>
+			<p><?php echo $strain->getPhylogeneticDescription() ?></p>
+			<?php endif ?>
+			<div class="thumbnail">
+				<div class="thumbnail_image">
+					<a href="<?php echo $strain->getPhylogeneticTreePath() ?>" rel="thumbnail_link" class="cboxElement">
+						<img src="<?php echo $strain->getPhylogeneticTreeThumbnail() ?>" />
+					</a>
+				</div>
+			</div>
 		</div>
 
 	</div>
