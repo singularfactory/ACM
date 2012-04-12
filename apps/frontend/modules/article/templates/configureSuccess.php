@@ -12,58 +12,58 @@
 
 	<div id="left_side_form">
 		<div class="article_content_section">
-			<h3>Taxonomía</h3>
+			<h3>Taxonomy</h3>
 			<dl>
-				<dt>Reino</dt>
+				<dt>Kingdom</dt>
 				<dd><?php echo $strain->getFormattedKingdom() ?></dd>
-				<dt>Subreino</dt>
+				<dt>Subkingdom</dt>
 				<dd><?php echo $strain->getFormattedSubkingdom() ?></dd>
 				<dt>Phylum</dt>
 				<dd><?php echo $strain->getFormattedPhylum() ?></dd>
-				<dt>Clase</dt>
+				<dt>Class</dt>
 				<dd><?php echo $strain->getTaxonomicClass() ?></dd>
-				<dt>Orden</dt>
+				<dt>Order</dt>
 				<dd><?php echo $strain->getFormattedTaxonomicOrder() ?></dd>
-				<dt>Familia</dt>
+				<dt>Family</dt>
 				<dd><?php echo $strain->getFormattedFamily() ?></dd>
 			</dl>
 		</div>
 
 		<div class="article_content_section">
-			<h3>Condiciones ambientales</h3>
+			<h3>Environmental conditions</h3>
 			<dl>
-				<dt>Latitud</dt>
+				<dt>Latitude</dt>
 				<dd><?php echo $strain->getSample()->getLatitude() ?></dd>
-				<dt>Longitud</dt>
+				<dt>Longitude</dt>
 				<dd><?php echo $strain->getSample()->getLongitude() ?></dd>
-				<dt>Hábitat</dt>
+				<dt>Habitat</dt>
 				<dd>
 					<?php echo $strain->getSample()->getHabitat() ?><?php if ($strain->getSample()->getLocationDetails()) echo ', '. lcfirst($strain->getSample()->getLocationDetails()) ?>
 				</dd>
-				<dt>Localidad</dt>
+				<dt>Location</dt>
 				<dd><?php echo $strain->getSample()->getLocation() ?>, <?php echo $strain->getSample()->getLocation()->getRegion() ?></dd>
-				<dt>País</dt>
+				<dt>Country</dt>
 				<dd><?php echo $strain->getSample()->getLocation()->getCountry() ?></dd>
-				<dt>Distribución mundial</dt>
+				<dt>Worldwide distribution</dt>
 				<dd><?php echo $strain->getDistribution() ?></dd>
 			</dl>
 		</div>
 
 		<div class="article_content_section">
-			<h3>Condiciones de cultivo</h3>
+			<h3>Culture conditions</h3>
 			<dl>
-				<dt>Medio de cultivo</dt>
+				<dt>Culture medium</dt>
 				<dd>
 					<?php echo $form['culture_media_list']->renderLabel() ?>
 					<?php echo $form['culture_media_list']->renderError() ?>
 					<?php echo $form['culture_media_list']->renderHelp() ?>
 					<?php echo $form['culture_media_list'] ?>
 				</dd>
-				<dt>Irradiación</dt>
+				<dt>Irradiation</dt>
 				<dd><?php echo $strain->getIrradiation() ?></dd>
-				<dt>Temperatura</dt>
+				<dt>Temperature</dt>
 				<dd><?php echo $strain->getTemperature() ?>&nbsp;<?php echo sfConfig::get('app_temperature_unit') ?></dd>
-				<dt>Fotoperiodo</dt>
+				<dt>Photoperiod</dt>
 				<dd><?php echo $strain->getPhotoperiod() ?></dd>
 			</dl>
 		</div>
@@ -74,31 +74,48 @@
 	</div>
 
 	<div id="right_side_form">
-		<div class="strain_picture">
+		<?php if ( $strain->getNbPictures() > 0 ): ?>
+		<div class="article_content_section">
+			<h3>Strain picture</h3>
+			<?php echo $form['strain_picture']->renderHelp() ?>
+			<?php foreach ($strain->getPictures() as $picture): ?>
+			<?php if ( $picture->getFilename() === null ) continue ?>
+			<div class="thumbnail">
+				<input type="radio" name="strain_picture" value="<?php echo $picture->getId() ?>" id="strain_picture" />
+				<div class="thumbnail_image">
+					<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" class="cboxElement">
+						<img src="<?php echo $picture->getThumbnail() ?>" />
+					</a>
+				</div>
+			</div>
+			<?php endforeach; ?>
+			<div class="clear">
 
+			</div>
 		</div>
+		<?php endif ?>
 
 		<div class="article_content_section">
-			<h3>Descripción</h3>
+			<h3>Description</h3>
 			<p><?php echo $strain->getArticleDescription() ?></p>
 		</div>
 
 		<div class="article_content_section">
-			<h3>Geolocalización</h3>
+			<h3>Map</h3>
 		</div>
 
 		<div class="article_content_section">
-			<h3>Taxonomía molecular</h3>
+			<h3>Molecular taxonomy</h3>
 			<dl>
-				<dt>ADN genómico</dt>
+				<dt>Genomic DNA</dt>
 				<dd><?php echo $strain->getPublicDnaAmount() ? 'disponible en el banco de ADN' : 'no disponible' ?></dd>
-				<dt>Genes secuenciados</dt>
+				<dt>Sequenced genes</dt>
 				<dd><?php echo implode(', ', $strain->getSequencedGenes()->getRawValue()) ?></dd>
 			</dl>
 		</div>
 
 		<div class="article_content_section">
-			<h3>Árbol filogenético</h3>
+			<h3>Phylogenetic tree</h3>
 		</div>
 
 	</div>
