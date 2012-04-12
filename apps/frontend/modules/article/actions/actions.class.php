@@ -23,10 +23,11 @@ class articleActions extends myActions {
 	 * @param sfRequest $request A request object
 	 */
 	public function executeConfigure(sfWebRequest $request) {
-		$this->forward404Unless($request->isMethod(sfRequest::POST));
-		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('id')));
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('strain_id')));
 
 		$this->form = new ArticleForm();
+		$this->form->setDefault('strain_id', $strain->getId());
 		$this->strain = $strain;
 
 		$cultureMediaChoices = array();
@@ -44,13 +45,14 @@ class articleActions extends myActions {
 	 */
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
+		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('strain_id')));
 
 		$this->form = new ArticleForm();
 		$this->form->bind($request->getPostParameters());
 
 		if ( !$this->form->isValid() ) {
 			$this->getUser()->setFlash('notice', 'The articles cannot be created with the information you have provided. Make sure everything is OK.');
-			$this->setTemplate('configure');
+			$this->redirect('@article_configure_by_id?strain_id='.$strain->getId());
 		}
 		else {
 			$this->setLayout(false);
