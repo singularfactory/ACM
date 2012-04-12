@@ -196,6 +196,20 @@
 			<?php endforeach; ?>
 		</div>
 		<?php endif ?>
+
+		<?php if ( $strain->getPhylogeneticTree() ): ?>
+		<div class="object_related_model_list">
+			<h2>Phylogenetic tree</h2>
+			<div class="thumbnail">
+				<div class="thumbnail_image">
+					<a href="<?php echo $strain->getPhylogeneticTreePath() ?>" rel="thumbnail_link" title="Phylogenetic tree" class="cboxElement">
+						<img src="<?php echo $strain->getPhylogeneticTreeThumbnail() ?>" alt="Phylogenetic tree" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<?php endif ?>
+
 	</div>
 
 	<div id="object_data_list">
@@ -229,7 +243,7 @@
 			<dt>Amount:</dt>
 			<dd><?php //echo $strain->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
 			-->
-			
+
 			<dt>Kingdom:</dt>
 			<dd><?php echo $strain->getFormattedKingdom() ?></dd>
 			<dt>Subkingdom:</dt>

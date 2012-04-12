@@ -3,7 +3,7 @@
 
 <?php echo form_tag_for($form, '@maintenance_deposit') ?>
 	<?php echo $form->renderHiddenFields() ?>
-	
+
 	<div id="left_side_form">
 		<div id="depositor_code">
 			<?php echo $form['depositor_code']->renderLabel() ?>
@@ -11,19 +11,19 @@
 			<?php echo $form['depositor_code']->renderHelp() ?>
 			<?php echo $form['depositor_code'] ?>
 		</div>
-				
+
 		<div id="depositor">
 			<?php echo $form['depositor_id']->renderLabel() ?>
 			<?php echo $form['depositor_id'] ?>
 		</div>
-		
+
 		<div id="deposition_date" class="date_field">
 			<?php echo $form['deposition_date']->renderLabel() ?>
 			<?php echo $form['deposition_date']->renderError() ?>
 			<?php echo $form['deposition_date']->renderHelp() ?>
 			<?php echo $form['deposition_date'] ?>
 		</div>
-		
+
 		<div id="location">
 			<?php echo $form['location_id']->renderLabel() ?>
 			<?php echo $form['location_id']->renderError() ?>
@@ -31,7 +31,7 @@
 			<input type="text" value="<?php echo ($form->isNew())?'Type a location...':$form->getObject()->getLocation()->getName(); ?>" id="maintenance_deposit_location_search" />
 			<a href="<?php echo url_for('@maintenance_deposit_find_locations?term=') ?>" class="maintenance_deposit_location_coordinates_url"></a>
 		</div>
-		
+
 		<div id="environment">
 			<?php echo $form['environment_id']->renderLabel() ?>
 			<?php echo $form['environment_id']->renderHelp() ?>
@@ -43,85 +43,85 @@
 			<?php echo $form['habitat_id']->renderHelp() ?>
 			<?php echo $form['habitat_id'] ?>
 		</div>
-		
+
 		<div id="taxonomic_class">
 			<?php echo $form['taxonomic_class_id']->renderLabel() ?>
 			<?php echo $form['taxonomic_class_id']->renderError() ?>
 			<?php echo $form['taxonomic_class_id']->renderHelp() ?>
 			<?php echo $form['taxonomic_class_id'] ?>
 		</div>
-		
+
 		<div id="genus">
 			<?php echo $form['genus_id']->renderLabel() ?>
 			<?php echo $form['genus_id']->renderError() ?>
 			<?php echo $form['genus_id']->renderHelp() ?>
 			<?php echo $form['genus_id'] ?>
 		</div>
-		
+
 		<div id="species">
 			<?php echo $form['species_id']->renderLabel() ?>
 			<?php echo $form['species_id']->renderError() ?>
 			<?php echo $form['species_id']->renderHelp() ?>
 			<?php echo $form['species_id'] ?>
 		</div>
-		
+
 		<div id="authority">
 			<?php echo $form['authority_id']->renderLabel() ?>
 			<?php echo $form['authority_id']->renderError() ?>
 			<?php echo $form['authority_id']->renderHelp() ?>
 			<?php echo $form['authority_id'] ?>
 		</div>
-		
+
 		<div id="collectors" class="list_field">
 			<?php echo $form['collectors_list']->renderLabel() ?>
 			<?php echo $form['collectors_list']->renderError() ?>
 			<?php echo $form['collectors_list']->renderHelp() ?>
 			<?php echo $form['collectors_list'] ?>
 		</div>
-		
+
 		<div id="collection_date" class="date_field">
 			<?php echo $form['collection_date']->renderLabel() ?>
 			<?php echo $form['collection_date']->renderError() ?>
 			<?php echo $form['collection_date']->renderHelp() ?>
 			<?php echo $form['collection_date'] ?>
 		</div>
-		
+
 		<div id="epitype" class="checkbox">
 			<?php echo $form['is_epitype']->renderLabel() ?>
 			<?php echo $form['is_epitype'] ?>
 		</div>
-		
+
 		<div id="axenic" class="checkbox">
 			<?php echo $form['is_axenic']->renderLabel() ?>
 			<?php echo $form['is_axenic'] ?>
 		</div>
-		
+
 		<div id="culture_media_list" class="list_field">
 			<?php echo $form['culture_media_list']->renderLabel() ?>
 			<?php echo $form['culture_media_list']->renderError() ?>
 			<?php echo $form['culture_media_list']->renderHelp() ?>
 			<?php echo $form['culture_media_list'] ?>
 		</div>
-		
+
 		<div id="maintenance_status">
 			<?php echo $form['maintenance_status_list']->renderLabel() ?>
 			<?php echo $form['maintenance_status_list'] ?>
 		</div>
-		
+
 		<div id="cryopreservation_method">
 			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
 			<?php echo $form['cryopreservation_method_id']->renderError() ?>
 			<?php echo $form['cryopreservation_method_id']->renderHelp() ?>
 			<?php echo $form['cryopreservation_method_id'] ?>
 		</div>
-			
+
 		<div id="isolators" class="list_field">
 			<?php echo $form['isolators_list']->renderLabel() ?>
 			<?php echo $form['isolators_list']->renderError() ?>
 			<?php echo $form['isolators_list']->renderHelp() ?>
 			<?php echo $form['isolators_list'] ?>
 		</div>
-		
+
 		<div id="isolation_date" class="date_field">
 			<?php echo $form['isolation_date']->renderLabel() ?>
 			<?php echo $form['isolation_date']->renderError() ?>
@@ -129,26 +129,26 @@
 			<?php echo $form['isolation_date'] ?>
 		</div>
 	</div>
-	
+
 	<div id="right_side_form">
 		<div id="dna_availability" class="checkbox">
 			<?php echo $form['has_dna']->renderLabel() ?>
 			<?php echo $form['has_dna'] ?>
 			<?php echo $form['has_dna']->renderHelp() ?>
 		</div>
-		
+
 		<div id="identifier">
 			<?php echo $form['identifier_id']->renderLabel() ?>
 			<?php echo $form['identifier_id'] ?>
 		</div>
-		
+
 		<div id="gen_sequence">
 			<?php echo $form['gen_sequence']->renderLabel() ?>
 			<?php echo $form['gen_sequence']->renderError() ?>
 			<?php echo $form['gen_sequence']->renderHelp() ?>
 			<?php echo $form['gen_sequence'] ?>
 		</div>
-		
+
 		<?php if ( !$form->getObject()->isNew() && isset($form['Relatives']) ): ?>
 		<div class="model_text_input_list">
 			<?php echo $form['Relatives']->renderLabel('Actual relatives') ?>
@@ -173,7 +173,7 @@
 			<div class="clear"></div>
 		</div>
 		<?php endif ?>
-		
+
 		<div id="model_text_inputs">
 			<?php echo $form['new_Relatives']->renderLabel() ?>
 			<?php echo $form['new_Relatives']->renderHelp() ?>
@@ -182,50 +182,50 @@
 				<?php echo $form['new_Relatives'][0]['name']->render() ?>
 			</div>
 		</div>
-		
+
 		<div class="text_inputs_add_relation">
 			<?php echo $form['new_Relatives']['_']->render() ?>
 		</div>
 		<br />
-		
+
 		<div id="transfer_interval">
 			<?php echo $form['transfer_interval']->renderLabel() ?>
 			<?php echo $form['transfer_interval'] ?>
 		</div>
-		
+
 		<div id="observation">
 			<?php echo $form['observation']->renderLabel() ?>
 			<?php echo $form['observation']->renderError() ?>
 			<?php echo $form['observation']->renderHelp() ?>
 			<?php echo $form['observation'] ?>
 		</div>
-		
+
 		<div id="viability_test">
 			<?php echo $form['viability_test']->renderLabel() ?>
 			<?php echo $form['viability_test']->renderError() ?>
 			<?php echo $form['viability_test']->renderHelp() ?>
 			<?php echo $form['viability_test'] ?>
 		</div>
-		
+
 		<div id="citations">
 			<?php echo $form['citations']->renderLabel() ?>
 			<?php echo $form['citations']->renderError() ?>
 			<?php echo $form['citations']->renderHelp() ?>
 			<?php echo $form['citations'] ?>
 		</div>
-	
+
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>
-		</div>		
-		
+		</div>
+
 		<div id="mf1_document">
 			<?php echo $form['mf1_document']->renderLabel() ?>
 			<?php echo $form['mf1_document']->renderError() ?>
 			<?php echo $form['mf1_document']->renderHelp() ?>
 			<?php echo $form['mf1_document'] ?>
-		</div>		
+		</div>
 	</div>
-	
+
 	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'maintenance_deposit', 'title' => 'deposit')) ?>
 </form>

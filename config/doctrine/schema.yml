@@ -496,6 +496,8 @@ Strain:
     irradiation:                { type: decimal }
     distribution:               { type: string }
     article_description:        { type: string }
+    phylogenetic_description:   { type: string }
+    phylogenetic_tree:          { type: string(255) }
   relations:
     Sample:                 { foreignAlias: Strains }
     Depositor:              { foreignAlias: Strains }
@@ -518,6 +520,8 @@ Strain:
   actAs:
     Timestampable:
     Date:
+    Picture:
+      moduleName: strain
   indexes:
     unique_code_and_clone:  { fields: [code, clone_number], type: unique }
 

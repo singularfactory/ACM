@@ -38,6 +38,8 @@
  * @property decimal $irradiation
  * @property string $distribution
  * @property string $article_description
+ * @property string $phylogenetic_description
+ * @property string $phylogenetic_tree
  * @property Sample $Sample
  * @property Depositor $Depositor
  * @property Kingdom $Kingdom
@@ -68,130 +70,134 @@
  * @property Doctrine_Collection $Isolations
  * @property Doctrine_Collection $Cryopreservations
  * 
- * @method integer             getId()                      Returns the current record's "id" value
- * @method integer             getCode()                    Returns the current record's "code" value
- * @method integer             getCloneNumber()             Returns the current record's "clone_number" value
- * @method integer             getSampleId()                Returns the current record's "sample_id" value
- * @method integer             getDepositorId()             Returns the current record's "depositor_id" value
- * @method boolean             getIsEpitype()               Returns the current record's "is_epitype" value
- * @method boolean             getIsAxenic()                Returns the current record's "is_axenic" value
- * @method boolean             getIsPublic()                Returns the current record's "is_public" value
- * @method boolean             getDeceased()                Returns the current record's "deceased" value
- * @method integer             getKingdomId()               Returns the current record's "kingdom_id" value
- * @method integer             getSubkingdomId()            Returns the current record's "subkingdom_id" value
- * @method integer             getPhylumId()                Returns the current record's "phylum_id" value
- * @method integer             getTaxonomicClassId()        Returns the current record's "taxonomic_class_id" value
- * @method integer             getTaxonomicOrderId()        Returns the current record's "taxonomic_order_id" value
- * @method integer             getFamilyId()                Returns the current record's "family_id" value
- * @method integer             getGenusId()                 Returns the current record's "genus_id" value
- * @method integer             getSpeciesId()               Returns the current record's "species_id" value
- * @method integer             getAuthorityId()             Returns the current record's "authority_id" value
- * @method date                getIsolationDate()           Returns the current record's "isolation_date" value
- * @method integer             getIdentifierId()            Returns the current record's "identifier_id" value
- * @method integer             getContainerId()             Returns the current record's "container_id" value
- * @method string              getTransferInterval()        Returns the current record's "transfer_interval" value
- * @method string              getObservation()             Returns the current record's "observation" value
- * @method string              getCitations()               Returns the current record's "citations" value
- * @method string              getWebNotes()                Returns the current record's "web_notes" value
- * @method string              getRemarks()                 Returns the current record's "remarks" value
- * @method integer             getSupervisorId()            Returns the current record's "supervisor_id" value
- * @method boolean             getInGCatalog()              Returns the current record's "in_g_catalog" value
- * @method decimal             getTemperature()             Returns the current record's "temperature" value
- * @method decimal             getPhotoperiod()             Returns the current record's "photoperiod" value
- * @method decimal             getIrradiation()             Returns the current record's "irradiation" value
- * @method string              getDistribution()            Returns the current record's "distribution" value
- * @method string              getArticleDescription()      Returns the current record's "article_description" value
- * @method Sample              getSample()                  Returns the current record's "Sample" value
- * @method Depositor           getDepositor()               Returns the current record's "Depositor" value
- * @method Kingdom             getKingdom()                 Returns the current record's "Kingdom" value
- * @method Subkingdom          getSubkingdom()              Returns the current record's "Subkingdom" value
- * @method Phylum              getPhylum()                  Returns the current record's "Phylum" value
- * @method TaxonomicClass      getTaxonomicClass()          Returns the current record's "TaxonomicClass" value
- * @method TaxonomicOrder      getTaxonomicOrder()          Returns the current record's "TaxonomicOrder" value
- * @method Family              getFamily()                  Returns the current record's "Family" value
- * @method Genus               getGenus()                   Returns the current record's "Genus" value
- * @method Species             getSpecies()                 Returns the current record's "Species" value
- * @method Authority           getAuthority()               Returns the current record's "Authority" value
- * @method Doctrine_Collection getIsolators()               Returns the current record's "Isolators" collection
- * @method sfGuardUser         getSupervisor()              Returns the current record's "Supervisor" value
- * @method Identifier          getIdentifier()              Returns the current record's "Identifier" value
- * @method Container           getContainer()               Returns the current record's "Container" value
- * @method Doctrine_Collection getContainers()              Returns the current record's "Containers" collection
- * @method Doctrine_Collection getCultureMedia()            Returns the current record's "CultureMedia" collection
- * @method Doctrine_Collection getMaintenanceStatus()       Returns the current record's "MaintenanceStatus" collection
- * @method Doctrine_Collection getStrainIsolators()         Returns the current record's "StrainIsolators" collection
- * @method Doctrine_Collection getRelatives()               Returns the current record's "Relatives" collection
- * @method Doctrine_Collection getAxenityTests()            Returns the current record's "AxenityTests" collection
- * @method Doctrine_Collection getPictures()                Returns the current record's "Pictures" collection
- * @method Doctrine_Collection getStrainContainers()        Returns the current record's "StrainContainers" collection
- * @method Doctrine_Collection getStrainCultureMedia()      Returns the current record's "StrainCultureMedia" collection
- * @method Doctrine_Collection getStrainMaintenanceStatus() Returns the current record's "StrainMaintenanceStatus" collection
- * @method Doctrine_Collection getDnaExtractions()          Returns the current record's "DnaExtractions" collection
- * @method Doctrine_Collection getProjects()                Returns the current record's "Projects" collection
- * @method Doctrine_Collection getIsolations()              Returns the current record's "Isolations" collection
- * @method Doctrine_Collection getCryopreservations()       Returns the current record's "Cryopreservations" collection
- * @method Strain              setId()                      Sets the current record's "id" value
- * @method Strain              setCode()                    Sets the current record's "code" value
- * @method Strain              setCloneNumber()             Sets the current record's "clone_number" value
- * @method Strain              setSampleId()                Sets the current record's "sample_id" value
- * @method Strain              setDepositorId()             Sets the current record's "depositor_id" value
- * @method Strain              setIsEpitype()               Sets the current record's "is_epitype" value
- * @method Strain              setIsAxenic()                Sets the current record's "is_axenic" value
- * @method Strain              setIsPublic()                Sets the current record's "is_public" value
- * @method Strain              setDeceased()                Sets the current record's "deceased" value
- * @method Strain              setKingdomId()               Sets the current record's "kingdom_id" value
- * @method Strain              setSubkingdomId()            Sets the current record's "subkingdom_id" value
- * @method Strain              setPhylumId()                Sets the current record's "phylum_id" value
- * @method Strain              setTaxonomicClassId()        Sets the current record's "taxonomic_class_id" value
- * @method Strain              setTaxonomicOrderId()        Sets the current record's "taxonomic_order_id" value
- * @method Strain              setFamilyId()                Sets the current record's "family_id" value
- * @method Strain              setGenusId()                 Sets the current record's "genus_id" value
- * @method Strain              setSpeciesId()               Sets the current record's "species_id" value
- * @method Strain              setAuthorityId()             Sets the current record's "authority_id" value
- * @method Strain              setIsolationDate()           Sets the current record's "isolation_date" value
- * @method Strain              setIdentifierId()            Sets the current record's "identifier_id" value
- * @method Strain              setContainerId()             Sets the current record's "container_id" value
- * @method Strain              setTransferInterval()        Sets the current record's "transfer_interval" value
- * @method Strain              setObservation()             Sets the current record's "observation" value
- * @method Strain              setCitations()               Sets the current record's "citations" value
- * @method Strain              setWebNotes()                Sets the current record's "web_notes" value
- * @method Strain              setRemarks()                 Sets the current record's "remarks" value
- * @method Strain              setSupervisorId()            Sets the current record's "supervisor_id" value
- * @method Strain              setInGCatalog()              Sets the current record's "in_g_catalog" value
- * @method Strain              setTemperature()             Sets the current record's "temperature" value
- * @method Strain              setPhotoperiod()             Sets the current record's "photoperiod" value
- * @method Strain              setIrradiation()             Sets the current record's "irradiation" value
- * @method Strain              setDistribution()            Sets the current record's "distribution" value
- * @method Strain              setArticleDescription()      Sets the current record's "article_description" value
- * @method Strain              setSample()                  Sets the current record's "Sample" value
- * @method Strain              setDepositor()               Sets the current record's "Depositor" value
- * @method Strain              setKingdom()                 Sets the current record's "Kingdom" value
- * @method Strain              setSubkingdom()              Sets the current record's "Subkingdom" value
- * @method Strain              setPhylum()                  Sets the current record's "Phylum" value
- * @method Strain              setTaxonomicClass()          Sets the current record's "TaxonomicClass" value
- * @method Strain              setTaxonomicOrder()          Sets the current record's "TaxonomicOrder" value
- * @method Strain              setFamily()                  Sets the current record's "Family" value
- * @method Strain              setGenus()                   Sets the current record's "Genus" value
- * @method Strain              setSpecies()                 Sets the current record's "Species" value
- * @method Strain              setAuthority()               Sets the current record's "Authority" value
- * @method Strain              setIsolators()               Sets the current record's "Isolators" collection
- * @method Strain              setSupervisor()              Sets the current record's "Supervisor" value
- * @method Strain              setIdentifier()              Sets the current record's "Identifier" value
- * @method Strain              setContainer()               Sets the current record's "Container" value
- * @method Strain              setContainers()              Sets the current record's "Containers" collection
- * @method Strain              setCultureMedia()            Sets the current record's "CultureMedia" collection
- * @method Strain              setMaintenanceStatus()       Sets the current record's "MaintenanceStatus" collection
- * @method Strain              setStrainIsolators()         Sets the current record's "StrainIsolators" collection
- * @method Strain              setRelatives()               Sets the current record's "Relatives" collection
- * @method Strain              setAxenityTests()            Sets the current record's "AxenityTests" collection
- * @method Strain              setPictures()                Sets the current record's "Pictures" collection
- * @method Strain              setStrainContainers()        Sets the current record's "StrainContainers" collection
- * @method Strain              setStrainCultureMedia()      Sets the current record's "StrainCultureMedia" collection
- * @method Strain              setStrainMaintenanceStatus() Sets the current record's "StrainMaintenanceStatus" collection
- * @method Strain              setDnaExtractions()          Sets the current record's "DnaExtractions" collection
- * @method Strain              setProjects()                Sets the current record's "Projects" collection
- * @method Strain              setIsolations()              Sets the current record's "Isolations" collection
- * @method Strain              setCryopreservations()       Sets the current record's "Cryopreservations" collection
+ * @method integer             getId()                       Returns the current record's "id" value
+ * @method integer             getCode()                     Returns the current record's "code" value
+ * @method integer             getCloneNumber()              Returns the current record's "clone_number" value
+ * @method integer             getSampleId()                 Returns the current record's "sample_id" value
+ * @method integer             getDepositorId()              Returns the current record's "depositor_id" value
+ * @method boolean             getIsEpitype()                Returns the current record's "is_epitype" value
+ * @method boolean             getIsAxenic()                 Returns the current record's "is_axenic" value
+ * @method boolean             getIsPublic()                 Returns the current record's "is_public" value
+ * @method boolean             getDeceased()                 Returns the current record's "deceased" value
+ * @method integer             getKingdomId()                Returns the current record's "kingdom_id" value
+ * @method integer             getSubkingdomId()             Returns the current record's "subkingdom_id" value
+ * @method integer             getPhylumId()                 Returns the current record's "phylum_id" value
+ * @method integer             getTaxonomicClassId()         Returns the current record's "taxonomic_class_id" value
+ * @method integer             getTaxonomicOrderId()         Returns the current record's "taxonomic_order_id" value
+ * @method integer             getFamilyId()                 Returns the current record's "family_id" value
+ * @method integer             getGenusId()                  Returns the current record's "genus_id" value
+ * @method integer             getSpeciesId()                Returns the current record's "species_id" value
+ * @method integer             getAuthorityId()              Returns the current record's "authority_id" value
+ * @method date                getIsolationDate()            Returns the current record's "isolation_date" value
+ * @method integer             getIdentifierId()             Returns the current record's "identifier_id" value
+ * @method integer             getContainerId()              Returns the current record's "container_id" value
+ * @method string              getTransferInterval()         Returns the current record's "transfer_interval" value
+ * @method string              getObservation()              Returns the current record's "observation" value
+ * @method string              getCitations()                Returns the current record's "citations" value
+ * @method string              getWebNotes()                 Returns the current record's "web_notes" value
+ * @method string              getRemarks()                  Returns the current record's "remarks" value
+ * @method integer             getSupervisorId()             Returns the current record's "supervisor_id" value
+ * @method boolean             getInGCatalog()               Returns the current record's "in_g_catalog" value
+ * @method decimal             getTemperature()              Returns the current record's "temperature" value
+ * @method decimal             getPhotoperiod()              Returns the current record's "photoperiod" value
+ * @method decimal             getIrradiation()              Returns the current record's "irradiation" value
+ * @method string              getDistribution()             Returns the current record's "distribution" value
+ * @method string              getArticleDescription()       Returns the current record's "article_description" value
+ * @method string              getPhylogeneticDescription()  Returns the current record's "phylogenetic_description" value
+ * @method string              getPhylogeneticTree()         Returns the current record's "phylogenetic_tree" value
+ * @method Sample              getSample()                   Returns the current record's "Sample" value
+ * @method Depositor           getDepositor()                Returns the current record's "Depositor" value
+ * @method Kingdom             getKingdom()                  Returns the current record's "Kingdom" value
+ * @method Subkingdom          getSubkingdom()               Returns the current record's "Subkingdom" value
+ * @method Phylum              getPhylum()                   Returns the current record's "Phylum" value
+ * @method TaxonomicClass      getTaxonomicClass()           Returns the current record's "TaxonomicClass" value
+ * @method TaxonomicOrder      getTaxonomicOrder()           Returns the current record's "TaxonomicOrder" value
+ * @method Family              getFamily()                   Returns the current record's "Family" value
+ * @method Genus               getGenus()                    Returns the current record's "Genus" value
+ * @method Species             getSpecies()                  Returns the current record's "Species" value
+ * @method Authority           getAuthority()                Returns the current record's "Authority" value
+ * @method Doctrine_Collection getIsolators()                Returns the current record's "Isolators" collection
+ * @method sfGuardUser         getSupervisor()               Returns the current record's "Supervisor" value
+ * @method Identifier          getIdentifier()               Returns the current record's "Identifier" value
+ * @method Container           getContainer()                Returns the current record's "Container" value
+ * @method Doctrine_Collection getContainers()               Returns the current record's "Containers" collection
+ * @method Doctrine_Collection getCultureMedia()             Returns the current record's "CultureMedia" collection
+ * @method Doctrine_Collection getMaintenanceStatus()        Returns the current record's "MaintenanceStatus" collection
+ * @method Doctrine_Collection getStrainIsolators()          Returns the current record's "StrainIsolators" collection
+ * @method Doctrine_Collection getRelatives()                Returns the current record's "Relatives" collection
+ * @method Doctrine_Collection getAxenityTests()             Returns the current record's "AxenityTests" collection
+ * @method Doctrine_Collection getPictures()                 Returns the current record's "Pictures" collection
+ * @method Doctrine_Collection getStrainContainers()         Returns the current record's "StrainContainers" collection
+ * @method Doctrine_Collection getStrainCultureMedia()       Returns the current record's "StrainCultureMedia" collection
+ * @method Doctrine_Collection getStrainMaintenanceStatus()  Returns the current record's "StrainMaintenanceStatus" collection
+ * @method Doctrine_Collection getDnaExtractions()           Returns the current record's "DnaExtractions" collection
+ * @method Doctrine_Collection getProjects()                 Returns the current record's "Projects" collection
+ * @method Doctrine_Collection getIsolations()               Returns the current record's "Isolations" collection
+ * @method Doctrine_Collection getCryopreservations()        Returns the current record's "Cryopreservations" collection
+ * @method Strain              setId()                       Sets the current record's "id" value
+ * @method Strain              setCode()                     Sets the current record's "code" value
+ * @method Strain              setCloneNumber()              Sets the current record's "clone_number" value
+ * @method Strain              setSampleId()                 Sets the current record's "sample_id" value
+ * @method Strain              setDepositorId()              Sets the current record's "depositor_id" value
+ * @method Strain              setIsEpitype()                Sets the current record's "is_epitype" value
+ * @method Strain              setIsAxenic()                 Sets the current record's "is_axenic" value
+ * @method Strain              setIsPublic()                 Sets the current record's "is_public" value
+ * @method Strain              setDeceased()                 Sets the current record's "deceased" value
+ * @method Strain              setKingdomId()                Sets the current record's "kingdom_id" value
+ * @method Strain              setSubkingdomId()             Sets the current record's "subkingdom_id" value
+ * @method Strain              setPhylumId()                 Sets the current record's "phylum_id" value
+ * @method Strain              setTaxonomicClassId()         Sets the current record's "taxonomic_class_id" value
+ * @method Strain              setTaxonomicOrderId()         Sets the current record's "taxonomic_order_id" value
+ * @method Strain              setFamilyId()                 Sets the current record's "family_id" value
+ * @method Strain              setGenusId()                  Sets the current record's "genus_id" value
+ * @method Strain              setSpeciesId()                Sets the current record's "species_id" value
+ * @method Strain              setAuthorityId()              Sets the current record's "authority_id" value
+ * @method Strain              setIsolationDate()            Sets the current record's "isolation_date" value
+ * @method Strain              setIdentifierId()             Sets the current record's "identifier_id" value
+ * @method Strain              setContainerId()              Sets the current record's "container_id" value
+ * @method Strain              setTransferInterval()         Sets the current record's "transfer_interval" value
+ * @method Strain              setObservation()              Sets the current record's "observation" value
+ * @method Strain              setCitations()                Sets the current record's "citations" value
+ * @method Strain              setWebNotes()                 Sets the current record's "web_notes" value
+ * @method Strain              setRemarks()                  Sets the current record's "remarks" value
+ * @method Strain              setSupervisorId()             Sets the current record's "supervisor_id" value
+ * @method Strain              setInGCatalog()               Sets the current record's "in_g_catalog" value
+ * @method Strain              setTemperature()              Sets the current record's "temperature" value
+ * @method Strain              setPhotoperiod()              Sets the current record's "photoperiod" value
+ * @method Strain              setIrradiation()              Sets the current record's "irradiation" value
+ * @method Strain              setDistribution()             Sets the current record's "distribution" value
+ * @method Strain              setArticleDescription()       Sets the current record's "article_description" value
+ * @method Strain              setPhylogeneticDescription()  Sets the current record's "phylogenetic_description" value
+ * @method Strain              setPhylogeneticTree()         Sets the current record's "phylogenetic_tree" value
+ * @method Strain              setSample()                   Sets the current record's "Sample" value
+ * @method Strain              setDepositor()                Sets the current record's "Depositor" value
+ * @method Strain              setKingdom()                  Sets the current record's "Kingdom" value
+ * @method Strain              setSubkingdom()               Sets the current record's "Subkingdom" value
+ * @method Strain              setPhylum()                   Sets the current record's "Phylum" value
+ * @method Strain              setTaxonomicClass()           Sets the current record's "TaxonomicClass" value
+ * @method Strain              setTaxonomicOrder()           Sets the current record's "TaxonomicOrder" value
+ * @method Strain              setFamily()                   Sets the current record's "Family" value
+ * @method Strain              setGenus()                    Sets the current record's "Genus" value
+ * @method Strain              setSpecies()                  Sets the current record's "Species" value
+ * @method Strain              setAuthority()                Sets the current record's "Authority" value
+ * @method Strain              setIsolators()                Sets the current record's "Isolators" collection
+ * @method Strain              setSupervisor()               Sets the current record's "Supervisor" value
+ * @method Strain              setIdentifier()               Sets the current record's "Identifier" value
+ * @method Strain              setContainer()                Sets the current record's "Container" value
+ * @method Strain              setContainers()               Sets the current record's "Containers" collection
+ * @method Strain              setCultureMedia()             Sets the current record's "CultureMedia" collection
+ * @method Strain              setMaintenanceStatus()        Sets the current record's "MaintenanceStatus" collection
+ * @method Strain              setStrainIsolators()          Sets the current record's "StrainIsolators" collection
+ * @method Strain              setRelatives()                Sets the current record's "Relatives" collection
+ * @method Strain              setAxenityTests()             Sets the current record's "AxenityTests" collection
+ * @method Strain              setPictures()                 Sets the current record's "Pictures" collection
+ * @method Strain              setStrainContainers()         Sets the current record's "StrainContainers" collection
+ * @method Strain              setStrainCultureMedia()       Sets the current record's "StrainCultureMedia" collection
+ * @method Strain              setStrainMaintenanceStatus()  Sets the current record's "StrainMaintenanceStatus" collection
+ * @method Strain              setDnaExtractions()           Sets the current record's "DnaExtractions" collection
+ * @method Strain              setProjects()                 Sets the current record's "Projects" collection
+ * @method Strain              setIsolations()               Sets the current record's "Isolations" collection
+ * @method Strain              setCryopreservations()        Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -320,6 +326,13 @@ abstract class BaseStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('article_description', 'string', null, array(
              'type' => 'string',
+             ));
+        $this->hasColumn('phylogenetic_description', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('phylogenetic_tree', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
              ));
 
 
@@ -460,7 +473,11 @@ abstract class BaseStrain extends sfDoctrineRecord
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $date0 = new Date();
+        $picture0 = new Picture(array(
+             'moduleName' => 'strain',
+             ));
         $this->actAs($timestampable0);
         $this->actAs($date0);
+        $this->actAs($picture0);
     }
 }

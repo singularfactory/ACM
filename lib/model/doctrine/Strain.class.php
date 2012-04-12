@@ -332,4 +332,16 @@ class Strain extends BaseStrain {
 		}
 		return $genes;
 	}
+
+	public function getPhylogeneticTreeThumbnail() {
+		$file = sfConfig::get('app_pictures_dir')
+			.sfConfig::get('app_strain_pictures_dir').
+			sfConfig::get('app_thumbnails_dir').
+			'/'.$this->getPhylogeneticTree();
+		return preg_replace('/\.[\-\w]+$/', sfConfig::get('app_thumbnail_extension'), $file);
+	}
+
+	public function getPhylogeneticTreePath() {
+		return sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').'/'.$this->getPhylogeneticTree();
+	}
 }

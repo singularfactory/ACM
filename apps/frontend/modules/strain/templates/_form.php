@@ -199,9 +199,7 @@
 			<?php echo $form['irradiation']->renderHelp() ?>
 			<?php echo $form['irradiation'] ?>
 		</div>
-	</div>
 
-	<div id="right_side_form">
 		<div id="axenic" class="checkbox">
 			<?php echo $form['is_axenic']->renderLabel() ?>
 			<?php echo $form['is_axenic'] ?>
@@ -243,8 +241,9 @@
 		<div class="text_inputs_add_relation">
 			<?php echo $form['new_AxenityTests']['_']->render() ?>
 		</div>
-		<br />
+	</div>
 
+	<div id="right_side_form">
 		<?php if ( !$form->getObject()->isNew() && isset($form['Relatives']) ): ?>
 		<div class="model_text_input_list">
 			<?php echo $form['Relatives']->renderLabel('Actual relatives') ?>
@@ -389,6 +388,20 @@
 			<?php echo $form['article_description']->renderError() ?>
 			<?php echo $form['article_description']->renderHelp() ?>
 			<?php echo $form['article_description'] ?>
+		</div>
+
+		<div id="phylogenetic_description">
+			<?php echo $form['phylogenetic_description']->renderLabel() ?>
+			<?php echo $form['phylogenetic_description']->renderError() ?>
+			<?php echo $form['phylogenetic_description']->renderHelp() ?>
+			<?php echo $form['phylogenetic_description'] ?>
+		</div>
+
+		<div id="phylogenetic_tree" class="model_picture_filename">
+			<?php echo $form['phylogenetic_tree']->renderLabel() ?>
+			<?php echo $form['phylogenetic_tree']->renderError() ?>
+			<?php echo $form['phylogenetic_tree']->renderHelp() ?>
+			<?php echo $form['phylogenetic_tree'] ?>
 		</div>
 	</div>
 

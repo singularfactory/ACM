@@ -9,30 +9,30 @@
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class StrainForm extends BaseStrainForm {
-  
+
 	public function configure() {
-		// Skip the whole configuration if this a search form 
+		// Skip the whole configuration if this a search form
 		if ( $this->getOption('search') ) {
 			return;
 		}
-		
+
 		// Unset select fields that do not have values
 		if ( IdentifierTable::getInstance()->count() == 0 ) {
 			unset($this['identifier_id']);
 		}
-		
+
 		if ( ContainerTable::getInstance()->count() == 0 ) {
 			unset($this['container_id']);
 		}
-				
+
 		// Configure sample code
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
-		
+
 		// Configure date formats
 		$lastYear = date('Y');
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$this->setWidget('isolation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
-		
+
 		// Set sorting order in taxonomy related fields
 		$this['taxonomic_class_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['genus_id']->getWidget()->setOption('order_by', array('name', 'asc'));
@@ -43,7 +43,7 @@ class StrainForm extends BaseStrainForm {
 		$this['subkingdom_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['phylum_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['family_id']->getWidget()->setOption('order_by', array('name', 'asc'));
-		
+
 		// Configure culture media relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
 			'multiple' => true,
@@ -51,7 +51,7 @@ class StrainForm extends BaseStrainForm {
 			'method' => 'getName',
 			'order_by' => array('name', 'asc'),
 		)));
-		
+
 		// Configure list of isolators
 		$this->setWidget('isolators_list', new sfWidgetFormDoctrineChoice(array(
 			'model' => 'Isolator',
@@ -59,7 +59,7 @@ class StrainForm extends BaseStrainForm {
 			'multiple' => true,
 			'order_by' => array('name', 'asc'),
 		)));
-		
+
 		// Configure list of containers
 		$this->setWidget('containers_list', new sfWidgetFormDoctrineChoice(array(
 			'model' => 'Container',
@@ -67,7 +67,7 @@ class StrainForm extends BaseStrainForm {
 			'multiple' => true,
 			'order_by' => array('name', 'asc'),
 		)));
-		
+
 		// Configure list of maintenance statuses
 		$this->setWidget('maintenance_status_list', new sfWidgetFormDoctrineChoice(array(
 			'model' => 'MaintenanceStatus',
@@ -75,7 +75,7 @@ class StrainForm extends BaseStrainForm {
 			'multiple' => true,
 			'order_by' => array('name', 'asc'),
 		)));
-		
+
 		// Configure list of supervisors
 		$this->setWidget('supervisor_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Supervisor'),
@@ -84,11 +84,26 @@ class StrainForm extends BaseStrainForm {
 			'add_empty' => true,
 		)));
 
+		$this->setWidget('phylogenetic_tree', new sfWidgetFormInputFile());
+		$this->setValidator('phylogenetic_tree', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_document_size'),
+			'mime_types' => sfConfig::get('app_image_mime_types'),
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_strain_pictures_dir'),
+			'required' => false,
+			'validated_file_class' => 'sfCustomValidatedFile',
+			),
+			array(
+				'invalid' => 'Invalid file',
+				'required' => 'Select a file to upload',
+				'mime_types' => 'The file must be a supported type',
+			)
+		));
+
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_strain_pictures');
 		$this->setOption('max_strain_pictures', $defaultMaxPictures - $actualPictures);
-		
+
 		// Create an embedded form to add or edit pictures, relatives and axenity tests
 		$this->embedRelations(array(
 			'Pictures' => array(
@@ -113,16 +128,16 @@ class StrainForm extends BaseStrainForm {
 				'newRelationButtonLabel' => 'Add another date',
 			),
 		));
-		
+
 		// Configure custom validators
 		$this->setValidator('code', new sfValidatorString(array('max_length' => 4, 'required' => true)));
-		
+
 		// (commented out to temporarily allow NULL values)
 		// $this->setValidator('sample_id', new sfValidatorDoctrineChoice(
 		// 	array('model' => $this->getRelatedModelName('Sample')),
 		// 	array('required' => 'The origin sample of the strain is required')
 		// ));
-		
+
 		// Configure labels
 		$this->widgetSchema->setLabel('code', 'Strain code');
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
@@ -138,7 +153,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('photoperiod', 'Photoperiod conditions in culture');
 		$this->widgetSchema->setLabel('irradiation', 'Irradiation conditions in culture');
 		$this->widgetSchema->setLabel('distribution', 'Worldwide distribution');
-		
+
 		// Configure help messages
 		$this->widgetSchema->setHelp('code', 'Only the number');
 		$this->widgetSchema->setHelp('clone_number', 'Leave empty if not applicable');
@@ -161,11 +176,12 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('deceased', 'Whether the strain is deceased or not');
 		//$this->widgetSchema->setHelp('amount', 'Items in stock');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
+		$this->widgetSchema->setHelp('phylogenetic_tree', 'Choose a picture in JPEG or PNG format');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('container_id', 'Type of container where the strain grows better');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('containers_list', 'Containers where a culture of this strain is available. Select more than one with Ctrl or Cmd key.');
   }
-	
+
 }
