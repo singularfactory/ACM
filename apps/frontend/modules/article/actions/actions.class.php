@@ -7,7 +7,7 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class articleActions extends myActions {
+class articleActions extends MyActions {
 	/**
 	 * Executes new action
 	 *
@@ -36,6 +36,16 @@ class articleActions extends myActions {
 		}
 		$this->form->setWidget('culture_media_list', new sfWidgetFormChoice(array('choices' => $cultureMediaChoices)));
 		$this->form->getWidget('culture_media_list')->setLabel(false);
+
+		// Configure a Google Map to show the location
+		$this->googleMap = new MyGoogleMap(array(), array('width'=>'300px', 'height'=>'200px'));
+		$coordinates = $strain->getSample()->getGPSCoordinates();
+		$location = $strain->getSample()->getLocation();
+		$marker = $this->googleMap->getMarkerFromCoordinates($coordinates['latitude'], $coordinates['longitude']);
+		$this->googleMap->addMarker($marker);
+		$this->googleMap->centerAndZoomOnMarkers(1, 6);
+		$this->googleMap->setOption('disableDefaultUI', true);
+		$this->googleMap->setOption('mapTypeId', 'google.maps.MapTypeId.SATELLITE');
 	}
 
 	/**

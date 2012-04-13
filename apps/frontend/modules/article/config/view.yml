@@ -1,5 +1,5 @@
 configureSuccess:
   stylesheets:  [forms.css, colorbox.css, articles.css]
-  javascripts:  [forms.js, colorbox.js, thumbnails.js]
+  javascripts:  ['http://maps.google.com/maps/api/js?sensor=false', jquery-gomap.js, forms.js, colorbox.js, thumbnails.js, articles.js]
 createSuccess:
   stylesheets:  [articles.css]

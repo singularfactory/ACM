@@ -1,4 +1,4 @@
-<?php use_helper('Thumbnail') ?>
+<?php use_helper('Thumbnail', 'GMap') ?>
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
@@ -143,6 +143,9 @@
 
 		<div class="article_content_section">
 			<h3>Map</h3>
+			<div id="object_google_map">
+				<?php include_map($googleMap) ?>
+			</div>
 		</div>
 
 		<div class="article_content_section">
@@ -173,3 +176,4 @@
 
 	<div class="submit"><input type="submit" value="Download article" /></div>
 </form>
+<?php include_map_javascript($googleMap) ?>
