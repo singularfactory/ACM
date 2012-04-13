@@ -15,12 +15,18 @@ class ArticleForm extends BaseForm {
 			'strain_picture' => new sfWidgetFormSelectRadio(array(
 				'choices' => array(), 'formatter' => array($this, 'pictureRadioFormatterCallback')
 			)),
+			'location_picture' => new sfWidgetFormSelectRadio(array(
+				'choices' => array(), 'formatter' => array($this, 'pictureRadioFormatterCallback')
+			)),
+			'location_picture_source' => new sfWidgetFormInputHidden(),
 		));
 
 		$this->setValidators(array(
 			'strain_id' => new sfValidatorInteger(array('required' => true)),
 			'culture_media_list' => new sfValidatorChoice(array('choices' => array(), 'multiple' => false, 'required' => true)),
 			'strain_picture' => new sfValidatorInteger(array('required' => true)),
+			'location_picture' => new sfValidatorInteger(array('required' => true)),
+			'location_picture_source' => new sfValidatorChoice(array('choices' => array(0 => 'location_picture', 1 => 'field_picture', 2 => 'detailed_picture'), 'required' => true)),
 		));
 
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
@@ -28,11 +34,13 @@ class ArticleForm extends BaseForm {
 		$this->widgetSchema->setLabels(array(
 			'strain_id' => 'Strain code',
 			'strain_picture' => 'Strain picture',
+			'location_picture' => 'Location picture',
 		));
 
 		$this->widgetSchema->setHelps(array(
 			'strain_id' => 'First choose the strain the article will refer to',
 			'strain_picture' => 'Choose the strain picture that will be displayed',
+			'location_picture' => 'Choose the location picture that will be displayed',
 		));
 
 		$this->setup();

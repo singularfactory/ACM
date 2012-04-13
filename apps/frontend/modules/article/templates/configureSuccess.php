@@ -68,9 +68,52 @@
 			</dl>
 		</div>
 
-		<div class="article_content_section">
-		</div>
-		<div class="clear"></div>
+		<?php $sample = $strain->getSample() ?>
+		<?php $location = $strain->getSample()->getLocation() ?>
+		<?php if ( $location->getNbPictures() > 0 || $sample->hasPictures() ): ?>
+			<div class="article_content_section">
+				<h3>Location pictures</h3>
+				<?php echo $form['location_picture']->renderHelp() ?>
+
+				<?php foreach ($location->getPictures() as $picture): ?>
+				<?php if ( $picture->getFilename() === null ) continue ?>
+				<div class="thumbnail">
+					<input type="radio" name="location_picture" value="<?php echo $picture->getId() ?>" class="location_picture"/>
+					<div class="thumbnail_image">
+						<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" class="cboxElement">
+							<img src="<?php echo $picture->getThumbnail() ?>" />
+						</a>
+					</div>
+				</div>
+				<?php endforeach; ?>
+
+				<?php foreach ($sample->getFieldPictures() as $picture): ?>
+				<?php if ( $picture->getFilename() === null ) continue ?>
+				<div class="thumbnail">
+					<input type="radio" name="location_picture" value="<?php echo $picture->getId() ?>" class="field_picture"/>
+					<div class="thumbnail_image">
+						<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" class="cboxElement">
+							<img src="<?php echo $picture->getThumbnail() ?>" />
+						</a>
+					</div>
+				</div>
+				<?php endforeach; ?>
+
+				<?php foreach ($sample->getDetailedPictures() as $picture): ?>
+				<?php if ( $picture->getFilename() === null ) continue ?>
+				<div class="thumbnail">
+					<input type="radio" name="location_picture" value="<?php echo $picture->getId() ?>" class="detailed_picture"/>
+					<div class="thumbnail_image">
+						<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" class="cboxElement">
+							<img src="<?php echo $picture->getThumbnail() ?>" />
+						</a>
+					</div>
+				</div>
+				<?php endforeach; ?>
+
+				<div class="clear"></div>
+			</div>
+		<?php endif ?>
 	</div>
 
 	<div id="right_side_form">
@@ -81,7 +124,7 @@
 			<?php foreach ($strain->getPictures() as $picture): ?>
 			<?php if ( $picture->getFilename() === null ) continue ?>
 			<div class="thumbnail">
-				<input type="radio" name="strain_picture" value="<?php echo $picture->getId() ?>" id="strain_picture" />
+				<input type="radio" name="strain_picture" value="<?php echo $picture->getId() ?>" class="strain_picture" />
 				<div class="thumbnail_image">
 					<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" class="cboxElement">
 						<img src="<?php echo $picture->getThumbnail() ?>" />

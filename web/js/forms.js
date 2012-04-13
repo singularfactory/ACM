@@ -932,4 +932,10 @@ $(document).ready(function(){
 		$("#label_transfer_interval input").numeric({ minValue: 0, emptyValue: true, increment: 1 });
 	}
 
+	// Initializes the source of location picture for article configuration
+	$('div.article_content_section input[type=radio]').click(function(){
+		if ( $(this).attr('name') == 'location_picture' && $(this).is(':checked') ) {
+			$('#location_picture_source').val($(this).attr('class'));
+		}
+	});
 });

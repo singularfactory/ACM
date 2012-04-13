@@ -9,8 +9,8 @@ form select {
 	vertical-align: top;
 }
 
-form #left_side_form { max-width: 45%; }
-form #right_side_form { max-width: 50%; }
+form #left_side_form { max-width: 45%; padding-bottom: 0em; margin-bottom: 0em; }
+form #right_side_form { max-width: 50%; padding-bottom: 0em; margin-bottom: 0em; }
 
 div.article_content_section h3 { padding-top: 0em; margin-top: 0em; }
 div.article_content_section p { padding-left: 0em; padding-top: 0.5em; padding-bottom: 0.5em; margin-bottom: 0em; margin-top: 0em; }
