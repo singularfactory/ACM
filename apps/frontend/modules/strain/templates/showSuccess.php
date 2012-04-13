@@ -340,6 +340,9 @@
 
 			<dt>Article description:</dt>
 			<dd><?php echo $strain->getArticleDescription() ?></dd>
+
+			<dt>Habitat description:</dt>
+			<dd><?php echo $strain->getHabitatDescription() ?></dd>
 		</dl>
 	</div>
 

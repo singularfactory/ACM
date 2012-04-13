@@ -91,6 +91,7 @@ span.remove_input_text:hover { cursor: pointer; text-decoration: none; }
 #model_pictures, #sample_picture { clear: both; }
 div.model_picture_list label { display: block; }
 div.model_picture_filename { margin: 0px; padding: 0px; }
+#phylogenetic_tree { padding: 7px !important; }
 div.sample_picture_handler { margin-bottom: 17px; border-bottom: 1px solid #d3d3d3; }
 div.model_picture_filename input { display: inline; margin-right: 0px; padding-right: 0px; }
 

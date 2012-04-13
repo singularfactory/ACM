@@ -498,6 +498,7 @@ Strain:
     article_description:        { type: string }
     phylogenetic_description:   { type: string }
     phylogenetic_tree:          { type: string(255) }
+    habitat_description:        { type: string }
   relations:
     Sample:                 { foreignAlias: Strains }
     Depositor:              { foreignAlias: Strains }

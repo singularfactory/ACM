@@ -40,6 +40,7 @@
  * @property string $article_description
  * @property string $phylogenetic_description
  * @property string $phylogenetic_tree
+ * @property string $habitat_description
  * @property Sample $Sample
  * @property Depositor $Depositor
  * @property Kingdom $Kingdom
@@ -105,6 +106,7 @@
  * @method string              getArticleDescription()       Returns the current record's "article_description" value
  * @method string              getPhylogeneticDescription()  Returns the current record's "phylogenetic_description" value
  * @method string              getPhylogeneticTree()         Returns the current record's "phylogenetic_tree" value
+ * @method string              getHabitatDescription()       Returns the current record's "habitat_description" value
  * @method Sample              getSample()                   Returns the current record's "Sample" value
  * @method Depositor           getDepositor()                Returns the current record's "Depositor" value
  * @method Kingdom             getKingdom()                  Returns the current record's "Kingdom" value
@@ -169,6 +171,7 @@
  * @method Strain              setArticleDescription()       Sets the current record's "article_description" value
  * @method Strain              setPhylogeneticDescription()  Sets the current record's "phylogenetic_description" value
  * @method Strain              setPhylogeneticTree()         Sets the current record's "phylogenetic_tree" value
+ * @method Strain              setHabitatDescription()       Sets the current record's "habitat_description" value
  * @method Strain              setSample()                   Sets the current record's "Sample" value
  * @method Strain              setDepositor()                Sets the current record's "Depositor" value
  * @method Strain              setKingdom()                  Sets the current record's "Kingdom" value
@@ -333,6 +336,9 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasColumn('phylogenetic_tree', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
+             ));
+        $this->hasColumn('habitat_description', 'string', null, array(
+             'type' => 'string',
              ));
 
 

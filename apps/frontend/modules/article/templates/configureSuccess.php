@@ -37,9 +37,7 @@
 				<dt>Longitude</dt>
 				<dd><?php echo $strain->getSample()->getLongitude() ?></dd>
 				<dt>Habitat</dt>
-				<dd>
-					<?php echo $strain->getSample()->getHabitat() ?><?php if ($strain->getSample()->getLocationDetails()) echo ', '. lcfirst($strain->getSample()->getLocationDetails()) ?>
-				</dd>
+				<dd><?php echo $strain->getHabitatDescription() ?></dd>
 				<dt>Location</dt>
 				<dd><?php echo $strain->getSample()->getLocation() ?>, <?php echo $strain->getSample()->getLocation()->getRegion() ?></dd>
 				<dt>Country</dt>

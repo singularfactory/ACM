@@ -376,18 +376,26 @@
 			<?php echo $form['web_notes'] ?>
 		</div>
 
-		<div id="distribution">
-			<?php echo $form['distribution']->renderLabel() ?>
-			<?php echo $form['distribution']->renderError() ?>
-			<?php echo $form['distribution']->renderHelp() ?>
-			<?php echo $form['distribution'] ?>
-		</div>
-
+		<h3>Information for biodiversity articles</h3>
 		<div id="article_description">
 			<?php echo $form['article_description']->renderLabel() ?>
 			<?php echo $form['article_description']->renderError() ?>
 			<?php echo $form['article_description']->renderHelp() ?>
 			<?php echo $form['article_description'] ?>
+		</div>
+
+		<div id="habitat_description">
+			<?php echo $form['habitat_description']->renderLabel() ?>
+			<?php echo $form['habitat_description']->renderError() ?>
+			<?php echo $form['habitat_description']->renderHelp() ?>
+			<?php echo $form['habitat_description'] ?>
+		</div>
+
+		<div id="distribution">
+			<?php echo $form['distribution']->renderLabel() ?>
+			<?php echo $form['distribution']->renderError() ?>
+			<?php echo $form['distribution']->renderHelp() ?>
+			<?php echo $form['distribution'] ?>
 		</div>
 
 		<div id="phylogenetic_description">
@@ -403,6 +411,8 @@
 			<?php echo $form['phylogenetic_tree']->renderHelp() ?>
 			<?php echo $form['phylogenetic_tree'] ?>
 		</div>
+
+
 	</div>
 
 	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'strain', 'progressBar' => true)) ?>
