@@ -71,6 +71,7 @@
 		<?php if ( $location->getNbPictures() > 0 || $sample->hasPictures() ): ?>
 			<div class="article_content_section">
 				<h3>Location pictures</h3>
+				<?php echo $form['location_picture']->renderError() ?>
 				<?php echo $form['location_picture']->renderHelp() ?>
 
 				<?php foreach ($location->getPictures() as $picture): ?>
@@ -118,6 +119,7 @@
 		<?php if ( $strain->getNbPictures() > 0 ): ?>
 		<div class="article_content_section">
 			<h3>Strain picture</h3>
+			<?php echo $form['location_picture']->renderError() ?>
 			<?php echo $form['strain_picture']->renderHelp() ?>
 			<?php foreach ($strain->getPictures() as $picture): ?>
 			<?php if ( $picture->getFilename() === null ) continue ?>

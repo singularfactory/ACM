@@ -18,26 +18,12 @@ class articleActions extends MyActions {
 	}
 
 	/**
-	 * Executes configure action
+	 * Configure a Google Map to show strain location
 	 *
-	 * @param sfRequest $request A request object
+	 * @param Strain $strain
+	 * @return void
 	 */
-	public function executeConfigure(sfWebRequest $request) {
-		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
-		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('strain_id')));
-
-		$this->form = new ArticleForm();
-		$this->form->setDefault('strain_id', $strain->getId());
-		$this->strain = $strain;
-
-		$cultureMediaChoices = array();
-		foreach ($strain->getCultureMedia() as $cultureMedium) {
-			$cultureMediaChoices[$cultureMedium->getId()] = $cultureMedium->getName();
-		}
-		$this->form->setWidget('culture_media_list', new sfWidgetFormChoice(array('choices' => $cultureMediaChoices)));
-		$this->form->getWidget('culture_media_list')->setLabel(false);
-
-		// Configure a Google Map to show the location
+	public function configureGoogleMap($strain) {
 		$this->googleMap = new MyGoogleMap(array(), array('width'=>'300px', 'height'=>'200px'));
 		$coordinates = $strain->getSample()->getGPSCoordinates();
 		$location = $strain->getSample()->getLocation();
@@ -49,6 +35,20 @@ class articleActions extends MyActions {
 	}
 
 	/**
+	 * Executes configure action
+	 *
+	 * @param sfRequest $request A request object
+	 */
+	public function executeConfigure(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('strain_id')));
+
+		$this->strain = $strain;
+		$this->configureGoogleMap($strain);
+		$this->form = new ArticleForm(array('strain_id' => $strain->getId()));
+	}
+
+	/**
 	 * Executes create action
 	 *
 	 * @param sfRequest $request A request object
@@ -57,16 +57,17 @@ class articleActions extends MyActions {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('strain_id'))), sprintf('The strain does not exist', $request->getParameter('strain_id')));
 
-		$this->form = new ArticleForm();
+		$this->strain = $strain;
+		$this->configureGoogleMap($strain);
+		$this->form = new ArticleForm(array('strain_id' => $strain->getId()));
 		$this->form->bind($request->getPostParameters());
 
 		if ( !$this->form->isValid() ) {
-			$this->getUser()->setFlash('notice', 'The articles cannot be created with the information you have provided. Make sure everything is OK.');
-			$this->redirect('@article_configure_by_id?strain_id='.$strain->getId());
+			$this->getUser()->setFlash('notice', 'The article cannot be created with the information you have provided. Make sure everything is OK.');
+			$this->setTemplate('configure');
 		}
 		else {
 			$this->setLayout(false);
-			$strain = StrainTable::getInstance()->find($request->getParameter('strain_id'));
 
 			//$this->createPdf('0001');
 			//return sfView::NONE;
