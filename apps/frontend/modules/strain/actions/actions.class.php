@@ -139,7 +139,7 @@ class strainActions extends MyActions {
 	 * @return JSON object with strain id and code
 	 * @author Eliezer Talon
 	 * @version 2011-11-10
-	*/
+	 */
 	public function executeUpdateIsolatorsOrder(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			try {

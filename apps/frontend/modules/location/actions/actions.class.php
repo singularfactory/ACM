@@ -153,6 +153,7 @@ class locationActions extends MyActions {
 			$removablePictures = $this->getRemovablePictures($form);
 			
 			// Save object
+			$location = null;
 			try {
 				$location = $form->save();
 				if ( $request->hasParameter('_save_and_add') ) {
@@ -183,7 +184,9 @@ class locationActions extends MyActions {
 				$message = $e->getMessage();
 			}
 			
-			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
+			if ( $location != null ) {
+				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
+			}
 			$this->getUser()->setFlash('notice', $message);
 			if ( $url !== null ) {
 				$this->redirect($url);
