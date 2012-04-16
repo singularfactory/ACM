@@ -23,8 +23,8 @@ class articleActions extends MyActions {
 	 * @param Strain $strain
 	 * @return void
 	 */
-	public function configureGoogleMap($strain) {
-		$this->googleMap = new MyGoogleMap(array(), array('width'=>'300px', 'height'=>'200px'));
+	public function configureGoogleMap($strain, $width = '300px', $height = '200px') {
+		$this->googleMap = new MyGoogleMap(array(), array('width' => $width, 'height' => $height));
 		$coordinates = $strain->getSample()->getGPSCoordinates();
 		$location = $strain->getSample()->getLocation();
 		$marker = $this->googleMap->getMarkerFromCoordinates($coordinates['latitude'], $coordinates['longitude']);
@@ -69,33 +69,48 @@ class articleActions extends MyActions {
 		else {
 			$this->setLayout(false);
 
-			//$this->createPdf('0001');
-			//return sfView::NONE;
+			// Build location picture filename with path
+			$path = '/uploads';
+			$filename = '';
+			$locationPictureId = $this->form->getValue('location_picture');
+			switch ($this->form->getValue('location_picture_source')) {
+				case 'field_picture':
+					$path .= sfConfig::get('app_sample_pictures_dir');
+					$filename = FieldPictureTable::getInstance()->findOneById($locationPictureId)->getFilename();
+					break;
+				case 'detailed_picture':
+					$path .= sfConfig::get('app_sample_pictures_dir');
+					$filename = DetailedPictureTable::getInstance()->findOneById($locationPictureId)->getFilename();
+					break;
+				case 'location_picture':
+					$path .= sfConfig::get('app_location_pictures_dir');
+					$filename = LocationPictureTable::getInstance()->findOneById($locationPictureId)->getFilename();
+					break;
+			}
+			$this->locationPicture = $path . '/' . $filename;
+
+			// Build strain picture filename with path
+			$path = '/uploads' . sfConfig::get('app_strain_pictures_dir');;
+			$filename = StrainPictureTable::getInstance()->findOneById($this->form->getValue('strain_picture'))->getFilename();
+			$this->strainPicture = $path . '/' . $filename;
+
+			$latitude = MyGoogleMap::dms_to_decimal_degrees($strain->getSample()->getLatitude());
+			$longitude = MyGoogleMap::dms_to_decimal_degrees($strain->getSample()->getLongitude());
+			$this->googleMapUrl .= 'http://maps.google.com/maps/api/staticmap?';
+			$this->googleMapUrl .= sprintf('center=%f,%f', $latitude, $longitude) . '&';
+			$this->googleMapUrl .= 'zoom=6' . '&';
+			$this->googleMapUrl .= 'size=270x170' . '&';
+			$this->googleMapUrl .= 'maptype=satellite' . '&';
+			$this->googleMapUrl .= 'sensor=false' . '&';
+			$this->googleMapUrl .= 'markers=size:small%7C'. $latitude . ',' . $longitude;
+
+			$html = $this->getPartial('pdf');
+			$pdf = new WKPDF();
+			$pdf->set_html($html);
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "{$strain->getFullCode()}_article.pdf");
+			throw new sfStopException();
+			return sfView::NONE;
 		}
 	}
-
-	/**
-	 * Creates a PDF using wkhtmltopdf
-	 *
-	 * @param string $code Strain full code, e.g. BEA0001
-	 *
-	 * @return boolean False if something goes wrong. Otherwise the execution stops here
-	 *
-	 * @author Eliezer Talon
-	 * @version 2012-04-10
-	 * @throws sfStopException
-	 */
-	protected function createPdf($code) {
-		$this->setLayout(false);
-		$html = $this->getPartial('create_pdf');
-
-		$pdf = new WKPDF();
-		$pdf->set_html($html);
-		$pdf->set_orientation('Portrait');
-		$pdf->render();
-		$pdf->output(WKPDF::$PDF_DOWNLOAD, "{$code}_article.pdf");
-
-	  throw new sfStopException();
-	}
-
 }

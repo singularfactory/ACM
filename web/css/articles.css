@@ -15,58 +15,79 @@ form #right_side_form { max-width: 50%; padding-bottom: 0em; margin-bottom: 0em;
 div.article_content_section h3 { padding-top: 0em; margin-top: 0em; }
 div.article_content_section p { padding-left: 0em; padding-top: 0.5em; padding-bottom: 0.5em; margin-bottom: 0em; margin-top: 0em; }
 
-#object_google_map {
-	cursor: default !important;
+#object_google_map { cursor: default !important; margin: 0; padding: 0em 1em 0em 0em; }
+#object_google_map a, #object_google_map a:hover { background: transparent; border: 0; }
+
+.thumbnail { position: relative; }
+.thumbnail input { position: absolute; top: 3px; left: 33px; }
+.thumbnail_image { margin-top: 10px; }
+
+#phylogenetic_information .thumbnail_image { padding-top: 0; margin-top: 0; }
+
+/**
+ * PDF styles
+ */
+body { margin: 0; }
+
+#sfWebDebug { display: none; }
+
+#container {
+	font-size: 8pt;
+	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
 	margin: 0;
-	padding: 0em 1em 0em 0em;
+	padding: 15px;
+	background-color: #ffffff;
+	width: 21.0cm;
+	height: 29.7cm;
 }
 
-#object_google_map a, #object_google_map a:hover {
-	background: transparent;
-	border: 0;
+ul { list-style: none; margin: 0em; padding: 0em; }
+
+li { padding: 0.25em 0em; }
+
+#sidebar { float: left; width: 30%; text-align: left; }
+#body { float: left; width: 68%; text-align: left; margin-left: 2%; }
+
+div.sidebar-section, div.body-section { margin-top: 2.5em; margin-bottom: 2.5em; background-color: #e0e0e0; }
+div.sidebar-section { padding: 0.5em; }
+div.body-section { margin-top: 0em; }
+
+#sidebar #logo { text-align: center; background-color: #ffffff; margin-top: 0em; padding: 0em; }
+#sidebar #logo img { width: 220px; }
+#sidebar #taxonomy {}
+#sidebar #environmental-conditions sup { font-size: 5pt; }
+#sidebar #culture-conditions {}
+#sidebar #location-picture { margin-bottom: 0em; background-color: #ffffff; padding: 0em; }
+#sidebar #location-picture img { width: 237px; }
+
+#body #title { font-size: 10pt; margin-top: 1em; margin-bottom: 1em; font-weight: bold;}
+#body #title span { padding-left: 0.5em; }
+#body #title span.bea_code { margin-top: 0.5em; }
+
+#body #strain-picture { text-align: center; background-color: #ffffff; margin-top: 1em; margin-bottom: 1.5em; }
+#body #strain-picture img { width: 537px; }
+
+#body #content { background-color: #ffffff; }
+#body #content div.content-section {
+	padding: 0.5em;
+	background-color: #e0e0e0;
 }
 
-.thumbnail {
-	position: relative;
-}
-.thumbnail input {
-	position: absolute;
-	top: 3px;
-	left: 33px;
-}
+#body #content #content-left-column { float: left; width: 49%; }
+#body #content #content-right-column { float: right; width: 49%; }
 
-.thumbnail_image {
-	margin-top: 10px;
-}
+#body #content p { margin: 0em; padding: 0em; font-size: 8pt; }
 
-#phylogenetic_information .thumbnail_image {
-	padding-top: 0; margin-top: 0;
-}
+#body #content #description {}
+#body #content #description h3 { color: #333333; font-size: 8pt; margin: 0; padding: 0; }
 
-#header {
+#body #content #location-map { background: #ffffff; padding: 0em; margin: 1em 0em; }
+#body #content #location-map img { width: 264px; }
 
-}
+#body #content #molecular-taxonomy { margin-bottom: 1em; }
 
-#body {
+#body #content #phylogenetic-tree { background-color: #ffffff; padding: 0em; margin: 1em 0em; }
+#body #content #phylogenetic-tree img { width: 264px; }
 
-}
+#body #content #phylogenetic-description { }
 
-#information {
-
-}
-
-#content {
-
-}
-
-#picture {
-
-}
-
-#text {
-
-}
-
-#footer {
-
-}
