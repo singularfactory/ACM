@@ -8,12 +8,12 @@
 * @author     Eliezer Talon <elitalon@inventiaplus.com>
 * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
 */
-class locationActions extends MyActions {	
-	
+class locationActions extends MyActions {
+
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Location', array('init' => false));
-		
+
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
@@ -28,7 +28,7 @@ class locationActions extends MyActions {
 				->orWhere("i.name LIKE ?", "%$text%")
 				->orWhere("cat.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%");
-				
+
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
@@ -38,23 +38,23 @@ class locationActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Region r")
 				->leftJoin("{$this->mainAlias()}.Island i")
 				->leftJoin("{$this->mainAlias()}.Samples s");
-			
+
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
-		
+
 		$this->pager->setQuery($query);
 		$this->pager->init();
-		
+
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('location.index_page', $request->getParameter('page'));
-		
+
 		// Add a form to filter results
 		$this->form = new LocationForm();
 	}
-	
+
 	public function executeShow(sfWebRequest $request) {
 		$this->location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id')));
-		
+
 		// Configure a Google Map to show the location
 		$this->googleMap = new MyGoogleMap();
 		$coordinates = $this->location->getGPSCoordinates();
@@ -68,12 +68,12 @@ class locationActions extends MyActions {
 		else {
 			$marker = $this->googleMap->getMarkerFromAddress("{$information['title']}, {$information['description']}, {$this->location->getCountry()->getName()}", $information);
 		}
-		
+
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
 		$this->googleMap->centerAndZoomOnMarkers();
 		$this->googleMap->setZoom($this->googleMap->getZoom() - 2);
-				
+
 		$this->forward404Unless($this->location);
 	}
 
@@ -85,11 +85,11 @@ class locationActions extends MyActions {
 			$location->setLatitude($lastLocation->getLatitude());
 			$location->setLongitude($lastLocation->getLongitude());
 			$location->setRemarks($lastLocation->getRemarks());
-			
+
 			$this->form = new LocationForm($location);
 			$this->form->setIslandChoicesByRegion($lastLocation->getRegionId());
 			$this->form->setDefault('island_id', $lastLocation->getIslandId());
-			
+
 			$this->getUser()->setAttribute('location.last_object_created', null);
 		}
 		else {
@@ -100,7 +100,7 @@ class locationActions extends MyActions {
 			$this->form->setDefault('country_id', $countryId);
 			$this->form->setDefault('region_id', $regionId);
 			$this->form->setDefault('island_id', $islandId);
-		}		
+		}
 	}
 
 	public function executeCreate(sfWebRequest $request) {
@@ -109,7 +109,7 @@ class locationActions extends MyActions {
 		$this->form = new LocationForm();
 
 		$this->processForm($request, $this->form);
-		
+
 		$this->setTemplate('new');
 	}
 
@@ -130,7 +130,7 @@ class locationActions extends MyActions {
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		
+
 		// Count files uploaded in form
 		$uploadedFiles = $request->getFiles();
 		$nbValidFiles = 0;
@@ -142,37 +142,32 @@ class locationActions extends MyActions {
 			}
 		}
 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
-		
+
 		// Validate form
+		$flashMessage = null;
+		$url = null;
+		$location = null;
 		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_location_pictures') ) {
-			$flashMessage = null;
-			$url = null;
-			$isNew = $form->getObject()->isNew();
-			
-			// Detect pictures that must be deleted
-			$removablePictures = $this->getRemovablePictures($form);
-			
-			// Save object
-			$location = null;
 			try {
+				$removablePictures = $this->getRemovablePictures($form);
+
 				$location = $form->save();
 				if ( $request->hasParameter('_save_and_add') ) {
-					$message = 'Location created successfully. Now you can add another one';
+					$flashMessage = 'Location created successfully. Now you can add another one';
 					$url = '@location_new';
 					$this->getUser()->setAttribute('location.last_object_created', $location);
 				}
-				elseif ( !$isNew ) {
-					$message = 'Changes saved';
+				elseif ( !$form->getObject()->isNew() ) {
+					$flashMessage = 'Changes saved';
 					$url = '@location_show?id='.$location->getId();
 				}
 				else {
-					$message = 'Location created successfully';
+					$flashMessage = 'Location created successfully';
 					$url = '@location_show?id='.$location->getId();
 				}
-				
-				// Remove Location pictures
+
 				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_location_pictures_dir'));
-				
+
 				// Update GPS coordinates of every sample (temporary measure)
 				foreach ($location->getSamples() as $sample) {
 					$sample->setLatitude($location->getLatitude());
@@ -181,19 +176,18 @@ class locationActions extends MyActions {
 				}
 			}
 			catch (Exception $e) {
-				$message = $e->getMessage();
-			}
-			
-			if ( $location != null ) {
-				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
-			}
-			$this->getUser()->setFlash('notice', $message);
-			if ( $url !== null ) {
-				$this->redirect($url);
+				$flashMessage = $e->getMessage();
 			}
 		}
-		
-		$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix', false);
+
+		if ( $location != null ) {
+			$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $location->getId())));
+			$this->getUser()->setFlash('notice', $flashMessage);
+			$this->redirect($url);
+		}
+		else {
+			$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix: '.$flashMessage, false);
+		}
 	}
-	
+
 }
