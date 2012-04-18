@@ -1,13 +1,39 @@
 <?php
+/**
+ * Form class
+ *
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Lib.Form
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+
 
 /**
-* CultureMedium form.
-*
-* @package    bna_green_house
-* @subpackage form
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
-*/
+ * CultureMedium form.
+ *
+ * @package ACM.Lib.Form
+ * @since 1.0
+ */
 class CultureMediumForm extends BaseCultureMediumForm {
 
 	public function configure() {
@@ -25,7 +51,7 @@ class CultureMediumForm extends BaseCultureMediumForm {
 				'mime_types' => 'The file must be a supported type',
 			)
 		));
-		
+
 		$this->widgetSchema->setHelp('name', 'Name of this culture medium');
 		$this->widgetSchema->setHelp('description', 'Enclosed document with the details of this culture medium');
 		$this->widgetSchema->setHelp('link', 'Links to external resources');
