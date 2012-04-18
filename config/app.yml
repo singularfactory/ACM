@@ -1,3 +1,25 @@
+##
+# Application wide constants
+#
+# acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+# Copyright 2012, Singular Factory <info@singularfactory.com>
+#
+# This file is part of ACM
+#
+# ACM is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# ACM is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+##
+
 prod:
   root_url: http://acm.marinebiotechnology.org
 
@@ -15,11 +37,11 @@ all:
     max_sample_field_pictures:        3
     max_sample_detailed_pictures:     3
     max_sample_microscopic_pictures:  3
-    
+
     # Location related constants
     location_pictures_dir:  /location_pictures
     max_location_pictures:  5
-    
+
     # Strain related constants
     strain_pictures_dir:              /strain_pictures
     max_strain_pictures:              5
@@ -27,16 +49,16 @@ all:
     maintenance_status_liquid:        Liquid
     maintenance_status_solid:         Solid
     maintenance_status_cryopreserved: Cryopreserved
-    
+
     # Culture media related constants
     culture_media_dir:  /culture_media
-    
+
     # DNA lab related constants
     concentration_unit: ng/µl #ng/&micro;l
     pcr_gel_band_unit:  bp
     forward_dna_primer_direction: forward
     reverse_dna_primer_direction: reverse
-    
+
     # Pictures and thumbnails management constants
     pictures_dir:         /uploads
     picture_extension:    .png
@@ -49,7 +71,7 @@ all:
     max_thumbnail_size:   75
     max_avatar_size:      40
     image_mime_types:     ['image/jpeg', 'image/pjpeg', 'image/png', 'image/x-png', 'image/gif', 'image/tiff', 'image/svg+xml', 'image/bmp']
-    
+
     # Common constants
     max_list_items:             15
     no_data_message:            n/a
@@ -63,17 +85,17 @@ all:
     document_mime_types:       ['application/pdf', 'application/zip', 'application/postscript', 'text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', ' vnd.oasis.opendocument.text', 'application/vnd.ms-word']
     max_document_size:          67108864
     documents_dir:             /uploads
-    
+
     # Common regular expressions
     strain_bea_code_regex:          '/^BEA\s?(\d+)[bB]?$/'
     culture_medium_bea_code_regex:  '/^BEA\s?(\d+)-[cC][mM]$/'
-    
+
     # Inbox constants
     inbox_notification_new:     0
     inbox_notification_read:    1
     inbox_notification_deleted: 2
     inbox_days_in_trash:        30
-    
+
     # Purchase orders constants
     purchase_order_pending:           0
     purchase_order_processing:        1
@@ -87,40 +109,40 @@ all:
     #notify_sent_public_web_url:       "http://bea.marinebiotechnology.org"
     notify_sent_public_web_url:       "http://clientes.inventiaplus.com/webbna"
     notify_sent_shared_secret:        81pPVrGrurRbpmL9
-    
+
     # Projects constants
     project_amount_unit: ml
-    
+
     # Cryopreservations constants
     cryopreservation_density_unit: µgCl/ml
-    
+
     # Identifications constants
     identification_dir:           /identifications
     identification_pictures_dir:  /identification_pictures
-    
+
     # Deposits related constants
     maintenance_deposit_dir:  /maintenance_deposits
     patent_deposit_dir:       /patent_deposits
-    
+
     # Isolation constants
     isolation_subject_sample:   0
     isolation_subject_strain:   1
     isolation_subject_external: 2
-    
+
     # Google Maps API management constants
     map_pictures_dir:   /images/maps
     default_latitude:   27.991232
     default_longitude:  -15.368787
-  
+
 
   sf_guard_plugin:
     routes_register:        true
     allow_login_with_email: false
     success_signout_url:    /login
-  
+
   # Directory of wkhtmltopdf inside sf_lib_dir
   wkhtmltopdf_path: vendor/wkhtmltopdf
-  
+
   # Directory of php-barcode inside sf_lib_dir
   php_barcode_path: vendor/php-barcode
 
