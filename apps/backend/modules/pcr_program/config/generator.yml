@@ -11,7 +11,7 @@ generator:
     with_doctrine_route:   true
     actions_base_class:    MyActions
     css:                    false
-    
+
     config:
       actions: ~
       fields:

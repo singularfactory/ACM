@@ -1,19 +1,46 @@
 <?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
+<?php
 
 /**
-* isolation actions.
-*
-* @package    bna_green_house
-* @subpackage isolation
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
-*/
+ * isolation actions.
+ *
+ * @package ACM.Frontend
+ * @subpackage isolation
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
 class isolationActions extends MyActions {
-	
+
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Isolation', array('init' => false, 'sort_column' => 'reception_date'));
-		
+
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
@@ -38,7 +65,7 @@ class isolationActions extends MyActions {
 				->orWhere('esp.name LIKE ?', "%$text%")
 				->orWhere('st.id LIKE ?', "%$text%")
 				->orWhere('sa.id LIKE ?', "%$text%");
-						
+
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
@@ -56,24 +83,24 @@ class isolationActions extends MyActions {
 				->leftJoin("est.TaxonomicClass esttc")
 				->leftJoin("est.Genus estg")
 				->leftJoin("est.Species estsp");
-			
+
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		$this->pager->setQuery($query);
 		$this->pager->init();
-		
+
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('isolation.index_page', $request->getParameter('page'));
-		
+
 		// Add a form to filter results
 		$this->form = new IsolationForm();
 	}
-	
+
 	public function executeShow(sfWebRequest $request) {
 		$this->isolation = Doctrine_Core::getTable('Isolation')->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->isolation);
 	}
-	
+
 	protected function configureFormByIsolationSubject(sfForm $form, $subject = 'sample') {
 		$form->setDefault('isolation_subject', $subject);
 		switch( $subject ) {
@@ -82,7 +109,7 @@ class isolationActions extends MyActions {
 				unset($form['strain_id']);
 				unset($form['external_strain_id']);
 				break;
-			
+
 			case 'strain':
 				unset($form['external_code']);
 				unset($form['location_id']);
@@ -124,11 +151,11 @@ class isolationActions extends MyActions {
 				break;
 		}
 	}
-	
+
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastIsolation = $this->getUser()->getAttribute('isolation.last_object_created') ) {
 			$isolation = new Isolation();
-			
+
 			$isolation->setExternalStrainId($lastIsolation->getExternalStrainId());
 			$isolation->setStrainId($lastIsolation->getStrainId());
 			$isolation->setSampleId($lastIsolation->getSampleId());
@@ -141,24 +168,24 @@ class isolationActions extends MyActions {
 			$isolation->setEnvironmentId($lastIsolation->getEnvironmentId());
 			$isolation->setHabitatId($lastIsolation->getHabitatId());
 			$isolation->setPurificationMethodId($lastIsolation->getPurificationMethodId());
-			
+
 			$this->form = new IsolationForm($isolation);
 			$this->getUser()->setAttribute('isolation.last_object_created', null);
 		}
 		else {
 			$this->form = new IsolationForm();
 		}
-		
+
 		if ( $subject = $request->getParameter('subject') ) {
 			$this->configureFormByIsolationSubject($this->form, $subject);
 		}
 		else {
 			$this->configureFormByIsolationSubject($this->form);
 		}
-				
+
 		$this->hasPurificationMethods = (PurificationMethodTable::getInstance()->count() > 0)?true:false;
 	}
-	
+
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
@@ -166,15 +193,15 @@ class isolationActions extends MyActions {
 		$isolation = $request->getParameter('isolation');
 		$this->configureFormByIsolationSubject($this->form, $isolation['isolation_subject']);
 		$this->hasPurificationMethods = (PurificationMethodTable::getInstance()->count() > 0)?true:false;
-		
+
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
 	}
-	
+
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($isolation = IsolationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object isolation does not exist (%s).', $request->getParameter('id')));
 		$this->form = new IsolationForm($isolation);
-		
+
 		if ( $subject = $request->getParameter('subject') ) {
 			$this->configureFormByIsolationSubject($this->form, $subject);
 		}
@@ -182,11 +209,11 @@ class isolationActions extends MyActions {
 			$this->configureFormByIsolationSubject($this->form, $isolation->getIsolationSubject());
 		}
 	}
-	
+
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($isolation = IsolationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object isolation does not exist (%s).', $request->getParameter('id')));
-		
+
 		$this->form = new IsolationForm($isolation);
 		$isolation = $request->getParameter('isolation');
 		$this->configureFormByIsolationSubject($this->form, $isolation['isolation_subject']);
@@ -194,7 +221,7 @@ class isolationActions extends MyActions {
 
 		$this->setTemplate('edit');
 	}
-	
+
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 
@@ -240,5 +267,5 @@ class isolationActions extends MyActions {
 
 		$this->getUser()->setFlash('notice', 'The information on this isolation has some errors you need to fix', false);
 	}
-	
+
 }

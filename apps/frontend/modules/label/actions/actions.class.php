@@ -1,15 +1,42 @@
 <?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
+<?php
 
 /**
-* label actions.
-*
-* @package    bna_green_house
-* @subpackage label
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
-*/
+ * label actions.
+ *
+ * @package ACM.Frontend
+ * @subpackage label
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
 class labelActions extends myActions {
-	
+
 	/**
 	* Executes configure action
 	*
@@ -19,20 +46,20 @@ class labelActions extends myActions {
 		if ( !($productType = $request->getParameter('product_type')) ) {
 			$productType = 'strain';
 		}
-		
+
 		if ( $request->isXmlHttpRequest() ) {
 			return $this->renderPartial("{$product_type}_form", array('form' => new LabelForm()));
 		}
-		
+
 		$this->form = new LabelForm();
 		$this->productType = $productType;
 		$this->productCode = '';
 	}
-	
+
 	/**
 	 * Find the products that matches a search term
 	 *
-	 * @param sfWebRequest $request 
+	 * @param sfWebRequest $request
 	 * @return JSON object with sample id and code
 	 * @author Eliezer Talon
 	 * @version 2011-10-24
@@ -41,13 +68,13 @@ class labelActions extends myActions {
 		if ( $request->isXmlHttpRequest() ) {
 			$table = sfInflector::camelize($request->getParameter('product')).'Table';
 			$tableInstance = call_user_func(array($table, 'getInstance'));
-			
+
 			$matches = array();
 			foreach ( $tableInstance->findByTerm($request->getParameter('term')) as $match ) {
 				$matches[] = array(
 					'id' => $match->getId(),
 					'label' => ($table == 'StrainTable') ? $match->getFullCode() : $match->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
-					
+
 					// Strain attributes
 					'transfer_interval' => ($table == 'StrainTable') ? $match->getTransferInterval() : null,
 					'supervisor' => ($table == 'StrainTable') ? $match->getSupervisorInitials() : null,
@@ -57,7 +84,7 @@ class labelActions extends myActions {
 		}
 		return sfView::NONE;
 	}
-	
+
 	/**
 	* Executes create action
 	*
@@ -65,37 +92,37 @@ class labelActions extends myActions {
 	*/
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
-		
+
 		// Clean useless form values
 		$taintedValues = $request->getPostParameters();
 		unset($taintedValues['product_id_search']);
 		if ( isset($taintedValues['all_products']) ) {
 			$taintedValues['product_id'] = 0;
 		}
-		
+
 		// Validate form
 		$this->form = new LabelForm();
 		$this->form->bind($taintedValues);
 		$this->productType = $request->getParameter('product_type');
 		$this->productId = $request->getParameter('product_id');
 		$this->productCode = $request->getParameter('product_id_search');
-	
+
 		if ( !$this->form->isValid() ) {
-			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');		
+			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');
 			$this->setTemplate('configure');
 		}
 		else {
 			// Get common parameters
 			$this->allProducts = ($request->getParameter('all_products')) ? true : false;
 			$this->supervisor = $request->getParameter('supervisor');
-			
+
 			// Get results
 			$this->labels = array();
 			switch ( $this->productType ) {
 				case 'strain':
 					$this->transferInterval = $request->getParameter('transfer_interval');
 					$this->cultureMedium = CultureMediumTable::getInstance()->find($request->getParameter('culture_medium_id'));
-					
+
 					if ( $this->allProducts ) {
 						$this->labels = StrainTable::getInstance()->findAll();
 					}
@@ -104,22 +131,22 @@ class labelActions extends myActions {
 					}
 					break;
 			}
-			
+
 			$this->createPdf($this->productType, $this->labels);
 		}
-		
+
 		return sfView::NONE;
 	}
-	
+
 	/**
 	 * Creates a PDF using wkhtmltopdf
 	 *
 	 * @param string $productType Type of product to create labels for
 	 * @param Doctrine_Record | Doctrine Collection $labels Object or collection of objects that
 	 * contains the information to create the labels
-	 * 
+	 *
 	 * @return boolean False if something goes wrong. Otherwise the execution stops here
-	 * 
+	 *
 	 * @author Eliezer Talon
 	 * @version 2011-10-26
 	 * @throws sfStopException
@@ -127,14 +154,14 @@ class labelActions extends myActions {
 	protected function createPdf($productType = 'strain', $labels) {
 		$this->setLayout(false);
 		$html = $this->getPartial('create_pdf');
-				
+
 		$pdf = new WKPDF();
 		$pdf->set_html($html);
 		$pdf->set_orientation('Landscape');
 		$pdf->render();
 		$pdf->output(WKPDF::$PDF_DOWNLOAD, "{$productType}_labels.pdf");
-		
+
 	  throw new sfStopException();
 	}
-	
+
 }

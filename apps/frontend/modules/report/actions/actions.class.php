@@ -1,15 +1,42 @@
 <?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
+<?php
 
 /**
-* report actions.
-*
-* @package    bna_green_house
-* @subpackage report
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
-*/
+ * report actions.
+ *
+ * @package ACM.Frontend
+ * @subpackage report
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
 class reportActions extends sfActions {
-	
+
 	/**
 	* Executes configure action
 	*
@@ -19,20 +46,20 @@ class reportActions extends sfActions {
 		if ( !($subject = $request->getParameter('subject')) ) {
 			$subject = 'location';
 		}
-		
+
 		if ( $request->isXmlHttpRequest() ) {
 			return $this->renderPartial("{$subject}_form", array('form' => new ReportForm()));
 		}
-		
+
 		$this->form = new ReportForm();
 		$this->form->setDefault('subject', $subject);
 		$this->subject = $subject;
 	}
-	
+
 	/**
 	 * Find the countries that matches a search term
 	 *
-	 * @param sfWebRequest $request 
+	 * @param sfWebRequest $request
 	 * @return JSON object with country ID and name
 	 * @author Eliezer Talon
 	 * @version 2011-10-28
@@ -41,7 +68,7 @@ class reportActions extends sfActions {
 		if ( $request->isXmlHttpRequest() ) {
 			$countries = CountryTable::getInstance()->createQuery('c')
 				->where('c.name LIKE ?', '%'.$request->getParameter('country').'%')->execute();
-			
+
 			$matches = array();
 			foreach ( $countries as $match ) {
 				$matches[] = array(
@@ -53,11 +80,11 @@ class reportActions extends sfActions {
 		}
 		return sfView::NONE;
 	}
-	
+
 	/**
 	 * Find the regions that matches a search term
 	 *
-	 * @param sfWebRequest $request 
+	 * @param sfWebRequest $request
 	 * @return JSON object with region ID and name
 	 * @author Eliezer Talon
 	 * @version 2011-10-28
@@ -66,7 +93,7 @@ class reportActions extends sfActions {
 		if ( $request->isXmlHttpRequest() ) {
 			$regions = RegionTable::getInstance()->createQuery('r')
 				->where('r.name LIKE ?', '%'.$request->getParameter('region').'%')->execute();
-			
+
 			$matches = array();
 			foreach ( $regions as $match ) {
 				$matches[] = array(
@@ -78,11 +105,11 @@ class reportActions extends sfActions {
 		}
 		return sfView::NONE;
 	}
-	
+
 	/**
 	 * Find the islands that matches a search term
 	 *
-	 * @param sfWebRequest $request 
+	 * @param sfWebRequest $request
 	 * @return JSON object with island ID and code
 	 * @author Eliezer Talon
 	 * @version 2011-10-28
@@ -91,7 +118,7 @@ class reportActions extends sfActions {
 		if ( $request->isXmlHttpRequest() ) {
 			$islands = IslandTable::getInstance()->createQuery('i')
 				->where('i.name LIKE ?', '%'.$request->getParameter('island').'%')->execute();
-			
+
 			$matches = array();
 			foreach ( $islands as $match ) {
 				$matches[] = array(
@@ -103,7 +130,7 @@ class reportActions extends sfActions {
 		}
 		return sfView::NONE;
 	}
-	
+
 	/**
 	* Executes generate action
 	*
@@ -111,7 +138,7 @@ class reportActions extends sfActions {
 	*/
 	public function executeGenerate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
-		
+
 		// Clean useless form values
 		$taintedValues = $request->getPostParameters();
 		if ( array_key_exists('location_country_search', $taintedValues) ) {
@@ -123,21 +150,21 @@ class reportActions extends sfActions {
 		if ( array_key_exists('location_island_search', $taintedValues) ) {
 			unset($taintedValues['location_island_search']);
 		}
-		
+
 		// Validate form
 		$this->form = new ReportForm();
 		$this->form->bind($taintedValues);
 		$this->subject = $request->getParameter('subject');
-	
+
 		if ( !$this->form->isValid() ) {
-			$this->getUser()->setFlash('notice', 'The report cannot be generated with the information you have provided. Make sure everything is OK.');		
+			$this->getUser()->setFlash('notice', 'The report cannot be generated with the information you have provided. Make sure everything is OK.');
 			$this->setTemplate('configure');
 		}
 		else {
 			$table = call_user_func(array(sfInflector::camelize($this->subject).'Table', 'getInstance'));
 			$alias = substr($this->subject, 0, 1);
 			$query = $table->createQuery($alias)->where('1 = ?', 1)->select("$alias.*");
-			
+
 			$this->results = array();
 			switch ( $request->getParameter('subject') ) {
 				case 'sample':
@@ -153,17 +180,17 @@ class reportActions extends sfActions {
 							$relatedForeignKey = sfInflector::foreign_key($this->modelToGroupBy);
 							$recursive = true;
 						}
-						
+
 						$query = $query->addSelect("COUNT($alias.id) as n_samples");
 						if ( $recursive ) {
 							$query = $query->innerJoin("$alias.$relatedAlias m");
 						}
-						
+
 						$query = $query
 							->leftJoin("$alias.Strains st")
 							->addSelect("COUNT(st.id) as n_strains")
 							->groupBy("$alias.$relatedForeignKey");
-						
+
 						if ( $recursive ) {
 							$query = $query->addSelect('m.name as value');
 						}
@@ -171,7 +198,7 @@ class reportActions extends sfActions {
 							$query = $query->addSelect("$alias.$relatedAlias as value");
 						}
 					}
-					
+
 					// Filters
 					$this->filters = array();
 					$relatedModels = array('environment', 'habitat', 'radiation');
@@ -180,12 +207,12 @@ class reportActions extends sfActions {
 							$foreignKey = sfInflector::foreign_key($model);
 							$model = sfInflector::camelize($model);
 							$table = call_user_func(array("{$model}Table", 'getInstance'));
-							
+
 							$this->filters[$model] = $table->find($id)->getName();
 							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
 						}
 					}
-					
+
 					if ( $isExtremophile = $request->getParameter('sample_extremophile') ) {
 						if ( $isExtremophile == 1 ) {
 							$this->filters['Extremophile'] = 'no';
@@ -196,14 +223,14 @@ class reportActions extends sfActions {
 							$query = $query->andWhere("$alias.is_extremophile = ?", 1);
 						}
 					}
-					
+
 					if ( $locationDetails = $request->getParameter('sample_location_details') ) {
 						$this->filters['LocationDetails'] = $locationDetails;
 						$query = $query->andWhere("$alias.location_details LIKE ?", "%$locationDetails%");
 					}
-					
+
 					break;
-				
+
 				case 'strain':
 					// Group by
 					if ( $this->modelToGroupBy = $request->getParameter('strain_group_by') ) {
@@ -235,7 +262,7 @@ class reportActions extends sfActions {
 							$query = $query->addSelect("$alias.$relatedAlias as value");
 						}
 					}
-					
+
 					// Filters
 					$this->filters = array();
 					$relatedModels = array('taxonomic_class', 'genus', 'species', 'authority');
@@ -244,29 +271,29 @@ class reportActions extends sfActions {
 							$foreignKey = sfInflector::foreign_key($model);
 							$model = sfInflector::camelize($model);
 							$table = call_user_func(array("{$model}Table", 'getInstance'));
-							
+
 							$this->filters[$model] = $table->find($id)->getName();
 							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
 						}
 					}
-					
+
 					$relatedModels = array('maintenance_status', 'culture_medium');
 					foreach ( $relatedModels as $model ) {
 						if ( $id = $request->getParameter("strain_$model") ) {
 							$foreignKey = sfInflector::foreign_key($model);
 							$model = sfInflector::camelize($model);
 							$table = call_user_func(array("{$model}Table", 'getInstance'));
-							
+
 							$intermediateModel = $model;
 							if ( $model == 'CultureMedium' ) {
 								$intermediateModel = 'CultureMedia';
 							}
-							
+
 							$this->filters[$model] = $table->find($id)->getName();
 							$query = $query->andWhere("$alias.Strain$intermediateModel.$foreignKey = ?", $id);
 						}
 					}
-					
+
 					if ( $isEpitype = $request->getParameter('strain_epitype') ) {
 						if ( $isEpitype == 1 ) {
 							$this->filters['Epitype'] = 'no';
@@ -277,7 +304,7 @@ class reportActions extends sfActions {
 							$query = $query->andWhere("$alias.is_epity = ?", 1);
 						}
 					}
-					
+
 					if ( $isAxenic = $request->getParameter('strain_axenic') ) {
 						if ( $isAxenic == 1 ) {
 							$this->filters['Axenic'] = 'no';
@@ -288,7 +315,7 @@ class reportActions extends sfActions {
 							$query = $query->andWhere("$alias.is_axenic = ?", 1);
 						}
 					}
-					
+
 					if ( $inGCatalog = $request->getParameter('strain_in_g_catalog') ) {
 						if ( $inGCatalog == 1 ) {
 							$this->filters['In G-catalog'] = 'no';
@@ -299,7 +326,7 @@ class reportActions extends sfActions {
 							$query = $query->andWhere("$alias.in_g_catalog = ?", 1);
 						}
 					}
-					
+
 					if ( $deceased = $request->getParameter('strain_deceased') ) {
 						if ( $deceased == 1 ) {
 							$this->filters['Deceased'] = 'no';
@@ -310,13 +337,13 @@ class reportActions extends sfActions {
 							$query = $query->andWhere("$alias.deceased = ?", 1);
 						}
 					}
-					
+
 					if ( $transferInterval = $request->getParameter('strain_transfer_interval') ) {
 						$this->filters['TransferInterval'] = $transferInterval;
 						$query = $query->andWhere("$alias.transfer_interval = ?", $transferInterval);
 					}
 					break;
-				
+
 				case 'dna_extraction':
 					// Group by
 					if ( $this->modelToGroupBy = $request->getParameter('dna_extraction_group_by') ) {
@@ -350,7 +377,7 @@ class reportActions extends sfActions {
 							$query = $query->addSelect("$alias.$relatedAlias as value");
 						}
 					}
-					
+
 					// Filters
 					$this->filters = array();
 					$relatedModels = array('extraction_kit');
@@ -359,33 +386,33 @@ class reportActions extends sfActions {
 							$foreignKey = sfInflector::foreign_key($model);
 							$model = sfInflector::camelize($model);
 							$table = call_user_func(array("{$model}Table", 'getInstance'));
-							
+
 							$this->filters[$model] = $table->find($id)->getName();
 							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
 						}
 					}
-										
+
 					if ( $aliquots = $request->getParameter('dna_extraction_aliquots') ) {
 						$this->filters['Aliquots'] = $aliquots;
 						$query = $query->andWhere("$alias.aliquots = ?", $aliquots);
 					}
-					
+
 					if ( $concentration = $request->getParameter('dna_extraction_concentration') ) {
 						$this->filters['Concentration'] = $concentration;
 						$query = $query->andWhere("$alias.concentration = ?", $concentration);
 					}
-					
+
 					if ( $ratio280 = $request->getParameter('dna_extraction_260_280_ratio') ) {
 						$this->filters['260_280_ratio'] = $ratio280;
 						$query = $query->andWhere("$alias.260_280_ratio = ?", $ratio280);
 					}
-					
+
 					if ( $ratio230 = $request->getParameter('dna_extraction_260_230_ratio') ) {
 						$this->filters['260_230_ratio'] = $ratio230;
 						$query = $query->andWhere("$alias.260_230_ratio = ?", $ratio230);
 					}
 					break;
-				
+
 				case 'location':
 				default:
 					// Group by
@@ -400,7 +427,7 @@ class reportActions extends sfActions {
 							->groupBy("$alias.".sfInflector::foreign_key($this->modelToGroupBy))
 							->addSelect('m.name as value');
 					}
-					
+
 					// Filters
 					$this->filters = array();
 					$relatedModels = array('country', 'region', 'island', 'category');
@@ -414,19 +441,19 @@ class reportActions extends sfActions {
 							else {
 								$table = call_user_func(array("{$model}Table", 'getInstance'));
 							}
-							
+
 							$this->filters[$model] = $table->find($id)->getName();
 							$query = $query->andWhere("$alias.$foreignKey = ?", $id);
 						}
 					}
 					break;
 			}
-			
+
 			if ( $this->modelToGroupBy === '0' ) {
 				$this->modelToGroupBy = false;
 			}
 			$this->results = $query->execute();
 		}
 	}
-	
+
 }

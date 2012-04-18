@@ -1,19 +1,46 @@
 <?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
+<?php
 
 /**
-* sample actions.
-*
-* @package    bna_green_house
-* @subpackage sample
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
-*/
+ * sample actions.
+ *
+ * @package ACM.Frontend
+ * @subpackage sample
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
 class sampleActions extends MyActions {
-	
+
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
-		
+
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
@@ -38,7 +65,7 @@ class sampleActions extends MyActions {
 				->orWhere('co.name LIKE ?', "%$text%")
 				->orWhere('re.name LIKE ?', "%$text%")
 				->orWhere('is.name LIKE ?', "%$text%");
-				
+
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
@@ -46,22 +73,22 @@ class sampleActions extends MyActions {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Location l")
 				->leftJoin("{$this->mainAlias()}.Collectors c");
-			
+
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
 		$this->pager->setQuery($query);
 		$this->pager->init();
-		
+
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('sample.index_page', $request->getParameter('page'));
-		
+
 		// Add a form to filter results
 		$this->form = new SampleForm();
 	}
-	
+
 	public function executeShow(sfWebRequest $request) {
 		$this->sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id')));
-		
+
 		// Configure a Google Map to show the location
 		$this->googleMap = new MyGoogleMap();
 		$coordinates = $this->sample->getGPSCoordinates();
@@ -79,10 +106,10 @@ class sampleActions extends MyActions {
 		$this->googleMap->addMarker($marker);
 		$this->googleMap->addMarker($this->googleMap->getHomeMarker());
 		$this->googleMap->centerAndZoomOnMarkers(1);
-		
+
 		$this->forward404Unless($this->sample);
 	}
-	
+
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastSample = $this->getUser()->getAttribute('sample.last_object_created') ) {
 			$sample = new Sample();
@@ -100,7 +127,7 @@ class sampleActions extends MyActions {
 			$sample->setRadiationId($lastSample->getRadiationId());
 			$sample->setCollectionDate($lastSample->getCollectionDate());
 			$sample->setRemarks($lastSample->getRemarks());
-			
+
 			$this->form = new SampleForm($sample);
 			$this->locationName = $lastSample->getLocation()->getName();
 			$this->getUser()->setAttribute('sample.last_object_created', null);
@@ -109,10 +136,10 @@ class sampleActions extends MyActions {
 			$this->form = new SampleForm();
 			$this->locationName = null;
 		}
-		
+
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 	}
-	
+
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
@@ -120,15 +147,15 @@ class sampleActions extends MyActions {
 		$this->hasLocations = (Doctrine::getTable('Location')->count() > 0)?true:false;
 
 		$this->processForm($request, $this->form);
-		
+
 		$this->setTemplate('new');
 	}
-	
+
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
 		$this->form = new SampleForm($sample);
 	}
-	
+
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id'))), sprintf('Object sample does not exist (%s).', $request->getParameter('id')));
@@ -138,11 +165,11 @@ class sampleActions extends MyActions {
 
 		$this->setTemplate('edit');
 	}
-	
+
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 		$uploadedFiles = $request->getFiles();
-		
+
 		// Count field pictures uploaded in form
 		$nbValidFieldPictures = 0;
 		if ( $uploadedFiles['sample']['new_FieldPictures'] ) {
@@ -153,7 +180,7 @@ class sampleActions extends MyActions {
 			}
 		}
 		$nbFieldPictures = $form->getObject()->getNbFieldPictures() + $nbValidFieldPictures;
-		
+
 		// Count detailed pictures uploaded in form
 		$nbValidDetailedPictures = 0;
 		if ( $uploadedFiles['sample']['new_DetailedPictures'] ) {
@@ -164,7 +191,7 @@ class sampleActions extends MyActions {
 			}
 		}
 		$nbDetailedPictures = $form->getObject()->getNbDetailedPictures() + $nbValidDetailedPictures;
-		
+
 		// Count microscopic pictures uploaded in form
 		$nbValidMicroscopicPictures = 0;
 		if ( $uploadedFiles['sample']['new_MicroscopicPictures'] ) {
@@ -175,32 +202,32 @@ class sampleActions extends MyActions {
 			}
 		}
 		$nbMicroscopicPictures = $form->getObject()->getNbMicroscopicPictures() + $nbValidMicroscopicPictures;
-		
+
 		// Detect invalid number of pictures
 		$pictureCountIsValid = ($nbFieldPictures <= sfConfig::get('app_max_sample_field_pictures')) &&
 													($nbDetailedPictures <= sfConfig::get('app_max_sample_detailed_pictures')) &&
 													($nbMicroscopicPictures <= sfConfig::get('app_max_sample_microscopic_pictures'));
-													
+
 		// Validate form
 		if ( $form->isValid() && $pictureCountIsValid ) {
 			$flashMessage = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
-			
+
 			// Detect pictures that must be deleted
 			$removablePictures = $this->getRemovablePictures($form, 'FieldPictures');
 			$removablePictures = array_merge($removablePictures, $this->getRemovablePictures($form, 'DetailedPictures'));
 			$removablePictures = array_merge($removablePictures, $this->getRemovablePictures($form, 'MicroscopicPictures'));
-			
+
 			// Save object
 			$sample = null;
 			try {
 				$sample = $form->save();
-				
+
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Sample created successfully. Now you can add another one';
 					$url = '@sample_new';
-					
+
 					// Reuse last object values
 					$this->getUser()->setAttribute('sample.last_object_created', $sample);
 				}
@@ -212,14 +239,14 @@ class sampleActions extends MyActions {
 					$message = 'Sample created successfully';
 					$url = '@sample_show?id='.$sample->getId();
 				}
-				
+
 				// Remove Location pictures
-				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_sample_pictures_dir'));		
+				$this->removePicturesFromFilesystem($removablePictures, sfConfig::get('app_sample_pictures_dir'));
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
 			}
-			
+
 			if ( $sample != null ) {
 				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $sample->getId())));
 				$this->getUser()->setFlash('notice', $message);
@@ -228,8 +255,8 @@ class sampleActions extends MyActions {
 				}
 			}
 		}
-		
+
 		$this->getUser()->setFlash('notice', 'The information on this sample has some errors you need to fix', false);
 	}
-	
+
 }

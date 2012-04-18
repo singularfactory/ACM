@@ -6,7 +6,6 @@ country_find_regions:
   param:  { module: country, action: findRegions }
   requirements: { country: .* } # Search pattern is optional, by default all results are shown
 
-
 ###
 # Region model related routes
 ###
@@ -14,7 +13,6 @@ region_find_islands:
   url:    region/findIslands/:region
   param:  { module: region, action: findIslands }
   requirements: { region: .* } # Search pattern is optional, by default all results are shown
-
 
 ###
 # Location model related routes
@@ -37,7 +35,6 @@ location_search_pagination:
   url:          location/search/:criteria/page/:page
   param:        { module: location, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
-
 
 ###
 # Sample model related routes
@@ -65,7 +62,6 @@ sample_search_pagination:
   url:          sample/search/:criteria/page/:page
   param:        { module: sample, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
-
 
 ###
 # Strain model related routes
@@ -118,7 +114,6 @@ strain_create_from_template:
   param:        { module: strain, action: new }
   requirements: { sf_method: [get, head], id: \d+ }
 
-
 ###
 # CultureMedium model related routes
 ###
@@ -140,7 +135,6 @@ culture_medium_search_pagination:
   url:          culture_medium/search/:criteria/page/:page
   param:        { module: culture_medium, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
-
 
 ###
 # DnaExtraction model related routes
@@ -169,7 +163,6 @@ dna_extraction_search_pagination:
   param:        { module: dna_extraction, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
-
 ###
 # Pcr model related routes
 ###
@@ -191,14 +184,12 @@ pcr_create:
   requirements: { sf_method: post, dna_extraction: "\d+" }
   options:      { model: Pcr, type: object }
 
-
 ###
 # PcrGel model related routes
 ###
 pcr_gel:
   class:   sfDoctrineRouteCollection
   options: { model: PcrGel, actions: [edit, update, delete] }
-
 
 ###
 # DnaSequence model related routes
@@ -214,14 +205,12 @@ dna_sequence_new:
   requirements: { sf_method: [get, head] }
   options:      { model: DnaSequence, type: object }
 
-
 ###
 # PcrReaction model related routes
 ###
 pcr_reaction:
   class:   sfDoctrineRouteCollection
   options: { model: PcrReaction, actions: [edit, update, delete] }
-
 
 ###
 # sfGuardUser model related routes
@@ -257,7 +246,6 @@ upload_progress:
   url:    /:module/uploadProgress/:id
   param:  { action: uploadProgress }
 
-
 ###
 # Inbox routes
 ###
@@ -279,7 +267,6 @@ inbox_search_pagination:
   url:          inbox/search/:criteria/page/:page
   param:        { module: inbox, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
-
 
 ###
 # Purchase order routes
@@ -303,14 +290,12 @@ purchase_order_search_pagination:
   param:        { module: purchase_order, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
-
 ###
 # Purchase item routes
 ###
 purchase_item:
   class:   sfDoctrineRouteCollection
   options: { model: PurchaseItem, actions: [edit, update] }
-
 
 ###
 # Project model related routes
@@ -358,8 +343,6 @@ project_search_pagination:
   param:        { module: project, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
-
-
 ###
 # PatentDeposit model related routes
 ###
@@ -386,7 +369,6 @@ patent_deposit_search_pagination:
   url:          patent_deposit/search/:criteria/page/:page
   param:        { module: patent_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
-
 
 ###
 # MaintenanceDeposit model related routes
@@ -415,7 +397,6 @@ maintenance_deposit_search_pagination:
   param:        { module: maintenance_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
-
 ###
 # Research collection related routes
 ###
@@ -442,7 +423,6 @@ external_strain_search_pagination:
   url:          external_strain/search/:criteria/page/:page
   param:        { module: external_strain, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
-
 
 ###
 # Isolation model related routes
@@ -495,8 +475,6 @@ isolation_search_pagination:
   param:        { module: isolation, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
-
-
 ###
 # Cryopreservation model related routes
 ###
@@ -543,7 +521,6 @@ cryopreservation_find_external_strains:
   url:          cryopreservation/findExternalStrains/:term
   param:        { module: cryopreservation, action: findExternalStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
 
 ###
 # Identification model related routes
@@ -633,7 +610,6 @@ api_generate_barcode:
   param:        { module: api, action: generateBarcode }
   requirements: { sf_method: get, code: "([Bb][Ee][Aa])?\d+" }
 
-
 ###
 # Darwin Core API routes
 ###
@@ -646,7 +622,6 @@ dwc_api:
   url:          /dwc_api/:token
   param:        { module: dwc_api, action: getStrains }
   requirements: { sf_method: get }
-
 
 ###
 # Label module routes
@@ -665,7 +640,6 @@ label_find_products:
   url:          /label/findProducts/:product/:term
   param:        { module: label, action: findProducts, product: sample }
   requirements: { sf_method: get, product: "[^/]+" }
-
 
 ###
 # Article module routes
@@ -695,7 +669,6 @@ article_find_strains:
   param:        { module: article, action: findStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
-
 ###
 # Label module routes
 ###
@@ -724,7 +697,6 @@ report_find_islands:
   param:        { module: report, action: findIslands }
   requirements: { sf_method: get, island: "[^/]+" }
 
-
 ###
 # Default rules
 ###
@@ -733,8 +705,6 @@ module_full_index:
   param:        { module: strain, action: index, all: true }
   requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary" }
 
-
 homepage:
   url:    /
   param:  { module: strain, action: index }
-

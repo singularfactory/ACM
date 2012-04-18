@@ -2,7 +2,7 @@ generator:
   param:
     actions_base_class:     MyActions
     css:                    false
-    
+
     config:
       actions: ~
       fields: ~

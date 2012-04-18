@@ -1,3 +1,30 @@
+<?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
 <?php use_helper('Date') ?>
 
 <?php slot('main_header') ?>
@@ -21,16 +48,16 @@
 			<th class="date"><?php echo link_to('Delivery date', '@project?sort_column=delivery_date&sort_direction='.$sortDirection) ?></th>
 			<th></th>
 		</tr>
-		
+
 		<?php foreach ($pager->getResults() as $project): ?>
 		<tr>
 			<?php $url = url_for('@project_show?id='.$project->getId()) ?>
-			
+
 			<?php $code = '' ?>
 			<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
 			<?php $genusAndSpecies = sfConfig::get('app_no_data_message') ?>
 			<?php $subject = $project->getSubject() ?>
-			
+
 			<?php if ( $project->getSubject() == 'sample' ): ?>
 				<?php $code = $project->getSample()->getCode() ?>
 			<?php elseif ( $project->getSubject() == 'strain' ): ?>
@@ -45,7 +72,7 @@
 				<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $externalStrain->getGenusAndSpecies() ?>
 			<?php endif ?>
-			
+
 			<td class="project_code"><?php echo link_to($code, $url) ?></td>
 			<td class="project_subject"><?php echo link_to(sfInflector::humanize($subject), $url) ?></td>
 			<td class="project_name"><?php echo link_to($project->getProjectName()->getName(), $url) ?></td>

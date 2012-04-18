@@ -315,4 +315,3 @@ logout:
 homepage:
   url:    /admin
   param:  { module: radiation, action: index }
-

@@ -1,19 +1,46 @@
 <?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
+<?php
 
 /**
-* culture_medium actions.
-*
-* @package    bna_green_house
-* @subpackage culture_medium
-* @author     Eliezer Talon <elitalon@inventiaplus.com>
-* @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
-*/
+ * culture_medium actions.
+ *
+ * @package ACM.Frontend
+ * @subpackage culture_medium
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
 class culture_mediumActions extends MyActions {
 
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'CultureMedium', array('init' => false));
-		
+
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
 			$query = $this->pager->getQuery()
@@ -21,23 +48,23 @@ class culture_mediumActions extends MyActions {
 				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.description LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.link LIKE ?", "%$text%");
-			
+
 			// Keep track of search terms for pagination
 			$this->getUser()->setAttribute('search.criteria', $text);
 		}
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strains s");
-			
+
 			$this->getUser()->setAttribute('search.criteria', null);
 		}
-		
+
 		$this->pager->setQuery($query);
 		$this->pager->init();
-		
+
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('culture_medium.index_page', $request->getParameter('page'));
-		
+
 		// Add a form to filter results
 		$this->form = new CultureMediumForm();
 	}
@@ -78,20 +105,20 @@ class culture_mediumActions extends MyActions {
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		
+
 		if ($form->isValid()) {
 			$flashMessage = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
-			
+
 			$cultureMedium = null;
 			try {
 				$cultureMedium = $form->save();
-				
+
 				if ( $request->hasParameter('_save_and_add') ) {
 					$message = 'Culture medium created successfully. Now you can add another one';
 					$url = '@culture_medium_new';
-					
+
 					// Reuse last object values
 					$this->getUser()->setAttribute('culture_medium.last_object_created', $cultureMedium);
 				}
@@ -102,12 +129,12 @@ class culture_mediumActions extends MyActions {
 				else {
 					$message = 'Culture medium created successfully';
 					$url = '@culture_medium_show?id='.$cultureMedium->getId();
-				}				
+				}
 			}
 			catch (Exception $e) {
 				$message = $e->getMessage();
 			}
-			
+
 			if ( $cultureMedium != null ) {
 				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $cultureMedium->getId())));
 				$this->getUser()->setFlash('notice', $message);
@@ -116,8 +143,8 @@ class culture_mediumActions extends MyActions {
 				}
 			}
 		}
-		
+
 		$this->getUser()->setFlash('notice', 'The information on this culture medium has some errors you need to fix', false);
 	}
-	
+
 }

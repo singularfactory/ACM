@@ -1,3 +1,30 @@
+<?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
 <?php use_stylesheets_for_form($form) ?>
 <?php use_javascripts_for_form($form) ?>
 
@@ -7,7 +34,7 @@
 <?php echo $form->renderFormTag(url_for('@dna_sequence_update?id='.$form->getObject()->getId().'&pcr='.$form->getObject()->getPcrId())) ?>
 <?php endif ?>
 	<?php echo $form->renderHiddenFields() ?>
-	
+
 	<div id="left_side_form">
 		<div id="gen">
 			<?php echo $form['gen']->renderLabel() ?>
@@ -15,20 +42,20 @@
 			<?php echo $form['gen']->renderHelp() ?>
 			<?php echo $form['gen'] ?>
 		</div>
-		
+
 		<div id="date" class="date_field">
 			<?php echo $form['date']->renderLabel() ?>
 			<?php echo $form['date'] ?>
 			<?php echo $form['date']->renderHelp() ?>
 		</div>
-		
+
 		<div id="worked" class="checkbox">
 			<?php echo $form['worked']->renderLabel() ?>
 			<?php echo $form['worked'] ?>
 			<?php echo $form['worked']->renderHelp() ?>
 		</div>
 	</div>
-	
+
 	<div id="right_side_form">
 		<div id="pcr_reaction_handler">
 			<?php if ( !$form->getObject()->isNew() && isset($form['Reaction']) ): ?>
@@ -84,13 +111,13 @@
 				<?php echo $form['new_Reaction']['_']->render() ?>
 			</div>
 		</div>
-		
+
 		<div id="remarks">
 			<?php echo $form['remarks']->renderLabel() ?>
 			<?php echo $form['remarks'] ?>
 		</div>
 	</div>
-	
+
 	<div class="submit">
 		<?php if ( $form->getObject()->isNew() ): ?>
 			<?php $route = '@pcr_show?id='.$sf_request->getParameter('pcr') ?>
@@ -99,8 +126,8 @@
 		<?php else: ?>
 			<?php $route = '@pcr_show?id='.$form->getObject()->getPcrId() ?>
 			<input type="submit" value="Save changes">
-		<?php endif; ?>	
+		<?php endif; ?>
 		or <?php echo link_to('cancel', $route, array('class' => 'cancel_form_link')) ?>
 	</div>
-	
+
 </form>

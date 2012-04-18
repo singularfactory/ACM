@@ -3,6 +3,6 @@ security:  ~
 
 inbox:
   class: InboxFilter
-    
+
 cache:     ~
 execution: ~

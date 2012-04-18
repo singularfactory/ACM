@@ -1,3 +1,30 @@
+<?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
 <?php use_helper('Date'); ?>
 
 <?php slot('main_header') ?>
@@ -36,7 +63,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbIsolators = $maintenanceDeposit->getNbIsolators() ?>
 		<?php if ( $nbIsolators > 0): ?>
 		<div class="object_related_model_list">
@@ -55,7 +82,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbCollectors = $maintenanceDeposit->getNbCollectors() ?>
 		<?php if ( $nbCollectors > 0): ?>
 		<div class="object_related_model_list">
@@ -74,7 +101,7 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 		<?php $nbRelatives = $maintenanceDeposit->getNbRelatives() ?>
 		<?php if ( $nbRelatives > 0): ?>
 		<div class="object_related_model_list">
@@ -91,9 +118,9 @@
 			</table>
 		</div>
 		<?php endif ?>
-		
+
 	</div>
-	
+
 	<div id="object_data_list">
 		<dl>
 			<dt>Depositor code:</dt>
@@ -104,7 +131,7 @@
 
 			<dt>Deposition date:</dt>
 			<dd><?php echo $maintenanceDeposit->getDepositionDate() ?></dd>
-			
+
 			<dt>Location:</dt>
 			<dd><?php echo link_to($maintenanceDeposit->getLocation()->getName(), "@location_show?id={$maintenanceDeposit->getLocationId()}") ?></dd>
 			<dt>Environment:</dt>
@@ -112,7 +139,7 @@
 
 			<dt>Habitat:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedHabitat() ?></dd>
-			
+
 			<dt>Class:</dt>
 			<dd><?php echo $maintenanceDepositClass ?></dd>
 
@@ -130,10 +157,10 @@
 
 			<dt>Authority:</dt>
 			<dd><?php echo $maintenanceDeposit->getAuthority() ?></dd>
-			
+
 			<dt>Collectors:</dt>
 			<dd><?php echo $nbCollectors ?></dd>
-			
+
 			<dt>Is epitype:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedIsEpitype() ?></dd>
 
@@ -142,7 +169,7 @@
 
 			<dt>Culture media:</dt>
 			<dd><?php echo $nbCultureMedia ?></dd>
-			
+
 			<dt>Maintenance status:</dt>
 			<dd>
 			<?php
@@ -152,7 +179,7 @@
 					if ( $status->getName() === sfConfig::get('app_maintenance_status_cryopreserved') ) {
 						$isCryopreserved = true;
 					}
-					
+
 					if ( !$firstMaintenanceStatus ) {
 						echo sprintf(', %s', sfInflector::tableize($status->getName()));
 						continue;
@@ -162,44 +189,44 @@
 				}
 			?>
 			</dd>
-									
+
 			<?php if ( $isCryopreserved ): ?>
 			<dt>Cryopreservation:</dt>
 			<dd><?php echo $maintenanceDeposit->getCryopreservationMethod() ?></dd>
 			<?php endif; ?>
-			
+
 			<dt>Isolators:</dt>
 			<dd><?php echo $nbIsolators ?>	</dd>
-			
+
 			<dt>Has DNA:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedHasDna() ?></dd>
-			
+
 			<?php if ( $maintenanceDeposit->getIdentifier()->getName() ): ?>
 			<dt>Identifier:</dt>
 			<dd><?php echo $maintenanceDeposit->getIdentifier() ?></dd>
 			<?php endif; ?>
-			
+
 			<dt>Gen sequence:</dt>
 			<dd><?php echo $maintenanceDeposit->getGenSequence() ?></dd>
-			
+
 			<dt>Relatives:</dt>
 			<dd><?php echo $nbRelatives ?></dd>
-			
+
 			<dt>Transfer interval:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedTransferInterval() ?></dd>
-			
+
 			<dt>Observation:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedObservation() ?></dd>
-			
+
 			<dt>Viability test:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedViabilityTest() ?></dd>
-			
+
 			<dt>Citations:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedCitations() ?></dd>
-			
+
 			<dt>Remarks:</dt>
 			<dd><?php echo $maintenanceDeposit->getRemarks() ?></dd>
-			
+
 			<dt>MF1 document:</dt>
 			<dd>
 				<?php if ( $url = $maintenanceDeposit->getMf1DocumentUrl() ): ?>
@@ -210,6 +237,6 @@
 			</dd>
 		</dl>
 	</div>
-	
+
 	<div class="clear"></div>
 </div>

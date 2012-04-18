@@ -8,7 +8,7 @@ default:
     keywords:     algae, bna, bea, banco, nacional, algas, español, marine, biotechnology, strains, culture
     language:     en
     robots:       index, follow
-  
+
   stylesheets:    [main.css, admin.css]
 
   javascripts:    [jquery.js, admin.js]

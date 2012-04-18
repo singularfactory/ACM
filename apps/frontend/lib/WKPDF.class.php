@@ -1,4 +1,31 @@
 <?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
+<?php
 
 /**
  * @author Christian Sciberras
@@ -44,13 +71,13 @@ class WKPDF {
 		), $pipes);
 		fwrite($pipes[0], $input);
 		fclose($pipes[0]);
-		
+
 		$stdout = stream_get_contents($pipes[1]);
 		fclose($pipes[1]);
-		
+
 		$stderr = stream_get_contents($pipes[2]);
 		fclose($pipes[2]);
-		
+
 		$rtn = proc_close($proc);
 		return array('stdout' => $stdout, 'stderr' => $stderr, 'return' => $rtn);
 	}
@@ -64,7 +91,7 @@ class WKPDF {
 			// $arch = `uname -m`;
 			$arch = php_uname('m');
 			$os = php_uname('s');
-			
+
 			if ( $os === 'Darwin' ) {
 				self::$cpu = 'osx-i386';
 			}
@@ -78,57 +105,57 @@ class WKPDF {
 				throw new Exception('WKPDF couldn\'t determine CPU ("'.`grep -i vendor_id /proc/cpuinfo`.'").');
 			}
 		}
-		
+
 		return self::$cpu;
 	}
-	
+
 	/**
 	* Force the client to download PDF file when finish() is called.
 	*/
 	public static $PDF_DOWNLOAD='D';
-	
+
 	/**
 	* Returns the PDF file as a string when finish() is called.
 	*/
 	public static $PDF_ASSTRING='S';
-	
+
 	/**
 	* When possible, force the client to embed PDF file when finish() is called.
 	*/
 	public static $PDF_EMBEDDED='I';
-	
+
 	/**
 	* PDF file is saved into the server space when finish() is called. The path is returned.
 	*/
 	public static $PDF_SAVEFILE='F';
-	
+
 	/**
 	* PDF generated as landscape (vertical).
 	*/
 	public static $PDF_PORTRAIT='Portrait';
-	
+
 	/**
 	* PDF generated as landscape (horizontal).
 	*/
 	public static $PDF_LANDSCAPE='Landscape';
-	
+
 	/**
 	* Constructor: initialize command line and reserve temporary file.
 	*/
 	public function __construct(){
 		$this->path = sfConfig::get('sf_lib_dir').'/'.sfConfig::get('app_wkhtmltopdf_path');
-		
+
 		$this->cmd = $this->path.'/wkhtmltopdf-'.self::_getCPU();
 		if ( !file_exists($this->cmd) ) {
 			throw new Exception('WKPDF static executable "'.htmlspecialchars($this->cmd,ENT_QUOTES).'" was not found.');
 		}
-		
+
 		do {
 			$this->tmp = sfConfig::get('sf_upload_dir').'/tmp/'.mt_rand().'.html';
 		}
 		while( file_exists($this->tmp) );
 	}
-	
+
 	/**
 	* Set orientation, use constants from this class.
 	* By default orientation is portrait.
@@ -137,7 +164,7 @@ class WKPDF {
 	public function set_orientation($mode){
 		$this->orient = $mode;
 	}
-	
+
 	/**
 	* Set page/paper size.
 	* By default page size is A4.
@@ -146,7 +173,7 @@ class WKPDF {
 	public function set_page_size($size){
 		$this->size = $size;
 	}
-	
+
 	/**
 	* Whether to automatically generate a TOC (table of contents) or not.
 	* By default TOC is disabled.
@@ -155,7 +182,7 @@ class WKPDF {
 	public function set_toc($enabled){
 		$this->toc = $enabled;
 	}
-	
+
 	/**
 	* Set the number of copies to be printed.
 	* By default it is one.
@@ -164,7 +191,7 @@ class WKPDF {
 	public function set_copies($count){
 		$this->copies = $count;
 	}
-	
+
 	/**
 	* Whether to print in grayscale or not.
 	* By default it is OFF.
@@ -173,7 +200,7 @@ class WKPDF {
 	public function set_grayscale($mode){
 		$this->grayscale = $mode;
 	}
-	
+
 	/**
 	* Set PDF title. If empty, HTML <title> of first document is used.
 	* By default it is empty.
@@ -191,7 +218,7 @@ class WKPDF {
 		$this->html = $html;
 		file_put_contents($this->tmp, $html);
 	}
-	
+
 	/**
 	* Returns WKPDF print status.
 	* @return string WPDF print status.
@@ -199,7 +226,7 @@ class WKPDF {
 	public function get_status(){
 		return $this->status;
 	}
-	
+
 	/**
 	* Attempts to return the library's full help.
 	* @return string WKHTMLTOPDF HTML help.
@@ -208,14 +235,14 @@ class WKPDF {
 		$tmp = self::_pipeExec('"'.$this->cmd.'" --extended-help');
 		return $tmp['stdout'];
 	}
-	
+
 	/**
 	* Convert HTML to PDF.
 	*/
 	public function render(){
 		$site = 'http://'.$_SERVER['SERVER_NAME'].'/uploads/tmp';
 		$web = $site.'/'.basename($this->tmp);
-		
+
 		$this->pdf = self::_pipeExec(
 			'"'.$this->cmd.'"'
 			.(($this->copies>1)?' --copies '.$this->copies:'')			// number of copies
@@ -231,23 +258,23 @@ class WKPDF {
 		// 			unlink($this->tmp);
 		// 			throw new Exception('WKPDF system error: <pre>'.$this->pdf['stderr'].'</pre>');
 		// 		}
-		// 		
+		//
 		// 		if ( $this->pdf['stdout'] == '' ) {
 		// 			unlink($this->tmp);
 		// 			throw new Exception('WKPDF didn\'t return any data. <pre>'.$this->pdf['stderr'].'</pre>');
 		// 		}
-		// 		
+		//
 		// 		if ( ((int)$this->pdf['return']) > 1 ) {
 		// 			unlink($this->tmp);
 		// 			throw new Exception('WKPDF shell error, return code '.(int)$this->pdf['return'].'.');
 		// 		}
-		// 		
+		//
 		// 		$this->status = $this->pdf['stderr'];
-		
+
 		$this->pdf = $this->pdf['stdout'];
 		unlink($this->tmp);
 	}
-	
+
 	/**
 	* Return PDF with various options.
 	* @param string $mode How two output (constants from this same class).
@@ -263,13 +290,13 @@ class WKPDF {
 					header('Pragma: public');
 					header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 					header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-					
+
 					// force download dialog
 					header('Content-Type: application/force-download');
 					header('Content-Type: application/octet-stream', false);
 					header('Content-Type: application/download', false);
 					header('Content-Type: application/pdf', false);
-					
+
 					// use the Content-Disposition header to supply a recommended filename
 					header('Content-Disposition: attachment; filename="'.basename($file).'";');
 					header('Content-Transfer-Encoding: binary');
@@ -280,11 +307,11 @@ class WKPDF {
 					throw new Exception('WKPDF download headers were already sent.');
 				}
 				break;
-			
+
 			case self::$PDF_ASSTRING:
 				return $this->pdf;
 				break;
-			
+
 			case self::$PDF_EMBEDDED:
 				if( !headers_sent() ) {
 					header('Content-Type: application/pdf');
@@ -300,16 +327,16 @@ class WKPDF {
 					throw new Exception('WKPDF embed headers were already sent.');
 				}
 				break;
-				
+
 			case self::$PDF_SAVEFILE:
 				return file_put_contents($file,$this->pdf);
 				break;
-			
+
 			default:
 				throw new Exception('WKPDF invalid mode "'.htmlspecialchars($mode,ENT_QUOTES).'".');
 		}
-		
+
 		return false;
 	}
-	
+
 }

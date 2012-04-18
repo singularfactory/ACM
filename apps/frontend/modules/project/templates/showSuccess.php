@@ -1,3 +1,30 @@
+<?php
+/**
+ * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
+ * Copyright 2012, Singular Factory <info@singularfactory.com>
+ *
+ * This file is part of ACM
+ *
+ * ACM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ACM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
+ * @package       ACM.Frontend
+ * @since         1.0
+ * @link          https://github.com/singularfactory/ACM
+ * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
+ */
+?>
 <?php use_helper('Date'); ?>
 
 <?php if ( $project->getStrain()->exists() ): ?>
@@ -38,26 +65,26 @@
 			<?php $strain = $project->getStrain() ?>
 			<dt>Code:</dt>
 			<dd><?php echo link_to($code, $route) ?></dd>
-			
+
 			<dt>Name:</dt>
 			<dd><?php echo $project->getProjectName()->getName() ?></dd>
 			<dt>Petitioner:</dt>
 			<dd><?php echo $project->getPetitioner()->getName() ?></dd>
-			
+
 			<dt>Class:</dt>
 			<dd><?php echo $taxonomicClass ?></dd>
 			<dt>Genus:</dt>
 			<dd><span class="species_name"><?php echo $genus ?></span></dd>
 			<dt>Species:</dt>
 			<dd><span class="species_name"><?php echo $species ?>&nbsp;</span></dd>
-			
+
 			<dt>Provider:</dt>
 			<dd><?php echo $project->getProvider()->getName() ?></dd>
 			<dt>Inoculation date:</dt>
 			<dd><?php echo $project->getInoculationDate() ?></dd>
 			<dt>Amount:</dt>
 			<dd><?php echo $project->getFormattedAmount() ?></dd>
-			
+
 			<dt>Delivery date:</dt>
 			<dd><?php echo $project->getDeliveryDate() ?></dd>
 			<dt>Purpose:</dt>
@@ -66,7 +93,7 @@
 			<dd><?php echo $project->getRemarks() ?></dd>
 		</dl>
 	</div>
-	
+
 	<div id="project_description_obligations" class="object_related_model_long_list">
 		<?php if ( $description = $project->getProjectName()->getDescription() ): ?>
 		<div id="project_description">
@@ -74,7 +101,7 @@
 			<p><?php echo $description ?></p>
 		</div>
 		<?php endif ?>
-		
+
 		<?php if ( $obligations = $project->getProjectName()->getObligations() ): ?>
 		<div id="project_obligations">
 			<h2>Project obligations</h2>
@@ -82,6 +109,6 @@
 		</div>
 		<?php endif ?>
 	</div>
-	
+
 	<div class="clear"></div>
 </div>
