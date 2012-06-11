@@ -53,10 +53,6 @@
 			</dd>
 			<dt>Is public:</dt>
 			<dd><?php echo $cultureMedium->getFormattedIsPublic() ?></dd>
-			<!--
-			<dt>Amount:</dt>
-			<dd><?php //echo $cultureMedium->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
-			-->
 			<dt>Strains:</dt>
 			<dd>
 				<?php echo $nbStrains = $cultureMedium->getNbStrains() ?>
@@ -83,14 +79,7 @@
 				<td><?php echo link_to($strain->getFullCode(), $url) ?></td>
 				<td><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
 				<td><span class="species_name"><?php echo link_to($strain->getGenus(), $url) ?></span></td>
-				<td>
-					<?php $strainSpecies = $strain->getSpecies() ?>
-					<?php if ( $strainSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
-					<span class="species_name"><?php echo link_to($strainSpecies, $url) ?></span>
-					<?php else: ?>
-					<?php echo link_to($strainSpecies, $url) ?>
-					<?php endif; ?>
-				</td>
+				<td><span class="species_name"><?php echo link_to($strain->getSpecies(), $url) ?></span></td>
 			</tr>
 		<?php endforeach ?>
 		</table>

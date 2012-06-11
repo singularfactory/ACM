@@ -30,12 +30,10 @@
 <?php slot('main_header') ?>
 <span>
 	<?php echo $strain->getFullCode() ?> - <?php echo $strainClass = $strain->getTaxonomicClass() ?>
-	<span class="species_name"><?php echo $strainGenus = $strain->getGenus() ?></span>
-	<?php if ( ($strainSpecies = $strain->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
-		<span class="species_name"><?php echo $strainSpecies ?></span>
-	<?php else: ?>
-		<?php echo $strainSpecies ?>
-	<?php endif; ?>
+	<span class="species_name">
+		<?php echo $strainGenus = $strain->getGenus() ?>
+		<?php echo $strainSpecies = $strain->getSpecies() ?>
+	</span>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'strain')) ?>
 <?php include_partial('global/create_from_template_header_action', array('module' => 'strain', 'id' => $strain->getId())) ?>
@@ -266,11 +264,6 @@
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
 			<dt>Deceased:</dt>
 			<dd><?php echo $strain->getFormattedDeceased() ?></dd>
-			<!--
-			<dt>Amount:</dt>
-			<dd><?php //echo $strain->getAmount() ?> <?php //echo sfConfig::get('app_stock_items_label') ?></dd>
-			-->
-
 			<dt>Kingdom:</dt>
 			<dd><?php echo $strain->getFormattedKingdom() ?></dd>
 			<dt>Subkingdom:</dt>
@@ -286,13 +279,7 @@
 			<dt>Genus:</dt>
 			<dd><span class="species_name"><?php echo $strainGenus ?></span></dd>
 			<dt>Species:</dt>
-			<dd>
-				<?php if ( $strainSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
-				<span class="species_name"><?php echo $strainSpecies ?></span>
-				<?php else: ?>
-				<?php echo $strainSpecies ?>
-				<?php endif; ?>
-			</dd>
+			<dd><span class="species_name"><?php echo $strainSpecies ?></span></dd>
 			<dt>Authority:</dt>
 			<dd><?php echo $strain->getAuthority() ?></dd>
 

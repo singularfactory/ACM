@@ -662,7 +662,7 @@ class apiActions extends GreenhouseAPI {
 				'is_axenic' => $strain->getIsAxenic(),
 				'taxonomic_class' => $strain->getTaxonomicClass()->getName(),
 				'genus' => $strain->getGenusId() ? $strain->getGenus()->getName() : null,
-				'species' => $strain->getSpeciesId() ? $strain->getSpecies()->getName() : null,
+				'species' => $strain->getSpecies()->getName(),
 				'authority' => $strain->getAuthority()->getName(),
 				'isolation_date' => $strain->getIsolationDate(),
 				'identifier' => ($strain->getIdentifier()) ? sprintf('%s %s', $strain->getIdentifier()->getName(), $strain->getIdentifier()->getSurname()) : null,

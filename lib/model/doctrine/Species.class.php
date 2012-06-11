@@ -27,7 +27,6 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 
-
 /**
  * Species
  *
@@ -37,4 +36,16 @@
  * @since 1.0
  */
 class Species extends BaseSpecies {
+	public function __toString() {
+		return $this->getName();
+	}
+
+	public function getName() {
+		$name = $this->_get('name');
+		if (empty($name)) {
+			return sfConfig::get('app_unknown_species_name');
+		} else {
+			return $name;
+		}
+	}
 }

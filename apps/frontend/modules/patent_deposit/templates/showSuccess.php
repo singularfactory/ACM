@@ -30,12 +30,10 @@
 <?php slot('main_header') ?>
 <span>
 	<?php echo $patentDeposit->getDepositorCode() ?> - <?php echo $patentDepositClass = $patentDeposit->getTaxonomicClass() ?>
-	<span class="species_name"><?php echo $patentDepositGenus = $patentDeposit->getGenus() ?></span>
-	<?php if ( ($patentDepositSpecies = $patentDeposit->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
-		<span class="species_name"><?php echo $patentDepositSpecies ?></span>
-	<?php else: ?>
-		<?php echo $patentDepositSpecies ?>
-	<?php endif; ?>
+	<span class="species_name">
+		<?php echo $patentDepositGenus = $patentDeposit->getGenus() ?>
+		<?php echo $patentDepositSpecies = $patentDeposit->getSpecies() ?>
+	</span>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'patent_deposit')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'patent_deposit', 'id' => $patentDeposit->getId())) ?>
@@ -147,13 +145,7 @@
 			<dd><span class="species_name"><?php echo $patentDepositGenus ?></span></dd>
 
 			<dt>Species:</dt>
-			<dd>
-				<?php if ( $patentDepositSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
-				<span class="species_name"><?php echo $patentDepositSpecies ?></span>
-				<?php else: ?>
-				<?php echo $patentDepositSpecies ?>
-				<?php endif; ?>
-			</dd>
+			<dd><span class="species_name"><?php echo $patentDepositSpecies ?></span></dd>
 
 			<dt>Authority:</dt>
 			<dd><?php echo $patentDeposit->getAuthority() ?></dd>

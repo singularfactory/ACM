@@ -51,16 +51,11 @@
 			<td class="maintenance_deposit_depositor_code"><?php echo link_to($maintenanceDeposit->getDepositorCode(), $url) ?></td>
 			<td class="depositor_name"><?php echo link_to($maintenanceDeposit->getDepositor(), $url) ?></td>
 			<td class="maintenance_deposit_deposition_date"><?php echo link_to($maintenanceDeposit->getDepositionDate(), $url) ?></td>
-			<?php
-				$maintenanceDepositName = $maintenanceDeposit->getTaxonomicClass().'&nbsp;<span class="species_name">'.$maintenanceDeposit->getGenus().'</span>&nbsp;';
-				if ( $maintenanceDeposit->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
-					$maintenanceDepositName .= '<span class="species_name">'.$maintenanceDeposit->getSpecies().'</span>';
-				}
-				else {
-					$maintenanceDepositName .= $maintenanceDeposit->getSpecies();
-				}
-			?>
-			<td class="maintenance_deposit_name"><?php echo link_to($maintenanceDepositName, $url) ?></td>
+			<td class="maintenance_deposit_name">
+				<span class="species_name">
+					<?php echo link_to(sprintf('%s %s %s', $maintenanceDeposit->getTaxonomicClass(), $maintenanceDeposit->getGenus(), $maintenanceDeposit->getSpecies()), $url) ?>
+				</span>
+			</td>
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">

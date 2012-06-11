@@ -500,7 +500,7 @@ Strain:
     taxonomic_order_id:         { type: integer }
     family_id:                  { type: integer }
     genus_id:                   { type: integer, notnull: true }
-    species_id:                 { type: integer, notnull: true }
+    species_id:                 { type: integer }
     authority_id:               { type: integer, notnull: true }
     isolation_date:             { type: date, notnull: true }
     identifier_id:              { type: integer }

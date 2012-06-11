@@ -36,6 +36,5 @@
  * @package ACM.Lib.Model
  * @since 1.0
  */
-class Phylum extends BasePhylum
-{
+class Phylum extends BasePhylum {
 }

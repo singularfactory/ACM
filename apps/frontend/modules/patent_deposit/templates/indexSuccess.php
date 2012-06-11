@@ -51,16 +51,12 @@
 			<td class="patent_deposit_depositor_code"><?php echo link_to($patentDeposit->getDepositorCode(), $url) ?></td>
 			<td class="depositor_name"><?php echo link_to($patentDeposit->getDepositor(), $url) ?></td>
 			<td class="patent_deposit_deposition_date"><?php echo link_to($patentDeposit->getDepositionDate(), $url) ?></td>
-			<?php
-				$patentDepositName = $patentDeposit->getTaxonomicClass().'&nbsp;<span class="species_name">'.$patentDeposit->getGenus().'</span>&nbsp;';
-				if ( $patentDeposit->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
-					$patentDepositName .= '<span class="species_name">'.$patentDeposit->getSpecies().'</span>';
-				}
-				else {
-					$patentDepositName .= $patentDeposit->getSpecies();
-				}
-			?>
-			<td class="patent_deposit_name"><?php echo link_to($patentDepositName, $url) ?></td>
+			<td class="patent_deposit_name">
+				<span class="species_name">
+					<?php echo link_to(sprintf('%s %s %s', $patentDeposit->getTaxonomicClass(), $patentDeposit->getGenus(), $patentDeposit->getSpecies()), $url) ?>
+				</span>
+			</td>
+
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">

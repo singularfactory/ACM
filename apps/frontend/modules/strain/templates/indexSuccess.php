@@ -45,7 +45,6 @@
 			<th class="dna_availability">Has DNA</th>
 			<th class="is_public">Is public?</th>
 			<th class="supervisor"><?php echo link_to('Supervisor', '@strain?sort_column=Supervisor.first_name&sort_direction='.$sortDirection) ?></th>
-			<!-- <th class="amount"><?php //echo link_to('Amount', '@strain?sort_column=amount&sort_direction='.$sortDirection) ?></th> -->
 			<th></th>
 		</tr>
 
@@ -58,7 +57,6 @@
 			<td class="dna_availability"><?php echo link_to($strain->getFormattedHasDna(), $url) ?></td>
 			<td class="is_public"><?php echo link_to($strain->getFormattedIsPublic(), $url) ?></td>
 			<td class="supervisor"><?php echo link_to($strain->getFormattedSupervisorWithInitials(), $url) ?></td>
-			<!-- <td class="amount"><?php //echo link_to($strain->getAmount(), $url) ?></td> -->
 
 			<td class="actions">
 				<a href="<?php echo $url ?>">

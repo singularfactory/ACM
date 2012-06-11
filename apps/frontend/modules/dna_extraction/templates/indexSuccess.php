@@ -57,16 +57,7 @@
 			<td class="dna_extraction_code"><?php echo link_to($dnaExtraction->getCode(), $url) ?></td>
 			<?php $strain = $dnaExtraction->getStrain() ?>
 			<td class="taxonomic_class_name"><?php echo link_to($strain->getTaxonomicClass(), $url) ?></td>
-			<?php
-				$strainName = '<span class="species_name">'.$strain->getGenus().'</span>&nbsp;';
-				if ( $strain->getSpecies() !== sfConfig::get('app_unknown_species_name') ) {
-					$strainName .= '<span class="species_name">'.$strain->getSpecies().'</span>';
-				}
-				else {
-					$strainName .= $strain->getSpecies();
-				}
-			?>
-			<td class="dna_extraction_name"><?php echo link_to($strainName, $url) ?></td>
+			<td class="dna_extraction_name"><span class="species_name"><?php echo link_to(sprintf('%s %s', $strain->getGenus(), $strain->getSpecies()), $url) ?></span></td>
 			<td class="date extraction_date">
 				<?php
 					if ( $date = $dnaExtraction->getExtractionDate() ) {

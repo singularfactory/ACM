@@ -30,12 +30,10 @@
 <?php slot('main_header') ?>
 <span>
 	<?php echo $maintenanceDeposit->getDepositorCode() ?> - <?php echo $maintenanceDepositClass = $maintenanceDeposit->getTaxonomicClass() ?>
-	<span class="species_name"><?php echo $maintenanceDepositGenus = $maintenanceDeposit->getGenus() ?></span>
-	<?php if ( ($maintenanceDepositSpecies = $maintenanceDeposit->getSpecies()) !== sfConfig::get('app_unknown_species_name') ): ?>
-		<span class="species_name"><?php echo $maintenanceDepositSpecies ?></span>
-	<?php else: ?>
-		<?php echo $maintenanceDepositSpecies ?>
-	<?php endif; ?>
+	<span class="species_name">
+		<?php echo $maintenanceDepositGenus = $maintenanceDeposit->getGenus() ?>
+		<?php echo $maintenanceDepositSpecies = $maintenanceDeposit->getSpecies() ?>
+	</span>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'maintenance_deposit')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'maintenance_deposit', 'id' => $maintenanceDeposit->getId())) ?>
@@ -147,13 +145,7 @@
 			<dd><span class="species_name"><?php echo $maintenanceDepositGenus ?></span></dd>
 
 			<dt>Species:</dt>
-			<dd>
-				<?php if ( $maintenanceDepositSpecies !== sfConfig::get('app_unknown_species_name') ): ?>
-				<span class="species_name"><?php echo $maintenanceDepositSpecies ?></span>
-				<?php else: ?>
-				<?php echo $maintenanceDepositSpecies ?>
-				<?php endif; ?>
-			</dd>
+			<dd><span class="species_name"><?php echo $maintenanceDepositSpecies ?></span></dd>
 
 			<dt>Authority:</dt>
 			<dd><?php echo $maintenanceDeposit->getAuthority() ?></dd>
