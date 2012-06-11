@@ -37,7 +37,6 @@
  * @since 1.0
  */
 class Strain extends BaseStrain {
-
 	public function getFullCode() {
 		$code = str_pad($this->_get('code'), 4, '0', STR_PAD_LEFT);
 
