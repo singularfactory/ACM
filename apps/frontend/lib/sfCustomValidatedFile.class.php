@@ -55,7 +55,7 @@ class sfCustomValidatedFile extends sfValidatedFile {
 			// Create a PNG version of the picture
 			$pngPicture = new Imagick("$path/$filename");
 			$pngPicture->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
-			$pngPicture->setResolution(sfConfig::get('app_picture_resolution'), sfConfig::get('app_picture_resolution'));
+			$pngPicture->setImageResolution(sfConfig::get('app_picture_resolution'), sfConfig::get('app_picture_resolution'));
 
 			$pngPictureFilename = preg_replace('/\.[\w\-]+$/', sfConfig::get('app_picture_extension'), $filename);
 			if ( !$pngPicture->writeImage("$path/$pngPictureFilename") ) {
