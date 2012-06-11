@@ -1,6 +1,6 @@
 [submodule "web/js/colorbox"]
-	path = web/js/colorbox
-	url = https://github.com/jackmoore/colorbox.git
+  path = web/js/colorbox
+  url = git://github.com/jackmoore/colorbox.git
 [submodule "web/js/jquery-ui-numeric"]
-	path = web/js/jquery-ui-numeric
-	url = https://github.com/flamewave/jquery-ui-numeric.git
+  path = web/js/jquery-ui-numeric
+  url = git://github.com/flamewave/jquery-ui-numeric.git
