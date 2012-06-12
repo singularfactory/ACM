@@ -221,7 +221,6 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('species_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('authority_id', 'integer', null, array(
              'type' => 'integer',
