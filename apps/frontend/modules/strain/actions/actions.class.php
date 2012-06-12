@@ -212,6 +212,7 @@ class strainActions extends MyActions {
 			$strain->setAuthorityId($lastStrain->getAuthorityId());
 			$strain->setIsEpitype($lastStrain->getIsEpitype());
 			$strain->setIsPublic($lastStrain->getIsPublic());
+			$strain->setCultureMediumId($lastStrain->getCultureMediumId());
 			$strain->setContainerId($lastStrain->getContainerId());
 			$strain->setIsolationDate($lastStrain->getIsolationDate());
 			$strain->setIdentifierId($lastStrain->getIdentifierId());

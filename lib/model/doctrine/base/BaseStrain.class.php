@@ -26,6 +26,7 @@
  * @property date $isolation_date
  * @property integer $identifier_id
  * @property integer $container_id
+ * @property integer $culture_medium_id
  * @property string $transfer_interval
  * @property string $observation
  * @property string $citations
@@ -57,6 +58,7 @@
  * @property Identifier $Identifier
  * @property Container $Container
  * @property Doctrine_Collection $Containers
+ * @property CultureMedium $CultureMedium
  * @property Doctrine_Collection $CultureMedia
  * @property Doctrine_Collection $MaintenanceStatus
  * @property Doctrine_Collection $StrainIsolators
@@ -92,6 +94,7 @@
  * @method date                getIsolationDate()            Returns the current record's "isolation_date" value
  * @method integer             getIdentifierId()             Returns the current record's "identifier_id" value
  * @method integer             getContainerId()              Returns the current record's "container_id" value
+ * @method integer             getCultureMediumId()          Returns the current record's "culture_medium_id" value
  * @method string              getTransferInterval()         Returns the current record's "transfer_interval" value
  * @method string              getObservation()              Returns the current record's "observation" value
  * @method string              getCitations()                Returns the current record's "citations" value
@@ -123,6 +126,7 @@
  * @method Identifier          getIdentifier()               Returns the current record's "Identifier" value
  * @method Container           getContainer()                Returns the current record's "Container" value
  * @method Doctrine_Collection getContainers()               Returns the current record's "Containers" collection
+ * @method CultureMedium       getCultureMedium()            Returns the current record's "CultureMedium" value
  * @method Doctrine_Collection getCultureMedia()             Returns the current record's "CultureMedia" collection
  * @method Doctrine_Collection getMaintenanceStatus()        Returns the current record's "MaintenanceStatus" collection
  * @method Doctrine_Collection getStrainIsolators()          Returns the current record's "StrainIsolators" collection
@@ -157,6 +161,7 @@
  * @method Strain              setIsolationDate()            Sets the current record's "isolation_date" value
  * @method Strain              setIdentifierId()             Sets the current record's "identifier_id" value
  * @method Strain              setContainerId()              Sets the current record's "container_id" value
+ * @method Strain              setCultureMediumId()          Sets the current record's "culture_medium_id" value
  * @method Strain              setTransferInterval()         Sets the current record's "transfer_interval" value
  * @method Strain              setObservation()              Sets the current record's "observation" value
  * @method Strain              setCitations()                Sets the current record's "citations" value
@@ -188,6 +193,7 @@
  * @method Strain              setIdentifier()               Sets the current record's "Identifier" value
  * @method Strain              setContainer()                Sets the current record's "Container" value
  * @method Strain              setContainers()               Sets the current record's "Containers" collection
+ * @method Strain              setCultureMedium()            Sets the current record's "CultureMedium" value
  * @method Strain              setCultureMedia()             Sets the current record's "CultureMedia" collection
  * @method Strain              setMaintenanceStatus()        Sets the current record's "MaintenanceStatus" collection
  * @method Strain              setStrainIsolators()          Sets the current record's "StrainIsolators" collection
@@ -288,6 +294,9 @@ abstract class BaseStrain extends sfDoctrineRecord
              'type' => 'integer',
              ));
         $this->hasColumn('container_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('culture_medium_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('transfer_interval', 'string', 40, array(
@@ -421,6 +430,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'refClass' => 'StrainContainers',
              'local' => 'strain_id',
              'foreign' => 'container_id'));
+
+        $this->hasOne('CultureMedium', array(
+             'local' => 'culture_medium_id',
+             'foreign' => 'id'));
 
         $this->hasMany('CultureMedium as CultureMedia', array(
              'refClass' => 'StrainCultureMedia',

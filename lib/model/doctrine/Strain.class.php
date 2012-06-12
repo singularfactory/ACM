@@ -231,6 +231,13 @@ class Strain extends BaseStrain {
 		return sfConfig::get('app_no_data_message');
 	}
 
+	public function getFormattedCultureMedium() {
+		if ( $cm = $this->getCultureMedium()->getName() ) {
+			return $cm;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
 	public function getNbIsolators() {
 		return count($this->getIsolators());
 	}

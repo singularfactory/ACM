@@ -273,6 +273,11 @@
 				<?php echo $form['maintenance_status_list']->renderHelp() ?>
 				<?php echo $form['maintenance_status_list'] ?>
 			</div>
+			<div id="culture_medium">
+				<?php echo $form['culture_medium_id']->renderLabel() ?>
+				<?php echo $form['culture_medium_id']->renderHelp() ?>
+				<?php echo $form['culture_medium_id'] ?>
+			</div>
 			<div id="culture_media_list" class="list_field">
 				<?php echo $form['culture_media_list']->renderLabel() ?>
 				<?php echo $form['culture_media_list']->renderError() ?>

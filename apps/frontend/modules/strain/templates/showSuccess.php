@@ -284,8 +284,8 @@
 				echo implode(',', $statuses);
 			?>
 			</dd>
-			<dt>Culture media:</dt>
-			<dd><?php echo $nbCultureMedia ?></dd>
+			<dt>Best culture medium:</dt>
+			<dd><?php echo $strain->getFormattedCultureMedium() ?></dd>
 			<dt>Best container:</dt>
 			<dd><?php echo $strain->getFormattedContainer() ?></dd>
 			<dt>Transfer interval:</dt>

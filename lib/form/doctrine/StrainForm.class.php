@@ -42,12 +42,16 @@ class StrainForm extends BaseStrainForm {
 		}
 
 		// Unset select fields that do not have values
-		if ( IdentifierTable::getInstance()->count() == 0 ) {
+		if (IdentifierTable::getInstance()->count() == 0) {
 			unset($this['identifier_id']);
 		}
 
-		if ( ContainerTable::getInstance()->count() == 0 ) {
+		if (ContainerTable::getInstance()->count() == 0) {
 			unset($this['container_id']);
+		}
+
+		if (CultureMediumTable::getInstance()->count() == 0) {
+			unset($this['culture_medium_id']);
 		}
 
 		// Configure sample code
@@ -169,6 +173,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 		$this->widgetSchema->setLabel('taxonomic_order_id', 'Order');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
+		$this->widgetSchema->setLabel('culture_medium_id', 'Best culture medium');
 		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
@@ -202,6 +207,7 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('phylogenetic_tree', 'Choose a picture in JPEG or PNG format');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
+		$this->widgetSchema->setHelp('culture_medium_id', 'Culture medium where the strain grows better');
 		$this->widgetSchema->setHelp('container_id', 'Type of container where the strain grows better');
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
