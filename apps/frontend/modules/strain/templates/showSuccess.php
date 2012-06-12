@@ -43,39 +43,38 @@
 
 <div id="main_view_show">
 	<div id="object_related_models">
+		<?php $nbAxenityTests = $strain->getNbAxenityTests() ?>
+		<?php if ( $nbAxenityTests > 0): ?>
 		<div class="object_related_model_list">
-			<h2>Culture conditions</h2>
+			<h2>Axenity tests</h2>
 			<table>
 				<tr>
-					<th class="strain_temperature">Temperature</th>
-					<th class="strain_photoperiod">Photoperiod</th>
-					<th class="strain_irradiation">Irradiation</th>
+					<th class="date">Date</th>
 				</tr>
-				<tr>
-					<td class="strain_temperature"><?php echo $strain->getFormattedTemperature() ?></td>
-					<td class="strain_photoperiod"><?php echo $strain->getFormattedPhotoperiod() ?></td>
-					<td class="strain_irradiation"><?php echo $strain->getFormattedIrradiation() ?></td>
-				</tr>
-			</table>
-		</div>
-
-		<?php $nbCultureMedia = $strain->getNbCultureMedia() ?>
-		<?php if ( $nbCultureMedia > 0): ?>
-		<div class="object_related_model_list">
-			<h2>Culture media</h2>
-			<table>
-				<tr>
-					<th class="culture_medium_code">Code</th>
-					<th class="culture_medium_name">Name</th>
-				</tr>
-				<?php foreach ($strain->getCultureMedia() as $cultureMedium ): ?>
-					<?php $url = '@culture_medium_show?id='.$cultureMedium->getId() ?>
+				<?php foreach ($strain->getAxenityTests() as $test ): ?>
 					<tr>
-						<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
-						<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
+						<td><?php echo $test->getFormattedDate() ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
+		</div>
+		<?php endif ?>
+
+		<?php if ( $strain->getNbPictures() > 0 ): ?>
+		<div class="object_related_model_list">
+			<h2>Pictures</h2>
+			<?php $i = 1 ?>
+			<?php foreach ($strain->getPictures() as $picture): ?>
+			<?php if ( $picture->getFilename() === null ) continue ?>
+			<div class="thumbnail">
+				<div class="thumbnail_image">
+					<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
+						<img src="<?php echo $picture->getThumbnail() ?>" alt="Picture <?php echo $i ?>" />
+					</a>
+				</div>
+			</div>
+			<?php $i++ ?>
+			<?php endforeach; ?>
 		</div>
 		<?php endif ?>
 
@@ -105,20 +104,79 @@
 		</div>
 		<?php endif ?>
 
-		<?php $nbAxenityTests = $strain->getNbAxenityTests() ?>
-		<?php if ( $nbAxenityTests > 0): ?>
+		<?php $nbIsolations = $strain->getNbIsolations() ?>
+		<?php if ( $nbIsolations > 0): ?>
 		<div class="object_related_model_list">
-			<h2>Axenity tests</h2>
+			<h2>Isolations</h2>
 			<table>
 				<tr>
-					<th class="date">Date</th>
+					<th class="date reception_date">Reception date</th>
+					<th class="date delivery_date">Delivery date</th>
+					<th class="purification_method">Purification method</th>
+					<th class="purification_details">Purification details</th>
 				</tr>
-				<?php foreach ($strain->getAxenityTests() as $test ): ?>
+				<?php foreach ($strain->getIsolations() as $isolation ): ?>
+				<?php $url = '@isolation_show?id='.$isolation->getId() ?>
+				<tr>
+					<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>
+					<td class="date delivery_date"><?php echo link_to($isolation->getDeliveryDate(), $url) ?></td>
+					<td class="purification_method"></td>
+					<td class="purification_details"></td>
+				</tr>
+			<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+
+		<?php $nbCultureMedia = $strain->getNbCultureMedia() ?>
+		<?php if ( $nbCultureMedia > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Culture media</h2>
+			<table>
+				<tr>
+					<th class="culture_medium_code">Code</th>
+					<th class="culture_medium_name">Name</th>
+				</tr>
+				<?php foreach ($strain->getCultureMedia() as $cultureMedium ): ?>
+					<?php $url = '@culture_medium_show?id='.$cultureMedium->getId() ?>
 					<tr>
-						<td><?php echo $test->getFormattedDate() ?></td>
+						<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>
+						<td class="culture_medium_name"><?php echo link_to($cultureMedium->getName(), $url) ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>
+		</div>
+		<?php endif ?>
+
+		<?php $nbContainers = $strain->getNbContainers() ?>
+		<?php if ( $nbContainers > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Containers</h2>
+			<table>
+				<tr>
+					<th class="container_name">Name</th>
+					<th class="object_count_long">Total strains</th>
+				</tr>
+				<?php foreach ($strain->getContainers() as $container ): ?>
+					<tr>
+						<td class="container_name"><?php echo $container->getName() ?></td>
+						<td class="object_count_long"><?php echo $container->getNbStrains() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+
+		<?php if ( $strain->getPhylogeneticTree() ): ?>
+		<div class="object_related_model_list">
+			<h2>Phylogenetic tree</h2>
+			<div class="thumbnail">
+				<div class="thumbnail_image">
+					<a href="<?php echo $strain->getPhylogeneticTreePath() ?>" rel="thumbnail_link" title="Phylogenetic tree" class="cboxElement">
+						<img src="<?php echo $strain->getPhylogeneticTreeThumbnail() ?>" alt="Phylogenetic tree" />
+					</a>
+				</div>
+			</div>
 		</div>
 		<?php endif ?>
 
@@ -160,110 +218,22 @@
 			</table>
 		</div>
 		<?php endif ?>
-
-		<?php $nbContainers = $strain->getNbContainers() ?>
-		<?php if ( $nbContainers > 0): ?>
-		<div class="object_related_model_list">
-			<h2>Containers</h2>
-			<table>
-				<tr>
-					<th class="container_name">Name</th>
-					<th class="object_count_long">Total strains</th>
-				</tr>
-				<?php foreach ($strain->getContainers() as $container ): ?>
-					<tr>
-						<td class="container_name"><?php echo $container->getName() ?></td>
-						<td class="object_count_long"><?php echo $container->getNbStrains() ?></td>
-					</tr>
-				<?php endforeach ?>
-			</table>
-		</div>
-		<?php endif ?>
-
-		<?php $nbIsolations = $strain->getNbIsolations() ?>
-		<?php if ( $nbIsolations > 0): ?>
-		<div class="object_related_model_list">
-			<h2>Isolations</h2>
-			<table>
-				<tr>
-					<th class="date reception_date">Reception date</th>
-					<th class="date delivery_date">Delivery date</th>
-					<th class="purification_method">Purification method</th>
-					<th class="purification_details">Purification details</th>
-				</tr>
-				<?php foreach ($strain->getIsolations() as $isolation ): ?>
-				<?php $url = '@isolation_show?id='.$isolation->getId() ?>
-				<tr>
-					<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>
-					<td class="date delivery_date"><?php echo link_to($isolation->getDeliveryDate(), $url) ?></td>
-					<td class="purification_method"></td>
-					<td class="purification_details"></td>
-				</tr>
-			<?php endforeach ?>
-			</table>
-		</div>
-		<?php endif ?>
-
-		<?php if ( $strain->getNbPictures() > 0 ): ?>
-		<div class="object_related_model_list">
-			<h2>Pictures</h2>
-			<?php $i = 1 ?>
-			<?php foreach ($strain->getPictures() as $picture): ?>
-			<?php if ( $picture->getFilename() === null ) continue ?>
-			<div class="thumbnail">
-				<div class="thumbnail_image">
-					<a href="<?php echo $picture->getFilenameWithPath() ?>" rel="thumbnail_link" title="Picture <?php echo $i ?>" class="cboxElement">
-						<img src="<?php echo $picture->getThumbnail() ?>" alt="Picture <?php echo $i ?>" />
-					</a>
-				</div>
-			</div>
-			<?php $i++ ?>
-			<?php endforeach; ?>
-		</div>
-		<?php endif ?>
-
-		<?php if ( $strain->getPhylogeneticTree() ): ?>
-		<div class="object_related_model_list">
-			<h2>Phylogenetic tree</h2>
-			<div class="thumbnail">
-				<div class="thumbnail_image">
-					<a href="<?php echo $strain->getPhylogeneticTreePath() ?>" rel="thumbnail_link" title="Phylogenetic tree" class="cboxElement">
-						<img src="<?php echo $strain->getPhylogeneticTreeThumbnail() ?>" alt="Phylogenetic tree" />
-					</a>
-				</div>
-			</div>
-		</div>
-		<?php endif ?>
-
 	</div>
 
 	<div id="object_data_list">
 		<dl>
-			<dt>Sample:</dt>
-			<dd>
-				<?php
-					if ( $strain->getSample() != '' ) {
-						echo link_to($strain->getFormattedSampleCode(), "@sample_show?id={$strain->getSample()->getId()}");
-					}
-					else {
-						echo sfConfig::get('app_no_data_message');
-					}
-				?>
-			</dd>
-			<dt>Depositor:</dt>
-			<dd><?php echo $strain->getDepositor() ?></dd>
-			<dt>Has DNA:</dt>
-			<dd><?php echo $strain->getFormattedHasDna() ?></dd>
-			<dt>Is epitype:</dt>
-			<dd><?php echo $strain->getFormattedIsEpitype() ?></dd>
+			<dt>Code:</dt>
+			<dd><?php echo $strain->getFullCode() ?></dd>
 			<dt>Is axenic:</dt>
 			<dd><?php echo $strain->getFormattedIsAxenic() ?></dd>
-			<dt>In G catalog:</dt>
-			<dd><?php echo $strain->getFormattedInGCatalog() ?></dd>
-			<dt>Is public:</dt>
-			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
-			<dt>Deceased:</dt>
-			<dd><?php echo $strain->getFormattedDeceased() ?></dd>
+			<br />
+
+			<dt>Sample:</dt>
+			<dd><?php echo  ($strain->getSample() != '') ? link_to($strain->getFormattedSampleCode(), "@sample_show?id={$strain->getSample()->getId()}") : sfConfig::get('app_no_data_message') ?></dd>
+			<dt>Habitat description:</dt>
+			<dd><?php echo $strain->getHabitatDescription() ?></dd>
+			<br />
+
 			<dt>Kingdom:</dt>
 			<dd><?php echo $strain->getFormattedKingdom() ?></dd>
 			<dt>Subkingdom:</dt>
@@ -282,31 +252,66 @@
 			<dd><span class="species_name"><?php echo $strainSpecies ?></span></dd>
 			<dt>Authority:</dt>
 			<dd><?php echo $strain->getAuthority() ?></dd>
+			<dt>Article description:</dt>
+			<dd><?php echo $strain->getArticleDescription() ?></dd>
+			<dt>Worldwide distribution:</dt>
+			<dd><?php echo $strain->getDistribution() ?></dd>
+			<dt>Is epitype:</dt>
+			<dd><?php echo $strain->getFormattedIsEpitype() ?></dd>
+			<br />
+
+			<dt>Isolators:</dt>
+			<dd><?php echo $nbIsolators ?>	</dd>
+			<dt>Isolations:</dt>
+			<dd><?php echo $nbIsolations ?></dd>
+			<?php if ( $strain->getIdentifier()->getName() ): ?>
+			<dt>Identifier:</dt>
+			<dd><?php echo $strain->getIdentifier() ?></dd>
+			<?php endif; ?>
+			<dt>Depositor:</dt>
+			<dd><?php echo $strain->getDepositor() ?></dd>
+			<dt>Remarks:</dt>
+			<dd><?php echo $strain->getRemarks() ?></dd>
+			<br />
 
 			<dt>Maintenance status:</dt>
 			<dd>
 			<?php
-				$firstMaintenanceStatus = true;
+				$statuses = array();
 				foreach ($strain->getMaintenanceStatus() as $status ) {
-					if ( !$firstMaintenanceStatus ) {
-						echo sprintf(', %s', sfInflector::tableize($status->getName()));
-						continue;
-					}
-					echo $status->getName();
-					$firstMaintenanceStatus = false;
+					$statuses[] = $status;
 				}
+				echo implode(',', $statuses);
 			?>
 			</dd>
-
-			<dt>Best container:</dt>
-			<dd><?php echo $strain->getFormattedContainer() ?></dd>
-
-			<dt>Relatives:</dt>
-			<dd><?php echo $nbRelatives ?></dd>
-
 			<dt>Culture media:</dt>
 			<dd><?php echo $nbCultureMedia ?></dd>
+			<dt>Best container:</dt>
+			<dd><?php echo $strain->getFormattedContainer() ?></dd>
+			<dt>Transfer interval:</dt>
+			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
+			<?php if ( $strain->getSupervisor()->getName() ): ?>
+			<dt>Supervisor:</dt>
+			<dd><?php echo $strain->getSupervisor()->getFullNameWithInitials() ?></dd>
+			<?php endif; ?>
+			<dt>Temperature:</dt>
+			<dd><?php echo $strain->getFormattedTemperature() ?></dd>
+			<dt>Photoperiod:</dt>
+			<dd><?php echo $strain->getFormattedPhotoperiod() ?></dd>
+			<dt>Irradiation:</dt>
+			<dd><?php echo $strain->getFormattedIrradiation() ?></dd>
+			<dt>Observation:</dt>
+			<dd><?php echo $strain->getFormattedObservation() ?></dd>
+			<br />
 
+			<dt>Is public:</dt>
+			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
+			<dt>In G catalog:</dt>
+			<dd><?php echo $strain->getFormattedInGCatalog() ?></dd>
+			<dt>Deceased:</dt>
+			<dd><?php echo $strain->getFormattedDeceased() ?></dd>
+			<dt>Has DNA:</dt>
+			<dd><?php echo $strain->getFormattedHasDna() ?></dd>
 			<dt>DNA extractions:</dt>
 			<dd>
 				<?php echo $nbDnaExtractions = $strain->getNbDnaExtractions() ?>
@@ -314,49 +319,20 @@
 					<a href="#strain_dna_extractions_list" title="List of DNA extractions linked to this strain" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
+			<br />
 
-			<dt>Projects:</dt>
-			<dd><?php echo $nbProjects ?></dd>
-
-			<dt>Isolations:</dt>
-			<dd><?php echo $nbIsolations ?></dd>
-
-			<dt>Transfer interval:</dt>
-			<dd><?php echo $strain->getFormattedTransferInterval() ?></dd>
-
-			<?php if ( $strain->getSupervisor()->getName() ): ?>
-			<dt>Supervisor:</dt>
-			<dd><?php echo $strain->getSupervisor()->getFullNameWithInitials() ?></dd>
-			<?php endif; ?>
-
-			<dt>Observation:</dt>
-			<dd><?php echo $strain->getFormattedObservation() ?></dd>
-
-			<dt>Isolators:</dt>
-			<dd><?php echo $nbIsolators ?>	</dd>
-
-			<?php if ( $strain->getIdentifier()->getName() ): ?>
-			<dt>Identifier:</dt>
-			<dd><?php echo $strain->getIdentifier() ?></dd>
-			<?php endif; ?>
-
-			<dt>Citations:</dt>
-			<dd><?php echo $strain->getFormattedCitations() ?></dd>
-
-			<dt>Remarks:</dt>
-			<dd><?php echo $strain->getRemarks() ?></dd>
+			<dt>Phylogenetic description:</dt>
+			<dd><?php echo $strain->getPhylogeneticDescription() ?></dd>
+			<br />
 
 			<dt>Web notes:</dt>
 			<dd><?php echo $strain->getWebNotes() ?></dd>
-
-			<dt>Worldwide distribution:</dt>
-			<dd><?php echo $strain->getDistribution() ?></dd>
-
-			<dt>Article description:</dt>
-			<dd><?php echo $strain->getArticleDescription() ?></dd>
-
-			<dt>Habitat description:</dt>
-			<dd><?php echo $strain->getHabitatDescription() ?></dd>
+			<dt>Projects:</dt>
+			<dd><?php echo $nbProjects ?></dd>
+			<dt>Citations:</dt>
+			<dd><?php echo $strain->getFormattedCitations() ?></dd>
+			<dt>Relatives:</dt>
+			<dd><?php echo $nbRelatives ?></dd>
 		</dl>
 	</div>
 
@@ -381,7 +357,6 @@
 							else {
 								$date = sfConfig::get('app_no_data_message');
 							}
-
 							echo link_to($date, $url);
 						?>
 					</td>
