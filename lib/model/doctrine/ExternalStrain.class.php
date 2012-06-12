@@ -45,7 +45,7 @@ class ExternalStrain extends BaseExternalStrain {
 			$axenicCode = 'B';
 		}
 
-		return "BEA$code$axenicCode";
+		return "RC$code$axenicCode";
 	}
 
 	public function getTaxonomicName() {
@@ -54,6 +54,13 @@ class ExternalStrain extends BaseExternalStrain {
 
 	public function getGenusAndSpecies() {
 		return sprintf('%s %s', $this->getGenus(), $this->getSpecies());
+	}
+
+	public function getFormattedSampleCode() {
+		if ( $this->getSample() ) {
+			return $this->getSample()->getCode();
+		}
+		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getNbCultureMedia() {
@@ -71,20 +78,6 @@ class ExternalStrain extends BaseExternalStrain {
 			->count();
 	}
 
-	public function getFormattedEnvironment() {
-		if ( $this->getEnvironment()->exists() ) {
-			return $this->getEnvironment()->getName();
-		}
-		return sfConfig::get('app_no_data_message');
-	}
-
-	public function getFormattedHabitat() {
-		if ( $this->getHabitat()->exists() ) {
-			return $this->getHabitat()->getName();
-		}
-		return sfConfig::get('app_no_data_message');
-	}
-
 	public function getFormattedIsEpitype() {
 		if ( $this->getIsEpitype() ) {
 			return 'yes';
@@ -94,13 +87,6 @@ class ExternalStrain extends BaseExternalStrain {
 
 	public function getFormattedIsAxenic() {
 		if ( $this->getIsAxenic() ) {
-			return 'yes';
-		}
-		return 'no';
-	}
-
-	public function getFormattedHasDna() {
-		if ( $this->getHasDna() ) {
 			return 'yes';
 		}
 		return 'no';
@@ -131,21 +117,11 @@ class ExternalStrain extends BaseExternalStrain {
 		return $this->formatDate($this->_get('isolation_date'));
 	}
 
-	public function getFormattedCollectionDate() {
-		return $this->formatDate($this->_get('collection_date'));
-	}
-
 	public function getFormattedContainer() {
 		if ( $container = $this->getContainer()->getName() ) {
 			return $container;
 		}
 		return sfConfig::get('app_no_data_message');
-	}
-
-	public function getNbCollectors() {
-		return ExternalStrainCollectorsTable::getInstance()->createQuery('c')
-			->where('c.external_strain_id = ?', $this->getId())
-			->count();
 	}
 
 	public function getNbIsolators() {
@@ -192,15 +168,6 @@ class ExternalStrain extends BaseExternalStrain {
 		return $this->getSupervisor()->getInitials();
 	}
 
-	public function getCollectionDate() {
-		if ( $date = $this->_get('collection_date') ) {
-			return $this->formatDate($date);
-		}
-		else {
-			return sfConfig::get('app_no_data_message');
-		}
-	}
-
 	public function getNbProjects() {
 		return Doctrine_Query::create()
 			->from('Project p')
@@ -213,5 +180,66 @@ class ExternalStrain extends BaseExternalStrain {
 			->from('Isolation i')
 			->where('i.external_strain_id = ?', $this->getId())
 			->count();
+	}
+	public function getFormattedTemperature() {
+		if ( ($temperature = $this->_get('temperature')) > 0 ) {
+			return $temperature.' '.sfConfig::get('app_temperature_unit');
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+
+	public function getFormattedPhotoperiod() {
+		if ( ($photoperiod = $this->_get('photoperiod')) > 0 ) {
+			return $photoperiod;
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+
+	public function getFormattedIrradiation() {
+		if ( ($irradiation = $this->_get('irradiation')) > 0 ) {
+			return $irradiation;
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+
+	public function getFormattedTaxonomicOrder() {
+		if ( $name = $this->getTaxonomicOrder()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedKingdom() {
+		if ( $name = $this->getKingdom()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedSubkingdom() {
+		if ( $name = $this->getSubkingdom()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedPhylum() {
+		if ( $name = $this->getPhylum()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
+	public function getFormattedFamily() {
+		if ( $name = $this->getTaxonomicOrder()->getName() ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
 	}
 }

@@ -201,7 +201,6 @@ class Strain extends BaseStrain {
 			if ( $dnaExtraction->getIsPublic() ) {
 				$aliquots += $dnaExtraction->getAliquots();
 			}
-
 		}
 
 		return $aliquots;
@@ -212,7 +211,6 @@ class Strain extends BaseStrain {
 		foreach ($this->getDnaExtractions() as $dnaExtraction) {
 			$aliquots += $dnaExtraction->getAliquots();
 		}
-
 		return $aliquots;
 	}
 

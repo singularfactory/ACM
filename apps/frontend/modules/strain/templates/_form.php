@@ -219,7 +219,7 @@
 				<?php echo $form['article_description']->renderHelp() ?>
 				<?php echo $form['article_description'] ?>
 			</div>
-						<div id="distribution">
+			<div id="distribution">
 				<?php echo $form['distribution']->renderLabel() ?>
 				<?php echo $form['distribution']->renderError() ?>
 				<?php echo $form['distribution']->renderHelp() ?>

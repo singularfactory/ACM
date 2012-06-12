@@ -156,14 +156,14 @@ div.model_text_input_dna_primer select { margin-left: 3px; display: inline; vert
 
 #conductivity input, #temperature input, #salinity input, #altitude input { display: inline; }
 
-#strain_temperature { display: block ! important; }
+#strain_temperature, #external_strain_temperature { display: block ! important; }
 
 #project_name { width: 300px ! important; }
 
 a.sample_location_coordinates_url,
 a.patent_deposit_location_coordinates_url,
 a.maintenance_deposit_location_coordinates_url,
-a.external_strain_location_coordinates_url,
+a.external_strain_sample_numbers_url,
 a.strain_sample_numbers_url,
 a.country_regions_url,
 a.region_islands_url,
@@ -224,7 +224,7 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
  */
 li.ui-menu-item { text-align: left; font-size: 11px; }
 #sample_location_search, #maintenance_deposit_location_search, #patent_deposit_location_search, #strain_sample_search,
-#external_strain_location_search, #dna_extraction_strain_search, #project_strain_search,
+#external_strain_sample_search, #dna_extraction_strain_search, #project_strain_search,
 #isolation_location_search, #isolation_sample_search, #isolation_strain_search, #isolation_external_strain_search,
 #project_sample_search, #project_strain_search, #project_external_strain_search,
 #cryopreservation_sample_search, #cryopreservation_strain_search, #cryopreservation_external_strain_search,

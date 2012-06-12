@@ -50,34 +50,30 @@ class ExternalStrainForm extends BaseExternalStrainForm {
 			unset($this['container_id']);
 		}
 
-		// Configure location
-		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
+		// Configure sample code
+		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => (int)SampleTable::getInstance()->getDefaultSampleId())));
 
 		// Configure date formats
 		$lastYear = date('Y');
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
 		$this->setWidget('isolation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
-		$this->setWidget('collection_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 
 		// Set sorting order in taxonomy related fields
 		$this['taxonomic_class_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['genus_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['species_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['authority_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['taxonomic_order_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['kingdom_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['subkingdom_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['phylum_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+		$this['family_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 
 		// Configure culture media relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
 			'multiple' => true,
 			'model' => 'CultureMedium',
 			'method' => 'getName',
-			'order_by' => array('name', 'asc'),
-		)));
-
-		// Configure list of isolators
-		$this->setWidget('collectors_list', new sfWidgetFormDoctrineChoice(array(
-			'model' => 'Collector',
-			'method' => 'getFullName',
-			'multiple' => true,
 			'order_by' => array('name', 'asc'),
 		)));
 
@@ -124,21 +120,21 @@ class ExternalStrainForm extends BaseExternalStrainForm {
 			),
 		));
 
-		$this->setValidator('location_id', new sfValidatorDoctrineChoice(
-			array('model' => $this->getRelatedModelName('Location')),
-			array('required' => 'The location of the sample is required')
-		));
-
 		// Configure labels
+		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
+		$this->widgetSchema->setLabel('taxonomic_order_id', 'Order');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
 		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('containers_list', 'Available containers');
-		$this->widgetSchema->setLabel('collectors_list', 'Collectors');
 
 		// Configure help messages
+		$this->widgetSchema->setHelp('kingdom_id', 'Taxonomic kingdom');
+		$this->widgetSchema->setHelp('subkingdom_id', 'Taxonomic subkingdom');
+		$this->widgetSchema->setHelp('phylum_id', 'Taxonomic phylum');
+		$this->widgetSchema->setHelp('family_id', 'Taxonomic family');
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
 		$this->widgetSchema->setHelp('genus_id', 'Taxonomic genus');
 		$this->widgetSchema->setHelp('species_id', 'Taxonomic species');
@@ -154,6 +150,5 @@ class ExternalStrainForm extends BaseExternalStrainForm {
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('containers_list', 'Containers where a culture of this strain is available. Select more than one with Ctrl or Cmd key.');
-		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this strain. Select more than one with Ctrl or Cmd key.');
 	}
 }

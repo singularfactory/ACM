@@ -404,9 +404,9 @@ external_strain:
   class:   sfDoctrineRouteCollection
   options: { model: ExternalStrain }
 
-external_strain_find_locations:
-  url:    external_strain/findLocations/:term
-  param:  { module: external_strain, action: findLocations }
+external_strain_find_samples:
+  url:    external_strain/findSamples/:term
+  param:  { module: external_strain, action: findSamples }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
 external_strain_search:

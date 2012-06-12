@@ -72,30 +72,36 @@ class external_strainActions extends MyActions {
 		$this->form = new ExternalStrainForm();
 	}
 
+	/**
+	 * Shows a ExternalStrain record
+	 */
 	public function executeShow(sfWebRequest $request) {
 		$this->externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->externalStrain);
 	}
 
+	/**
+	 * Shows form for creating a new ExternalStrain record
+	 */
 	public function executeNew(sfWebRequest $request) {
 		if ( $lastStrain = $this->getUser()->getAttribute('external_strain.last_object_created') ) {
 			$externalStrain = new ExternalStrain();
+			$externalStrain->setKingdomId($lastStrain->getKingdomId());
+			$externalStrain->setPhylumId($lastStrain->getPhylumd());
+			$externalStrain->setFamilyId($lastStrain->getFamilyId());
 			$externalStrain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
+			$externalStrain->setTaxonomicOrderId($lastStrain->getTaxonomicOrderId());
 			$externalStrain->setGenusId($lastStrain->getGenusId());
 			$externalStrain->setSpeciesId($lastStrain->getSpeciesId());
 			$externalStrain->setAuthorityId($lastStrain->getAuthorityId());
-			$externalStrain->setMaintenanceStatusId($lastStrain->getMaintenanceStatusId());
-			$externalStrain->setCryopreservationMethodId($lastStrain->getCryopreservationMethodId());
-			$externalStrain->setEnvironmentId($lastStrain->getEnvironmentId());
-			$externalStrain->setHabitatId($lastStrain->getHabitatId());
-			$externalStrain->setDepositorId($lastStrain->getDepositorId());
-			$externalStrain->setIdentifierId($lastStrain->getIdentifierId());
-			$externalStrain->setCollectionDate($lastStrain->getCollectionDate());
 			$externalStrain->setIsolationDate($lastStrain->getIsolationDate());
+			$externalStrain->setIdentifierId($lastStrain->getIdentifierId());
+			$externalStrain->setSupervisorId($lastStrain->getSupervisorId());
 			$externalStrain->setTransferInterval($lastStrain->getTransferInterval());
 			$externalStrain->setObservation($lastStrain->getObservation());
 			$externalStrain->setCitations($lastStrain->getCitations());
 			$externalStrain->setRemarks($lastStrain->getRemarks());
+			$externalStrain->setDepositorId($lastStrain->getDepositorId());
 
 			$this->form = new ExternalStrainForm($externalStrain);
 			$this->getUser()->setAttribute('external_strain.last_object_created', null);
@@ -105,36 +111,43 @@ class external_strainActions extends MyActions {
 		}
 
 		$this->hasIdentifiers = (IdentifierTable::getInstance()->count() > 0)?true:false;
-		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
+		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
-  }
+	}
 
-  public function executeCreate(sfWebRequest $request) {
-  	$this->forward404Unless($request->isMethod(sfRequest::POST));
+	/**
+	 * Saves a new ExternalStrain record
+	 */
+	public function executeCreate(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new ExternalStrainForm();
+		$this->form = new ExternalStrainForm();
 		$this->hasIdentifiers = (IdentifierTable::getInstance()->count() > 0)?true:false;
-		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
+		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
+		$this->setTemplate('new');
+	}
 
-    $this->setTemplate('new');
-  }
-
+	/**
+	 * Shows form for editing a ExternalStrain record
+	 */
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
 		$this->form = new ExternalStrainForm($externalStrain);
 	}
 
+	/**
+	 * Saves changes in a ExternalStrain record
+	 */
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
-    $this->form = new ExternalStrainForm($externalStrain);
+		$this->forward404Unless($externalStrain = ExternalStrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
+		$this->form = new ExternalStrainForm($externalStrain);
 
-    $this->processForm($request, $this->form);
-
-    $this->setTemplate('edit');
+		$this->processForm($request, $this->form);
+		$this->setTemplate('edit');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {

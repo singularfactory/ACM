@@ -35,7 +35,6 @@
  * @since 1.0
  */
 class StrainForm extends BaseStrainForm {
-
 	public function configure() {
 		// Skip the whole configuration if this a search form
 		if ( $this->getOption('search') ) {
@@ -117,13 +116,13 @@ class StrainForm extends BaseStrainForm {
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_strain_pictures_dir'),
 			'required' => false,
 			'validated_file_class' => 'sfCustomValidatedFile',
-			),
-			array(
-				'invalid' => 'Invalid file',
-				'required' => 'Select a file to upload',
-				'mime_types' => 'The file must be a supported type',
-			)
-		));
+		),
+		array(
+			'invalid' => 'Invalid file',
+			'required' => 'Select a file to upload',
+			'mime_types' => 'The file must be a supported type',
+		)
+	));
 
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
@@ -200,7 +199,6 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('web_notes', 'Comments that will appear in the public web');
 		$this->widgetSchema->setHelp('is_public', 'Whether the strain must be shown in public catalog or not');
 		$this->widgetSchema->setHelp('deceased', 'Whether the strain is deceased or not');
-		//$this->widgetSchema->setHelp('amount', 'Items in stock');
 		$this->widgetSchema->setHelp('new_Pictures', 'Select up to '.($defaultMaxPictures - $actualPictures).' pictures in JPEG, PNG or TIFF format');
 		$this->widgetSchema->setHelp('phylogenetic_tree', 'Choose a picture in JPEG or PNG format');
 		$this->widgetSchema->setHelp('culture_media_list', 'Culture media available for this strain. Select more than one with Ctrl or Cmd key.');
@@ -208,6 +206,5 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('maintenance_status_list', 'Maintenance status of this strain. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('containers_list', 'Containers where a culture of this strain is available. Select more than one with Ctrl or Cmd key.');
-  }
-
+	}
 }
