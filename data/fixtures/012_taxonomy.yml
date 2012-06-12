@@ -172,12 +172,11 @@ Species:
   rubescens:			  { name: rubescens }
   saccharophila:		{ name: saccharophila }
   salina:			      { name: salina }
-  sp:			          { name: "sp." }
   sublitoralis:			{ name: sublitoralis }
   subspicatus:			{ name: subspicatus }
   turgidus:			    { name: turgidus }
   vulgaris:			    { name: vulgaris }
-  
+
 Authority:
   authority_1:	{ name: "(Chodat) Komárek" }
   authority_2:	{ name: "(Dangeard) Kessler" }
