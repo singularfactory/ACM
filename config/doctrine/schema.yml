@@ -938,7 +938,7 @@ ExternalStrain:
     taxonomic_order_id:  { type: integer, notnull: true }
     family_id:  { type: integer, notnull: true }
     genus_id:  { type: integer, notnull: true }
-    species_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
     authority_id:  { type: integer, notnull: true }
     isolation_date:  { type: date }
     identifier_id:  { type: integer }
