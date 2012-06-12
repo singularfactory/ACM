@@ -125,7 +125,16 @@
 
 					<li class="header_menu_item">
 						<?php
-						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|cryopreservation|isolation|external_strain)(\/_)?)/', $currentRoute) )
+						if ( !preg_match('/^((external_strain)(\/_)?)/', $currentRoute) )
+							echo link_to('Research collection', '@external_strain');
+						else
+							echo link_to('Research collection', '@external_strain', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+
+					<li class="header_menu_item">
+						<?php
+						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|cryopreservation|isolation)(\/_)?)/', $currentRoute) )
 							echo link_to('Services', '@project');
 						else
 							echo link_to('Services', '@project', array('class' => 'header_menu_current_tab'));
@@ -137,7 +146,6 @@
 							<li><?php echo link_to('Isolations', '@isolation') ?></li>
 							<li><?php echo link_to('Cryopreservations', '@cryopreservation') ?></li>
 							<li><?php echo link_to('Identifications', '@identification') ?></li>
-							<li><?php echo link_to('Research collection', '@external_strain') ?></li>
 						</ul>
 					</li>
 
