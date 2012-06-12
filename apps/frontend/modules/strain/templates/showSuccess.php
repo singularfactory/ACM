@@ -319,6 +319,8 @@
 					<a href="#strain_dna_extractions_list" title="List of DNA extractions linked to this strain" class="page_jump">see below</a>
 				<?php endif; ?>
 			</dd>
+			<dt>Sequenced genes</dt>
+			<dd><?php $genes = array(); foreach($strain->getSequencedGenes() as $gen) $genes[] = $gen; echo implode(', ', $genes) ?></dd>
 			<br />
 
 			<dt>Phylogenetic description:</dt>
