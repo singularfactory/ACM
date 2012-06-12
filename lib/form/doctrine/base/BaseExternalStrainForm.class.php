@@ -15,63 +15,71 @@ abstract class BaseExternalStrainForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                         => new sfWidgetFormInputHidden(),
-      'taxonomic_class_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => false)),
-      'genus_id'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => false)),
-      'species_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => false)),
-      'authority_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => false)),
-      'is_epitype'                 => new sfWidgetFormInputCheckbox(),
-      'is_axenic'                  => new sfWidgetFormInputCheckbox(),
-      'has_dna'                    => new sfWidgetFormInputCheckbox(),
-      'location_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Location'), 'add_empty' => false)),
-      'environment_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Environment'), 'add_empty' => true)),
-      'habitat_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Habitat'), 'add_empty' => true)),
-      'collection_date'            => new sfWidgetFormDate(),
-      'isolation_date'             => new sfWidgetFormDate(),
-      'identifier_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
-      'supervisor_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
-      'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => true)),
-      'transfer_interval'          => new sfWidgetFormInputText(),
-      'observation'                => new sfWidgetFormTextarea(),
-      'citations'                  => new sfWidgetFormTextarea(),
-      'remarks'                    => new sfWidgetFormTextarea(),
-      'container_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'add_empty' => true)),
-      'created_at'                 => new sfWidgetFormDateTime(),
-      'updated_at'                 => new sfWidgetFormDateTime(),
-      'containers_list'            => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Container')),
-      'culture_media_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
-      'maintenance_status_list'    => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
-      'isolators_list'             => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
+      'id'                      => new sfWidgetFormInputHidden(),
+      'sample_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
+      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
+      'is_epitype'              => new sfWidgetFormInputCheckbox(),
+      'is_axenic'               => new sfWidgetFormInputCheckbox(),
+      'kingdom_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Kingdom'), 'add_empty' => false)),
+      'subkingdom_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Subkingdom'), 'add_empty' => false)),
+      'phylum_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Phylum'), 'add_empty' => false)),
+      'taxonomic_class_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => false)),
+      'taxonomic_order_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicOrder'), 'add_empty' => false)),
+      'family_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Family'), 'add_empty' => false)),
+      'genus_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => false)),
+      'species_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => false)),
+      'authority_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => false)),
+      'isolation_date'          => new sfWidgetFormDate(),
+      'identifier_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
+      'container_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'add_empty' => true)),
+      'transfer_interval'       => new sfWidgetFormInputText(),
+      'observation'             => new sfWidgetFormTextarea(),
+      'citations'               => new sfWidgetFormTextarea(),
+      'remarks'                 => new sfWidgetFormTextarea(),
+      'supervisor_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
+      'temperature'             => new sfWidgetFormInputText(),
+      'photoperiod'             => new sfWidgetFormInputText(),
+      'irradiation'             => new sfWidgetFormInputText(),
+      'created_at'              => new sfWidgetFormDateTime(),
+      'updated_at'              => new sfWidgetFormDateTime(),
+      'isolators_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
+      'containers_list'         => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Container')),
+      'culture_media_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
+      'maintenance_status_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
 
     $this->setValidators(array(
-      'id'                         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'taxonomic_class_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'))),
-      'genus_id'                   => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'))),
-      'species_id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Species'))),
-      'authority_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'))),
-      'is_epitype'                 => new sfValidatorBoolean(array('required' => false)),
-      'is_axenic'                  => new sfValidatorBoolean(array('required' => false)),
-      'has_dna'                    => new sfValidatorBoolean(array('required' => false)),
-      'location_id'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Location'))),
-      'environment_id'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Environment'), 'required' => false)),
-      'habitat_id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Habitat'), 'required' => false)),
-      'collection_date'            => new sfValidatorDate(array('required' => false)),
-      'isolation_date'             => new sfValidatorDate(array('required' => false)),
-      'identifier_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'required' => false)),
-      'supervisor_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'required' => false)),
-      'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'required' => false)),
-      'transfer_interval'          => new sfValidatorString(array('max_length' => 40, 'required' => false)),
-      'observation'                => new sfValidatorString(array('required' => false)),
-      'citations'                  => new sfValidatorString(array('required' => false)),
-      'remarks'                    => new sfValidatorString(array('required' => false)),
-      'container_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'required' => false)),
-      'created_at'                 => new sfValidatorDateTime(),
-      'updated_at'                 => new sfValidatorDateTime(),
-      'containers_list'            => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Container', 'required' => false)),
-      'culture_media_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
-      'maintenance_status_list'    => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
-      'isolators_list'             => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
+      'id'                      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'sample_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'required' => false)),
+      'depositor_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'required' => false)),
+      'is_epitype'              => new sfValidatorBoolean(array('required' => false)),
+      'is_axenic'               => new sfValidatorBoolean(array('required' => false)),
+      'kingdom_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Kingdom'))),
+      'subkingdom_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Subkingdom'))),
+      'phylum_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Phylum'))),
+      'taxonomic_class_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'))),
+      'taxonomic_order_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicOrder'))),
+      'family_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Family'))),
+      'genus_id'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'))),
+      'species_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Species'))),
+      'authority_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'))),
+      'isolation_date'          => new sfValidatorDate(array('required' => false)),
+      'identifier_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'required' => false)),
+      'container_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Container'), 'required' => false)),
+      'transfer_interval'       => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+      'observation'             => new sfValidatorString(array('required' => false)),
+      'citations'               => new sfValidatorString(array('required' => false)),
+      'remarks'                 => new sfValidatorString(array('required' => false)),
+      'supervisor_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'required' => false)),
+      'temperature'             => new sfValidatorNumber(array('required' => false)),
+      'photoperiod'             => new sfValidatorNumber(array('required' => false)),
+      'irradiation'             => new sfValidatorNumber(array('required' => false)),
+      'created_at'              => new sfValidatorDateTime(),
+      'updated_at'              => new sfValidatorDateTime(),
+      'isolators_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
+      'containers_list'         => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Container', 'required' => false)),
+      'culture_media_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
+      'maintenance_status_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('external_strain[%s]');
@@ -92,6 +100,11 @@ abstract class BaseExternalStrainForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
+    if (isset($this->widgetSchema['isolators_list']))
+    {
+      $this->setDefault('isolators_list', $this->object->Isolators->getPrimaryKeys());
+    }
+
     if (isset($this->widgetSchema['containers_list']))
     {
       $this->setDefault('containers_list', $this->object->Containers->getPrimaryKeys());
@@ -107,21 +120,54 @@ abstract class BaseExternalStrainForm extends BaseFormDoctrine
       $this->setDefault('maintenance_status_list', $this->object->MaintenanceStatus->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['isolators_list']))
-    {
-      $this->setDefault('isolators_list', $this->object->Isolators->getPrimaryKeys());
-    }
-
   }
 
   protected function doSave($con = null)
   {
+    $this->saveIsolatorsList($con);
     $this->saveContainersList($con);
     $this->saveCultureMediaList($con);
     $this->saveMaintenanceStatusList($con);
-    $this->saveIsolatorsList($con);
 
     parent::doSave($con);
+  }
+
+  public function saveIsolatorsList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['isolators_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $existing = $this->object->Isolators->getPrimaryKeys();
+    $values = $this->getValue('isolators_list');
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('Isolators', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('Isolators', array_values($link));
+    }
   }
 
   public function saveContainersList($con = null)
@@ -235,44 +281,6 @@ abstract class BaseExternalStrainForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('MaintenanceStatus', array_values($link));
-    }
-  }
-
-  public function saveIsolatorsList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['isolators_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->Isolators->getPrimaryKeys();
-    $values = $this->getValue('isolators_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('Isolators', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('Isolators', array_values($link));
     }
   }
 

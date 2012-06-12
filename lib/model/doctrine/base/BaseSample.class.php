@@ -33,6 +33,7 @@
  * @property Doctrine_Collection $SampleCollectors
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $Projects
+ * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $Isolations
  * @property Doctrine_Collection $Cryopreservations
  * @property Doctrine_Collection $Identifications
@@ -65,6 +66,7 @@
  * @method Doctrine_Collection getSampleCollectors()    Returns the current record's "SampleCollectors" collection
  * @method Doctrine_Collection getStrains()             Returns the current record's "Strains" collection
  * @method Doctrine_Collection getProjects()            Returns the current record's "Projects" collection
+ * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Doctrine_Collection getCryopreservations()   Returns the current record's "Cryopreservations" collection
  * @method Doctrine_Collection getIdentifications()     Returns the current record's "Identifications" collection
@@ -96,6 +98,7 @@
  * @method Sample              setSampleCollectors()    Sets the current record's "SampleCollectors" collection
  * @method Sample              setStrains()             Sets the current record's "Strains" collection
  * @method Sample              setProjects()            Sets the current record's "Projects" collection
+ * @method Sample              setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method Sample              setIsolations()          Sets the current record's "Isolations" collection
  * @method Sample              setCryopreservations()   Sets the current record's "Cryopreservations" collection
  * @method Sample              setIdentifications()     Sets the current record's "Identifications" collection
@@ -229,6 +232,10 @@ abstract class BaseSample extends sfDoctrineRecord
              'foreign' => 'sample_id'));
 
         $this->hasMany('Project as Projects', array(
+             'local' => 'id',
+             'foreign' => 'sample_id'));
+
+        $this->hasMany('ExternalStrain as ExternalStrains', array(
              'local' => 'id',
              'foreign' => 'sample_id'));
 

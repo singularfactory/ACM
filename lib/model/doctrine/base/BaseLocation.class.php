@@ -22,7 +22,6 @@
  * @property Doctrine_Collection $Samples
  * @property Doctrine_Collection $PatentDeposits
  * @property Doctrine_Collection $MaintenanceDeposits
- * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $Isolations
  * 
  * @method integer             getId()                  Returns the current record's "id" value
@@ -42,7 +41,6 @@
  * @method Doctrine_Collection getSamples()             Returns the current record's "Samples" collection
  * @method Doctrine_Collection getPatentDeposits()      Returns the current record's "PatentDeposits" collection
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
- * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
  * @method Location            setId()                  Sets the current record's "id" value
  * @method Location            setName()                Sets the current record's "name" value
@@ -61,7 +59,6 @@
  * @method Location            setSamples()             Sets the current record's "Samples" collection
  * @method Location            setPatentDeposits()      Sets the current record's "PatentDeposits" collection
  * @method Location            setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
- * @method Location            setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method Location            setIsolations()          Sets the current record's "Isolations" collection
  * 
  * @package    bna_green_house
@@ -157,10 +154,6 @@ abstract class BaseLocation extends sfDoctrineRecord
              'foreign' => 'location_id'));
 
         $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
-             'local' => 'id',
-             'foreign' => 'location_id'));
-
-        $this->hasMany('ExternalStrain as ExternalStrains', array(
              'local' => 'id',
              'foreign' => 'location_id'));
 

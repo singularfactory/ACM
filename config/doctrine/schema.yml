@@ -25,186 +25,173 @@ actAs: [Timestampable]
 options:
   type: INNODB
 
-
 Country:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    code: { type: string(3), fixed: true, notnull: true }
-    name: { type: string(60), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    code:  { type: string(3), fixed: true, notnull: true }
+    name:  { type: string(60), notnull: true }
   indexes:
     country_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Region:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    code:       { type: string(3), fixed: true, notnull: true }
-    name:       { type: string(60), notnull: true }
-    country_id: { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    code:  { type: string(3), fixed: true, notnull: true }
+    name:  { type: string(60), notnull: true }
+    country_id:  { type: integer, notnull: true }
   relations:
-    Country:    { foreignAlias: Regions, onDelete: cascade }
+    Country:  { foreignAlias: Regions, onDelete: cascade }
   indexes:
     region_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Island:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    code:       { type: string(2), fixed: true, notnull: true }
-    name:       { type: string(60), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    code:  { type: string(2), fixed: true, notnull: true }
+    name:  { type: string(60), notnull: true }
     region_id:  { type: integer, notnull: true }
   relations:
-    Region:    { foreignAlias: Islands, onDelete: cascade }
+    Region:  { foreignAlias: Islands, onDelete: cascade }
   indexes:
     island_name:
-      fields:
-        name: { length: 20 }
-
+        fields:
+          name:  { length: 20 }
 
 LocationCategory:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    name:       { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     location_category_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 LocationPicture:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    filename:     { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    filename:  { type: string(255), notnull: true }
     location_id:  { type: integer, notnull: true }
   relations:
-    Location:     { foreignAlias: Pictures, onDelete: cascade }
+    Location:  { foreignAlias: Pictures, onDelete: cascade }
   actAs:
     Timestampable:
     Picture:
       moduleName: location
 
-
 Location:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
     category_id:  { type: integer }
-    latitude:     { type: string(12), fixed: true }
-    longitude:    { type: string(12), fixed: true }
-    country_id:   { type: integer, notnull: true }
-    region_id:    { type: integer, notnull: true }
-    island_id:    { type: integer }
-    remarks:      { type:string }
+    latitude:  { type: string(12), fixed: true }
+    longitude:  { type: string(12), fixed: true }
+    country_id:  { type: integer, notnull: true }
+    region_id:  { type: integer, notnull: true }
+    island_id:  { type: integer }
+    remarks:  { type:string }
   relations:
-    Category: { class: LocationCategory, local: category_id, foreignAlias: Locations }
+    Category:  { class: LocationCategory, local: category_id, foreignAlias: Locations }
     Country:  { foreignAlias: Locations }
-    Region:   { foreignAlias: Locations }
-    Island:   { foreignAlias: Locations }
+    Region:  { foreignAlias: Locations }
+    Island:  { foreignAlias: Locations }
   indexes:
     location_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Environment:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     environment_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Habitat:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(127), notnull: true }
-    description: { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
+    description:  { type: string }
   indexes:
     habitat_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Radiation:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     radiation_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 FieldPicture:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    filename:     { type: string(255), notnull: true }
-    sample_id:    { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    filename:  { type: string(255), notnull: true }
+    sample_id:  { type: integer, notnull: true }
   relations:
-    Sample:     { foreignAlias: FieldPictures, onDelete: cascade }
+    Sample:  { foreignAlias: FieldPictures, onDelete: cascade }
   actAs:
     Timestampable:
     Picture:
       moduleName: sample
-
 
 DetailedPicture:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    filename:     { type: string(255), notnull: true }
-    sample_id:    { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    filename:  { type: string(255), notnull: true }
+    sample_id:  { type: integer, notnull: true }
   relations:
-    Sample:     { foreignAlias: DetailedPictures, onDelete: cascade }
+    Sample:  { foreignAlias: DetailedPictures, onDelete: cascade }
   actAs:
     Timestampable:
     Picture:
       moduleName: sample
-
 
 MicroscopicPicture:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    filename:     { type: string(255), notnull: true }
-    sample_id:    { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    filename:  { type: string(255), notnull: true }
+    sample_id:  { type: integer, notnull: true }
   relations:
-    Sample:     { foreignAlias: MicroscopicPictures, onDelete: cascade }
+    Sample:  { foreignAlias: MicroscopicPictures, onDelete: cascade }
   actAs:
     Timestampable:
     Picture:
       moduleName: sample
 
-
 Sample:
   columns:
-    id:                   { type: integer, primary: true, autoincrement: true }
-    notebook_code:        { type: string(40) }
-    location_id:          { type: integer, notnull: true }
-    location_details:     { type: string(80) }
-    latitude:             { type: string(12), fixed: true }
-    longitude:            { type: string(12), fixed: true }
-    environment_id:       { type: integer }
-    is_extremophile:      { type: boolean, notnull: true, default: false }
-    habitat_id:           { type: integer }
-    ph:                   { type: float }
-    conductivity:         { type: float }
-    temperature:          { type: float }
-    salinity:             { type: float }
-    altitude:             { type: float }
-    radiation_id:         { type: integer }
-    collection_date:      { type: date, notnull: true }
-    remarks:              { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    notebook_code:  { type: string(40) }
+    location_id:  { type: integer, notnull: true }
+    location_details:  { type: string(80) }
+    latitude:  { type: string(12), fixed: true }
+    longitude:  { type: string(12), fixed: true }
+    environment_id:  { type: integer }
+    is_extremophile:  { type: boolean, notnull: true, default: false }
+    habitat_id:  { type: integer }
+    ph:  { type: float }
+    conductivity:  { type: float }
+    temperature:  { type: float }
+    salinity:  { type: float }
+    altitude:  { type: float }
+    radiation_id:  { type: integer }
+    collection_date:  { type: date, notnull: true }
+    remarks:  { type: string }
   relations:
-    Location:             { foreignAlias: Samples }
-    Environment:          { foreignAlias: Samples }
-    Habitat:              { foreignAlias: Samples }
-    Radiation:            { foreignAlias: Samples }
-    Collectors:           { foreignAlias: Collectors, class: Collector, local: sample_id, foreign: collector_id, refClass: SampleCollectors }
+    Location:  { foreignAlias: Samples }
+    Environment:  { foreignAlias: Samples }
+    Habitat:  { foreignAlias: Samples }
+    Radiation:  { foreignAlias: Samples }
+    Collectors:  { foreignAlias: Collectors, class: Collector, local: sample_id, foreign: collector_id, refClass: SampleCollectors }
   actAs:
     Timestampable:
     Date:
@@ -212,13 +199,12 @@ Sample:
     sample_notebook_code:
       fields: [notebook_code]
 
-
 Collector:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
-    email:    { type: string(255) }
+    email:  { type: string(255) }
   relations:
     Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
     PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: collector_id, foreign: patent_deposit_id, refClass: PatentDepositCollectors }
@@ -226,319 +212,295 @@ Collector:
   indexes:
     collector_name:
       fields:
-        name: { length: 20 }
+        name:  { length: 20 }
     collector_surname:
       fields:
-        surname: { length: 20 }
-
+        surname:  { length: 20 }
 
 SampleCollectors:
   columns:
-    sample_id:    { type: integer, primary: true }
-    collector_id: { type: integer, primary: true }
+    sample_id:  { type: integer, primary: true }
+    collector_id:  { type: integer, primary: true }
   relations:
-    Sample:       { onDelete: cascade }
-
+    Sample:  { onDelete: cascade }
 
 Event:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    user_id:      { type: integer, notnull: true }
-    ip_address:   { type: string(15), notnull: true }
-    module:       { type: string(40), notnull: true }
-    action:       { type: string(40), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    user_id:  { type: integer, notnull: true }
+    ip_address:  { type: string(15), notnull: true }
+    module:  { type: string(40), notnull: true }
+    action:  { type: string(40), notnull: true }
     description:  { type: string(255), notnull: true }
   relations:
-    User:         { class: sfGuardUser, local: user_id, foreignAlias: Events, onDelete: cascade }
-
+    User:  { class: sfGuardUser, local: user_id, foreignAlias: Events, onDelete: cascade }
 
 Isolator:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
-    email:    { type: string(255) }
+    email:  { type: string(255) }
   relations:
-    Strains:          { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
+    Strains:  { foreignAlias: Strains, class: Strain, local: isolator_id, foreign: strain_id, refClass: StrainIsolators }
     ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: isolator_id, foreign: external_strain_id, refClass: ExternalStrainIsolators }
-    PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: isolator_id, foreign: patent_deposit_id, refClass: PatentDepositIsolators }
+    PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: isolator_id, foreign: patent_deposit_id, refClass: PatentDepositIsolators }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: isolator_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositIsolators }
-    Isolations:     { foreignAlias: Isolations, class: Isolation, local: isolator_id, foreign: isolation_id, refClass: IsolationIsolators }
+    Isolations:  { foreignAlias: Isolations, class: Isolation, local: isolator_id, foreign: isolation_id, refClass: IsolationIsolators }
   indexes:
     isolator_name:
       fields:
-        name: { length: 20 }
+        name:  { length: 20 }
     isolator_surname:
       fields:
-        surname: { length: 20 }
-
+       surname:  { length: 20 }
 
 StrainIsolators:
   columns:
-    strain_id:    { type: integer, primary: true }
+    strain_id:  { type: integer, primary: true }
     isolator_id:  { type: integer, primary: true }
-    sort_order:   { type: integer, notnull: true }
+    sort_order:  { type: integer, notnull: true }
   relations:
-    Strain:       { onDelete: cascade }
+    Strain:  { onDelete: cascade }
   indexes:
     unique_order:  { fields: [strain_id, isolator_id, sort_order], type: unique }
 
-
 Identifier:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
-    email:    { type: string(255) }
+    email:  { type: string(255) }
   indexes:
     identifier_name:
       fields:
-        name: { length: 20 }
+        name:  { length: 20 }
     identifier_surname:
       fields:
-        surname: { length: 20 }
-
+        surname:  { length: 20 }
 
 MaintenanceStatus:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     maintenance_status_name:
       fields:
-        name: { length: 20 }
+        name:  { length: 20 }
   relations:
-    Strains:          { foreignAlias: Strains, class: Strain, local: maintenance_status_id, foreign: strain_id, refClass: StrainMaintenanceStatus }
+    Strains:  { foreignAlias: Strains, class: Strain, local: maintenance_status_id, foreign: strain_id, refClass: StrainMaintenanceStatus }
     ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: maintenance_status_id, foreign: external_strain_id, refClass: ExternalStrainMaintenanceStatus }
-    PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: maintenance_status_id, foreign: patent_deposit_id, refClass: PatentDepositMaintenanceStatus }
+    PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: maintenance_status_id, foreign: patent_deposit_id, refClass: PatentDepositMaintenanceStatus }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: maintenance_status_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositMaintenanceStatus }
-
 
 CryopreservationMethod:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     cryopreservation_method_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Kingdom:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     kingdom_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Subkingdom:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     subkingdom_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Phylum:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     phylum_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 TaxonomicClass:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     taxonomic_class_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 TaxonomicOrder:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     taxonomic_order_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Family:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     family_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Genus:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     genus_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Species:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     species_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Authority:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   indexes:
     authority_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 CultureMedium:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
     description:  { type: string(255), notnull: true }
-    link:         { type: string(1024), notnull: true }
-    is_public:    { type: boolean, notnull: true, default: false }
-    # amount:       { type: integer, notnull: true, default: 0 }
+    link:  { type: string(1024), notnull: true }
+    is_public:  { type: boolean, notnull: true, default: false }
   relations:
-      Strains:          { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
-      ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: culture_medium_id, foreign: external_strain_id, refClass: ExternalStrainCultureMedia }
-      PatentDeposits: { foreignAlias: PatentDeposits, class: PatentDeposit, local: culture_medium_id, foreign: patent_deposit_id, refClass: PatentDepositCultureMedia }
-      MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: culture_medium_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCultureMedia }
-      Isolations:     { foreignAlias: Isolations, class: Isolation, local: culture_medium_id, foreign: isolation_id, refClass: IsolationCultureMedia }
+    Strains:  { foreignAlias: Strains, class: Strain, local: culture_medium_id, foreign: strain_id, refClass: StrainCultureMedia }
+    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: culture_medium_id, foreign: external_strain_id, refClass: ExternalStrainCultureMedia }
+    PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: culture_medium_id, foreign: patent_deposit_id, refClass: PatentDepositCultureMedia }
+    MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: culture_medium_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCultureMedia }
+    Isolations:  { foreignAlias: Isolations, class: Isolation, local: culture_medium_id, foreign: isolation_id, refClass: IsolationCultureMedia }
   indexes:
     culture_medium_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 StrainRelative:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    name:       { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
     strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:     { foreignAlias: Relatives, onDelete: cascade }
-
+    Strain:  { foreignAlias: Relatives, onDelete: cascade }
 
 AxenityTest:
   columns:
-    id:         { type: integer, primary: true, autoincrement: true }
-    date:       { type: date, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    date:  { type: date, notnull: true }
     strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:     { foreignAlias: AxenityTests, onDelete: cascade }
+    Strain:  { foreignAlias: AxenityTests, onDelete: cascade }
   actAs:
     Timestampable:
     Date:
 
-
 StrainPicture:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    filename:     { type: string(255), notnull: true }
-    strain_id:    { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    filename:  { type: string(255), notnull: true }
+    strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:       { foreignAlias: Pictures, onDelete: cascade }
+    Strain:  { foreignAlias: Pictures, onDelete: cascade }
   actAs:
     Timestampable:
     Picture:
       moduleName: strain
 
-
 Container:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
   relations:
-    Strains:          { foreignAlias: Strains, class: Strain, local: container_id, foreign: strain_id, refClass: StrainContainers }
+    Strains:  { foreignAlias: Strains, class: Strain, local: container_id, foreign: strain_id, refClass: StrainContainers }
     ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: container_id, foreign: external_strain_id, refClass: ExternalStrainContainers }
   indexes:
     container_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Strain:
   columns:
-    id:                         { type: integer, primary: true, autoincrement: true }
-    code:                       { type: integer, notnull: true }
-    clone_number:               { type: integer }
-    sample_id:                  { type: integer }
-    depositor_id:               { type: integer }
-    is_epitype:                 { type: boolean, notnull: true, default: false }
-    is_axenic:                  { type: boolean, notnull: true, default: false }
-    is_public:                  { type: boolean, notnull: true, default: false }
-    deceased:                   { type: boolean, notnull: true, default: false }
-    kingdom_id:                 { type: integer }
-    subkingdom_id:              { type: integer }
-    phylum_id:                  { type: integer }
-    taxonomic_class_id:         { type: integer, notnull: true }
-    taxonomic_order_id:         { type: integer }
-    family_id:                  { type: integer }
-    genus_id:                   { type: integer, notnull: true }
-    species_id:                 { type: integer }
-    authority_id:               { type: integer, notnull: true }
-    isolation_date:             { type: date, notnull: true }
-    identifier_id:              { type: integer }
-    container_id:               { type: integer }
-    transfer_interval:          { type: string(40) }
-    observation:                { type: string }
-    citations:                  { type: string }
-    web_notes:                  { type: string }
-    # amount:                     { type: integer, notnull: true, default: 0 }
-    remarks:                    { type: string }
-    supervisor_id:              { type: integer }
-    in_g_catalog:               { type: boolean, notnull: true, default: false }
-    temperature:                { type: decimal }
-    photoperiod:                { type: decimal }
-    irradiation:                { type: decimal }
-    distribution:               { type: string }
-    article_description:        { type: string }
-    phylogenetic_description:   { type: string }
-    phylogenetic_tree:          { type: string(255) }
-    habitat_description:        { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    code:  { type: integer, notnull: true }
+    clone_number:  { type: integer }
+    sample_id:  { type: integer }
+    depositor_id:  { type: integer }
+    is_epitype:  { type: boolean, notnull: true, default: false }
+    is_axenic:  { type: boolean, notnull: true, default: false }
+    is_public:  { type: boolean, notnull: true, default: false }
+    deceased:  { type: boolean, notnull: true, default: false }
+    kingdom_id:  { type: integer }
+    subkingdom_id:  { type: integer }
+    phylum_id:  { type: integer }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    taxonomic_order_id:  { type: integer }
+    family_id:  { type: integer }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
+    authority_id:  { type: integer, notnull: true }
+    isolation_date:  { type: date, notnull: true }
+    identifier_id:  { type: integer }
+    container_id:  { type: integer }
+    transfer_interval:  { type: string(40) }
+    observation:  { type: string }
+    citations:  { type: string }
+    web_notes:  { type: string }
+    remarks:  { type: string }
+    supervisor_id:  { type: integer }
+    in_g_catalog:  { type: boolean, notnull: true, default: false }
+    temperature:  { type: decimal }
+    photoperiod:  { type: decimal }
+    irradiation:  { type: decimal }
+    distribution:  { type: string }
+    article_description:  { type: string }
+    phylogenetic_description:  { type: string }
+    phylogenetic_tree:  { type: string(255) }
+    habitat_description:  { type: string }
   relations:
-    Sample:                 { foreignAlias: Strains }
-    Depositor:              { foreignAlias: Strains }
-    Kingdom:                { foreignAlias: Strains }
-    Subkingdom:             { foreignAlias: Strains }
-    Phylum:                 { foreignAlias: Strains }
-    TaxonomicClass:         { foreignAlias: Strains }
-    TaxonomicOrder:         { foreignAlias: Strains }
-    Family:                 { foreignAlias: Strains }
-    Genus:                  { foreignAlias: Strains }
-    Species:                { foreignAlias: Strains }
-    Authority:              { foreignAlias: Strains }
-    Isolators:              { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators, orderBy: sort_order }
-    Supervisor:             { class: sfGuardUser, local: supervisor_id, foreignAlias: Strains }
-    Identifier:             { foreignAlias: Strains }
-    Container:              { foreignAlias: Strains }
-    Containers:             { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
-    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
-    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
+    Sample:  { foreignAlias: Strains }
+    Depositor:  { foreignAlias: Strains }
+    Kingdom:  { foreignAlias: Strains }
+    Subkingdom:  { foreignAlias: Strains }
+    Phylum:  { foreignAlias: Strains }
+    TaxonomicClass:  { foreignAlias: Strains }
+    TaxonomicOrder:  { foreignAlias: Strains }
+    Family:  { foreignAlias: Strains }
+    Genus:  { foreignAlias: Strains }
+    Species:  { foreignAlias: Strains }
+    Authority:  { foreignAlias: Strains }
+    Isolators:  { foreignAlias: Isolators, class: Isolator, local: strain_id, foreign: isolator_id, refClass: StrainIsolators, orderBy: sort_order }
+    Supervisor:  { class: sfGuardUser, local: supervisor_id, foreignAlias: Strains }
+    Identifier:  { foreignAlias: Strains }
+    Container:  { foreignAlias: Strains }
+    Containers:  { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
+    CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
+    MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
@@ -547,67 +509,61 @@ Strain:
   indexes:
     unique_code_and_clone:  { fields: [code, clone_number], type: unique }
 
-
 StrainContainers:
   columns:
-    strain_id:          { type: integer, primary: true }
+    strain_id:  { type: integer, primary: true }
     container_id:  { type: integer, primary: true }
   relations:
-    Strain:             { onDelete: cascade }
-
+    Strain:  { onDelete: cascade }
 
 StrainCultureMedia:
   columns:
-    strain_id:          { type: integer, primary: true }
+    strain_id:  { type: integer, primary: true }
     culture_medium_id:  { type: integer, primary: true }
   relations:
-    Strain:             { onDelete: cascade }
-
+    Strain:  { onDelete: cascade }
 
 StrainMaintenanceStatus:
   columns:
-    strain_id:              { type: integer, primary: true }
+    strain_id:  { type: integer, primary: true }
     maintenance_status_id:  { type: integer, primary: true }
   relations:
-    Strain:      { onDelete: cascade }
-
+    Strain:  { onDelete: cascade }
 
 sfGuardUser:
   columns:
-    avatar:             { type: string(255) }
-    token:              { type: string(40), notnull: true }
-    notify_new_order:   { type: boolean, notnull: true, default: true }
-    notify_ready_order: { type: boolean, notnull: true, default: true }
-    initials:           { type: string(5), notnull: true }
-
+    avatar:  { type: string(255) }
+    token:  { type: string(40), notnull: true }
+    notify_new_order:  { type: boolean, notnull: true, default: true }
+    notify_ready_order:  { type: boolean, notnull: true, default: true }
+    initials:  { type: string(5), notnull: true }
 
 ExtractionKit:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     extraction_kit_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 DnaExtraction:
   columns:
-    id:                   { type: integer, primary: true, autoincrement: true }
-    strain_id:            { type: integer, notnull: true }
-    is_public:            { type: boolean, notnull: true, default: false }
-    arrival_date:         { type: date, notnull: true }
-    extraction_date:      { type: date }
-    extraction_kit_id:    { type: integer, notnull: true }
-    concentration:        { type: decimal }
-    260_280_ratio:        { type: decimal }
-    260_230_ratio:        { type: decimal }
-    aliquots:             { type: integer }
-    genbank_link:         { type: string(255) }
-    remarks:              { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    strain_id:  { type: integer, notnull: true }
+    is_public:  { type: boolean, notnull: true, default: false }
+    arrival_date:  { type: date, notnull: true }
+    extraction_date:  { type: date }
+    extraction_kit_id:  { type: integer, notnull: true }
+    concentration:  { type: decimal }
+    260_280_ratio:  { type: decimal }
+    260_230_ratio:  { type: decimal }
+    aliquots:  { type: integer }
+    genbank_link:  { type: string(255) }
+    remarks:  { type: string }
   relations:
-    Strain:               { foreignAlias: DnaExtractions }
-    ExtractionKit:        { foreignAlias: DnaExtractions }
+    Strain:  { foreignAlias: DnaExtractions }
+    ExtractionKit:  { foreignAlias: DnaExtractions }
   indexes:
     dna_extraction_date1:
       fields: [extraction_date]
@@ -617,130 +573,120 @@ DnaExtraction:
     Timestampable:
     Date:
 
-
 DnaPolymerase:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     dna_polymerase_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 DnaPrimer:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(10), notnull: true }
-    direction:    { type: enum, values: [forward, reverse] }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(10), notnull: true }
+    direction:  { type: enum, values: [forward, reverse] }
     orientation:  { type: string(127) }
   indexes:
     dna_primer_name:
       fields:
-        name: { length: 10 }
-
+        name:  { length: 10 }
 
 Pcr:
   columns:
-    id:                     { type: integer, primary: true, autoincrement: true }
-    dna_extraction_id:      { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    dna_extraction_id:  { type: integer, notnull: true }
     forward_dna_primer_id:  { type: integer, notnull: true }
     reverse_dna_primer_id:  { type: integer, notnull: true }
-    dna_polymerase_id:      { type: integer, notnull: true }
-    pcr_program_id:         { type: integer, notnull: true }
-    concentration:          { type: decimal }
-    260_280_ratio:          { type: decimal }
-    260_230_ratio:          { type: decimal }
-    can_be_sequenced:       { type: boolean, notnull: true, default: false }
-    remarks:                { type: string }
+    dna_polymerase_id:  { type: integer, notnull: true }
+    pcr_program_id:  { type: integer, notnull: true }
+    concentration:  { type: decimal }
+    260_280_ratio:  { type: decimal }
+    260_230_ratio:  { type: decimal }
+    can_be_sequenced:  { type: boolean, notnull: true, default: false }
+    remarks:  { type: string }
   relations:
-    DnaExtraction:          { foreignAlias: Pcr }
-    DnaPolymerase:          { foreignAlias: Pcr }
-    ForwardPrimer:          { class: DnaPrimer, local: forward_dna_primer_id, foreignAlias: Pcr }
-    ReversePrimer:          { class: DnaPrimer, local: reverse_dna_primer_id, foreignAlias: Pcr }
-    PcrProgram:             { foreignAlias: Pcr }
-    Gel:                    { type: many, class: PcrGel, local:id, foreign: pcr_id, orderBy: number }
-
+    DnaExtraction:  { foreignAlias: Pcr }
+    DnaPolymerase:  { foreignAlias: Pcr }
+    ForwardPrimer:  { class: DnaPrimer, local: forward_dna_primer_id, foreignAlias: Pcr }
+    ReversePrimer:  { class: DnaPrimer, local: reverse_dna_primer_id, foreignAlias: Pcr }
+    PcrProgram:  { foreignAlias: Pcr }
+    Gel:  { type: many, class: PcrGel, local:id, foreign: pcr_id, orderBy: number }
 
 PcrGel:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    number:   { type: integer, notnull: true }
-    band:     { type: integer }
-    pcr_id:   { type: integer, notnull: true }
-    is_valid: { type: boolean, notnull: true, default: false }
+    id:  { type: integer, primary: true, autoincrement: true }
+    number:  { type: integer, notnull: true }
+    band:  { type: integer }
+    pcr_id:  { type: integer, notnull: true }
+    is_valid:  { type: boolean, notnull: true, default: false }
   relations:
-    Pcr:      { foreignAlias: Gel, onDelete: cascade }
-
+    Pcr:  { foreignAlias: Gel, onDelete: cascade }
 
 DnaSequence:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    gen:      { type: string(10), notnull: true }
-    date:     { type: date, notnull: true }
-    worked:   { type: boolean, notnull: true, default: false }
+    id:  { type: integer, primary: true, autoincrement: true }
+    gen:  { type: string(10), notnull: true }
+    date:  { type: date, notnull: true }
+    worked:  { type: boolean, notnull: true, default: false }
     remarks:  { type: string }
-    pcr_id:   { type: integer, notnull: true }
+    pcr_id:  { type: integer, notnull: true }
   relations:
-    Pcr:      { foreignAlias: Sequence }
-
+    Pcr:  { foreignAlias: Sequence }
 
 PcrReaction:
   columns:
-    id:               { type: integer, primary: true, autoincrement: true }
-    dna_primer_id:    { type: integer, notnull: true }
-    worked:           { type: boolean, notnull: true, default: false }
+    id:  { type: integer, primary: true, autoincrement: true }
+    dna_primer_id:  { type: integer, notnull: true }
+    worked:  { type: boolean, notnull: true, default: false }
     dna_sequence_id:  { type: integer, notnull: true }
   relations:
-    DnaPrimer:        { foreignAlias: Reaction }
-    DnaSequence:      { foreignAlias: Reaction, onDelete: cascade }
-
+    DnaPrimer:  { foreignAlias: Reaction }
+    DnaSequence:  { foreignAlias: Reaction, onDelete: cascade }
 
 PcrProgramStep:
   columns:
-    id:             { type: integer, primary: true, autoincrement: true }
-    segment:        { type: integer, notnull: true }
-    temperature:    { type: decimal, notnull: true }
-    duration:       { type: time, notnull: true }
-    pcr_program_id: { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    segment:  { type: integer, notnull: true }
+    temperature:  { type: decimal, notnull: true }
+    duration:  { type: time, notnull: true }
+    pcr_program_id:  { type: integer, notnull: true }
   relations:
-    PcrProgram:     { foreignAlias: Steps, onDelete: cascade }
-
+    PcrProgram:  { foreignAlias: Steps, onDelete: cascade }
 
 PcrProgram:
   columns:
-    id:     { type: integer, primary: true, autoincrement: true }
-    name:   { type: string(127), notnull: true }
-    cycles: { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
+    cycles:  { type: integer, notnull: true }
     start:  { type: integer, notnull: true }
-    end:    { type: integer, notnull: true }
+    end:  { type: integer, notnull: true }
   relations:
     Steps:  { type: many, class: PcrProgramStep, local:id, foreign: pcr_program_id, orderBy: segment }
 
-
 Notification:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
+    id:  { type: integer, primary: true, autoincrement: true }
     message:  { type: string, notnull: true }
-    status:   { type: enum, values: [new, read, deleted] }
+    status:  { type: enum, values: [new, read, deleted] }
     user_id:  { type: integer, notnull: true }
   relations:
-    User:     { class: sfGuardUser, local: user_id, foreignAlias: Notifications }
+    User:  { class: sfGuardUser, local: user_id, foreignAlias: Notifications }
   indexes:
     notification_status:
       fields: [status]
 
-
 PurchaseOrder:
   columns:
-    id:               { type: integer, primary: true, autoincrement: true }
-    status:           { type: enum, values: [pending, processing, ready] }
-    code:             { type: string(40), notnull: true }
-    customer:         { type: string(512), notnull: true }
-    remarks:          { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    status:  { type: enum, values: [pending, processing, ready] }
+    code:  { type: string(40), notnull: true }
+    customer:  { type: string(512), notnull: true }
+    remarks:  { type: string }
     activation_date:  { type: timestamp }
-    delivery_date:    { type: timestamp }
-    delivery_code:    { type: string(80) }
+    delivery_date:  { type: timestamp }
+    delivery_code:  { type: string(80) }
   actAs:
     Timestampable:
     Date:
@@ -749,21 +695,20 @@ PurchaseOrder:
     purchase_order_status:
       fields: [status]
 
-
 PurchaseItem:
   columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    status:             { type: enum, values: [pending, processing, ready] }
-    product:            { type: enum, values: [strain, culture_medium, genomic_dna] }
-    product_id:         { type: integer }
-    code:               { type: string(40), notnull: true }
-    amount:             { type: integer, notnull: true, default: 1 }
-    remarks:            { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    status:  { type: enum, values: [pending, processing, ready] }
+    product:  { type: enum, values: [strain, culture_medium, genomic_dna] }
+    product_id:  { type: integer }
+    code:  { type: string(40), notnull: true }
+    amount:  { type: integer, notnull: true, default: 1 }
+    remarks:  { type: string }
     purchase_order_id:  { type: integer, notnull: true }
-    supervisor_id:      { type: integer }
+    supervisor_id:  { type: integer }
   relations:
-    PurchaseOrder:      { foreignAlias: Items, onDelete: cascade }
-    Supervisor:         { foreignAlias: Items, class: sfGuardUser, local: supervisor_id }
+    PurchaseOrder:  { foreignAlias: Items, onDelete: cascade }
+    Supervisor:  { foreignAlias: Items, class: sfGuardUser, local: supervisor_id }
   actAs:
     Timestampable:
     Saleable:
@@ -771,29 +716,28 @@ PurchaseItem:
     purchase_item_status:
       fields: [status]
 
-
 Project:
   columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    project_name_id:    { type: integer, notnull: true }
-    petitioner_id:      { type: integer, notnull: true }
-    subject:            { type: enum, values: [sample, strain, "external_strain"] }
-    strain_id:          { type: integer }
-    sample_id:          { type: integer }
-    external_strain_id: { type: integer }
-    amount:             { type: float, notnull: true, default: 0.0 }
-    provider_id:        { type: integer }
-    inoculation_date:   { type: date, notnull: true }
-    purpose:            { type: string, notnull: true }
-    delivery_date:      { type: date }
-    remarks:            { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    project_name_id:  { type: integer, notnull: true }
+    petitioner_id:  { type: integer, notnull: true }
+    subject:  { type: enum, values: [sample, strain, "external_strain"] }
+    strain_id:  { type: integer }
+    sample_id:  { type: integer }
+    external_strain_id:  { type: integer }
+    amount:  { type: float, notnull: true, default: 0.0 }
+    provider_id:  { type: integer }
+    inoculation_date:  { type: date, notnull: true }
+    purpose:  { type: string, notnull: true }
+    delivery_date:  { type: date }
+    remarks:  { type: string }
   relations:
-    ProjectName:    { foreignAlias: Projects }
-    Sample:         { foreignAlias: Projects }
-    Strain:         { foreignAlias: Projects }
-    ExternalStrain: { foreignAlias: Projects }
-    Provider:       { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
-    Petitioner:     { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
+    ProjectName:  { foreignAlias: Projects }
+    Sample:  { foreignAlias: Projects }
+    Strain:  { foreignAlias: Projects }
+    ExternalStrain:  { foreignAlias: Projects }
+    Provider:  { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
+    Petitioner:  { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
   indexes:
     project_inoculation_date:
       fields: [inoculation_date]
@@ -801,382 +745,364 @@ Project:
     Timestampable:
     Date:
 
-
 Depositor:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    name:     { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
     surname:  { type: string(127), notnull: true }
-    email:    { type: string(255) }
+    email:  { type: string(255) }
   indexes:
     depositor_name:
       fields:
-        name: { length: 20 }
+        name:  { length: 20 }
     depositor_surname:
       fields:
-        surname: { length: 20 }
-
+        surname:  { length: 20 }
 
 PatentDeposit:
   columns:
-    id:                         { type: integer, primary: true, autoincrement: true }
-    taxonomic_class_id:         { type: integer, notnull: true }
-    genus_id:                   { type: integer, notnull: true }
-    species_id:                 { type: integer }
-    authority_id:               { type: integer, notnull: true }
-    is_epitype:                 { type: boolean, notnull: true, default: false }
-    is_axenic:                  { type: boolean, notnull: true, default: false }
-    has_dna:                    { type: boolean, notnull: true, default: false }
-    gen_sequence:               { type: string(256) }
-    location_id:                { type: integer, notnull: true }
-    environment_id:             { type: integer }
-    habitat_id:                 { type: integer }
-    collection_date:            { type: date }
-    isolation_date:             { type: date }
-    identifier_id:              { type: integer }
-    depositor_id:               { type: integer, notnull: true }
-    deposition_date:            { type: date, notnull: true }
-    depositor_code:             { type: string(40), notnull: true }
-    cryopreservation_method_id: { type: integer }
-    transfer_interval:          { type: string(40) }
-    viability_test:             { type: string }
-    observation:                { type: string }
-    citations:                  { type: string }
-    remarks:                    { type: string }
-    bp1_document:               { type: string(255), notnull: true }
-    bp4_document:               { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
+    authority_id:  { type: integer, notnull: true }
+    is_epitype:  { type: boolean, notnull: true, default: false }
+    is_axenic:  { type: boolean, notnull: true, default: false }
+    has_dna:  { type: boolean, notnull: true, default: false }
+    gen_sequence:  { type: string(256) }
+    location_id:  { type: integer, notnull: true }
+    environment_id:  { type: integer }
+    habitat_id:  { type: integer }
+    collection_date:  { type: date }
+    isolation_date:  { type: date }
+    identifier_id:  { type: integer }
+    depositor_id:  { type: integer, notnull: true }
+    deposition_date:  { type: date, notnull: true }
+    depositor_code:  { type: string(40), notnull: true }
+    cryopreservation_method_id:  { type: integer }
+    transfer_interval:  { type: string(40) }
+    viability_test:  { type: string }
+    observation:  { type: string }
+    citations:  { type: string }
+    remarks:  { type: string }
+    bp1_document:  { type: string(255), notnull: true }
+    bp4_document:  { type: string(255), notnull: true }
   relations:
-    TaxonomicClass:         { foreignAlias: PatentDeposits }
-    Genus:                  { foreignAlias: PatentDeposits }
-    Species:                { foreignAlias: PatentDeposits }
-    Authority:              { foreignAlias: PatentDeposits }
-    Location:               { foreignAlias: PatentDeposits }
-    Environment:            { foreignAlias: PatentDeposits }
-    Habitat:                { foreignAlias: PatentDeposits }
-    Identifier:             { foreignAlias: PatentDeposits }
-    Depositor:              { foreignAlias: PatentDeposits }
-    CryopreservationMethod: { foreignAlias: PatentDeposits }
-    Collectors:             { foreignAlias: Collectors, class: Collector, local: patent_deposit_id, foreign: collector_id, refClass: PatentDepositCollectors }
-    Isolators:              { foreignAlias: Isolators, class: Isolator, local: patent_deposit_id, foreign: isolator_id, refClass: PatentDepositIsolators }
-    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: patent_deposit_id, foreign: culture_medium_id, refClass: PatentDepositCultureMedia }
-    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: patent_deposit_id, foreign: maintenance_status_id, refClass: PatentDepositMaintenanceStatus }
+    TaxonomicClass:  { foreignAlias: PatentDeposits }
+    Genus:  { foreignAlias: PatentDeposits }
+    Species:  { foreignAlias: PatentDeposits }
+    Authority:  { foreignAlias: PatentDeposits }
+    Location:  { foreignAlias: PatentDeposits }
+    Environment:  { foreignAlias: PatentDeposits }
+    Habitat:  { foreignAlias: PatentDeposits }
+    Identifier:  { foreignAlias: PatentDeposits }
+    Depositor:  { foreignAlias: PatentDeposits }
+    CryopreservationMethod:  { foreignAlias: PatentDeposits }
+    Collectors:  { foreignAlias: Collectors, class: Collector, local: patent_deposit_id, foreign: collector_id, refClass: PatentDepositCollectors }
+    Isolators:  { foreignAlias: Isolators, class: Isolator, local: patent_deposit_id, foreign: isolator_id, refClass: PatentDepositIsolators }
+    CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: patent_deposit_id, foreign: culture_medium_id, refClass: PatentDepositCultureMedia }
+    MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: patent_deposit_id, foreign: maintenance_status_id, refClass: PatentDepositMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
 
-
 PatentDepositRelative:
   columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    name:               { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
     patent_deposit_id:  { type: integer, notnull: true }
   relations:
-    PatentDeposit:      { foreignAlias: Relatives, onDelete: cascade }
-
+    PatentDeposit:  { foreignAlias: Relatives, onDelete: cascade }
 
 PatentDepositCultureMedia:
   columns:
     patent_deposit_id:  { type: integer, primary: true }
     culture_medium_id:  { type: integer, primary: true }
   relations:
-    PatentDeposit:      { onDelete: cascade }
-
+    PatentDeposit:  { onDelete: cascade }
 
 PatentDepositIsolators:
   columns:
     patent_deposit_id:  { type: integer, primary: true }
-    isolator_id:        { type: integer, primary: true }
+    isolator_id:  { type: integer, primary: true }
   relations:
-    PatentDeposit:      { onDelete: cascade }
-
+    PatentDeposit:  { onDelete: cascade }
 
 PatentDepositCollectors:
   columns:
     patent_deposit_id:  { type: integer, primary: true }
-    collector_id:       { type: integer, primary: true }
+    collector_id:  { type: integer, primary: true }
   relations:
-    PatentDeposit:      { onDelete: cascade }
-
+    PatentDeposit:  { onDelete: cascade }
 
 PatentDepositMaintenanceStatus:
   columns:
-    patent_deposit_id:      { type: integer, primary: true }
+    patent_deposit_id:  { type: integer, primary: true }
     maintenance_status_id:  { type: integer, primary: true }
   relations:
-    PatentDeposit:      { onDelete: cascade }
-
+    PatentDeposit:  { onDelete: cascade }
 
 MaintenanceDeposit:
   columns:
-    id:                         { type: integer, primary: true, autoincrement: true }
-    taxonomic_class_id:         { type: integer, notnull: true }
-    genus_id:                   { type: integer, notnull: true }
-    species_id:                 { type: integer }
-    authority_id:               { type: integer, notnull: true }
-    is_epitype:                 { type: boolean, notnull: true, default: false }
-    is_axenic:                  { type: boolean, notnull: true, default: false }
-    has_dna:                    { type: boolean, notnull: true, default: false }
-    gen_sequence:               { type: string(256) }
-    location_id:                { type: integer, notnull: true }
-    environment_id:             { type: integer }
-    habitat_id:                 { type: integer }
-    collection_date:            { type: date }
-    isolation_date:             { type: date }
-    identifier_id:              { type: integer }
-    depositor_id:               { type: integer, notnull: true }
-    deposition_date:            { type: date, notnull: true }
-    depositor_code:             { type: string(40), notnull: true }
-    cryopreservation_method_id: { type: integer }
-    transfer_interval:          { type: string(40) }
-    viability_test:             { type: string }
-    observation:                { type: string }
-    citations:                  { type: string }
-    remarks:                    { type: string }
-    mf1_document:               { type: string(255), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
+    authority_id:  { type: integer, notnull: true }
+    is_epitype:  { type: boolean, notnull: true, default: false }
+    is_axenic:  { type: boolean, notnull: true, default: false }
+    has_dna:  { type: boolean, notnull: true, default: false }
+    gen_sequence:  { type: string(256) }
+    location_id:  { type: integer, notnull: true }
+    environment_id:  { type: integer }
+    habitat_id:  { type: integer }
+    collection_date:  { type: date }
+    isolation_date:  { type: date }
+    identifier_id:  { type: integer }
+    depositor_id:  { type: integer, notnull: true }
+    deposition_date:  { type: date, notnull: true }
+    depositor_code:  { type: string(40), notnull: true }
+    cryopreservation_method_id:  { type: integer }
+    transfer_interval:  { type: string(40) }
+    viability_test:  { type: string }
+    observation:  { type: string }
+    citations:  { type: string }
+    remarks:  { type: string }
+    mf1_document:  { type: string(255), notnull: true }
   relations:
-    TaxonomicClass:         { foreignAlias: MaintenanceDeposits }
-    Genus:                  { foreignAlias: MaintenanceDeposits }
-    Species:                { foreignAlias: MaintenanceDeposits }
-    Authority:              { foreignAlias: MaintenanceDeposits }
-    Location:               { foreignAlias: MaintenanceDeposits }
-    Environment:            { foreignAlias: MaintenanceDeposits }
-    Habitat:                { foreignAlias: MaintenanceDeposits }
-    Identifier:             { foreignAlias: MaintenanceDeposits }
-    Depositor:              { foreignAlias: MaintenanceDeposits }
-    CryopreservationMethod: { foreignAlias: MaintenanceDeposits }
-    Collectors:             { foreignAlias: Collectors, class: Collector, local: maintenance_deposit_id, foreign: collector_id, refClass: MaintenanceDepositCollectors }
-    Isolators:              { foreignAlias: Isolators, class: Isolator, local: maintenance_deposit_id, foreign: isolator_id, refClass: MaintenanceDepositIsolators }
-    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: maintenance_deposit_id, foreign: culture_medium_id, refClass: MaintenanceDepositCultureMedia }
-    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: maintenance_deposit_id, foreign: maintenance_status_id, refClass: MaintenanceDepositMaintenanceStatus }
+    TaxonomicClass:  { foreignAlias: MaintenanceDeposits }
+    Genus:  { foreignAlias: MaintenanceDeposits }
+    Species:  { foreignAlias: MaintenanceDeposits }
+    Authority:  { foreignAlias: MaintenanceDeposits }
+    Location:  { foreignAlias: MaintenanceDeposits }
+    Environment:  { foreignAlias: MaintenanceDeposits }
+    Habitat:  { foreignAlias: MaintenanceDeposits }
+    Identifier:  { foreignAlias: MaintenanceDeposits }
+    Depositor:  { foreignAlias: MaintenanceDeposits }
+    CryopreservationMethod:  { foreignAlias: MaintenanceDeposits }
+    Collectors:  { foreignAlias: Collectors, class: Collector, local: maintenance_deposit_id, foreign: collector_id, refClass: MaintenanceDepositCollectors }
+    Isolators:  { foreignAlias: Isolators, class: Isolator, local: maintenance_deposit_id, foreign: isolator_id, refClass: MaintenanceDepositIsolators }
+    CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: maintenance_deposit_id, foreign: culture_medium_id, refClass: MaintenanceDepositCultureMedia }
+    MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: maintenance_deposit_id, foreign: maintenance_status_id, refClass: MaintenanceDepositMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
-
 
 MaintenanceDepositRelative:
   columns:
-    id:                     { type: integer, primary: true, autoincrement: true }
-    name:                   { type: string(255), notnull: true }
-    maintenance_deposit_id: { type: integer, notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
+    maintenance_deposit_id:  { type: integer, notnull: true }
   relations:
-    MaintenanceDeposit:     { foreignAlias: Relatives, onDelete: cascade }
-
+    MaintenanceDeposit:  { foreignAlias: Relatives, onDelete: cascade }
 
 MaintenanceDepositCultureMedia:
   columns:
-    maintenance_deposit_id: { type: integer, primary: true }
-    culture_medium_id:      { type: integer, primary: true }
+    maintenance_deposit_id:  { type: integer, primary: true }
+    culture_medium_id:  { type: integer, primary: true }
   relations:
-    MaintenanceDeposit:     { onDelete: cascade }
-
+    MaintenanceDeposit:  { onDelete: cascade }
 
 MaintenanceDepositIsolators:
   columns:
-    maintenance_deposit_id: { type: integer, primary: true }
-    isolator_id:            { type: integer, primary: true }
+    maintenance_deposit_id:  { type: integer, primary: true }
+    isolator_id:  { type: integer, primary: true }
   relations:
-    MaintenanceDeposit:     { onDelete: cascade }
-
+    MaintenanceDeposit:  { onDelete: cascade }
 
 MaintenanceDepositCollectors:
   columns:
-    maintenance_deposit_id: { type: integer, primary: true }
-    collector_id:           { type: integer, primary: true }
+    maintenance_deposit_id:  { type: integer, primary: true }
+    collector_id:  { type: integer, primary: true }
   relations:
-    MaintenanceDeposit:     { onDelete: cascade }
-
+    MaintenanceDeposit:  { onDelete: cascade }
 
 MaintenanceDepositMaintenanceStatus:
   columns:
-    maintenance_deposit_id: { type: integer, primary: true }
+    maintenance_deposit_id:  { type: integer, primary: true }
     maintenance_status_id:  { type: integer, primary: true }
   relations:
-    MaintenanceDeposit:      { onDelete: cascade }
-
+    MaintenanceDeposit:  { onDelete: cascade }
 
 ExternalStrain:
   columns:
-    id:                         { type: integer, primary: true, autoincrement: true }
-    taxonomic_class_id:         { type: integer, notnull: true }
-    genus_id:                   { type: integer, notnull: true }
-    species_id:                 { type: integer, notnull: true }
-    authority_id:               { type: integer, notnull: true }
-    is_epitype:                 { type: boolean, notnull: true, default: false }
-    is_axenic:                  { type: boolean, notnull: true, default: false }
-    has_dna:                    { type: boolean, notnull: true, default: false }
-    location_id:                { type: integer, notnull: true }
-    environment_id:             { type: integer }
-    habitat_id:                 { type: integer }
-    collection_date:            { type: date }
-    isolation_date:             { type: date }
-    identifier_id:              { type: integer }
-    supervisor_id:              { type: integer }
-    cryopreservation_method_id: { type: integer }
-    transfer_interval:          { type: string(40) }
-    observation:                { type: string }
-    citations:                  { type: string }
-    remarks:                    { type: string }
-    container_id:               { type: integer }
+    id:  { type: integer, primary: true, autoincrement: true }
+    sample_id:  { type: integer }
+    depositor_id:  { type: integer }
+    is_epitype:  { type: boolean, notnull: true, default: false }
+    is_axenic:  { type: boolean, notnull: true, default: false }
+    kingdom_id:  { type: integer, notnull: true }
+    subkingdom_id:  { type: integer, notnull: true }
+    phylum_id:  { type: integer, notnull: true }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    taxonomic_order_id:  { type: integer, notnull: true }
+    family_id:  { type: integer, notnull: true }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer, notnull: true }
+    authority_id:  { type: integer, notnull: true }
+    isolation_date:  { type: date }
+    identifier_id:  { type: integer }
+    container_id:  { type: integer }
+    transfer_interval:  { type: string(40) }
+    observation:  { type: string }
+    citations:  { type: string }
+    remarks:  { type: string }
+    supervisor_id:  { type: integer }
+    temperature:  { type: decimal }
+    photoperiod:  { type: decimal }
+    irradiation:  { type: decimal }
   relations:
-    TaxonomicClass:         { foreignAlias: ExternalStrains }
-    Genus:                  { foreignAlias: ExternalStrains }
-    Species:                { foreignAlias: ExternalStrains }
-    Authority:              { foreignAlias: ExternalStrains }
-    Location:               { foreignAlias: ExternalStrains }
-    Environment:            { foreignAlias: ExternalStrains }
-    Habitat:                { foreignAlias: ExternalStrains }
-    Identifier:             { foreignAlias: ExternalStrains }
-    Supervisor:             { class: sfGuardUser, local: supervisor_id, foreignAlias: ExternalStrains }
-    CryopreservationMethod: { foreignAlias: ExternalStrains }
-    Container:              { foreignAlias: ExternalStrains }
-    Containers:             { foreignAlias: Containers, class: Container, local: external_strain_id, foreign: container_id, refClass: ExternalStrainContainers }
-    CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: external_strain_id, foreign: culture_medium_id, refClass: ExternalStrainCultureMedia }
-    MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: external_strain_id, foreign: maintenance_status_id, refClass: ExternalStrainMaintenanceStatus }
-    Isolators:              { foreignAlias: Isolators, class: Isolator, local: external_strain_id, foreign: isolator_id, refClass: ExternalStrainIsolators }
+    Sample:  { foreignAlias: ExternalStrains }
+    Depositor:  { foreignAlias: ExternalStrains }
+    Kingdom:  { foreignAlias: ExternalStrains }
+    Subkingdom:  { foreignAlias: ExternalStrains }
+    Phylum:  { foreignAlias: ExternalStrains }
+    TaxonomicClass:  { foreignAlias: ExternalStrains }
+    TaxonomicOrder:  { foreignAlias: ExternalStrains }
+    Family:  { foreignAlias: ExternalStrains }
+    Genus:  { foreignAlias: ExternalStrains }
+    Species:  { foreignAlias: ExternalStrains }
+    Authority:  { foreignAlias: ExternalStrains }
+    Isolators:  { foreignAlias: Isolators, class: Isolator, local: external_strain_id, foreign: isolator_id, refClass: ExternalStrainIsolators }
+    Supervisor:  { class: sfGuardUser, local: supervisor_id, foreignAlias: ExternalStrains }
+    Identifier:  { foreignAlias: ExternalStrains }
+    Container:  { foreignAlias: ExternalStrains }
+    Containers:  { foreignAlias: Containers, class: Container, local: external_strain_id, foreign: container_id, refClass: ExternalStrainContainers }
+    CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: external_strain_id, foreign: culture_medium_id, refClass: ExternalStrainCultureMedia }
+    MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: external_strain_id, foreign: maintenance_status_id, refClass: ExternalStrainMaintenanceStatus }
   actAs:
     Timestampable:
     Date:
-
-
-ExternalStrainRelative:
-  columns:
-    id:                 { type: integer, primary: true, autoincrement: true }
-    name:               { type: string(255), notnull: true }
-    external_strain_id: { type: integer, notnull: true }
-  relations:
-    ExternalStrain:     { foreignAlias: Relatives, onDelete: cascade }
-
-
-ExternalStrainContainers:
-  columns:
-    external_strain_id: { type: integer, primary: true }
-    container_id:       { type: integer, primary: true }
-  relations:
-    ExternalStrain:     { onDelete: cascade }
-
-
-ExternalStrainCultureMedia:
-  columns:
-    external_strain_id: { type: integer, primary: true }
-    culture_medium_id:  { type: integer, primary: true }
-  relations:
-    ExternalStrain:     { onDelete: cascade }
-
 
 ExternalStrainIsolators:
   columns:
-    external_strain_id: { type: integer, primary: true }
-    isolator_id:        { type: integer, primary: true }
+    external_strain_id:  { type: integer, primary: true }
+    isolator_id:  { type: integer, primary: true }
   relations:
-    ExternalStrain:     { onDelete: cascade }
+    ExternalStrain:  { onDelete: cascade }
 
+ExternalStrainRelative:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
+    external_strain_id:  { type: integer, notnull: true }
+  relations:
+    ExternalStrain:  { foreignAlias: Relatives, onDelete: cascade }
+
+ExternalStrainContainers:
+  columns:
+    external_strain_id:  { type: integer, primary: true }
+    container_id:  { type: integer, primary: true }
+  relations:
+    ExternalStrain:  { onDelete: cascade }
+
+ExternalStrainCultureMedia:
+  columns:
+    external_strain_id:  { type: integer, primary: true }
+    culture_medium_id:  { type: integer, primary: true }
+  relations:
+    ExternalStrain:  { onDelete: cascade }
 
 ExternalStrainMaintenanceStatus:
   columns:
-    external_strain_id:     { type: integer, primary: true }
+    external_strain_id:  { type: integer, primary: true }
     maintenance_status_id:  { type: integer, primary: true }
   relations:
-    ExternalStrain:      { onDelete: cascade }
-
+    ExternalStrain:  { onDelete: cascade }
 
 PurificationMethod:
   columns:
-    id:   { type: integer, primary: true, autoincrement: true }
-    name: { type: string(127), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
   indexes:
     purification_method_name:
       fields:
-        name: { length: 20 }
-
+        name:  { length: 20 }
 
 Isolation:
   columns:
-    id:                     { type: integer, primary: true, autoincrement: true }
-    reception_date:         { type: date, notnull: true }
-    isolation_subject:      { type: enum, values: [sample, strain, external, "external_strain"] }
-    sample_id:              { type: integer }
-    strain_id:              { type: integer }
-    external_strain_id:     { type: integer }
-    external_code:          { type: string(128) }
-    taxonomic_class_id:     { type: integer } # Only for external, not applicable to sample
-    genus_id:               { type: integer } # Only for external, not applicable to sample
-    species_id:             { type: integer } # Only for external, not applicable to sample
-    authority_id:           { type: integer } # Only for external, not applicable to sample
-    location_id:            { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
-    environment_id:         { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
-    habitat_id:             { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
-    delivery_date:          { type: date }
-    purification_method_id: { type: integer, notnull: true }
-    purification_details:   { type: string }
-    observation:            { type: string }
-    remarks:                { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    reception_date:  { type: date, notnull: true }
+    isolation_subject:  { type: enum, values: [sample, strain, external, "external_strain"] }
+    sample_id:  { type: integer }
+    strain_id:  { type: integer }
+    external_strain_id:  { type: integer }
+    external_code:  { type: string(128) }
+    taxonomic_class_id:  { type: integer } # Only for external, not applicable to sample
+    genus_id:  { type: integer } # Only for external, not applicable to sample
+    species_id:  { type: integer } # Only for external, not applicable to sample
+    authority_id:  { type: integer } # Only for external, not applicable to sample
+    location_id:  { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
+    environment_id:  { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
+    habitat_id:  { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
+    delivery_date:  { type: date }
+    purification_method_id:  { type: integer, notnull: true }
+    purification_details:  { type: string }
+    observation:  { type: string }
+    remarks:  { type: string }
   relations:
-    Sample:             { foreignAlias: Isolations }
-    Strain:             { foreignAlias: Isolations }
-    ExternalStrain:     { foreignAlias: Isolations }
-    TaxonomicClass:     { foreignAlias: Isolations }
-    Genus:              { foreignAlias: Isolations }
-    Species:            { foreignAlias: Isolations }
-    Authority:          { foreignAlias: Isolations }
-    Location:           { foreignAlias: Isolations }
-    Environment:        { foreignAlias: Isolations }
-    Habitat:            { foreignAlias: Isolations }
-    PurificationMethod: { foreignAlias: Isolations }
-    Isolators:          { foreignAlias: Isolators, class: Isolator, local: isolation_id, foreign: isolator_id, refClass: IsolationIsolators }
-    CultureMedia:       { foreignAlias: CultureMedia, class: CultureMedium, local: isolation_id, foreign: culture_medium_id, refClass: IsolationCultureMedia }
+    Sample:  { foreignAlias: Isolations }
+    Strain:  { foreignAlias: Isolations }
+    ExternalStrain:  { foreignAlias: Isolations }
+    TaxonomicClass:  { foreignAlias: Isolations }
+    Genus:  { foreignAlias: Isolations }
+    Species:  { foreignAlias: Isolations }
+    Authority:  { foreignAlias: Isolations }
+    Location:  { foreignAlias: Isolations }
+    Environment:  { foreignAlias: Isolations }
+    Habitat:  { foreignAlias: Isolations }
+    PurificationMethod:  { foreignAlias: Isolations }
+    Isolators:  { foreignAlias: Isolators, class: Isolator, local: isolation_id, foreign: isolator_id, refClass: IsolationIsolators }
+    CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: isolation_id, foreign: culture_medium_id, refClass: IsolationCultureMedia }
   actAs:
     Timestampable:
     Date:
 
-
 IsolationCultureMedia:
   columns:
-    isolation_id:       { type: integer, primary: true }
+    isolation_id:  { type: integer, primary: true }
     culture_medium_id:  { type: integer, primary: true }
   relations:
     Isolation:  { onDelete: cascade }
 
-
 IsolationIsolators:
   columns:
-    isolation_id: { type: integer, primary: true }
+    isolation_id:  { type: integer, primary: true }
     isolator_id:  { type: integer, primary: true }
   relations:
     Isolation:  { onDelete: cascade }
 
-
 ProjectName:
   columns:
-    id:           { type: integer, primary: true, autoincrement: true }
-    name:         { type: string(200), notnull: true }
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(200), notnull: true }
     description:  { type: string }
     obligations:  { type: string }
   indexes:
     project_name_name:
       fields: [name]
 
-
 Cryopreservation:
   columns:
-    id:                         { type: integer, primary: true, autoincrement: true }
-    subject:                    { type: enum, values: [sample, strain, "external_strain"] }
-    strain_id:                  { type: integer }
-    sample_id:                  { type: integer }
-    external_strain_id:         { type: integer }
-    cryopreservation_method_id: { type: integer, notnull: true }
-    cryopreservation_date:      { type: date, notnull: true }
-    first_replicate:            { type: string(10) }
-    second_replicate:           { type: string(10) }
-    third_replicate:            { type: string(10) }
-    density:                    { type: float }
-    revival_date:               { type: date }
-    viability:                  { type: boolean, notnull: true, default: false }
-    remarks:                    { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    subject:  { type: enum, values: [sample, strain, "external_strain"] }
+    strain_id:  { type: integer }
+    sample_id:  { type: integer }
+    external_strain_id:  { type: integer }
+    cryopreservation_method_id:  { type: integer, notnull: true }
+    cryopreservation_date:  { type: date, notnull: true }
+    first_replicate:  { type: string(10) }
+    second_replicate:  { type: string(10) }
+    third_replicate:  { type: string(10) }
+    density:  { type: float }
+    revival_date:  { type: date }
+    viability:  { type: boolean, notnull: true, default: false }
+    remarks:  { type: string }
   relations:
-    Sample:                 { foreignAlias: Cryopreservations }
-    Strain:                 { foreignAlias: Cryopreservations }
-    ExternalStrain:         { foreignAlias: Cryopreservations }
-    CryopreservationMethod: { foreignAlias: Cryopreservations }
+    Sample:  { foreignAlias: Cryopreservations }
+    Strain:  { foreignAlias: Cryopreservations }
+    ExternalStrain:  { foreignAlias: Cryopreservations }
+    CryopreservationMethod:  { foreignAlias: Cryopreservations }
   indexes:
     cryopreservation_date:
       fields: [cryopreservation_date]
@@ -1184,21 +1110,20 @@ Cryopreservation:
     Timestampable:
     Date:
 
-
 Identification:
   columns:
-    id:                         { type: integer, primary: true, autoincrement: true }
-    identification_date:        { type: date, notnull: true }
-    sample_id:                  { type: integer, notnull: true}
-    petitioner:                 { type: string(255) }
-    sample_picture:             { type: string(255) }
+    id:  { type: integer, primary: true, autoincrement: true }
+    identification_date:  { type: date, notnull: true }
+    sample_id:  { type: integer, notnull: true}
+    petitioner:  { type: string(255) }
+    sample_picture:  { type: string(255) }
     microscopy_identification:  { type: string }
-    molecular_identification:   { type: string }
-    request_document:           { type: string(255) }
-    report_document:            { type: string(255) }
-    remarks:                    { type: string }
+    molecular_identification:  { type: string }
+    request_document:  { type: string(255) }
+    report_document:  { type: string(255) }
+    remarks:  { type: string }
   relations:
-    Sample: { foreignAlias: Identifications }
+    Sample:  { foreignAlias: Identifications }
   indexes:
     identification_date:
       fields: [identification_date]
@@ -1208,13 +1133,11 @@ Identification:
     Picture:
       moduleName: identification
 
-
 GlossaryTerm:
   columns:
-    id:       { type: integer, primary: true, autoincrement: true }
-    term:     { type: string(100) }
-    synonyms: { type: string }
+    id:  { type: integer, primary: true, autoincrement: true }
+    term:  { type: string(100) }
+    synonyms:  { type: string }
   indexes:
     glossary_term:
       fields: [term]
-
