@@ -1,1 +1,1 @@
-colorbox/colorbox/jquery.colorbox-min.js
+colorbox/colorbox/jquery.colorbox.js
