@@ -467,6 +467,7 @@ Strain:
     isolation_date:  { type: date, notnull: true }
     identifier_id:  { type: integer }
     container_id:  { type: integer }
+    culture_medium_id:  { type: integer }
     transfer_interval:  { type: string(40) }
     observation:  { type: string }
     citations:  { type: string }
@@ -499,6 +500,7 @@ Strain:
     Identifier:  { foreignAlias: Strains }
     Container:  { foreignAlias: Strains }
     Containers:  { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
+    CultureMedium:  { foreignAlias: Strains }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
     MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
   actAs:
