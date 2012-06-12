@@ -40,6 +40,13 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		// Configure strain code
 		$this->setWidget('strain_id', new sfWidgetFormInputHidden(array('default' => (int)StrainTable::getInstance()->getDefaultStrainId())));
 
+		// New extractions are not public by default
+		if ($this->getObject()->isNew()) {
+			$this->setWidget('is_public', new sfWidgetFormInputHidden(array('default' => false)));
+		} elseif (!$this->getObject()->canBePublished()) {
+			$this->setWidget('is_public', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getIsPublic())));
+		}
+
 		// Configure date format
 		$lastYear = date('Y');
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }
@@ -54,9 +61,7 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		)));
 
 		// Configure custom validators
-		$this->setValidator('strain_id', new sfValidatorDoctrineChoice(
-			array('model' => $this->getRelatedModelName('Strain')),
-			array('required' => 'The origin strain is required')));
+		$this->setValidator('strain_id', new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain')), array('required' => 'The origin strain is required')));
 
 		// Configure labels
 		$this->widgetSchema->setLabel('strain_id', 'Strain code');

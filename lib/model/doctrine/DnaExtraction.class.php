@@ -37,7 +37,6 @@
  * @since 1.0
  */
 class DnaExtraction extends BaseDnaExtraction {
-
 	public function getCode() {
 		$strainNumber = $this->getStrain()->getFullCode();
 		$arrivalDate = date('Ymd', strtotime($this->getArrivalDate()));
@@ -149,5 +148,13 @@ class DnaExtraction extends BaseDnaExtraction {
 		}
 
 		return sfConfig::get('app_no_data_message');
+	}
+
+	public function canBePublished() {
+		return DnaExtractionTable::getInstance()->createQuery('e')
+			->leftJoin('e.Pcr pcr')
+			->where('pcr.dna_extraction_id = ?', $this->getId())
+			->andWhere('pcr.can_be_sequenced = ?', 1)
+			->count() > 0;
 	}
 }

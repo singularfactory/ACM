@@ -82,7 +82,7 @@
 	</div>
 
 	<div id="right_side_form">
-		<?php if ( $aliquotsAreEditable ): ?>
+		<?php if ($aliquotsAreEditable): ?>
 		<div id="aliquots">
 			<?php echo $form['aliquots']->renderLabel() ?>
 			<?php echo $form['aliquots']->renderError() ?>
@@ -91,11 +91,13 @@
 		</div>
 		<?php endif; ?>
 
+		<?php if ($form->getObject()->canBePublished()): ?>
 		<div id="public" class="checkbox">
 			<?php echo $form['is_public']->renderLabel() ?>
 			<?php echo $form['is_public'] ?>
 			<?php echo $form['is_public']->renderHelp() ?>
 		</div>
+		<?php endif ?>
 
 		<div id="genbank_link">
 			<?php echo $form['genbank_link']->renderLabel() ?>
