@@ -1,40 +1,14 @@
 <?php
-/**
- * Form class
- *
- * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
- * Copyright 2012, Singular Factory <info@singularfactory.com>
- *
- * This file is part of ACM
- *
- * ACM is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ACM is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
- * @since         1.0
- * @link          https://github.com/singularfactory/ACM
- * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
- */
-
 
 /**
  * Collector form base class.
  *
  * @method Collector getObject() Returns the current form's model object
  *
- * @package ACM.Lib.Form
- * @since 1.0
+ * @package    bna_green_house
+ * @subpackage form
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BaseCollectorForm extends BaseFormDoctrine
 {
@@ -50,7 +24,6 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
       'samples_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Sample')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
-      'external_strains_list'     => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain')),
     ));
 
     $this->setValidators(array(
@@ -63,7 +36,6 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
       'samples_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Sample', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
-      'external_strains_list'     => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('collector[%s]');
@@ -99,11 +71,6 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
       $this->setDefault('maintenance_deposits_list', $this->object->MaintenanceDeposits->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['external_strains_list']))
-    {
-      $this->setDefault('external_strains_list', $this->object->ExternalStrains->getPrimaryKeys());
-    }
-
   }
 
   protected function doSave($con = null)
@@ -111,7 +78,6 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
     $this->saveSamplesList($con);
     $this->savePatentDepositsList($con);
     $this->saveMaintenanceDepositsList($con);
-    $this->saveExternalStrainsList($con);
 
     parent::doSave($con);
   }
@@ -227,44 +193,6 @@ abstract class BaseCollectorForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('MaintenanceDeposits', array_values($link));
-    }
-  }
-
-  public function saveExternalStrainsList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['external_strains_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->ExternalStrains->getPrimaryKeys();
-    $values = $this->getValue('external_strains_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('ExternalStrains', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('ExternalStrains', array_values($link));
     }
   }
 

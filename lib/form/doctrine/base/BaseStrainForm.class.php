@@ -1,40 +1,14 @@
 <?php
-/**
- * Form class
- *
- * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
- * Copyright 2012, Singular Factory <info@singularfactory.com>
- *
- * This file is part of ACM
- *
- * ACM is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ACM is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
- * @since         1.0
- * @link          https://github.com/singularfactory/ACM
- * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
- */
-
 
 /**
  * Strain form base class.
  *
  * @method Strain getObject() Returns the current form's model object
  *
- * @package ACM.Lib.Form
- * @since 1.0
+ * @package    bna_green_house
+ * @subpackage form
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BaseStrainForm extends BaseFormDoctrine
 {
@@ -57,7 +31,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'taxonomic_order_id'       => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicOrder'), 'add_empty' => true)),
       'family_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Family'), 'add_empty' => true)),
       'genus_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => false)),
-      'species_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => false)),
+      'species_id'               => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => true)),
       'authority_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'), 'add_empty' => false)),
       'isolation_date'           => new sfWidgetFormDate(),
       'identifier_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
@@ -102,7 +76,7 @@ abstract class BaseStrainForm extends BaseFormDoctrine
       'taxonomic_order_id'       => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicOrder'), 'required' => false)),
       'family_id'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Family'), 'required' => false)),
       'genus_id'                 => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'))),
-      'species_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Species'))),
+      'species_id'               => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'required' => false)),
       'authority_id'             => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Authority'))),
       'isolation_date'           => new sfValidatorDate(),
       'identifier_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'required' => false)),

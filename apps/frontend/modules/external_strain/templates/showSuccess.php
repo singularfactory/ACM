@@ -83,25 +83,6 @@
 		</div>
 		<?php endif ?>
 
-		<?php $nbCollectors = $externalStrain->getNbCollectors() ?>
-		<?php if ( $nbCollectors > 0): ?>
-		<div class="object_related_model_list">
-			<h2>Collectors</h2>
-			<table>
-				<tr>
-					<th class="collector_name">Name</th>
-					<th class="object_count_long">Total strains</th>
-				</tr>
-				<?php foreach ($externalStrain->getCollectors() as $collector ): ?>
-				<tr>
-					<td class="collector_name"><?php echo $collector ?></td>
-					<td class="object_count_long"><?php echo $collector->getNbExternalStrains() ?></span></td>
-				</tr>
-			<?php endforeach ?>
-			</table>
-		</div>
-		<?php endif ?>
-
 		<?php $nbRelatives = $externalStrain->getNbRelatives() ?>
 		<?php if ( $nbRelatives > 0): ?>
 		<div class="object_related_model_list">
@@ -162,8 +143,6 @@
 			<dt>Authority:</dt>
 			<dd><?php echo $externalStrain->getAuthority() ?></dd>
 
-			<dt>Collectors:</dt>
-			<dd><?php echo $nbCollectors ?></dd>
 			<dt>Collection date:</dt>
 			<dd><?php echo $externalStrain->getFormattedCollectionDate() ?></dd>
 

@@ -96,13 +96,6 @@
 			<?php echo $form['has_dna']->renderHelp() ?>
 		</div>
 
-		<div id="collectors" class="list_field">
-			<?php echo $form['collectors_list']->renderLabel() ?>
-			<?php echo $form['collectors_list']->renderError() ?>
-			<?php echo $form['collectors_list']->renderHelp() ?>
-			<?php echo $form['collectors_list'] ?>
-		</div>
-
 		<div id="collection_date" class="date_field">
 			<?php echo $form['collection_date']->renderLabel() ?>
 			<?php echo $form['collection_date']->renderError() ?>

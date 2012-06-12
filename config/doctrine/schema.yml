@@ -223,7 +223,6 @@ Collector:
     Samples:  { foreignAlias: Samples, class: Sample, local: collector_id, foreign: sample_id, refClass: SampleCollectors }
     PatentDeposits:  { foreignAlias: PatentDeposits, class: PatentDeposit, local: collector_id, foreign: patent_deposit_id, refClass: PatentDepositCollectors }
     MaintenanceDeposits:  { foreignAlias: MaintenanceDeposits, class: MaintenanceDeposit, local: collector_id, foreign: maintenance_deposit_id, refClass: MaintenanceDepositCollectors }
-    ExternalStrains:  { foreignAlias: ExternalStrains, class: ExternalStrain, local: collector_id, foreign: external_strain_id, refClass: ExternalStrainCollectors }
   indexes:
     collector_name:
       fields:
@@ -1034,7 +1033,6 @@ ExternalStrain:
     CultureMedia:           { foreignAlias: CultureMedia, class: CultureMedium, local: external_strain_id, foreign: culture_medium_id, refClass: ExternalStrainCultureMedia }
     MaintenanceStatus:      { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: external_strain_id, foreign: maintenance_status_id, refClass: ExternalStrainMaintenanceStatus }
     Isolators:              { foreignAlias: Isolators, class: Isolator, local: external_strain_id, foreign: isolator_id, refClass: ExternalStrainIsolators }
-    Collectors:             { foreignAlias: Collectors, class: Collector, local: external_strain_id, foreign: collector_id, refClass: ExternalStrainCollectors }
   actAs:
     Timestampable:
     Date:
@@ -1069,14 +1067,6 @@ ExternalStrainIsolators:
   columns:
     external_strain_id: { type: integer, primary: true }
     isolator_id:        { type: integer, primary: true }
-  relations:
-    ExternalStrain:     { onDelete: cascade }
-
-
-ExternalStrainCollectors:
-  columns:
-    external_strain_id: { type: integer, primary: true }
-    collector_id:       { type: integer, primary: true }
   relations:
     ExternalStrain:     { onDelete: cascade }
 

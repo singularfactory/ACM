@@ -1,38 +1,12 @@
 <?php
-/**
- * Filter form
- *
- * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
- * Copyright 2012, Singular Factory <info@singularfactory.com>
- *
- * This file is part of ACM
- *
- * ACM is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * ACM is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Filter
- * @since         1.0
- * @link          https://github.com/singularfactory/ACM
- * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
- */
-
 
 /**
  * Collector filter form base class.
  *
- * @package ACM.Lib.Filter
- * @since 1.0
+ * @package    bna_green_house
+ * @subpackage filter
+ * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
 abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
 {
@@ -47,7 +21,6 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
       'samples_list'              => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Sample')),
       'patent_deposits_list'      => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit')),
       'maintenance_deposits_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit')),
-      'external_strains_list'     => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain')),
     ));
 
     $this->setValidators(array(
@@ -59,7 +32,6 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
       'samples_list'              => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Sample', 'required' => false)),
       'patent_deposits_list'      => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PatentDeposit', 'required' => false)),
       'maintenance_deposits_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceDeposit', 'required' => false)),
-      'external_strains_list'     => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'ExternalStrain', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('collector_filters[%s]');
@@ -125,24 +97,6 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
     ;
   }
 
-  public function addExternalStrainsListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query
-      ->leftJoin($query->getRootAlias().'.ExternalStrainCollectors ExternalStrainCollectors')
-      ->andWhereIn('ExternalStrainCollectors.external_strain_id', $values)
-    ;
-  }
-
   public function getModelName()
   {
     return 'Collector';
@@ -160,7 +114,6 @@ abstract class BaseCollectorFormFilter extends BaseFormFilterDoctrine
       'samples_list'              => 'ManyKey',
       'patent_deposits_list'      => 'ManyKey',
       'maintenance_deposits_list' => 'ManyKey',
-      'external_strains_list'     => 'ManyKey',
     );
   }
 }
