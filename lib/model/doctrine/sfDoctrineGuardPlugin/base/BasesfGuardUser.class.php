@@ -31,6 +31,7 @@
  * @property Doctrine_Collection $Notifications
  * @property Doctrine_Collection $Items
  * @property Doctrine_Collection $Projects
+ * @property Doctrine_Collection $MaintenanceDeposits
  * @property Doctrine_Collection $ExternalStrains
  * 
  * @method string                getFirstName()             Returns the current record's "first_name" value
@@ -59,6 +60,7 @@
  * @method Doctrine_Collection   getNotifications()         Returns the current record's "Notifications" collection
  * @method Doctrine_Collection   getItems()                 Returns the current record's "Items" collection
  * @method Doctrine_Collection   getProjects()              Returns the current record's "Projects" collection
+ * @method Doctrine_Collection   getMaintenanceDeposits()   Returns the current record's "MaintenanceDeposits" collection
  * @method Doctrine_Collection   getExternalStrains()       Returns the current record's "ExternalStrains" collection
  * @method sfGuardUser           setFirstName()             Sets the current record's "first_name" value
  * @method sfGuardUser           setLastName()              Sets the current record's "last_name" value
@@ -86,6 +88,7 @@
  * @method sfGuardUser           setNotifications()         Sets the current record's "Notifications" collection
  * @method sfGuardUser           setItems()                 Sets the current record's "Items" collection
  * @method sfGuardUser           setProjects()              Sets the current record's "Projects" collection
+ * @method sfGuardUser           setMaintenanceDeposits()   Sets the current record's "MaintenanceDeposits" collection
  * @method sfGuardUser           setExternalStrains()       Sets the current record's "ExternalStrains" collection
  * 
  * @package    bna_green_house
@@ -226,6 +229,10 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
         $this->hasMany('Project as Projects', array(
              'local' => 'id',
              'foreign' => 'provider_id'));
+
+        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
+             'local' => 'id',
+             'foreign' => 'supervisor_id'));
 
         $this->hasMany('ExternalStrain as ExternalStrains', array(
              'local' => 'id',
