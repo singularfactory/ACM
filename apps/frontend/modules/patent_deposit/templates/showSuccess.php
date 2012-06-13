@@ -198,6 +198,9 @@
 			<dd><?php echo $patentDeposit->getIdentifier() ?></dd>
 			<?php endif; ?>
 
+			<dt>Supervisor:</dt>
+			<dd><?php echo $patentDeposit->getSupervisor() ?></dd>
+
 			<dt>Gen sequence:</dt>
 			<dd><?php echo $patentDeposit->getGenSequence() ?></dd>
 

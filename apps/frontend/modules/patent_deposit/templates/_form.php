@@ -169,6 +169,11 @@
 			<?php echo $form['identifier_id'] ?>
 		</div>
 
+		<div id="supervisor">
+			<?php echo $form['supervisor_id']->renderLabel() ?>
+			<?php echo $form['supervisor_id'] ?>
+		</div>
+
 		<div id="gen_sequence">
 			<?php echo $form['gen_sequence']->renderLabel() ?>
 			<?php echo $form['gen_sequence']->renderError() ?>

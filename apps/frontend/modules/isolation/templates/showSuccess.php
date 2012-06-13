@@ -114,6 +114,9 @@
 			<dt>Purification details:</dt>
 			<dd><?php echo $isolation->getPurificationDetails() ?></dd>
 
+			<dt>Supervisor:</dt>
+			<dd><?php echo $isolation->getSupervisor() ?></dd>
+
 			<dt>Observation:</dt>
 			<dd><?php echo $isolation->getObservation() ?></dd>
 

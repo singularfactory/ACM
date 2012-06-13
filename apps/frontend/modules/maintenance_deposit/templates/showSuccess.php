@@ -188,7 +188,10 @@
 			<?php endif; ?>
 
 			<dt>Isolators:</dt>
-			<dd><?php echo $nbIsolators ?>	</dd>
+			<dd><?php echo $nbIsolators ?></dd>
+
+			<dt>Supervisor:</dt>
+			<dd><?php echo $maintenanceDeposit->getSupervisor() ?></dd>
 
 			<dt>Has DNA:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedHasDna() ?></dd>
