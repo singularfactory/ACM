@@ -164,15 +164,6 @@
 
 					<li class="header_menu_item header_menu_right_tab header_menu_tools">
 						<?php
-						if ( !preg_match('/^((label)(\/_)?)/', $currentRoute) )
-							echo link_to('Labels', '@label');
-						else
-							echo link_to('Labels', '@label', array('class' => 'header_menu_current_tab'));
-						?>
-					</li>
-
-					<li class="header_menu_item header_menu_right_tab header_menu_tools">
-						<?php
 						if ( !preg_match('/^((report)(\/_)?)/', $currentRoute) )
 							echo link_to('Reports', '@report');
 						else

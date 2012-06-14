@@ -634,24 +634,6 @@ dwc_api:
   requirements: { sf_method: get }
 
 ###
-# Label module routes
-###
-label_create:
-  url:          /label/create
-  param:        { module: label, action: create }
-  requirements: { sf_method: [post] }
-
-label:
-  url:          /label/:product_type
-  param:        { module: label, action: configure, product_type: strain }
-  requirements: { sf_method: [get], requirements: "(strain)" }
-
-label_find_products:
-  url:          /label/findProducts/:product/:term
-  param:        { module: label, action: findProducts, product: sample }
-  requirements: { sf_method: get, product: "[^/]+" }
-
-###
 # Article module routes
 ###
 article_new:
