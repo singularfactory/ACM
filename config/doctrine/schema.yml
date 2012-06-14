@@ -1057,6 +1057,7 @@ Isolation:
     environment_id:  { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
     habitat_id:  { type: integer } # Only for external, automatically retrieved for sample, strain and research collection
     delivery_date:  { type: date }
+    isolation_date:  { type: date }
     purification_method_id:  { type: integer, notnull: true }
     purification_details:  { type: string }
     observation:  { type: string }

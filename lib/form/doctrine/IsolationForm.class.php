@@ -40,6 +40,7 @@ class IsolationForm extends BaseIsolationForm {
 		// Configure date formats
 		for ($i=1990; $i <= date('Y'); $i++) { $years[$i] = $i; }
 		$this->setWidget('reception_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
+		$this->setWidget('isolation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 		$this->setWidget('delivery_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years), array('class' => 'noauto')));
 
 		// Configure search boxes
@@ -71,6 +72,7 @@ class IsolationForm extends BaseIsolationForm {
 		$this->widgetSchema->setHelp('isolation_subject', 'Choose the type of material received');
 		$this->widgetSchema->setHelp('external_code', 'Code assigned by the entity that request the isolation');
 		$this->widgetSchema->setHelp('reception_date', 'Year, month and day');
+		$this->widgetSchema->setHelp('isolation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('purification_details', 'Notes and conclusions about the purification process');
 		$this->widgetSchema->setHelp('delivery_date', 'Year, month and day');
 	}

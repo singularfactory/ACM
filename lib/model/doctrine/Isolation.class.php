@@ -62,6 +62,15 @@ class Isolation extends BaseIsolation {
 		}
 	}
 
+	public function getIsolationDate() {
+		if ( $date = $this->_get('isolation_date') ) {
+			return $this->formatDate($date);
+		}
+		else {
+			return sfConfig::get('app_no_data_message');
+		}
+	}
+
 	public function getDeliveryDate() {
 		if ( $date = $this->_get('delivery_date') ) {
 			return $this->formatDate($date);

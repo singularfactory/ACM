@@ -21,6 +21,7 @@
  * @property integer $environment_id
  * @property integer $habitat_id
  * @property date $delivery_date
+ * @property date $isolation_date
  * @property integer $purification_method_id
  * @property string $purification_details
  * @property string $observation
@@ -58,6 +59,7 @@
  * @method integer             getEnvironmentId()          Returns the current record's "environment_id" value
  * @method integer             getHabitatId()              Returns the current record's "habitat_id" value
  * @method date                getDeliveryDate()           Returns the current record's "delivery_date" value
+ * @method date                getIsolationDate()          Returns the current record's "isolation_date" value
  * @method integer             getPurificationMethodId()   Returns the current record's "purification_method_id" value
  * @method string              getPurificationDetails()    Returns the current record's "purification_details" value
  * @method string              getObservation()            Returns the current record's "observation" value
@@ -94,6 +96,7 @@
  * @method Isolation           setEnvironmentId()          Sets the current record's "environment_id" value
  * @method Isolation           setHabitatId()              Sets the current record's "habitat_id" value
  * @method Isolation           setDeliveryDate()           Sets the current record's "delivery_date" value
+ * @method Isolation           setIsolationDate()          Sets the current record's "isolation_date" value
  * @method Isolation           setPurificationMethodId()   Sets the current record's "purification_method_id" value
  * @method Isolation           setPurificationDetails()    Sets the current record's "purification_details" value
  * @method Isolation           setObservation()            Sets the current record's "observation" value
@@ -182,6 +185,9 @@ abstract class BaseIsolation extends sfDoctrineRecord
              'type' => 'integer',
              ));
         $this->hasColumn('delivery_date', 'date', null, array(
+             'type' => 'date',
+             ));
+        $this->hasColumn('isolation_date', 'date', null, array(
              'type' => 'date',
              ));
         $this->hasColumn('purification_method_id', 'integer', null, array(
