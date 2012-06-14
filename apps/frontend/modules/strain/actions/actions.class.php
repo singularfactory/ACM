@@ -24,19 +24,18 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * strain actions.
  *
  * @package ACM.Frontend
  * @subpackage strain
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @version 1.2
  */
 class strainActions extends MyActions {
-
+	/**
+	 * Index action
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'code'));
@@ -109,13 +108,19 @@ class strainActions extends MyActions {
 
 		// Add a form to filter results
 		$this->form = new StrainForm(array(), array('search' => true));
-  }
+	}
 
-  public function executeShow(sfWebRequest $request) {
+	/**
+	 * Show action
+	 */
+	public function executeShow(sfWebRequest $request) {
 		$this->strain = StrainTable::getInstance()->find(array($request->getParameter('id')));
 		$this->forward404Unless($this->strain);
-  }
+	}
 
+	/**
+	 * NewRelatedModelEmbeddedForm action
+	 */
 	public function executeNewRelatedModelEmbeddedForm(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			$this->setLayout(false);
@@ -131,9 +136,7 @@ class strainActions extends MyActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return JSON object with strain id and code
-	 * @author Eliezer Talon
-	 * @version 2011-07-07
-	*/
+	 */
 	public function executeFindClone(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 
@@ -193,8 +196,10 @@ class strainActions extends MyActions {
 		return sfView::NONE;
 	}
 
-  public function executeNew(sfWebRequest $request) {
-
+	/**
+	 * New action
+	 */
+	public function executeNew(sfWebRequest $request) {
 		$lastStrain = false;
 		if ( $request->hasParameter('id') ) {
 			$lastStrain = StrainTable::getInstance()->find(array($request->getParameter('id')));
@@ -239,12 +244,15 @@ class strainActions extends MyActions {
 		$this->hasAuthorities = (Doctrine::getTable('Authority')->count() > 0)?true:false;
 		$this->hasIsolators = (Doctrine::getTable('Isolator')->count() > 0)?true:false;
 		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
-  }
+	}
 
-  public function executeCreate(sfWebRequest $request) {
-  	$this->forward404Unless($request->isMethod(sfRequest::POST));
+	/**
+	 * Create action
+	 */
+	public function executeCreate(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new StrainForm();
+		$this->form = new StrainForm();
 		$this->hasSamples = (Doctrine::getTable('Sample')->count() > 0)?true:false;
 		$this->hasTaxonomicClasses = (Doctrine::getTable('TaxonomicClass')->count() > 0)?true:false;
 		$this->hasGenus = (Doctrine::getTable('Genus')->count() > 0)?true:false;
@@ -254,28 +262,37 @@ class strainActions extends MyActions {
 		$this->hasCultureMedia = (Doctrine::getTable('CultureMedium')->count() > 0)?true:false;
 		$this->sampleCode = ($request->hasParameter('strain_sample_search')) ? $request->getParameter('strain_sample_search') : null;
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('new');
-  }
+		$this->setTemplate('new');
+	}
 
-  public function executeEdit(sfWebRequest $request) {
+	/**
+	 * Edit action
+	 */
+	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
 		$this->form = new StrainForm($strain);
 		$this->sampleCode = $strain->getSample()->getCode();
-  }
+	}
 
-  public function executeUpdate(sfWebRequest $request) {
-    $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
-    $this->form = new StrainForm($strain);
+	/**
+	 * Update action
+	 */
+	public function executeUpdate(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
+		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
+		$this->form = new StrainForm($strain);
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('edit');
-  }
+		$this->setTemplate('edit');
+	}
 
-  protected function processForm(sfWebRequest $request, sfForm $form) {
+	/**
+	 * processForm action
+	 */
+	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$taintedValues = $request->getParameter($form->getName());
 
 		// Keep track of isolators
@@ -425,6 +442,118 @@ class strainActions extends MyActions {
 		}
 
 		$this->getUser()->setFlash('notice', 'The information on this strain has some errors you need to fix', false);
-  }
+	}
 
+	/**
+	 * Create labels for Strain records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+
+		if ($request->isMethod(sfRequest::POST)) {
+			$this->form = new StrainLabelForm();
+
+die;
+		} else {
+			// Store data in the user session
+			$this->getUser()->setAttribute('strain_label_configuration', array());
+
+			$this->form = new StrainLabelForm();
+			$this->form->setWidgets(array(
+				'supervisor_id' => new sfWidgetFormDoctrineChoice(array(
+					'model' => 'Supervisor',
+					'query' => StrainTable::getInstance()->availableSupervisorsQuery(),
+					'add_empty' => true,
+				)),
+			));
+		}
+	}
+
+	/**
+	 * Returns the HTML form section of a label field
+	 *
+	 * @param sfWebRequest $request
+	 * @return string HTML content
+	 */
+	public function executeGetLabelField(sfWebRequest $request) {
+		if ($request->isXmlHttpRequest()) {
+			$div = $request->getParameter('field');
+			$value = $request->getParameter('value');
+			$strains = array();
+
+			if (empty($div) || empty($value)) {
+				return sfView::NONE;
+			}
+
+			$labelConfiguration = $this->getUser()->getAttribute('strain_label_configuration');
+			$form = new StrainLabelForm();
+			switch ($div) {
+			case 'transfer_intervals':
+				$labelConfiguration['supervisor_id'] = $value;
+				$field = 'transfer_interval';
+				$form->setWidgets(array(
+					'transfer_interval' => new sfWidgetFormChoice(array(
+						'choices' => StrainTable::getInstance()->availableTransferIntervalChoices($labelConfiguration['supervisor_id']),
+					))));
+				break;
+			case 'genus':
+				$labelConfiguration['transfer_interval'] = $value;
+				$field = 'genus_id';
+				$form->setWidgets(array(
+					'genus_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'Genus',
+						'query' => StrainTable::getInstance()->availableGenusQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'axenicity':
+				$labelConfiguration['genus_id'] = $value;
+				$field = 'is_axenic';
+				$form->setWidgets(array('is_axenic' => new sfWidgetFormChoice(array('choices' => StrainLabelForm::$booleanChoices))));
+				break;
+			case 'container':
+				$labelConfiguration['is_axenic'] = $value;
+				$field = 'container_id';
+				$form->setWidgets(array(
+					'container_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'Container',
+						'query' => StrainTable::getInstance()->availableContainersQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval'], $labelConfiguration['genus_id'], $labelConfiguration['is_axenic']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'culture_medium':
+				$labelConfiguration['container_id'] = $value;
+				$field = 'culture_medium_id';
+				$form->setWidgets(array(
+					'culture_medium_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'CultureMedium',
+						'query' => StrainTable::getInstance()->availableCultureMediaQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval'], $labelConfiguration['genus_id'], $labelConfiguration['is_axenic'], $labelConfiguration['container_id']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'strain':
+				$labelConfiguration['culture_medium_id'] = $value;
+				$strains = StrainTable::getInstance()->availableStrainsForLabelConfiguration($labelConfiguration);
+				break;
+			}
+			$this->getUser()->setAttribute('strain_label_configuration', $labelConfiguration);
+
+			$this->setLayout(false);
+			if ($div === 'strain') {
+				return $this->renderPartial('labelStrains', array('strains' => $strains));
+			} else {
+				return $this->renderPartial('labelFieldForm', array('div' => $div, 'field' => $field, 'form' => $form));
+			}
+		}
+		return sfView::NONE;
+	}
 }

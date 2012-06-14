@@ -1,6 +1,6 @@
 <?php
 /**
- * Form class
+ * StrainLabelForm class
  *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
@@ -27,23 +27,35 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 
-
 /**
- * Doctrine base form
+ * StrainLabel form
  *
  * @package ACM.Lib.Form
  * @since 1.0
  */
-abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
-	public function setup() {
-		// Hide widgets
-		unset($this['created_at'], $this['updated_at']);
+class StrainLabelForm extends LabelForm {
+	/**
+	 * Configures form for strain labels
+	 *
+	 * @return void
+	 */
+	public function configure() {
+		parent::configure();
+		$this->widgetSchema->setLabels(array(
+			'supervisor_id' => 'Supervisor',
+			'transfer_interval' => 'Transfer interval',
+			'genus_id' => 'Genus',
+			'is_axenic' => 'Is axenic?',
+			'container_id' => 'Container',
+			'culture_medium_id' => 'Culture medium',
+		));
+		$this->setup();
+	}
 
-		// Remove <br /> tag after labels and set custom tag
-		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
-
-		// Change default errors formatter
-		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('%errors%');
-		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<span class="input_error">%error%</span>');
+	/**
+	 * Returns the name of form associated model
+	 */
+	public function getModelName() {
+		return 'Strain';
 	}
 }

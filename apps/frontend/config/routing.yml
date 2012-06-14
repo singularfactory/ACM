@@ -114,6 +114,16 @@ strain_create_from_template:
   param:        { module: strain, action: new }
   requirements: { sf_method: [get, head], id: \d+ }
 
+strain_create_label:
+  url:          strain/create_label
+  param:        { module: strain, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+strain_create_label_get_field:
+  url:          strain/create_label/get_label_field/:field/:value
+  param:        { module: strain, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
+
 ###
 # CultureMedium model related routes
 ###

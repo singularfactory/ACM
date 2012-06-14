@@ -30,6 +30,7 @@
 <?php slot('main_header') ?>
 <span>All strains</span>
 <?php include_partial('global/search_box_header_action', array('route' => '@strain_search?criteria=')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@strain_create_label')) ?>
 <?php include_partial('global/list_header_action', array('message' => 'Show deceased', 'route' => '@strain_search_deceased')) ?>
 <?php include_partial('global/new_header_action', array('message' => 'Add a new strain', 'route' => '@strain_new')) ?>
 <?php end_slot() ?>

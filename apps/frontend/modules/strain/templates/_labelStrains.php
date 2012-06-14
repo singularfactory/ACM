@@ -1,7 +1,5 @@
 <?php
 /**
- * Form class
- *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
  *
@@ -21,29 +19,38 @@
  * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
+ * @package       ACM.Frontend
  * @since         1.0
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
+?>
 
+<?php if ($strains->count()): ?>
+<table id="strain_list">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+		</tr>
+	</thead>
 
-/**
- * Doctrine base form
- *
- * @package ACM.Lib.Form
- * @since 1.0
- */
-abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
-	public function setup() {
-		// Hide widgets
-		unset($this['created_at'], $this['updated_at']);
+	<tbody>
+		<?php foreach ($strains as $strain): ?>
+		<?php $species = $strain->getSpecies() ? $strain->getSpecies()->getName() : sfConfig::get('app_unknown_species_name') ?>
+		<tr>
+			<td class="strain_code"><?php echo $strain->getFullCode() ?></td>
+			<td class="strain_name">
+				<?php echo $strain->getTaxonomicClass() ?>
+				<span class="species_name"><?php echo sprintf('%s %s', $strain->getGenus(), $species) ?></span>
+			</td>
+		</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>
+<?php endif ?>
 
-		// Remove <br /> tag after labels and set custom tag
-		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
-
-		// Change default errors formatter
-		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('%errors%');
-		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<span class="input_error">%error%</span>');
-	}
-}
+<div id="copies">
+	<label for="copies">Copies per strain</label>
+	<input type="text" name="strain[copies]" value="1" id="strain_copies">
+</div>
