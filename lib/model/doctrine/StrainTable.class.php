@@ -35,10 +35,10 @@
  */
 class StrainTable extends Doctrine_Table {
 	/**
-	* Returns an instance of this class.
-	*
-	* @return object StrainTable
-	*/
+	 * Returns an instance of this class.
+	 *
+	 * @return object StrainTable
+	 */
 	public static function getInstance() {
 		return Doctrine_Core::getTable('Strain');
 	}
@@ -61,5 +61,85 @@ class StrainTable extends Doctrine_Table {
 		else {
 			return $this->createQuery('s')->execute();
 		}
+	}
+
+	public function availableSupervisorsQuery() {
+		return sfGuardUserTable::getInstance()->createQuery('Supervisor')
+			->distinct()
+			->innerJoin('Supervisor.Strains Strain')
+			->orderBy('Supervisor.initials');
+	}
+
+	public function availableTransferIntervalChoices($supervisor) {
+		$strains = StrainTable::getInstance()->createQuery('s')
+			->distinct()
+			->select('s.transfer_interval')
+			->where('s.supervisor_id = ?', $supervisor)
+			->orderBy('s.transfer_interval')
+			->execute();
+
+		$transferIntervals = array(0 => '');
+		foreach ($strains as $strain) {
+			$interval = $strain->getTransferInterval();
+			if ($interval && !array_key_exists($interval, $transferIntervals)) {
+				$transferIntervals[$interval] = $interval;
+			}
+		}
+		ksort($transferIntervals);
+		return $transferIntervals;
+	}
+
+	public function availableGenusQuery($supervisor, $transferInterval) {
+		return GenusTable::getInstance()->createQuery('g')
+			->distinct()
+			->innerJoin('g.Strains s')
+			->where('s.supervisor_id = ?', $supervisor)
+			->andWhere("s.transfer_interval LIKE ?", $transferInterval)
+			->orderBy('g.name');
+	}
+
+	public function availableContainersQuery($supervisor, $transferInterval, $genus, $axenic) {
+		$axenic = ($axenic == 2) ? 1 : 0;
+		return ContainerTable::getInstance()->createQuery('c')
+			->distinct()
+			->innerJoin('c.StrainContainers s')
+			->innerJoin('s.Strain st')
+			->where('st.supervisor_id = ?', $supervisor)
+			->andWhere("st.transfer_interval LIKE ?", $transferInterval)
+			->andWhere('st.genus_id = ?', $genus)
+			->andWhere('st.is_axenic = ?', $axenic)
+			->orderBy('c.name');
+	}
+
+	public function availableCultureMediaQuery($supervisor, $transferInterval, $genus, $axenic, $container) {
+		$axenic = ($axenic == 2) ? 1 : 0;
+		return CultureMediumTable::getInstance()->createQuery('c')
+			->distinct()
+			->innerJoin('c.StrainCultureMedia s')
+			->innerJoin('s.Strain st')
+			->innerJoin('st.StrainContainers sc')
+			->innerJoin('st.Genus g')
+			->where('st.supervisor_id = ?', $supervisor)
+			->andWhere("st.transfer_interval LIKE ?", $transferInterval)
+			->andWhere('st.genus_id = ?', $genus)
+			->andWhere('st.is_axenic = ?', $axenic)
+			->andWhere('sc.container_id = ?', $container)
+			->orderBy('c.name');
+	}
+
+	public function availableStrainsForLabelConfiguration($configuration) {
+		$axenic = ($configuration['is_axenic'] == 2) ? 1 : 0;
+		return StrainTable::getInstance()->createQuery('s')
+			->distinct()
+			->innerJoin('s.StrainCultureMedia cm')
+			->innerJoin('s.StrainContainers c')
+			->where('s.supervisor_id = ?', $configuration['supervisor_id'])
+			->andWhere("s.transfer_interval LIKE ?", $configuration['transfer_interval'])
+			->andWhere('s.genus_id = ?', $configuration['genus_id'])
+			->andWhere('s.is_axenic = ?', $axenic)
+			->andWhere('c.container_id = ?', $configuration['container_id'])
+			->andWhere('cm.culture_medium_id = ?', $configuration['culture_medium_id'])
+			->orderBy('s.code')
+			->execute();
 	}
 }

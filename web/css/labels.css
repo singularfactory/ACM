@@ -1,7 +1,7 @@
 /* Global page style */
 body {
-	margin: 0px;
-	padding: 0px;
+	margin: 0em;
+	padding: 0em;
 	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
 	font-size: 12px;
 	text-align: center;
@@ -13,17 +13,41 @@ table {
 	text-align: left;
 }
 
-p { margin: 0px; padding: 3px 0px; }
+p {
+	margin: 0em;
+	padding: 3px 0px;
+}
 
-/* Row styles */
 tr.label_items { }
 
-/* Column styles */
-td.label_item { width: 200px; padding: 0px 20px 30px 0px; }
+td.label_item {
+	width: 175px;
+	padding: 0em 50px 30px 0px;
+}
 
-p.label_item_code { font-size: 13px; margin-bottom: 0px; }
-p.label_item_genus, p.label_item_species { display:inline; font-style: italic; font-weight: bold; padding: 0px; }
-p.label_item_taxonomic_class { }
-p.label_item_culture_medium { display: inline; }
-p.label_item_transfer_interval { display: inline; font-size: 10px; margin-left: 5px; }
-img { margin-left: 0px; }
+p.label_item_code {
+	font-size: 12px; margin-bottom: 0px;
+}
+
+p.label_item_genus, p.label_item_species {
+	display:inline;
+	font-style: italic;
+	padding: 0px;
+}
+
+p.label_item_taxonomic_class {
+
+}
+
+p.label_item_culture_medium {
+	/*display: inline;*/
+}
+
+p.label_item_transfer_interval {
+	display: inline;
+	font-size: 10px;
+}
+
+img {
+	margin-left: 0px;
+}

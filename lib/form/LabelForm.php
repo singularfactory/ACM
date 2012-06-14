@@ -1,6 +1,6 @@
 <?php
 /**
- * Form class
+ * LabelForm class
  *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
@@ -27,23 +27,26 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 
-
 /**
- * Doctrine base form
+ * Label form class.
  *
  * @package ACM.Lib.Form
  * @since 1.0
  */
-abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
-	public function setup() {
-		// Hide widgets
-		unset($this['created_at'], $this['updated_at']);
+abstract class LabelForm extends BaseFormDoctrine {
+	/**
+	 * Choices for boolean fields
+	 *
+	 * @var array
+	 */
+	public static $booleanChoices = array(0 => '', 1 => 'No', 2 => 'Yes');
 
-		// Remove <br /> tag after labels and set custom tag
-		$this->getWidgetSchema()->getFormFormatter()->setHelpFormat('<p class="input_help">%help%</p>');
-
-		// Change default errors formatter
-		$this->getWidgetSchema()->getFormFormatter()->setErrorListFormatInARow('%errors%');
-		$this->getWidgetSchema()->getFormFormatter()->setErrorRowFormatInARow('<span class="input_error">%error%</span>');
+	/**
+	 * Configures form for labels
+	 *
+	 * @return void
+	 */
+	public function configure() {
+		$this->setup();
 	}
 }
