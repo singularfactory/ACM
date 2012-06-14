@@ -8,7 +8,7 @@
  * @property integer $id
  * @property date $identification_date
  * @property integer $sample_id
- * @property string $petitioner
+ * @property integer $petitioner_id
  * @property string $sample_picture
  * @property string $microscopy_identification
  * @property string $molecular_identification
@@ -16,11 +16,12 @@
  * @property string $report_document
  * @property string $remarks
  * @property Sample $Sample
+ * @property Petitioners $Petitioner
  * 
  * @method integer        getId()                        Returns the current record's "id" value
  * @method date           getIdentificationDate()        Returns the current record's "identification_date" value
  * @method integer        getSampleId()                  Returns the current record's "sample_id" value
- * @method string         getPetitioner()                Returns the current record's "petitioner" value
+ * @method integer        getPetitionerId()              Returns the current record's "petitioner_id" value
  * @method string         getSamplePicture()             Returns the current record's "sample_picture" value
  * @method string         getMicroscopyIdentification()  Returns the current record's "microscopy_identification" value
  * @method string         getMolecularIdentification()   Returns the current record's "molecular_identification" value
@@ -28,10 +29,11 @@
  * @method string         getReportDocument()            Returns the current record's "report_document" value
  * @method string         getRemarks()                   Returns the current record's "remarks" value
  * @method Sample         getSample()                    Returns the current record's "Sample" value
+ * @method Petitioners    getPetitioner()                Returns the current record's "Petitioner" value
  * @method Identification setId()                        Sets the current record's "id" value
  * @method Identification setIdentificationDate()        Sets the current record's "identification_date" value
  * @method Identification setSampleId()                  Sets the current record's "sample_id" value
- * @method Identification setPetitioner()                Sets the current record's "petitioner" value
+ * @method Identification setPetitionerId()              Sets the current record's "petitioner_id" value
  * @method Identification setSamplePicture()             Sets the current record's "sample_picture" value
  * @method Identification setMicroscopyIdentification()  Sets the current record's "microscopy_identification" value
  * @method Identification setMolecularIdentification()   Sets the current record's "molecular_identification" value
@@ -39,6 +41,7 @@
  * @method Identification setReportDocument()            Sets the current record's "report_document" value
  * @method Identification setRemarks()                   Sets the current record's "remarks" value
  * @method Identification setSample()                    Sets the current record's "Sample" value
+ * @method Identification setPetitioner()                Sets the current record's "Petitioner" value
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -63,9 +66,9 @@ abstract class BaseIdentification extends sfDoctrineRecord
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('petitioner', 'string', 255, array(
-             'type' => 'string',
-             'length' => 255,
+        $this->hasColumn('petitioner_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
              ));
         $this->hasColumn('sample_picture', 'string', 255, array(
              'type' => 'string',
@@ -104,6 +107,10 @@ abstract class BaseIdentification extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Sample', array(
              'local' => 'sample_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Petitioners as Petitioner', array(
+             'local' => 'petitioner_id',
              'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();

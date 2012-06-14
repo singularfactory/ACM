@@ -25,21 +25,26 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<ul>
-	<?php $routes = array('sf_guard_user', 'collector', 'isolator', 'depositor', 'identifier', 'petitioner') ?>
-	<?php $subsectionNames = array($routes[0] => 'Users', $routes[1] => 'Collectors', $routes[2] => 'Isolators', $routes[3] => 'Depositors', $routes[4] => 'Identifiers', $routes[5] => 'Petitioners') ?>
+<?php
 
-	<?php foreach ( $routes as $routeValue ): ?>
-		<li>
-		<?php if ( preg_match('/^'.$routeValue.'_?/', $route) ): ?>
-			<?php echo $subsectionNames[$routeValue] ?>
-		<?php else: ?>
-			<?php echo link_to($subsectionNames[$routeValue], '@'.$routeValue) ?>
-		<?php endif; ?>
-		</li>
+require_once dirname(__FILE__).'/../lib/petitionerGeneratorConfiguration.class.php';
+require_once dirname(__FILE__).'/../lib/petitionerGeneratorHelper.class.php';
 
-		<?php if ( $routeValue !== $routes[count($routes)-1]): ?>
-		<span class="subsection_separator">|</span>
-		<?php endif; ?>
-	<?php endforeach; ?>
-</ul>
+/**
+ * petitioner actions.
+ *
+ * @package    bna_green_house
+ * @subpackage petitioner
+ * @author     Marcos León <mleon@inventiaplus.com>
+ * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
+class petitionerActions extends autoPetitionerActions
+{
+	public function executeDelete(sfWebRequest $request) {
+		parent::executeDeleteIfNotUsed($request);
+	}
+
+	protected function executeBatchDelete(sfWebRequest $request) {
+		parent::executeBatchDeleteIfNotUsed($request);
+	}
+}

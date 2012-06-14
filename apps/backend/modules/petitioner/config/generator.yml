@@ -1,0 +1,34 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Petitioners
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          petitioner
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields: ~
+      list:
+        title: Petitioners
+        display: [name, surname, email, updated_at]
+        fields:
+          full_name:
+            label: Name
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name, surname, email]
+      form: ~
+      edit:
+        title: Edit "%%name%% %%surname%%"
+      new:
+        title: Add a new petitioner

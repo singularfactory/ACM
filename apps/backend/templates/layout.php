@@ -164,7 +164,7 @@
 			</div>
 			<?php endif; ?>
 
-			<?php if ( preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route) ): ?>
+			<?php if ( preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier|petitioner)_?/', $route) ): ?>
 			<div id="subsections_header">
 				<?php include_partial('global/people_sections', array('route' => $route)) ?>
 			</div>

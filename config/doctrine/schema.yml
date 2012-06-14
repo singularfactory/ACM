@@ -279,6 +279,20 @@ Identifier:
       fields:
         surname:  { length: 20 }
 
+Petitioners:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
+    surname:  { type: string(127), notnull: true }
+    email:  { type: string(255) }
+  indexes:
+    petitioner_name:
+      fields:
+        name:  { length: 20 }
+    petitioner_surname:
+      fields:
+        surname:  { length: 20 }
+
 MaintenanceStatus:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
@@ -1123,7 +1137,7 @@ Identification:
     id:  { type: integer, primary: true, autoincrement: true }
     identification_date:  { type: date, notnull: true }
     sample_id:  { type: integer, notnull: true}
-    petitioner:  { type: string(255) }
+    petitioner_id:  { type: integer, notnull: true }
     sample_picture:  { type: string(255) }
     microscopy_identification:  { type: string }
     molecular_identification:  { type: string }
@@ -1132,6 +1146,7 @@ Identification:
     remarks:  { type: string }
   relations:
     Sample:  { foreignAlias: Identifications }
+    Petitioner:  { class: Petitioners, local: petitioner_id, foreignAlias: Identifications }
   indexes:
     identification_date:
       fields: [identification_date]

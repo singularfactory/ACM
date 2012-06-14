@@ -1,3 +1,12 @@
+petitioner:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Petitioners
+    module:               petitioner
+    prefix_path:          /admin/petitioner
+    column:               id
+    with_wildcard_routes: true
+
 glossary_term:
   class: sfDoctrineRouteCollection
   options:

@@ -25,21 +25,16 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<ul>
-	<?php $routes = array('sf_guard_user', 'collector', 'isolator', 'depositor', 'identifier', 'petitioner') ?>
-	<?php $subsectionNames = array($routes[0] => 'Users', $routes[1] => 'Collectors', $routes[2] => 'Isolators', $routes[3] => 'Depositors', $routes[4] => 'Identifiers', $routes[5] => 'Petitioners') ?>
+<?php
 
-	<?php foreach ( $routes as $routeValue ): ?>
-		<li>
-		<?php if ( preg_match('/^'.$routeValue.'_?/', $route) ): ?>
-			<?php echo $subsectionNames[$routeValue] ?>
-		<?php else: ?>
-			<?php echo link_to($subsectionNames[$routeValue], '@'.$routeValue) ?>
-		<?php endif; ?>
-		</li>
-
-		<?php if ( $routeValue !== $routes[count($routes)-1]): ?>
-		<span class="subsection_separator">|</span>
-		<?php endif; ?>
-	<?php endforeach; ?>
-</ul>
+/**
+ * petitioner module helper.
+ *
+ * @package    bna_green_house
+ * @subpackage petitioner
+ * @author     Marcos León <mleon@inventiaplus.com>
+ * @version    SVN: $Id: helper.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ */
+class petitionerGeneratorHelper extends BasePetitionerGeneratorHelper
+{
+}
