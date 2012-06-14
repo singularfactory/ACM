@@ -10,6 +10,7 @@
  * @property integer $genus_id
  * @property integer $species_id
  * @property integer $authority_id
+ * @property integer $supervisor_id
  * @property boolean $is_epitype
  * @property boolean $is_axenic
  * @property boolean $has_dna
@@ -34,6 +35,7 @@
  * @property Genus $Genus
  * @property Species $Species
  * @property Authority $Authority
+ * @property sfGuardUser $Supervisor
  * @property Location $Location
  * @property Environment $Environment
  * @property Habitat $Habitat
@@ -55,6 +57,7 @@
  * @method integer                getGenusId()                             Returns the current record's "genus_id" value
  * @method integer                getSpeciesId()                           Returns the current record's "species_id" value
  * @method integer                getAuthorityId()                         Returns the current record's "authority_id" value
+ * @method integer                getSupervisorId()                        Returns the current record's "supervisor_id" value
  * @method boolean                getIsEpitype()                           Returns the current record's "is_epitype" value
  * @method boolean                getIsAxenic()                            Returns the current record's "is_axenic" value
  * @method boolean                getHasDna()                              Returns the current record's "has_dna" value
@@ -79,6 +82,7 @@
  * @method Genus                  getGenus()                               Returns the current record's "Genus" value
  * @method Species                getSpecies()                             Returns the current record's "Species" value
  * @method Authority              getAuthority()                           Returns the current record's "Authority" value
+ * @method sfGuardUser            getSupervisor()                          Returns the current record's "Supervisor" value
  * @method Location               getLocation()                            Returns the current record's "Location" value
  * @method Environment            getEnvironment()                         Returns the current record's "Environment" value
  * @method Habitat                getHabitat()                             Returns the current record's "Habitat" value
@@ -99,6 +103,7 @@
  * @method MaintenanceDeposit     setGenusId()                             Sets the current record's "genus_id" value
  * @method MaintenanceDeposit     setSpeciesId()                           Sets the current record's "species_id" value
  * @method MaintenanceDeposit     setAuthorityId()                         Sets the current record's "authority_id" value
+ * @method MaintenanceDeposit     setSupervisorId()                        Sets the current record's "supervisor_id" value
  * @method MaintenanceDeposit     setIsEpitype()                           Sets the current record's "is_epitype" value
  * @method MaintenanceDeposit     setIsAxenic()                            Sets the current record's "is_axenic" value
  * @method MaintenanceDeposit     setHasDna()                              Sets the current record's "has_dna" value
@@ -123,6 +128,7 @@
  * @method MaintenanceDeposit     setGenus()                               Sets the current record's "Genus" value
  * @method MaintenanceDeposit     setSpecies()                             Sets the current record's "Species" value
  * @method MaintenanceDeposit     setAuthority()                           Sets the current record's "Authority" value
+ * @method MaintenanceDeposit     setSupervisor()                          Sets the current record's "Supervisor" value
  * @method MaintenanceDeposit     setLocation()                            Sets the current record's "Location" value
  * @method MaintenanceDeposit     setEnvironment()                         Sets the current record's "Environment" value
  * @method MaintenanceDeposit     setHabitat()                             Sets the current record's "Habitat" value
@@ -168,6 +174,9 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
         $this->hasColumn('authority_id', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
+             ));
+        $this->hasColumn('supervisor_id', 'integer', null, array(
+             'type' => 'integer',
              ));
         $this->hasColumn('is_epitype', 'boolean', null, array(
              'type' => 'boolean',
@@ -265,6 +274,10 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
 
         $this->hasOne('Authority', array(
              'local' => 'authority_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('sfGuardUser as Supervisor', array(
+             'local' => 'supervisor_id',
              'foreign' => 'id'));
 
         $this->hasOne('Location', array(

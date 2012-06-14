@@ -48,11 +48,11 @@
 			<?php echo $form['identification_date'] ?>
 		</div>
 
-		<div id="identification_petitioner">
-			<?php echo $form['petitioner']->renderLabel() ?>
-			<?php echo $form['petitioner']->renderError() ?>
-			<?php echo $form['petitioner']->renderHelp() ?>
-			<?php echo $form['petitioner'] ?>
+		<div id="identification_petitioner_id">
+			<?php echo $form['petitioner_id']->renderLabel() ?>
+			<?php echo $form['petitioner_id']->renderError() ?>
+			<?php echo $form['petitioner_id']->renderHelp() ?>
+			<?php echo $form['petitioner_id'] ?>
 		</div>
 
 		<div id="microscopy_identification">

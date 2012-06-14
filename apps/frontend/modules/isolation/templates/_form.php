@@ -167,6 +167,11 @@
 			<?php echo $form['isolators_list']->renderHelp() ?>
 			<?php echo $form['isolators_list'] ?>
 		</div>
+		
+		<div id="supervisor">
+			<?php echo $form['supervisor_id']->renderLabel() ?>
+			<?php echo $form['supervisor_id'] ?>
+		</div>
 	</div>
 
 	<div id="right_side_form">

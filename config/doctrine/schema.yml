@@ -279,6 +279,20 @@ Identifier:
       fields:
         surname:  { length: 20 }
 
+Petitioners:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(127), notnull: true }
+    surname:  { type: string(127), notnull: true }
+    email:  { type: string(255) }
+  indexes:
+    petitioner_name:
+      fields:
+        name:  { length: 20 }
+    petitioner_surname:
+      fields:
+        surname:  { length: 20 }
+
 MaintenanceStatus:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
@@ -768,6 +782,7 @@ PatentDeposit:
     genus_id:  { type: integer, notnull: true }
     species_id:  { type: integer }
     authority_id:  { type: integer, notnull: true }
+    supervisor_id:  { type: integer }
     is_epitype:  { type: boolean, notnull: true, default: false }
     is_axenic:  { type: boolean, notnull: true, default: false }
     has_dna:  { type: boolean, notnull: true, default: false }
@@ -794,6 +809,7 @@ PatentDeposit:
     Genus:  { foreignAlias: PatentDeposits }
     Species:  { foreignAlias: PatentDeposits }
     Authority:  { foreignAlias: PatentDeposits }
+    Supervisor:  { class: sfGuardUser, local: supervisor_id, foreignAlias: PatentDeposits }
     Location:  { foreignAlias: PatentDeposits }
     Environment:  { foreignAlias: PatentDeposits }
     Habitat:  { foreignAlias: PatentDeposits }
@@ -851,6 +867,7 @@ MaintenanceDeposit:
     genus_id:  { type: integer, notnull: true }
     species_id:  { type: integer }
     authority_id:  { type: integer, notnull: true }
+    supervisor_id:  { type: integer }
     is_epitype:  { type: boolean, notnull: true, default: false }
     is_axenic:  { type: boolean, notnull: true, default: false }
     has_dna:  { type: boolean, notnull: true, default: false }
@@ -876,6 +893,7 @@ MaintenanceDeposit:
     Genus:  { foreignAlias: MaintenanceDeposits }
     Species:  { foreignAlias: MaintenanceDeposits }
     Authority:  { foreignAlias: MaintenanceDeposits }
+    Supervisor:  { class: sfGuardUser, local: supervisor_id, foreignAlias: MaintenanceDeposits }
     Location:  { foreignAlias: MaintenanceDeposits }
     Environment:  { foreignAlias: MaintenanceDeposits }
     Habitat:  { foreignAlias: MaintenanceDeposits }
@@ -1028,6 +1046,7 @@ Isolation:
     isolation_subject:  { type: enum, values: [sample, strain, external, "external_strain"] }
     sample_id:  { type: integer }
     strain_id:  { type: integer }
+    supervisor_id:  { type: integer }
     external_strain_id:  { type: integer }
     external_code:  { type: string(128) }
     taxonomic_class_id:  { type: integer } # Only for external, not applicable to sample
@@ -1050,6 +1069,7 @@ Isolation:
     Genus:  { foreignAlias: Isolations }
     Species:  { foreignAlias: Isolations }
     Authority:  { foreignAlias: Isolations }
+    Supervisor:  { class: sfGuardUser, local: supervisor_id, foreignAlias: Isolations }
     Location:  { foreignAlias: Isolations }
     Environment:  { foreignAlias: Isolations }
     Habitat:  { foreignAlias: Isolations }
@@ -1117,7 +1137,7 @@ Identification:
     id:  { type: integer, primary: true, autoincrement: true }
     identification_date:  { type: date, notnull: true }
     sample_id:  { type: integer, notnull: true}
-    petitioner:  { type: string(255) }
+    petitioner_id:  { type: integer, notnull: true }
     sample_picture:  { type: string(255) }
     microscopy_identification:  { type: string }
     molecular_identification:  { type: string }
@@ -1126,6 +1146,7 @@ Identification:
     remarks:  { type: string }
   relations:
     Sample:  { foreignAlias: Identifications }
+    Petitioner:  { class: Petitioners, local: petitioner_id, foreignAlias: Identifications }
   indexes:
     identification_date:
       fields: [identification_date]

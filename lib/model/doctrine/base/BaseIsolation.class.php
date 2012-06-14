@@ -10,6 +10,7 @@
  * @property enum $isolation_subject
  * @property integer $sample_id
  * @property integer $strain_id
+ * @property integer $supervisor_id
  * @property integer $external_strain_id
  * @property string $external_code
  * @property integer $taxonomic_class_id
@@ -31,6 +32,7 @@
  * @property Genus $Genus
  * @property Species $Species
  * @property Authority $Authority
+ * @property sfGuardUser $Supervisor
  * @property Location $Location
  * @property Environment $Environment
  * @property Habitat $Habitat
@@ -45,6 +47,7 @@
  * @method enum                getIsolationSubject()       Returns the current record's "isolation_subject" value
  * @method integer             getSampleId()               Returns the current record's "sample_id" value
  * @method integer             getStrainId()               Returns the current record's "strain_id" value
+ * @method integer             getSupervisorId()           Returns the current record's "supervisor_id" value
  * @method integer             getExternalStrainId()       Returns the current record's "external_strain_id" value
  * @method string              getExternalCode()           Returns the current record's "external_code" value
  * @method integer             getTaxonomicClassId()       Returns the current record's "taxonomic_class_id" value
@@ -66,6 +69,7 @@
  * @method Genus               getGenus()                  Returns the current record's "Genus" value
  * @method Species             getSpecies()                Returns the current record's "Species" value
  * @method Authority           getAuthority()              Returns the current record's "Authority" value
+ * @method sfGuardUser         getSupervisor()             Returns the current record's "Supervisor" value
  * @method Location            getLocation()               Returns the current record's "Location" value
  * @method Environment         getEnvironment()            Returns the current record's "Environment" value
  * @method Habitat             getHabitat()                Returns the current record's "Habitat" value
@@ -79,6 +83,7 @@
  * @method Isolation           setIsolationSubject()       Sets the current record's "isolation_subject" value
  * @method Isolation           setSampleId()               Sets the current record's "sample_id" value
  * @method Isolation           setStrainId()               Sets the current record's "strain_id" value
+ * @method Isolation           setSupervisorId()           Sets the current record's "supervisor_id" value
  * @method Isolation           setExternalStrainId()       Sets the current record's "external_strain_id" value
  * @method Isolation           setExternalCode()           Sets the current record's "external_code" value
  * @method Isolation           setTaxonomicClassId()       Sets the current record's "taxonomic_class_id" value
@@ -100,6 +105,7 @@
  * @method Isolation           setGenus()                  Sets the current record's "Genus" value
  * @method Isolation           setSpecies()                Sets the current record's "Species" value
  * @method Isolation           setAuthority()              Sets the current record's "Authority" value
+ * @method Isolation           setSupervisor()             Sets the current record's "Supervisor" value
  * @method Isolation           setLocation()               Sets the current record's "Location" value
  * @method Isolation           setEnvironment()            Sets the current record's "Environment" value
  * @method Isolation           setHabitat()                Sets the current record's "Habitat" value
@@ -142,6 +148,9 @@ abstract class BaseIsolation extends sfDoctrineRecord
              'type' => 'integer',
              ));
         $this->hasColumn('strain_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('supervisor_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('external_strain_id', 'integer', null, array(
@@ -221,6 +230,10 @@ abstract class BaseIsolation extends sfDoctrineRecord
 
         $this->hasOne('Authority', array(
              'local' => 'authority_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('sfGuardUser as Supervisor', array(
+             'local' => 'supervisor_id',
              'foreign' => 'id'));
 
         $this->hasOne('Location', array(
