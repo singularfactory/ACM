@@ -52,5 +52,5 @@
 
 <div id="copies">
 	<label for="copies">Copies per strain</label>
-	<input type="text" name="strain[copies]" value="1" id="strain_copies">
+	<input type="text" name="copies" value="1" id="strain_copies">
 </div>

@@ -452,15 +452,20 @@ class strainActions extends MyActions {
 	 */
 	public function executeCreateLabel(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
-
 		if ($request->isMethod(sfRequest::POST)) {
-			$this->form = new StrainLabelForm();
+			$values = $request->getPostParameters();
+			$this->labels = StrainTable::getInstance()->availableStrainsForLabelConfiguration($values);
+			$this->copies = $values['copies'];
 
-die;
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "strain_labels.pdf");
+			throw new sfStopException();
 		} else {
-			// Store data in the user session
 			$this->getUser()->setAttribute('strain_label_configuration', array());
-
 			$this->form = new StrainLabelForm();
 			$this->form->setWidgets(array(
 				'supervisor_id' => new sfWidgetFormDoctrineChoice(array(

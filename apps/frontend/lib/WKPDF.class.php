@@ -24,8 +24,6 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * @author Christian Sciberras
@@ -41,8 +39,8 @@
 class WKPDF {
 
 	/**
-	* Private use variables.
-	*/
+	 * Private use variables.
+	 */
 	private $html = '';
 	private $cmd = '';
 	private $tmp = '';
@@ -58,11 +56,11 @@ class WKPDF {
 	private $path = '';
 
 	/**
-	* Advanced execution routine.
-	* @param string $cmd The command to execute.
-	* @param string $input Any input not in arguments.
-	* @return array An array of execution data; stdout, stderr and return "error" code.
-	*/
+	 * Advanced execution routine.
+	 * @param string $cmd The command to execute.
+	 * @param string $input Any input not in arguments.
+	 * @return array An array of execution data; stdout, stderr and return "error" code.
+	 */
 	private static function _pipeExec($cmd, $input='') {
 		$proc = proc_open($cmd, array(
 			0 => array('pipe','r'),
@@ -83,9 +81,9 @@ class WKPDF {
 	}
 
 	/**
-	* Function that attempts to return the kind of CPU.
-	* @return string CPU kind ('amd64' or 'i386').
-	*/
+	 * Function that attempts to return the kind of CPU.
+	 * @return string CPU kind ('amd64' or 'i386').
+	 */
 	private static function _getCPU(){
 		if ( self::$cpu == '' ) {
 			// $arch = `uname -m`;
@@ -110,38 +108,38 @@ class WKPDF {
 	}
 
 	/**
-	* Force the client to download PDF file when finish() is called.
-	*/
+	 * Force the client to download PDF file when finish() is called.
+	 */
 	public static $PDF_DOWNLOAD='D';
 
 	/**
-	* Returns the PDF file as a string when finish() is called.
-	*/
+	 * Returns the PDF file as a string when finish() is called.
+	 */
 	public static $PDF_ASSTRING='S';
 
 	/**
-	* When possible, force the client to embed PDF file when finish() is called.
-	*/
+	 * When possible, force the client to embed PDF file when finish() is called.
+	 */
 	public static $PDF_EMBEDDED='I';
 
 	/**
-	* PDF file is saved into the server space when finish() is called. The path is returned.
-	*/
+	 * PDF file is saved into the server space when finish() is called. The path is returned.
+	 */
 	public static $PDF_SAVEFILE='F';
 
 	/**
-	* PDF generated as landscape (vertical).
-	*/
+	 * PDF generated as landscape (vertical).
+	 */
 	public static $PDF_PORTRAIT='Portrait';
 
 	/**
-	* PDF generated as landscape (horizontal).
-	*/
+	 * PDF generated as landscape (horizontal).
+	 */
 	public static $PDF_LANDSCAPE='Landscape';
 
 	/**
-	* Constructor: initialize command line and reserve temporary file.
-	*/
+	 * Constructor: initialize command line and reserve temporary file.
+	 */
 	public function __construct(){
 		$this->path = sfConfig::get('sf_lib_dir').'/'.sfConfig::get('app_wkhtmltopdf_path');
 
@@ -157,88 +155,88 @@ class WKPDF {
 	}
 
 	/**
-	* Set orientation, use constants from this class.
-	* By default orientation is portrait.
-	* @param string $mode Use constants from this class.
-	*/
+	 * Set orientation, use constants from this class.
+	 * By default orientation is portrait.
+	 * @param string $mode Use constants from this class.
+	 */
 	public function set_orientation($mode){
 		$this->orient = $mode;
 	}
 
 	/**
-	* Set page/paper size.
-	* By default page size is A4.
-	* @param string $size Formal paper size (eg; A4, letter...)
-	*/
+	 * Set page/paper size.
+	 * By default page size is A4.
+	 * @param string $size Formal paper size (eg; A4, letter...)
+	 */
 	public function set_page_size($size){
 		$this->size = $size;
 	}
 
 	/**
-	* Whether to automatically generate a TOC (table of contents) or not.
-	* By default TOC is disabled.
-	* @param boolean $enabled True use TOC, false disable TOC.
-	*/
+	 * Whether to automatically generate a TOC (table of contents) or not.
+	 * By default TOC is disabled.
+	 * @param boolean $enabled True use TOC, false disable TOC.
+	 */
 	public function set_toc($enabled){
 		$this->toc = $enabled;
 	}
 
 	/**
-	* Set the number of copies to be printed.
-	* By default it is one.
-	* @param integer $count Number of page copies.
-	*/
+	 * Set the number of copies to be printed.
+	 * By default it is one.
+	 * @param integer $count Number of page copies.
+	 */
 	public function set_copies($count){
 		$this->copies = $count;
 	}
 
 	/**
-	* Whether to print in grayscale or not.
-	* By default it is OFF.
-	* @param boolean True to print in grayscale, false in full color.
-	*/
+	 * Whether to print in grayscale or not.
+	 * By default it is OFF.
+	 * @param boolean True to print in grayscale, false in full color.
+	 */
 	public function set_grayscale($mode){
 		$this->grayscale = $mode;
 	}
 
 	/**
-	* Set PDF title. If empty, HTML <title> of first document is used.
-	* By default it is empty.
-	* @param string Title text.
-	*/
+	 * Set PDF title. If empty, HTML <title> of first document is used.
+	 * By default it is empty.
+	 * @param string Title text.
+	 */
 	public function set_title($text){
 		$this->title = $text;
 	}
 
 	/**
-	* Set html content.
-	* @param string $html New html content. It *replaces* any previous content.
-	*/
+	 * Set html content.
+	 * @param string $html New html content. It *replaces* any previous content.
+	 */
 	public function set_html($html){
 		$this->html = $html;
 		file_put_contents($this->tmp, $html);
 	}
 
 	/**
-	* Returns WKPDF print status.
-	* @return string WPDF print status.
-	*/
+	 * Returns WKPDF print status.
+	 * @return string WPDF print status.
+	 */
 	public function get_status(){
 		return $this->status;
 	}
 
 	/**
-	* Attempts to return the library's full help.
-	* @return string WKHTMLTOPDF HTML help.
-	*/
+	 * Attempts to return the library's full help.
+	 * @return string WKHTMLTOPDF HTML help.
+	 */
 	public function get_help(){
 		$tmp = self::_pipeExec('"'.$this->cmd.'" --extended-help');
 		return $tmp['stdout'];
 	}
 
 	/**
-	* Convert HTML to PDF.
-	*/
+	 * Convert HTML to PDF.
+	 */
 	public function render(){
 		$site = 'http://'.$_SERVER['SERVER_NAME'].'/uploads/tmp';
 		$web = $site.'/'.basename($this->tmp);
@@ -276,64 +274,64 @@ class WKPDF {
 	}
 
 	/**
-	* Return PDF with various options.
-	* @param string $mode How two output (constants from this same class).
-	* @param string $file The PDF's filename (the usage depends on $mode.
-	* @return string|boolean Depending on $mode, this may be success (boolean) or PDF (string).
-	*/
+	 * Return PDF with various options.
+	 * @param string $mode How two output (constants from this same class).
+	 * @param string $file The PDF's filename (the usage depends on $mode.
+	 * @return string|boolean Depending on $mode, this may be success (boolean) or PDF (string).
+	 */
 	public function output($mode,$file){
 		switch($mode) {
-			case self::$PDF_DOWNLOAD:
-				if( !headers_sent() ) {
-					header('Content-Description: File Transfer');
-					header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
-					header('Pragma: public');
-					header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-					header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+		case self::$PDF_DOWNLOAD:
+			if( !headers_sent() ) {
+				header('Content-Description: File Transfer');
+				header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+				header('Pragma: public');
+				header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+				header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 
-					// force download dialog
-					header('Content-Type: application/force-download');
-					header('Content-Type: application/octet-stream', false);
-					header('Content-Type: application/download', false);
-					header('Content-Type: application/pdf', false);
+				// force download dialog
+				header('Content-Type: application/force-download');
+				header('Content-Type: application/octet-stream', false);
+				header('Content-Type: application/download', false);
+				header('Content-Type: application/pdf', false);
 
-					// use the Content-Disposition header to supply a recommended filename
-					header('Content-Disposition: attachment; filename="'.basename($file).'";');
-					header('Content-Transfer-Encoding: binary');
-					header('Content-Length: '.strlen($this->pdf));
-					echo $this->pdf;
-				}
-				else{
-					throw new Exception('WKPDF download headers were already sent.');
-				}
-				break;
+				// use the Content-Disposition header to supply a recommended filename
+				header('Content-Disposition: attachment; filename="'.basename($file).'";');
+				header('Content-Transfer-Encoding: binary');
+				header('Content-Length: '.strlen($this->pdf));
+				echo $this->pdf;
+			}
+			else{
+				throw new Exception('WKPDF download headers were already sent.');
+			}
+			break;
 
-			case self::$PDF_ASSTRING:
-				return $this->pdf;
-				break;
+		case self::$PDF_ASSTRING:
+			return $this->pdf;
+			break;
 
-			case self::$PDF_EMBEDDED:
-				if( !headers_sent() ) {
-					header('Content-Type: application/pdf');
-					header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
-					header('Pragma: public');
-					header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-					header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-					header('Content-Length: '.strlen($this->pdf));
-					header('Content-Disposition: inline; filename="'.basename($file).'";');
-					echo $this->pdf;
-				}
-				else{
-					throw new Exception('WKPDF embed headers were already sent.');
-				}
-				break;
+		case self::$PDF_EMBEDDED:
+			if( !headers_sent() ) {
+				header('Content-Type: application/pdf');
+				header('Cache-Control: public, must-revalidate, max-age=0'); // HTTP/1.1
+				header('Pragma: public');
+				header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+				header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+				header('Content-Length: '.strlen($this->pdf));
+				header('Content-Disposition: inline; filename="'.basename($file).'";');
+				echo $this->pdf;
+			}
+			else{
+				throw new Exception('WKPDF embed headers were already sent.');
+			}
+			break;
 
-			case self::$PDF_SAVEFILE:
-				return file_put_contents($file,$this->pdf);
-				break;
+		case self::$PDF_SAVEFILE:
+			return file_put_contents($file,$this->pdf);
+			break;
 
-			default:
-				throw new Exception('WKPDF invalid mode "'.htmlspecialchars($mode,ENT_QUOTES).'".');
+		default:
+			throw new Exception('WKPDF invalid mode "'.htmlspecialchars($mode,ENT_QUOTES).'".');
 		}
 
 		return false;

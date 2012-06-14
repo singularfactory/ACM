@@ -24,8 +24,6 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * api actions.
@@ -36,7 +34,6 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class apiActions extends GreenhouseAPI {
-
 	public function executeSamplingInformation(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
 			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
@@ -78,33 +75,33 @@ class apiActions extends GreenhouseAPI {
 				}
 
 				switch ( $entity ) {
-					case 'Country':
-						$tmp['code'] = $record['code'];
-						break;
-					case 'Region':
-						$tmp['code'] = $record['code'];
-						$tmp['country_id'] = $record['country_id'];
-						break;
-					case 'Island':
-						$tmp['code'] = $record['code'];
-						$tmp['region_id'] = $record['region_id'];
-						break;
-					case 'Location':
-						$tmp['latitude'] = $record['latitude'];
-						$tmp['longitude'] = $record['longitude'];
-						$tmp['country_id'] = $record['country_id'];
-						$tmp['region_id'] = $record['region_id'];
-						$tmp['island_id'] = $record['island_id'];
-						break;
-					case 'LocationPicture':
-						$tmp['filename'] = $record['filename'];
-						$tmp['location_id'] = $record['location_id'];
-						$tmp['image_data'] = $this->getBase64EncodedPicture($record['filename'], sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'));
-						break;
-					case 'Collector':
-						$tmp['surname'] = $record['surname'];
-						$tmp['email'] = $record['email'];
-						break;
+				case 'Country':
+					$tmp['code'] = $record['code'];
+					break;
+				case 'Region':
+					$tmp['code'] = $record['code'];
+					$tmp['country_id'] = $record['country_id'];
+					break;
+				case 'Island':
+					$tmp['code'] = $record['code'];
+					$tmp['region_id'] = $record['region_id'];
+					break;
+				case 'Location':
+					$tmp['latitude'] = $record['latitude'];
+					$tmp['longitude'] = $record['longitude'];
+					$tmp['country_id'] = $record['country_id'];
+					$tmp['region_id'] = $record['region_id'];
+					$tmp['island_id'] = $record['island_id'];
+					break;
+				case 'LocationPicture':
+					$tmp['filename'] = $record['filename'];
+					$tmp['location_id'] = $record['location_id'];
+					$tmp['image_data'] = $this->getBase64EncodedPicture($record['filename'], sfConfig::get('sf_upload_dir').sfConfig::get('app_location_pictures_dir'));
+					break;
+				case 'Collector':
+					$tmp['surname'] = $record['surname'];
+					$tmp['email'] = $record['email'];
+					break;
 				}
 
 				$info[sfInflector::tableize($entity)][] = $tmp;
@@ -749,7 +746,6 @@ class apiActions extends GreenhouseAPI {
 		exit();
 	}
 
-	/*
 	public function executeGenerateBarcode(sfWebRequest $request) {
 		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
 			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
@@ -759,56 +755,12 @@ class apiActions extends GreenhouseAPI {
 			return $this->requestExitStatus(self::InvalidBeaCode);
 		}
 
-		// Load barcode generator
-		try {
-			require_once(sfConfig::get('sf_lib_dir').'/'.sfConfig::get('app_php_barcode_path').'/php-barcode.php');
-		}
-		catch (Exception $e) {
-			return $this->requestExitStatus(self::ServerError, "The barcode could not be generated. {$e->getMessage()}");
-		}
-
-		// Allocate GD resource
-		$height = 30;
-		$width = 150;
-		$x = 64;
-		$y = 16;
-		$im = imagecreatetruecolor($width, $height);
-		$black = ImageColorAllocate($im, 0x00, 0x00, 0x00);
-		$white = ImageColorAllocate($im, 0xff, 0xff, 0xff);
-		imagefilledrectangle($im, 0, 0, $width, $height, $white);
-
-		// Create barcode
-		Barcode::gd($im, $black, $x, $y, 0, 'codabar', array('code' => $code), 2, $height);
-
-		// Set response and content
-		header('Content-type: image/png');
-		imagepng($im);
-		imagedestroy($im);
-		exit();
-	}
-	*/
-
-	public function executeGenerateBarcode(sfWebRequest $request) {
-		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
-			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
-		}
-
-		if ( !($code = $this->validateBeaCode($request->getParameter('code'))) ) {
-			return $this->requestExitStatus(self::InvalidBeaCode);
-		}
-
-		// Load barcode generator
-		$barcode = new TCPDF2DBarcode('0001', 'PDF417');
-		echo $barcode->getBarcodePNG();
+		$barcode = new Barcode();
+		$barcode->barcode();
+		$barcode->setType('C128');
+		$barcode->setCode(sprintf("%012d", $code));
+		$barcode->setSize(25,150);
+		echo $barcode->showBarcodeImage();
 		die;
-		try {
-			$barcode = new TCPDF2DBarcode($code, 'PDF417');
-			echo $barcode->getBarcodePNG();
-			exit();
-		}
-		catch (Exception $e) {
-			return $this->requestExitStatus(self::ServerError, "The barcode could not be generated. {$e->getMessage()}");
-		}
 	}
-
 }

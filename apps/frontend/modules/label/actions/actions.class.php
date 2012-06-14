@@ -107,7 +107,7 @@ class labelActions extends myActions {
 		$this->productId = $request->getParameter('product_id');
 		$this->productCode = $request->getParameter('product_id_search');
 
-		if ( !$this->form->isValid() ) {
+		if (!$this->form->isValid()) {
 			$this->getUser()->setFlash('notice', 'The labels cannot be created with the information you have provided. Make sure everything is OK.');
 			$this->setTemplate('configure');
 		}
