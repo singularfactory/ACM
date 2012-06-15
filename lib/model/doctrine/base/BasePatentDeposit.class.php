@@ -52,6 +52,7 @@
  * @property Doctrine_Collection $PatentDepositIsolators
  * @property Doctrine_Collection $PatentDepositCollectors
  * @property Doctrine_Collection $PatentDepositMaintenanceStatus
+ * @property Doctrine_Collection $Cryopreservations
  * 
  * @method integer                getId()                             Returns the current record's "id" value
  * @method integer                getTaxonomicClassId()               Returns the current record's "taxonomic_class_id" value
@@ -100,6 +101,7 @@
  * @method Doctrine_Collection    getPatentDepositIsolators()         Returns the current record's "PatentDepositIsolators" collection
  * @method Doctrine_Collection    getPatentDepositCollectors()        Returns the current record's "PatentDepositCollectors" collection
  * @method Doctrine_Collection    getPatentDepositMaintenanceStatus() Returns the current record's "PatentDepositMaintenanceStatus" collection
+ * @method Doctrine_Collection    getCryopreservations()              Returns the current record's "Cryopreservations" collection
  * @method PatentDeposit          setId()                             Sets the current record's "id" value
  * @method PatentDeposit          setTaxonomicClassId()               Sets the current record's "taxonomic_class_id" value
  * @method PatentDeposit          setGenusId()                        Sets the current record's "genus_id" value
@@ -147,6 +149,7 @@
  * @method PatentDeposit          setPatentDepositIsolators()         Sets the current record's "PatentDepositIsolators" collection
  * @method PatentDeposit          setPatentDepositCollectors()        Sets the current record's "PatentDepositCollectors" collection
  * @method PatentDeposit          setPatentDepositMaintenanceStatus() Sets the current record's "PatentDepositMaintenanceStatus" collection
+ * @method PatentDeposit          setCryopreservations()              Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -349,6 +352,10 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              'foreign' => 'patent_deposit_id'));
 
         $this->hasMany('PatentDepositMaintenanceStatus', array(
+             'local' => 'id',
+             'foreign' => 'patent_deposit_id'));
+
+        $this->hasMany('Cryopreservation as Cryopreservations', array(
              'local' => 'id',
              'foreign' => 'patent_deposit_id'));
 

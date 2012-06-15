@@ -1108,10 +1108,12 @@ ProjectName:
 Cryopreservation:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
-    subject:  { type: enum, values: [sample, strain, "external_strain"] }
+    subject:  { type: enum, values: [sample, strain, "external_strain", "patent_deposit", "maintenance_deposit"] }
     strain_id:  { type: integer }
     sample_id:  { type: integer }
     external_strain_id:  { type: integer }
+    patent_deposit_id:  { type: integer }
+    maintenance_deposit_id:  { type: integer }
     cryopreservation_method_id:  { type: integer, notnull: true }
     cryopreservation_date:  { type: date, notnull: true }
     first_replicate:  { type: string(10) }
@@ -1125,6 +1127,8 @@ Cryopreservation:
     Sample:  { foreignAlias: Cryopreservations }
     Strain:  { foreignAlias: Cryopreservations }
     ExternalStrain:  { foreignAlias: Cryopreservations }
+    PatentDeposit:  { foreignAlias: Cryopreservations }
+    MaintenanceDeposit:  { foreignAlias: Cryopreservations }
     CryopreservationMethod:  { foreignAlias: Cryopreservations }
   indexes:
     cryopreservation_date:

@@ -545,12 +545,12 @@ cryopreservation_search:
 cryopreservation_filter_by_subject_new:
   url:          cryopreservation/new/:subject
   param:        { module: cryopreservation, action: new, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external_strain)", sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)|(maintenance_deposit)|(patent_deposit)", sf_method: [get, head] }
 
 cryopreservation_filter_by_subject_edit:
   url:          cryopreservation/:id/edit/:subject
   param:        { module: cryopreservation, action: edit, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external_strain)", id: \d+, sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)|(maintenance_deposit)|(patent_deposit)", id: \d+, sf_method: [get, head] }
 
 cryopreservation_find_samples:
   url:    cryopreservation/findSamples/:term
@@ -575,6 +575,16 @@ cryopreservation_search_pagination:
 cryopreservation_find_external_strains:
   url:          cryopreservation/findExternalStrains/:term
   param:        { module: cryopreservation, action: findExternalStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_find_maintenance_deposits:
+  url:          cryopreservation/findMaintenanceDeposits/:term
+  param:        { module: cryopreservation, action: findMaintenanceDeposits }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_find_patent_deposits:
+  url:          cryopreservation/findPatentDeposits/:term
+  param:        { module: cryopreservation, action: findPatentDeposits }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
 ###

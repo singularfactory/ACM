@@ -10,6 +10,8 @@
  * @property integer $strain_id
  * @property integer $sample_id
  * @property integer $external_strain_id
+ * @property integer $patent_deposit_id
+ * @property integer $maintenance_deposit_id
  * @property integer $cryopreservation_method_id
  * @property date $cryopreservation_date
  * @property string $first_replicate
@@ -22,6 +24,8 @@
  * @property Sample $Sample
  * @property Strain $Strain
  * @property ExternalStrain $ExternalStrain
+ * @property PatentDeposit $PatentDeposit
+ * @property MaintenanceDeposit $MaintenanceDeposit
  * @property CryopreservationMethod $CryopreservationMethod
  * 
  * @method integer                getId()                         Returns the current record's "id" value
@@ -29,6 +33,8 @@
  * @method integer                getStrainId()                   Returns the current record's "strain_id" value
  * @method integer                getSampleId()                   Returns the current record's "sample_id" value
  * @method integer                getExternalStrainId()           Returns the current record's "external_strain_id" value
+ * @method integer                getPatentDepositId()            Returns the current record's "patent_deposit_id" value
+ * @method integer                getMaintenanceDepositId()       Returns the current record's "maintenance_deposit_id" value
  * @method integer                getCryopreservationMethodId()   Returns the current record's "cryopreservation_method_id" value
  * @method date                   getCryopreservationDate()       Returns the current record's "cryopreservation_date" value
  * @method string                 getFirstReplicate()             Returns the current record's "first_replicate" value
@@ -41,12 +47,16 @@
  * @method Sample                 getSample()                     Returns the current record's "Sample" value
  * @method Strain                 getStrain()                     Returns the current record's "Strain" value
  * @method ExternalStrain         getExternalStrain()             Returns the current record's "ExternalStrain" value
+ * @method PatentDeposit          getPatentDeposit()              Returns the current record's "PatentDeposit" value
+ * @method MaintenanceDeposit     getMaintenanceDeposit()         Returns the current record's "MaintenanceDeposit" value
  * @method CryopreservationMethod getCryopreservationMethod()     Returns the current record's "CryopreservationMethod" value
  * @method Cryopreservation       setId()                         Sets the current record's "id" value
  * @method Cryopreservation       setSubject()                    Sets the current record's "subject" value
  * @method Cryopreservation       setStrainId()                   Sets the current record's "strain_id" value
  * @method Cryopreservation       setSampleId()                   Sets the current record's "sample_id" value
  * @method Cryopreservation       setExternalStrainId()           Sets the current record's "external_strain_id" value
+ * @method Cryopreservation       setPatentDepositId()            Sets the current record's "patent_deposit_id" value
+ * @method Cryopreservation       setMaintenanceDepositId()       Sets the current record's "maintenance_deposit_id" value
  * @method Cryopreservation       setCryopreservationMethodId()   Sets the current record's "cryopreservation_method_id" value
  * @method Cryopreservation       setCryopreservationDate()       Sets the current record's "cryopreservation_date" value
  * @method Cryopreservation       setFirstReplicate()             Sets the current record's "first_replicate" value
@@ -59,6 +69,8 @@
  * @method Cryopreservation       setSample()                     Sets the current record's "Sample" value
  * @method Cryopreservation       setStrain()                     Sets the current record's "Strain" value
  * @method Cryopreservation       setExternalStrain()             Sets the current record's "ExternalStrain" value
+ * @method Cryopreservation       setPatentDeposit()              Sets the current record's "PatentDeposit" value
+ * @method Cryopreservation       setMaintenanceDeposit()         Sets the current record's "MaintenanceDeposit" value
  * @method Cryopreservation       setCryopreservationMethod()     Sets the current record's "CryopreservationMethod" value
  * 
  * @package    bna_green_house
@@ -83,6 +95,8 @@ abstract class BaseCryopreservation extends sfDoctrineRecord
               0 => 'sample',
               1 => 'strain',
               2 => 'external_strain',
+              3 => 'patent_deposit',
+              4 => 'maintenance_deposit',
              ),
              ));
         $this->hasColumn('strain_id', 'integer', null, array(
@@ -92,6 +106,12 @@ abstract class BaseCryopreservation extends sfDoctrineRecord
              'type' => 'integer',
              ));
         $this->hasColumn('external_strain_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('patent_deposit_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
+        $this->hasColumn('maintenance_deposit_id', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
@@ -152,6 +172,14 @@ abstract class BaseCryopreservation extends sfDoctrineRecord
 
         $this->hasOne('ExternalStrain', array(
              'local' => 'external_strain_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('PatentDeposit', array(
+             'local' => 'patent_deposit_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('MaintenanceDeposit', array(
+             'local' => 'maintenance_deposit_id',
              'foreign' => 'id'));
 
         $this->hasOne('CryopreservationMethod', array(

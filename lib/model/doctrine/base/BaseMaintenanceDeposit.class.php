@@ -51,6 +51,7 @@
  * @property Doctrine_Collection $MaintenanceDepositIsolators
  * @property Doctrine_Collection $MaintenanceDepositCollectors
  * @property Doctrine_Collection $MaintenanceDepositMaintenanceStatus
+ * @property Doctrine_Collection $Cryopreservations
  * 
  * @method integer                getId()                                  Returns the current record's "id" value
  * @method integer                getTaxonomicClassId()                    Returns the current record's "taxonomic_class_id" value
@@ -98,6 +99,7 @@
  * @method Doctrine_Collection    getMaintenanceDepositIsolators()         Returns the current record's "MaintenanceDepositIsolators" collection
  * @method Doctrine_Collection    getMaintenanceDepositCollectors()        Returns the current record's "MaintenanceDepositCollectors" collection
  * @method Doctrine_Collection    getMaintenanceDepositMaintenanceStatus() Returns the current record's "MaintenanceDepositMaintenanceStatus" collection
+ * @method Doctrine_Collection    getCryopreservations()                   Returns the current record's "Cryopreservations" collection
  * @method MaintenanceDeposit     setId()                                  Sets the current record's "id" value
  * @method MaintenanceDeposit     setTaxonomicClassId()                    Sets the current record's "taxonomic_class_id" value
  * @method MaintenanceDeposit     setGenusId()                             Sets the current record's "genus_id" value
@@ -144,6 +146,7 @@
  * @method MaintenanceDeposit     setMaintenanceDepositIsolators()         Sets the current record's "MaintenanceDepositIsolators" collection
  * @method MaintenanceDeposit     setMaintenanceDepositCollectors()        Sets the current record's "MaintenanceDepositCollectors" collection
  * @method MaintenanceDeposit     setMaintenanceDepositMaintenanceStatus() Sets the current record's "MaintenanceDepositMaintenanceStatus" collection
+ * @method MaintenanceDeposit     setCryopreservations()                   Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -341,6 +344,10 @@ abstract class BaseMaintenanceDeposit extends sfDoctrineRecord
              'foreign' => 'maintenance_deposit_id'));
 
         $this->hasMany('MaintenanceDepositMaintenanceStatus', array(
+             'local' => 'id',
+             'foreign' => 'maintenance_deposit_id'));
+
+        $this->hasMany('Cryopreservation as Cryopreservations', array(
              'local' => 'id',
              'foreign' => 'maintenance_deposit_id'));
 
