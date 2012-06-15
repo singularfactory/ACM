@@ -3,4 +3,5 @@ cache
 log
 uploads
 config/databases.yml
+config/app.yml
 /web/uploads/tmp/*.html
