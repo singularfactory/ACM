@@ -180,4 +180,8 @@ class MaintenanceDeposit extends BaseMaintenanceDeposit {
 			return "$path/$filename";
 		}
 	}
+
+	public function getGenusAndSpecies() {
+		return sprintf('%s %s', $this->getGenus(), $this->getSpecies());
+	}
 }

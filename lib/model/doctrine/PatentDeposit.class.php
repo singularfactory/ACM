@@ -192,4 +192,8 @@ class PatentDeposit extends BasePatentDeposit {
 			return "$path/$filename";
 		}
 	}
+
+	public function getGenusAndSpecies() {
+		return sprintf('%s %s', $this->getGenus(), $this->getSpecies());
+	}
 }
