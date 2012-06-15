@@ -31,6 +31,7 @@
 <?php slot('main_header') ?>
 <span>Create labels for identification</span>
 <?php include_partial('global/back_header_action', array('module' => 'isolation')) ?>
+<?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to isolation', 'module' => 'isolation', 'id' => $isolation->getId())) ?>
 <?php end_slot() ?>
 
 <form action="<?php echo url_for('@isolation_create_label?id='.$isolation->getId()) ?>" method="POST">

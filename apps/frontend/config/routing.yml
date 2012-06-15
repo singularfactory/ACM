@@ -63,6 +63,11 @@ sample_search_pagination:
   param:        { module: sample, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+sample_create_label:
+  url:          sample/create_label/:id
+  param:        { module: sample, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Strain model related routes
 ###

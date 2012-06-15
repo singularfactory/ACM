@@ -30,6 +30,7 @@
 <?php slot('main_header') ?>
 <span>Sample <?php echo $sample->getCode() ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'sample')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@sample_create_label?id='.$sample->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
 <?php end_slot() ?>

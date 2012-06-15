@@ -30,11 +30,11 @@
 
 <?php slot('main_header') ?>
 <span>Create labels for identification</span>
-<?php include_partial('global/back_header_action', array('module' => 'identification')) ?>
-<?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to identification', 'module' => 'identification', 'id' => $identification->getId())) ?>
+<?php include_partial('global/back_header_action', array('module' => 'sample')) ?>
+<?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to sample', 'module' => 'sample', 'id' => $sample->getId())) ?>
 <?php end_slot() ?>
 
-<form action="<?php echo url_for('@identification_create_label?id='.$identification->getId()) ?>" method="POST">
+<form action="<?php echo url_for('@sample_create_label?id='.$sample->getId()) ?>" method="POST">
 	<?php echo $form->renderHiddenFields() ?>
 	<div id="left_side_form">
 		<div id="copies">
@@ -44,17 +44,17 @@
 	</div>
 	
 	<div id="right_side_form">
-		<table id="identification_list">
+		<table id="sample_list">
 			<thead>
 				<tr>
-					<th>Sample</th>
-					<th>Date</th>
+					<th>Code</th>
+					<th>Collection date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td class="sample_code"><?php echo $identification->getSample()->getCode() ?></td>
-					<td class="date identification_date"><?php echo $identification->getIdentificationDate() ?></td>
+					<td class="sample_code"><?php echo $sample->getCode() ?></td>
+					<td class="date collection_date"><?php echo $sample->getCollectionDate() ?></td>
 				</tr>
 			</tbody>
 		</table>
