@@ -47,11 +47,11 @@ class Identification extends BaseIdentification {
 	}
 
 	public function getFormattedPetitioner() {
-		$petitioner = $this->_get('petitioner');
-		if ( empty($petitioner) ) {
+		$petitioner = $this->getPetitioner();
+		if (!$petitioner) {
 			return sfConfig::get('app_no_data_message');
 		}
-		return $petitioner;
+		return sprintf('%s %s', $petitioner->getName(), $petitioner->getSurname());
 	}
 
 	public function getRequestDocumentUrl() {
