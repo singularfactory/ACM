@@ -57,8 +57,9 @@
 	<?php $genus = $externalStrain->getGenus() ?>
 	<?php $species = $externalStrain->getSpecies() ?>
 	<?php $authority = $externalStrain->getAuthority() ?>
-	<?php $environment = $externalStrain->getEnvironment() ?>
-	<?php $habitat = $externalStrain->getHabitat() ?>
+	<?php $sample = $externalStrain->getSample() ?>
+	<?php $environment = $sample->getEnvironment() ?>
+	<?php $habitat = $sample->getHabitat() ?>
 <?php elseif( $isolation->getSample()->exists() ): ?>
 	<?php $sample = $isolation->getSample() ?>
 	<?php $code = $sample->getCode() ?>
