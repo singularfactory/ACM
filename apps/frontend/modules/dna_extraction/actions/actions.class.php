@@ -24,19 +24,14 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * dna_extraction actions.
  *
  * @package ACM.Frontend
  * @subpackage dna_extraction
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class dna_extractionActions extends MyActions {
-
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'DnaExtraction', array('init' => false, 'sort_column' => 'Strain.code'));
@@ -202,5 +197,32 @@ class dna_extractionActions extends MyActions {
 
 		$this->getUser()->setFlash('notice', 'The information on this DNA extraction has some errors you need to fix', false);
 	}
+	/**
+	 * Create labels for DnaExtraction records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		$id = $request->getParameter('id');
+		$this->forward404Unless($dnaExtraction = DnaExtractionTable::getInstance()->find(array($id)), sprintf('Object DNA extraction does not exist (%s).', $id));
 
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->label = $dnaExtraction;
+			$this->copies = $values['copies'];
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "dna_extraction_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->form = new DnaExtractionLabelForm($dnaExtraction);
+			$this->dnaExtraction = $dnaExtraction;
+		}
+	}
 }

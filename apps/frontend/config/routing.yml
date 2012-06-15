@@ -178,6 +178,11 @@ dna_extraction_search_pagination:
   param:        { module: dna_extraction, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+dna_extraction_create_label:
+  url:          dna_extraction/create_label/:id
+  param:        { module: dna_extraction, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Pcr model related routes
 ###
