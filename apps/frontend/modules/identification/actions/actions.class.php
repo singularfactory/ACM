@@ -24,19 +24,14 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * identification actions.
  *
  * @package ACM.Frontend
  * @subpackage identification
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class identificationActions extends MyActions {
-
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Identification', array('init' => false, 'sort_column' => 'id'));
@@ -90,12 +85,12 @@ class identificationActions extends MyActions {
 	public function executeCreate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new IdentificationForm();
+		$this->form = new IdentificationForm();
 		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('new');
+		$this->setTemplate('new');
 	}
 
 	public function executeEdit(sfWebRequest $request) {
@@ -105,12 +100,12 @@ class identificationActions extends MyActions {
 
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($identification = IdentificationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
-    $this->form = new IdentificationForm($identification);
+		$this->forward404Unless($identification = IdentificationTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object identification does not exist (%s).', $request->getParameter('id')));
+		$this->form = new IdentificationForm($identification);
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('edit');
+		$this->setTemplate('edit');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -170,4 +165,32 @@ class identificationActions extends MyActions {
 		$this->getUser()->setFlash('notice', 'The information on this identification request has some errors you need to fix', false);
 	}
 
+	/**
+	 * Create labels for Identification records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		$id = $request->getParameter('id');
+		$this->forward404Unless($identification = IdentificationTable::getInstance()->find(array($id)), sprintf('Object identification does not exist (%s).', $id));
+
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->label = IdentificationTable::getInstance()->findOneById($id);
+			$this->copies = $values['copies'];
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "identification_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->form = new IdentificationLabelForm($identification);
+			$this->identification = IdentificationTable::getInstance()->find(array($request->getParameter('id')));
+		}
+	}
 }

@@ -589,6 +589,11 @@ identification_search_pagination:
   param:        { module: identification, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+identification_create_label:
+  url:          identification/create_label/:id
+  param:        { module: identification, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Glossary model related routes
 ###
