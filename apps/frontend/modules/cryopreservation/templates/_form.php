@@ -75,6 +75,27 @@
 		</div>
 		<?php endif ?>
 
+		<?php if (isset($form['patent_deposit_id']) ): ?>
+		<div id="patent_deposit_id">
+			<?php echo $form['patent_deposit_id']->renderLabel() ?>
+			<?php echo $form['patent_deposit_id']->renderError() ?>
+			<?php echo $form['patent_deposit_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a patent deposit code...':$form->getObject()->getExternalStrain()->getFullCode(); ?>" id="cryopreservation_patent_deposit_search" />
+			<a href="<?php echo url_for('@cryopreservation_find_patent_deposits?term=') ?>" class="cryopreservation_patent_deposit_numbers_url"></a>
+		</div>
+		<?php endif ?>
+
+		<?php if (isset($form['maintenance_deposit_id']) ): ?>
+		<div id="maintenance_deposit_id">
+			<?php echo $form['maintenance_deposit_id']->renderLabel() ?>
+			<?php echo $form['maintenance_deposit_id']->renderError() ?>
+			<?php echo $form['maintenance_deposit_id']->renderHelp() ?>
+			<input type="text" value="<?php echo ($form->isNew())?'Type a maintenance deposit code...':$form->getObject()->getExternalStrain()->getFullCode(); ?>" id="cryopreservation_maintenance_deposit_search" />
+			<a href="<?php echo url_for('@cryopreservation_find_maintenance_deposits?term=') ?>" class="cryopreservation_maintenance_deposit_numbers_url"></a>
+		</div>
+		<?php endif ?>
+
+
 		<div id="cryopreservation_method_id">
 			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
 			<?php echo $form['cryopreservation_method_id']->renderError() ?>

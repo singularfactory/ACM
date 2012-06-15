@@ -811,7 +811,76 @@ $(document).ready(function(){
 	});
 	
 	
-	
+	// Add a search box for PatentDeposit and MaintenanceDeposit in Cryopreservation forms
+	var patentDepositSearchBoxDefault = "Type a patent deposit code...";
+	$('#cryopreservation_patent_deposit_search').focus(function(){
+		if ( $(this).attr("value") === patentDepositSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		}
+	});
+	$('#cryopreservation_patent_deposit_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", patentDepositSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#cryopreservation_patent_deposit_search').val() !== patentDepositSearchBoxDefault ) {
+		$('#cryopreservation_patent_deposit_search').css("color", "black");
+		$('#cryopreservation_patent_deposit_search').css("font-size", "12px");
+	}
+
+	$("#cryopreservation_patent_deposit_search").autocomplete({
+		minLength: 1,
+		source: function(term, add) {
+			var url = $('a.cryopreservation_patent_deposit_numbers_url').attr('href') + $("#cryopreservation_patent_deposit_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#cryopreservation_patent_deposit_search" ).val( ui.item.label );
+			$( "#cryopreservation_patent_deposit_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+
+	var maintenanceDepositSearchBoxDefault = "Type a maintenance deposit code...";
+	$('#cryopreservation_maintenance_deposit_search').focus(function(){
+		if ( $(this).attr("value") === maintenanceDepositSearchBoxDefault ){
+			$(this).attr("value", "");
+			$(this).css("color", "black");
+			$(this).css("font-size", "12px");
+		}
+	});
+	$('#cryopreservation_maintenance_deposit_search').blur(function(){
+		if( $(this).attr("value") === "" ) {
+			$(this).attr("value", maintenanceDepositSearchBoxDefault);
+			$(this).css("color", "#888");
+			$(this).css("font-size", "11px");
+		}
+	});
+
+	if ( $('#cryopreservation_maintenance_deposit_search').val() !== maintenanceDepositSearchBoxDefault ) {
+		$('#cryopreservation_maintenance_deposit_search').css("color", "black");
+		$('#cryopreservation_maintenance_deposit_search').css("font-size", "12px");
+	}
+
+	$("#cryopreservation_maintenance_deposit_search").autocomplete({
+		minLength: 1,
+		source: function(term, add) {
+			var url = $('a.cryopreservation_maintenance_deposit_numbers_url').attr('href') + $("#cryopreservation_maintenance_deposit_search").val();
+			$.getJSON(url, function(data){ add(data); });
+		},
+		select: function(event, ui) {
+			$( "#cryopreservation_maintenance_deposit_search" ).val( ui.item.label );
+			$( "#cryopreservation_maintenance_deposit_id" ).val( ui.item.id );
+			return false;
+		},
+	});
+
+
 	// Add a search box for Strain clones
 	var strainIsClone = false;
 	$("#bea_code #code input").blur(function(){

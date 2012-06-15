@@ -54,6 +54,15 @@ class PatentDepositTable extends Doctrine_Table {
 		}
 	}
 
+	public function getDefaultPatentDepositId() {
+		$deposit = $this->createQuery('d')->fetchOne();
+		if ($deposit) {
+			return (int)$deposit->getId();
+		}
+
+		return 0;
+	}
+
 	public function availableSupervisorsQuery() {
 		return sfGuardUserTable::getInstance()->createQuery('Supervisor')
 			->distinct()

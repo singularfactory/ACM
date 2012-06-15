@@ -24,18 +24,14 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * MyActions actions class.
  *
  * @package ACM.Frontend
  * @subpackage frontend
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
  */
 class MyActions extends sfActions {
-
 	/**
 	 * paginationOptions
 	 *
@@ -68,7 +64,6 @@ class MyActions extends sfActions {
 	 * @param string $table Name of the table to paginate
 	 * @param array $options Options to configure the pagination
 	 * @return sfDoctrinePager
-	 * @author Eliezer Talon
 	 */
 	protected function buildPagination(sfWebRequest $request, $table, array $options = array()) {
 		// Merge default options with requested options
@@ -130,7 +125,6 @@ class MyActions extends sfActions {
 	 * mainAlias
 	 *
 	 * @return string
-	 * @author Eliezer Talon
 	 */
 	protected function mainAlias() {
 		return $this->mainAlias;
@@ -140,7 +134,6 @@ class MyActions extends sfActions {
 	 * relatedAlias
 	 *
 	 * @return string
-	 * @author Eliezer Talon
 	 */
 	protected function relatedAlias() {
 		return $this->relatedAlias;
@@ -152,7 +145,6 @@ class MyActions extends sfActions {
 	 * @param array $form A form sent by the user
 	 * @param string $widgetName Alternate name of the widget that stores the picture information
 	 * @return array List of picture filenames
-	 * @author Eliezer Talon
 	 */
 	protected function getRemovablePictures(sfFormObject $form, $widgetName = 'Pictures') {
 		$filenames = array();
@@ -174,7 +166,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param array $filenames List of filenames to be removed
 	 * @return void
-	 * @author Eliezer Talon
 	 */
 	protected function removePicturesFromFilesystem(array $filenames, $subdirectory) {
 		if ( !empty($filenames) ) {
@@ -202,7 +193,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param array $files List of files to be removed
 	 * @return void
-	 * @author Eliezer Talon
 	 */
 	protected function removeDocumentsFromFilesystem(array $files) {
 		foreach( $files as $file ) {
@@ -215,7 +205,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return void
-	 * @author Eliezer Talon
 	 */
 	public function executeDelete(sfWebRequest $request) {
 		$request->checkCSRFProtection();
@@ -261,7 +250,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return void
-	 * @author Eliezer Talon
 	 */
 	public function executeUploadProgress(sfWebRequest $request) {
 		$apc_status = apc_fetch( 'upload_'.$request->getParameter('id'));
@@ -284,7 +272,6 @@ class MyActions extends sfActions {
 	 * @param string $path If null, it's assumed that the picture is located in 'images' directory
 	 *
 	 * @return string Base64 encoded picture
-	 * @author Eliezer Talon
 	 */
 	public function getBase64EncodedPicture($filename, $path = '/images') {
 		$picture = fread(fopen("$path/$filename", 'r'), filesize("$path/$filename"));
@@ -298,7 +285,6 @@ class MyActions extends sfActions {
 	 * @param string $path If null, it's assumed that the picture is located in 'images' directory
 	 *
 	 * @return string Filename of the PNG picture in local filesystem
-	 * @author Eliezer Talon
 	 */
 	public function saveBase64EncodedPicture($data = '', $path = '/images') {
 		// Create the picture and save it
@@ -342,8 +328,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return JSON object with location id, name and GPS coordinates
-	 * @author Eliezer Talon
-	 * @version 2011-04-20
 	 */
 	public function executeFindLocations(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
@@ -367,8 +351,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return JSON object with sample id and code
-	 * @author Eliezer Talon
-	 * @version 2011-06-28
 	 */
 	public function executeFindSamples(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
@@ -390,8 +372,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return JSON object with strain id and code
-	 * @author Eliezer Talon
-	 * @version 2011-07-07
 	 */
 	public function executeFindStrains(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
@@ -413,8 +393,6 @@ class MyActions extends sfActions {
 	 *
 	 * @param sfWebRequest $request
 	 * @return JSON object with strain id and code
-	 * @author Eliezer Talon
-	 * @version 2011-07-07
 	 */
 	public function executeFindExternalStrains(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
@@ -427,6 +405,48 @@ class MyActions extends sfActions {
 				);
 			}
 			$this->getResponse()->setContent(json_encode($strains));
+		}
+		return sfView::NONE;
+	}
+
+	/**
+	 * Find the patent deposits that matches a search term
+	 *
+	 * @param sfWebRequest $request
+	 * @return JSON object with patent deposit ID and code
+	 */
+	public function executeFindPatentDeposits(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = PatentDepositTable::getInstance()->findByTerm($request->getParameter('term'));
+			$deposits = array();
+			foreach ($results as $deposit) {
+				$deposits[] = array(
+					'id' => $deposit->getId(),
+					'label' => $deposit->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($deposits));
+		}
+		return sfView::NONE;
+	}
+
+	/**
+	 * Find the maintenance deposits that matches a search term
+	 *
+	 * @param sfWebRequest $request
+	 * @return JSON object with maintenance deposit ID and code
+	 */
+	public function executeFindMaintenanceDeposits(sfWebRequest $request) {
+		if ( $request->isXmlHttpRequest() ) {
+			$results = MaintenanceDepositTable::getInstance()->findByTerm($request->getParameter('term'));
+			$deposits = array();
+			foreach ($results as $deposit) {
+				$deposits[] = array(
+					'id' => $deposit->getId(),
+					'label' => $deposit->getCode(),	// This attribute must be named label due to the jQuery Autocomplete plugin
+				);
+			}
+			$this->getResponse()->setContent(json_encode($deposits));
 		}
 		return sfView::NONE;
 	}

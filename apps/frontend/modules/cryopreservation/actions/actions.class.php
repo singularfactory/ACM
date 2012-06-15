@@ -24,19 +24,14 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * cryopreservation actions.
  *
  * @package ACM.Frontend
  * @subpackage cryopreservation
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class cryopreservationActions extends MyActions {
-
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Cryopreservation', array('init' => false, 'sort_column' => 'id'));
@@ -47,6 +42,8 @@ class cryopreservationActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Strain st")
 				->leftJoin("{$this->mainAlias()}.ExternalStrain est")
 				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("{$this->mainAlias()}.PatentDeposit pd")
+				->leftJoin("{$this->mainAlias()}.MaintenanceDeposit md")
 				->leftJoin("{$this->mainAlias()}.CryopreservationMethod cm")
 				->leftJoin("st.TaxonomicClass tc")
 				->leftJoin("st.Genus g")
@@ -88,6 +85,8 @@ class cryopreservationActions extends MyActions {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain st")
 				->leftJoin("{$this->mainAlias()}.ExternalStrain est")
+				->leftJoin("{$this->mainAlias()}.PatentDeposit pd")
+				->leftJoin("{$this->mainAlias()}.MaintenanceDeposit md")
 				->leftJoin("{$this->mainAlias()}.CryopreservationMethod cm")
 				->leftJoin("st.TaxonomicClass tc")
 				->leftJoin("st.Genus g")
@@ -116,19 +115,37 @@ class cryopreservationActions extends MyActions {
 	protected function configureFormByCryopreservationSubject(sfForm $form, $subject = 'sample') {
 		$form->setDefault('subject', $subject);
 		switch( $subject ) {
-			case 'strain':
-				unset($form['sample_id']);
-				unset($form['external_strain_id']);
-				break;
-			case 'external_strain':
-				unset($form['sample_id']);
-				unset($form['strain_id']);
-				break;
-			case 'sample':
-			default:
-				unset($form['strain_id']);
-				unset($form['external_strain_id']);
-				break;
+		case 'strain':
+			unset($form['sample_id']);
+			unset($form['external_strain_id']);
+			unset($form['patent_deposit_id']);
+			unset($form['maintenance_deposit_id']);
+			break;
+		case 'external_strain':
+			unset($form['sample_id']);
+			unset($form['strain_id']);
+			unset($form['patent_deposit_id']);
+			unset($form['maintenance_deposit_id']);
+			break;
+		case 'sample':
+		default:
+			unset($form['strain_id']);
+			unset($form['external_strain_id']);
+			unset($form['patent_deposit_id']);
+			unset($form['maintenance_deposit_id']);
+			break;
+		case 'patent_deposit':
+			unset($form['sample_id']);
+			unset($form['strain_id']);
+			unset($form['external_strain_id']);
+			unset($form['maintenance_deposit_id']);
+			break;
+		case 'maintenance_deposit':
+			unset($form['sample_id']);
+			unset($form['strain_id']);
+			unset($form['external_strain_id']);
+			unset($form['patent_deposit_id']);
+			break;
 		}
 	}
 
@@ -139,6 +156,8 @@ class cryopreservationActions extends MyActions {
 			$cryopreservation->setStrainId($lastCryopreservation->getStrainId());
 			$cryopreservation->setSampleId($lastCryopreservation->getSampleId());
 			$cryopreservation->setExternalStrainId($lastCryopreservation->getExternalStrainId());
+			$cryopreservation->setPatentDepositId($lastCryopreservation->getPatentDepositId());
+			$cryopreservation->setMaintenanceDepositId($lastCryopreservation->getMaintenanceDepositId());
 			$cryopreservation->setCryopreservationMethodId($lastCryopreservation->getCryopreservationMethodId());
 
 			$this->form = new CryopreservationForm($cryopreservation);
@@ -158,6 +177,8 @@ class cryopreservationActions extends MyActions {
 		$this->hasStrains = (StrainTable::getInstance()->count() > 0)?true:false;
 		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 		$this->hasExternalStrains = (ExternalStrainTable::getInstance()->count() > 0)?true:false;
+		$this->hasPatentDeposits = (PatentDepositTable::getInstance()->count() > 0)?true:false;
+		$this->hasMaintenanceDeposits = (MaintenanceDepositTable::getInstance()->count() > 0)?true:false;
 	}
 
 	public function executeCreate(sfWebRequest $request) {
@@ -169,6 +190,8 @@ class cryopreservationActions extends MyActions {
 		$this->hasStrains = (StrainTable::getInstance()->count() > 0)?true:false;
 		$this->hasSamples = (SampleTable::getInstance()->count() > 0)?true:false;
 		$this->hasExternalStrains = (ExternalStrainTable::getInstance()->count() > 0)?true:false;
+		$this->hasPatentDeposits = (PatentDepositTable::getInstance()->count() > 0)?true:false;
+		$this->hasMaintenanceDeposits = (MaintenanceDepositTable::getInstance()->count() > 0)?true:false;
 
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
@@ -243,5 +266,4 @@ class cryopreservationActions extends MyActions {
 
 		$this->getUser()->setFlash('notice', 'The information on this cryopreservation has some errors you need to fix', false);
 	}
-
 }
