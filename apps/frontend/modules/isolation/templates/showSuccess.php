@@ -102,6 +102,9 @@
 			<dt>Habitat:</dt>
 			<dd><?php echo $habitat ?></dd>
 
+			<dt>Isolation date:</dt>
+			<dd><?php echo $isolation->getIsolationDate() ?></dd>
+
 			<dt>Reception date:</dt>
 			<dd><?php echo $isolation->getReceptionDate() ?></dd>
 

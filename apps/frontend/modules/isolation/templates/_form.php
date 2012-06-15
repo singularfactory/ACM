@@ -92,6 +92,13 @@
 			<?php echo $form['reception_date'] ?>
 		</div>
 
+		<div id="isolation_date" class="date_field">
+			<?php echo $form['isolation_date']->renderLabel() ?>
+			<?php echo $form['isolation_date']->renderError() ?>
+			<?php echo $form['isolation_date']->renderHelp() ?>
+			<?php echo $form['isolation_date'] ?>
+		</div>
+
 		<?php if ( isset($form['location_id']) ): ?>
 		<div id="location">
 			<?php echo $form['location_id']->renderLabel() ?>

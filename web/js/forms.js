@@ -30,15 +30,24 @@ function roundNumber(num, dec) {
 	return result;
 }
 
+function pad(n, len) {
+    s = n.toString();
+    if (s.length < len) {
+        s = ('0000000000' + s).slice(-len);
+    }
+    return s;
+}
+
 // Converts decimal degrees into degrees minutes and seconds
 function decimalDegreesToDMS(coordinate) {
 	var degrees = Math.floor(Math.abs(coordinate));
 	var tmp = (Math.abs(coordinate) - degrees) * 60.0;
 	var minutes = Math.floor(tmp);
 	var seconds = Math.ceil((tmp - minutes) * 60);
-
+	
+	degrees = pad(degrees,2);
 	if ( coordinate < 0 ) {
-		degrees = degrees * -1;
+		degrees = '-'+degrees;
 	}
 	return degrees + 'º' + minutes + "'" + seconds + '"';
 }

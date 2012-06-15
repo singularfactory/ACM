@@ -344,6 +344,7 @@
 		<table>
 			<tr>
 				<th class="date">Extraction date</th>
+				<th class="date">Arrival date</th>
 				<th class="description">Extraction kit</th>
 				<th class="link">Concentration</th>
 				<th class="link">Aliquots</th>
@@ -355,6 +356,17 @@
 						<?php
 							if ( $date = $dnaExtraction->getExtractionDate() ) {
 								 $date = format_date($dnaExtraction->getExtractionDate(), 'p');
+							}
+							else {
+								$date = sfConfig::get('app_no_data_message');
+							}
+							echo link_to($date, $url);
+						?>
+					</td>
+					<td>
+						<?php
+							if ( $date = $dnaExtraction->getArrivalDate() ) {
+								 $date = format_date($dnaExtraction->getArrivalDate(), 'p');
 							}
 							else {
 								$date = sfConfig::get('app_no_data_message');
