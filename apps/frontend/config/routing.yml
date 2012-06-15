@@ -515,6 +515,11 @@ isolation_search_pagination:
   param:        { module: isolation, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+isolation_create_label:
+  url:          isolation/create_label/:id
+  param:        { module: isolation, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Cryopreservation model related routes
 ###

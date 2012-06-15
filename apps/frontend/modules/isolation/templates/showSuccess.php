@@ -72,6 +72,7 @@
 <?php slot('main_header') ?>
 <span><?php echo $isolationSubject ?> <?php echo $code ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'isolation')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@isolation_create_label?id='.$isolation->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'isolation', 'id' => $isolation->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'isolation', 'id' => $isolation->getId())) ?>
 <?php end_slot() ?>

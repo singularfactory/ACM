@@ -28,14 +28,14 @@
  */
 
 /**
- * IdentificationLabel form
+ * IsolationLabel form
  *
  * @package ACM.Lib.Form
  * @since 1.2
  */
-class IdentificationLabelForm extends LabelForm {
+class IsolationLabelForm extends LabelForm {
 	/**
-	 * Configures form for identification labels
+	 * Configures form for isolation labels
 	 *
 	 * @return void
 	 */
@@ -58,6 +58,6 @@ class IdentificationLabelForm extends LabelForm {
 	 * Returns the name of form associated model
 	 */
 	public function getModelName() {
-		return 'Identification';
+		return 'Isolation';
 	}
 }

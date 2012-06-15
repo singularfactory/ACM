@@ -190,7 +190,7 @@ class identificationActions extends MyActions {
 			throw new sfStopException();
 		} else {
 			$this->form = new IdentificationLabelForm($identification);
-			$this->identification = IdentificationTable::getInstance()->find(array($request->getParameter('id')));
+			$this->identification = $identification;
 		}
 	}
 }
