@@ -37,7 +37,6 @@
  * @since 1.0
  */
 class PatentDeposit extends BasePatentDeposit {
-
 	public function getCode() {
 		return $this->getDepositorCode();
 	}
@@ -193,5 +192,4 @@ class PatentDeposit extends BasePatentDeposit {
 			return "$path/$filename";
 		}
 	}
-
 }

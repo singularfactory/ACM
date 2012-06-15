@@ -380,6 +380,16 @@ patent_deposit_search_pagination:
   param:        { module: patent_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+patent_deposit_create_label:
+  url:          patent_deposit/create_label
+  param:        { module: patent_deposit, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+patent_deposit_create_label_get_field:
+  url:          patent_deposit/create_label/get_label_field/:field/:value
+  param:        { module: patent_deposit, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
+
 ###
 # MaintenanceDeposit model related routes
 ###
@@ -407,6 +417,16 @@ maintenance_deposit_search_pagination:
   param:        { module: maintenance_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+maintenance_deposit_create_label:
+  url:          maintenance_deposit/create_label
+  param:        { module: maintenance_deposit, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+maintenance_deposit_create_label_get_field:
+  url:          maintenance_deposit/create_label/get_label_field/:field/:value
+  param:        { module: maintenance_deposit, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
+
 ###
 # Research collection related routes
 ###
@@ -433,6 +453,16 @@ external_strain_search_pagination:
   url:          external_strain/search/:criteria/page/:page
   param:        { module: external_strain, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
+external_strain_create_label:
+  url:          external_strain/create_label
+  param:        { module: external_strain, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+external_strain_create_label_get_field:
+  url:          external_strain/create_label/get_label_field/:field/:value
+  param:        { module: external_strain, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
 
 ###
 # Isolation model related routes

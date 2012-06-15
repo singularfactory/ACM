@@ -37,7 +37,6 @@
  * @since 1.0
  */
 class MaintenanceDeposit extends BaseMaintenanceDeposit {
-
 	public function getCode() {
 		return $this->getDepositorCode();
 	}
@@ -181,5 +180,4 @@ class MaintenanceDeposit extends BaseMaintenanceDeposit {
 			return "$path/$filename";
 		}
 	}
-
 }

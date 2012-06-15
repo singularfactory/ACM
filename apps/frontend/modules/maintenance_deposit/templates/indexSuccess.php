@@ -28,9 +28,10 @@
 <?php use_helper('Date') ?>
 
 <?php slot('main_header') ?>
-<span>All maintenance deposits</span>
+	<span>All maintenance deposits</span>
 	<?php include_partial('global/search_box_header_action', array('route' => '@maintenance_deposit_search?criteria=')) ?>
-<?php include_partial('global/new_header_action', array('message' => 'Add a new maintenance_deposit', 'route' => '@maintenance_deposit_new')) ?>
+	<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@maintenance_deposit_create_label')) ?>
+	<?php include_partial('global/new_header_action', array('message' => 'Add a new maintenance_deposit', 'route' => '@maintenance_deposit_new')) ?>
 <?php end_slot() ?>
 
 <?php if ( $pager->count() ): ?>

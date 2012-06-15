@@ -112,6 +112,18 @@ td.purchase_item_product { width: 150px; }
 td.collectors_name { width: 280px }
 td.glossary_term { width: 280px }
 
+td.patent_deposit_depositor_code, td.maintenance_deposit_depositor_code, td.external_strain_code {
+	width: 75px;
+}
+
+td.patent_deposit_depositor_name, td.maintenance_deposit_depositor_name {
+	width: 150px;
+}
+
+td.patent_deposit_name, td.maintenance_deposit_name, td.external_strain_name {
+	width: 275px;
+}
+
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,
 th.extraction_date, td.extraction_date,

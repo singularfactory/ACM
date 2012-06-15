@@ -28,9 +28,10 @@
 <?php use_helper('Date') ?>
 
 <?php slot('main_header') ?>
-<span>All patent deposits</span>
+	<span>All patent deposits</span>
 	<?php include_partial('global/search_box_header_action', array('route' => '@patent_deposit_search?criteria=')) ?>
-<?php include_partial('global/new_header_action', array('message' => 'Add a new patent_deposit', 'route' => '@patent_deposit_new')) ?>
+	<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@patent_deposit_create_label')) ?>
+	<?php include_partial('global/new_header_action', array('message' => 'Add a new patent_deposit', 'route' => '@patent_deposit_new')) ?>
 <?php end_slot() ?>
 
 <?php if ( $pager->count() ): ?>

@@ -60,11 +60,18 @@ function addAxenicityListener() {
     $('#axenicity').nextAll().remove();
     clearResults();
 
-    $.get('create_label/get_label_field/container/' + is_axenic, function(result){
-      $('#left_side_form').append(result);
-      addContainerListener();
-    });
-  });
+		if ($('form.patent-deposit').length || $('form.maintenance-deposit').length) {
+			$.get('create_label/get_label_field/culture_medium/' + is_axenic, function(result){
+				$('#left_side_form').append(result);
+				addCultureMediumListener();
+			});
+		} else {
+			$.get('create_label/get_label_field/container/' + is_axenic, function(result){
+				$('#left_side_form').append(result);
+				addContainerListener();
+			});
+		}
+	});
 
 }
 

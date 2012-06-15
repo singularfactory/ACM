@@ -15,7 +15,7 @@ table {
 
 p {
 	margin: 0em;
-	padding: 3px 0px;
+	padding: 0em;
 }
 
 tr.label_items { }
@@ -33,14 +33,6 @@ p.label_item_genus, p.label_item_species {
 	display:inline;
 	font-style: italic;
 	padding: 0px;
-}
-
-p.label_item_taxonomic_class {
-
-}
-
-p.label_item_culture_medium {
-	/*display: inline;*/
 }
 
 p.label_item_transfer_interval {
