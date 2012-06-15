@@ -50,6 +50,20 @@
 	<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
 	<?php $genus = sfConfig::get('app_no_data_message') ?>
 	<?php $species = sfConfig::get('app_no_data_message') ?>
+<?php elseif( $cryopreservation->getPatentDeposit()->exists() ): ?>
+	<?php $patentDeposit = $cryopreservation->getPatentDeposit() ?>
+	<?php $code = $patentDeposit->getCode() ?>
+	<?php $route = "@patent_deposit_show?id={$patentDeposit->getId()}" ?>
+	<?php $taxonomicClass = $patentDeposit->getTaxonomicClass() ?>
+	<?php $genus = $patentDeposit->getGenus() ?>
+	<?php $species = $patentDeposit->getSpecies() ?>
+<?php elseif( $cryopreservation->getMaintenanceDeposit()->exists() ): ?>
+	<?php $maintenanceDeposit = $cryopreservation->getMaintenanceDeposit() ?>
+	<?php $code = $maintenanceDeposit->getCode() ?>
+	<?php $route = "@maintenance_deposit_show?id={$maintenanceDeposit->getId()}" ?>
+	<?php $taxonomicClass = $maintenanceDeposit->getTaxonomicClass() ?>
+	<?php $genus = $maintenanceDeposit->getGenus() ?>
+	<?php $species = $maintenanceDeposit->getSpecies() ?>
 <?php endif ?>
 
 <?php slot('main_header') ?>
