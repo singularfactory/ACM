@@ -804,6 +804,7 @@ PatentDeposit:
     remarks:  { type: string }
     bp1_document:  { type: string(255), notnull: true }
     bp4_document:  { type: string(255), notnull: true }
+    picture:  { type: string(255) }
   relations:
     TaxonomicClass:  { foreignAlias: PatentDeposits }
     Genus:  { foreignAlias: PatentDeposits }
@@ -823,6 +824,8 @@ PatentDeposit:
   actAs:
     Timestampable:
     Date:
+    Picture:
+      moduleName: patent_deposit
 
 PatentDepositRelative:
   columns:

@@ -32,6 +32,7 @@
  * @property string $remarks
  * @property string $bp1_document
  * @property string $bp4_document
+ * @property string $picture
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -81,6 +82,7 @@
  * @method string                 getRemarks()                        Returns the current record's "remarks" value
  * @method string                 getBp1Document()                    Returns the current record's "bp1_document" value
  * @method string                 getBp4Document()                    Returns the current record's "bp4_document" value
+ * @method string                 getPicture()                        Returns the current record's "picture" value
  * @method TaxonomicClass         getTaxonomicClass()                 Returns the current record's "TaxonomicClass" value
  * @method Genus                  getGenus()                          Returns the current record's "Genus" value
  * @method Species                getSpecies()                        Returns the current record's "Species" value
@@ -129,6 +131,7 @@
  * @method PatentDeposit          setRemarks()                        Sets the current record's "remarks" value
  * @method PatentDeposit          setBp1Document()                    Sets the current record's "bp1_document" value
  * @method PatentDeposit          setBp4Document()                    Sets the current record's "bp4_document" value
+ * @method PatentDeposit          setPicture()                        Sets the current record's "picture" value
  * @method PatentDeposit          setTaxonomicClass()                 Sets the current record's "TaxonomicClass" value
  * @method PatentDeposit          setGenus()                          Sets the current record's "Genus" value
  * @method PatentDeposit          setSpecies()                        Sets the current record's "Species" value
@@ -264,6 +267,10 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              'notnull' => true,
              'length' => 255,
              ));
+        $this->hasColumn('picture', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
+             ));
 
         $this->option('type', 'INNODB');
     }
@@ -361,7 +368,11 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $date0 = new Date();
+        $picture0 = new Picture(array(
+             'moduleName' => 'patent_deposit',
+             ));
         $this->actAs($timestampable0);
         $this->actAs($date0);
+        $this->actAs($picture0);
     }
 }

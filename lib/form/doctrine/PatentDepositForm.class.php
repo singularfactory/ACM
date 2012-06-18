@@ -29,13 +29,12 @@
 
 
 /**
- * PatentDeposit form.
+ * PatentDeposit form
  *
  * @package ACM.Lib.Form
  * @since 1.0
  */
 class PatentDepositForm extends BasePatentDepositForm {
-
 	public function configure() {
 		// Configure location
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
@@ -62,26 +61,40 @@ class PatentDepositForm extends BasePatentDepositForm {
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_patent_deposit_dir'),
 			'required' => false,
 			'validated_file_class' => 'myDocument',
-			),
-			array(
-				'invalid' => 'Invalid file',
-				'required' => 'Select a file to upload',
-				'mime_types' => 'The file must be a supported type',
-			)
-		));
+		),
+		array(
+			'invalid' => 'Invalid file',
+			'required' => 'Select a file to upload',
+			'mime_types' => 'The file must be a supported type',
+		)
+	));
 		$this->setValidator('bp4_document', new sfValidatorFile(array(
 			'max_size' => sfConfig::get('app_max_document_size'),
 			'mime_types' => sfConfig::get('app_document_mime_types'),
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_patent_deposit_dir'),
 			'required' => false,
 			'validated_file_class' => 'myDocument',
-			),
-			array(
-				'invalid' => 'Invalid file',
-				'required' => 'Select a file to upload',
-				'mime_types' => 'The file must be a supported type',
-			)
-		));
+		),
+		array(
+			'invalid' => 'Invalid file',
+			'required' => 'Select a file to upload',
+			'mime_types' => 'The file must be a supported type',
+		)
+	));
+
+		// Configure picture management
+		$this->setWidget('picture', new sfWidgetFormInputFileEditable(array(
+			'file_src' => '',
+			'edit_mode' => false,
+			'is_image' => true,
+		)));
+		$this->setValidator('picture', new sfValidatorFile(array(
+			'max_size' => sfConfig::get('app_max_picture_size'),
+			'mime_types' => sfConfig::get('app_image_mime_types'),
+			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_patent_deposit_pictures_dir'),
+			'validated_file_class' => 'sfCustomValidatedFile',
+			'required' => false,
+		)));
 
 		// Create an embedded form to add or edit pictures, relatives and axenity tests
 		$this->embedRelations(array(
@@ -99,7 +112,7 @@ class PatentDepositForm extends BasePatentDepositForm {
 			array('required' => 'The location of the sample is required')));
 
 		// Configure a custom post validator for cryopreservation method
-    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
+		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
 
 		// Configure labels
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
@@ -127,25 +140,22 @@ class PatentDepositForm extends BasePatentDepositForm {
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this deposit. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('bp1_document', 'Enclosed BP1 document');
 		$this->widgetSchema->setHelp('bp4_document', 'Enclosed BP4 document');
-  }
+	}
 
 	public function checkCryopreservedStatusHasMethod($validator, $values) {
 		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
 			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
 			->getId();
 
-		if ( $values['maintenance_status_id'] != $cryopreservedStatusId ) {
+		$statusesList = is_array($values['maintenance_status_list']) ? $values['maintenance_status_list'] : array();
+		if (!in_array($cryopreservedStatusId, $statusesList)) {
 			$values['cryopreservation_method_id'] = null;
-		}
-		else {
-			if ( empty($values['cryopreservation_method_id']) ) {
-				$error = new sfValidatorError($validator, 'You must chose a cryopreservation method');
-				throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
-			}
+		} elseif (empty($values['cryopreservation_method_id'])) {
+			$error = new sfValidatorError($validator, 'You must choose a cryopreservation method');
+			throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
 		}
 
 		// cryopreserved method is consistent with maintenance status, return the clean values
 		return $values;
 	}
-
 }

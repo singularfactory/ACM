@@ -122,7 +122,7 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 			->getId();
 
 		$statusesList = is_array($values['maintenance_status_list']) ? $values['maintenance_status_list'] : array();
-		if (!in_array($cryopreservedStatusId, $values['maintenance_status_list'])) {
+		if (!in_array($cryopreservedStatusId, $statusesList)) {
 			$values['cryopreservation_method_id'] = null;
 		} elseif (empty($values['cryopreservation_method_id'])) {
 			$error = new sfValidatorError($validator, 'You must choose a cryopreservation method');

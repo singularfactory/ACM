@@ -264,6 +264,14 @@
 			<?php echo $form['bp4_document']->renderHelp() ?>
 			<?php echo $form['bp4_document'] ?>
 		</div>
+
+		<div id="model_pictures">
+			<?php echo $form['picture']->renderLabel() ?>
+			<?php echo $form['picture']->renderHelp() ?>
+			<div class="model_picture_filename">
+				<?php echo $form['picture']->render() ?>
+			</div>
+		</div>
 	</div>
 
 	<?php include_partial('global/submit_form_div', array('form' => $form, 'module' => 'patent_deposit', 'title' => 'deposit')) ?>

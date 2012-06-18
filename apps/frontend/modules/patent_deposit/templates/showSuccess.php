@@ -25,7 +25,7 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<?php use_helper('Date'); ?>
+<?php use_helper('Date', 'Thumbnail') ?>
 
 <?php slot('main_header') ?>
 <span>
@@ -114,6 +114,21 @@
 					</tr>
 				<?php endforeach ?>
 			</table>
+		</div>
+		<?php endif ?>
+
+		<?php if ($filename = $patentDeposit->getPicture()): ?>
+		<div id="object_related_models">
+			<div class="object_related_model_list">
+				<h2>Picture</h2>
+				<div class="thumbnail">
+					<div class="thumbnail_image">
+						<a href="<?php echo get_picture_with_path($filename, 'patent_deposit') ?>" rel="thumbnail_link" title="Picture" class="cboxElement">
+							<img src="<?php echo get_thumbnail($filename, 'patent_deposit') ?>" alt="Picture" />
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 		<?php endif ?>
 
