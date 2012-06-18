@@ -587,6 +587,11 @@ cryopreservation_find_patent_deposits:
   param:        { module: cryopreservation, action: findPatentDeposits }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
+cryopreservation_create_label:
+  url:          cryopreservation/create_label/:id
+  param:        { module: cryopreservation, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Identification model related routes
 ###

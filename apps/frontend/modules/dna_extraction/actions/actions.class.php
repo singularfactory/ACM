@@ -197,6 +197,7 @@ class dna_extractionActions extends MyActions {
 
 		$this->getUser()->setFlash('notice', 'The information on this DNA extraction has some errors you need to fix', false);
 	}
+
 	/**
 	 * Create labels for DnaExtraction records
 	 *

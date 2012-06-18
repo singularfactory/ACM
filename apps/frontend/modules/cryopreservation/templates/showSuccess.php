@@ -71,6 +71,7 @@
 	Cryopreservation from <?php echo $subject ?> <?php echo $code ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'cryopreservation')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@cryopreservation_create_label?id='.$cryopreservation->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'cryopreservation', 'id' => $cryopreservation->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'cryopreservation', 'id' => $cryopreservation->getId())) ?>
 <?php end_slot() ?>

@@ -111,6 +111,7 @@ td.purchase_order_code { width: 150px; }
 td.purchase_item_product { width: 150px; }
 td.collectors_name { width: 280px }
 td.glossary_term { width: 280px }
+td.replicate { width: 125px; }
 
 td.patent_deposit_depositor_code, td.maintenance_deposit_depositor_code, td.external_strain_code {
 	width: 75px;

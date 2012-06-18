@@ -29,17 +29,22 @@
 <?php use_javascripts_for_form($form) ?>
 
 <?php slot('main_header') ?>
-<span>Create labels for DNA extraction</span>
-<?php include_partial('global/back_header_action', array('module' => 'dna_extraction')) ?>
-<?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to extraction', 'module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
+<span>Create labels for cryopreservation</span>
+<?php include_partial('global/back_header_action', array('module' => 'cryopreservation')) ?>
+<?php include_partial('global/back_to_parent_header_action', array('title' => 'Back to cryopreservation', 'module' => 'cryopreservation', 'id' => $cryopreservation->getId())) ?>
 <?php end_slot() ?>
 
-<form action="<?php echo url_for('@dna_extraction_create_label?id='.$dnaExtraction->getId()) ?>" method="POST">
+<form action="<?php echo url_for('@cryopreservation_create_label?id='.$cryopreservation->getId()) ?>" method="POST">
 	<?php echo $form->renderHiddenFields() ?>
 	<div id="left_side_form">
 		<div id="copies">
 			<?php echo $form['copies']->renderLabel() ?>
 			<?php echo $form['copies'] ?>
+		</div>
+		
+		<div id="replicate">
+			<?php echo $form['replicate']->renderLabel() ?>
+			<?php echo $form['replicate'] ?>
 		</div>
 	</div>
 	
@@ -47,20 +52,20 @@
 		<table id="dna_extraction_list">
 			<thead>
 				<tr>
-					<th>Extraction date</th>
-					<th>BEA code</th>
-					<th>Concentration</th>
-					<th>260:280 quality</th>
-					<th>260:230 quality</th>
+					<th>Code</th>
+					<th>First replicate</th>
+					<th>Second replicate</th>
+					<th>Third replicate</th>
+					<th>Cryopreservation date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td class="date extraction_date"><?php echo $dnaExtraction->getExtractionDate() ?></td>
-					<td class="strain_code"><?php echo $dnaExtraction->getStrain()->getFullCode() ?></td>
-					<td class="concentration"><?php echo $dnaExtraction->getFormattedConcentration() ?></td>
-					<td class="concentration"><?php echo $dnaExtraction->getFormatted260280Ratio() ?></td>
-					<td class="concentration"><?php echo $dnaExtraction->getFormatted260230Ratio() ?></td>
+					<td class="strain_code"><?php echo $cryopreservation->getCode() ?></td>
+					<td class="replicate"><?php echo $cryopreservation->getFirstReplicate() ?></td>
+					<td class="replicate"><?php echo $cryopreservation->getSecondReplicate() ?></td>
+					<td class="replicate"><?php echo $cryopreservation->getThirdReplicate() ?></td>
+					<td class="date cryopreservation_date"><?php echo $cryopreservation->getCryopreservationDate() ?></td>
 				</tr>
 			</tbody>
 		</table>

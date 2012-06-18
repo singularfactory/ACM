@@ -266,4 +266,42 @@ class cryopreservationActions extends MyActions {
 
 		$this->getUser()->setFlash('notice', 'The information on this cryopreservation has some errors you need to fix', false);
 	}
+
+	/**
+	 * Create labels for Cryopreservation records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		$id = $request->getParameter('id');
+		$this->forward404Unless($cryopreservation = CryopreservationTable::getInstance()->find(array($id)), sprintf('Object cryopreservation does not exist (%s).', $id));
+
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->label = $cryopreservation;
+			$this->copies = $values['copies'];
+			$this->replicate = $values['replicate'];
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "cryopreservation_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->form = new CryopreservationLabelForm($cryopreservation);
+			$firstReplicate = $cryopreservation->getFirstReplicate();
+			$secondReplicate = $cryopreservation->getSecondReplicate();
+			$thirdReplicate = $cryopreservation->getThirdReplicate();
+			$this->form->setWidget('replicate', new sfWidgetFormChoice(array(
+				'choices'  => array($firstReplicate => $firstReplicate, $secondReplicate => $secondReplicate, $thirdReplicate => $thirdReplicate),
+				'expanded' => true,
+				'default' => $firstReplicate,
+			)));
+			$this->cryopreservation = $cryopreservation;
+		}
+	}
 }

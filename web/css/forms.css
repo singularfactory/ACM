@@ -207,6 +207,11 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
 
 #report_subject_form { margin: 0px; padding: 0px; }
 
+#replicate ul {
+	list-style: none;
+	margin: 1em;
+	padding: 0em;
+}
 
 /**
  * BEA CODE FOR STRAINS, INCLUDING CLONE NUMBERS
