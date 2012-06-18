@@ -41,7 +41,7 @@ class strainActions extends MyActions {
 		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'code'));
 
 		// Deal with search criteria
-		if ( ($text = $request->getParameter('criteria')) && $text != 'deceased' ) {
+		if (($text = $request->getParameter('criteria')) && $text != 'deceased') {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Sample s")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
@@ -62,15 +62,14 @@ class strainActions extends MyActions {
 				->orWhere('is.name LIKE ?', "%$text%");
 
 			// Parse search term to catch strain codes
-			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {
+			if (preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches)) {
 				$query = $query->orWhere("{$this->mainAlias()}.code = ?", (int)$matches[2]);
-			}
-			else {
+			} else {
 				$query = $query->orWhere("{$this->mainAlias()}.code LIKE ?", "%$text%");
 			}
 
 			// Parse search term to catch sample codes
-			if ( preg_match('/0*(\d+)(\w{1,3})_?(\w{1,3})?(\w{1,3}|00)?(\d{2,6})?/', $text, $matches) ) {
+			if (preg_match('/0*(\d+)(\w{1,3})_?(\w{1,3})?(\w{1,3}|00)?(\d{2,6})?/', $text, $matches)) {
 				$query = $query->orWhere("s.id = ?", (int)$matches[1]);
 			}
 

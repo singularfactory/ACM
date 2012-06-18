@@ -762,6 +762,13 @@ module_full_index:
   param:        { module: strain, action: index, all: true }
   requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary" }
 
+module_full_index_search:
+  url:          /:module/all/search/:criteria
+  param:        { module: strain, action: index, all: true }
+  requirements:
+    module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary|external_strain"
+    criteria:  "[^/]*" # Search pattern is optional, by default all results are shown
+
 homepage:
   url:    /
   param:  { module: strain, action: index }
