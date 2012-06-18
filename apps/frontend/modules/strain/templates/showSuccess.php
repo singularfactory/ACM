@@ -128,6 +128,32 @@
 		</div>
 		<?php endif ?>
 
+		<?php $nbCryopreservations = $strain->getNbCryopreservations() ?>
+		<?php if ( $nbCryopreservations > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Cryopreservations</h2>
+			<table>
+				<tr>
+					<th class="date">Date</th>
+					<th class="cryopreservation_method">Method</th>
+					<th class="cryopreservation_replicate">1<sup>st</sup>&nbsp;replicate</th>
+					<th class="cryopreservation_replicate">2<sup>nd</sup>&nbsp;replicate</th>
+					<th class="cryopreservation_replicate">3<sup>rd</sup>&nbsp;replicate</th>
+				</tr>
+				<?php foreach ($strain->getCryopreservations() as $cryopreservation): ?>
+					<?php $url = '@cryopreservation_show?id='.$cryopreservation->getId() ?>
+					<tr>
+						<td class="date"><?php echo link_to($cryopreservation->getCryopreservationDate(), $url) ?></td>
+						<td class="cryopreservation_method"><?php echo link_to($cryopreservation->getCryopreservationMethod(), $url) ?></td>
+						<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getFirstReplicate(), $url) ?></td>
+						<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getSecondReplicate(), $url) ?></td>
+						<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getThirdReplicate(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+
 		<?php $nbCultureMedia = $strain->getNbCultureMedia() ?>
 		<?php if ( $nbCultureMedia > 0): ?>
 		<div class="object_related_model_list">
@@ -275,15 +301,7 @@
 			<br />
 
 			<dt>Maintenance status:</dt>
-			<dd>
-			<?php
-				$statuses = array();
-				foreach ($strain->getMaintenanceStatus() as $status ) {
-					$statuses[] = $status;
-				}
-				echo implode(',', $statuses);
-			?>
-			</dd>
+			<dd><?php echo $strain->getFormattedMaintenanceStatusList() ?></dd>
 			<dt>Best culture medium:</dt>
 			<dd><?php echo $strain->getFormattedCultureMedium() ?></dd>
 			<dt>Best container:</dt>

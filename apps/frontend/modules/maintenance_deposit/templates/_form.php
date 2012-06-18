@@ -148,13 +148,6 @@
 			<?php echo $form['maintenance_status_list'] ?>
 		</div>
 
-		<div id="cryopreservation_method">
-			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
-			<?php echo $form['cryopreservation_method_id']->renderError() ?>
-			<?php echo $form['cryopreservation_method_id']->renderHelp() ?>
-			<?php echo $form['cryopreservation_method_id'] ?>
-		</div>
-
 		<div id="isolators" class="list_field">
 			<?php echo $form['isolators_list']->renderLabel() ?>
 			<?php echo $form['isolators_list']->renderError() ?>

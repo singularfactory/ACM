@@ -42,6 +42,32 @@
 
 <div id="main_view_show">
 	<div id="object_related_models">
+		<?php $nbCryopreservations = $patentDeposit->getNbCryopreservations() ?>
+		<?php if ($nbCryopreservations > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Cryopreservations</h2>
+			<table>
+				<tr>
+					<th class="date">Date</th>
+					<th class="cryopreservation_method">Method</th>
+					<th class="cryopreservation_replicate">1<sup>st</sup>&nbsp;replicate</th>
+					<th class="cryopreservation_replicate">2<sup>nd</sup>&nbsp;replicate</th>
+					<th class="cryopreservation_replicate">3<sup>rd</sup>&nbsp;replicate</th>
+				</tr>
+				<?php foreach ($patentDeposit->getCryopreservations() as $cryopreservation): ?>
+					<?php $url = '@cryopreservation_show?id='.$cryopreservation->getId() ?>
+					<tr>
+						<td class="date"><?php echo link_to($cryopreservation->getCryopreservationDate(), $url) ?></td>
+						<td class="cryopreservation_method"><?php echo link_to($cryopreservation->getCryopreservationMethod(), $url) ?></td>
+						<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getFirstReplicate(), $url) ?></td>
+						<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getSecondReplicate(), $url) ?></td>
+						<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getThirdReplicate(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+
 		<?php $nbCultureMedia = $patentDeposit->getNbCultureMedia() ?>
 		<?php if ( $nbCultureMedia > 0): ?>
 		<div class="object_related_model_list">
@@ -178,29 +204,7 @@
 			<dd><?php echo $nbCultureMedia ?></dd>
 
 			<dt>Maintenance status:</dt>
-			<dd>
-			<?php
-				$isCryopreserved = false;
-				$firstMaintenanceStatus = true;
-				foreach ($patentDeposit->getMaintenanceStatus() as $status ) {
-					if ( $status->getName() === sfConfig::get('app_maintenance_status_cryopreserved') ) {
-						$isCryopreserved = true;
-					}
-
-					if ( !$firstMaintenanceStatus ) {
-						echo sprintf(', %s', sfInflector::tableize($status->getName()));
-						continue;
-					}
-					echo $status->getName();
-					$firstMaintenanceStatus = false;
-				}
-			?>
-			</dd>
-
-			<?php if ( $patentDeposit->getMaintenanceStatus() === sfConfig::get('app_maintenance_status_cryopreserved') ): ?>
-			<dt>Cryopreservation:</dt>
-			<dd><?php echo $patentDeposit->getCryopreservationMethod() ?></dd>
-			<?php endif; ?>
+			<dd><?php echo $patentDeposit->getFormattedMaintenanceStatusList() ?></dd>
 
 			<dt>Isolators:</dt>
 			<dd><?php echo $nbIsolators ?>	</dd>

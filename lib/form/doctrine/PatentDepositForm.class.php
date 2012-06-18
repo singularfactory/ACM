@@ -111,9 +111,6 @@ class PatentDepositForm extends BasePatentDepositForm {
 			array('model' => $this->getRelatedModelName('Location')),
 			array('required' => 'The location of the sample is required')));
 
-		// Configure a custom post validator for cryopreservation method
-		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
-
 		// Configure labels
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
@@ -140,22 +137,5 @@ class PatentDepositForm extends BasePatentDepositForm {
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this deposit. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('bp1_document', 'Enclosed BP1 document');
 		$this->widgetSchema->setHelp('bp4_document', 'Enclosed BP4 document');
-	}
-
-	public function checkCryopreservedStatusHasMethod($validator, $values) {
-		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
-			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
-			->getId();
-
-		$statusesList = is_array($values['maintenance_status_list']) ? $values['maintenance_status_list'] : array();
-		if (!in_array($cryopreservedStatusId, $statusesList)) {
-			$values['cryopreservation_method_id'] = null;
-		} elseif (empty($values['cryopreservation_method_id'])) {
-			$error = new sfValidatorError($validator, 'You must choose a cryopreservation method');
-			throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
-		}
-
-		// cryopreserved method is consistent with maintenance status, return the clean values
-		return $values;
 	}
 }

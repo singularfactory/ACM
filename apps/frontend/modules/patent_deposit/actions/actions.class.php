@@ -89,7 +89,6 @@ class patent_depositActions extends MyActions {
 			$patentDeposit->setSpeciesId($lastDeposit->getSpeciesId());
 			$patentDeposit->setAuthorityId($lastDeposit->getAuthorityId());
 			$patentDeposit->setMaintenanceStatusId($lastDeposit->getMaintenanceStatusId());
-			$patentDeposit->setCryopreservationMethodId($lastDeposit->getCryopreservationMethodId());
 			$patentDeposit->setEnvironmentId($lastDeposit->getEnvironmentId());
 			$patentDeposit->setHabitatId($lastDeposit->getHabitatId());
 			$patentDeposit->setDepositorId($lastDeposit->getDepositorId());

@@ -796,7 +796,6 @@ PatentDeposit:
     depositor_id:  { type: integer, notnull: true }
     deposition_date:  { type: date, notnull: true }
     depositor_code:  { type: string(40), notnull: true }
-    cryopreservation_method_id:  { type: integer }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }
@@ -816,7 +815,6 @@ PatentDeposit:
     Habitat:  { foreignAlias: PatentDeposits }
     Identifier:  { foreignAlias: PatentDeposits }
     Depositor:  { foreignAlias: PatentDeposits }
-    CryopreservationMethod:  { foreignAlias: PatentDeposits }
     Collectors:  { foreignAlias: Collectors, class: Collector, local: patent_deposit_id, foreign: collector_id, refClass: PatentDepositCollectors }
     Isolators:  { foreignAlias: Isolators, class: Isolator, local: patent_deposit_id, foreign: isolator_id, refClass: PatentDepositIsolators }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: patent_deposit_id, foreign: culture_medium_id, refClass: PatentDepositCultureMedia }
@@ -886,7 +884,6 @@ MaintenanceDeposit:
     depositor_id:  { type: integer, notnull: true }
     deposition_date:  { type: date, notnull: true }
     depositor_code:  { type: string(40), notnull: true }
-    cryopreservation_method_id:  { type: integer }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }
@@ -904,7 +901,6 @@ MaintenanceDeposit:
     Habitat:  { foreignAlias: MaintenanceDeposits }
     Identifier:  { foreignAlias: MaintenanceDeposits }
     Depositor:  { foreignAlias: MaintenanceDeposits }
-    CryopreservationMethod:  { foreignAlias: MaintenanceDeposits }
     Collectors:  { foreignAlias: Collectors, class: Collector, local: maintenance_deposit_id, foreign: collector_id, refClass: MaintenanceDepositCollectors }
     Isolators:  { foreignAlias: Isolators, class: Isolator, local: maintenance_deposit_id, foreign: isolator_id, refClass: MaintenanceDepositIsolators }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: maintenance_deposit_id, foreign: culture_medium_id, refClass: MaintenanceDepositCultureMedia }

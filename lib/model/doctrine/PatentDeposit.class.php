@@ -196,4 +196,25 @@ class PatentDeposit extends BasePatentDeposit {
 	public function getGenusAndSpecies() {
 		return sprintf('%s %s', $this->getGenus(), $this->getSpecies());
 	}
+
+	public function getNbCryopreservations() {
+		return CryopreservationTable::getInstance()->createQuery('c')
+			->where('c.patent_deposit_id = ?', $this->getId())
+			->count();
+	}
+
+	public function isCryopreserved() {
+		return $this->getNbCryopreservations() > 0;
+	}
+
+	public function getFormattedMaintenanceStatusList() {
+		$statuses = array();
+		foreach ($this->getMaintenanceStatus() as $status) {
+			$statuses[] = $status;
+		}
+		if ($this->isCryopreserved()) {
+			$statuses[] = 'Cryopreserved';
+		}
+		return implode(', ', $statuses);
+	}
 }

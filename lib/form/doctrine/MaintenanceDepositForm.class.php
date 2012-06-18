@@ -84,7 +84,7 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 			array('model' => $this->getRelatedModelName('Location')),
 			array('required' => 'The location of the sample is required')));
 
-		// Configure a custom post validator for cryopreservation method
+		// Configure a custom post validator
 		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'doPostValidations'))));
 
 		// Configure labels
@@ -116,19 +116,6 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 	}
 
 	public function doPostValidations($validator, $values) {
-		// Check that cryopreserved method is consistent with maintenance status, return the clean values
-		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
-			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
-			->getId();
-
-		$statusesList = is_array($values['maintenance_status_list']) ? $values['maintenance_status_list'] : array();
-		if (!in_array($cryopreservedStatusId, $statusesList)) {
-			$values['cryopreservation_method_id'] = null;
-		} elseif (empty($values['cryopreservation_method_id'])) {
-			$error = new sfValidatorError($validator, 'You must choose a cryopreservation method');
-			throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
-		}
-
 		// Check data consistency between blend and taxonomical description
 		if ($values['is_blend']) {
 			if (empty($values['blend_description'])) {

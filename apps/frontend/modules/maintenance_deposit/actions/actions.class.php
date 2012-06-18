@@ -89,7 +89,6 @@ class maintenance_depositActions extends MyActions {
 			$maintenanceDeposit->setSpeciesId($lastDeposit->getSpeciesId());
 			$maintenanceDeposit->setAuthorityId($lastDeposit->getAuthorityId());
 			$maintenanceDeposit->setMaintenanceStatusId($lastDeposit->getMaintenanceStatusId());
-			$maintenanceDeposit->setCryopreservationMethodId($lastDeposit->getCryopreservationMethodId());
 			$maintenanceDeposit->setEnvironmentId($lastDeposit->getEnvironmentId());
 			$maintenanceDeposit->setHabitatId($lastDeposit->getHabitatId());
 			$maintenanceDeposit->setDepositorId($lastDeposit->getDepositorId());
