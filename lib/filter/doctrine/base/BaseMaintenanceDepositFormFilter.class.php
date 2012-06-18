@@ -13,6 +13,8 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'is_blend'                   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'blend_description'          => new sfWidgetFormFilterInput(),
       'taxonomic_class_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => true)),
       'genus_id'                   => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => true)),
       'species_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => true)),
@@ -47,6 +49,8 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'is_blend'                   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'blend_description'          => new sfValidatorPass(array('required' => false)),
       'taxonomic_class_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('TaxonomicClass'), 'column' => 'id')),
       'genus_id'                   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Genus'), 'column' => 'id')),
       'species_id'                 => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Species'), 'column' => 'id')),
@@ -170,6 +174,8 @@ abstract class BaseMaintenanceDepositFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                         => 'Number',
+      'is_blend'                   => 'Boolean',
+      'blend_description'          => 'Text',
       'taxonomic_class_id'         => 'ForeignKey',
       'genus_id'                   => 'ForeignKey',
       'species_id'                 => 'ForeignKey',

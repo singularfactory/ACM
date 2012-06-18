@@ -71,6 +71,19 @@
 			<?php echo $form['habitat_id'] ?>
 		</div>
 
+		<div id="is_blend" class="checkbox">
+			<?php echo $form['is_blend']->renderLabel() ?>
+			<?php echo $form['is_blend'] ?>
+			<?php echo $form['is_blend']->renderHelp() ?>
+		</div>
+
+		<div id="blend_description">
+			<?php echo $form['blend_description']->renderLabel() ?>
+			<?php echo $form['blend_description']->renderError() ?>
+			<?php echo $form['blend_description']->renderHelp() ?>
+			<?php echo $form['blend_description'] ?>
+		</div>
+
 		<div id="taxonomic_class">
 			<?php echo $form['taxonomic_class_id']->renderLabel() ?>
 			<?php echo $form['taxonomic_class_id']->renderError() ?>

@@ -85,5 +85,4 @@ class Cryopreservation extends BaseCryopreservation {
 			return 'No';
 		}
 	}
-
 }

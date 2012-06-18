@@ -1043,4 +1043,25 @@ $(document).ready(function(){
 			$('#location_picture_source').val($(this).attr('class'));
 		}
 	});
+
+	// Manage blends in MaintenanceDeposit forms
+	if ($('#maintenance_deposit_is_blend').is(':checked')) {
+		$('#maintenance_deposit_taxonomic_class_id').attr('disabled', 'disabled');
+		$('#maintenance_deposit_genus_id').attr('disabled', 'disabled');
+		$('#maintenance_deposit_species_id').attr('disabled', 'disabled');
+		$('#maintenance_deposit_authority_id').attr('disabled', 'disabled');
+	}
+	$('#maintenance_deposit_is_blend').change(function(){
+		if ($(this).is(':checked')) {
+			$('#maintenance_deposit_taxonomic_class_id').attr('disabled', 'disabled');
+			$('#maintenance_deposit_genus_id').attr('disabled', 'disabled');
+			$('#maintenance_deposit_species_id').attr('disabled', 'disabled');
+			$('#maintenance_deposit_authority_id').attr('disabled', 'disabled');
+		} else {
+			$('#maintenance_deposit_taxonomic_class_id').removeAttr('disabled');
+			$('#maintenance_deposit_genus_id').removeAttr('disabled');
+			$('#maintenance_deposit_species_id').removeAttr('disabled');
+			$('#maintenance_deposit_authority_id').removeAttr('disabled');
+		}
+	});
 });

@@ -213,6 +213,11 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
 	padding: 0em;
 }
 
+#is_blend input {
+	margin-bottom: 0em;
+	padding-botton: 0em;
+}
+
 /**
  * BEA CODE FOR STRAINS, INCLUDING CLONE NUMBERS
  */

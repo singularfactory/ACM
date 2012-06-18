@@ -100,6 +100,13 @@ class MaintenanceDeposit extends BaseMaintenanceDeposit {
 		return 'no';
 	}
 
+	public function getFormattedIsBlend() {
+		if ( $this->getIsBlend() ) {
+			return 'yes';
+		}
+		return 'no';
+	}
+
 	public function getFormattedIsEpitype() {
 		if ( $this->getIsEpitype() ) {
 			return 'yes';

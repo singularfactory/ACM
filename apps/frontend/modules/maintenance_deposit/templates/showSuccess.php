@@ -29,11 +29,14 @@
 
 <?php slot('main_header') ?>
 <span>
-	<?php echo $maintenanceDeposit->getDepositorCode() ?> - <?php echo $maintenanceDepositClass = $maintenanceDeposit->getTaxonomicClass() ?>
+	<?php echo $maintenanceDeposit->getDepositorCode() ?>
+	<?php if (!$maintenanceDeposit->getIsBlend()): ?>
+	<?php echo " - " . $maintenanceDepositClass = $maintenanceDeposit->getTaxonomicClass() ?>
 	<span class="species_name">
 		<?php echo $maintenanceDepositGenus = $maintenanceDeposit->getGenus() ?>
 		<?php echo $maintenanceDepositSpecies = $maintenanceDeposit->getSpecies() ?>
 	</span>
+	<?php endif ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'maintenance_deposit')) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'maintenance_deposit', 'id' => $maintenanceDeposit->getId())) ?>
@@ -138,6 +141,12 @@
 			<dt>Habitat:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedHabitat() ?></dd>
 
+			<?php if ($maintenanceDeposit->getIsBlend()): ?>
+			<dt>Is blend:</dt>
+			<dd><?php echo $maintenanceDeposit->getFormattedIsBlend() ?></dd>
+			<dt>Blend description:</dt>
+			<dd><?php echo $maintenanceDeposit->getBlendDescription() ?></dd>
+			<?php else: ?>
 			<dt>Class:</dt>
 			<dd><?php echo $maintenanceDepositClass ?></dd>
 
@@ -152,6 +161,7 @@
 
 			<dt>Collectors:</dt>
 			<dd><?php echo $nbCollectors ?></dd>
+			<?php endif ?>
 
 			<dt>Is epitype:</dt>
 			<dd><?php echo $maintenanceDeposit->getFormattedIsEpitype() ?></dd>
