@@ -106,8 +106,7 @@ all:
     purchase_product_strain:          0
     purchase_product_culture_medium:  1
     purchase_product_genomic_dna:     2
-    #notify_sent_public_web_url:       "http://bea.marinebiotechnology.org"
-    notify_sent_public_web_url:       "http://clientes.inventiaplus.com/webbna"
+    notify_sent_public_web_url:       "http://bea.marinebiotechnology.org"
     notify_sent_shared_secret:        81pPVrGrurRbpmL9
 
     # Projects constants
@@ -121,8 +120,9 @@ all:
     identification_pictures_dir:  /identification_pictures
 
     # Deposits related constants
-    maintenance_deposit_dir:  /maintenance_deposits
-    patent_deposit_dir:       /patent_deposits
+    maintenance_deposit_dir:     /maintenance_deposits
+    patent_deposit_dir:          /patent_deposits
+    patent_deposit_pictures_dir: /patent_deposit_pictures
 
     # Isolation constants
     isolation_subject_sample:   0
