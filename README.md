@@ -20,7 +20,6 @@ Installation
 After cloning the repository and configure the database connection
 you have to run the following commands:
 
-* `mkdir -p cache log web/uploads/tmp`
 * `./symfony project:permissions`
 * `git submodule init`
 * `git submodule update`
