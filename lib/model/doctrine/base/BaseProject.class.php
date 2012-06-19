@@ -151,7 +151,8 @@ abstract class BaseProject extends sfDoctrineRecord
 
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onUpdate' => 'cascade'));
 
         $this->hasOne('ExternalStrain', array(
              'local' => 'external_strain_id',

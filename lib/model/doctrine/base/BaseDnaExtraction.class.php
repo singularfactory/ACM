@@ -128,7 +128,8 @@ abstract class BaseDnaExtraction extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onUpdate' => 'cascade'));
 
         $this->hasOne('ExtractionKit', array(
              'local' => 'extraction_kit_id',

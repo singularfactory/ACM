@@ -578,7 +578,7 @@ DnaExtraction:
     genbank_link:  { type: string(255) }
     remarks:  { type: string }
   relations:
-    Strain:  { foreignAlias: DnaExtractions }
+    Strain:  { foreignAlias: DnaExtractions, onUpdate: cascade }
     ExtractionKit:  { foreignAlias: DnaExtractions }
   indexes:
     dna_extraction_date1:
@@ -750,7 +750,7 @@ Project:
   relations:
     ProjectName:  { foreignAlias: Projects }
     Sample:  { foreignAlias: Projects }
-    Strain:  { foreignAlias: Projects }
+    Strain:  { foreignAlias: Projects, onUpdate: cascade }
     ExternalStrain:  { foreignAlias: Projects }
     Provider:  { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
     Petitioner:  { class: Petitioners, local: petitioner_id, foreignAlias: Projects }
@@ -1065,7 +1065,7 @@ Isolation:
     remarks:  { type: string }
   relations:
     Sample:  { foreignAlias: Isolations }
-    Strain:  { foreignAlias: Isolations }
+    Strain:  { foreignAlias: Isolations, onUpdate: cascade }
     ExternalStrain:  { foreignAlias: Isolations }
     TaxonomicClass:  { foreignAlias: Isolations }
     Genus:  { foreignAlias: Isolations }
@@ -1126,7 +1126,7 @@ Cryopreservation:
     remarks:  { type: string }
   relations:
     Sample:  { foreignAlias: Cryopreservations }
-    Strain:  { foreignAlias: Cryopreservations }
+    Strain:  { foreignAlias: Cryopreservations, onUpdate: cascade }
     ExternalStrain:  { foreignAlias: Cryopreservations }
     PatentDeposit:  { foreignAlias: Cryopreservations }
     MaintenanceDeposit:  { foreignAlias: Cryopreservations }
