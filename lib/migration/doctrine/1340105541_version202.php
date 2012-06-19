@@ -81,7 +81,7 @@ class Version202 extends Doctrine_Migration_Base {
 		$this->dropForeignKey('strain_isolators', 'strain_isolators_strain_id_strain_id');
 		$this->dropForeignKey('strain_maintenance_status', 'strain_maintenance_status_strain_id_strain_id');
 		$this->dropForeignKey('strain_picture', 'strain_picture_strain_id_strain_id');
-		$this->dropForeignKey('strain_relative', 'strain_relative_strain_id_strain_id_1');
+		$this->dropForeignKey('strain_relative', 'strain_relative_strain_id_strain_id');
 
 		$this->createForeignKey('strain_containers', 'strain_containers_strain_id_strain_id', array(
 			'name' => 'strain_containers_strain_id_strain_id',

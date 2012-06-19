@@ -5,8 +5,8 @@
 class Version201 extends Doctrine_Migration_Base {
 	public function up() {
 		$this->dropForeignKey('axenity_test', 'axenity_test_strain_id_strain_id');
-		$this->createForeignKey('axenity_test', 'axenity_test_strain_id_strain_id_1', array(
-			'name' => 'axenity_test_strain_id_strain_id_1',
+		$this->createForeignKey('axenity_test', 'axenity_test_strain_id_strain_id', array(
+			'name' => 'axenity_test_strain_id_strain_id',
 			'local' => 'strain_id',
 			'foreign' => 'id',
 			'foreignTable' => 'strain',
@@ -18,7 +18,7 @@ class Version201 extends Doctrine_Migration_Base {
 
 	public function down() {
 		//$this->removeIndex('axenity_test', 'axenity_test_strain_id', array('fields' => array( 0 => 'strain_id',)));
-		$this->dropForeignKey('axenity_test', 'axenity_test_strain_id_strain_id_1');
+		$this->dropForeignKey('axenity_test', 'axenity_test_strain_id_strain_id');
 		$this->createForeignKey('axenity_test', 'axenity_test_strain_id_strain_id', array(
 			'name' => 'axenity_test_strain_id_strain_id',
 			'local' => 'strain_id',
