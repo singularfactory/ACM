@@ -61,7 +61,8 @@ abstract class BaseStrainIsolators extends sfDoctrineRecord
         $this->hasOne('Strain', array(
              'local' => 'strain_id',
              'foreign' => 'id',
-             'onDelete' => 'cascade'));
+             'onDelete' => 'cascade',
+             'onUpdate' => 'cascade'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

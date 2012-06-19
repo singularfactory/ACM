@@ -261,7 +261,7 @@ StrainIsolators:
     isolator_id:  { type: integer, primary: true }
     sort_order:  { type: integer, notnull: true }
   relations:
-    Strain:  { onDelete: cascade }
+    Strain:  { onDelete: cascade, onUpdate: cascade }
   indexes:
     unique_order:  { fields: [strain_id, isolator_id, sort_order], type: unique }
 
@@ -421,7 +421,7 @@ StrainRelative:
     name:  { type: string(255), notnull: true }
     strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:  { foreignAlias: Relatives, onDelete: cascade }
+    Strain:  { foreignAlias: Relatives, onDelete: cascade, onUpdate: cascade }
 
 AxenityTest:
   columns:
@@ -429,7 +429,7 @@ AxenityTest:
     date:  { type: date, notnull: true }
     strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:  { foreignAlias: AxenityTests, onDelete: cascade }
+    Strain:  { foreignAlias: AxenityTests, onDelete: cascade, onUpdate: cascade }
   actAs:
     Timestampable:
     Date:
@@ -440,7 +440,7 @@ StrainPicture:
     filename:  { type: string(255), notnull: true }
     strain_id:  { type: integer, notnull: true }
   relations:
-    Strain:  { foreignAlias: Pictures, onDelete: cascade }
+    Strain:  { foreignAlias: Pictures, onDelete: cascade, onUpdate: cascade }
   actAs:
     Timestampable:
     Picture:
@@ -530,21 +530,21 @@ StrainContainers:
     strain_id:  { type: integer, primary: true }
     container_id:  { type: integer, primary: true }
   relations:
-    Strain:  { onDelete: cascade }
+    Strain:  { onDelete: cascade, onUpdate: cascade }
 
 StrainCultureMedia:
   columns:
     strain_id:  { type: integer, primary: true }
     culture_medium_id:  { type: integer, primary: true }
   relations:
-    Strain:  { onDelete: cascade }
+    Strain:  { onDelete: cascade, onUpdate: cascade }
 
 StrainMaintenanceStatus:
   columns:
     strain_id:  { type: integer, primary: true }
     maintenance_status_id:  { type: integer, primary: true }
   relations:
-    Strain:  { onDelete: cascade }
+    Strain:  { onDelete: cascade, onUpdate: cascade }
 
 sfGuardUser:
   columns:
