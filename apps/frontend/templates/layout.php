@@ -134,7 +134,16 @@
 
 					<li class="header_menu_item">
 						<?php
-						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|cryopreservation|isolation)(\/_)?)/', $currentRoute) )
+						if ( !preg_match('/^((cryopreservation)(\/_)?)/', $currentRoute) )
+							echo link_to('Cryopreservations', '@cryopreservation');
+						else
+							echo link_to('Cryopreservations', '@cryopreservation', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+
+					<li class="header_menu_item">
+						<?php
+						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|isolation)(\/_)?)/', $currentRoute) )
 							echo link_to('Services', '@project');
 						else
 							echo link_to('Services', '@project', array('class' => 'header_menu_current_tab'));
@@ -144,7 +153,6 @@
 							<li><?php echo link_to('Patent deposits', '@patent_deposit') ?></li>
 							<li><?php echo link_to('Maintenance deposits', '@maintenance_deposit') ?></li>
 							<li><?php echo link_to('Isolations', '@isolation') ?></li>
-							<li><?php echo link_to('Cryopreservations', '@cryopreservation') ?></li>
 							<li><?php echo link_to('Identifications', '@identification') ?></li>
 						</ul>
 					</li>
