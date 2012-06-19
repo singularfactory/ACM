@@ -32,13 +32,6 @@
 	<?php echo $form->renderHiddenFields() ?>
 
 	<div id="left_side_form">
-		<div id="depositor_code">
-			<?php echo $form['depositor_code']->renderLabel() ?>
-			<?php echo $form['depositor_code']->renderError() ?>
-			<?php echo $form['depositor_code']->renderHelp() ?>
-			<?php echo $form['depositor_code'] ?>
-		</div>
-
 		<div id="depositor">
 			<?php echo $form['depositor_id']->renderLabel() ?>
 			<?php echo $form['depositor_id'] ?>
@@ -49,6 +42,13 @@
 			<?php echo $form['deposition_date']->renderError() ?>
 			<?php echo $form['deposition_date']->renderHelp() ?>
 			<?php echo $form['deposition_date'] ?>
+		</div>
+
+		<div id="depositor_code">
+			<?php echo $form['depositor_code']->renderLabel() ?>
+			<?php echo $form['depositor_code']->renderError() ?>
+			<?php echo $form['depositor_code']->renderHelp() ?>
+			<?php echo $form['depositor_code'] ?>
 		</div>
 
 		<div id="location">
