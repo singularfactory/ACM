@@ -372,4 +372,25 @@ class Strain extends BaseStrain {
 	public function getPhylogeneticTreePath() {
 		return sfConfig::get('app_pictures_dir').sfConfig::get('app_strain_pictures_dir').'/'.$this->getPhylogeneticTree();
 	}
+
+	public function getNbCryopreservations() {
+		return CryopreservationTable::getInstance()->createQuery('c')
+			->where('c.strain_id = ?', $this->getId())
+			->count();
+	}
+
+	public function isCryopreserved() {
+		return $this->getNbCryopreservations() > 0;
+	}
+
+	public function getFormattedMaintenanceStatusList() {
+		$statuses = array();
+		foreach ($this->getMaintenanceStatus() as $status) {
+			$statuses[] = $status;
+		}
+		if ($this->isCryopreserved()) {
+			$statuses[] = 'Cryopreserved';
+		}
+		return implode(', ', $statuses);
+	}
 }

@@ -30,6 +30,7 @@
 <?php slot('main_header') ?>
 <span>Sample <?php echo $sample->getCode() ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'sample')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@sample_create_label?id='.$sample->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'sample', 'id' => $sample->getId())) ?>
 <?php end_slot() ?>
@@ -95,6 +96,14 @@
 					}
 				?>
 			</dd>
+			<dt>Cryopreservations:</dt>
+			<dd>
+				<?php echo $nbCryopreservations = $sample->getNbCryopreservations() ?>
+				<?php if ($nbCryopreservations > 0 ): ?>
+					<a href="#sample_cryopreservations_list" title="List of cryopreservations who come from this sample" class="page_jump">see below</a>
+				<?php endif; ?>
+			</dd>
+
 			<dt>Isolations:</dt>
 			<dd>
 				<?php echo $nbIsolations = $sample->getNbIsolations() ?>
@@ -180,6 +189,31 @@
 				<td><span class="species_name"><?php echo link_to($strain->getSpecies(), $url) ?></span></td>
 			</tr>
 		<?php endforeach ?>
+		</table>
+	</div>
+	<?php endif ?>
+
+	<?php if ($nbCryopreservations > 0): ?>
+	<div id="sample_cryopreservations_list" class="object_related_model_long_list">
+		<h2>Cryopreservations</h2>
+		<table>
+			<tr>
+				<th class="date">Date</th>
+				<th class="cryopreservation_method">Method</th>
+				<th class="cryopreservation_replicate">1<sup>st</sup>&nbsp;replicate</th>
+				<th class="cryopreservation_replicate">2<sup>nd</sup>&nbsp;replicate</th>
+				<th class="cryopreservation_replicate">3<sup>rd</sup>&nbsp;replicate</th>
+			</tr>
+			<?php foreach ($sample->getCryopreservations() as $cryopreservation): ?>
+				<?php $url = '@cryopreservation_show?id='.$cryopreservation->getId() ?>
+				<tr>
+					<td class="date"><?php echo link_to($cryopreservation->getCryopreservationDate(), $url) ?></td>
+					<td class="cryopreservation_method"><?php echo link_to($cryopreservation->getCryopreservationMethod(), $url) ?></td>
+					<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getFirstReplicate(), $url) ?></td>
+					<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getSecondReplicate(), $url) ?></td>
+					<td class="cryopreservation_replicate"><?php echo link_to($cryopreservation->getThirdReplicate(), $url) ?></td>
+				</tr>
+			<?php endforeach ?>
 		</table>
 	</div>
 	<?php endif ?>

@@ -16,10 +16,12 @@ abstract class BaseCryopreservationForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                         => new sfWidgetFormInputHidden(),
-      'subject'                    => new sfWidgetFormChoice(array('choices' => array('sample' => 'sample', 'strain' => 'strain', 'external_strain' => 'external_strain'))),
+      'subject'                    => new sfWidgetFormChoice(array('choices' => array('sample' => 'sample', 'strain' => 'strain', 'external_strain' => 'external_strain', 'patent_deposit' => 'patent_deposit', 'maintenance_deposit' => 'maintenance_deposit'))),
       'strain_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
       'sample_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'external_strain_id'         => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('ExternalStrain'), 'add_empty' => true)),
+      'patent_deposit_id'          => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('PatentDeposit'), 'add_empty' => true)),
+      'maintenance_deposit_id'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceDeposit'), 'add_empty' => true)),
       'cryopreservation_method_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'), 'add_empty' => false)),
       'cryopreservation_date'      => new sfWidgetFormDate(),
       'first_replicate'            => new sfWidgetFormInputText(),
@@ -35,10 +37,12 @@ abstract class BaseCryopreservationForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                         => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'subject'                    => new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external_strain'), 'required' => false)),
+      'subject'                    => new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external_strain', 3 => 'patent_deposit', 4 => 'maintenance_deposit'), 'required' => false)),
       'strain_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'required' => false)),
       'sample_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'required' => false)),
       'external_strain_id'         => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('ExternalStrain'), 'required' => false)),
+      'patent_deposit_id'          => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('PatentDeposit'), 'required' => false)),
+      'maintenance_deposit_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('MaintenanceDeposit'), 'required' => false)),
       'cryopreservation_method_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CryopreservationMethod'))),
       'cryopreservation_date'      => new sfValidatorDate(),
       'first_replicate'            => new sfValidatorString(array('max_length' => 10, 'required' => false)),

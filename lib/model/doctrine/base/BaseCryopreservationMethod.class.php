@@ -7,20 +7,14 @@
  * 
  * @property integer $id
  * @property string $name
- * @property Doctrine_Collection $PatentDeposits
- * @property Doctrine_Collection $MaintenanceDeposits
  * @property Doctrine_Collection $Cryopreservations
  * 
- * @method integer                getId()                  Returns the current record's "id" value
- * @method string                 getName()                Returns the current record's "name" value
- * @method Doctrine_Collection    getPatentDeposits()      Returns the current record's "PatentDeposits" collection
- * @method Doctrine_Collection    getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
- * @method Doctrine_Collection    getCryopreservations()   Returns the current record's "Cryopreservations" collection
- * @method CryopreservationMethod setId()                  Sets the current record's "id" value
- * @method CryopreservationMethod setName()                Sets the current record's "name" value
- * @method CryopreservationMethod setPatentDeposits()      Sets the current record's "PatentDeposits" collection
- * @method CryopreservationMethod setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
- * @method CryopreservationMethod setCryopreservations()   Sets the current record's "Cryopreservations" collection
+ * @method integer                getId()                Returns the current record's "id" value
+ * @method string                 getName()              Returns the current record's "name" value
+ * @method Doctrine_Collection    getCryopreservations() Returns the current record's "Cryopreservations" collection
+ * @method CryopreservationMethod setId()                Sets the current record's "id" value
+ * @method CryopreservationMethod setName()              Sets the current record's "name" value
+ * @method CryopreservationMethod setCryopreservations() Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -59,14 +53,6 @@ abstract class BaseCryopreservationMethod extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('PatentDeposit as PatentDeposits', array(
-             'local' => 'id',
-             'foreign' => 'cryopreservation_method_id'));
-
-        $this->hasMany('MaintenanceDeposit as MaintenanceDeposits', array(
-             'local' => 'id',
-             'foreign' => 'cryopreservation_method_id'));
-
         $this->hasMany('Cryopreservation as Cryopreservations', array(
              'local' => 'id',
              'foreign' => 'cryopreservation_method_id'));

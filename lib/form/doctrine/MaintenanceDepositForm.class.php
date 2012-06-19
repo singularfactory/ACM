@@ -29,7 +29,7 @@
 
 
 /**
- * MaintenanceDeposit form.
+ * MaintenanceDeposit form
  *
  * @package ACM.Lib.Form
  * @since 1.0
@@ -61,13 +61,13 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_maintenance_deposit_dir'),
 			'required' => false,
 			'validated_file_class' => 'myDocument',
-			),
-			array(
-				'invalid' => 'Invalid file',
-				'required' => 'Select a file to upload',
-				'mime_types' => 'The file must be a supported type',
-			)
-		));
+		),
+		array(
+			'invalid' => 'Invalid file',
+			'required' => 'Select a file to upload',
+			'mime_types' => 'The file must be a supported type',
+		)
+	));
 
 		// Create an embedded form to add or edit pictures, relatives and axenity tests
 		$this->embedRelations(array(
@@ -84,8 +84,8 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 			array('model' => $this->getRelatedModelName('Location')),
 			array('required' => 'The location of the sample is required')));
 
-		// Configure a custom post validator for cryopreservation method
-    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkCryopreservedStatusHasMethod'))));
+		// Configure a custom post validator
+		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'doPostValidations'))));
 
 		// Configure labels
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
@@ -94,6 +94,7 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('collectors_list', 'Collectors');
 		$this->widgetSchema->setLabel('mf1_document', 'MF1 document');
+		$this->widgetSchema->setLabel('is_blend', 'Is blend');
 
 		// Configure help messages
 		$this->widgetSchema->setHelp('taxonomic_class_id', 'Taxonomic class');
@@ -111,25 +112,39 @@ class MaintenanceDepositForm extends BaseMaintenanceDepositForm {
 		$this->widgetSchema->setHelp('isolators_list', 'Isolators of this deposit. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('collectors_list', 'Collectors of this deposit. Select more than one with Ctrl or Cmd key.');
 		$this->widgetSchema->setHelp('mf1_document', 'Enclosed MF1 document');
-  }
-
-	public function checkCryopreservedStatusHasMethod($validator, $values) {
-		$cryopreservedStatusId = MaintenanceStatusTable::getInstance()
-			->findOneByName(sfConfig::get("app_maintenance_status_cryopreserved"))
-			->getId();
-
-		if ( $values['maintenance_status_id'] != $cryopreservedStatusId ) {
-			$values['cryopreservation_method_id'] = null;
-		}
-		else {
-			if ( empty($values['cryopreservation_method_id']) ) {
-				$error = new sfValidatorError($validator, 'You must chose a cryopreservation method');
-				throw new sfValidatorErrorSchema($validator, array('cryopreservation_method_id' => $error));
-			}
-		}
-
-		// cryopreserved method is consistent with maintenance status, return the clean values
-		return $values;
+		$this->widgetSchema->setHelp('is_blend', 'The deposit is a blend, taxonomical description is not available.');
 	}
 
+	public function doPostValidations($validator, $values) {
+		// Check data consistency between blend and taxonomical description
+		if ($values['is_blend']) {
+			if (empty($values['blend_description'])) {
+				$error = new sfValidatorError($validator, 'You must provide a description for the blend');
+				throw new sfValidatorErrorSchema($validator, array('blend_description' => $error));
+			} else {
+				$values['taxonomic_class_id'] = null;
+				$values['genus_id'] = null;
+				$values['species_id'] = null;
+				$values['authority_id'] = null;
+			}
+		} else {
+			if (empty($values['taxonomic_class_id'])) {
+				$error = new sfValidatorError($validator, 'You must choose a taxonomic class.');
+				throw new sfValidatorErrorSchema($validator, array('taxonomic_class_id' => $error));
+			}
+
+			if (empty($values['genus_id'])) {
+				$error = new sfValidatorError($validator, 'You must choose a genus.');
+				throw new sfValidatorErrorSchema($validator, array('genus_id' => $error));
+			}
+
+			if (empty($values['authority_id'])) {
+				$error = new sfValidatorError($validator, 'You must choose an authority.');
+				throw new sfValidatorErrorSchema($validator, array('authority_id' => $error));
+			}
+
+			$values['blend_description'] = null;
+		}
+		return $values;
+	}
 }

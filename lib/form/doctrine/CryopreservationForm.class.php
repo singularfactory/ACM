@@ -40,10 +40,15 @@ class CryopreservationForm extends BaseCryopreservationForm {
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => SampleTable::getInstance()->getDefaultSampleId())));
 		$this->setWidget('strain_id', new sfWidgetFormInputHidden(array('default' => StrainTable::getInstance()->getDefaultStrainId())));
 		$this->setWidget('external_strain_id', new sfWidgetFormInputHidden(array('default' => ExternalStrainTable::getInstance()->getDefaultExternalStrainId())));
+		$this->setWidget('patent_deposit_id', new sfWidgetFormInputHidden(array('default' => PatentDepositTable::getInstance()->getDefaultPatentDepositId())));
+		$this->setWidget('maintenance_deposit_id', new sfWidgetFormInputHidden(array('default' => MaintenanceDepositTable::getInstance()->getDefaultMaintenanceDepositId())));
+
 		$this->setWidget('subject', new sfWidgetFormChoice(array('choices' => array(
 			'sample' => 'sample',
 			'strain' => 'strain',
 			'external_strain' => 'research collection',
+			'patent_deposit' => 'patent deposit',
+			'maintenance_deposit' => 'maintenance deposit',
 		))));
 
 		// Configure date format
@@ -53,18 +58,23 @@ class CryopreservationForm extends BaseCryopreservationForm {
 		$this->setWidget('revival_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%','years' => $years), array('class' => 'noauto')));
 
 		// Configure subject validator
-		$this->setValidator('subject', new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external_strain'), 'required' => false)));
+		$this->setValidator('subject', new sfValidatorChoice(array(
+			'choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external_strain', 3 => 'patent_deposit', 4 => 'maintenance_deposit'),
+			'required' => false,
+		)));
 
 		// Configure a custom post validator to manage changes in isolation_subject
-    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'cleanFieldsByCryopreservationSubject'))));
+		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'cleanFieldsByCryopreservationSubject'))));
 
 		// Configure labels
 		$this->widgetSchema->setLabel('sample_id', 'Sample code');
 		$this->widgetSchema->setLabel('strain_id', 'Strain code');
 		$this->widgetSchema->setLabel('external_strain_id', 'Research collection code');
+		$this->widgetSchema->setLabel('patent_deposit_id', 'Patent deposit code');
+		$this->widgetSchema->setLabel('maintenance_deposit_id', 'Maintenance deposit code');
 
 		// Configure help messages
-		$this->widgetSchema->setHelp('subject', 'Choose the type of material requested');
+		$this->widgetSchema->setHelp('subject', 'Choose the source of this cryopreservation');
 		$this->widgetSchema->setHelp('cryopreservation_date', 'Year, month and day');
 		$this->widgetSchema->setHelp('revival_date', 'Year, month and day');
 	}
@@ -74,6 +84,8 @@ class CryopreservationForm extends BaseCryopreservationForm {
 			case 'strain':
 				$values['sample_id'] = null;
 				$values['external_strain_id'] = null;
+				$values['maintenance_deposit_id'] = null;
+				$values['patent_deposit_id'] = null;
 				if ( empty($values['strain_id']) ) {
 					$error = new sfValidatorError($validator, 'You must choose a strain before registering this cryopreservation');
 					throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
@@ -83,6 +95,8 @@ class CryopreservationForm extends BaseCryopreservationForm {
 			case 'external_strain':
 				$values['sample_id'] = null;
 				$values['strain_id'] = null;
+				$values['maintenance_deposit_id'] = null;
+				$values['patent_deposit_id'] = null;
 				if ( empty($values['external_strain_id']) ) {
 					$error = new sfValidatorError($validator, 'You must choose a strain from research collection before registering this cryopreservation');
 					throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
@@ -93,9 +107,33 @@ class CryopreservationForm extends BaseCryopreservationForm {
 			default:
 				$values['strain_id'] = null;
 				$values['external_strain_id'] = null;
+				$values['maintenance_deposit_id'] = null;
+				$values['patent_deposit_id'] = null;
 				if ( empty($values['sample_id']) ) {
 					$error = new sfValidatorError($validator, 'You must choose a sample before registering this cryopreservation');
 					throw new sfValidatorErrorSchema($validator, array('sample_id' => $error));
+				}
+				break;
+
+			case 'patent_deposit':
+				$values['strain_id'] = null;
+				$values['sample_id'] = null;
+				$values['external_strain_id'] = null;
+				$values['maintenance_deposit_id'] = null;
+				if (empty($values['patent_deposit_id'])) {
+					$error = new sfValidatorError($validator, 'You must choose a patent deposit before registering this cryopreservation');
+					throw new sfValidatorErrorSchema($validator, array('patent_deposit_id' => $error));
+				}
+				break;
+
+			case 'maintenance_deposit':
+				$values['strain_id'] = null;
+				$values['sample_id'] = null;
+				$values['external_strain_id'] = null;
+				$values['patent_deposit_id'] = null;
+				if (empty($values['maintenance_deposit_id'])) {
+					$error = new sfValidatorError($validator, 'You must choose a maintenance deposit before registering this cryopreservation');
+					throw new sfValidatorErrorSchema($validator, array('maintenance_deposit_id' => $error));
 				}
 				break;
 		}

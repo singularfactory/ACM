@@ -35,10 +35,10 @@
  */
 class MaintenanceDepositTable extends Doctrine_Table {
 	/**
-	* Returns an instance of this class.
-	*
-	* @return object MaintenanceDepositTable
-	*/
+	 * Returns an instance of this class.
+	 *
+	 * @return object MaintenanceDepositTable
+	 */
 	public static function getInstance() {
 		return Doctrine_Core::getTable('MaintenanceDeposit');
 	}
@@ -54,4 +54,75 @@ class MaintenanceDepositTable extends Doctrine_Table {
 		}
 	}
 
+	public function getDefaultMaintenanceDepositId() {
+		$deposit = $this->createQuery('d')->fetchOne();
+		if ($deposit) {
+			return (int)$deposit->getId();
+		}
+
+		return 0;
+	}
+
+	public function availableSupervisorsQuery() {
+		return sfGuardUserTable::getInstance()->createQuery('Supervisor')
+			->distinct()
+			->innerJoin('Supervisor.MaintenanceDeposits MaintenanceDeposit')
+			->orderBy('Supervisor.initials');
+	}
+
+	public function availableTransferIntervalChoices($supervisor) {
+		$deposits = MaintenanceDepositTable::getInstance()->createQuery('p')
+			->distinct()
+			->select('p.transfer_interval')
+			->where('p.supervisor_id = ?', $supervisor)
+			->orderBy('p.transfer_interval')
+			->execute();
+
+		$transferIntervals = array(0 => '');
+		foreach ($deposits as $deposit) {
+			$interval = $deposit->getTransferInterval();
+			if ($interval && !array_key_exists($interval, $transferIntervals)) {
+				$transferIntervals[$interval] = $interval;
+			}
+		}
+		ksort($transferIntervals);
+		return $transferIntervals;
+	}
+
+	public function availableGenusQuery($supervisor, $transferInterval) {
+		return GenusTable::getInstance()->createQuery('g')
+			->distinct()
+			->innerJoin('g.MaintenanceDeposits p')
+			->where('p.supervisor_id = ?', $supervisor)
+			->andWhere("p.transfer_interval LIKE ?", $transferInterval)
+			->orderBy('g.name');
+	}
+
+	public function availableCultureMediaQuery($supervisor, $transferInterval, $genus, $axenic) {
+		$axenic = ($axenic == 2) ? 1 : 0;
+		return CultureMediumTable::getInstance()->createQuery('c')
+			->distinct()
+			->innerJoin('c.MaintenanceDepositCultureMedia pc')
+			->innerJoin('pc.MaintenanceDeposit p')
+			->innerJoin('p.Genus g')
+			->where('p.supervisor_id = ?', $supervisor)
+			->andWhere("p.transfer_interval LIKE ?", $transferInterval)
+			->andWhere('p.genus_id = ?', $genus)
+			->andWhere('p.is_axenic = ?', $axenic)
+			->orderBy('c.name');
+	}
+
+	public function availableMaintenanceDepositsForLabelConfiguration($configuration) {
+		$axenic = ($configuration['is_axenic'] == 2) ? 1 : 0;
+		return MaintenanceDepositTable::getInstance()->createQuery('s')
+			->distinct()
+			->innerJoin('s.MaintenanceDepositCultureMedia cm')
+			->where('s.supervisor_id = ?', $configuration['supervisor_id'])
+			->andWhere("s.transfer_interval LIKE ?", $configuration['transfer_interval'])
+			->andWhere('s.genus_id = ?', $configuration['genus_id'])
+			->andWhere('s.is_axenic = ?', $axenic)
+			->andWhere('cm.culture_medium_id = ?', $configuration['culture_medium_id'])
+			->orderBy('s.id')
+			->execute();
+	}
 }

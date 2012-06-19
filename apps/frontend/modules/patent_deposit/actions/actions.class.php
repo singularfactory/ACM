@@ -24,8 +24,6 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * patent_deposit actions.
@@ -36,7 +34,6 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class patent_depositActions extends MyActions {
-
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'PatentDeposit', array('init' => false, 'sort_column' => 'depositor_code'));
@@ -92,7 +89,6 @@ class patent_depositActions extends MyActions {
 			$patentDeposit->setSpeciesId($lastDeposit->getSpeciesId());
 			$patentDeposit->setAuthorityId($lastDeposit->getAuthorityId());
 			$patentDeposit->setMaintenanceStatusId($lastDeposit->getMaintenanceStatusId());
-			$patentDeposit->setCryopreservationMethodId($lastDeposit->getCryopreservationMethodId());
 			$patentDeposit->setEnvironmentId($lastDeposit->getEnvironmentId());
 			$patentDeposit->setHabitatId($lastDeposit->getHabitatId());
 			$patentDeposit->setDepositorId($lastDeposit->getDepositorId());
@@ -116,21 +112,21 @@ class patent_depositActions extends MyActions {
 		$this->hasDepositors = (DepositorTable::getInstance()->count() > 0)?true:false;
 		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
 		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
-  }
+	}
 
-  public function executeCreate(sfWebRequest $request) {
-  	$this->forward404Unless($request->isMethod(sfRequest::POST));
+	public function executeCreate(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new PatentDepositForm();
+		$this->form = new PatentDepositForm();
 		$this->hasIdentifiers = (IdentifierTable::getInstance()->count() > 0)?true:false;
 		$this->hasDepositors = (DepositorTable::getInstance()->count() > 0)?true:false;
 		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
 		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('new');
-  }
+		$this->setTemplate('new');
+	}
 
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($patentDeposit = PatentDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object patent deposit does not exist (%s).', $request->getParameter('id')));
@@ -139,12 +135,12 @@ class patent_depositActions extends MyActions {
 
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($patentDeposit = PatentDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object patent deposit does not exist (%s).', $request->getParameter('id')));
-    $this->form = new PatentDepositForm($patentDeposit);
+		$this->forward404Unless($patentDeposit = PatentDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object patent deposit does not exist (%s).', $request->getParameter('id')));
+		$this->form = new PatentDepositForm($patentDeposit);
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('edit');
+		$this->setTemplate('edit');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -192,4 +188,110 @@ class patent_depositActions extends MyActions {
 		$this->getUser()->setFlash('notice', 'The information on this deposit has some errors you need to fix', false);
 	}
 
+	/**
+	 * Create labels for PatentDeposit records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->labels = PatentDepositTable::getInstance()->availablePatentDepositsForLabelConfiguration($values);
+			$this->copies = $values['copies'];
+			$this->cultureMedium = CultureMediumTable::getInstance()->findOneById($values['culture_medium_id']);
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "patent_deposit_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->getUser()->setAttribute('patent_deposit_label_configuration', array());
+			$this->form = new PatentDepositLabelForm();
+			$this->form->setWidgets(array(
+				'supervisor_id' => new sfWidgetFormDoctrineChoice(array(
+					'model' => 'Supervisor',
+					'query' => PatentDepositTable::getInstance()->availableSupervisorsQuery(),
+					'add_empty' => true,
+				)),
+			));
+		}
+	}
+
+	/**
+	 * Returns the HTML form section of a label field
+	 *
+	 * @param sfWebRequest $request
+	 * @return string HTML content
+	 */
+	public function executeGetLabelField(sfWebRequest $request) {
+		if ($request->isXmlHttpRequest()) {
+			$div = $request->getParameter('field');
+			$value = $request->getParameter('value');
+			$patentDeposits = array();
+
+			if (empty($div) || empty($value)) {
+				return sfView::NONE;
+			}
+
+			$labelConfiguration = $this->getUser()->getAttribute('patent_deposit_label_configuration');
+			$form = new PatentDepositLabelForm();
+			switch ($div) {
+			case 'transfer_intervals':
+				$labelConfiguration['supervisor_id'] = $value;
+				$field = 'transfer_interval';
+				$form->setWidgets(array(
+					'transfer_interval' => new sfWidgetFormChoice(array(
+						'choices' => PatentDepositTable::getInstance()->availableTransferIntervalChoices($labelConfiguration['supervisor_id']),
+					))));
+				break;
+			case 'genus':
+				$labelConfiguration['transfer_interval'] = $value;
+				$field = 'genus_id';
+				$form->setWidgets(array(
+					'genus_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'Genus',
+						'query' => PatentDepositTable::getInstance()->availableGenusQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'axenicity':
+				$labelConfiguration['genus_id'] = $value;
+				$field = 'is_axenic';
+				$form->setWidgets(array('is_axenic' => new sfWidgetFormChoice(array('choices' => PatentDepositLabelForm::$booleanChoices))));
+				break;
+			case 'culture_medium':
+				$labelConfiguration['is_axenic'] = $value;
+				$field = 'culture_medium_id';
+				$form->setWidgets(array(
+					'culture_medium_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'CultureMedium',
+						'query' => PatentDepositTable::getInstance()->availableCultureMediaQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval'], $labelConfiguration['genus_id'], $labelConfiguration['is_axenic']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'strain':
+				$labelConfiguration['culture_medium_id'] = $value;
+				$patentDeposits = PatentDepositTable::getInstance()->availablePatentDepositsForLabelConfiguration($labelConfiguration);
+				break;
+			}
+			$this->getUser()->setAttribute('patent_deposit_label_configuration', $labelConfiguration);
+
+			$this->setLayout(false);
+			if ($div === 'strain') {
+				return $this->renderPartial('labelPatentDeposits', array('patentDeposits' => $patentDeposits));
+			} else {
+				return $this->renderPartial('labelFieldForm', array('div' => $div, 'field' => $field, 'form' => $form));
+			}
+		}
+		return sfView::NONE;
+	}
 }

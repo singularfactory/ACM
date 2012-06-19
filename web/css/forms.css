@@ -172,6 +172,7 @@ a.project_strain_numbers_url,
 a.isolation_external_strain_numbers_url, a.isolation_strain_numbers_url, a.isolation_sample_numbers_url, a.isolation_location_coordinates_url, a.isolation_isolation_subject_url,
 a.project_external_strain_numbers_url, a.project_strain_numbers_url, a.project_sample_numbers_url, a.project_subject_url,
 a.cryopreservation_external_strain_numbers_url, a.cryopreservation_strain_numbers_url, a.cryopreservation_sample_numbers_url, a.cryopreservation_subject_url,
+a.cryopreservation_patent_deposit_numbers_url, a.cryopreservation_maintenance_deposit_numbers_url,
 a.label_find_products_url, a.article_strain_numbers_url,
 a.identification_sample_numbers_url,
 a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url,
@@ -206,6 +207,16 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
 
 #report_subject_form { margin: 0px; padding: 0px; }
 
+#replicate ul {
+	list-style: none;
+	margin: 1em;
+	padding: 0em;
+}
+
+#is_blend input {
+	margin-bottom: 0em;
+	padding-botton: 0em;
+}
 
 /**
  * BEA CODE FOR STRAINS, INCLUDING CLONE NUMBERS
@@ -229,7 +240,8 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 #project_sample_search, #project_strain_search, #project_external_strain_search,
 #cryopreservation_sample_search, #cryopreservation_strain_search, #cryopreservation_external_strain_search,
 #identification_sample_search, #article_strain_search,
-#report_location_country_search, #report_location_region_search, #report_location_island_search {
+#report_location_country_search, #report_location_region_search, #report_location_island_search,
+#cryopreservation_patent_deposit_search, #cryopreservation_maintenance_deposit_search {
 	color: #888;
 	font-size: 11px;
 	min-height: 15px;
@@ -239,6 +251,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 #strain_sample_search, #dna_extraction_strain_search, #project_strain_search, #isolation_strain_search, #project_sample_search, #cryopreservation_strain_search,
 #cryopreservation_sample_search, #identification_sample_search, #article_strain_search { width: 150px; }
 #project_external_strain_search, #isolation_external_strain_search, #cryopreservation_external_strain_search { width: 190px; }
+#cryopreservation_patent_deposit_search, #cryopreservation_maintenance_deposit_search { width: 200px; }
 
 /**
  * REPORTS

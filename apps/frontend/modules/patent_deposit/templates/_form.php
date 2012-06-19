@@ -135,13 +135,6 @@
 			<?php echo $form['maintenance_status_list'] ?>
 		</div>
 
-		<div id="cryopreservation_method">
-			<?php echo $form['cryopreservation_method_id']->renderLabel() ?>
-			<?php echo $form['cryopreservation_method_id']->renderError() ?>
-			<?php echo $form['cryopreservation_method_id']->renderHelp() ?>
-			<?php echo $form['cryopreservation_method_id'] ?>
-		</div>
-
 		<div id="isolators" class="list_field">
 			<?php echo $form['isolators_list']->renderLabel() ?>
 			<?php echo $form['isolators_list']->renderError() ?>
@@ -263,6 +256,14 @@
 			<?php echo $form['bp4_document']->renderError() ?>
 			<?php echo $form['bp4_document']->renderHelp() ?>
 			<?php echo $form['bp4_document'] ?>
+		</div>
+
+		<div id="model_pictures">
+			<?php echo $form['picture']->renderLabel() ?>
+			<?php echo $form['picture']->renderHelp() ?>
+			<div class="model_picture_filename">
+				<?php echo $form['picture']->render() ?>
+			</div>
 		</div>
 	</div>
 

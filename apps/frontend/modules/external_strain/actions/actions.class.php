@@ -24,8 +24,6 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * external_strain actions.
@@ -193,5 +191,124 @@ class external_strainActions extends MyActions {
 		}
 
 		$this->getUser()->setFlash('notice', 'The information on this strain has some errors you need to fix', false);
+	}
+
+	/**
+	 * Create labels for Strain records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->labels = ExternalStrainTable::getInstance()->availableExternalStrainsForLabelConfiguration($values);
+			$this->copies = $values['copies'];
+			$this->cultureMedium = CultureMediumTable::getInstance()->findOneById($values['culture_medium_id']);
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "research_collection_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->getUser()->setAttribute('external_strain_label_configuration', array());
+			$this->form = new ExternalStrainLabelForm();
+			$this->form->setWidgets(array(
+				'supervisor_id' => new sfWidgetFormDoctrineChoice(array(
+					'model' => 'Supervisor',
+					'query' => ExternalStrainTable::getInstance()->availableSupervisorsQuery(),
+					'add_empty' => true,
+				)),
+			));
+		}
+	}
+
+	/**
+	 * Returns the HTML form section of a label field
+	 *
+	 * @param sfWebRequest $request
+	 * @return string HTML content
+	 */
+	public function executeGetLabelField(sfWebRequest $request) {
+		if ($request->isXmlHttpRequest()) {
+			$div = $request->getParameter('field');
+			$value = $request->getParameter('value');
+			$externalStrains = array();
+
+			if (empty($div) || empty($value)) {
+				return sfView::NONE;
+			}
+
+			$labelConfiguration = $this->getUser()->getAttribute('external_strain_label_configuration');
+			$form = new ExternalStrainLabelForm();
+			switch ($div) {
+			case 'transfer_intervals':
+				$labelConfiguration['supervisor_id'] = $value;
+				$field = 'transfer_interval';
+				$form->setWidgets(array(
+					'transfer_interval' => new sfWidgetFormChoice(array(
+						'choices' => ExternalStrainTable::getInstance()->availableTransferIntervalChoices($labelConfiguration['supervisor_id']),
+					))));
+				break;
+			case 'genus':
+				$labelConfiguration['transfer_interval'] = $value;
+				$field = 'genus_id';
+				$form->setWidgets(array(
+					'genus_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'Genus',
+						'query' => ExternalStrainTable::getInstance()->availableGenusQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'axenicity':
+				$labelConfiguration['genus_id'] = $value;
+				$field = 'is_axenic';
+				$form->setWidgets(array('is_axenic' => new sfWidgetFormChoice(array('choices' => ExternalStrainLabelForm::$booleanChoices))));
+				break;
+			case 'container':
+				$labelConfiguration['is_axenic'] = $value;
+				$field = 'container_id';
+				$form->setWidgets(array(
+					'container_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'Container',
+						'query' => ExternalStrainTable::getInstance()->availableContainersQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval'], $labelConfiguration['genus_id'], $labelConfiguration['is_axenic']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'culture_medium':
+				$labelConfiguration['container_id'] = $value;
+				$field = 'culture_medium_id';
+				$form->setWidgets(array(
+					'culture_medium_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'CultureMedium',
+						'query' => ExternalStrainTable::getInstance()->availableCultureMediaQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval'], $labelConfiguration['genus_id'], $labelConfiguration['is_axenic'], $labelConfiguration['container_id']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'strain':
+				$labelConfiguration['culture_medium_id'] = $value;
+				$externalStrains = ExternalStrainTable::getInstance()->availableExternalStrainsForLabelConfiguration($labelConfiguration);
+				break;
+			}
+			$this->getUser()->setAttribute('external_strain_label_configuration', $labelConfiguration);
+
+			$this->setLayout(false);
+			if ($div === 'strain') {
+				return $this->renderPartial('labelExternalStrains', array('externalStrains' => $externalStrains));
+			} else {
+				return $this->renderPartial('labelFieldForm', array('div' => $div, 'field' => $field, 'form' => $form));
+			}
+		}
+		return sfView::NONE;
 	}
 }

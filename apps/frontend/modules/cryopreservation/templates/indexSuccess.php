@@ -69,7 +69,18 @@
 				<?php $code = $externalStrain->getFullCode() ?>
 				<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $externalStrain->getGenusAndSpecies() ?>
-
+			<?php elseif ( $cryopreservation->getSubject() == 'patent_deposit' ): ?>
+				<?php $subject = 'patent_deposit' ?>
+				<?php $patentDeposit = $cryopreservation->getPatentDeposit() ?>
+				<?php $code = $patentDeposit->getCode() ?>
+				<?php $taxonomicClass = $patentDeposit->getTaxonomicClass() ?>
+				<?php $genusAndSpecies = $patentDeposit->getGenusAndSpecies() ?>
+			<?php elseif ( $cryopreservation->getSubject() == 'maintenance_deposit' ): ?>
+				<?php $subject = 'maintenance_deposit' ?>
+				<?php $maintenanceDeposit = $cryopreservation->getMaintenanceDeposit() ?>
+				<?php $code = $maintenanceDeposit->getCode() ?>
+				<?php $taxonomicClass = $maintenanceDeposit->getTaxonomicClass() ?>
+				<?php $genusAndSpecies = $maintenanceDeposit->getGenusAndSpecies() ?>
 			<?php endif ?>
 
 			<td class="cryopreservation_code"><?php echo link_to($code, $url) ?></td>

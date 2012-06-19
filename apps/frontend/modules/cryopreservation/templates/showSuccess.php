@@ -50,6 +50,20 @@
 	<?php $taxonomicClass = sfConfig::get('app_no_data_message') ?>
 	<?php $genus = sfConfig::get('app_no_data_message') ?>
 	<?php $species = sfConfig::get('app_no_data_message') ?>
+<?php elseif( $cryopreservation->getPatentDeposit()->exists() ): ?>
+	<?php $patentDeposit = $cryopreservation->getPatentDeposit() ?>
+	<?php $code = $patentDeposit->getCode() ?>
+	<?php $route = "@patent_deposit_show?id={$patentDeposit->getId()}" ?>
+	<?php $taxonomicClass = $patentDeposit->getTaxonomicClass() ?>
+	<?php $genus = $patentDeposit->getGenus() ?>
+	<?php $species = $patentDeposit->getSpecies() ?>
+<?php elseif( $cryopreservation->getMaintenanceDeposit()->exists() ): ?>
+	<?php $maintenanceDeposit = $cryopreservation->getMaintenanceDeposit() ?>
+	<?php $code = $maintenanceDeposit->getCode() ?>
+	<?php $route = "@maintenance_deposit_show?id={$maintenanceDeposit->getId()}" ?>
+	<?php $taxonomicClass = $maintenanceDeposit->getTaxonomicClass() ?>
+	<?php $genus = $maintenanceDeposit->getGenus() ?>
+	<?php $species = $maintenanceDeposit->getSpecies() ?>
 <?php endif ?>
 
 <?php slot('main_header') ?>
@@ -57,6 +71,7 @@
 	Cryopreservation from <?php echo $subject ?> <?php echo $code ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'cryopreservation')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@cryopreservation_create_label?id='.$cryopreservation->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'cryopreservation', 'id' => $cryopreservation->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'cryopreservation', 'id' => $cryopreservation->getId())) ?>
 <?php end_slot() ?>

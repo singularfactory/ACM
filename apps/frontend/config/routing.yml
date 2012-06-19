@@ -63,6 +63,11 @@ sample_search_pagination:
   param:        { module: sample, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+sample_create_label:
+  url:          sample/create_label/:id
+  param:        { module: sample, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Strain model related routes
 ###
@@ -172,6 +177,11 @@ dna_extraction_search_pagination:
   url:          dna_extraction/search/:criteria/page/:page
   param:        { module: dna_extraction, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
+dna_extraction_create_label:
+  url:          dna_extraction/create_label/:id
+  param:        { module: dna_extraction, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
 
 ###
 # Pcr model related routes
@@ -380,6 +390,16 @@ patent_deposit_search_pagination:
   param:        { module: patent_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+patent_deposit_create_label:
+  url:          patent_deposit/create_label
+  param:        { module: patent_deposit, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+patent_deposit_create_label_get_field:
+  url:          patent_deposit/create_label/get_label_field/:field/:value
+  param:        { module: patent_deposit, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
+
 ###
 # MaintenanceDeposit model related routes
 ###
@@ -407,6 +427,16 @@ maintenance_deposit_search_pagination:
   param:        { module: maintenance_deposit, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+maintenance_deposit_create_label:
+  url:          maintenance_deposit/create_label
+  param:        { module: maintenance_deposit, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+maintenance_deposit_create_label_get_field:
+  url:          maintenance_deposit/create_label/get_label_field/:field/:value
+  param:        { module: maintenance_deposit, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
+
 ###
 # Research collection related routes
 ###
@@ -433,6 +463,16 @@ external_strain_search_pagination:
   url:          external_strain/search/:criteria/page/:page
   param:        { module: external_strain, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
+external_strain_create_label:
+  url:          external_strain/create_label
+  param:        { module: external_strain, action: createLabel }
+  requirements: { sf_method: [get, post] }
+
+external_strain_create_label_get_field:
+  url:          external_strain/create_label/get_label_field/:field/:value
+  param:        { module: external_strain, action: getLabelField, field: 'transfer_interval' }
+  requirements: { sf_method: [get, post] }
 
 ###
 # Isolation model related routes
@@ -485,6 +525,11 @@ isolation_search_pagination:
   param:        { module: isolation, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
 
+isolation_create_label:
+  url:          isolation/create_label/:id
+  param:        { module: isolation, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
+
 ###
 # Cryopreservation model related routes
 ###
@@ -500,12 +545,12 @@ cryopreservation_search:
 cryopreservation_filter_by_subject_new:
   url:          cryopreservation/new/:subject
   param:        { module: cryopreservation, action: new, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external_strain)", sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)|(maintenance_deposit)|(patent_deposit)", sf_method: [get, head] }
 
 cryopreservation_filter_by_subject_edit:
   url:          cryopreservation/:id/edit/:subject
   param:        { module: cryopreservation, action: edit, subject: sample }
-  requirements: { subject: "(sample)|(strain)|(external_strain)", id: \d+, sf_method: [get, head] }
+  requirements: { subject: "(sample)|(strain)|(external_strain)|(maintenance_deposit)|(patent_deposit)", id: \d+, sf_method: [get, head] }
 
 cryopreservation_find_samples:
   url:    cryopreservation/findSamples/:term
@@ -531,6 +576,21 @@ cryopreservation_find_external_strains:
   url:          cryopreservation/findExternalStrains/:term
   param:        { module: cryopreservation, action: findExternalStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_find_maintenance_deposits:
+  url:          cryopreservation/findMaintenanceDeposits/:term
+  param:        { module: cryopreservation, action: findMaintenanceDeposits }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_find_patent_deposits:
+  url:          cryopreservation/findPatentDeposits/:term
+  param:        { module: cryopreservation, action: findPatentDeposits }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+cryopreservation_create_label:
+  url:          cryopreservation/create_label/:id
+  param:        { module: cryopreservation, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
 
 ###
 # Identification model related routes
@@ -558,6 +618,11 @@ identification_search_pagination:
   url:          identification/search/:criteria/page/:page
   param:        { module: identification, action: index, page: 1 }
   requirements: { criteria: "[^/]+", page: \d+ }
+
+identification_create_label:
+  url:          identification/create_label/:id
+  param:        { module: identification, action: createLabel }
+  requirements: { sf_method: [get, post], id: "[^/]+" }
 
 ###
 # Glossary model related routes
@@ -696,6 +761,13 @@ module_full_index:
   url:          /:module/all
   param:        { module: strain, action: index, all: true }
   requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary" }
+
+module_full_index_search:
+  url:          /:module/all/search/:criteria
+  param:        { module: strain, action: index, all: true }
+  requirements:
+    module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary|external_strain"
+    criteria:  "[^/]*" # Search pattern is optional, by default all results are shown
 
 homepage:
   url:    /

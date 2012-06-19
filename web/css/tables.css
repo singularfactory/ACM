@@ -88,7 +88,7 @@ th.object_count_long, td.object_count_long { width: 100px; }
 th.aliquots, td.aliquots { width: 60px; }
 th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band, td.project_strain_code, td.cryopreservation_strain_code { width: 100px; }
 td.date { width: 100px; }
-td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject, td.cryopreservation_subject { width: 120px; }
+td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject, td.cryopreservation_subject { width: 125px; }
 td.dna_extraction_code, td.sample_code { width: 140px; }
 td.microscopy_identification, td.molecular_identification { width: 200px; }
 td.isolation_code, td.project_code, td.cryopreservation_code { width: 150px; }
@@ -103,7 +103,7 @@ td.taxonomic_class_name, td.inoculation_date { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount { width: 80px; }
 th.dna_availability, td.dna_availability, th.is_public, td.is_public { width: 60px; }
-td.project_inoculation_date, td.notification_date, td.purchase_order_date, td.extraction_date { width: 130px; }
+td.project_inoculation_date, td.notification_date, td.purchase_order_date, td.extraction_date, td.collection_date { width: 130px; }
 td.cryopreservation_date { width: 160px; }
 td.purchase_order_items { width: 100px; }
 td.purchase_order_status, td.purchase_item_status { width: 100px; }
@@ -111,6 +111,19 @@ td.purchase_order_code { width: 150px; }
 td.purchase_item_product { width: 150px; }
 td.collectors_name { width: 280px }
 td.glossary_term { width: 280px }
+td.replicate { width: 125px; }
+
+td.patent_deposit_depositor_code, td.maintenance_deposit_depositor_code, td.external_strain_code {
+	width: 75px;
+}
+
+td.patent_deposit_depositor_name, td.maintenance_deposit_depositor_name {
+	width: 150px;
+}
+
+td.patent_deposit_name, td.maintenance_deposit_name, td.external_strain_name {
+	width: 275px;
+}
 
 th.object_count, td.object_count,
 th.pending_orders, td.pending_orders,

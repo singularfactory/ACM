@@ -30,6 +30,7 @@
 <?php slot('main_header') ?>
 <span>Identification request for sample <?php echo $identification->getSample()->getCode() ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'identification')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@identification_create_label?id='.$identification->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'identification', 'id' => $identification->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'identification', 'id' => $identification->getId())) ?>
 <?php end_slot() ?>

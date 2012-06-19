@@ -796,7 +796,6 @@ PatentDeposit:
     depositor_id:  { type: integer, notnull: true }
     deposition_date:  { type: date, notnull: true }
     depositor_code:  { type: string(40), notnull: true }
-    cryopreservation_method_id:  { type: integer }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }
@@ -804,6 +803,7 @@ PatentDeposit:
     remarks:  { type: string }
     bp1_document:  { type: string(255), notnull: true }
     bp4_document:  { type: string(255), notnull: true }
+    picture:  { type: string(255) }
   relations:
     TaxonomicClass:  { foreignAlias: PatentDeposits }
     Genus:  { foreignAlias: PatentDeposits }
@@ -815,7 +815,6 @@ PatentDeposit:
     Habitat:  { foreignAlias: PatentDeposits }
     Identifier:  { foreignAlias: PatentDeposits }
     Depositor:  { foreignAlias: PatentDeposits }
-    CryopreservationMethod:  { foreignAlias: PatentDeposits }
     Collectors:  { foreignAlias: Collectors, class: Collector, local: patent_deposit_id, foreign: collector_id, refClass: PatentDepositCollectors }
     Isolators:  { foreignAlias: Isolators, class: Isolator, local: patent_deposit_id, foreign: isolator_id, refClass: PatentDepositIsolators }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: patent_deposit_id, foreign: culture_medium_id, refClass: PatentDepositCultureMedia }
@@ -823,6 +822,8 @@ PatentDeposit:
   actAs:
     Timestampable:
     Date:
+    Picture:
+      moduleName: patent_deposit
 
 PatentDepositRelative:
   columns:
@@ -863,10 +864,12 @@ PatentDepositMaintenanceStatus:
 MaintenanceDeposit:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
-    taxonomic_class_id:  { type: integer, notnull: true }
-    genus_id:  { type: integer, notnull: true }
+    is_blend:  { type: boolean, notnull: true, default: false }
+    blend_description: { type: string }
+    taxonomic_class_id:  { type: integer }
+    genus_id:  { type: integer }
     species_id:  { type: integer }
-    authority_id:  { type: integer, notnull: true }
+    authority_id:  { type: integer }
     supervisor_id:  { type: integer }
     is_epitype:  { type: boolean, notnull: true, default: false }
     is_axenic:  { type: boolean, notnull: true, default: false }
@@ -881,7 +884,6 @@ MaintenanceDeposit:
     depositor_id:  { type: integer, notnull: true }
     deposition_date:  { type: date, notnull: true }
     depositor_code:  { type: string(40), notnull: true }
-    cryopreservation_method_id:  { type: integer }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }
@@ -899,7 +901,6 @@ MaintenanceDeposit:
     Habitat:  { foreignAlias: MaintenanceDeposits }
     Identifier:  { foreignAlias: MaintenanceDeposits }
     Depositor:  { foreignAlias: MaintenanceDeposits }
-    CryopreservationMethod:  { foreignAlias: MaintenanceDeposits }
     Collectors:  { foreignAlias: Collectors, class: Collector, local: maintenance_deposit_id, foreign: collector_id, refClass: MaintenanceDepositCollectors }
     Isolators:  { foreignAlias: Isolators, class: Isolator, local: maintenance_deposit_id, foreign: isolator_id, refClass: MaintenanceDepositIsolators }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: maintenance_deposit_id, foreign: culture_medium_id, refClass: MaintenanceDepositCultureMedia }
@@ -1108,10 +1109,12 @@ ProjectName:
 Cryopreservation:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
-    subject:  { type: enum, values: [sample, strain, "external_strain"] }
+    subject:  { type: enum, values: [sample, strain, "external_strain", "patent_deposit", "maintenance_deposit"] }
     strain_id:  { type: integer }
     sample_id:  { type: integer }
     external_strain_id:  { type: integer }
+    patent_deposit_id:  { type: integer }
+    maintenance_deposit_id:  { type: integer }
     cryopreservation_method_id:  { type: integer, notnull: true }
     cryopreservation_date:  { type: date, notnull: true }
     first_replicate:  { type: string(10) }
@@ -1125,6 +1128,8 @@ Cryopreservation:
     Sample:  { foreignAlias: Cryopreservations }
     Strain:  { foreignAlias: Cryopreservations }
     ExternalStrain:  { foreignAlias: Cryopreservations }
+    PatentDeposit:  { foreignAlias: Cryopreservations }
+    MaintenanceDeposit:  { foreignAlias: Cryopreservations }
     CryopreservationMethod:  { foreignAlias: Cryopreservations }
   indexes:
     cryopreservation_date:

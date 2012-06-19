@@ -65,10 +65,11 @@
 		<?php echo link_to(image_tag('last.png', array('alt' => 'Last page', 'title' => 'Last page')), $url.$pager->getLastPage(), array('class' => 'button')) ?>
 	</span>
 
-	<?php if ( !isset($warning) ) $warning = true ?>
+	<?php if (!isset($warning)) $warning = true ?>
 	<span id="pagination_cancelation">
-		<?php echo link_to('Show all records',
-			"@module_full_index?module=$model",
-			array('confirm' => ($warning == true)?'Displaying all results may take some time depending on the number of results. Do you want to continue?':false)) ?>
+	<?php echo link_to(
+		'Show all records',
+		empty($url_parameters['criteria']) ? "@module_full_index?module=$model" : "@module_full_index_search?module=$model&criteria=".$url_parameters['criteria'],
+		array('confirm' => ($warning == true)?'Displaying all results may take some time depending on the number of results. Do you want to continue?':false)) ?>
 	</span>
 </div>

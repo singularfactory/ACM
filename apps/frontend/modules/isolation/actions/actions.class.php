@@ -24,19 +24,14 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * isolation actions.
  *
  * @package ACM.Frontend
  * @subpackage isolation
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class isolationActions extends MyActions {
-
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Isolation', array('init' => false, 'sort_column' => 'reception_date'));
@@ -104,51 +99,51 @@ class isolationActions extends MyActions {
 	protected function configureFormByIsolationSubject(sfForm $form, $subject = 'sample') {
 		$form->setDefault('isolation_subject', $subject);
 		switch( $subject ) {
-			case 'external':
-				unset($form['sample_id']);
-				unset($form['strain_id']);
-				unset($form['external_strain_id']);
-				break;
+		case 'external':
+			unset($form['sample_id']);
+			unset($form['strain_id']);
+			unset($form['external_strain_id']);
+			break;
 
-			case 'strain':
-				unset($form['external_code']);
-				unset($form['location_id']);
-				unset($form['sample_id']);
-				unset($form['environment_id']);
-				unset($form['habitat_id']);
-				unset($form['taxonomic_class_id']);
-				unset($form['genus_id']);
-				unset($form['species_id']);
-				unset($form['authority_id']);
-				unset($form['external_strain_id']);
-				break;
+		case 'strain':
+			unset($form['external_code']);
+			unset($form['location_id']);
+			unset($form['sample_id']);
+			unset($form['environment_id']);
+			unset($form['habitat_id']);
+			unset($form['taxonomic_class_id']);
+			unset($form['genus_id']);
+			unset($form['species_id']);
+			unset($form['authority_id']);
+			unset($form['external_strain_id']);
+			break;
 
-			case 'external_strain':
-				unset($form['external_code']);
-				unset($form['location_id']);
-				unset($form['sample_id']);
-				unset($form['environment_id']);
-				unset($form['habitat_id']);
-				unset($form['taxonomic_class_id']);
-				unset($form['genus_id']);
-				unset($form['species_id']);
-				unset($form['authority_id']);
-				unset($form['strain_id']);
-				break;
+		case 'external_strain':
+			unset($form['external_code']);
+			unset($form['location_id']);
+			unset($form['sample_id']);
+			unset($form['environment_id']);
+			unset($form['habitat_id']);
+			unset($form['taxonomic_class_id']);
+			unset($form['genus_id']);
+			unset($form['species_id']);
+			unset($form['authority_id']);
+			unset($form['strain_id']);
+			break;
 
-			case 'sample':
-			default:
-				unset($form['external_code']);
-				unset($form['location_id']);
-				unset($form['strain_id']);
-				unset($form['environment_id']);
-				unset($form['habitat_id']);
-				unset($form['taxonomic_class_id']);
-				unset($form['genus_id']);
-				unset($form['species_id']);
-				unset($form['authority_id']);
-				unset($form['external_strain_id']);
-				break;
+		case 'sample':
+		default:
+			unset($form['external_code']);
+			unset($form['location_id']);
+			unset($form['strain_id']);
+			unset($form['environment_id']);
+			unset($form['habitat_id']);
+			unset($form['taxonomic_class_id']);
+			unset($form['genus_id']);
+			unset($form['species_id']);
+			unset($form['authority_id']);
+			unset($form['external_strain_id']);
+			break;
 		}
 	}
 
@@ -268,4 +263,32 @@ class isolationActions extends MyActions {
 		$this->getUser()->setFlash('notice', 'The information on this isolation has some errors you need to fix', false);
 	}
 
+	/**
+	 * Create labels for Identification records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		$id = $request->getParameter('id');
+		$this->forward404Unless($isolation = IsolationTable::getInstance()->find(array($id)), sprintf('Object isolation does not exist (%s).', $id));
+
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->label = IsolationTable::getInstance()->findOneById($id);
+			$this->copies = $values['copies'];
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "isolation_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->form = new IsolationLabelForm($isolation);
+			$this->isolation = $isolation;
+		}
+	}
 }

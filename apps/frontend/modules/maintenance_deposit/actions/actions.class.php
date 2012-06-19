@@ -24,8 +24,6 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * maintenance_deposit actions.
@@ -36,7 +34,6 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class maintenance_depositActions extends MyActions {
-
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'MaintenanceDeposit', array('init' => false, 'sort_column' => 'depositor_code'));
@@ -92,7 +89,6 @@ class maintenance_depositActions extends MyActions {
 			$maintenanceDeposit->setSpeciesId($lastDeposit->getSpeciesId());
 			$maintenanceDeposit->setAuthorityId($lastDeposit->getAuthorityId());
 			$maintenanceDeposit->setMaintenanceStatusId($lastDeposit->getMaintenanceStatusId());
-			$maintenanceDeposit->setCryopreservationMethodId($lastDeposit->getCryopreservationMethodId());
 			$maintenanceDeposit->setEnvironmentId($lastDeposit->getEnvironmentId());
 			$maintenanceDeposit->setHabitatId($lastDeposit->getHabitatId());
 			$maintenanceDeposit->setDepositorId($lastDeposit->getDepositorId());
@@ -116,21 +112,21 @@ class maintenance_depositActions extends MyActions {
 		$this->hasDepositors = (DepositorTable::getInstance()->count() > 0)?true:false;
 		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
 		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
-  }
+	}
 
-  public function executeCreate(sfWebRequest $request) {
-  	$this->forward404Unless($request->isMethod(sfRequest::POST));
+	public function executeCreate(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST));
 
-    $this->form = new MaintenanceDepositForm();
+		$this->form = new MaintenanceDepositForm();
 		$this->hasIdentifiers = (IdentifierTable::getInstance()->count() > 0)?true:false;
 		$this->hasDepositors = (DepositorTable::getInstance()->count() > 0)?true:false;
 		$this->hasLocations = (LocationTable::getInstance()->count() > 0)?true:false;
 		$this->hasCultureMedia = (CultureMediumTable::getInstance()->count() > 0)?true:false;
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('new');
-  }
+		$this->setTemplate('new');
+	}
 
 	public function executeEdit(sfWebRequest $request) {
 		$this->forward404Unless($maintenanceDeposit = MaintenanceDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object maintenance deposit does not exist (%s).', $request->getParameter('id')));
@@ -139,12 +135,12 @@ class maintenance_depositActions extends MyActions {
 
 	public function executeUpdate(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
-    $this->forward404Unless($maintenanceDeposit = MaintenanceDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object maintenance deposit does not exist (%s).', $request->getParameter('id')));
-    $this->form = new MaintenanceDepositForm($maintenanceDeposit);
+		$this->forward404Unless($maintenanceDeposit = MaintenanceDepositTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object maintenance deposit does not exist (%s).', $request->getParameter('id')));
+		$this->form = new MaintenanceDepositForm($maintenanceDeposit);
 
-    $this->processForm($request, $this->form);
+		$this->processForm($request, $this->form);
 
-    $this->setTemplate('edit');
+		$this->setTemplate('edit');
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -192,4 +188,110 @@ class maintenance_depositActions extends MyActions {
 		$this->getUser()->setFlash('notice', 'The information on this deposit has some errors you need to fix', false);
 	}
 
+	/**
+	 * Create labels for MaintenanceDeposit records
+	 *
+	 * @param sfWebRequest $request Request information
+	 * @return void
+	 */
+	public function executeCreateLabel(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+		if ($request->isMethod(sfRequest::POST)) {
+			$values = $request->getPostParameters();
+			$this->labels = MaintenanceDepositTable::getInstance()->availableMaintenanceDepositsForLabelConfiguration($values);
+			$this->copies = $values['copies'];
+			$this->cultureMedium = CultureMediumTable::getInstance()->findOneById($values['culture_medium_id']);
+
+			$this->setLayout(false);
+			$pdf = new WKPDF();
+			$pdf->set_html($this->getPartial('create_pdf'));
+			$pdf->set_orientation('Landscape');
+			$pdf->render();
+			$pdf->output(WKPDF::$PDF_DOWNLOAD, "maintenance_deposit_labels.pdf");
+			throw new sfStopException();
+		} else {
+			$this->getUser()->setAttribute('maintenance_deposit_label_configuration', array());
+			$this->form = new MaintenanceDepositLabelForm();
+			$this->form->setWidgets(array(
+				'supervisor_id' => new sfWidgetFormDoctrineChoice(array(
+					'model' => 'Supervisor',
+					'query' => MaintenanceDepositTable::getInstance()->availableSupervisorsQuery(),
+					'add_empty' => true,
+				)),
+			));
+		}
+	}
+
+	/**
+	 * Returns the HTML form section of a label field
+	 *
+	 * @param sfWebRequest $request
+	 * @return string HTML content
+	 */
+	public function executeGetLabelField(sfWebRequest $request) {
+		if ($request->isXmlHttpRequest()) {
+			$div = $request->getParameter('field');
+			$value = $request->getParameter('value');
+			$maintenanceDeposits = array();
+
+			if (empty($div) || empty($value)) {
+				return sfView::NONE;
+			}
+
+			$labelConfiguration = $this->getUser()->getAttribute('maintenance_deposit_label_configuration');
+			$form = new MaintenanceDepositLabelForm();
+			switch ($div) {
+			case 'transfer_intervals':
+				$labelConfiguration['supervisor_id'] = $value;
+				$field = 'transfer_interval';
+				$form->setWidgets(array(
+					'transfer_interval' => new sfWidgetFormChoice(array(
+						'choices' => MaintenanceDepositTable::getInstance()->availableTransferIntervalChoices($labelConfiguration['supervisor_id']),
+					))));
+				break;
+			case 'genus':
+				$labelConfiguration['transfer_interval'] = $value;
+				$field = 'genus_id';
+				$form->setWidgets(array(
+					'genus_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'Genus',
+						'query' => MaintenanceDepositTable::getInstance()->availableGenusQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'axenicity':
+				$labelConfiguration['genus_id'] = $value;
+				$field = 'is_axenic';
+				$form->setWidgets(array('is_axenic' => new sfWidgetFormChoice(array('choices' => MaintenanceDepositLabelForm::$booleanChoices))));
+				break;
+			case 'culture_medium':
+				$labelConfiguration['is_axenic'] = $value;
+				$field = 'culture_medium_id';
+				$form->setWidgets(array(
+					'culture_medium_id' => new sfWidgetFormDoctrineChoice(array(
+						'model' => 'CultureMedium',
+						'query' => MaintenanceDepositTable::getInstance()->availableCultureMediaQuery(
+							$labelConfiguration['supervisor_id'], $labelConfiguration['transfer_interval'], $labelConfiguration['genus_id'], $labelConfiguration['is_axenic']),
+						'add_empty' => true,
+					)),
+				));
+				break;
+			case 'strain':
+				$labelConfiguration['culture_medium_id'] = $value;
+				$maintenanceDeposits = MaintenanceDepositTable::getInstance()->availableMaintenanceDepositsForLabelConfiguration($labelConfiguration);
+				break;
+			}
+			$this->getUser()->setAttribute('maintenance_deposit_label_configuration', $labelConfiguration);
+
+			$this->setLayout(false);
+			if ($div === 'strain') {
+				return $this->renderPartial('labelMaintenanceDeposits', array('maintenanceDeposits' => $maintenanceDeposits));
+			} else {
+				return $this->renderPartial('labelFieldForm', array('div' => $div, 'field' => $field, 'form' => $form));
+			}
+		}
+		return sfView::NONE;
+	}
 }

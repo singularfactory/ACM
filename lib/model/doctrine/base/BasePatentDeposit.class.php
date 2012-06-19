@@ -24,7 +24,6 @@
  * @property integer $depositor_id
  * @property date $deposition_date
  * @property string $depositor_code
- * @property integer $cryopreservation_method_id
  * @property string $transfer_interval
  * @property string $viability_test
  * @property string $observation
@@ -32,6 +31,7 @@
  * @property string $remarks
  * @property string $bp1_document
  * @property string $bp4_document
+ * @property string $picture
  * @property TaxonomicClass $TaxonomicClass
  * @property Genus $Genus
  * @property Species $Species
@@ -42,7 +42,6 @@
  * @property Habitat $Habitat
  * @property Identifier $Identifier
  * @property Depositor $Depositor
- * @property CryopreservationMethod $CryopreservationMethod
  * @property Doctrine_Collection $Collectors
  * @property Doctrine_Collection $Isolators
  * @property Doctrine_Collection $CultureMedia
@@ -52,101 +51,102 @@
  * @property Doctrine_Collection $PatentDepositIsolators
  * @property Doctrine_Collection $PatentDepositCollectors
  * @property Doctrine_Collection $PatentDepositMaintenanceStatus
+ * @property Doctrine_Collection $Cryopreservations
  * 
- * @method integer                getId()                             Returns the current record's "id" value
- * @method integer                getTaxonomicClassId()               Returns the current record's "taxonomic_class_id" value
- * @method integer                getGenusId()                        Returns the current record's "genus_id" value
- * @method integer                getSpeciesId()                      Returns the current record's "species_id" value
- * @method integer                getAuthorityId()                    Returns the current record's "authority_id" value
- * @method integer                getSupervisorId()                   Returns the current record's "supervisor_id" value
- * @method boolean                getIsEpitype()                      Returns the current record's "is_epitype" value
- * @method boolean                getIsAxenic()                       Returns the current record's "is_axenic" value
- * @method boolean                getHasDna()                         Returns the current record's "has_dna" value
- * @method string                 getGenSequence()                    Returns the current record's "gen_sequence" value
- * @method integer                getLocationId()                     Returns the current record's "location_id" value
- * @method integer                getEnvironmentId()                  Returns the current record's "environment_id" value
- * @method integer                getHabitatId()                      Returns the current record's "habitat_id" value
- * @method date                   getCollectionDate()                 Returns the current record's "collection_date" value
- * @method date                   getIsolationDate()                  Returns the current record's "isolation_date" value
- * @method integer                getIdentifierId()                   Returns the current record's "identifier_id" value
- * @method integer                getDepositorId()                    Returns the current record's "depositor_id" value
- * @method date                   getDepositionDate()                 Returns the current record's "deposition_date" value
- * @method string                 getDepositorCode()                  Returns the current record's "depositor_code" value
- * @method integer                getCryopreservationMethodId()       Returns the current record's "cryopreservation_method_id" value
- * @method string                 getTransferInterval()               Returns the current record's "transfer_interval" value
- * @method string                 getViabilityTest()                  Returns the current record's "viability_test" value
- * @method string                 getObservation()                    Returns the current record's "observation" value
- * @method string                 getCitations()                      Returns the current record's "citations" value
- * @method string                 getRemarks()                        Returns the current record's "remarks" value
- * @method string                 getBp1Document()                    Returns the current record's "bp1_document" value
- * @method string                 getBp4Document()                    Returns the current record's "bp4_document" value
- * @method TaxonomicClass         getTaxonomicClass()                 Returns the current record's "TaxonomicClass" value
- * @method Genus                  getGenus()                          Returns the current record's "Genus" value
- * @method Species                getSpecies()                        Returns the current record's "Species" value
- * @method Authority              getAuthority()                      Returns the current record's "Authority" value
- * @method sfGuardUser            getSupervisor()                     Returns the current record's "Supervisor" value
- * @method Location               getLocation()                       Returns the current record's "Location" value
- * @method Environment            getEnvironment()                    Returns the current record's "Environment" value
- * @method Habitat                getHabitat()                        Returns the current record's "Habitat" value
- * @method Identifier             getIdentifier()                     Returns the current record's "Identifier" value
- * @method Depositor              getDepositor()                      Returns the current record's "Depositor" value
- * @method CryopreservationMethod getCryopreservationMethod()         Returns the current record's "CryopreservationMethod" value
- * @method Doctrine_Collection    getCollectors()                     Returns the current record's "Collectors" collection
- * @method Doctrine_Collection    getIsolators()                      Returns the current record's "Isolators" collection
- * @method Doctrine_Collection    getCultureMedia()                   Returns the current record's "CultureMedia" collection
- * @method Doctrine_Collection    getMaintenanceStatus()              Returns the current record's "MaintenanceStatus" collection
- * @method Doctrine_Collection    getRelatives()                      Returns the current record's "Relatives" collection
- * @method Doctrine_Collection    getPatentDepositCultureMedia()      Returns the current record's "PatentDepositCultureMedia" collection
- * @method Doctrine_Collection    getPatentDepositIsolators()         Returns the current record's "PatentDepositIsolators" collection
- * @method Doctrine_Collection    getPatentDepositCollectors()        Returns the current record's "PatentDepositCollectors" collection
- * @method Doctrine_Collection    getPatentDepositMaintenanceStatus() Returns the current record's "PatentDepositMaintenanceStatus" collection
- * @method PatentDeposit          setId()                             Sets the current record's "id" value
- * @method PatentDeposit          setTaxonomicClassId()               Sets the current record's "taxonomic_class_id" value
- * @method PatentDeposit          setGenusId()                        Sets the current record's "genus_id" value
- * @method PatentDeposit          setSpeciesId()                      Sets the current record's "species_id" value
- * @method PatentDeposit          setAuthorityId()                    Sets the current record's "authority_id" value
- * @method PatentDeposit          setSupervisorId()                   Sets the current record's "supervisor_id" value
- * @method PatentDeposit          setIsEpitype()                      Sets the current record's "is_epitype" value
- * @method PatentDeposit          setIsAxenic()                       Sets the current record's "is_axenic" value
- * @method PatentDeposit          setHasDna()                         Sets the current record's "has_dna" value
- * @method PatentDeposit          setGenSequence()                    Sets the current record's "gen_sequence" value
- * @method PatentDeposit          setLocationId()                     Sets the current record's "location_id" value
- * @method PatentDeposit          setEnvironmentId()                  Sets the current record's "environment_id" value
- * @method PatentDeposit          setHabitatId()                      Sets the current record's "habitat_id" value
- * @method PatentDeposit          setCollectionDate()                 Sets the current record's "collection_date" value
- * @method PatentDeposit          setIsolationDate()                  Sets the current record's "isolation_date" value
- * @method PatentDeposit          setIdentifierId()                   Sets the current record's "identifier_id" value
- * @method PatentDeposit          setDepositorId()                    Sets the current record's "depositor_id" value
- * @method PatentDeposit          setDepositionDate()                 Sets the current record's "deposition_date" value
- * @method PatentDeposit          setDepositorCode()                  Sets the current record's "depositor_code" value
- * @method PatentDeposit          setCryopreservationMethodId()       Sets the current record's "cryopreservation_method_id" value
- * @method PatentDeposit          setTransferInterval()               Sets the current record's "transfer_interval" value
- * @method PatentDeposit          setViabilityTest()                  Sets the current record's "viability_test" value
- * @method PatentDeposit          setObservation()                    Sets the current record's "observation" value
- * @method PatentDeposit          setCitations()                      Sets the current record's "citations" value
- * @method PatentDeposit          setRemarks()                        Sets the current record's "remarks" value
- * @method PatentDeposit          setBp1Document()                    Sets the current record's "bp1_document" value
- * @method PatentDeposit          setBp4Document()                    Sets the current record's "bp4_document" value
- * @method PatentDeposit          setTaxonomicClass()                 Sets the current record's "TaxonomicClass" value
- * @method PatentDeposit          setGenus()                          Sets the current record's "Genus" value
- * @method PatentDeposit          setSpecies()                        Sets the current record's "Species" value
- * @method PatentDeposit          setAuthority()                      Sets the current record's "Authority" value
- * @method PatentDeposit          setSupervisor()                     Sets the current record's "Supervisor" value
- * @method PatentDeposit          setLocation()                       Sets the current record's "Location" value
- * @method PatentDeposit          setEnvironment()                    Sets the current record's "Environment" value
- * @method PatentDeposit          setHabitat()                        Sets the current record's "Habitat" value
- * @method PatentDeposit          setIdentifier()                     Sets the current record's "Identifier" value
- * @method PatentDeposit          setDepositor()                      Sets the current record's "Depositor" value
- * @method PatentDeposit          setCryopreservationMethod()         Sets the current record's "CryopreservationMethod" value
- * @method PatentDeposit          setCollectors()                     Sets the current record's "Collectors" collection
- * @method PatentDeposit          setIsolators()                      Sets the current record's "Isolators" collection
- * @method PatentDeposit          setCultureMedia()                   Sets the current record's "CultureMedia" collection
- * @method PatentDeposit          setMaintenanceStatus()              Sets the current record's "MaintenanceStatus" collection
- * @method PatentDeposit          setRelatives()                      Sets the current record's "Relatives" collection
- * @method PatentDeposit          setPatentDepositCultureMedia()      Sets the current record's "PatentDepositCultureMedia" collection
- * @method PatentDeposit          setPatentDepositIsolators()         Sets the current record's "PatentDepositIsolators" collection
- * @method PatentDeposit          setPatentDepositCollectors()        Sets the current record's "PatentDepositCollectors" collection
- * @method PatentDeposit          setPatentDepositMaintenanceStatus() Sets the current record's "PatentDepositMaintenanceStatus" collection
+ * @method integer             getId()                             Returns the current record's "id" value
+ * @method integer             getTaxonomicClassId()               Returns the current record's "taxonomic_class_id" value
+ * @method integer             getGenusId()                        Returns the current record's "genus_id" value
+ * @method integer             getSpeciesId()                      Returns the current record's "species_id" value
+ * @method integer             getAuthorityId()                    Returns the current record's "authority_id" value
+ * @method integer             getSupervisorId()                   Returns the current record's "supervisor_id" value
+ * @method boolean             getIsEpitype()                      Returns the current record's "is_epitype" value
+ * @method boolean             getIsAxenic()                       Returns the current record's "is_axenic" value
+ * @method boolean             getHasDna()                         Returns the current record's "has_dna" value
+ * @method string              getGenSequence()                    Returns the current record's "gen_sequence" value
+ * @method integer             getLocationId()                     Returns the current record's "location_id" value
+ * @method integer             getEnvironmentId()                  Returns the current record's "environment_id" value
+ * @method integer             getHabitatId()                      Returns the current record's "habitat_id" value
+ * @method date                getCollectionDate()                 Returns the current record's "collection_date" value
+ * @method date                getIsolationDate()                  Returns the current record's "isolation_date" value
+ * @method integer             getIdentifierId()                   Returns the current record's "identifier_id" value
+ * @method integer             getDepositorId()                    Returns the current record's "depositor_id" value
+ * @method date                getDepositionDate()                 Returns the current record's "deposition_date" value
+ * @method string              getDepositorCode()                  Returns the current record's "depositor_code" value
+ * @method string              getTransferInterval()               Returns the current record's "transfer_interval" value
+ * @method string              getViabilityTest()                  Returns the current record's "viability_test" value
+ * @method string              getObservation()                    Returns the current record's "observation" value
+ * @method string              getCitations()                      Returns the current record's "citations" value
+ * @method string              getRemarks()                        Returns the current record's "remarks" value
+ * @method string              getBp1Document()                    Returns the current record's "bp1_document" value
+ * @method string              getBp4Document()                    Returns the current record's "bp4_document" value
+ * @method string              getPicture()                        Returns the current record's "picture" value
+ * @method TaxonomicClass      getTaxonomicClass()                 Returns the current record's "TaxonomicClass" value
+ * @method Genus               getGenus()                          Returns the current record's "Genus" value
+ * @method Species             getSpecies()                        Returns the current record's "Species" value
+ * @method Authority           getAuthority()                      Returns the current record's "Authority" value
+ * @method sfGuardUser         getSupervisor()                     Returns the current record's "Supervisor" value
+ * @method Location            getLocation()                       Returns the current record's "Location" value
+ * @method Environment         getEnvironment()                    Returns the current record's "Environment" value
+ * @method Habitat             getHabitat()                        Returns the current record's "Habitat" value
+ * @method Identifier          getIdentifier()                     Returns the current record's "Identifier" value
+ * @method Depositor           getDepositor()                      Returns the current record's "Depositor" value
+ * @method Doctrine_Collection getCollectors()                     Returns the current record's "Collectors" collection
+ * @method Doctrine_Collection getIsolators()                      Returns the current record's "Isolators" collection
+ * @method Doctrine_Collection getCultureMedia()                   Returns the current record's "CultureMedia" collection
+ * @method Doctrine_Collection getMaintenanceStatus()              Returns the current record's "MaintenanceStatus" collection
+ * @method Doctrine_Collection getRelatives()                      Returns the current record's "Relatives" collection
+ * @method Doctrine_Collection getPatentDepositCultureMedia()      Returns the current record's "PatentDepositCultureMedia" collection
+ * @method Doctrine_Collection getPatentDepositIsolators()         Returns the current record's "PatentDepositIsolators" collection
+ * @method Doctrine_Collection getPatentDepositCollectors()        Returns the current record's "PatentDepositCollectors" collection
+ * @method Doctrine_Collection getPatentDepositMaintenanceStatus() Returns the current record's "PatentDepositMaintenanceStatus" collection
+ * @method Doctrine_Collection getCryopreservations()              Returns the current record's "Cryopreservations" collection
+ * @method PatentDeposit       setId()                             Sets the current record's "id" value
+ * @method PatentDeposit       setTaxonomicClassId()               Sets the current record's "taxonomic_class_id" value
+ * @method PatentDeposit       setGenusId()                        Sets the current record's "genus_id" value
+ * @method PatentDeposit       setSpeciesId()                      Sets the current record's "species_id" value
+ * @method PatentDeposit       setAuthorityId()                    Sets the current record's "authority_id" value
+ * @method PatentDeposit       setSupervisorId()                   Sets the current record's "supervisor_id" value
+ * @method PatentDeposit       setIsEpitype()                      Sets the current record's "is_epitype" value
+ * @method PatentDeposit       setIsAxenic()                       Sets the current record's "is_axenic" value
+ * @method PatentDeposit       setHasDna()                         Sets the current record's "has_dna" value
+ * @method PatentDeposit       setGenSequence()                    Sets the current record's "gen_sequence" value
+ * @method PatentDeposit       setLocationId()                     Sets the current record's "location_id" value
+ * @method PatentDeposit       setEnvironmentId()                  Sets the current record's "environment_id" value
+ * @method PatentDeposit       setHabitatId()                      Sets the current record's "habitat_id" value
+ * @method PatentDeposit       setCollectionDate()                 Sets the current record's "collection_date" value
+ * @method PatentDeposit       setIsolationDate()                  Sets the current record's "isolation_date" value
+ * @method PatentDeposit       setIdentifierId()                   Sets the current record's "identifier_id" value
+ * @method PatentDeposit       setDepositorId()                    Sets the current record's "depositor_id" value
+ * @method PatentDeposit       setDepositionDate()                 Sets the current record's "deposition_date" value
+ * @method PatentDeposit       setDepositorCode()                  Sets the current record's "depositor_code" value
+ * @method PatentDeposit       setTransferInterval()               Sets the current record's "transfer_interval" value
+ * @method PatentDeposit       setViabilityTest()                  Sets the current record's "viability_test" value
+ * @method PatentDeposit       setObservation()                    Sets the current record's "observation" value
+ * @method PatentDeposit       setCitations()                      Sets the current record's "citations" value
+ * @method PatentDeposit       setRemarks()                        Sets the current record's "remarks" value
+ * @method PatentDeposit       setBp1Document()                    Sets the current record's "bp1_document" value
+ * @method PatentDeposit       setBp4Document()                    Sets the current record's "bp4_document" value
+ * @method PatentDeposit       setPicture()                        Sets the current record's "picture" value
+ * @method PatentDeposit       setTaxonomicClass()                 Sets the current record's "TaxonomicClass" value
+ * @method PatentDeposit       setGenus()                          Sets the current record's "Genus" value
+ * @method PatentDeposit       setSpecies()                        Sets the current record's "Species" value
+ * @method PatentDeposit       setAuthority()                      Sets the current record's "Authority" value
+ * @method PatentDeposit       setSupervisor()                     Sets the current record's "Supervisor" value
+ * @method PatentDeposit       setLocation()                       Sets the current record's "Location" value
+ * @method PatentDeposit       setEnvironment()                    Sets the current record's "Environment" value
+ * @method PatentDeposit       setHabitat()                        Sets the current record's "Habitat" value
+ * @method PatentDeposit       setIdentifier()                     Sets the current record's "Identifier" value
+ * @method PatentDeposit       setDepositor()                      Sets the current record's "Depositor" value
+ * @method PatentDeposit       setCollectors()                     Sets the current record's "Collectors" collection
+ * @method PatentDeposit       setIsolators()                      Sets the current record's "Isolators" collection
+ * @method PatentDeposit       setCultureMedia()                   Sets the current record's "CultureMedia" collection
+ * @method PatentDeposit       setMaintenanceStatus()              Sets the current record's "MaintenanceStatus" collection
+ * @method PatentDeposit       setRelatives()                      Sets the current record's "Relatives" collection
+ * @method PatentDeposit       setPatentDepositCultureMedia()      Sets the current record's "PatentDepositCultureMedia" collection
+ * @method PatentDeposit       setPatentDepositIsolators()         Sets the current record's "PatentDepositIsolators" collection
+ * @method PatentDeposit       setPatentDepositCollectors()        Sets the current record's "PatentDepositCollectors" collection
+ * @method PatentDeposit       setPatentDepositMaintenanceStatus() Sets the current record's "PatentDepositMaintenanceStatus" collection
+ * @method PatentDeposit       setCryopreservations()              Sets the current record's "Cryopreservations" collection
  * 
  * @package    bna_green_house
  * @subpackage model
@@ -232,9 +232,6 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              'notnull' => true,
              'length' => 40,
              ));
-        $this->hasColumn('cryopreservation_method_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
         $this->hasColumn('transfer_interval', 'string', 40, array(
              'type' => 'string',
              'length' => 40,
@@ -259,6 +256,10 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
         $this->hasColumn('bp4_document', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
+             'length' => 255,
+             ));
+        $this->hasColumn('picture', 'string', 255, array(
+             'type' => 'string',
              'length' => 255,
              ));
 
@@ -308,10 +309,6 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              'local' => 'depositor_id',
              'foreign' => 'id'));
 
-        $this->hasOne('CryopreservationMethod', array(
-             'local' => 'cryopreservation_method_id',
-             'foreign' => 'id'));
-
         $this->hasMany('Collector as Collectors', array(
              'refClass' => 'PatentDepositCollectors',
              'local' => 'patent_deposit_id',
@@ -352,9 +349,17 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'patent_deposit_id'));
 
+        $this->hasMany('Cryopreservation as Cryopreservations', array(
+             'local' => 'id',
+             'foreign' => 'patent_deposit_id'));
+
         $timestampable0 = new Doctrine_Template_Timestampable();
         $date0 = new Date();
+        $picture0 = new Picture(array(
+             'moduleName' => 'patent_deposit',
+             ));
         $this->actAs($timestampable0);
         $this->actAs($date0);
+        $this->actAs($picture0);
     }
 }

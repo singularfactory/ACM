@@ -242,4 +242,26 @@ class ExternalStrain extends BaseExternalStrain {
 		}
 		return sfConfig::get('app_no_data_message');
 	}
+
+	public function getNbCryopreservations() {
+		return CryopreservationTable::getInstance()->createQuery('c')
+			->where('c.external_strain_id = ?', $this->getId())
+			->count();
+	}
+
+	public function isCryopreserved() {
+		return $this->getNbCryopreservations() > 0;
+	}
+
+	public function getFormattedMaintenanceStatusList() {
+		$statuses = array();
+		foreach ($this->getMaintenanceStatus() as $status) {
+			$statuses[] = $status;
+		}
+
+		if ($this->isCryopreserved()) {
+			$statuses[] = 'Cryopreserved';
+		}
+		return implode(', ', $statuses);
+	}
 }

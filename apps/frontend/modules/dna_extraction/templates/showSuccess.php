@@ -32,6 +32,7 @@
 	Extraction <?php echo $dnaExtraction->getCode() ?>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'dna_extraction')) ?>
+<?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@dna_extraction_create_label?id='.$dnaExtraction->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
 <?php include_partial('global/delete_header_action', array('module' => 'dna_extraction', 'id' => $dnaExtraction->getId())) ?>
 <?php include_partial('global/new_header_action', array('message' => 'Add a PCR', 'route' => "@pcr_new?dna_extraction={$dnaExtraction->getId()}")) ?>

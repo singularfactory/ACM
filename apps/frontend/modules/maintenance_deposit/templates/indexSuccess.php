@@ -28,12 +28,13 @@
 <?php use_helper('Date') ?>
 
 <?php slot('main_header') ?>
-<span>All maintenance deposits</span>
+	<span>All maintenance deposits</span>
 	<?php include_partial('global/search_box_header_action', array('route' => '@maintenance_deposit_search?criteria=')) ?>
-<?php include_partial('global/new_header_action', array('message' => 'Add a new maintenance_deposit', 'route' => '@maintenance_deposit_new')) ?>
+	<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@maintenance_deposit_create_label')) ?>
+	<?php include_partial('global/new_header_action', array('message' => 'Add a new maintenance_deposit', 'route' => '@maintenance_deposit_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php if ($pager->count()): ?>
 <table id="maintenance_deposit_list">
 	<tbody>
 		<tr>
@@ -52,9 +53,13 @@
 			<td class="depositor_name"><?php echo link_to($maintenanceDeposit->getDepositor(), $url) ?></td>
 			<td class="maintenance_deposit_deposition_date"><?php echo link_to($maintenanceDeposit->getDepositionDate(), $url) ?></td>
 			<td class="maintenance_deposit_name">
+				<?php if($maintenanceDeposit->getIsBlend()): ?>
+				<?php echo link_to(sfConfig::get('app_no_data_message'), $url) ?>
+				<?php else: ?>
 				<span class="species_name">
 					<?php echo link_to(sprintf('%s %s %s', $maintenanceDeposit->getTaxonomicClass(), $maintenanceDeposit->getGenus(), $maintenanceDeposit->getSpecies()), $url) ?>
 				</span>
+				<?php endif ?>
 			</td>
 
 			<td class="actions">
