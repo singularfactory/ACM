@@ -9,17 +9,20 @@
  * @property string $name
  * @property string $surname
  * @property string $email
+ * @property Doctrine_Collection $Projects
  * @property Doctrine_Collection $Identifications
  * 
  * @method integer             getId()              Returns the current record's "id" value
  * @method string              getName()            Returns the current record's "name" value
  * @method string              getSurname()         Returns the current record's "surname" value
  * @method string              getEmail()           Returns the current record's "email" value
+ * @method Doctrine_Collection getProjects()        Returns the current record's "Projects" collection
  * @method Doctrine_Collection getIdentifications() Returns the current record's "Identifications" collection
  * @method Petitioners         setId()              Sets the current record's "id" value
  * @method Petitioners         setName()            Sets the current record's "name" value
  * @method Petitioners         setSurname()         Sets the current record's "surname" value
  * @method Petitioners         setEmail()           Sets the current record's "email" value
+ * @method Petitioners         setProjects()        Sets the current record's "Projects" collection
  * @method Petitioners         setIdentifications() Sets the current record's "Identifications" collection
  * 
  * @package    bna_green_house
@@ -77,6 +80,10 @@ abstract class BasePetitioners extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Project as Projects', array(
+             'local' => 'id',
+             'foreign' => 'petitioner_id'));
+
         $this->hasMany('Identification as Identifications', array(
              'local' => 'id',
              'foreign' => 'petitioner_id'));

@@ -23,7 +23,7 @@
  * @property Strain $Strain
  * @property ExternalStrain $ExternalStrain
  * @property sfGuardUser $Provider
- * @property sfGuardUser $Petitioner
+ * @property Petitioners $Petitioner
  * 
  * @method integer        getId()                 Returns the current record's "id" value
  * @method integer        getProjectNameId()      Returns the current record's "project_name_id" value
@@ -43,7 +43,7 @@
  * @method Strain         getStrain()             Returns the current record's "Strain" value
  * @method ExternalStrain getExternalStrain()     Returns the current record's "ExternalStrain" value
  * @method sfGuardUser    getProvider()           Returns the current record's "Provider" value
- * @method sfGuardUser    getPetitioner()         Returns the current record's "Petitioner" value
+ * @method Petitioners    getPetitioner()         Returns the current record's "Petitioner" value
  * @method Project        setId()                 Sets the current record's "id" value
  * @method Project        setProjectNameId()      Sets the current record's "project_name_id" value
  * @method Project        setPetitionerId()       Sets the current record's "petitioner_id" value
@@ -161,7 +161,7 @@ abstract class BaseProject extends sfDoctrineRecord
              'local' => 'provider_id',
              'foreign' => 'id'));
 
-        $this->hasOne('sfGuardUser as Petitioner', array(
+        $this->hasOne('Petitioners as Petitioner', array(
              'local' => 'petitioner_id',
              'foreign' => 'id'));
 

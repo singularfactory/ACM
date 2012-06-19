@@ -753,7 +753,7 @@ Project:
     Strain:  { foreignAlias: Projects }
     ExternalStrain:  { foreignAlias: Projects }
     Provider:  { class: sfGuardUser, local: provider_id, foreignAlias: Projects }
-    Petitioner:  { class: sfGuardUser, local: petitioner_id, foreignAlias: Projects }
+    Petitioner:  { class: Petitioners, local: petitioner_id, foreignAlias: Projects }
   indexes:
     project_inoculation_date:
       fields: [inoculation_date]

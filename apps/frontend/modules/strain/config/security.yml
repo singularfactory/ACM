@@ -1,0 +1,11 @@
+index:
+    is_secure: true
+    credentials: [[ admin, view ]]
+ 
+show:
+    is_secure: true
+    credentials: [[ admin, view ]]
+
+all:
+    is_secure: true
+    credentials: [ admin ]

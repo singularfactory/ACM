@@ -12,9 +12,11 @@ generator:
         fields:
           email_address: { label: Email }
       form:
-        display:
+         class: sfGuardUserAdminForm
+         display:
           "User":  [first_name, last_name, initials, email_address, username, password, password_again]
           "Notifications":  [notify_new_order, notify_ready_order]
+          "Permissions and groups": [is_active, is_super_admin, groups_list]
       edit:
         title: Editing user "%%username%%"
       new:

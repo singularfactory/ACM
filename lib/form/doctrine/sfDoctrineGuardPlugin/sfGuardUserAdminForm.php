@@ -36,7 +36,7 @@
 class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
 
 	public function configure() {
-		unset($this['permissions_list'], $this['groups_list']);
+		unset($this['permissions_list']);
 
 		// Only superadministrators are allowed to set/unset the superadministrator flag
 		if ( !sfContext::getInstance()->getUser()->isSuperAdmin() ) {
