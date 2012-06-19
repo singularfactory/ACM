@@ -38,7 +38,10 @@
  */
 class PatentDeposit extends BasePatentDeposit {
 	public function getCode() {
-		return $this->getDepositorCode();
+		return sprintf('BEA D%s_%s',
+			str_pad($this->getYearlyCount(), 2, '0', STR_PAD_LEFT),
+			date('y', strtotime($this->getDepositionDate()))
+		);
 	}
 
 	public function getNbCultureMedia() {
@@ -66,84 +69,84 @@ class PatentDeposit extends BasePatentDeposit {
 	}
 
 	public function hasDna() {
-		if ( $this->_get('has_dna') ) {
+		if ($this->_get('has_dna')) {
 			return true;
 		}
 		return false;
 	}
 
 	public function isAxenic() {
-		if ( $this->_get('is_axenic') ) {
+		if ($this->_get('is_axenic')) {
 			return true;
 		}
 		return false;
 	}
 
 	public function getFormattedEnvironment() {
-		if ( $this->getEnvironment()->exists() ) {
+		if ($this->getEnvironment()->exists()) {
 			return $this->getEnvironment()->getName();
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getFormattedHabitat() {
-		if ( $this->getHabitat()->exists() ) {
+		if ($this->getHabitat()->exists()) {
 			return $this->getHabitat()->getName();
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getFormattedHasDna() {
-		if ( $this->hasDna() ) {
+		if ($this->hasDna()) {
 			return 'yes';
 		}
 		return 'no';
 	}
 
 	public function getFormattedIsEpitype() {
-		if ( $this->getIsEpitype() ) {
+		if ($this->getIsEpitype()) {
 			return 'yes';
 		}
 		return 'no';
 	}
 
 	public function getFormattedIsAxenic() {
-		if ( $this->isAxenic() ) {
+		if ($this->isAxenic()) {
 			return 'yes';
 		}
 		return 'no';
 	}
 
 	public function getFormattedCitations() {
-		if ( $citations = $this->_get('citations') ) {
+		if ($citations = $this->_get('citations')) {
 			return $citations;
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getFormattedViabilityTest() {
-		if ( $test = $this->_get('viability_test') ) {
+		if ($test = $this->_get('viability_test')) {
 			return $test;
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getFormattedTransferInterval() {
-		if ( $transferInterval = $this->_get('transfer_interval') ) {
+		if ($transferInterval = $this->_get('transfer_interval')) {
 			return "$transferInterval weeks";
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getFormattedObservation() {
-		if ( $observation = $this->_get('observation') ) {
+		if ($observation = $this->_get('observation')) {
 			return $observation;
 		}
 		return sfConfig::get('app_no_data_message');
 	}
 
 	public function getDepositionDate() {
-		if ( $date = $this->_get('deposition_date') ) {
+		if ($date = $this->_get('deposition_date')) {
 			return $this->formatDate($date);
 		}
 		else {
@@ -152,7 +155,7 @@ class PatentDeposit extends BasePatentDeposit {
 	}
 
 	public function getIsolationDate() {
-		if ( $date = $this->_get('isolation_date') ) {
+		if ($date = $this->_get('isolation_date')) {
 			return $this->formatDate($date);
 		}
 		else {
@@ -161,7 +164,7 @@ class PatentDeposit extends BasePatentDeposit {
 	}
 
 	public function getCollectionDate() {
-		if ( $date = $this->_get('collection_date') ) {
+		if ($date = $this->_get('collection_date')) {
 			return $this->formatDate($date);
 		}
 		else {

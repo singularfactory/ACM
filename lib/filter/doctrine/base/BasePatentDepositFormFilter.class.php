@@ -13,6 +13,9 @@ abstract class BasePatentDepositFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
+      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
+      'deposition_date'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'yearly_count'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'taxonomic_class_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => true)),
       'genus_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => true)),
       'species_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => true)),
@@ -28,9 +31,6 @@ abstract class BasePatentDepositFormFilter extends BaseFormFilterDoctrine
       'collection_date'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'isolation_date'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'identifier_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
-      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => true)),
-      'deposition_date'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'depositor_code'          => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'transfer_interval'       => new sfWidgetFormFilterInput(),
       'viability_test'          => new sfWidgetFormFilterInput(),
       'observation'             => new sfWidgetFormFilterInput(),
@@ -48,6 +48,9 @@ abstract class BasePatentDepositFormFilter extends BaseFormFilterDoctrine
     ));
 
     $this->setValidators(array(
+      'depositor_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Depositor'), 'column' => 'id')),
+      'deposition_date'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
+      'yearly_count'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'taxonomic_class_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('TaxonomicClass'), 'column' => 'id')),
       'genus_id'                => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Genus'), 'column' => 'id')),
       'species_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Species'), 'column' => 'id')),
@@ -63,9 +66,6 @@ abstract class BasePatentDepositFormFilter extends BaseFormFilterDoctrine
       'collection_date'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'isolation_date'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
       'identifier_id'           => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Identifier'), 'column' => 'id')),
-      'depositor_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Depositor'), 'column' => 'id')),
-      'deposition_date'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
-      'depositor_code'          => new sfValidatorPass(array('required' => false)),
       'transfer_interval'       => new sfValidatorPass(array('required' => false)),
       'viability_test'          => new sfValidatorPass(array('required' => false)),
       'observation'             => new sfValidatorPass(array('required' => false)),
@@ -172,6 +172,9 @@ abstract class BasePatentDepositFormFilter extends BaseFormFilterDoctrine
   {
     return array(
       'id'                      => 'Number',
+      'depositor_id'            => 'ForeignKey',
+      'deposition_date'         => 'Date',
+      'yearly_count'            => 'Number',
       'taxonomic_class_id'      => 'ForeignKey',
       'genus_id'                => 'ForeignKey',
       'species_id'              => 'ForeignKey',
@@ -187,9 +190,6 @@ abstract class BasePatentDepositFormFilter extends BaseFormFilterDoctrine
       'collection_date'         => 'Date',
       'isolation_date'          => 'Date',
       'identifier_id'           => 'ForeignKey',
-      'depositor_id'            => 'ForeignKey',
-      'deposition_date'         => 'Date',
-      'depositor_code'          => 'Text',
       'transfer_interval'       => 'Text',
       'viability_test'          => 'Text',
       'observation'             => 'Text',

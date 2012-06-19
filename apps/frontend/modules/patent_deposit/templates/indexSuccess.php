@@ -39,7 +39,7 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Code', '@patent_deposit?sort_column=depositor_code&sort_direction='.$sortDirection) ?></th>
+			<th>Code</th>
 			<th><?php echo link_to('Depositor', '@patent_deposit?sort_column=Depositor.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Deposition date', '@patent_deposit?sort_column=deposition_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Taxonomy', '@strain?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
@@ -49,7 +49,7 @@
 		<?php foreach ($pager->getResults() as $patentDeposit): ?>
 		<tr>
 			<?php $url = url_for('@patent_deposit_show?id='.$patentDeposit->getId()) ?>
-			<td class="patent_deposit_depositor_code"><?php echo link_to($patentDeposit->getDepositorCode(), $url) ?></td>
+			<td class="patent_deposit_depositor_code"><?php echo link_to($patentDeposit->getCode(), $url) ?></td>
 			<td class="depositor_name"><?php echo link_to($patentDeposit->getDepositor(), $url) ?></td>
 			<td class="patent_deposit_deposition_date"><?php echo link_to($patentDeposit->getDepositionDate(), $url) ?></td>
 			<td class="patent_deposit_name">

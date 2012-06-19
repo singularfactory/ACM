@@ -321,15 +321,14 @@ class strainActions extends MyActions {
 			$modelInput = "new_$modelName";
 			$modelClass = sfInflector::camelize($modelName);
 
-			if ( array_key_exists($modelInput, $taintedValues) ) {
+			if (array_key_exists($modelInput, $taintedValues)) {
 				$model = new $modelClass();
 				$model->setName($taintedValues[$modelInput]['name']);
 				unset($taintedValues[$modelInput]);
 
-				if ( $model->trySave() ) {
+				if ($model->trySave()) {
 					$taintedValues["{$modelName}_id"] = $model->getId();
-				}
-				else {
+				} else {
 					$this->getUser()->setFlash('notice', "A related model ($model) could not be saved. Try again", false);
 					return;
 				}
@@ -337,7 +336,7 @@ class strainActions extends MyActions {
 		}
 
 		// Unset axenity tests if values are empty
-		if ( isset($taintedValues['new_AxenityTests']) ) {
+		if (isset($taintedValues['new_AxenityTests'])) {
 			$validTests = array();
 			foreach ( $taintedValues['new_AxenityTests'] as $test ) {
 				if ( empty($test['date']['day']) || empty($test['date']['month']) || empty($test['date']['year']) ) {

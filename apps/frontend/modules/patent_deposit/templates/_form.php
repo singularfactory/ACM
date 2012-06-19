@@ -44,13 +44,6 @@
 			<?php echo $form['deposition_date'] ?>
 		</div>
 
-		<div id="depositor_code">
-			<?php echo $form['depositor_code']->renderLabel() ?>
-			<?php echo $form['depositor_code']->renderError() ?>
-			<?php echo $form['depositor_code']->renderHelp() ?>
-			<?php echo $form['depositor_code'] ?>
-		</div>
-
 		<div id="location">
 			<?php echo $form['location_id']->renderLabel() ?>
 			<?php echo $form['location_id']->renderError() ?>
