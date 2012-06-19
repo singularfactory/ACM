@@ -1,6 +1,6 @@
 <?php
 /**
- * Form class
+ * SampleForm class
  *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
@@ -29,23 +29,21 @@
 
 
 /**
- * Sample form.
+ * Sample form
  *
  * @package ACM.Lib.Form
  * @since 1.0
  */
 class SampleForm extends BaseSampleForm {
-
+	/**
+	 * Configure Sample form
+	 *
+	 * @return void
+	 */
 	public function configure() {
 		// Configure collection date format
-		$lastYear = date('Y');
-		for ($i=1990; $i <= $lastYear; $i++) {
-			$years[$i] = $i;
-		}
-		$this->setWidget('collection_date', new sfWidgetFormDate(array(
-			'format' => '%year%-%month%-%day%',
-			'years' => $years,
-		)));
+		$years = range(1990, date('Y'));
+		$this->setWidget('collection_date', new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => array_combine($years, $years))));
 
 		// Configure location
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
@@ -100,6 +98,7 @@ class SampleForm extends BaseSampleForm {
 		$this->setValidator('latitude', new sfValidatorRegex(
 			array('pattern' => '/^\-?\d{1,3}º\d{1,2}(\'|’)\d{1,2}("|\'\'|’’|”)$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
+
 		$this->setValidator('longitude', new sfValidatorRegex(
 			array('pattern' => '/^\-?\d{1,3}º\d{1,2}(\'|’)\d{1,2}("|\'\'|’’|”)$/', 'required' => false),
 			array('invalid' => 'Invalid coordinates format')));
@@ -153,5 +152,4 @@ class SampleForm extends BaseSampleForm {
 
 		parent::doSave($connection);
 	}
-
 }

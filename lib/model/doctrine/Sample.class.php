@@ -36,26 +36,27 @@
  */
 class Sample extends BaseSample {
 	public function getCode() {
-		if ( !($id = $this->getId()) ) {
+		$id = $this->getId();
+		if (!isset($id)) {
 			return sfConfig::get('app_no_data_message');
 		}
 
-		$code = str_pad($this->getId(), 4, '0', STR_PAD_LEFT);
+		$code = str_pad($id, 4, '0', STR_PAD_LEFT);
 		$countryCode = $regionCode = $islandCode = '';
 		$dateCode = date('ymd', strtotime($this->getCollectionDate()));
 
-		if ( $location = $this->getLocation() ) {
-			if ( $country = $location->getCountry() ) {
+		if ($location = $this->getLocation()) {
+			if ($country = $location->getCountry()) {
 				$countryCode = $country->getCode();
 			}
 
-			if ( $region = $location->getRegion() ) {
+			if ($region = $location->getRegion()) {
 				$regionCode = str_pad($region->getCode(), 3, '_', STR_PAD_LEFT);
 			}
 
-			if ( $island = $location->getIsland() ) {
+			if ($island = $location->getIsland()) {
 				$islandCode = $island->getCode();
-				if ( empty($islandCode) )
+				if (empty($islandCode))
 					$islandCode = '00';
 			}
 		}
