@@ -131,7 +131,7 @@ class PatentDepositTable extends Doctrine_Table {
 		$patentDeposits = $this->createQuery('p')
 			->where('p.deposition_date >= ?', $minDate)
 			->andWhere('p.deposition_date <= ?', $maxDate)
-			->orderBy('p.deposition_date DESC')
+			->orderBy('p.deposition_date DESC, p.yearly_count DESC')
 			->limit(1)
 			->execute();
 
