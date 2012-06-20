@@ -45,7 +45,7 @@ class ExternalStrain extends BaseExternalStrain {
 			$axenicCode = 'B';
 		}
 
-		return "RC$code$axenicCode";
+		return "BEA RC$code$axenicCode";
 	}
 
 	public function getTaxonomicName() {
