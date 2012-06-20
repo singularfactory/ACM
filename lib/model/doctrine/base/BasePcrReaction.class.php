@@ -25,9 +25,9 @@
  * @method PcrReaction setDnaPrimer()       Sets the current record's "DnaPrimer" value
  * @method PcrReaction setDnaSequence()     Sets the current record's "DnaSequence" value
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasePcrReaction extends sfDoctrineRecord

@@ -97,9 +97,9 @@
  * @method sfGuardUser           setExternalStrains()       Sets the current record's "ExternalStrains" collection
  * @method sfGuardUser           setIsolations()            Sets the current record's "Isolations" collection
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasesfGuardUser extends sfDoctrineRecord

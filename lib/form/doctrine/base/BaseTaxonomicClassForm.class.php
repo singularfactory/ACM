@@ -5,9 +5,9 @@
  *
  * @method TaxonomicClass getObject() Returns the current form's model object
  *
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage form
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BaseTaxonomicClassForm extends BaseFormDoctrine

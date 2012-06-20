@@ -1172,3 +1172,51 @@ GlossaryTerm:
   indexes:
     glossary_term:
       fields: [term]
+
+PotentialUsage:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(128), notnull: true }
+  relations:
+    UsageAreas:  { foreignAlias: UsageAreas, class: UsageArea, local: usage_id, foreign: usage_area_id, refClass: UsageAreaUsages }
+  indexes:
+    usage_name:
+      fields:
+        name:  { length: 5 }
+
+UsageArea:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(128), notnull: true }
+  relations:
+    Usages:  { foreignAlias: Usages, class: PotentialUsage, local: usage_area_id, foreign: usage_id, refClass: UsageAreaUsages }
+  indexes:
+    usage_area_name:
+      fields:
+        name:  { length: 5 }
+
+UsageAreaUsages:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    usage_area_id:  { type: integer, notnull: true }
+    usage_id:  { type: integer, notnull: true }
+  relations:
+    UsageArea:  { onDelete: cascade, onUpdate: cascade }
+    Usage:  { refClass: PotentialUsage, onDelete: cascade, onUpdate: cascade }
+  indexes:
+    unique_usage:  { fields: [usage_area_id, usage_id], type: unique }
+
+StrainUsage:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
+    usage_id: { type: integer, notnull: true }
+  relations:
+    TaxonomicClass:  { foreignAlias: StrainUsages }
+    Genus:  { foreignAlias: StrainUsages }
+    Species:  { foreignAlias: StrainUsages }
+    Usages:  { foreignAlias: StrainUsages, class: UsageAreaUsages, local: usage_id }
+  indexes:
+    unique_strain_usage:  { fields: [taxonomic_class_id, genus_id, species_id, usage_id], type: unique }

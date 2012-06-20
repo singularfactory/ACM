@@ -1,3 +1,21 @@
+potential_usage:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                PotentialUsage
+    module:               potential_usage
+    prefix_path:          /admin/potential_usage
+    column:               id
+    with_wildcard_routes: true
+
+usage_area:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                UsageArea
+    module:               usage_area
+    prefix_path:          /admin/usage_area
+    column:               id
+    with_wildcard_routes: true
+
 petitioner:
   class: sfDoctrineRouteCollection
   options:

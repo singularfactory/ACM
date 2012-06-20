@@ -160,9 +160,9 @@
  * @method ExternalStrain      setIsolations()                      Sets the current record's "Isolations" collection
  * @method ExternalStrain      setCryopreservations()               Sets the current record's "Cryopreservations" collection
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseExternalStrain extends sfDoctrineRecord

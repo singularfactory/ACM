@@ -1,0 +1,56 @@
+UsageArea:
+  bioactive:      { name: "Bioactive" }
+  biofuels:       { name: "Biofuels" }
+  food-and-feed:  { name: "Food and feed" }
+  cosmetics:      { name: "Cosmetics" }
+
+PotentialUsage:
+  PUFA:  { name: "PUFA" }
+  algicidal:  { name: "Algicidal (Antialgal)" }
+  anti-HIV:  { name: "Anti-HIV" }
+  anti-diabetic:  { name: "Anti-diabetic" }
+  antibacterial:  { name: "Antibacterial" }
+  antibiotic:  { name: "Antibiotic" }
+  anticancer:  { name: "Anticancer" }
+  antifungal:  { name: "Antifungal" }
+  antihypertensive:  { name: "Antihypertensive" }
+  antiinflammatory:  { name: "Antiinflammatory" }
+  antimalarial:  { name: "Antimalarial" }
+  antimitotic:  { name: "Antimitotic" }
+  antimutagenic:  { name: "Antimutagenic" }
+  antineurodegenerative:  { name: "Antineurodegenerative" }
+  antioxidant:  { name: "Antioxidant" }
+  antiplasmodial:  { name: "Antiplasmodial" }
+  antitumor:  { name: "Antitumor (Antineoplastic)" }
+  antiviral:  { name: "Antiviral" }
+  apoptotic:  { name: "Apoptotic" }
+  aquaculture:  { name: "Aquaculture" }
+  biodiesel:  { name: "Biodiesel" }
+  bioethanol:  { name: "Bioethanol" }
+  biofiltration:  { name: "Biofiltration" }
+  biohydrogen:  { name: "Biohydrogen" }
+  biomass:  { name: "Biomass" }
+  biomethane:  { name: "Biomethane" }
+  bioremediation:  { name: "Bioremediation" }
+  cardioactive:  { name: "Cardioactive (Cardiovascular)" }
+  carotenoids:  { name: "Carotenoids" }
+  cytotoxic:  { name: "Cytotoxic" }
+  feed:  { name: "Feed" }
+  feeding-deterrents:  { name: "Feeding deterrents" }
+  food-and-nutraceuticals:  { name: "Food and Nutraceuticals" }
+  gases:  { name: "Gases" }
+  hepatoprotective:  { name: "Hepatoprotective" }
+  herbicides:  { name: "Herbicides" }
+  ichthyotoxins:  { name: "Ichthyotoxins" }
+  immunosuppressive:  { name: "Immunosuppressive (Immunodeficiency)" }
+  inhibitors:  { name: "Inhibitors" }
+  insecticidal:  { name: "Insecticidal" }
+  larvicidal:  { name: "Larvicidal" }
+  lipoxigenase:  { name: "Lipoxigenase inhibitor" }
+  nematocidal-Antihelmintic:  { name: "Nematocidal / Antihelmintic" }
+  photoprotective:  { name: "Photoprotective" }
+  phycobiliproteins:  { name: "Phycobiliproteins" }
+  pigments:  { name: "Pigments" }
+  toxins:  { name: "Toxins" }
+  tumor-promoting:  { name: "Tumor-promoting" }
+  xanthophylls:  { name: "Xanthophylls" }

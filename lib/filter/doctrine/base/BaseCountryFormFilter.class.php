@@ -3,9 +3,9 @@
 /**
  * Country filter form base class.
  *
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage filter
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
 abstract class BaseCountryFormFilter extends BaseFormFilterDoctrine
