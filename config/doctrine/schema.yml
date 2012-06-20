@@ -864,6 +864,9 @@ PatentDepositMaintenanceStatus:
 MaintenanceDeposit:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
+    depositor_id:  { type: integer, notnull: true }
+    deposition_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     is_blend:  { type: boolean, notnull: true, default: false }
     blend_description: { type: string }
     taxonomic_class_id:  { type: integer }
@@ -881,9 +884,6 @@ MaintenanceDeposit:
     collection_date:  { type: date }
     isolation_date:  { type: date }
     identifier_id:  { type: integer }
-    depositor_id:  { type: integer, notnull: true }
-    deposition_date:  { type: date, notnull: true }
-    depositor_code:  { type: string(40), notnull: true }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }

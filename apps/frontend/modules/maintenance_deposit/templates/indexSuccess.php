@@ -39,7 +39,7 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
-			<th><?php echo link_to('Code', '@maintenance_deposit?sort_column=depositor_code&sort_direction='.$sortDirection) ?></th>
+			<th>Code</th>
 			<th><?php echo link_to('Depositor', '@maintenance_deposit?sort_column=Depositor.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Deposition date', '@maintenance_deposit?sort_column=deposition_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Taxonomy', '@strain?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
@@ -49,7 +49,7 @@
 		<?php foreach ($pager->getResults() as $maintenanceDeposit): ?>
 		<tr>
 			<?php $url = url_for('@maintenance_deposit_show?id='.$maintenanceDeposit->getId()) ?>
-			<td class="maintenance_deposit_depositor_code"><?php echo link_to($maintenanceDeposit->getDepositorCode(), $url) ?></td>
+			<td class="maintenance_deposit_depositor_code"><?php echo link_to($maintenanceDeposit->getCode(), $url) ?></td>
 			<td class="depositor_name"><?php echo link_to($maintenanceDeposit->getDepositor(), $url) ?></td>
 			<td class="maintenance_deposit_deposition_date"><?php echo link_to($maintenanceDeposit->getDepositionDate(), $url) ?></td>
 			<td class="maintenance_deposit_name">

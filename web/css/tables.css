@@ -114,7 +114,7 @@ td.glossary_term { width: 280px }
 td.replicate { width: 125px; }
 
 td.patent_deposit_depositor_code, td.maintenance_deposit_depositor_code, td.external_strain_code {
-	width: 75px;
+	width: 80px;
 }
 
 td.patent_deposit_depositor_name, td.maintenance_deposit_depositor_name {
