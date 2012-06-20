@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property date $reception_date
+ * @property integer $yearly_count
  * @property enum $isolation_subject
  * @property integer $sample_id
  * @property integer $strain_id
@@ -45,6 +46,7 @@
  * 
  * @method integer             getId()                     Returns the current record's "id" value
  * @method date                getReceptionDate()          Returns the current record's "reception_date" value
+ * @method integer             getYearlyCount()            Returns the current record's "yearly_count" value
  * @method enum                getIsolationSubject()       Returns the current record's "isolation_subject" value
  * @method integer             getSampleId()               Returns the current record's "sample_id" value
  * @method integer             getStrainId()               Returns the current record's "strain_id" value
@@ -82,6 +84,7 @@
  * @method Doctrine_Collection getIsolationIsolators()     Returns the current record's "IsolationIsolators" collection
  * @method Isolation           setId()                     Sets the current record's "id" value
  * @method Isolation           setReceptionDate()          Sets the current record's "reception_date" value
+ * @method Isolation           setYearlyCount()            Sets the current record's "yearly_count" value
  * @method Isolation           setIsolationSubject()       Sets the current record's "isolation_subject" value
  * @method Isolation           setSampleId()               Sets the current record's "sample_id" value
  * @method Isolation           setStrainId()               Sets the current record's "strain_id" value
@@ -135,6 +138,10 @@ abstract class BaseIsolation extends sfDoctrineRecord
              ));
         $this->hasColumn('reception_date', 'date', null, array(
              'type' => 'date',
+             'notnull' => true,
+             ));
+        $this->hasColumn('yearly_count', 'integer', null, array(
+             'type' => 'integer',
              'notnull' => true,
              ));
         $this->hasColumn('isolation_subject', 'enum', null, array(

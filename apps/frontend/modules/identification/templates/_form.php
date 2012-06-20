@@ -32,7 +32,6 @@
 	<?php echo $form->renderHiddenFields() ?>
 
 	<div id="left_side_form">
-
 		<div id="sample_id">
 			<?php echo $form['sample_id']->renderLabel() ?>
 			<?php echo $form['sample_id']->renderError() ?>

@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property date $identification_date
+ * @property integer $yearly_count
  * @property integer $sample_id
  * @property integer $petitioner_id
  * @property string $sample_picture
@@ -20,6 +21,7 @@
  * 
  * @method integer        getId()                        Returns the current record's "id" value
  * @method date           getIdentificationDate()        Returns the current record's "identification_date" value
+ * @method integer        getYearlyCount()               Returns the current record's "yearly_count" value
  * @method integer        getSampleId()                  Returns the current record's "sample_id" value
  * @method integer        getPetitionerId()              Returns the current record's "petitioner_id" value
  * @method string         getSamplePicture()             Returns the current record's "sample_picture" value
@@ -32,6 +34,7 @@
  * @method Petitioners    getPetitioner()                Returns the current record's "Petitioner" value
  * @method Identification setId()                        Sets the current record's "id" value
  * @method Identification setIdentificationDate()        Sets the current record's "identification_date" value
+ * @method Identification setYearlyCount()               Sets the current record's "yearly_count" value
  * @method Identification setSampleId()                  Sets the current record's "sample_id" value
  * @method Identification setPetitionerId()              Sets the current record's "petitioner_id" value
  * @method Identification setSamplePicture()             Sets the current record's "sample_picture" value
@@ -60,6 +63,10 @@ abstract class BaseIdentification extends sfDoctrineRecord
              ));
         $this->hasColumn('identification_date', 'date', null, array(
              'type' => 'date',
+             'notnull' => true,
+             ));
+        $this->hasColumn('yearly_count', 'integer', null, array(
+             'type' => 'integer',
              'notnull' => true,
              ));
         $this->hasColumn('sample_id', 'integer', null, array(

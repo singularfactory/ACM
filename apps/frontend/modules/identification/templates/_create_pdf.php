@@ -44,7 +44,7 @@
 			<tbody>
 				<?php $columns = 0 ?>
 				<?php $barcode = getBarCode($label->getId()) ?>
-				<?php $code = $label->getSample()->getCode() ?>
+				<?php $code = $label->getCode() ?>
 				<?php $date = $label->getIdentificationDate() ?>
 				<?php for ($i = 0; $i < $copies; $i++): ?>
 					<?php if ( $columns == 0 ): ?>

@@ -44,18 +44,9 @@
 			<tbody>
 				<?php $columns = 0 ?>
 				<?php $barcode = getBarCode($label->getId()) ?>
-				<?php $code = $label->getExternalCode() ?>
+				<?php $code = $label->getCode() ?>
 				<?php $subject = $label->getIsolationSubject() ?>
 				<?php $date = $label->getReceptionDate() ?>
-
-				<?php if ($label->getSample()->exists()): ?>
-					<?php $code = $solation->getSample()->getCode() ?>
-				<?php elseif ($label->getStrain()->exists()): ?>
-					<?php $code = $label->getStrain()->getFullCode() ?>
-				<?php elseif ($label->getExternalStrain()->exists()): ?>
-					<?php $subject = 'research_collection' ?>
-					<?php $code = $label->getExternalStrain()->getFullCode() ?>
-				<?php endif ?>
 
 				<?php for ($i = 0; $i < $copies; $i++): ?>
 					<?php if ( $columns == 0 ): ?>

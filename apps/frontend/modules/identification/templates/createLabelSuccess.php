@@ -47,12 +47,14 @@
 		<table id="identification_list">
 			<thead>
 				<tr>
+					<th>Code</th>
 					<th>Sample</th>
 					<th>Date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
+					<td class="external_strain_code"><?php echo $identification->getCode() ?></td>
 					<td class="sample_code"><?php echo $identification->getSample()->getCode() ?></td>
 					<td class="date identification_date"><?php echo $identification->getIdentificationDate() ?></td>
 				</tr>

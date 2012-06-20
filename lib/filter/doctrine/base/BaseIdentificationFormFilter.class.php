@@ -14,6 +14,7 @@ abstract class BaseIdentificationFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'identification_date'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'yearly_count'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'sample_id'                 => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'petitioner_id'             => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Petitioner'), 'add_empty' => true)),
       'sample_picture'            => new sfWidgetFormFilterInput(),
@@ -28,6 +29,7 @@ abstract class BaseIdentificationFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'identification_date'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
+      'yearly_count'              => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'sample_id'                 => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Sample'), 'column' => 'id')),
       'petitioner_id'             => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Petitioner'), 'column' => 'id')),
       'sample_picture'            => new sfValidatorPass(array('required' => false)),
@@ -59,6 +61,7 @@ abstract class BaseIdentificationFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                        => 'Number',
       'identification_date'       => 'Date',
+      'yearly_count'              => 'Number',
       'sample_id'                 => 'ForeignKey',
       'petitioner_id'             => 'ForeignKey',
       'sample_picture'            => 'Text',

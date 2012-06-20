@@ -1044,6 +1044,7 @@ Isolation:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
     reception_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     isolation_subject:  { type: enum, values: [sample, strain, external, "external_strain"] }
     sample_id:  { type: integer }
     strain_id:  { type: integer }
@@ -1142,6 +1143,7 @@ Identification:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
     identification_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     sample_id:  { type: integer, notnull: true}
     petitioner_id:  { type: integer, notnull: true }
     sample_picture:  { type: string(255) }

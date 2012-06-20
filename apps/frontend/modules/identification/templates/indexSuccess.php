@@ -38,6 +38,7 @@
 	<tbody>
 		<tr>
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<th>Code</th>
 			<th class="date"><?php echo link_to('Date', '@identification?sort_column=identification_date&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Sample', '@identification?sort_column=Strain.Sample.id&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Petitioner', '@identification?sort_column=petitioner&sort_direction='.$sortDirection) ?></th>
@@ -49,6 +50,7 @@
 		<?php foreach ($pager->getResults() as $identification): ?>
 		<tr>
 			<?php $url = url_for('@identification_show?id='.$identification->getId()) ?>
+			<td class="external_strain_code"><?php echo link_to($identification->getCode(), $url) ?></td>
 			<td class="date identification_date"><?php echo link_to($identification->getIdentificationDate(), $url) ?></td>
 			<td class="sample_code"><?php echo link_to($identification->getSample()->getCode(), $url) ?></td>
 			<td class="identification_petitioner"><?php echo link_to($identification->getFormattedPetitioner(), $url) ?></td>

@@ -17,6 +17,7 @@ abstract class BaseIsolationForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                     => new sfWidgetFormInputHidden(),
       'reception_date'         => new sfWidgetFormDate(),
+      'yearly_count'           => new sfWidgetFormInputText(),
       'isolation_subject'      => new sfWidgetFormChoice(array('choices' => array('sample' => 'sample', 'strain' => 'strain', 'external' => 'external', 'external_strain' => 'external_strain'))),
       'sample_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'strain_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
@@ -45,6 +46,7 @@ abstract class BaseIsolationForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                     => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'reception_date'         => new sfValidatorDate(),
+      'yearly_count'           => new sfValidatorInteger(),
       'isolation_subject'      => new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external', 3 => 'external_strain'), 'required' => false)),
       'sample_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'required' => false)),
       'strain_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'required' => false)),
