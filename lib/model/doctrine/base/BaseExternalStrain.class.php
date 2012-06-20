@@ -197,11 +197,9 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('subkingdom_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('phylum_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('taxonomic_class_id', 'integer', null, array(
              'type' => 'integer',
@@ -209,11 +207,9 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('taxonomic_order_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('family_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('genus_id', 'integer', null, array(
              'type' => 'integer',
