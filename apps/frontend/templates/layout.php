@@ -143,6 +143,15 @@
 
 					<li class="header_menu_item">
 						<?php
+						if (!preg_match('/^(potential_usage(\/_)?)/', $currentRoute) )
+							echo link_to('Potential applications', '@potential_usage');
+						else
+							echo link_to('Potential applications', '@potential_usage', array('class' => 'header_menu_current_tab'));
+						?>
+					</li>
+
+					<li class="header_menu_item">
+						<?php
 						if ( !preg_match('/^((project|maintenance_deposit|patent_deposit|identification|isolation)(\/_)?)/', $currentRoute) )
 							echo link_to('Services', '@project');
 						else

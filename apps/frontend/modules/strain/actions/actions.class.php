@@ -371,7 +371,7 @@ class strainActions extends MyActions {
 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
 
 		// Validate form
-		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures') ) {
+		if ($form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures')) {
 			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();

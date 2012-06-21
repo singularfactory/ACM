@@ -19,31 +19,23 @@
  * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Backend
- * @since         1.0
+ * @package       ACM.Frontend
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<ul>
-	<?php $routes = array('usage_area', 'usage_target') ?>
-	<?php $subsectionNames = array(
-		$routes[0] => 'Usage areas',
-		$routes[1] => 'Usage targets',
-	) ?>
+<?php use_helper('CrossAppLink') ?>
 
-	<?php foreach ($routes as $routeValue): ?>
-		<li>
-		<?php if ( preg_match('/^'.$routeValue.'_?/', $route) ): ?>
-			<?php echo $subsectionNames[$routeValue] ?>
-		<?php else: ?>
-			<?php echo link_to($subsectionNames[$routeValue], '@'.$routeValue) ?>
-		<?php endif; ?>
-		</li>
-
-		<?php if ( $routeValue !== $routes[count($routes)-1]): ?>
-		<span class="subsection_separator">|</span>
-		<?php endif; ?>
-	<?php endforeach; ?>
-</ul>
+<?php slot('main_header', 'Add a new potential usage') ?>
+<?php
+if (!$hasTaxonomicClasses)
+	echo '<p>You must '.link_to('add a taxonomic class', link_to_backend('taxonomic_class_new')).' first before adding potential usages.</p>';
+elseif (!$hasGenus)
+	echo '<p>You must '.link_to('add a genus', link_to_backend('genus_new')).' first before adding potential usages.</p>';
+elseif (!$hasSpecies)
+	echo '<p>You must '.link_to('add a species', link_to_backend('species_new')).' first before adding potential usages.</p>';
+else
+	include_partial('form', array('form' => $form, 'usageAreas' => $usageAreas));
+?>
 

@@ -20,30 +20,26 @@
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
  * @package       ACM.Backend
- * @since         1.0
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<ul>
-	<?php $routes = array('usage_area', 'usage_target') ?>
-	<?php $subsectionNames = array(
-		$routes[0] => 'Usage areas',
-		$routes[1] => 'Usage targets',
-	) ?>
 
-	<?php foreach ($routes as $routeValue): ?>
-		<li>
-		<?php if ( preg_match('/^'.$routeValue.'_?/', $route) ): ?>
-			<?php echo $subsectionNames[$routeValue] ?>
-		<?php else: ?>
-			<?php echo link_to($subsectionNames[$routeValue], '@'.$routeValue) ?>
-		<?php endif; ?>
-		</li>
+require_once dirname(__FILE__).'/../lib/usage_targetGeneratorConfiguration.class.php';
+require_once dirname(__FILE__).'/../lib/usage_targetGeneratorHelper.class.php';
 
-		<?php if ( $routeValue !== $routes[count($routes)-1]): ?>
-		<span class="subsection_separator">|</span>
-		<?php endif; ?>
-	<?php endforeach; ?>
-</ul>
+/**
+ * usage_target actions
+ *
+ * @package    ACM
+ * @subpackage usage_target
+ */
+class usage_targetActions extends autoUsage_targetActions {
+	public function executeDelete(sfWebRequest $request) {
+		parent::executeDeleteIfNotUsed($request);
+	}
 
+	protected function executeBatchDelete(sfWebRequest $request) {
+		parent::executeBatchDeleteIfNotUsed($request);
+	}
+}

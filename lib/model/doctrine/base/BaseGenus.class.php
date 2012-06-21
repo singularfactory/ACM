@@ -88,7 +88,7 @@ abstract class BaseGenus extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'genus_id'));
 
-        $this->hasMany('StrainUsage as StrainUsages', array(
+        $this->hasMany('StrainTaxonomy as StrainUsages', array(
              'local' => 'id',
              'foreign' => 'genus_id'));
 

@@ -1,9 +1,9 @@
-potential_usage:
+usage_target:
   class: sfDoctrineRouteCollection
   options:
-    model:                PotentialUsage
-    module:               potential_usage
-    prefix_path:          /admin/potential_usage
+    model:                UsageTarget
+    module:               usage_target
+    prefix_path:          /admin/usage_target
     column:               id
     with_wildcard_routes: true
 

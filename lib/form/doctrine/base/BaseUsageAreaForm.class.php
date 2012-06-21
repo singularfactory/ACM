@@ -15,19 +15,19 @@ abstract class BaseUsageAreaForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'          => new sfWidgetFormInputHidden(),
-      'name'        => new sfWidgetFormInputText(),
-      'created_at'  => new sfWidgetFormDateTime(),
-      'updated_at'  => new sfWidgetFormDateTime(),
-      'usages_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'PotentialUsage')),
+      'id'                 => new sfWidgetFormInputHidden(),
+      'name'               => new sfWidgetFormInputText(),
+      'created_at'         => new sfWidgetFormDateTime(),
+      'updated_at'         => new sfWidgetFormDateTime(),
+      'usage_targets_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'UsageTarget')),
     ));
 
     $this->setValidators(array(
-      'id'          => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'        => new sfValidatorString(array('max_length' => 128)),
-      'created_at'  => new sfValidatorDateTime(),
-      'updated_at'  => new sfValidatorDateTime(),
-      'usages_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'PotentialUsage', 'required' => false)),
+      'id'                 => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'name'               => new sfValidatorString(array('max_length' => 128)),
+      'created_at'         => new sfValidatorDateTime(),
+      'updated_at'         => new sfValidatorDateTime(),
+      'usage_targets_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'UsageTarget', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('usage_area[%s]');
@@ -48,28 +48,28 @@ abstract class BaseUsageAreaForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['usages_list']))
+    if (isset($this->widgetSchema['usage_targets_list']))
     {
-      $this->setDefault('usages_list', $this->object->Usages->getPrimaryKeys());
+      $this->setDefault('usage_targets_list', $this->object->UsageTargets->getPrimaryKeys());
     }
 
   }
 
   protected function doSave($con = null)
   {
-    $this->saveUsagesList($con);
+    $this->saveUsageTargetsList($con);
 
     parent::doSave($con);
   }
 
-  public function saveUsagesList($con = null)
+  public function saveUsageTargetsList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['usages_list']))
+    if (!isset($this->widgetSchema['usage_targets_list']))
     {
       // somebody has unset this widget
       return;
@@ -80,8 +80,8 @@ abstract class BaseUsageAreaForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $existing = $this->object->Usages->getPrimaryKeys();
-    $values = $this->getValue('usages_list');
+    $existing = $this->object->UsageTargets->getPrimaryKeys();
+    $values = $this->getValue('usage_targets_list');
     if (!is_array($values))
     {
       $values = array();
@@ -90,13 +90,13 @@ abstract class BaseUsageAreaForm extends BaseFormDoctrine
     $unlink = array_diff($existing, $values);
     if (count($unlink))
     {
-      $this->object->unlink('Usages', array_values($unlink));
+      $this->object->unlink('UsageTargets', array_values($unlink));
     }
 
     $link = array_diff($values, $existing);
     if (count($link))
     {
-      $this->object->link('Usages', array_values($link));
+      $this->object->link('UsageTargets', array_values($link));
     }
   }
 

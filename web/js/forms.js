@@ -1064,4 +1064,17 @@ $(document).ready(function(){
 			$('#maintenance_deposit_authority_id').removeAttr('disabled');
 		}
 	});
+
+  // Show or hide potential usage checkboxes
+  $('div.usage-area>h4').each(function(){
+    $(this).click(function(){
+      var usage_list = $(this).next('div.usage-area-usages');
+      if (usage_list.css('display') == 'none') {
+        usage_list.fadeIn('slow');
+      } else {
+        usage_list.fadeOut('fast');
+      }
+    });
+  });
+
 });

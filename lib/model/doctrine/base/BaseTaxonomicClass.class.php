@@ -88,7 +88,7 @@ abstract class BaseTaxonomicClass extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'taxonomic_class_id'));
 
-        $this->hasMany('StrainUsage as StrainUsages', array(
+        $this->hasMany('StrainTaxonomy as StrainUsages', array(
              'local' => 'id',
              'foreign' => 'taxonomic_class_id'));
 
