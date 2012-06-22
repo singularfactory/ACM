@@ -102,6 +102,15 @@ class Strain extends BaseStrain {
 			->count();
 	}
 
+	public function getNbPotentialUsages() {
+		return PotentialUsagesTable::getInstance()->createQuery('p')
+			->leftJoin('p.StrainTaxonomy t')
+			->where('t.taxonomic_class_id = ?', $this->getTaxonomicClassId())
+			->andWhere('t.genus_id = ?', $this->getGenusId())
+			->andWhere('t.species_id = ?', $this->getSpeciesId())
+			->count();
+	}
+
 	public function getNbIsolations() {
 		return Doctrine_Query::create()
 			->from('Isolation i')
@@ -392,5 +401,14 @@ class Strain extends BaseStrain {
 			$statuses[] = 'Cryopreserved';
 		}
 		return implode(', ', $statuses);
+	}
+
+	public function getPotentialUsages() {
+		return PotentialUsagesTable::getInstance()->createQuery('p')
+			->leftJoin('p.StrainTaxonomy t')
+			->where('t.taxonomic_class_id = ?', $this->getTaxonomicClassId())
+			->where('t.genus_id = ?', $this->getGenusId())
+			->where('t.species_id = ?', $this->getSpeciesId())
+			->execute();
 	}
 }

@@ -244,6 +244,26 @@
 			</table>
 		</div>
 		<?php endif ?>
+
+		<?php $nbPotentialUsages = $strain->getNbPotentialUsages() ?>
+		<?php if ($nbPotentialUsages > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Potential applications</h2>
+			<table>
+				<tr>
+					<th class="usage_target_name">Area</th>
+					<th class="usage_target_name">Application</th>
+				</tr>
+				<?php foreach ($strain->getPotentialUsages() as $potentialUsage): ?>
+					<?php $url = '@potential_usage_show?id='.$potentialUsage->getStrainTaxonomy()->getId() ?>
+					<tr>
+						<td class="usage_target_name"><?php echo link_to($potentialUsage->getStrainUsage()->getUsageArea()->getName(), $url) ?></td>
+						<td class="usage_target_name"><?php echo link_to($potentialUsage->getStrainUsage()->getUsageTarget()->getName(), $url) ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
 	</div>
 
 	<div id="object_data_list">
