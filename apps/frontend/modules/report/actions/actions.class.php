@@ -35,7 +35,7 @@
  * @author     Eliezer Talon <elitalon@inventiaplus.com>
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class reportActions extends sfActions {
+class reportActions extends myActions {
 
 	/**
 	* Executes configure action
@@ -141,6 +141,9 @@ class reportActions extends sfActions {
 
 		// Clean useless form values
 		$taintedValues = $request->getPostParameters();
+		if ( array_key_exists('maintenance_strain_search', $taintedValues) ) {
+			unset($taintedValues['maintenance_strain_search']);
+		}
 		if ( array_key_exists('location_country_search', $taintedValues) ) {
 			unset($taintedValues['location_country_search']);
 		}
@@ -161,6 +164,24 @@ class reportActions extends sfActions {
 			$this->setTemplate('configure');
 		}
 		else {
+			//If in the maintenance report the app generate the PDF and return to the form
+			if ($request->getParameter('subject')=='maintenance'){
+				$values = $request->getPostParameters();
+				
+				//Obtains all the strain id's for the maintenance report validator
+				$this->strains = StrainTable::getInstance()
+									->createQuery('u')
+									->whereIn('u.id', $values['maintenance_strain_id'])
+									->execute();
+
+				$this->setLayout(false);
+				$pdf = new WKPDF();
+				$pdf->set_html($this->getPartial('maintenance_pdf'));
+				$pdf->render();
+				$pdf->output(WKPDF::$PDF_DOWNLOAD, "maintenance_report.pdf");
+				throw new sfStopException();
+			}
+			
 			$table = call_user_func(array(sfInflector::camelize($this->subject).'Table', 'getInstance'));
 			$alias = substr($this->subject, 0, 1);
 			$query = $table->createQuery($alias)->where('1 = ?', 1)->select("$alias.*");

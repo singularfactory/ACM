@@ -1,0 +1,13 @@
+sfGuardGroup:
+  ADM:	{ name: "admin", description: "Administrators group" }
+  VIE:	{ name: "viewer", description: "Viewer group" }
+
+sfGuardPermission:
+  AD:	{ name: "admin", description: "Can access backend and administer the application" }
+  VI:	{ name: "view", description: "Can view the data of the ACM" }
+
+sfGuardGroupPermission:
+  ADM_AD:   { group_id: ADM, permission_id: AD}
+  ADM_VI:   { group_id: ADM, permission_id: VI}
+  VIE_VI:   { group_id: VIE, permission_id: VI}
+  

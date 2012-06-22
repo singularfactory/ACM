@@ -25,32 +25,18 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<?php use_stylesheets_for_form($form) ?>
-<?php use_javascripts_for_form($form) ?>
-
-<?php slot('main_header') ?>
-<span>Configure report</span>
-<?php end_slot() ?>
-
-<form action="<?php echo url_for('@report_generate') ?>" method="POST">
-	<?php echo $form->renderHiddenFields() ?>
-
-	<div id="left_side_form">
-		<div id="report_subject">
-			<?php echo $form['subject']->renderLabel() ?>
-			<?php echo $form['subject']->renderError() ?>
-			<?php echo $form['subject']->renderHelp() ?>
-			<?php echo $form['subject'] ?>
-		</div>
-
-		<div id="report_subject_form">
-			<?php if ( in_array($subject, array('location', 'sample', 'strain', 'dna_extraction', 'maintenance')) ): ?>
-			<?php include_partial("{$subject}_form", array('form' => $form)) ?>
-			<?php endif ?>
-		</div>
-	</div>
-
-	<div class="submit">
-		<input type="submit" value="Generate report"> or <a href="#" id="report_clear_values_link" class="cancel_form_link">clear values</a>
-	</div>
-</form>
+<div id="maintenance_strain" class="report_inline_where">
+	<?php echo $form['maintenance_strain']->renderLabel() ?>
+	<?php echo $form['maintenance_strain']->renderError() ?>
+	<?php echo $form['maintenance_strain']->renderHelp() ?>
+	<input type="text" value="" id="report_maintenance_strain_search" name="maintenance_strain_search" class="report_search_box" />
+	<a href="<?php echo url_for('@report_find_strains?term=') ?>" class="report_maintenance_strain_numbers_url"></a>
+	<input type="submit" value="Add Strain" id="add_strain">
+</div>
+<div id="maintenance_strain_report" class="report_inline_where">
+	<?php echo $form['maintenance_strain_id']->renderLabel() ?>
+	<?php echo $form['maintenance_strain_id']->renderError() ?>
+	<?php echo $form['maintenance_strain_id']->renderHelp() ?>
+	<?php echo $form['maintenance_strain_id'] ?>
+	<input type="submit" value="Remove selected strains" id="remove_strain">
+</div>

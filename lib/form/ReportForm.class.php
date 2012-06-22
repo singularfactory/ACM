@@ -40,6 +40,7 @@ class ReportForm extends BaseForm {
 		'sample' => 'Sample',
 		'strain' => 'Strain',
 		'dna_extraction' => 'DNA extraction',
+		'maintenance' => 'Maintenance',
 	);
 
 	public static $booleanChoices = array(
@@ -136,7 +137,19 @@ class ReportForm extends BaseForm {
 			'dna_extraction_concentration' => new sfWidgetFormInputText(),
 			'dna_extraction_260_280_ratio' => new sfWidgetFormInputText(),
 			'dna_extraction_260_230_ratio' => new sfWidgetFormInputText(),
+			
+			// Maintenance
+			'maintenance_strain'	=> new sfWidgetFormInputHidden(),
+			'maintenance_strain_id'	=> new sfWidgetFormChoice(array('choices' => array(), 'multiple'=>true)),
 		));
+
+		//Obtains all the strain id's for the maintenance report validator
+		$results = StrainTable::getInstance()->createQuery('u')->select('u.id')->fetchArray();
+
+		$strains = array();
+		foreach ($results as $strain) {
+			$strains[] = $strain['id'];
+		}
 
 		$this->setValidators(array(
 			'subject'	=> new sfValidatorChoice(array('choices' => array_keys(self::$subjects), 'required' => false)),
@@ -177,6 +190,10 @@ class ReportForm extends BaseForm {
 			'dna_extraction_concentration' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
 			'dna_extraction_260_280_ratio' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
 			'dna_extraction_260_230_ratio' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+
+			// Maintenance
+			'maintenance_strain'	=> new sfValidatorInteger(array('required' => false)),
+			'maintenance_strain_id' => new sfValidatorChoice(array('choices' => $strains, 'multiple'=>true)),
 		));
 
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
@@ -220,6 +237,10 @@ class ReportForm extends BaseForm {
 			'dna_extraction_concentration' => 'Concentration',
 			'dna_extraction_260_280_ratio' => '260:280 DNA quality ratio',
 			'dna_extraction_260_230_ratio' => '260:230 DNA quality ratio',
+
+			// Maintenance attributes
+			'maintenance_strain' => 'Strain',
+			'maintenance_strain_id' => 'Selected strains',
 		));
 
 		$this->widgetSchema->setHelps(array(
@@ -258,6 +279,10 @@ class ReportForm extends BaseForm {
 			'dna_extraction_concentration' => '',
 			'dna_extraction_260_280_ratio' => '',
 			'dna_extraction_260_230_ratio' => '',
+			
+			// Maintenance attributes
+			'maintenance_strain' => '',
+			'maintenance_strain_id' => '',
 		));
 
 		$this->setup();

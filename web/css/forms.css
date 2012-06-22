@@ -176,7 +176,7 @@ a.cryopreservation_patent_deposit_numbers_url, a.cryopreservation_maintenance_de
 a.label_find_products_url, a.article_strain_numbers_url,
 a.identification_sample_numbers_url,
 a.report_find_countries_url, a.report_find_regions_url, a.report_find_islands_url,
-a.strain_find_clone_url { display: none; }
+a.report_maintenance_strain_numbers_url, a.strain_find_clone_url { display: none; }
 
 #email_address input,
 #username input,
@@ -240,7 +240,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
 #project_sample_search, #project_strain_search, #project_external_strain_search,
 #cryopreservation_sample_search, #cryopreservation_strain_search, #cryopreservation_external_strain_search,
 #identification_sample_search, #article_strain_search,
-#report_location_country_search, #report_location_region_search, #report_location_island_search,
+#report_location_country_search, #report_maintenance_strain_search, #report_location_region_search, #report_location_island_search,
 #cryopreservation_patent_deposit_search, #cryopreservation_maintenance_deposit_search {
 	color: #888;
 	font-size: 11px;
@@ -258,7 +258,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
  */
 div.report_inline_where { float:left; }
 #report_subject_form div.clear { margin: 0px; padding: 0px; }
-#report_location_country_search, #report_location_region_search, #report_location_island_search { width: 200px; margin-right: 13px; }
+#report_location_country_search, #report_location_region_search, #report_location_island_search, #report_maintenance_strain_search { width: 200px; margin-right: 13px; }
 #report_sample_environment select, #report_sample_habitat select, #report_sample_radiation select,
 #report_dna_extraction_extraction_kit select, #report_dna_extraction_concentration input, #report_dna_extraction_aliquots input,
 #report_dna_extraction_260_280_ratio input, #report_dna_extraction_260_230_ratio input, #report_sample_location_details input { width: 170px; margin-right: 13px; }
