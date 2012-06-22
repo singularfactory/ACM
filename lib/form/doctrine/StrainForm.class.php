@@ -178,8 +178,8 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
-		$this->widgetSchema->setLabel('in_g_catalog', 'In G catalog');
 		$this->widgetSchema->setLabel('containers_list', 'Available containers');
+		$this->widgetSchema->setLabel('properties_list', 'Properties');
 		$this->widgetSchema->setLabel('temperature', 'Temperature conditions in culture');
 		$this->widgetSchema->setLabel('photoperiod', 'Photoperiod conditions in culture');
 		$this->widgetSchema->setLabel('irradiation', 'Irradiation conditions in culture');

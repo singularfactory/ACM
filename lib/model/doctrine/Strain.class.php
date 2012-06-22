@@ -74,6 +74,10 @@ class Strain extends BaseStrain {
 		return count($this->getContainers());
 	}
 
+	public function getNbProperties() {
+		return StrainPropertiesTable::getInstance()->createQuery('c')->where('c.strain_id = ?', $this->getId())->count();
+	}
+
 	public function getNbDnaExtractions() {
 		return Doctrine_Query::create()
 			->from('DnaExtraction dna')
@@ -169,13 +173,6 @@ class Strain extends BaseStrain {
 
 	public function getFormattedDeceased() {
 		if ( $this->getDeceased() ) {
-			return 'yes';
-		}
-		return 'no';
-	}
-
-	public function getFormattedInGCatalog() {
-		if ( $this->getInGCatalog() ) {
 			return 'yes';
 		}
 		return 'no';

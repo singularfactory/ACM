@@ -245,6 +245,23 @@
 		</div>
 		<?php endif ?>
 
+		<?php $nbProperties = $strain->getNbProperties() ?>
+		<?php if ($nbProperties > 0): ?>
+		<div class="object_related_model_list">
+			<h2>Strain properties</h2>
+			<table>
+				<tr>
+					<th class="strain_property_name">Property</th>
+				</tr>
+				<?php foreach ($strain->getProperties() as $property): ?>
+					<tr>
+						<td class="strain_property_name"><?php echo $property->getName() ?></td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+		</div>
+		<?php endif ?>
+
 		<?php $nbPotentialUsages = $strain->getNbPotentialUsages() ?>
 		<?php if ($nbPotentialUsages > 0): ?>
 		<div class="object_related_model_list">
@@ -344,8 +361,6 @@
 
 			<dt>Is public:</dt>
 			<dd><?php echo $strain->getFormattedIsPublic() ?></dd>
-			<dt>In G catalog:</dt>
-			<dd><?php echo $strain->getFormattedInGCatalog() ?></dd>
 			<dt>Deceased:</dt>
 			<dd><?php echo $strain->getFormattedDeceased() ?></dd>
 			<dt>Has DNA:</dt>

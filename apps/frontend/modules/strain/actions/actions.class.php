@@ -200,14 +200,14 @@ class strainActions extends MyActions {
 	 */
 	public function executeNew(sfWebRequest $request) {
 		$lastStrain = false;
-		if ( $request->hasParameter('id') ) {
+		if ($request->hasParameter('id')) {
 			$lastStrain = StrainTable::getInstance()->find(array($request->getParameter('id')));
 		}
-		elseif ( $this->getUser()->hasAttribute('strain.last_object_created') ) {
+		elseif ($this->getUser()->hasAttribute('strain.last_object_created')) {
 			$lastStrain = $this->getUser()->getAttribute('strain.last_object_created');
 		}
 
-		if ( $lastStrain ) {
+		if ($lastStrain) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSampleId());
 			$strain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());

@@ -284,7 +284,7 @@
 				<?php echo $form['culture_media_list']->renderHelp() ?>
 				<?php echo $form['culture_media_list'] ?>
 			</div>
-			<?php if ( isset($form['container_id']) ): ?>
+			<?php //if (isset($form['container_id'])): ?>
 			<div id="container">
 				<?php echo $form['container_id']->renderLabel() ?>
 				<?php echo $form['container_id']->renderHelp() ?>
@@ -296,7 +296,7 @@
 				<?php echo $form['containers_list']->renderHelp() ?>
 				<?php echo $form['containers_list'] ?>
 			</div>
-			<?php endif; ?>
+			<?php //endif; ?>
 			<div id="transfer_interval">
 				<?php echo $form['transfer_interval']->renderLabel() ?>
 				<?php echo $form['transfer_interval'] ?>
@@ -333,14 +333,16 @@
 
 		<div class="form-section">
 			<h3>Catalog status</h3>
+			<div id="properties_list" class="list_field">
+				<?php echo $form['properties_list']->renderLabel() ?>
+				<?php echo $form['properties_list']->renderError() ?>
+				<?php echo $form['properties_list']->renderHelp() ?>
+				<?php echo $form['properties_list'] ?>
+			</div>
 			<div id="public" class="checkbox">
 				<?php echo $form['is_public']->renderLabel() ?>
 				<?php echo $form['is_public'] ?>
 				<?php echo $form['is_public']->renderHelp() ?>
-			</div>
-			<div id="in_g_catalog" class="checkbox">
-				<?php echo $form['in_g_catalog']->renderLabel() ?>
-				<?php echo $form['in_g_catalog'] ?>
 			</div>
 			<div id="deceased" class="checkbox">
 				<?php echo $form['deceased']->renderLabel() ?>
