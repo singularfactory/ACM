@@ -458,6 +458,17 @@ Container:
       fields:
         name:  { length: 20 }
 
+StrainProperty:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
+  relations:
+    Strains:  { foreignAlias: Strains, class: Strain, local: property_id, foreign: strain_id, refClass: StrainProperties }
+  indexes:
+    strain_property_name:
+      fields:
+        name:  { length: 5 }
+
 Strain:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
@@ -488,7 +499,6 @@ Strain:
     web_notes:  { type: string }
     remarks:  { type: string }
     supervisor_id:  { type: integer }
-    in_g_catalog:  { type: boolean, notnull: true, default: false }
     temperature:  { type: decimal }
     photoperiod:  { type: decimal }
     irradiation:  { type: decimal }
@@ -514,6 +524,7 @@ Strain:
     Identifier:  { foreignAlias: Strains }
     Container:  { foreignAlias: Strains }
     Containers:  { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
+    Properties:  { foreignAlias: Properties, class: StrainProperty, local: strain_id, foreign: property_id, refClass: StrainProperties }
     CultureMedium:  { foreignAlias: Strains }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
     MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
@@ -531,6 +542,14 @@ StrainContainers:
     container_id:  { type: integer, primary: true }
   relations:
     Strain:  { onDelete: cascade, onUpdate: cascade }
+
+StrainProperties:
+  columns:
+    strain_id:  { type: integer, primary: true }
+    property_id:  { type: integer, primary: true }
+  relations:
+    Strain:          { onDelete: cascade, onUpdate: cascade }
+    StrainProperty:  { class: StrainProperty, local: property_id, foreign: id, foreignAlias: StrainProperties, onDelete: cascade, onUpdate: cascade }
 
 StrainCultureMedia:
   columns:

@@ -33,7 +33,6 @@
  * @property string $web_notes
  * @property string $remarks
  * @property integer $supervisor_id
- * @property boolean $in_g_catalog
  * @property decimal $temperature
  * @property decimal $photoperiod
  * @property decimal $irradiation
@@ -58,6 +57,7 @@
  * @property Identifier $Identifier
  * @property Container $Container
  * @property Doctrine_Collection $Containers
+ * @property Doctrine_Collection $Properties
  * @property CultureMedium $CultureMedium
  * @property Doctrine_Collection $CultureMedia
  * @property Doctrine_Collection $MaintenanceStatus
@@ -66,6 +66,7 @@
  * @property Doctrine_Collection $AxenityTests
  * @property Doctrine_Collection $Pictures
  * @property Doctrine_Collection $StrainContainers
+ * @property Doctrine_Collection $StrainProperties
  * @property Doctrine_Collection $StrainCultureMedia
  * @property Doctrine_Collection $StrainMaintenanceStatus
  * @property Doctrine_Collection $DnaExtractions
@@ -101,7 +102,6 @@
  * @method string              getWebNotes()                 Returns the current record's "web_notes" value
  * @method string              getRemarks()                  Returns the current record's "remarks" value
  * @method integer             getSupervisorId()             Returns the current record's "supervisor_id" value
- * @method boolean             getInGCatalog()               Returns the current record's "in_g_catalog" value
  * @method decimal             getTemperature()              Returns the current record's "temperature" value
  * @method decimal             getPhotoperiod()              Returns the current record's "photoperiod" value
  * @method decimal             getIrradiation()              Returns the current record's "irradiation" value
@@ -126,6 +126,7 @@
  * @method Identifier          getIdentifier()               Returns the current record's "Identifier" value
  * @method Container           getContainer()                Returns the current record's "Container" value
  * @method Doctrine_Collection getContainers()               Returns the current record's "Containers" collection
+ * @method Doctrine_Collection getProperties()               Returns the current record's "Properties" collection
  * @method CultureMedium       getCultureMedium()            Returns the current record's "CultureMedium" value
  * @method Doctrine_Collection getCultureMedia()             Returns the current record's "CultureMedia" collection
  * @method Doctrine_Collection getMaintenanceStatus()        Returns the current record's "MaintenanceStatus" collection
@@ -134,6 +135,7 @@
  * @method Doctrine_Collection getAxenityTests()             Returns the current record's "AxenityTests" collection
  * @method Doctrine_Collection getPictures()                 Returns the current record's "Pictures" collection
  * @method Doctrine_Collection getStrainContainers()         Returns the current record's "StrainContainers" collection
+ * @method Doctrine_Collection getStrainProperties()         Returns the current record's "StrainProperties" collection
  * @method Doctrine_Collection getStrainCultureMedia()       Returns the current record's "StrainCultureMedia" collection
  * @method Doctrine_Collection getStrainMaintenanceStatus()  Returns the current record's "StrainMaintenanceStatus" collection
  * @method Doctrine_Collection getDnaExtractions()           Returns the current record's "DnaExtractions" collection
@@ -168,7 +170,6 @@
  * @method Strain              setWebNotes()                 Sets the current record's "web_notes" value
  * @method Strain              setRemarks()                  Sets the current record's "remarks" value
  * @method Strain              setSupervisorId()             Sets the current record's "supervisor_id" value
- * @method Strain              setInGCatalog()               Sets the current record's "in_g_catalog" value
  * @method Strain              setTemperature()              Sets the current record's "temperature" value
  * @method Strain              setPhotoperiod()              Sets the current record's "photoperiod" value
  * @method Strain              setIrradiation()              Sets the current record's "irradiation" value
@@ -193,6 +194,7 @@
  * @method Strain              setIdentifier()               Sets the current record's "Identifier" value
  * @method Strain              setContainer()                Sets the current record's "Container" value
  * @method Strain              setContainers()               Sets the current record's "Containers" collection
+ * @method Strain              setProperties()               Sets the current record's "Properties" collection
  * @method Strain              setCultureMedium()            Sets the current record's "CultureMedium" value
  * @method Strain              setCultureMedia()             Sets the current record's "CultureMedia" collection
  * @method Strain              setMaintenanceStatus()        Sets the current record's "MaintenanceStatus" collection
@@ -201,6 +203,7 @@
  * @method Strain              setAxenityTests()             Sets the current record's "AxenityTests" collection
  * @method Strain              setPictures()                 Sets the current record's "Pictures" collection
  * @method Strain              setStrainContainers()         Sets the current record's "StrainContainers" collection
+ * @method Strain              setStrainProperties()         Sets the current record's "StrainProperties" collection
  * @method Strain              setStrainCultureMedia()       Sets the current record's "StrainCultureMedia" collection
  * @method Strain              setStrainMaintenanceStatus()  Sets the current record's "StrainMaintenanceStatus" collection
  * @method Strain              setDnaExtractions()           Sets the current record's "DnaExtractions" collection
@@ -318,11 +321,6 @@ abstract class BaseStrain extends sfDoctrineRecord
         $this->hasColumn('supervisor_id', 'integer', null, array(
              'type' => 'integer',
              ));
-        $this->hasColumn('in_g_catalog', 'boolean', null, array(
-             'type' => 'boolean',
-             'notnull' => true,
-             'default' => false,
-             ));
         $this->hasColumn('temperature', 'decimal', null, array(
              'type' => 'decimal',
              ));
@@ -431,6 +429,11 @@ abstract class BaseStrain extends sfDoctrineRecord
              'local' => 'strain_id',
              'foreign' => 'container_id'));
 
+        $this->hasMany('StrainProperty as Properties', array(
+             'refClass' => 'StrainProperties',
+             'local' => 'strain_id',
+             'foreign' => 'property_id'));
+
         $this->hasOne('CultureMedium', array(
              'local' => 'culture_medium_id',
              'foreign' => 'id'));
@@ -462,6 +465,10 @@ abstract class BaseStrain extends sfDoctrineRecord
              'foreign' => 'strain_id'));
 
         $this->hasMany('StrainContainers', array(
+             'local' => 'id',
+             'foreign' => 'strain_id'));
+
+        $this->hasMany('StrainProperties', array(
              'local' => 'id',
              'foreign' => 'strain_id'));
 
