@@ -7,15 +7,18 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property boolean $is_public
  * @property Doctrine_Collection $Strains
  * @property Doctrine_Collection $StrainProperties
  * 
  * @method integer             getId()               Returns the current record's "id" value
  * @method string              getName()             Returns the current record's "name" value
+ * @method boolean             getIsPublic()         Returns the current record's "is_public" value
  * @method Doctrine_Collection getStrains()          Returns the current record's "Strains" collection
  * @method Doctrine_Collection getStrainProperties() Returns the current record's "StrainProperties" collection
  * @method StrainProperty      setId()               Sets the current record's "id" value
  * @method StrainProperty      setName()             Sets the current record's "name" value
+ * @method StrainProperty      setIsPublic()         Sets the current record's "is_public" value
  * @method StrainProperty      setStrains()          Sets the current record's "Strains" collection
  * @method StrainProperty      setStrainProperties() Sets the current record's "StrainProperties" collection
  * 
@@ -38,6 +41,11 @@ abstract class BaseStrainProperty extends sfDoctrineRecord
              'type' => 'string',
              'notnull' => true,
              'length' => 255,
+             ));
+        $this->hasColumn('is_public', 'boolean', null, array(
+             'type' => 'boolean',
+             'notnull' => true,
+             'default' => false,
              ));
 
 

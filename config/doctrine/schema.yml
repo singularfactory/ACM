@@ -462,6 +462,7 @@ StrainProperty:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
     name:  { type: string(255), notnull: true }
+    is_public:  { type: boolean, notnull: true, default: false }
   relations:
     Strains:  { foreignAlias: Strains, class: Strain, local: property_id, foreign: strain_id, refClass: StrainProperties }
   indexes:
