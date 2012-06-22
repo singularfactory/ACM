@@ -200,14 +200,14 @@ class strainActions extends MyActions {
 	 */
 	public function executeNew(sfWebRequest $request) {
 		$lastStrain = false;
-		if ( $request->hasParameter('id') ) {
+		if ($request->hasParameter('id')) {
 			$lastStrain = StrainTable::getInstance()->find(array($request->getParameter('id')));
 		}
-		elseif ( $this->getUser()->hasAttribute('strain.last_object_created') ) {
+		elseif ($this->getUser()->hasAttribute('strain.last_object_created')) {
 			$lastStrain = $this->getUser()->getAttribute('strain.last_object_created');
 		}
 
-		if ( $lastStrain ) {
+		if ($lastStrain) {
 			$strain = new Strain();
 			$strain->setSampleId($lastStrain->getSampleId());
 			$strain->setTaxonomicClassId($lastStrain->getTaxonomicClassId());
@@ -321,15 +321,14 @@ class strainActions extends MyActions {
 			$modelInput = "new_$modelName";
 			$modelClass = sfInflector::camelize($modelName);
 
-			if ( array_key_exists($modelInput, $taintedValues) ) {
+			if (array_key_exists($modelInput, $taintedValues)) {
 				$model = new $modelClass();
 				$model->setName($taintedValues[$modelInput]['name']);
 				unset($taintedValues[$modelInput]);
 
-				if ( $model->trySave() ) {
+				if ($model->trySave()) {
 					$taintedValues["{$modelName}_id"] = $model->getId();
-				}
-				else {
+				} else {
 					$this->getUser()->setFlash('notice', "A related model ($model) could not be saved. Try again", false);
 					return;
 				}
@@ -337,7 +336,7 @@ class strainActions extends MyActions {
 		}
 
 		// Unset axenity tests if values are empty
-		if ( isset($taintedValues['new_AxenityTests']) ) {
+		if (isset($taintedValues['new_AxenityTests'])) {
 			$validTests = array();
 			foreach ( $taintedValues['new_AxenityTests'] as $test ) {
 				if ( empty($test['date']['day']) || empty($test['date']['month']) || empty($test['date']['year']) ) {
@@ -372,7 +371,7 @@ class strainActions extends MyActions {
 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
 
 		// Validate form
-		if ( $form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures') ) {
+		if ($form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures')) {
 			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();

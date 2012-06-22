@@ -458,6 +458,18 @@ Container:
       fields:
         name:  { length: 20 }
 
+StrainProperty:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(255), notnull: true }
+    is_public:  { type: boolean, notnull: true, default: false }
+  relations:
+    Strains:  { foreignAlias: Strains, class: Strain, local: property_id, foreign: strain_id, refClass: StrainProperties }
+  indexes:
+    strain_property_name:
+      fields:
+        name:  { length: 5 }
+
 Strain:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
@@ -488,7 +500,6 @@ Strain:
     web_notes:  { type: string }
     remarks:  { type: string }
     supervisor_id:  { type: integer }
-    in_g_catalog:  { type: boolean, notnull: true, default: false }
     temperature:  { type: decimal }
     photoperiod:  { type: decimal }
     irradiation:  { type: decimal }
@@ -514,6 +525,7 @@ Strain:
     Identifier:  { foreignAlias: Strains }
     Container:  { foreignAlias: Strains }
     Containers:  { foreignAlias: Containers, class: Container, local: strain_id, foreign: container_id, refClass: StrainContainers }
+    Properties:  { foreignAlias: Properties, class: StrainProperty, local: strain_id, foreign: property_id, refClass: StrainProperties }
     CultureMedium:  { foreignAlias: Strains }
     CultureMedia:  { foreignAlias: CultureMedia, class: CultureMedium, local: strain_id, foreign: culture_medium_id, refClass: StrainCultureMedia }
     MaintenanceStatus:  { foreignAlias: MaintenanceStatus, class: MaintenanceStatus, local: strain_id, foreign: maintenance_status_id, refClass: StrainMaintenanceStatus }
@@ -531,6 +543,14 @@ StrainContainers:
     container_id:  { type: integer, primary: true }
   relations:
     Strain:  { onDelete: cascade, onUpdate: cascade }
+
+StrainProperties:
+  columns:
+    strain_id:  { type: integer, primary: true }
+    property_id:  { type: integer, primary: true }
+  relations:
+    Strain:          { onDelete: cascade, onUpdate: cascade }
+    StrainProperty:  { class: StrainProperty, local: property_id, foreign: id, foreignAlias: StrainProperties, onDelete: cascade, onUpdate: cascade }
 
 StrainCultureMedia:
   columns:
@@ -778,6 +798,9 @@ Depositor:
 PatentDeposit:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
+    depositor_id:  { type: integer, notnull: true }
+    deposition_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     taxonomic_class_id:  { type: integer, notnull: true }
     genus_id:  { type: integer, notnull: true }
     species_id:  { type: integer }
@@ -793,9 +816,6 @@ PatentDeposit:
     collection_date:  { type: date }
     isolation_date:  { type: date }
     identifier_id:  { type: integer }
-    depositor_id:  { type: integer, notnull: true }
-    deposition_date:  { type: date, notnull: true }
-    depositor_code:  { type: string(40), notnull: true }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }
@@ -864,6 +884,9 @@ PatentDepositMaintenanceStatus:
 MaintenanceDeposit:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
+    depositor_id:  { type: integer, notnull: true }
+    deposition_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     is_blend:  { type: boolean, notnull: true, default: false }
     blend_description: { type: string }
     taxonomic_class_id:  { type: integer }
@@ -881,9 +904,6 @@ MaintenanceDeposit:
     collection_date:  { type: date }
     isolation_date:  { type: date }
     identifier_id:  { type: integer }
-    depositor_id:  { type: integer, notnull: true }
-    deposition_date:  { type: date, notnull: true }
-    depositor_code:  { type: string(40), notnull: true }
     transfer_interval:  { type: string(40) }
     viability_test:  { type: string }
     observation:  { type: string }
@@ -953,11 +973,11 @@ ExternalStrain:
     is_epitype:  { type: boolean, notnull: true, default: false }
     is_axenic:  { type: boolean, notnull: true, default: false }
     kingdom_id:  { type: integer, notnull: true }
-    subkingdom_id:  { type: integer, notnull: true }
-    phylum_id:  { type: integer, notnull: true }
+    subkingdom_id:  { type: integer }
+    phylum_id:  { type: integer }
     taxonomic_class_id:  { type: integer, notnull: true }
-    taxonomic_order_id:  { type: integer, notnull: true }
-    family_id:  { type: integer, notnull: true }
+    taxonomic_order_id:  { type: integer }
+    family_id:  { type: integer }
     genus_id:  { type: integer, notnull: true }
     species_id:  { type: integer }
     authority_id:  { type: integer, notnull: true }
@@ -1044,6 +1064,7 @@ Isolation:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
     reception_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     isolation_subject:  { type: enum, values: [sample, strain, external, "external_strain"] }
     sample_id:  { type: integer }
     strain_id:  { type: integer }
@@ -1142,6 +1163,7 @@ Identification:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
     identification_date:  { type: date, notnull: true }
+    yearly_count:  { type: integer, notnull: true }
     sample_id:  { type: integer, notnull: true}
     petitioner_id:  { type: integer, notnull: true }
     sample_picture:  { type: string(255) }
@@ -1170,3 +1192,62 @@ GlossaryTerm:
   indexes:
     glossary_term:
       fields: [term]
+
+UsageTarget:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(128), notnull: true }
+  relations:
+    UsageAreas:  { foreignAlias: UsageAreas, class: UsageArea, local: usage_target_id, foreign: usage_area_id, refClass: UsageAreaUsageTargets }
+  indexes:
+    usage_target_name:
+      fields:
+        name:  { length: 5 }
+
+UsageArea:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    name:  { type: string(128), notnull: true }
+  relations:
+    UsageTargets:  { foreignAlias: UsageTargets, class: UsageTarget, local: usage_area_id, foreign: usage_target_id, refClass: UsageAreaUsageTargets }
+  indexes:
+    usage_area_name:
+      fields:
+        name:  { length: 5 }
+
+StrainTaxonomy:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
+  relations:
+    TaxonomicClass:  { foreignAlias: StrainUsages }
+    Genus:  { foreignAlias: StrainUsages }
+    Species:  { foreignAlias: StrainUsages }
+    PotentialUsages:  { foreignAlias: PotentialUsages, class: UsageAreaUsageTargets, local: strain_taxonomy_id, foreign: usage_id, refClass: PotentialUsages }
+  indexes:
+    unique_strain_taxonomy:  { fields: [taxonomic_class_id, genus_id, species_id], type: unique }
+
+UsageAreaUsageTargets:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    usage_area_id:  { type: integer, notnull: true }
+    usage_target_id:  { type: integer, notnull: true }
+  relations:
+    UsageArea:  { onDelete: cascade, onUpdate: cascade }
+    UsageTarget:  { onDelete: cascade, onUpdate: cascade }
+    StrainTaxonomies: { foreignAlias: StrainTaxonomies, class: StrainTaxonomy, local: id, foreign: strain_taxonomy_id, refClass: PotentialUsages }
+  indexes:
+    unique_usage:  { fields: [usage_area_id, usage_target_id], type: unique }
+
+PotentialUsages:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    strain_taxonomy_id:  { type: integer, notnull: true }
+    usage_id:  { type: integer, notnull: true }
+  relations:
+    StrainTaxonomy: { onDelete: cascade, onUpdate: cascade }
+    StrainUsage:  { class: UsageAreaUsageTargets, local: usage_id, foreign: id, foreignAlias: PotentialUsages, onDelete: cascade, onUpdate: cascade }
+  indexes:
+    unique_potential_usage:  { fields: [strain_taxonomy_id, usage_id], type: unique }

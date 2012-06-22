@@ -28,7 +28,7 @@
 <?php use_helper('Date', 'Thumbnail') ?>
 
 <?php slot('main_header') ?>
-<span>Identification request for sample <?php echo $identification->getSample()->getCode() ?></span>
+<span>Identification request&nbsp;<?php echo $identification->getCode() ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'identification')) ?>
 <?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@identification_create_label?id='.$identification->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'identification', 'id' => $identification->getId())) ?>
@@ -53,15 +53,14 @@
 
 	<div id="object_data_list">
 		<dl class="identification">
+			<dt>Code:</dt>
+			<dd><?php echo $identification->getCode() ?></dd>
 			<dt>Date:</dt>
 			<dd><?php echo $identification->getIdentificationDate() ?></dd>
-
 			<dt>Petitioner:</dt>
 			<dd><?php echo $identification->getFormattedPetitioner() ?></dd>
-
 			<dt>Sample:</dt>
 			<dd><?php echo $identification->getSample()->getCode() ?></dd>
-
 			<dt>Request document:</dt>
 			<dd>
 				<?php if ( $url = $identification->getRequestDocumentUrl() ): ?>
@@ -70,7 +69,6 @@
 				<?php echo sfConfig::get('app_no_data_message') ?>
 				<?php endif; ?>
 			</dd>
-
 			<dt>Report document:</dt>
 			<dd>
 				<?php if ( $url = $identification->getReportDocumentUrl() ): ?>
@@ -79,13 +77,10 @@
 				<?php echo sfConfig::get('app_no_data_message') ?>
 				<?php endif; ?>
 			</dd>
-
 			<dt>Microscopy identification:</dt>
 			<dd><?php echo $identification->getMicroscopyIdentification() ?></dd>
-
 			<dt>Molecular identification:</dt>
 			<dd><?php echo $identification->getMolecularIdentification() ?></dd>
-
 			<dt>Remarks:</dt>
 			<dd><?php echo $identification->getRemarks() ?></dd>
 		</dl>

@@ -25,11 +25,11 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<?php if ( isset($form) && isset($module) ): ?>
+<?php if (isset($form) && isset($module)): ?>
 
-	<?php if ( !isset($add) ) $add = true ?>
-	<?php if ( !isset($progressBar) ) $progressBar = false ?>
-	<?php if ( !isset($title) ) $title = $module ?>
+	<?php if (!isset($add)) $add = true ?>
+	<?php if (!isset($progressBar)) $progressBar = false ?>
+	<?php if (!isset($title)) $title = strtolower(sfInflector::humanize($module)) ?>
 	<?php $route = "@$module" ?>
 
 	<div class="submit">

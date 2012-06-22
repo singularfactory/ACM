@@ -12,6 +12,7 @@
  * @property Doctrine_Collection $MaintenanceDeposits
  * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $Isolations
+ * @property Doctrine_Collection $StrainUsages
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
@@ -20,6 +21,7 @@
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
  * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
+ * @method Doctrine_Collection getStrainUsages()        Returns the current record's "StrainUsages" collection
  * @method Genus               setId()                  Sets the current record's "id" value
  * @method Genus               setName()                Sets the current record's "name" value
  * @method Genus               setStrains()             Sets the current record's "Strains" collection
@@ -27,10 +29,11 @@
  * @method Genus               setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * @method Genus               setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method Genus               setIsolations()          Sets the current record's "Isolations" collection
+ * @method Genus               setStrainUsages()        Sets the current record's "StrainUsages" collection
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseGenus extends sfDoctrineRecord
@@ -82,6 +85,10 @@ abstract class BaseGenus extends sfDoctrineRecord
              'foreign' => 'genus_id'));
 
         $this->hasMany('Isolation as Isolations', array(
+             'local' => 'id',
+             'foreign' => 'genus_id'));
+
+        $this->hasMany('StrainTaxonomy as StrainUsages', array(
              'local' => 'id',
              'foreign' => 'genus_id'));
 

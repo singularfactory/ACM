@@ -28,7 +28,8 @@
 <?php use_helper('Date'); ?>
 
 <?php $isolationSubject = sfInflector::humanize($isolation->getIsolationSubject()) ?>
-<?php $code = $isolation->getExternalCode() ?>
+<?php $code = $isolation->getCode() ?>
+<?php $externalCode = $isolation->getExternalCode() ?>
 <?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
 <?php $genus = $isolation->getFormattedGenus() ?>
 <?php $species = $isolation->getFormattedSpecies() ?>
@@ -39,7 +40,7 @@
 
 <?php if ( $isolation->getStrain()->exists() ): ?>
 	<?php $strain = $isolation->getStrain() ?>
-	<?php $code = $strain->getFullCode() ?>
+	<?php $externalCode = $strain->getFullCode() ?>
 	<?php $route = "@strain_show?id={$strain->getId()}" ?>
 	<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 	<?php $genus = $strain->getGenus() ?>
@@ -51,7 +52,7 @@
 <?php elseif ( $isolation->getExternalStrain()->exists() ): ?>
 	<?php $isolationSubject = sfInflector::humanize('research_collection') ?>
 	<?php $externalStrain = $isolation->getExternalStrain() ?>
-	<?php $code = $externalStrain->getFullCode() ?>
+	<?php $externalCode = $externalStrain->getFullCode() ?>
 	<?php $route = "@external_strain_show?id={$externalStrain->getId()}" ?>
 	<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
 	<?php $genus = $externalStrain->getGenus() ?>
@@ -62,7 +63,7 @@
 	<?php $habitat = $sample->getHabitat() ?>
 <?php elseif( $isolation->getSample()->exists() ): ?>
 	<?php $sample = $isolation->getSample() ?>
-	<?php $code = $sample->getCode() ?>
+	<?php $externalCode = $sample->getCode() ?>
 	<?php $location = link_to($sample->getLocation(), "@location_show?id={$sample->getLocationId()}") ?>
 	<?php $environment = $sample->getEnvironment() ?>
 	<?php $habitat = $sample->getHabitat() ?>
@@ -70,7 +71,7 @@
 <?php endif ?>
 
 <?php slot('main_header') ?>
-<span><?php echo $isolationSubject ?> <?php echo $code ?></span>
+<span>Isolation request&nbsp;<?php echo $code ?></span>
 <?php include_partial('global/back_header_action', array('module' => 'isolation')) ?>
 <?php include_partial('global/label_header_action', array('message' => 'Create label', 'route' => '@isolation_create_label?id='.$isolation->getId())) ?>
 <?php include_partial('global/edit_header_action', array('module' => 'isolation', 'id' => $isolation->getId())) ?>
@@ -80,27 +81,22 @@
 <div id="main_view_show">
 	<div id="object_data_list">
 		<dl>
-			<dt><?php echo $isolationSubject ?>:</dt>
-			<dd><?php echo (isset($route))?link_to($code, $route):$code ?></dd>
-
+			<dt>Code:</dt>
+			<dd><?php echo $code ?></dd>
+			<dt>Related code:</dt>
+			<dd><?php echo (isset($route))?link_to($externalCode, $route):$externalCode ?>&nbsp;(<?php echo $isolationSubject ?>)</dd>
 			<dt>Class:</dt>
 			<dd><?php echo $taxonomicClass ?></dd>
-
 			<dt>Genus:</dt>
 			<dd><span class="species_name"><?php echo $genus ?></span></dd>
-
 			<dt>Species:</dt>
 			<dd><span class="species_name"><?php echo $species ?></span></dd>
-
 			<dt>Authority:</dt>
 			<dd><?php echo $authority ?></dd>
-
 			<dt>Location:</dt>
 			<dd><?php echo $location ?></dd>
-
 			<dt>Environment:</dt>
 			<dd><?php echo $environment ?></dd>
-
 			<dt>Habitat:</dt>
 			<dd><?php echo $habitat ?></dd>
 

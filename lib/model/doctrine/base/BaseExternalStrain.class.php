@@ -160,9 +160,9 @@
  * @method ExternalStrain      setIsolations()                      Sets the current record's "Isolations" collection
  * @method ExternalStrain      setCryopreservations()               Sets the current record's "Cryopreservations" collection
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseExternalStrain extends sfDoctrineRecord
@@ -197,11 +197,9 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('subkingdom_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('phylum_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('taxonomic_class_id', 'integer', null, array(
              'type' => 'integer',
@@ -209,11 +207,9 @@ abstract class BaseExternalStrain extends sfDoctrineRecord
              ));
         $this->hasColumn('taxonomic_order_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('family_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('genus_id', 'integer', null, array(
              'type' => 'integer',

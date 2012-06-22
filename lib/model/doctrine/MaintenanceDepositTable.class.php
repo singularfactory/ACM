@@ -125,4 +125,21 @@ class MaintenanceDepositTable extends Doctrine_Table {
 			->orderBy('s.id')
 			->execute();
 	}
+
+	public function getNextYearlyCount($year) {
+		$minDate = sprintf('%s-01-01', $year);
+		$maxDate = sprintf('%s-12-31', $year);
+		$maintenanceDeposits = $this->createQuery('p')
+			->where('p.deposition_date >= ?', $minDate)
+			->andWhere('p.deposition_date <= ?', $maxDate)
+			->orderBy('p.deposition_date DESC, p.yearly_count DESC')
+			->limit(1)
+			->execute();
+
+		if ($maintenanceDeposits->count()) {
+			return $maintenanceDeposits->getFirst()->getYearlyCount() + 1;
+		} else {
+			return 1;
+		}
+	}
 }

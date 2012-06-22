@@ -16,9 +16,9 @@
  * @method PurificationMethod  setName()       Sets the current record's "name" value
  * @method PurificationMethod  setIsolations() Sets the current record's "Isolations" collection
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasePurificationMethod extends sfDoctrineRecord

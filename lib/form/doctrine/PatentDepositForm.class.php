@@ -46,6 +46,9 @@ class PatentDepositForm extends BasePatentDepositForm {
 		$this->setWidget('isolation_date', $dateWidget);
 		$this->setWidget('deposition_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 
+		// Configure yearly count
+		$this->setWidget('yearly_count', new sfWidgetFormInputHidden);
+
 		// Configure many-to-many relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array(
 			'multiple' => true,

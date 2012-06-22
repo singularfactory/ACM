@@ -1,0 +1,5 @@
+StrainProperty:
+  g-catalog:     { name: "G-catalog" }
+  bimbache:      { name: "Bimbache collection" }
+  extremophile:  { name: "Extremophile" }
+  harmful:       { name: "Potentially harmful" }

@@ -1,0 +1,34 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           UsageArea
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          usage_area
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title: "Usage areas"
+        display: [name, updated_at]
+        fields:
+          name:
+            label: Name
+          updated_at:
+            label: Last update
+            date_format: f
+        sort: ~
+      filter:
+        display: [name]
+      form:    ~
+      edit:    ~
+      new:
+        title: Add a new area
+

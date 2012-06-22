@@ -5,9 +5,9 @@
  *
  * @method MaintenanceDeposit getObject() Returns the current form's model object
  *
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage form
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BaseMaintenanceDepositForm extends BaseFormDoctrine
@@ -16,6 +16,9 @@ abstract class BaseMaintenanceDepositForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                      => new sfWidgetFormInputHidden(),
+      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => false)),
+      'deposition_date'         => new sfWidgetFormDate(),
+      'yearly_count'            => new sfWidgetFormInputText(),
       'is_blend'                => new sfWidgetFormInputCheckbox(),
       'blend_description'       => new sfWidgetFormTextarea(),
       'taxonomic_class_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => true)),
@@ -33,9 +36,6 @@ abstract class BaseMaintenanceDepositForm extends BaseFormDoctrine
       'collection_date'         => new sfWidgetFormDate(),
       'isolation_date'          => new sfWidgetFormDate(),
       'identifier_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
-      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => false)),
-      'deposition_date'         => new sfWidgetFormDate(),
-      'depositor_code'          => new sfWidgetFormInputText(),
       'transfer_interval'       => new sfWidgetFormInputText(),
       'viability_test'          => new sfWidgetFormTextarea(),
       'observation'             => new sfWidgetFormTextarea(),
@@ -52,6 +52,9 @@ abstract class BaseMaintenanceDepositForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'depositor_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'))),
+      'deposition_date'         => new sfValidatorDate(),
+      'yearly_count'            => new sfValidatorInteger(),
       'is_blend'                => new sfValidatorBoolean(array('required' => false)),
       'blend_description'       => new sfValidatorString(array('required' => false)),
       'taxonomic_class_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'required' => false)),
@@ -69,9 +72,6 @@ abstract class BaseMaintenanceDepositForm extends BaseFormDoctrine
       'collection_date'         => new sfValidatorDate(array('required' => false)),
       'isolation_date'          => new sfValidatorDate(array('required' => false)),
       'identifier_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'required' => false)),
-      'depositor_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'))),
-      'deposition_date'         => new sfValidatorDate(),
-      'depositor_code'          => new sfValidatorString(array('max_length' => 40)),
       'transfer_interval'       => new sfValidatorString(array('max_length' => 40, 'required' => false)),
       'viability_test'          => new sfValidatorString(array('required' => false)),
       'observation'             => new sfValidatorString(array('required' => false)),

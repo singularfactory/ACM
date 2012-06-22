@@ -19,9 +19,9 @@
  * @method StrainIsolators setSortOrder()   Sets the current record's "sort_order" value
  * @method StrainIsolators setStrain()      Sets the current record's "Strain" value
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseStrainIsolators extends sfDoctrineRecord

@@ -24,22 +24,18 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
  * culture_medium actions.
  *
  * @package ACM.Frontend
  * @subpackage culture_medium
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class culture_mediumActions extends MyActions {
 
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
-		$this->pager = $this->buildPagination($request, 'CultureMedium', array('init' => false));
+		$this->pager = $this->buildPagination($request, 'CultureMedium', array('init' => false, 'sort_column' => 'id'));
 
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {

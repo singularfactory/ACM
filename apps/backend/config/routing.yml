@@ -1,3 +1,30 @@
+strain_property:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                StrainProperty
+    module:               strain_property
+    prefix_path:          /admin/strain_property
+    column:               id
+    with_wildcard_routes: true
+
+usage_target:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                UsageTarget
+    module:               usage_target
+    prefix_path:          /admin/usage_target
+    column:               id
+    with_wildcard_routes: true
+
+usage_area:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                UsageArea
+    module:               usage_area
+    prefix_path:          /admin/usage_area
+    column:               id
+    with_wildcard_routes: true
+
 petitioner:
   class: sfDoctrineRouteCollection
   options:

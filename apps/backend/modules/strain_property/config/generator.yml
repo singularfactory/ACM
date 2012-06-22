@@ -1,0 +1,32 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           StrainProperty
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          strain_property
+    with_doctrine_route:   true
+    actions_base_class:    MyActions
+    css:  false
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title: "Strain properties"
+        display: [name, is_public, updated_at]
+        fields:
+          name:  { label: Name }
+          is_public: { label: Public? }
+          updated_at: { label: Last update, date_format: f }
+        sort: ~
+      filter:
+        display: [name]
+      form:
+        display: [name, is_public]
+      edit:    ~
+      new:
+        title: Add a new property

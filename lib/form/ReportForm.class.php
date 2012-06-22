@@ -81,7 +81,6 @@ class ReportForm extends BaseForm {
 		'transfer_interval' => 'Transfer interval',
 		'is_epitype' => 'Is epitype',
 		'is_axenic' => 'Is axenic',
-		'in_g_catalog' => 'In G-catalog',
 		'deceased' => 'Deceased',
 		'sample' => 'Sample',
 	);
@@ -127,7 +126,6 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => new sfWidgetFormInputText(),
 			'strain_epitype' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
 			'strain_axenic' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
-			'strain_in_g_catalog' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
 			'strain_deceased' => new sfWidgetFormChoice(array('choices' => self::$booleanChoices)),
 
 			// DNA extraction attributes
@@ -180,7 +178,6 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => new sfValidatorString(array('max_length' => 40, 'required' => false)),
 			'strain_epitype' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
 			'strain_axenic' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
-			'strain_in_g_catalog' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
 			'strain_deceased' => new sfValidatorChoice(array('choices' => array_keys(self::$booleanChoices), 'required' => false)),
 
 			// DNA extraction attributes
@@ -227,7 +224,6 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => 'Transfer interval',
 			'strain_epitype' => 'Is epitype?',
 			'strain_axenic' => 'Is axenic?',
-			'strain_in_g_catalog' => 'In G-catalog?',
 			'strain_deceased' => 'Deceased?',
 
 			// DNA extraction attributes
@@ -269,7 +265,6 @@ class ReportForm extends BaseForm {
 			'strain_transfer_interval' => '',
 			'strain_epitype' => '',
 			'strain_axenic' => '',
-			'strain_in_g_catalog' => '',
 			'strain_deceased' => '',
 
 			// DNA extraction
@@ -287,5 +282,4 @@ class ReportForm extends BaseForm {
 
 		$this->setup();
 	}
-
 }

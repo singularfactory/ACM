@@ -1,0 +1,56 @@
+UsageArea:
+  bioactive:      { name: "Bioactive" }
+  biofuels:       { name: "Biofuels" }
+  food-and-feed:  { name: "Food and feed" }
+  cosmetics:      { name: "Cosmetics" }
+
+UsageTarget:
+  PUFA:  { name: "PUFA", UsageAreas: [food-and-feed] }
+  algicidal:  { name: "Algicidal (Antialgal)", UsageAreas: [bioactive] }
+  anti-HIV:  { name: "Anti-HIV", UsageAreas: [bioactive] }
+  anti-diabetic:  { name: "Anti-diabetic", UsageAreas: [bioactive] }
+  antibacterial:  { name: "Antibacterial", UsageAreas: [bioactive] }
+  antibiotic:  { name: "Antibiotic", UsageAreas: [bioactive] }
+  anticancer:  { name: "Anticancer", UsageAreas: [bioactive] }
+  antifungal:  { name: "Antifungal", UsageAreas: [bioactive] }
+  antihypertensive:  { name: "Antihypertensive", UsageAreas: [bioactive] }
+  antiinflammatory:  { name: "Antiinflammatory", UsageAreas: [bioactive] }
+  antimalarial:  { name: "Antimalarial", UsageAreas: [bioactive] }
+  antimitotic:  { name: "Antimitotic", UsageAreas: [bioactive] }
+  antimutagenic:  { name: "Antimutagenic", UsageAreas: [bioactive] }
+  antineurodegenerative:  { name: "Antineurodegenerative", UsageAreas: [bioactive] }
+  antioxidant:  { name: "Antioxidant", UsageAreas: [cosmetics, bioactive] }
+  antiplasmodial:  { name: "Antiplasmodial", UsageAreas: [bioactive] }
+  antitumor:  { name: "Antitumor (Antineoplastic)", UsageAreas: [bioactive] }
+  antiviral:  { name: "Antiviral", UsageAreas: [bioactive] }
+  apoptotic:  { name: "Apoptotic", UsageAreas: [bioactive] }
+  aquaculture:  { name: "Aquaculture", UsageAreas: [food-and-feed] }
+  biodiesel:  { name: "Biodiesel", UsageAreas: [biofuels] }
+  bioethanol:  { name: "Bioethanol", UsageAreas: [biofuels] }
+  biofiltration:  { name: "Biofiltration" }
+  biohydrogen:  { name: "Biohydrogen", UsageAreas: [biofuels] }
+  biomass:  { name: "Biomass", UsageAreas: [cosmetics, food-and-feed, biofuels] }
+  biomethane:  { name: "Biomethane", UsageAreas: [biofuels] }
+  bioremediation:  { name: "Bioremediation", UsageAreas: [biofuels] }
+  cardioactive:  { name: "Cardioactive (Cardiovascular)", UsageAreas: [bioactive] }
+  carotenoids:  { name: "Carotenoids", UsageAreas: [cosmetics] }
+  cytotoxic:  { name: "Cytotoxic", UsageAreas: [bioactive] }
+  feed:  { name: "Feed", UsageAreas: [food-and-feed] }
+  feeding-deterrents:  { name: "Feeding deterrents", UsageAreas: [bioactive] }
+  food-and-nutraceuticals:  { name: "Food and Nutraceuticals", UsageAreas: [food-and-feed] }
+  gases:  { name: "Gases", UsageAreas: [biofuels] }
+  hepatoprotective:  { name: "Hepatoprotective", UsageAreas: [bioactive] }
+  herbicides:  { name: "Herbicides", UsageAreas: [bioactive] }
+  ichthyotoxins:  { name: "Ichthyotoxins", UsageAreas: [bioactive] }
+  immunosuppressive:  { name: "Immunosuppressive (Immunodeficiency)", UsageAreas: [bioactive] }
+  inhibitors:  { name: "Inhibitors", UsageAreas: [bioactive] }
+  insecticidal:  { name: "Insecticidal", UsageAreas: [bioactive] }
+  larvicidal:  { name: "Larvicidal", UsageAreas: [bioactive] }
+  lipoxigenase:  { name: "Lipoxigenase inhibitor", UsageAreas: [bioactive] }
+  nematocidal-Antihelmintic:  { name: "Nematocidal / Antihelmintic", UsageAreas: [bioactive] }
+  photoprotective:  { name: "Photoprotective", UsageAreas: [cosmetics, bioactive] }
+  phycobiliproteins:  { name: "Phycobiliproteins", UsageAreas: [cosmetics] }
+  pigments:  { name: "Pigments", UsageAreas: [cosmetics] }
+  toxins:  { name: "Toxins", UsageAreas: [bioactive] }
+  tumor-promoting:  { name: "Tumor-promoting", UsageAreas: [bioactive] }
+  xanthophylls:  { name: "Xanthophylls", UsageAreas: [cosmetics] }

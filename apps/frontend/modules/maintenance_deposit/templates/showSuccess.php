@@ -29,7 +29,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	<?php echo $maintenanceDeposit->getDepositorCode() ?>
+	<?php echo $maintenanceDeposit->getCode() ?>
 	<?php if (!$maintenanceDeposit->getIsBlend()): ?>
 	<?php echo " - " . $maintenanceDepositClass = $maintenanceDeposit->getTaxonomicClass() ?>
 	<span class="species_name">
@@ -151,7 +151,7 @@
 	<div id="object_data_list">
 		<dl>
 			<dt>Depositor code:</dt>
-			<dd><?php echo $maintenanceDeposit->getDepositorCode() ?></dd>
+			<dd><?php echo $maintenanceDeposit->getCode() ?></dd>
 
 			<dt>Depositor:</dt>
 			<dd><?php echo $maintenanceDeposit->getDepositor() ?></dd>

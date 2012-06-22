@@ -3,9 +3,9 @@
 /**
  * Strain filter form base class.
  *
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage filter
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
 abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
@@ -40,7 +40,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'web_notes'                => new sfWidgetFormFilterInput(),
       'remarks'                  => new sfWidgetFormFilterInput(),
       'supervisor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Supervisor'), 'add_empty' => true)),
-      'in_g_catalog'             => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'temperature'              => new sfWidgetFormFilterInput(),
       'photoperiod'              => new sfWidgetFormFilterInput(),
       'irradiation'              => new sfWidgetFormFilterInput(),
@@ -53,6 +52,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'updated_at'               => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'isolators_list'           => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Isolator')),
       'containers_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'Container')),
+      'properties_list'          => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'StrainProperty')),
       'culture_media_list'       => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium')),
       'maintenance_status_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus')),
     ));
@@ -85,7 +85,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'web_notes'                => new sfValidatorPass(array('required' => false)),
       'remarks'                  => new sfValidatorPass(array('required' => false)),
       'supervisor_id'            => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Supervisor'), 'column' => 'id')),
-      'in_g_catalog'             => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'temperature'              => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'photoperiod'              => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'irradiation'              => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
@@ -98,6 +97,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'updated_at'               => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'isolators_list'           => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Isolator', 'required' => false)),
       'containers_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'Container', 'required' => false)),
+      'properties_list'          => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'StrainProperty', 'required' => false)),
       'culture_media_list'       => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'required' => false)),
       'maintenance_status_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'MaintenanceStatus', 'required' => false)),
     ));
@@ -144,6 +144,24 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
     $query
       ->leftJoin($query->getRootAlias().'.StrainContainers StrainContainers')
       ->andWhereIn('StrainContainers.container_id', $values)
+    ;
+  }
+
+  public function addPropertiesListColumnQuery(Doctrine_Query $query, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $query
+      ->leftJoin($query->getRootAlias().'.StrainProperties StrainProperties')
+      ->andWhereIn('StrainProperties.property_id', $values)
     ;
   }
 
@@ -219,7 +237,6 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'web_notes'                => 'Text',
       'remarks'                  => 'Text',
       'supervisor_id'            => 'ForeignKey',
-      'in_g_catalog'             => 'Boolean',
       'temperature'              => 'Number',
       'photoperiod'              => 'Number',
       'irradiation'              => 'Number',
@@ -232,6 +249,7 @@ abstract class BaseStrainFormFilter extends BaseFormFilterDoctrine
       'updated_at'               => 'Date',
       'isolators_list'           => 'ManyKey',
       'containers_list'          => 'ManyKey',
+      'properties_list'          => 'ManyKey',
       'culture_media_list'       => 'ManyKey',
       'maintenance_status_list'  => 'ManyKey',
     );

@@ -42,7 +42,7 @@ class Species extends BaseSpecies {
 
 	public function getName() {
 		$name = $this->_get('name');
-		if (empty($name)) {
+		if (!isset($name)) {
 			return sfConfig::get('app_unknown_species_name');
 		} else {
 			return $name;

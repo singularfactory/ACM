@@ -39,6 +39,9 @@ class IdentificationForm extends BaseIdentificationForm {
 		// Configure sample search box
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => SampleTable::getInstance()->getDefaultSampleId())));
 
+		// Configure yearly count
+		$this->setWidget('yearly_count', new sfWidgetFormInputHidden);
+
 		// Configure date format
 		$lastYear = date('Y');
 		for ($i=1990; $i <= $lastYear; $i++) { $years[$i] = $i; }

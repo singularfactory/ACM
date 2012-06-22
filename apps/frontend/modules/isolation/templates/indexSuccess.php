@@ -40,6 +40,7 @@
 			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th>Code</th>
 			<th><?php echo link_to('Material', '@isolation?sort_column=isolation_subject&sort_direction='.$sortDirection) ?></th>
+			<th>Related code</th>
 			<th><?php echo link_to('Class', '@isolation?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Name', '@isolation?sort_column=Strain.Genus.name&sort_direction='.$sortDirection) ?></th>
 			<th class="date"><?php echo link_to('Reception date', '@isolation?sort_column=reception_date&sort_direction='.$sortDirection) ?></th>
@@ -50,26 +51,28 @@
 		<?php foreach ($pager->getResults() as $isolation): ?>
 		<tr>
 			<?php $url = url_for('@isolation_show?id='.$isolation->getId()) ?>
-			<?php $code = $isolation->getExternalCode() ?>
+			<?php $code = $isolation->getCode() ?>
+			<?php $externalCode = $isolation->getExternalCode() ?>
 			<?php $taxonomicClass = $isolation->getFormattedTaxonomicClass() ?>
 			<?php $genusAndSpecies = $isolation->getGenusAndSpecies() ?>
 			<?php $subject = $isolation->getIsolationSubject() ?>
 
 			<?php if ( $sample = $isolation->getSample() ): ?>
-				<?php $code = $sample->getCode() ?>
+				<?php $externalCode = $sample->getCode() ?>
 			<?php elseif ( $strain = $isolation->getStrain() ): ?>
-				<?php $code = $strain->getFullCode() ?>
+				<?php $externalCode = $strain->getFullCode() ?>
 				<?php $taxonomicClass = $strain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $strain->getGenusAndSpecies() ?>
 			<?php elseif ( $externalStrain = $isolation->getExternalStrain() ): ?>
 				<?php $subject = 'research_collection' ?>
-				<?php $code = $externalStrain->getFullCode() ?>
+				<?php $externalCode = $externalStrain->getFullCode() ?>
 				<?php $taxonomicClass = $externalStrain->getTaxonomicClass() ?>
 				<?php $genusAndSpecies = $externalStrain->getGenusAndSpecies() ?>
 			<?php endif ?>
 
-			<td class="isolation_code"><?php echo link_to($code, $url) ?></td>
+			<td class="external_strain_code"><?php echo link_to($code, $url) ?></td>
 			<td class="isolation_subject"><?php echo link_to(sfInflector::humanize($subject), $url) ?></td>
+			<td class="sample_code"><?php echo link_to($externalCode, $url) ?></td>
 			<td class="taxonomic_class_name"><?php echo link_to($taxonomicClass, $url) ?></td>
 			<td class="isolation_name"><span class="species_name"><?php echo link_to($genusAndSpecies, $url) ?></span></td>
 			<td class="date reception_date"><?php echo link_to($isolation->getReceptionDate(), $url) ?></td>

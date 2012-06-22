@@ -99,7 +99,7 @@ td.strain_name, td.isolation_name, td.identification_petitioner { width: 240px; 
 td.culture_medium_name { width: 125px; }
 td.link { width: 250px; }
 td.location_name { width: 300px; }
-td.taxonomic_class_name, td.inoculation_date { width: 130px; }
+td.genus_name, td.species_name, td.taxonomic_class_name, td.inoculation_date { width: 130px; }
 td.dna_extraction_name { width: 160px; }
 td.purchase_item_amount, td.amount { width: 80px; }
 th.dna_availability, td.dna_availability, th.is_public, td.is_public { width: 60px; }
@@ -114,7 +114,7 @@ td.glossary_term { width: 280px }
 td.replicate { width: 125px; }
 
 td.patent_deposit_depositor_code, td.maintenance_deposit_depositor_code, td.external_strain_code {
-	width: 75px;
+	width: 80px;
 }
 
 td.patent_deposit_depositor_name, td.maintenance_deposit_depositor_name {

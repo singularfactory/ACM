@@ -218,6 +218,44 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
 	padding-botton: 0em;
 }
 
+
+/**
+ * POTENTIAL USAGES
+ */
+div.usage-area {
+  min-width: 20em;
+  margin-bottom: 0em;
+  padding: 0.5em;
+}
+
+div.usage-area>h4 {
+  font-size: 10pt;
+  background: #d9d9d9;
+  margin: 0em;
+  padding: 0.5em;
+  width: 96%;
+  display: inline-block;
+  text-decoration: underline;
+}
+div.usage-area>h4:hover {
+  cursor: pointer;
+}
+
+div.usage-area-usages {
+  display: none;
+  margin: 0em;
+  margin-top: 0.5em;
+  margin-left: 1em;
+  padding: 0em;
+}
+
+div.usage-area-usages ul {
+  list-style: none;
+  margin-top: 0em;
+  margin-left: 0em;
+  padding-left: 0em;
+}
+
 /**
  * BEA CODE FOR STRAINS, INCLUDING CLONE NUMBERS
  */

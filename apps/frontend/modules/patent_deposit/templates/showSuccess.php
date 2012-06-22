@@ -29,7 +29,7 @@
 
 <?php slot('main_header') ?>
 <span>
-	<?php echo $patentDeposit->getDepositorCode() ?> - <?php echo $patentDepositClass = $patentDeposit->getTaxonomicClass() ?>
+	<?php echo $patentDeposit->getCode() ?> - <?php echo $patentDepositClass = $patentDeposit->getTaxonomicClass() ?>
 	<span class="species_name">
 		<?php echo $patentDepositGenus = $patentDeposit->getGenus() ?>
 		<?php echo $patentDepositSpecies = $patentDeposit->getSpecies() ?>
@@ -162,8 +162,8 @@
 
 	<div id="object_data_list">
 		<dl>
-			<dt>Depositor code:</dt>
-			<dd><?php echo $patentDeposit->getDepositorCode() ?></dd>
+			<dt>Code:</dt>
+			<dd><?php echo $patentDeposit->getCode() ?></dd>
 
 			<dt>Depositor:</dt>
 			<dd><?php echo $patentDeposit->getDepositor() ?></dd>

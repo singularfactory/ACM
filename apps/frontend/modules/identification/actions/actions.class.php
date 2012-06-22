@@ -34,7 +34,7 @@
 class identificationActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
-		$this->pager = $this->buildPagination($request, 'Identification', array('init' => false, 'sort_column' => 'id'));
+		$this->pager = $this->buildPagination($request, 'Identification', array('init' => false, 'sort_column' => 'identification_date'));
 
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
@@ -109,10 +109,20 @@ class identificationActions extends MyActions {
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
-		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		$taintedValues = $request->getParameter($form->getName());
+
+		// Calculate value for yearly_count field
+		if (isset($taintedValues['identification_date'])) {
+			$year = $taintedValues['identification_date']['year'];
+			$actualYear = date('Y', strtotime($form->getObject()->getIdentificationDate()));
+			if ($form->isNew() || ($year != $actualYear)) {
+				$taintedValues['yearly_count'] = IdentificationTable::getInstance()->getNextYearlyCount($year);
+			}
+		}
 
 		// Validate form
-		if ( $form->isValid() ) {
+		$form->bind($taintedValues, $request->getFiles($form->getName()));
+		if ($form->isValid()) {
 			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
@@ -125,25 +135,23 @@ class identificationActions extends MyActions {
 			try {
 				$identification = $form->save();
 
-				if ( $request->hasParameter('_save_and_add') ) {
+				if ($request->hasParameter('_save_and_add')) {
 					$message = 'Identification request created successfully. Now you can add another one';
 					$url = '@identification_new';
 
 					// Reuse last object values
 					$this->getUser()->setAttribute('identification.last_object_created', $identification);
-				}
-				elseif ( !$isNew ) {
+				} elseif (!$isNew) {
 					$message = 'Changes saved';
 					$url = '@identification_show?id='.$identification->getId();
-				}
-				else {
+				} else {
 					$message = 'Identification request created successfully';
 					$url = '@identification_show?id='.$identification->getId();
 				}
 
 				// Delete previous picture
 				$newSamplePicture = $identification->getSamplePicture();
-				if ( $oldSamplePicture !== $newSamplePicture ) {
+				if ($oldSamplePicture !== $newSamplePicture) {
 					$path = sfConfig::get('sf_upload_dir').sfConfig::get('app_identification_pictures_dir');
 					$filename = $path.'/'.$oldSamplePicture;
 					unlink($filename);
@@ -153,10 +161,10 @@ class identificationActions extends MyActions {
 				$message = $e->getMessage();
 			}
 
-			if ( $identification != null ) {
+			if ($identification != null) {
 				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $identification->getId())));
 				$this->getUser()->setFlash('notice', $message);
-				if ( $url !== null ) {
+				if ($url !== null) {
 					$this->redirect($url);
 				}
 			}

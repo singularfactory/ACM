@@ -35,7 +35,6 @@
  * @since 1.0
  */
 class IsolationForm extends BaseIsolationForm {
-
 	public function configure() {
 		// Configure date formats
 		for ($i=1990; $i <= date('Y'); $i++) { $years[$i] = $i; }
@@ -54,6 +53,9 @@ class IsolationForm extends BaseIsolationForm {
 			'external' => 'external',
 			'external_strain' => 'research collection',
 		))));
+
+		// Configure yearly count
+		$this->setWidget('yearly_count', new sfWidgetFormInputHidden);
 
 		// Configure many-to-many relationships
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'method' => 'getName')));

@@ -26,17 +26,15 @@
  */
 
 /**
- * maintenance_deposit actions.
+ * MaintenanceDeposit module actions
  *
  * @package ACM.Frontend
  * @subpackage maintenance_deposit
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class maintenance_depositActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
-		$this->pager = $this->buildPagination($request, 'MaintenanceDeposit', array('init' => false, 'sort_column' => 'depositor_code'));
+		$this->pager = $this->buildPagination($request, 'MaintenanceDeposit', array('init' => false, 'sort_column' => 'deposition_date'));
 
 		// Deal with search criteria
 		if ( $text = $request->getParameter('criteria') ) {
@@ -46,7 +44,7 @@ class maintenance_depositActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Species s")
 				->leftJoin("{$this->mainAlias()}.Depositor d")
 				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.depositor_code LIKE ?", "%$text%")
+				->orWhere("{$this->mainAlias()}.yearly_count LIKE ?", "%$text%")
 				->orWhere("{$this->mainAlias()}.deposition_date LIKE ?", "%$text%")
 				->orWhere('tc.name LIKE ?', "%$text%")
 				->orWhere('g.name LIKE ?', "%$text%")
@@ -144,10 +142,20 @@ class maintenance_depositActions extends MyActions {
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
-		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		$taintedValues = $request->getParameter($form->getName());
+
+		// Calculate value for yearly_count field
+		if (isset($taintedValues['deposition_date'])) {
+			$year = $taintedValues['deposition_date']['year'];
+			$actualYear = date('Y', strtotime($form->getObject()->getDepositionDate()));
+			if ($form->isNew() || ($year != $actualYear)) {
+				$taintedValues['yearly_count'] = MaintenanceDepositTable::getInstance()->getNextYearlyCount($year);
+			}
+		}
 
 		// Validate form
-		if ( $form->isValid() ) {
+		$form->bind($taintedValues, $request->getFiles($form->getName()));
+		if ($form->isValid()) {
 			$flashMessage = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
@@ -156,18 +164,16 @@ class maintenance_depositActions extends MyActions {
 			try {
 				$maintenanceDeposit = $form->save();
 
-				if ( $request->hasParameter('_save_and_add') ) {
+				if ($request->hasParameter('_save_and_add')) {
 					$message = 'Deposited created successfully. Now you can add another one';
 					$url = '@maintenance_deposit_new';
 
 					// Reuse last object values
 					$this->getUser()->setAttribute('maintenance_deposit.last_object_created', $sample);
-				}
-				elseif ( !$isNew ) {
+				} elseif (!$isNew) {
 					$message = 'Changes saved';
 					$url = '@maintenance_deposit_show?id='.$maintenanceDeposit->getId();
-				}
-				else {
+				} else {
 					$message = 'Deposit created successfully';
 					$url = '@maintenance_deposit_show?id='.$maintenanceDeposit->getId();
 				}
@@ -176,10 +182,10 @@ class maintenance_depositActions extends MyActions {
 				$message = $e->getMessage();
 			}
 
-			if ( $maintenanceDeposit != null ) {
+			if ($maintenanceDeposit != null) {
 				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $maintenanceDeposit->getId())));
 				$this->getUser()->setFlash('notice', $message);
-				if ( $url !== null ) {
+				if ($url !== null) {
 					$this->redirect($url);
 				}
 			}

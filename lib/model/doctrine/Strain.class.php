@@ -74,6 +74,10 @@ class Strain extends BaseStrain {
 		return count($this->getContainers());
 	}
 
+	public function getNbProperties() {
+		return StrainPropertiesTable::getInstance()->createQuery('c')->where('c.strain_id = ?', $this->getId())->count();
+	}
+
 	public function getNbDnaExtractions() {
 		return Doctrine_Query::create()
 			->from('DnaExtraction dna')
@@ -99,6 +103,15 @@ class Strain extends BaseStrain {
 		return Doctrine_Query::create()
 			->from('Project p')
 			->where('p.strain_id = ?', $this->getId())
+			->count();
+	}
+
+	public function getNbPotentialUsages() {
+		return PotentialUsagesTable::getInstance()->createQuery('p')
+			->leftJoin('p.StrainTaxonomy t')
+			->where('t.taxonomic_class_id = ?', $this->getTaxonomicClassId())
+			->andWhere('t.genus_id = ?', $this->getGenusId())
+			->andWhere('t.species_id = ?', $this->getSpeciesId())
 			->count();
 	}
 
@@ -160,13 +173,6 @@ class Strain extends BaseStrain {
 
 	public function getFormattedDeceased() {
 		if ( $this->getDeceased() ) {
-			return 'yes';
-		}
-		return 'no';
-	}
-
-	public function getFormattedInGCatalog() {
-		if ( $this->getInGCatalog() ) {
 			return 'yes';
 		}
 		return 'no';
@@ -402,4 +408,12 @@ class Strain extends BaseStrain {
 		return sfConfig::get('app_no_data_message');
 	}
 
+	public function getPotentialUsages() {
+		return PotentialUsagesTable::getInstance()->createQuery('p')
+			->leftJoin('p.StrainTaxonomy t')
+			->where('t.taxonomic_class_id = ?', $this->getTaxonomicClassId())
+			->where('t.genus_id = ?', $this->getGenusId())
+			->where('t.species_id = ?', $this->getSpeciesId())
+			->execute();
+	}
 }

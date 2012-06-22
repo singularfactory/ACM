@@ -16,9 +16,9 @@
  * @method IsolationIsolators setIsolatorId()   Sets the current record's "isolator_id" value
  * @method IsolationIsolators setIsolation()    Sets the current record's "Isolation" value
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BaseIsolationIsolators extends sfDoctrineRecord

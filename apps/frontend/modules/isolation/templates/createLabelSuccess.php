@@ -49,24 +49,27 @@
 				<tr>
 					<th>Code</th>
 					<th>Material</th>
+					<th>Related code</th>
 					<th>Reception date</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php $code = $isolation->getExternalCode() ?>
+				<?php $code = $isolation->getCode() ?>
+				<?php $externalCode = $isolation->getExternalCode() ?>
 				<?php $subject = $isolation->getIsolationSubject() ?>
 
 				<?php if ($isolation->getSample()->exists()): ?>
-					<?php $code = $solation->getSample()->getCode() ?>
+					<?php $externalCode = $solation->getSample()->getCode() ?>
 				<?php elseif ($isolation->getStrain()->exists()): ?>
-					<?php $code = $isolation->getStrain()->getFullCode() ?>
+					<?php $externalCode = $isolation->getStrain()->getFullCode() ?>
 				<?php elseif ($isolation->getExternalStrain()->exists()): ?>
 					<?php $subject = 'research_collection' ?>
-					<?php $code = $isolation->getExternalStrain()->getFullCode() ?>
+					<?php $externalCode = $isolation->getExternalStrain()->getFullCode() ?>
 				<?php endif ?>
 				<tr>
 					<td class="isolation_code"><?php echo $code ?></td>
 					<td class="isolation_subject"><?php echo sfInflector::humanize($subject) ?></td>
+					<td class="sample_code"><?php echo $externalCode ?></td>
 					<td class="date reception_date"><?php echo $isolation->getReceptionDate() ?></td>
 				</tr>
 			</tbody>

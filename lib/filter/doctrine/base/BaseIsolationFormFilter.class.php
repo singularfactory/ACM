@@ -3,9 +3,9 @@
 /**
  * Isolation filter form base class.
  *
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage filter
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 29570 2010-05-21 14:49:47Z Kris.Wallsmith $
  */
 abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
@@ -14,6 +14,7 @@ abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'reception_date'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'yearly_count'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'isolation_subject'      => new sfWidgetFormChoice(array('choices' => array('' => '', 'sample' => 'sample', 'strain' => 'strain', 'external' => 'external', 'external_strain' => 'external_strain'))),
       'sample_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Sample'), 'add_empty' => true)),
       'strain_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Strain'), 'add_empty' => true)),
@@ -41,6 +42,7 @@ abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'reception_date'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDateTime(array('required' => false)))),
+      'yearly_count'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'isolation_subject'      => new sfValidatorChoice(array('required' => false, 'choices' => array('sample' => 'sample', 'strain' => 'strain', 'external' => 'external', 'external_strain' => 'external_strain'))),
       'sample_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Sample'), 'column' => 'id')),
       'strain_id'              => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('Strain'), 'column' => 'id')),
@@ -121,6 +123,7 @@ abstract class BaseIsolationFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                     => 'Number',
       'reception_date'         => 'Date',
+      'yearly_count'           => 'Number',
       'isolation_subject'      => 'Enum',
       'sample_id'              => 'ForeignKey',
       'strain_id'              => 'ForeignKey',

@@ -19,9 +19,9 @@
  * @method sfGuardUserPermission setUser()          Sets the current record's "User" value
  * @method sfGuardUserPermission setPermission()    Sets the current record's "Permission" value
  * 
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage model
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class BasesfGuardUserPermission extends sfDoctrineRecord

@@ -218,10 +218,20 @@ class isolationActions extends MyActions {
 	}
 
 	protected function processForm(sfWebRequest $request, sfForm $form) {
-		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		$taintedValues = $request->getParameter($form->getName());
+
+		// Calculate value for yearly_count field
+		if (isset($taintedValues['reception_date'])) {
+			$year = $taintedValues['reception_date']['year'];
+			$actualYear = date('Y', strtotime($form->getObject()->getReceptionDate()));
+			if ($form->isNew() || ($year != $actualYear)) {
+				$taintedValues['yearly_count'] = IsolationTable::getInstance()->getNextYearlyCount($year);
+			}
+		}
 
 		// Validate form
-		if ( $form->isValid() ) {
+		$form->bind($taintedValues, $request->getFiles($form->getName()));
+		if ($form->isValid()) {
 			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
@@ -231,18 +241,16 @@ class isolationActions extends MyActions {
 			try {
 				$isolation = $form->save();
 
-				if ( $request->hasParameter('_save_and_add') ) {
+				if ($request->hasParameter('_save_and_add')) {
 					$message = 'Isolation created successfully. Now you can add another one';
 					$url = '@isolation_new';
 
 					// Reuse last object values
 					$this->getUser()->setAttribute('isolation.last_object_created', $isolation);
-				}
-				elseif ( !$isNew ) {
+				} elseif (!$isNew) {
 					$message = 'Changes saved';
 					$url = '@isolation_show?id='.$isolation->getId();
-				}
-				else {
+				} else {
 					$message = 'Isolation created successfully';
 					$url = '@isolation_show?id='.$isolation->getId();
 				}
@@ -251,10 +259,10 @@ class isolationActions extends MyActions {
 				$message = $e->getMessage();
 			}
 
-			if ( $isolation != null ) {
+			if ($isolation != null) {
 				$this->dispatcher->notify(new sfEvent($this, 'bna_green_house.event_log', array('id' => $isolation->getId())));
 				$this->getUser()->setFlash('notice', $message);
-				if ( $url !== null ) {
+				if ($url !== null) {
 					$this->redirect($url);
 				}
 			}

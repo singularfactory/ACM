@@ -5,9 +5,9 @@
  *
  * @method PatentDeposit getObject() Returns the current form's model object
  *
- * @package    bna_green_house
+ * @package    ACM
  * @subpackage form
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
+ * @author     
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
 abstract class BasePatentDepositForm extends BaseFormDoctrine
@@ -16,6 +16,9 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'                      => new sfWidgetFormInputHidden(),
+      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => false)),
+      'deposition_date'         => new sfWidgetFormDate(),
+      'yearly_count'            => new sfWidgetFormInputText(),
       'taxonomic_class_id'      => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'), 'add_empty' => false)),
       'genus_id'                => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'), 'add_empty' => false)),
       'species_id'              => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'add_empty' => true)),
@@ -31,9 +34,6 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       'collection_date'         => new sfWidgetFormDate(),
       'isolation_date'          => new sfWidgetFormDate(),
       'identifier_id'           => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'add_empty' => true)),
-      'depositor_id'            => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'), 'add_empty' => false)),
-      'deposition_date'         => new sfWidgetFormDate(),
-      'depositor_code'          => new sfWidgetFormInputText(),
       'transfer_interval'       => new sfWidgetFormInputText(),
       'viability_test'          => new sfWidgetFormTextarea(),
       'observation'             => new sfWidgetFormTextarea(),
@@ -52,6 +52,9 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'                      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'depositor_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'))),
+      'deposition_date'         => new sfValidatorDate(),
+      'yearly_count'            => new sfValidatorInteger(),
       'taxonomic_class_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('TaxonomicClass'))),
       'genus_id'                => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Genus'))),
       'species_id'              => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Species'), 'required' => false)),
@@ -67,9 +70,6 @@ abstract class BasePatentDepositForm extends BaseFormDoctrine
       'collection_date'         => new sfValidatorDate(array('required' => false)),
       'isolation_date'          => new sfValidatorDate(array('required' => false)),
       'identifier_id'           => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Identifier'), 'required' => false)),
-      'depositor_id'            => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Depositor'))),
-      'deposition_date'         => new sfValidatorDate(),
-      'depositor_code'          => new sfValidatorString(array('max_length' => 40)),
       'transfer_interval'       => new sfValidatorString(array('max_length' => 40, 'required' => false)),
       'viability_test'          => new sfValidatorString(array('required' => false)),
       'observation'             => new sfValidatorString(array('required' => false)),
