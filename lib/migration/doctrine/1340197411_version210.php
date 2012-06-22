@@ -42,26 +42,26 @@ class Version210 extends Doctrine_Migration_Base {
 			'foreign' => 'id',
 			'foreignTable' => 'potential_usage',
 		));
-		$this->addIndex('strain_usage', 'strain_usage_taxonomic_class_id', array( 'fields' => array( 0 => 'taxonomic_class_id',),));
-		$this->addIndex('strain_usage', 'strain_usage_genus_id', array( 'fields' => array( 0 => 'genus_id',),));
-		$this->addIndex('strain_usage', 'strain_usage_species_id', array( 'fields' => array( 0 => 'species_id',),));
-		$this->addIndex('strain_usage', 'strain_usage_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
-		$this->addIndex('usage_area_usages', 'usage_area_usages_usage_area_id', array( 'fields' => array( 0 => 'usage_area_id',),));
-		$this->addIndex('usage_area_usages', 'usage_area_usages_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
+		//$this->addIndex('strain_usage', 'strain_usage_taxonomic_class_id', array( 'fields' => array( 0 => 'taxonomic_class_id',),));
+		//$this->addIndex('strain_usage', 'strain_usage_genus_id', array( 'fields' => array( 0 => 'genus_id',),));
+		//$this->addIndex('strain_usage', 'strain_usage_species_id', array( 'fields' => array( 0 => 'species_id',),));
+		//$this->addIndex('strain_usage', 'strain_usage_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
+		//$this->addIndex('usage_area_usages', 'usage_area_usages_usage_area_id', array( 'fields' => array( 0 => 'usage_area_id',),));
+		//$this->addIndex('usage_area_usages', 'usage_area_usages_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
 	}
 
 	public function down() {
+		//$this->removeIndex('strain_usage', 'strain_usage_taxonomic_class_id', array( 'fields' => array( 0 => 'taxonomic_class_id',),));
+		//$this->removeIndex('strain_usage', 'strain_usage_genus_id', array( 'fields' => array( 0 => 'genus_id',),));
+		//$this->removeIndex('strain_usage', 'strain_usage_species_id', array( 'fields' => array( 0 => 'species_id',),));
+		//$this->removeIndex('strain_usage', 'strain_usage_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
+		//$this->removeIndex('usage_area_usages', 'usage_area_usages_usage_area_id', array( 'fields' => array( 0 => 'usage_area_id',),));
+		//$this->removeIndex('usage_area_usages', 'usage_area_usages_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
 		$this->dropForeignKey('strain_usage', 'strain_usage_taxonomic_class_id_taxonomic_class_id');
 		$this->dropForeignKey('strain_usage', 'strain_usage_genus_id_genus_id');
 		$this->dropForeignKey('strain_usage', 'strain_usage_species_id_species_id');
 		$this->dropForeignKey('strain_usage', 'strain_usage_usage_id_usage_area_usages_id');
 		$this->dropForeignKey('usage_area_usages', 'usage_area_usages_usage_area_id_usage_area_id');
 		$this->dropForeignKey('usage_area_usages', 'usage_area_usages_usage_id_potential_usage_id');
-		$this->removeIndex('strain_usage', 'strain_usage_taxonomic_class_id', array( 'fields' => array( 0 => 'taxonomic_class_id',),));
-		$this->removeIndex('strain_usage', 'strain_usage_genus_id', array( 'fields' => array( 0 => 'genus_id',),));
-		$this->removeIndex('strain_usage', 'strain_usage_species_id', array( 'fields' => array( 0 => 'species_id',),));
-		$this->removeIndex('strain_usage', 'strain_usage_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
-		$this->removeIndex('usage_area_usages', 'usage_area_usages_usage_area_id', array( 'fields' => array( 0 => 'usage_area_id',),));
-		$this->removeIndex('usage_area_usages', 'usage_area_usages_usage_id', array( 'fields' => array( 0 => 'usage_id',),));
 	}
 }

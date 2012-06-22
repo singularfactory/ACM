@@ -27,6 +27,7 @@ class Version213 extends Doctrine_Migration_Base {
 			'collate' => 'utf8_general_ci',
 			'charset' => 'utf8',
 		));
+		$this->addColumn('strain_property', 'is_public', 'boolean', '25', array('notnull' => '1', 'default' => '0'));
 	}
 
 	public function down() {

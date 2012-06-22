@@ -25,21 +25,6 @@ class Version214 extends Doctrine_Migration_Base {
 		//$this->addIndex('strain_properties', 'strain_properties_property_id', array('fields' => array(0 => 'property_id',),));
 	}
 
-	public function postUp() {
-		$gCatalog = StrainPropertyTable::getInstance()->createQuery('p')->where('p.name LIKE ?', '%catalog%')->fetchOne();
-
-		$strains = StrainTable::getInstance()->createQuery('s')->execute();	
-		foreach ($strains as $strain) {
-			if ($strain->getInGCatalog()) {
-				echo sprintf("%s\n", $strain->getFullCode());
-				$strainProperty = new StrainProperties();
-				$strainProperty->setPropertyId($gCatalog->getId());
-				$strainProperty->setStrainId($strain->getId());
-				$strainProperty->trySave();
-			}
-		}
-	}
-
 	public function down() {
 		//$this->removeIndex('strain_properties', 'strain_properties_strain_id', array('fields' => array(0 => 'strain_id',),));
 		$this->dropForeignKey('strain_properties', 'strain_properties_strain_id_strain_id');
