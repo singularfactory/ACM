@@ -98,6 +98,10 @@ class potential_usageActions extends MyActions {
 		$this->forward404Unless($request->isMethod(sfRequest::POST));
 		$this->form = new StrainTaxonomyForm();
 		$this->processForm($request, $this->form);
+		$this->hasTaxonomicClasses = (TaxonomicClassTable::getInstance()->count() > 0) ? true : false;
+		$this->hasGenus = (GenusTable::getInstance()->count() > 0) ? true : false;
+		$this->hasSpecies = (SpeciesTable::getInstance()->count() > 0) ? true : false;
+		$this->usageAreas = UsageAreaTable::getInstance()->createQuery('a')->execute();
 		$this->setTemplate('new');
 	}
 

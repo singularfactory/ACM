@@ -11,7 +11,6 @@
  * @property UsageArea $UsageArea
  * @property UsageTarget $UsageTarget
  * @property Doctrine_Collection $StrainTaxonomies
- * @property Doctrine_Collection $PotentialUsages
  * 
  * @method integer               getId()               Returns the current record's "id" value
  * @method integer               getUsageAreaId()      Returns the current record's "usage_area_id" value
@@ -19,14 +18,12 @@
  * @method UsageArea             getUsageArea()        Returns the current record's "UsageArea" value
  * @method UsageTarget           getUsageTarget()      Returns the current record's "UsageTarget" value
  * @method Doctrine_Collection   getStrainTaxonomies() Returns the current record's "StrainTaxonomies" collection
- * @method Doctrine_Collection   getPotentialUsages()  Returns the current record's "PotentialUsages" collection
  * @method UsageAreaUsageTargets setId()               Sets the current record's "id" value
  * @method UsageAreaUsageTargets setUsageAreaId()      Sets the current record's "usage_area_id" value
  * @method UsageAreaUsageTargets setUsageTargetId()    Sets the current record's "usage_target_id" value
  * @method UsageAreaUsageTargets setUsageArea()        Sets the current record's "UsageArea" value
  * @method UsageAreaUsageTargets setUsageTarget()      Sets the current record's "UsageTarget" value
  * @method UsageAreaUsageTargets setStrainTaxonomies() Sets the current record's "StrainTaxonomies" collection
- * @method UsageAreaUsageTargets setPotentialUsages()  Sets the current record's "PotentialUsages" collection
  * 
  * @package    ACM
  * @subpackage model
@@ -80,11 +77,6 @@ abstract class BaseUsageAreaUsageTargets extends sfDoctrineRecord
              'onUpdate' => 'cascade'));
 
         $this->hasMany('StrainTaxonomy as StrainTaxonomies', array(
-             'refClass' => 'PotentialUsages',
-             'local' => 'id',
-             'foreign' => 'strain_taxonomy_id'));
-
-        $this->hasMany('StrainTaxonomy as PotentialUsages', array(
              'refClass' => 'PotentialUsages',
              'local' => 'usage_id',
              'foreign' => 'strain_taxonomy_id'));

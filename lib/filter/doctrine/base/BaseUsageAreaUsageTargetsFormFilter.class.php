@@ -18,7 +18,6 @@ abstract class BaseUsageAreaUsageTargetsFormFilter extends BaseFormFilterDoctrin
       'created_at'             => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'updated_at'             => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'strain_taxonomies_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy')),
-      'potential_usages_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy')),
     ));
 
     $this->setValidators(array(
@@ -27,7 +26,6 @@ abstract class BaseUsageAreaUsageTargetsFormFilter extends BaseFormFilterDoctrin
       'created_at'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'updated_at'             => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
       'strain_taxonomies_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy', 'required' => false)),
-      'potential_usages_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('usage_area_usage_targets_filters[%s]');
@@ -40,24 +38,6 @@ abstract class BaseUsageAreaUsageTargetsFormFilter extends BaseFormFilterDoctrin
   }
 
   public function addStrainTaxonomiesListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query
-      ->leftJoin($query->getRootAlias().'.PotentialUsages PotentialUsages')
-      ->andWhereIn('PotentialUsages.strain_taxonomy_id', $values)
-    ;
-  }
-
-  public function addPotentialUsagesListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -89,7 +69,6 @@ abstract class BaseUsageAreaUsageTargetsFormFilter extends BaseFormFilterDoctrin
       'created_at'             => 'Date',
       'updated_at'             => 'Date',
       'strain_taxonomies_list' => 'ManyKey',
-      'potential_usages_list'  => 'ManyKey',
     );
   }
 }

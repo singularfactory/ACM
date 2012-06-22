@@ -12,7 +12,7 @@
  * @property Doctrine_Collection $MaintenanceDeposits
  * @property Doctrine_Collection $ExternalStrains
  * @property Doctrine_Collection $Isolations
- * @property Doctrine_Collection $StrainUsages
+ * @property Doctrine_Collection $StrainTaxonomies
  * 
  * @method integer             getId()                  Returns the current record's "id" value
  * @method string              getName()                Returns the current record's "name" value
@@ -21,7 +21,7 @@
  * @method Doctrine_Collection getMaintenanceDeposits() Returns the current record's "MaintenanceDeposits" collection
  * @method Doctrine_Collection getExternalStrains()     Returns the current record's "ExternalStrains" collection
  * @method Doctrine_Collection getIsolations()          Returns the current record's "Isolations" collection
- * @method Doctrine_Collection getStrainUsages()        Returns the current record's "StrainUsages" collection
+ * @method Doctrine_Collection getStrainTaxonomies()    Returns the current record's "StrainTaxonomies" collection
  * @method TaxonomicClass      setId()                  Sets the current record's "id" value
  * @method TaxonomicClass      setName()                Sets the current record's "name" value
  * @method TaxonomicClass      setStrains()             Sets the current record's "Strains" collection
@@ -29,7 +29,7 @@
  * @method TaxonomicClass      setMaintenanceDeposits() Sets the current record's "MaintenanceDeposits" collection
  * @method TaxonomicClass      setExternalStrains()     Sets the current record's "ExternalStrains" collection
  * @method TaxonomicClass      setIsolations()          Sets the current record's "Isolations" collection
- * @method TaxonomicClass      setStrainUsages()        Sets the current record's "StrainUsages" collection
+ * @method TaxonomicClass      setStrainTaxonomies()    Sets the current record's "StrainTaxonomies" collection
  * 
  * @package    ACM
  * @subpackage model
@@ -88,7 +88,7 @@ abstract class BaseTaxonomicClass extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'taxonomic_class_id'));
 
-        $this->hasMany('StrainTaxonomy as StrainUsages', array(
+        $this->hasMany('StrainTaxonomy as StrainTaxonomies', array(
              'local' => 'id',
              'foreign' => 'taxonomic_class_id'));
 

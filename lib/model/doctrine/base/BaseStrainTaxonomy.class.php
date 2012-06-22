@@ -13,7 +13,6 @@
  * @property Genus $Genus
  * @property Species $Species
  * @property Doctrine_Collection $PotentialUsages
- * @property Doctrine_Collection $StrainTaxonomies
  * 
  * @method integer             getId()                 Returns the current record's "id" value
  * @method integer             getTaxonomicClassId()   Returns the current record's "taxonomic_class_id" value
@@ -23,7 +22,6 @@
  * @method Genus               getGenus()              Returns the current record's "Genus" value
  * @method Species             getSpecies()            Returns the current record's "Species" value
  * @method Doctrine_Collection getPotentialUsages()    Returns the current record's "PotentialUsages" collection
- * @method Doctrine_Collection getStrainTaxonomies()   Returns the current record's "StrainTaxonomies" collection
  * @method StrainTaxonomy      setId()                 Sets the current record's "id" value
  * @method StrainTaxonomy      setTaxonomicClassId()   Sets the current record's "taxonomic_class_id" value
  * @method StrainTaxonomy      setGenusId()            Sets the current record's "genus_id" value
@@ -32,7 +30,6 @@
  * @method StrainTaxonomy      setGenus()              Sets the current record's "Genus" value
  * @method StrainTaxonomy      setSpecies()            Sets the current record's "Species" value
  * @method StrainTaxonomy      setPotentialUsages()    Sets the current record's "PotentialUsages" collection
- * @method StrainTaxonomy      setStrainTaxonomies()   Sets the current record's "StrainTaxonomies" collection
  * 
  * @package    ACM
  * @subpackage model
@@ -93,11 +90,6 @@ abstract class BaseStrainTaxonomy extends sfDoctrineRecord
              'refClass' => 'PotentialUsages',
              'local' => 'strain_taxonomy_id',
              'foreign' => 'usage_id'));
-
-        $this->hasMany('UsageAreaUsageTargets as StrainTaxonomies', array(
-             'refClass' => 'PotentialUsages',
-             'local' => 'strain_taxonomy_id',
-             'foreign' => 'id'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

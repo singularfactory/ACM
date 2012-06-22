@@ -21,7 +21,6 @@ abstract class BaseUsageAreaUsageTargetsForm extends BaseFormDoctrine
       'created_at'             => new sfWidgetFormDateTime(),
       'updated_at'             => new sfWidgetFormDateTime(),
       'strain_taxonomies_list' => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy')),
-      'potential_usages_list'  => new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy')),
     ));
 
     $this->setValidators(array(
@@ -31,7 +30,6 @@ abstract class BaseUsageAreaUsageTargetsForm extends BaseFormDoctrine
       'created_at'             => new sfValidatorDateTime(),
       'updated_at'             => new sfValidatorDateTime(),
       'strain_taxonomies_list' => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy', 'required' => false)),
-      'potential_usages_list'  => new sfValidatorDoctrineChoice(array('multiple' => true, 'model' => 'StrainTaxonomy', 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(
@@ -61,17 +59,11 @@ abstract class BaseUsageAreaUsageTargetsForm extends BaseFormDoctrine
       $this->setDefault('strain_taxonomies_list', $this->object->StrainTaxonomies->getPrimaryKeys());
     }
 
-    if (isset($this->widgetSchema['potential_usages_list']))
-    {
-      $this->setDefault('potential_usages_list', $this->object->PotentialUsages->getPrimaryKeys());
-    }
-
   }
 
   protected function doSave($con = null)
   {
     $this->saveStrainTaxonomiesList($con);
-    $this->savePotentialUsagesList($con);
 
     parent::doSave($con);
   }
@@ -111,44 +103,6 @@ abstract class BaseUsageAreaUsageTargetsForm extends BaseFormDoctrine
     if (count($link))
     {
       $this->object->link('StrainTaxonomies', array_values($link));
-    }
-  }
-
-  public function savePotentialUsagesList($con = null)
-  {
-    if (!$this->isValid())
-    {
-      throw $this->getErrorSchema();
-    }
-
-    if (!isset($this->widgetSchema['potential_usages_list']))
-    {
-      // somebody has unset this widget
-      return;
-    }
-
-    if (null === $con)
-    {
-      $con = $this->getConnection();
-    }
-
-    $existing = $this->object->PotentialUsages->getPrimaryKeys();
-    $values = $this->getValue('potential_usages_list');
-    if (!is_array($values))
-    {
-      $values = array();
-    }
-
-    $unlink = array_diff($existing, $values);
-    if (count($unlink))
-    {
-      $this->object->unlink('PotentialUsages', array_values($unlink));
-    }
-
-    $link = array_diff($values, $existing);
-    if (count($link))
-    {
-      $this->object->link('PotentialUsages', array_values($link));
     }
   }
 

@@ -37,11 +37,9 @@
  */
 class UsageAreaUsageTargets extends BaseUsageAreaUsageTargets {
 	public function isApplicableToTaxonomy($id) {
-		foreach($this->getStrainTaxonomies() as $taxonomy) {
-			if ($taxonomy->getId() === $id) {
-				return true;
-			}
-		}
-		return false;
+		return PotentialUsagesTable::getInstance()->createQuery('p')
+			->where('p.strain_taxonomy_id = ?', $id)
+			->andWhere('p.usage_id = ?', $this->getId())
+			->count() > 0;
 	}
 }

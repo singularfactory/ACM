@@ -1215,20 +1215,6 @@ UsageArea:
       fields:
         name:  { length: 5 }
 
-StrainTaxonomy:
-  columns:
-    id:  { type: integer, primary: true, autoincrement: true }
-    taxonomic_class_id:  { type: integer, notnull: true }
-    genus_id:  { type: integer, notnull: true }
-    species_id:  { type: integer }
-  relations:
-    TaxonomicClass:  { foreignAlias: StrainUsages }
-    Genus:  { foreignAlias: StrainUsages }
-    Species:  { foreignAlias: StrainUsages }
-    PotentialUsages:  { foreignAlias: PotentialUsages, class: UsageAreaUsageTargets, local: strain_taxonomy_id, foreign: usage_id, refClass: PotentialUsages }
-  indexes:
-    unique_strain_taxonomy:  { fields: [taxonomic_class_id, genus_id, species_id], type: unique }
-
 UsageAreaUsageTargets:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
@@ -1237,9 +1223,23 @@ UsageAreaUsageTargets:
   relations:
     UsageArea:  { onDelete: cascade, onUpdate: cascade }
     UsageTarget:  { onDelete: cascade, onUpdate: cascade }
-    StrainTaxonomies: { foreignAlias: StrainTaxonomies, class: StrainTaxonomy, local: id, foreign: strain_taxonomy_id, refClass: PotentialUsages }
+    StrainTaxonomies: { foreignAlias: StrainTaxonomies, class: StrainTaxonomy, local: usage_id, foreign: strain_taxonomy_id, refClass: PotentialUsages }
   indexes:
     unique_usage:  { fields: [usage_area_id, usage_target_id], type: unique }
+
+StrainTaxonomy:
+  columns:
+    id:  { type: integer, primary: true, autoincrement: true }
+    taxonomic_class_id:  { type: integer, notnull: true }
+    genus_id:  { type: integer, notnull: true }
+    species_id:  { type: integer }
+  relations:
+    TaxonomicClass:  { foreignAlias: StrainTaxonomies }
+    Genus:  { foreignAlias: StrainTaxonomies }
+    Species:  { foreignAlias: StrainTaxonomies }
+    PotentialUsages:  { foreignAlias: PotentialUsages, class: UsageAreaUsageTargets, local: strain_taxonomy_id, foreign: usage_id, refClass: PotentialUsages }
+  indexes:
+    unique_strain_taxonomy:  { fields: [taxonomic_class_id, genus_id, species_id], type: unique }
 
 PotentialUsages:
   columns:
@@ -1248,6 +1248,6 @@ PotentialUsages:
     usage_id:  { type: integer, notnull: true }
   relations:
     StrainTaxonomy: { onDelete: cascade, onUpdate: cascade }
-    StrainUsage:  { class: UsageAreaUsageTargets, local: usage_id, foreign: id, foreignAlias: PotentialUsages, onDelete: cascade, onUpdate: cascade }
+    StrainUsage:  { foreignAlias: PotentialUsages, class: UsageAreaUsageTargets, local: usage_id, foreign: id, onDelete: cascade, onUpdate: cascade }
   indexes:
     unique_potential_usage:  { fields: [strain_taxonomy_id, usage_id], type: unique }
