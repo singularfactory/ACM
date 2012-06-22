@@ -617,6 +617,13 @@ class apiActions extends GreenhouseAPI {
 		}
 		unset($target);
 
+		// Get strain properties
+		$catalog['strain_properties'] = array();
+		foreach (StrainPropertyTable::getInstance()->findAll() as $property) {
+			$catalog['strain_properties'][$property->getId()] = $property->getName();
+		}
+		unset($property);
+
 		// Get DNA extractions
 		$catalog['dna_extraction'] = array();
 		foreach ( DnaExtractionTable::getInstance()->findByIsPublic(1) as $extraction ) {
@@ -688,6 +695,7 @@ class apiActions extends GreenhouseAPI {
 				'has_image' => count($strain->getPictures()) > 0,
 				'usage_areas' => array(),
 				'usage_targets' => array(),
+				'properties' => array(),
 			);
 
 			// Get relatives of this strain
@@ -724,6 +732,11 @@ class apiActions extends GreenhouseAPI {
 			}
 			$record['usage_areas'] = array_unique($record['usage_areas']);
 			$record['usage_targets'] = array_unique($record['usage_targets']);
+
+			// Get properties of this strain
+			foreach ( $strain->getProperties() as $property ) {
+				$record['properties'][] = $property->getId();
+			}
 
 			$catalog['strain'][$strain->getId()] = $record;
 		}
