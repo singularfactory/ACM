@@ -108,6 +108,9 @@
 						<?php echo link_to('Potential usages', '@usage_area', (preg_match('/^(usage_area|usage_target)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li class="header_menu_item">
+						<?php echo link_to('Strain properties', '@strain_property', (preg_match('/^(strain_property)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
+					</li>
+					<li class="header_menu_item">
 						<?php echo link_to('People', '@sf_guard_user', (preg_match('/^(sf_guard_user|collector|isolator|depositor|identifier)_?/', $route))?array('class' => 'header_menu_current_tab'):'') ?>
 					</li>
 					<li class="header_menu_item">

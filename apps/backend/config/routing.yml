@@ -1,3 +1,12 @@
+strain_property:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                StrainProperty
+    module:               strain_property
+    prefix_path:          /admin/strain_property
+    column:               id
+    with_wildcard_routes: true
+
 usage_target:
   class: sfDoctrineRouteCollection
   options:
