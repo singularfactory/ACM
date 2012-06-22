@@ -1205,7 +1205,7 @@ StrainTaxonomy:
     TaxonomicClass:  { foreignAlias: StrainUsages }
     Genus:  { foreignAlias: StrainUsages }
     Species:  { foreignAlias: StrainUsages }
-    PotentialUsages: { foreignAlias: PotentialUsages, class: UsageAreaUsageTargets, local: strain_taxonomy_id, foreign: usage_id, refClass: PotentialUsages }
+    PotentialUsages:  { foreignAlias: PotentialUsages, class: UsageAreaUsageTargets, local: strain_taxonomy_id, foreign: usage_id, refClass: PotentialUsages }
   indexes:
     unique_strain_taxonomy:  { fields: [taxonomic_class_id, genus_id, species_id], type: unique }
 
@@ -1228,6 +1228,6 @@ PotentialUsages:
     usage_id:  { type: integer, notnull: true }
   relations:
     StrainTaxonomy: { onDelete: cascade, onUpdate: cascade }
-    StrainUsage:  { onDelete: cascade, onUpdate: cascade, refClass: UsageAreaUsageTargets }
+    StrainUsage:  { class: UsageAreaUsageTargets, local: usage_id, foreign: id, foreignAlias: PotentialUsages, onDelete: cascade, onUpdate: cascade }
   indexes:
     unique_potential_usage:  { fields: [strain_taxonomy_id, usage_id], type: unique }

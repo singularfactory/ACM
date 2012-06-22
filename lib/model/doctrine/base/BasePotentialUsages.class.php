@@ -9,15 +9,18 @@
  * @property integer $strain_taxonomy_id
  * @property integer $usage_id
  * @property StrainTaxonomy $StrainTaxonomy
+ * @property UsageAreaUsageTargets $StrainUsage
  * 
- * @method integer         getId()                 Returns the current record's "id" value
- * @method integer         getStrainTaxonomyId()   Returns the current record's "strain_taxonomy_id" value
- * @method integer         getUsageId()            Returns the current record's "usage_id" value
- * @method StrainTaxonomy  getStrainTaxonomy()     Returns the current record's "StrainTaxonomy" value
- * @method PotentialUsages setId()                 Sets the current record's "id" value
- * @method PotentialUsages setStrainTaxonomyId()   Sets the current record's "strain_taxonomy_id" value
- * @method PotentialUsages setUsageId()            Sets the current record's "usage_id" value
- * @method PotentialUsages setStrainTaxonomy()     Sets the current record's "StrainTaxonomy" value
+ * @method integer               getId()                 Returns the current record's "id" value
+ * @method integer               getStrainTaxonomyId()   Returns the current record's "strain_taxonomy_id" value
+ * @method integer               getUsageId()            Returns the current record's "usage_id" value
+ * @method StrainTaxonomy        getStrainTaxonomy()     Returns the current record's "StrainTaxonomy" value
+ * @method UsageAreaUsageTargets getStrainUsage()        Returns the current record's "StrainUsage" value
+ * @method PotentialUsages       setId()                 Sets the current record's "id" value
+ * @method PotentialUsages       setStrainTaxonomyId()   Sets the current record's "strain_taxonomy_id" value
+ * @method PotentialUsages       setUsageId()            Sets the current record's "usage_id" value
+ * @method PotentialUsages       setStrainTaxonomy()     Sets the current record's "StrainTaxonomy" value
+ * @method PotentialUsages       setStrainUsage()        Sets the current record's "StrainUsage" value
  * 
  * @package    ACM
  * @subpackage model
@@ -60,6 +63,12 @@ abstract class BasePotentialUsages extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('StrainTaxonomy', array(
              'local' => 'strain_taxonomy_id',
+             'foreign' => 'id',
+             'onDelete' => 'cascade',
+             'onUpdate' => 'cascade'));
+
+        $this->hasOne('UsageAreaUsageTargets as StrainUsage', array(
+             'local' => 'usage_id',
              'foreign' => 'id',
              'onDelete' => 'cascade',
              'onUpdate' => 'cascade'));
