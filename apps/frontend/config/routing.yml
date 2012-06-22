@@ -754,6 +754,12 @@ report_find_islands:
   param:        { module: report, action: findIslands }
   requirements: { sf_method: get, island: "[^/]+" }
 
+report_find_strains:
+  url:          /report/findStrains/:term
+  param:        { module: report, action: findStrains }
+  requirements: { term: .* }  # Search pattern is optional, by default all results are shown
+
+
 ###
 # PotentialUsage model related routes
 ###

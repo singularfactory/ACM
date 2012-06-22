@@ -400,6 +400,14 @@ class Strain extends BaseStrain {
 		return implode(', ', $statuses);
 	}
 
+	public function getInternalCode() {
+		$name = $this->getSupervisorInitials().substr($this->getTaxonomicClass(),0 ,3).$this->getTransferInterval();
+		if ( $name ) {
+			return $name;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
+
 	public function getPotentialUsages() {
 		return PotentialUsagesTable::getInstance()->createQuery('p')
 			->leftJoin('p.StrainTaxonomy t')

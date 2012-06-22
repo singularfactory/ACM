@@ -28,6 +28,7 @@ var searchBoxHelp = new Array();
 searchBoxHelp['country'] = 'Type a country name...';
 searchBoxHelp['region'] = 'Type a region name...';
 searchBoxHelp['island'] = 'Type an island name...';
+searchBoxHelp['strain'] = 'Type a strain code...';
 
 function parseSearchBoxTarget (htmlInput) {
 	return htmlInput.attr('name').replace(/^\w+_(\w+)_search$/, "$1");
@@ -112,7 +113,7 @@ $(document).ready(function(){
 		form.find('input[type=text]').each(function(){
 			var name = parseSearchBoxTarget($(this));
 			
-			if ( name !== 'country' && name !== 'region' && name !== 'island' ) {
+			if ( name !== 'country' && name !== 'region' && name !== 'island' && name !== 'strain' ) {
 				$(this).val('');
 			}
 		});
@@ -126,4 +127,21 @@ $(document).ready(function(){
 		});
 	});
 	
+	$('#add_strain').click(function (event){
+		event.preventDefault();
+		
+		var options = $('#maintenance_strain_id').attr('options');
+		options[options.length] = new Option($('#report_maintenance_strain_search').val(), $('#maintenance_strain').val());
+	})
+	
+	$('#remove_strain').click(function (event){
+		event.preventDefault();
+		$('#maintenance_strain_id option:selected').each(function(index, element){
+			$("#maintenance_strain_id option[value='"+$(this).val()+"']").remove();
+		});
+	})
+	
+	$('#maintenance_strain_id').closest('form').submit(function(){
+		$('#maintenance_strain_id option').attr("selected","selected");
+	});
 });
