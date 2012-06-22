@@ -30,8 +30,7 @@
  *
  * @package ACM.Frontend
  * @subpackage api
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @version    1.2
  */
 class apiActions extends GreenhouseAPI {
 	public function executeSamplingInformation(sfWebRequest $request) {
@@ -604,6 +603,20 @@ class apiActions extends GreenhouseAPI {
 		}
 		unset($status);
 
+		// Get usage areas
+		$catalog['usage_areas'] = array();
+		foreach (UsageAreaTable::getInstance()->findAll() as $area) {
+			$catalog['usage_areas'][$area->getId()] = $area->getName();
+		}
+		unset($area);
+
+		// Get usage targets
+		$catalog['usage_targets'] = array();
+		foreach (UsageTargetTable::getInstance()->findAll() as $target) {
+			$catalog['usage_targets'][$target->getId()] = $target->getName();
+		}
+		unset($target);
+
 		// Get DNA extractions
 		$catalog['dna_extraction'] = array();
 		foreach ( DnaExtractionTable::getInstance()->findByIsPublic(1) as $extraction ) {
@@ -673,6 +686,8 @@ class apiActions extends GreenhouseAPI {
 				'has_dna' => $strain->publicHasDna(),
 				'aliquots' => $strain->getPublicDnaAmount(),
 				'has_image' => count($strain->getPictures()) > 0,
+				'usage_areas' => array(),
+				'usage_targets' => array(),
 			);
 
 			// Get relatives of this strain
@@ -701,6 +716,14 @@ class apiActions extends GreenhouseAPI {
 					$record['dna_extractions'][] = $extraction->getId();
 				}
 			}
+
+			// Get potential applications of this strain
+			foreach ($strain->getPotentialUsages() as $potentialUsage) {
+				$record['usage_areas'][] = $potentialUsage->getStrainUsage()->getUsageArea()->getId();
+				$record['usage_targets'][] = $potentialUsage->getStrainUsage()->getUsageTarget()->getId();
+			}
+			$record['usage_areas'] = array_unique($record['usage_areas']);
+			$record['usage_targets'] = array_unique($record['usage_targets']);
 
 			$catalog['strain'][$strain->getId()] = $record;
 		}
