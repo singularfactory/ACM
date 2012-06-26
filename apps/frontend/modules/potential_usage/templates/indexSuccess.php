@@ -49,7 +49,8 @@
 			<?php $url = url_for('@potential_usage_show?id='.$strainTaxonomy->getId()) ?>
 			<td class="taxonomic_class_name"><?php echo link_to($strainTaxonomy->getTaxonomicClass()->getName(), $url) ?></td>
 			<td class="genus_name"><em><?php echo link_to($strainTaxonomy->getGenus()->getName(), $url) ?></em></td>
-			<td class="species_name"><em><?php echo link_to($strainTaxonomy->getSpecies()->getName(), $url) ?></em></td>
+			<?php $species = $strainTaxonomy->getSpecies() ?>
+			<td class="species_name"><em><?php echo link_to($species ? $species->getName() : sfConfig::get('app_unknown_species_name'), $url) ?></em></td>
 			<td class="object_count"><?php echo link_to($strainTaxonomy->getPotentialUsages()->count(), $url) ?></td>
 
 			<td class="actions">
