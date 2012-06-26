@@ -177,11 +177,9 @@ abstract class BasePatentDeposit extends sfDoctrineRecord
              ));
         $this->hasColumn('taxonomic_class_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('genus_id', 'integer', null, array(
              'type' => 'integer',
-             'notnull' => true,
              ));
         $this->hasColumn('species_id', 'integer', null, array(
              'type' => 'integer',

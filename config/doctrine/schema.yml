@@ -801,8 +801,8 @@ PatentDeposit:
     depositor_id:  { type: integer, notnull: true }
     deposition_date:  { type: date, notnull: true }
     yearly_count:  { type: integer, notnull: true }
-    taxonomic_class_id:  { type: integer, notnull: true }
-    genus_id:  { type: integer, notnull: true }
+    taxonomic_class_id:  { type: integer }
+    genus_id:  { type: integer }
     species_id:  { type: integer }
     authority_id:  { type: integer, notnull: true }
     supervisor_id:  { type: integer }
