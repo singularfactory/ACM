@@ -58,6 +58,29 @@ class MyActions extends sfActions {
 	protected $relatedAlias = 'sf_related_alias';
 
 	/**
+	 * _processFilterConditions
+	 *
+	 * @param sfWebRequest $request
+	 * @param $module
+	 * @return array
+	 */
+	protected function _processFilterConditions(sfWebRequest $request, $module) {
+		$this->groupBy = '';
+		$this->filters = array();
+		$filters = array();
+		if ($request->isMethod(sfRequest::POST)) {
+			$filters = $request->getPostParameters();
+			$filters = $filters[$module];
+			$this->getUser()->setAttribute("$module.index_filters", $filters);
+		} elseif ($request->hasParameter('page') || $request->hasParameter('all')) {
+			$filters = 	$this->getUser()->getAttribute("$module.index_filters");
+		} else {
+			$this->getUser()->setAttribute("$module.index_filters", null);
+		}
+		return $filters;
+	}
+
+	/**
 	 * buildPagination
 	 *
 	 * @param sfWebRequest $request Request made from page
@@ -110,7 +133,7 @@ class MyActions extends sfActions {
 		}
 
 		// Set results limit
-		if ( $request->hasParameter('all') ) {
+		if ($request->hasParameter('all')) {
 			$pager->setMaxPerPage(Doctrine::getTable($table)->count());
 			$this->allResults = true;
 		}
@@ -137,6 +160,16 @@ class MyActions extends sfActions {
 	 */
 	protected function relatedAlias() {
 		return $this->relatedAlias;
+	}
+
+	/**
+	 * Executes an application defined process prior to execution of this sfAction object.
+	 */
+	public function preExecute() {
+		if ($this->getActionName() !== 'index') {
+			$module = $this->getModuleName();
+			$this->getUser()->setAttribute("$module.index_filters", null);
+		}
 	}
 
 	/**

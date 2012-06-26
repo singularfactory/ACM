@@ -1,7 +1,5 @@
 <?php
 /**
- * PatentDepositLabelForm class
- *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
  *
@@ -21,40 +19,43 @@
  * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
- * @since         1.0
+ * @package       ACM.Frontend
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
+?>
 
-/**
- * StrainLabel form
- *
- * @package ACM.Lib.Form
- * @since 1.0
- */
-class PatentDepositLabelForm extends LabelForm {
-	/**
-	 * Configures form for strain labels
-	 *
-	 * @return void
-	 */
-	public function configure() {
-		parent::configure();
-		$this->widgetSchema->setLabels(array(
-			'supervisor_id' => 'Supervisor',
-			'transfer_interval' => 'Transfer interval',
-			'genus_id' => 'Genus',
-			'is_axenic' => 'Is axenic?',
-			'culture_medium_id' => 'Culture medium',
-		));
-		$this->setup();
-	}
+<div id="left_side_form">
+	<div id="code">
+		<?php echo $form['strain_id']->renderLabel() ?>
+		<?php echo $form['strain_id'] ?>
+	</div>
+	<div id="extraction_kit">
+		<?php echo $form['extraction_kit_id']->renderLabel() ?>
+		<?php echo $form['extraction_kit_id'] ?>
+	</div>
+	<div id="aliquots">
+		<?php echo $form['aliquots']->renderLabel() ?>
+		<?php echo $form['aliquots'] ?>
+	</div>
+	<div id="concentration">
+		<?php echo $form['concentration']->renderLabel() ?>
+		<?php echo $form['concentration'] ?>
+	</div>
+	<div id="260_280_ratio">
+		<?php echo $form['260_280_ratio']->renderLabel() ?>
+		<?php echo $form['260_280_ratio'] ?>
+	</div>
+	<div id="260_230_ratio">
+		<?php echo $form['260_230_ratio']->renderLabel() ?>
+		<?php echo $form['260_230_ratio'] ?>
+	</div>
+</div>
 
-	/**
-	 * Returns the name of form associated model
-	 */
-	public function getModelName() {
-		return 'PatentDeposit';
-	}
-}
+<div id="right_side_form">
+	<div id="group_by">
+		<?php echo $form['group_by']->renderLabel() ?>
+		<?php echo $form['group_by'] ?>
+	</div>
+</div>

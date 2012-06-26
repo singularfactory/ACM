@@ -5,7 +5,7 @@ default:
   metas:
     title:        Algae culture management | Banco Español de Algas
     description:  Algae culture management of Banco Español de Algas
-    keywords:     algae, bna, bea, banco, nacional, algas, español, marine, biotechnology, strains, culture
+    keywords:     algae, bea, banco, algas, español, marine, biotechnology, strains, culture
     language:     en
     robots:       index, follow
 
@@ -17,7 +17,8 @@ default:
   layout:         layout
 
 indexSuccess:
-  stylesheets:  [tables.css]
+  stylesheets:  [cupertino/jquery-ui.custom.css, tables.css, forms.css]
+  javascripts:  [filter_options.js, forms.js]
 showSuccess:
   stylesheets:  [tables.css, colorbox.css]
   javascripts:  [colorbox.js, thumbnails.js]

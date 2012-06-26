@@ -20,24 +20,23 @@
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
  * @package       ACM.Frontend
- * @since         1.0
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<?php slot('main_header') ?>
-<span>Report results for <?php echo ( $subject === 'dna_extraction' ) ? 'DNA extraction' : sfInflector::humanize($subject) ?></span>
-<div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Create another report', "@report") ?>
-</div>
-<?php end_slot() ?>
 
-<?php include_partial('report_conditions', array('modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
-
-<?php if ( count($results) ): ?>
-	<?php if ( in_array($subject, array('location', 'sample', 'strain', 'dna_extraction')) ): ?>
-	<?php include_partial("{$subject}_table", array('results' => $results, 'modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
-	<?php endif ?>
-<?php else: ?>
-	<p>There are no results to show.</p>
-<?php endif; ?>
+<table id="report_results_list">
+	<tbody>
+		<tr>
+			<th><?php echo sfInflector::camelize($groupBy) ?></th>
+			<th class="object_count">Deposits</th>
+		</tr>
+		<?php foreach ($results as $result): ?>
+		<tr>
+			<td><?php echo $result->value ?></td>
+			<td class="object_count"><?php echo $result->n_maintenance_deposits ?></td>
+		</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>

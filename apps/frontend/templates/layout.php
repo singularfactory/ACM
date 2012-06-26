@@ -238,7 +238,7 @@
 		<div id="main">
 			<div id="main_content">
 				<div id="main_header">
-					<?php if ( has_slot('main_header') ) include_slot('main_header') ?>
+					<?php if (has_slot('main_header')) include_slot('main_header') ?>
 				</div>
 				<div id="main_view">
 					<?php echo $sf_content ?>

@@ -152,7 +152,7 @@ td.purchase_order_pending { font-weight: bold; }
 * REPORTS
 */
 th.report_object_count, td.report_object_count { width: 150px; text-align: center; }
-#report_results_conditions {
+#filter-conditions {
 	margin: 13px 21px 21px 13px;
 	padding: 13px;
 	border: 2px solid #2078b7;
@@ -163,10 +163,10 @@ th.report_object_count, td.report_object_count { width: 150px; text-align: cente
 	-ms-border-radius: 5px;
 	border-radius: 5px;
 }
-#report_results_conditions span { font-size: 12px; }
-#report_results_conditions dl {
+#filter-conditions span { font-size: 12px; }
+#filter-conditions dl {
 	font-size: 12px;
 	margin: 0px; padding: 13px 15px 13px 0px;
 	position: relative;
 }
-#report_results_conditions dt { background: #e7eef6; }
+#filter-conditions dt { background: #e7eef6; }

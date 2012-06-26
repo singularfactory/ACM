@@ -29,16 +29,21 @@
 
 <?php slot('main_header') ?>
 <span>All DNA extractions</span>
-	<?php include_partial('global/search_box_header_action', array('route' => '@dna_extraction_search?criteria=')) ?>
+	<?php include_partial('global/search_box_header_action') ?>
 	<?php include_partial('global/new_header_action', array('message' => 'Add a new extraction', 'route' => '@dna_extraction_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'dna_extraction', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'route' => '@dna_extraction')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="dna_extraction_list">
 	<tbody>
 		<tr>
-			<?php if ( $allResults ) $allResults = '&all=1'; else $allResults = '' ?>
-			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<?php if ($allResults) $allResults = '&all=1'; else $allResults = '' ?>
+			<?php if ($sortDirection === 'asc') $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Number', '@dna_extraction?sort_column=id&sort_direction='.$sortDirection.$allResults) ?></th>
 			<th><?php echo link_to('Class', '@dna_extraction?sort_column=Strain.TaxonomicClass.name&sort_direction='.$sortDirection.$allResults) ?></th>
 			<th><?php echo link_to('Name', '@dna_extraction?sort_column=Strain.Genus.name&sort_direction='.$sortDirection.$allResults) ?></th>
@@ -51,7 +56,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $dnaExtraction): ?>
+		<?php foreach ($results as $dnaExtraction): ?>
 		<tr>
 			<?php $url = url_for('@dna_extraction_show?id='.$dnaExtraction->getId()) ?>
 			<td class="dna_extraction_code"><?php echo link_to($dnaExtraction->getCode(), $url) ?></td>

@@ -29,12 +29,17 @@
 
 <?php slot('main_header') ?>
 	<span>All maintenance deposits</span>
-	<?php include_partial('global/search_box_header_action', array('route' => '@maintenance_deposit_search?criteria=')) ?>
+	<?php include_partial('global/search_box_header_action') ?>
 	<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@maintenance_deposit_create_label')) ?>
 	<?php include_partial('global/new_header_action', array('message' => 'Add a new maintenance_deposit', 'route' => '@maintenance_deposit_new')) ?>
 <?php end_slot() ?>
 
-<?php if ($pager->count()): ?>
+<?php include_partial('global/filter_options', array('module' => 'maintenance_deposit', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'route' => '@maintenance_deposit')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="maintenance_deposit_list">
 	<tbody>
 		<tr>
@@ -46,7 +51,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $maintenanceDeposit): ?>
+		<?php foreach ($results as $maintenanceDeposit): ?>
 		<tr>
 			<?php $url = url_for('@maintenance_deposit_show?id='.$maintenanceDeposit->getId()) ?>
 			<td class="maintenance_deposit_depositor_code"><?php echo link_to($maintenanceDeposit->getCode(), $url) ?></td>
@@ -69,7 +74,7 @@
 				</a>
 			</td>
 		</tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 	</tbody>
 </table>
 

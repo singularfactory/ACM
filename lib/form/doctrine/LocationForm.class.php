@@ -35,8 +35,52 @@
  * @since 1.0
  */
 class LocationForm extends BaseLocationForm {
+	/**
+	 * Group-by options for filtering
+	 */
+	public static $locationGroupByChoices = array(
+		0 => null,
+		'country' => 'Country',
+		'region' => 'Region',
+		'island' => 'Island',
+		'category' => 'Category',
+	);
 
+	/**
+	 * Configures form
+	 */
 	public function configure() {
+		// Specific configuration for searching
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$locationGroupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$locationGroupByChoices), 'required' => false)));
+
+			$countryId = CountryTable::getInstance()->getDefaultCountryId();
+			$this->getWidget('country_id')->setOption('add_empty', true);
+			$this->getWidget('country_id')->setOption('default', null);
+
+			$regionId = RegionTable::getInstance()->getDefaultRegionId($countryId);
+			$this->setWidget('region_id', new sfWidgetFormDoctrineChoice(array(
+				'model' => $this->getRelatedModelName('Region'),
+				'query' => $this->getObject()->getRegion()->getTable()->getRegionsQuery($countryId),
+				'add_empty' => true,
+			)));
+			$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
+				'model' => $this->getRelatedModelName('Island'),
+				'query' => $this->getObject()->getIsland()->getTable()->getIslandsQuery($regionId),
+				'add_empty' => true,
+			)));
+
+			$this->widgetSchema->setLabels(array(
+				'country_id' => 'Limited to country',
+				'region_id' => 'Limited to region',
+				'island_id' => 'Limited to island',
+				'category_id' => 'Limited to category',
+			));
+
+			return;
+		}
+
 		// Calculate maximum number of images the user can upload
 		$actualPictures = $this->getObject()->getNbPictures();
 		$defaultMaxPictures = sfConfig::get('app_max_location_pictures');
@@ -53,11 +97,10 @@ class LocationForm extends BaseLocationForm {
 		));
 
 		// Configure country, region and island widgets
-		if ( $this->getObject()->isNew() ) {
+		if ($this->getObject()->isNew()) {
 			$countryId = CountryTable::getInstance()->getDefaultCountryId();
 			$regionId = RegionTable::getInstance()->getDefaultRegionId($countryId);
-		}
-		else {
+		} else {
 			$countryId = $this->getObject()->getCountryId();
 			$regionId = $this->getObject()->getRegionId();
 		}
@@ -95,7 +138,7 @@ class LocationForm extends BaseLocationForm {
 	 * @param integer $regionId
 	 * @return void
 	 * @since 1.0
-	*/
+	 */
 	public function setIslandChoicesByRegion($regionId) {
 		$this->setWidget('island_id', new sfWidgetFormDoctrineChoice(array(
 			'model' => $this->getRelatedModelName('Island'),
@@ -125,5 +168,4 @@ class LocationForm extends BaseLocationForm {
 
 		parent::doSave($connection);
 	}
-
 }

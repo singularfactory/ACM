@@ -246,6 +246,41 @@ div.http_error a {
 #header_menu_services li a { -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px; min-width: 150px; }
 .header_menu_item:hover #header_menu_services { display: block; }
 
+
+/**
+ * FILTER OPTIONS
+ */
+div.filter-options {
+	font-size: 8pt;
+	margin: 0em;
+	padding: 0.5em;
+	display: none;
+}
+
+div.filter-options div {
+	margin: 0em;
+	padding: 0.5em;
+}
+
+div.filter-options #left_side_form, div.filter-options #right_side_form {
+	margin: 0em;
+	padding: 0em;
+}
+
+div.filter-options label, div.filter-options option {
+	font-size: 1em;
+}
+
+div.filter-conditions-actions {
+	margin-top: 1em;
+}
+
+a.clear-filter-conditions {
+	display: inline;
+	font-size: 8pt;
+}
+
+
 /**
 * MAIN CONTENT
 */
@@ -318,6 +353,11 @@ div.http_error a {
 #main_header #main_header_action_label a:visited,
 #main_header #main_header_action_label a:hover {
 	background: url(../images/label.png) no-repeat 0 center;
+}
+#main_header #main_header_action_search a:link,
+#main_header #main_header_action_search a:visited,
+#main_header #main_header_action_search a:hover {
+	background: url(../images/search.png) no-repeat 0 center;
 }
 
 

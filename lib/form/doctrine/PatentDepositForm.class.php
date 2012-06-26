@@ -1,6 +1,6 @@
 <?php
 /**
- * Form class
+ * PatentDepositForm class
  *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
@@ -33,9 +33,52 @@
  *
  * @package ACM.Lib.Form
  * @since 1.0
+ * @version 1.2
  */
 class PatentDepositForm extends BasePatentDepositForm {
+	public static $patentDepositGroupByChoices = array(
+		0 => '',
+		'depositor' => 'Depositor',
+		'taxonomic_class' => 'Taxonomic class',
+		'genus' => 'Genus',
+		'species' => 'Species',
+		'authority' => 'Authority',
+		'is_epitype' => 'Is epitype',
+		'is_axenic' => 'Is axenic',
+	);
+
+	/**
+	 * Configure form
+	 */
 	public function configure() {
+		// Skip the whole configuration if this a search form
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$patentDepositGroupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$patentDepositGroupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->getWidget('taxonomic_class_id')->setOption('add_empty', true);
+			$this->getWidget('genus_id')->setOption('add_empty', true);
+			$this->getWidget('species_id')->setOption('add_empty', true);
+			$this->getWidget('authority_id')->setOption('add_empty', true);
+			$this->getWidget('depositor_id')->setOption('add_empty', true);
+
+			$this->setWidget('is_epitype', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+			$this->setWidget('is_axenic', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+				'taxonomic_class_id' => 'Limited to class',
+				'genus_id' => 'Limited to genus',
+				'species_id' => 'Limited to species',
+				'authority_id' => 'Limited to authority',
+			));
+
+			return;
+		}
+
 		// Configure location
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => $this->getObject()->getLocation()->getTable()->getDefaultLocationId())));
 

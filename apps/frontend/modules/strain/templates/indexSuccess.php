@@ -29,17 +29,22 @@
 
 <?php slot('main_header') ?>
 <span>All strains</span>
-<?php include_partial('global/search_box_header_action', array('route' => '@strain_search?criteria=')) ?>
+<?php include_partial('global/search_box_header_action') ?>
 <?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@strain_create_label')) ?>
 <?php include_partial('global/list_header_action', array('message' => 'Show deceased', 'route' => '@strain_search_deceased')) ?>
 <?php include_partial('global/new_header_action', array('message' => 'Add a new strain', 'route' => '@strain_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'strain', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'route' => '@strain')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="strain_list">
 	<tbody>
 		<tr>
-			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<?php if ($sortDirection === 'asc') $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th><?php echo link_to('Code', '@strain?sort_column=id&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Name', '@strain?sort_column=TaxonomicClass.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Sample', '@strain?sort_column=Sample.id&sort_direction='.$sortDirection) ?></th>
@@ -49,7 +54,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $strain): ?>
+		<?php foreach ($results as $strain): ?>
 		<?php $species = $strain->getSpecies() ? $strain->getSpecies()->getName() : sfConfig::get('app_unknown_species_name') ?>
 		<tr>
 			<?php $url = url_for('@strain_show?id='.$strain->getId()) ?>

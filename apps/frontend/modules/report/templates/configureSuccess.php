@@ -44,7 +44,7 @@
 		</div>
 
 		<div id="report_subject_form">
-			<?php if ( in_array($subject, array('location', 'sample', 'strain', 'dna_extraction', 'maintenance')) ): ?>
+			<?php if ( in_array($subject, array('maintenance')) ): ?>
 			<?php include_partial("{$subject}_form", array('form' => $form)) ?>
 			<?php endif ?>
 		</div>

@@ -35,6 +35,12 @@
  * @since 1.0
  */
 abstract class BaseFormDoctrine extends ahBaseFormDoctrine {
+	public static $booleanChoices = array(
+		0 => '',
+		1 => 'No',
+		2 => 'Yes',
+	);
+
 	public function setup() {
 		// Hide widgets
 		unset($this['created_at'], $this['updated_at']);

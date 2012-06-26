@@ -26,7 +26,7 @@
  */
 
 /**
- * strain actions.
+ * strain actions
  *
  * @package ACM.Frontend
  * @subpackage strain
@@ -39,68 +39,110 @@ class strainActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Strain', array('init' => false, 'sort_column' => 'code'));
+		$filters = $this->_processFilterConditions($request, 'strain');
 
-		// Deal with search criteria
-		if (($text = $request->getParameter('criteria')) && $text != 'deceased') {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = StrainTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				if (in_array($this->groupBy, array('transfer_interval', 'is_epitype', 'is_axenic'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$recursive = false;
+				} else {
+					$relatedAlias = sfInflector::camelize($this->groupBy);
+					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+					$recursive = true;
+				}
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_strains")
+					->addSelect("COUNT(DISTINCT d.id) as n_dna_extractions")
+					->leftJoin("{$this->mainAlias()}.DnaExtractions d")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				if ($recursive) {
+					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+					$query = $query->addSelect('m.name as value');
+				} else {
+					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.Sample s")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
 				->leftJoin("{$this->mainAlias()}.Supervisor su")
-				->leftJoin("s.Location l")
-				->leftJoin("l.Country co")
-				->leftJoin("l.Region re")
-				->leftJoin("l.Island is")
-				->orWhere('c.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('su.first_name LIKE ?', "%$text%")
-				->orWhere('su.last_name LIKE ?', "%$text%")
-				->orWhere('co.name LIKE ?', "%$text%")
-				->orWhere('re.name LIKE ?', "%$text%")
-				->orWhere('is.name LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Parse search term to catch strain codes
-			if (preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches)) {
-				$query = $query->orWhere("{$this->mainAlias()}.code = ?", (int)$matches[2]);
-			} else {
-				$query = $query->orWhere("{$this->mainAlias()}.code LIKE ?", "%$text%");
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id', 'authority_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
 			}
 
-			// Parse search term to catch sample codes
-			if (preg_match('/0*(\d+)(\w{1,3})_?(\w{1,3})?(\w{1,3}|00)?(\d{2,6})?/', $text, $matches)) {
-				$query = $query->orWhere("s.id = ?", (int)$matches[1]);
+			foreach (array('maintenance_status_id', 'culture_medium_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$intermediateModel = ($filter == 'culture_medium_id') ? 'CultureMedia' : 'MaintenanceStatus';
+					$query = $query->andWhere("{$this->mainAlias()}.Strain$intermediateModel.{$filter} = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
 			}
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
-		}
-		else {
-			$this->getUser()->setAttribute('search.criteria', null);
+			if (!empty($filters['is_epitype'])) {
+				$this->filters['Epitype'] = ($filters['is_epitype'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_epitype = ?", ($filters['is_epitype'] == 1) ? 0 : 1);
+			}
 
+			if (!empty($filters['is_axenic'])) {
+				$this->filters['Axenic'] = ($filters['is_axenic'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_axenic = ?", ($filters['is_axenic'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['deceased'])) {
+				$this->filters['Deceased'] = ($filters['deceased'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.deceased = ?", ($filters['deceased'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['transfer_interval'])) {
+				$this->filters['Transfer interval'] = $filters['transfer_interval'];
+				$query = $query->andWhere("{$this->mainAlias()}.transfer_interval = ?", $filters['transfer_interval']);
+			}
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $filters['id'], $matches);
+				$query = $query->andWhere("{$this->mainAlias()}.code = ?", $matches[1]);
+			}
+		} else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Sample sa")
 				->leftJoin("sa.Location loc")
-				->leftJoin("loc.Country")
-				->leftJoin("loc.Region")
-				->leftJoin("loc.Island")
-				->leftJoin("{$this->mainAlias()}.Isolators i")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp");
-
-			if ( $request->hasParameter('criteria') ) {
-				$query->where("{$this->mainAlias()}.deceased = ?", 1);
-				$this->getUser()->setAttribute('search.criteria', 'deceased');
-			}
-			elseif ( !$request->hasParameter('all') ) {
-				$query->where("{$this->mainAlias()}.deceased = ?", 0);
-			}
 		}
 
-		$this->pager->setQuery($query);
-		$this->pager->init();
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('strain.index_page', $request->getParameter('page'));

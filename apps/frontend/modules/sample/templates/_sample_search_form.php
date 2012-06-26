@@ -1,7 +1,5 @@
 <?php
 /**
- * PatentDepositLabelForm class
- *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
  *
@@ -21,40 +19,43 @@
  * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
- * @since         1.0
+ * @package       ACM.Frontend
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
+?>
 
-/**
- * StrainLabel form
- *
- * @package ACM.Lib.Form
- * @since 1.0
- */
-class PatentDepositLabelForm extends LabelForm {
-	/**
-	 * Configures form for strain labels
-	 *
-	 * @return void
-	 */
-	public function configure() {
-		parent::configure();
-		$this->widgetSchema->setLabels(array(
-			'supervisor_id' => 'Supervisor',
-			'transfer_interval' => 'Transfer interval',
-			'genus_id' => 'Genus',
-			'is_axenic' => 'Is axenic?',
-			'culture_medium_id' => 'Culture medium',
-		));
-		$this->setup();
-	}
+<div id="left_side_form">
+	<div id="id">
+		<?php echo $form['id']->renderLabel() ?>
+		<?php echo $form['id'] ?>
+	</div>
+	<div id="environment">
+		<?php echo $form['environment_id']->renderLabel() ?>
+		<?php echo $form['environment_id'] ?>
+	</div>
+	<div id="habitat">
+		<?php echo $form['habitat_id']->renderLabel() ?>
+		<?php echo $form['habitat_id'] ?>
+	</div>
+	<div id="radiation">
+		<?php echo $form['radiation_id']->renderLabel() ?>
+		<?php echo $form['radiation_id'] ?>
+	</div>
+</div>
 
-	/**
-	 * Returns the name of form associated model
-	 */
-	public function getModelName() {
-		return 'PatentDeposit';
-	}
-}
+<div id="right_side_form">
+	<div id="is_extremophile">
+		<?php echo $form['is_extremophile']->renderLabel() ?>
+		<?php echo $form['is_extremophile'] ?>
+	</div>
+	<div id="location_details">
+		<?php echo $form['location_details']->renderLabel() ?>
+		<?php echo $form['location_details'] ?>
+	</div>
+	<div id="group_by">
+		<?php echo $form['group_by']->renderLabel() ?>
+		<?php echo $form['group_by'] ?>
+	</div>
+</div>

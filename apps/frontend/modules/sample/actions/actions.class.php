@@ -32,55 +32,107 @@
  * @subpackage sample
  */
 class sampleActions extends MyActions {
+	/**
+	 * Shows a list of samples
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Sample', array('init' => false, 'sort_column' => 'id'));
+		$filters = $this->_processFilterConditions($request, 'sample');
 
-		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = SampleTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				if (in_array($this->groupBy, array('ph', 'conductivity', 'temperature', 'salinity', 'altitude'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$recursive = false;
+				}
+				else {
+					$relatedAlias = sfInflector::camelize($this->groupBy);
+					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+					$recursive = true;
+				}
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_samples")
+					->addSelect("COUNT(DISTINCT st.id) as n_strains")
+					->leftJoin("{$this->mainAlias()}.Strains st")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				if ($recursive) {
+					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+					$query = $query->addSelect('m.name as value');
+				} else {
+					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.Location l")
 				->leftJoin("{$this->mainAlias()}.Environment e")
 				->leftJoin("{$this->mainAlias()}.Habitat h")
 				->leftJoin("{$this->mainAlias()}.Radiation r")
 				->leftJoin("{$this->mainAlias()}.Collectors c")
-				->leftJoin("l.Country co")
-				->leftJoin("l.Region re")
-				->leftJoin("l.Island is")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.location_details LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.notebook_code LIKE ?", "%$text%")
-				->orWhere('l.name LIKE ?', "%$text%")
-				->orWhere('e.name LIKE ?', "%$text%")
-				->orWhere('h.name LIKE ?', "%$text%")
-				->orWhere('r.name LIKE ?', "%$text%")
-				->orWhere('c.name LIKE ?', "%$text%")
-				->orWhere('c.surname LIKE ?', "%$text%")
-				->orWhere('co.name LIKE ?', "%$text%")
-				->orWhere('re.name LIKE ?', "%$text%")
-				->orWhere('is.name LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
-		}
-		else {
+			foreach (array('environment_id', 'habitat_id', 'radiation_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
+
+			if (!empty($filters['is_extremophile'])) {
+				$this->filters['Extremophile'] = ($filters['is_extremophile'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_extremophile = ?", ($filters['is_extremophile'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['location_details'])) {
+				$this->filters['Location details'] = $filters['location_details'];
+				$query = $query->andWhere("{$this->mainAlias()}.locations_details LIKE ?", "%{$filters['location_details']}%");
+			}
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^(\d{1,4}).*$/', $filters['id'], $matches);
+				$query = $query->andWhere("{$this->mainAlias()}.id = ?", $matches[1]);
+			}
+
+		} else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Location l")
-				->leftJoin("{$this->mainAlias()}.Collectors c");
-
-			$this->getUser()->setAttribute('search.criteria', null);
+				->leftJoin("{$this->mainAlias()}.Collectors c")
+				->leftJoin("{$this->mainAlias()}.Strains s");
 		}
-		$this->pager->setQuery($query);
-		$this->pager->init();
+
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('sample.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new SampleForm();
+		$this->form = new SampleForm(array(), array('search' => true));
 	}
 
+	/**
+	 * Shows sample details
+	 */
 	public function executeShow(sfWebRequest $request) {
 		$this->sample = Doctrine_Core::getTable('Sample')->find(array($request->getParameter('id')));
 

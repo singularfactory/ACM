@@ -1,7 +1,5 @@
 <?php
 /**
- * PatentDepositLabelForm class
- *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
  *
@@ -21,40 +19,30 @@
  * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
- * @since         1.0
+ * @package       ACM.Frontend
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-
-/**
- * StrainLabel form
- *
- * @package ACM.Lib.Form
- * @since 1.0
- */
-class PatentDepositLabelForm extends LabelForm {
-	/**
-	 * Configures form for strain labels
-	 *
-	 * @return void
-	 */
-	public function configure() {
-		parent::configure();
-		$this->widgetSchema->setLabels(array(
-			'supervisor_id' => 'Supervisor',
-			'transfer_interval' => 'Transfer interval',
-			'genus_id' => 'Genus',
-			'is_axenic' => 'Is axenic?',
-			'culture_medium_id' => 'Culture medium',
-		));
-		$this->setup();
-	}
-
-	/**
-	 * Returns the name of form associated model
-	 */
-	public function getModelName() {
-		return 'PatentDeposit';
-	}
-}
+?>
+<?php if ($groupBy || count($filters)): ?>
+<div id="filter-conditions">
+	<span>Active filters:</span>
+	<dl>
+		<?php foreach ($filters as $key => $value): ?>
+		<dt><?php echo sfInflector::humanize(sfInflector::tableize(preg_replace('/^(\d+)_(\d+)_ratio$/', '$1:$2 ratio', $key))) ?>:</dt>
+		<dd><?php echo $value ?></dd>
+		<?php endforeach ?>
+		<?php if ($groupBy): ?>
+		<?php $groupBy = preg_replace('/^is_/', '', $groupBy) ?>
+		<?php $groupBy = preg_replace('/^(\d+)_(\d+)_ratio$/', '$1:$2 ratio', $groupBy) ?>
+		<?php $groupBy = str_replace('_', ' ', $groupBy) ?>
+		<dt>Grouped by:</dt>
+		<dd><?php echo ucfirst($groupBy) ?></dd>
+		<?php endif ?>
+	</dl>
+	<div class="filter-conditions-actions">
+		<?php echo link_to('Clear results', $route, array('class' => 'clear-filter-conditions')) ?>
+	</div>
+</div>
+<?php endif ?>

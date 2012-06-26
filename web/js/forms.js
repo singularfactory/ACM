@@ -70,7 +70,11 @@ function updateRegionsSelect(options) {
 	$('#location_region_id').empty();
 	if ( options.length > 0 ) {
 		$.each(options, function(key, option){
-			$('#location_region_id').append('<option value="' + option.id + '">' + option.name + '</option');
+			if (key == 0) {
+				$('#location_region_id').append('<option value></option');
+			} else {
+				$('#location_region_id').append('<option value="' + option.id + '">' + option.name + '</option');
+			}
 		});
 		return options[0].id;
 	}
@@ -85,7 +89,11 @@ function updateIslandsSelect(options) {
 	$('#location_island_id').empty();
 	if ( options.length > 0 ) {
 		$.each(options, function(key, option){
-			$('#location_island_id').append('<option value="' + option.id + '">' + option.name + '</option');
+			if (key == 0) {
+				$('#location_island_id').append('<option value></option');
+			} else {
+				$('#location_island_id').append('<option value="' + option.id + '">' + option.name + '</option');
+			}
 		});
 	}
 	else {

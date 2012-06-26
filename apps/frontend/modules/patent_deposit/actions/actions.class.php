@@ -26,52 +26,114 @@
  */
 
 /**
- * PatentDeposit module actions
+ * Actions in patent_deposit module
  *
  * @package ACM.Frontend
- * @subpackage patent_deposit
+ * @subpackage PatentDeposit
+ * @since 1.0
+ * @version 1.2
  */
 class patent_depositActions extends MyActions {
+	/**
+	 * Index action
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'PatentDeposit', array('init' => false, 'sort_column' => 'deposition_date'));
+		$filters = $this->_processFilterConditions($request, 'patent_deposit');
 
-		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = PatentDepositTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				if (in_array($this->groupBy, array('is_epitype', 'is_axenic'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$recursive = false;
+				} else {
+					$relatedAlias = sfInflector::camelize($this->groupBy);
+					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+					$recursive = true;
+				}
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_patent_deposits")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				if ($recursive) {
+					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+					if ($this->groupBy == 'depositor') {
+						$query = $query->addSelect('CONCAT(m.name, \' \', m.surname) as value');
+					} else {
+						$query = $query->addSelect('m.name as value');
+					}
+				} else {
+					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass t")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species s")
 				->leftJoin("{$this->mainAlias()}.Depositor d")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.yearly_count LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.deposition_date LIKE ?", "%$text%")
-				->orWhere('tc.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('s.name LIKE ?', "%$text%")
-				->orWhere('d.name LIKE ?', "%$text%")
-				->orWhere('d.surname LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
-		}
-		else {
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id', 'authority_id', 'depositor_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
+			if (!empty($filters['is_epitype'])) {
+				$this->filters['Epitype'] = ($filters['is_epitype'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_epitype = ?", ($filters['is_epitype'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['is_axenic'])) {
+				$this->filters['Axenic'] = ($filters['is_axenic'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_axenic = ?", ($filters['is_axenic'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*[dD]?\s*(\d{2})_(\d{2}).*$/', $filters['id'], $matches);
+				if (array_key_exists(2, $matches)) {
+					$query = $query->andWhere("{$this->mainAlias()}.deposition_date >= ?", sprintf('%s-01-01 00:00:00', $matches[2]));
+					$query = $query->andWhere("{$this->mainAlias()}.deposition_date <= ?", sprintf('%s-12-31 00:00:00', $matches[2]));
+				}
+				if (array_key_exists(1, $matches)) {
+					$query = $query->andWhere("{$this->mainAlias()}.yearly_count = ?", $matches[1]);
+				}
+			}
+		} else {
 			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass t")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species s")
 				->leftJoin("{$this->mainAlias()}.Depositor d");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
-		$this->pager->setQuery($query);
-		$this->pager->init();
+
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('patent_deposit.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new PatentDepositForm();
+		$this->form = new PatentDepositForm(array(), array('search' => true));
 	}
 
 	public function executeShow(sfWebRequest $request) {
