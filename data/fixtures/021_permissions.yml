@@ -7,7 +7,6 @@ sfGuardPermission:
   VI:	{ name: "view", description: "Can view the data of the ACM" }
 
 sfGuardGroupPermission:
-  ADM_AD:   { group_id: ADM, permission_id: AD}
-  ADM_VI:   { group_id: ADM, permission_id: VI}
-  VIE_VI:   { group_id: VIE, permission_id: VI}
-  
+  ADM_AD:   { group_id: [ADM], permission_id: [AD] }
+  ADM_VI:   { group_id: [ADM], permission_id: [VI] }
+  VIE_VI:   { group_id: [VIE], permission_id: [VI] }
