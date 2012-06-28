@@ -93,7 +93,6 @@ class locationActions extends MyActions {
 			$this->pager->init();
 			$this->results = $this->pager->getResults();
 		} else {
-
 			$this->results = $query->execute();
 		}
 

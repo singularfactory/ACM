@@ -128,7 +128,7 @@ class MyActions extends sfActions {
 
 		$pager->setPage($request->getParameter('page', 1));
 
-		if ( $this->paginationOptions['init'] ) {
+		if ($this->paginationOptions['init']) {
 			$pager->init();
 		}
 
@@ -136,8 +136,7 @@ class MyActions extends sfActions {
 		if ($request->hasParameter('all')) {
 			$pager->setMaxPerPage(Doctrine::getTable($table)->count());
 			$this->allResults = true;
-		}
-		else {
+		} else {
 			$this->allResults = false;
 		}
 
