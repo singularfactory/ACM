@@ -60,7 +60,7 @@ class DnaExtraction extends BaseDnaExtraction {
 	}
 
 	public function getAliquots() {
-		if ( $aliquots = $this->_get('aliquots') ) {
+		if ($aliquots = $this->_get('aliquots')) {
 			return $aliquots;
 		}
 		return 0;

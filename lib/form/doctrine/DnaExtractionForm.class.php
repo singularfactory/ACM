@@ -62,6 +62,8 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 			$this->getWidget('extraction_kit_id')->setOption('add_empty', true);
 			$this->setValidator('extraction_kit_id', new sfValidatorDoctrineChoice(array('model' => 'ExtractionKit', 'required' => false)));
 
+			$this->getWidget('aliquots')->setAttribute('value', null);
+
 			$this->setValidator('aliquots', new sfValidatorString(array('max_length' => 40, 'required' => false)));
 			$this->setValidator('concentration', new sfValidatorString(array('max_length' => 40, 'required' => false)));
 			$this->setValidator('260_280_ratio', new sfValidatorString(array('max_length' => 40, 'required' => false)));
