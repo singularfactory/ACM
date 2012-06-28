@@ -36,7 +36,7 @@
 <?php end_slot() ?>
 
 <?php include_partial('global/filter_options', array('module' => 'strain', 'form' => $form)) ?>
-<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'route' => '@strain')) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'strain')) ?>
 
 <?php if (!empty($groupBy)): ?>
 <?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>

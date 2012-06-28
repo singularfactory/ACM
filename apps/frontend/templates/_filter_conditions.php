@@ -42,7 +42,10 @@
 		<?php endif ?>
 	</dl>
 	<div class="filter-conditions-actions">
-		<?php echo link_to('Clear results', $route, array('class' => 'clear-filter-conditions')) ?>
+		<?php echo link_to('Clear results', "@$module", array('class' => 'clear-filter-conditions')) ?>
+		<?php if (!$groupBy): ?>
+		<?php echo link_to('Export as CSV', '@module_export_search?module='.$module, array('class' => 'clear-filter-conditions')) ?>
+		<?php endif ?>
 	</div>
 </div>
 <?php endif ?>

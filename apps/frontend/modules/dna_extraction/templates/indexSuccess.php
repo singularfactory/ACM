@@ -34,7 +34,7 @@
 <?php end_slot() ?>
 
 <?php include_partial('global/filter_options', array('module' => 'dna_extraction', 'form' => $form)) ?>
-<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'route' => '@dna_extraction')) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'dna_extraction')) ?>
 
 <?php if (!empty($groupBy)): ?>
 <?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>

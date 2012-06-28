@@ -102,17 +102,22 @@ class strainActions extends MyActions {
 				}
 			}
 
-			if (!empty($filters['is_epitype'])) {
+			if (!empty($filters['is_epitype']) && $filters['is_epitype'] > 0) {
 				$this->filters['Epitype'] = ($filters['is_epitype'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.is_epitype = ?", ($filters['is_epitype'] == 1) ? 0 : 1);
 			}
 
-			if (!empty($filters['is_axenic'])) {
+			if (!empty($filters['is_axenic']) && $filters['is_axenic'] > 0) {
 				$this->filters['Axenic'] = ($filters['is_axenic'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.is_axenic = ?", ($filters['is_axenic'] == 1) ? 0 : 1);
 			}
 
-			if (!empty($filters['deceased'])) {
+			if (!empty($filters['is_public']) && $filters['is_public'] > 0) {
+				$this->filters['Public'] = ($filters['is_public'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_public = ?", ($filters['is_public'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['deceased']) && $filters['deceased'] > 0) {
 				$this->filters['Deceased'] = ($filters['deceased'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.deceased = ?", ($filters['deceased'] == 1) ? 0 : 1);
 			}

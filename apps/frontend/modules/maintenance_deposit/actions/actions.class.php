@@ -88,12 +88,12 @@ class maintenance_depositActions extends MyActions {
 					$this->filters[$filter] = $table->find($filters[$filter])->getName();
 				}
 			}
-			if (!empty($filters['is_epitype'])) {
+			if (!empty($filters['is_epitype']) && $filters['is_epitype'] > 0) {
 				$this->filters['Epitype'] = ($filters['is_epitype'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.is_epitype = ?", ($filters['is_epitype'] == 1) ? 0 : 1);
 			}
 
-			if (!empty($filters['is_axenic'])) {
+			if (!empty($filters['is_axenic']) && $filters['is_axenic'] > 0) {
 				$this->filters['Axenic'] = ($filters['is_axenic'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.is_axenic = ?", ($filters['is_axenic'] == 1) ? 0 : 1);
 			}

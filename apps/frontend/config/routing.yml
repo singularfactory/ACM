@@ -27,6 +27,11 @@ module_pagination:
   param:  { module: location, action: index, page: 1 }
   requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)", page: \d+ }
 
+module_export_search:
+  url:  :module/search/export
+  param:  { module: location, action: exportIndexAsCsv }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)" }
+
 ###
 # Location model related routes
 ###
