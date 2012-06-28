@@ -30,7 +30,9 @@
 
 <div class="filter-options">
 	<form action="<?php echo url_for("@module_search?module=$module") ?>" method="POST">
+		<div class="filter-options-fields">
 		<?php include_partial("{$module}_search_form", array('form' => $form)) ?>
+		</div>
 		<div class="submit">
 			<input type="submit" value="Filter list">
 		</div>

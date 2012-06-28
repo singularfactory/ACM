@@ -25,35 +25,29 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-
-<div id="left_side_form">
-	<div id="country">
-		<?php echo $form['country_id']->renderLabel() ?>
-		<?php echo $form['country_id'] ?>
-		<a href="<?php echo url_for('@country_find_regions?country=') ?>" class="country_regions_url"></a>
-	</div>
-	<div id="region">
-		<?php echo $form['region_id']->renderLabel() ?>
-		<?php echo $form['region_id'] ?>
-		<a href="<?php echo url_for('@region_find_islands?region=') ?>" class="region_islands_url"></a>
-	</div>
-	<div id="island">
-		<?php echo $form['island_id']->renderLabel() ?>
-		<?php echo $form['island_id'] ?>
-	</div>
+<div id="name">
+	<?php echo $form['name']->renderLabel() ?>
+	<?php echo $form['name'] ?>
 </div>
-
-<div id="right_side_form">
-	<div id="name">
-		<?php echo $form['name']->renderLabel() ?>
-		<?php echo $form['name'] ?>
-	</div>
-	<div id="category">
-		<?php echo $form['category_id']->renderLabel() ?>
-		<?php echo $form['category_id'] ?>
-	</div>
-	<div id="group_by">
-		<?php echo $form['group_by']->renderLabel() ?>
-		<?php echo $form['group_by'] ?>
-	</div>
+<div id="country">
+	<?php echo $form['country_id']->renderLabel() ?>
+	<?php echo $form['country_id'] ?>
+	<a href="<?php echo url_for('@country_find_regions?country=') ?>" class="country_regions_url"></a>
+</div>
+<div id="region">
+	<?php echo $form['region_id']->renderLabel() ?>
+	<?php echo $form['region_id'] ?>
+	<a href="<?php echo url_for('@region_find_islands?region=') ?>" class="region_islands_url"></a>
+</div>
+<div id="island">
+	<?php echo $form['island_id']->renderLabel() ?>
+	<?php echo $form['island_id'] ?>
+</div>
+<div id="category">
+	<?php echo $form['category_id']->renderLabel() ?>
+	<?php echo $form['category_id'] ?>
+</div>
+<div id="group_by">
+	<?php echo $form['group_by']->renderLabel() ?>
+	<?php echo $form['group_by'] ?>
 </div>

@@ -25,37 +25,31 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-
-<div id="left_side_form">
-	<div id="id">
-		<?php echo $form['id']->renderLabel() ?>
-		<?php echo $form['id'] ?>
-	</div>
-	<div id="environment">
-		<?php echo $form['environment_id']->renderLabel() ?>
-		<?php echo $form['environment_id'] ?>
-	</div>
-	<div id="habitat">
-		<?php echo $form['habitat_id']->renderLabel() ?>
-		<?php echo $form['habitat_id'] ?>
-	</div>
-	<div id="radiation">
-		<?php echo $form['radiation_id']->renderLabel() ?>
-		<?php echo $form['radiation_id'] ?>
-	</div>
+<div id="id">
+	<?php echo $form['id']->renderLabel() ?>
+	<?php echo $form['id'] ?>
 </div>
-
-<div id="right_side_form">
-	<div id="is_extremophile">
-		<?php echo $form['is_extremophile']->renderLabel() ?>
-		<?php echo $form['is_extremophile'] ?>
-	</div>
-	<div id="location_details">
-		<?php echo $form['location_details']->renderLabel() ?>
-		<?php echo $form['location_details'] ?>
-	</div>
-	<div id="group_by">
-		<?php echo $form['group_by']->renderLabel() ?>
-		<?php echo $form['group_by'] ?>
-	</div>
+<div id="environment">
+	<?php echo $form['environment_id']->renderLabel() ?>
+	<?php echo $form['environment_id'] ?>
+</div>
+<div id="habitat">
+	<?php echo $form['habitat_id']->renderLabel() ?>
+	<?php echo $form['habitat_id'] ?>
+</div>
+<div id="radiation">
+	<?php echo $form['radiation_id']->renderLabel() ?>
+	<?php echo $form['radiation_id'] ?>
+</div>
+<div id="is_extremophile">
+	<?php echo $form['is_extremophile']->renderLabel() ?>
+	<?php echo $form['is_extremophile'] ?>
+</div>
+<div id="location_details">
+	<?php echo $form['location_details']->renderLabel() ?>
+	<?php echo $form['location_details'] ?>
+</div>
+<div id="group_by">
+	<?php echo $form['group_by']->renderLabel() ?>
+	<?php echo $form['group_by'] ?>
 </div>

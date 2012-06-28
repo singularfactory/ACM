@@ -25,37 +25,31 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-
-<div id="left_side_form">
-	<div id="code">
-		<?php echo $form['strain_id']->renderLabel() ?>
-		<?php echo $form['strain_id'] ?>
-	</div>
-	<div id="extraction_kit">
-		<?php echo $form['extraction_kit_id']->renderLabel() ?>
-		<?php echo $form['extraction_kit_id'] ?>
-	</div>
-	<div id="aliquots">
-		<?php echo $form['aliquots']->renderLabel() ?>
-		<?php echo $form['aliquots'] ?>
-	</div>
-	<div id="concentration">
-		<?php echo $form['concentration']->renderLabel() ?>
-		<?php echo $form['concentration'] ?>
-	</div>
-	<div id="260_280_ratio">
-		<?php echo $form['260_280_ratio']->renderLabel() ?>
-		<?php echo $form['260_280_ratio'] ?>
-	</div>
-	<div id="260_230_ratio">
-		<?php echo $form['260_230_ratio']->renderLabel() ?>
-		<?php echo $form['260_230_ratio'] ?>
-	</div>
+<div id="code">
+	<?php echo $form['strain_id']->renderLabel() ?>
+	<?php echo $form['strain_id'] ?>
 </div>
-
-<div id="right_side_form">
-	<div id="group_by">
-		<?php echo $form['group_by']->renderLabel() ?>
-		<?php echo $form['group_by'] ?>
-	</div>
+<div id="extraction_kit">
+	<?php echo $form['extraction_kit_id']->renderLabel() ?>
+	<?php echo $form['extraction_kit_id'] ?>
+</div>
+<div id="aliquots">
+	<?php echo $form['aliquots']->renderLabel() ?>
+	<?php echo $form['aliquots'] ?>
+</div>
+<div id="concentration">
+	<?php echo $form['concentration']->renderLabel() ?>
+	<?php echo $form['concentration'] ?>
+</div>
+<div id="260_280_ratio">
+	<?php echo $form['260_280_ratio']->renderLabel() ?>
+	<?php echo $form['260_280_ratio'] ?>
+</div>
+<div id="260_230_ratio">
+	<?php echo $form['260_230_ratio']->renderLabel() ?>
+	<?php echo $form['260_230_ratio'] ?>
+</div>
+<div id="group_by">
+	<?php echo $form['group_by']->renderLabel() ?>
+	<?php echo $form['group_by'] ?>
 </div>
