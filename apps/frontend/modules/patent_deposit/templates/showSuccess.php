@@ -32,7 +32,7 @@
 	<?php echo $patentDeposit->getCode() ?> - <?php echo $patentDepositClass = $patentDeposit->getTaxonomicClass() ?>
 	<span class="species_name">
 		<?php echo $patentDepositGenus = $patentDeposit->getGenus() ?>
-		<?php echo $patentDepositSpecies = $patentDeposit->getSpecies() ?>
+		<?php echo $patentDepositSpecies = $patentDeposit->getGenusId() ? $patentDeposit->getSpecies() : '' ?>
 	</span>
 </span>
 <?php include_partial('global/back_header_action', array('module' => 'patent_deposit')) ?>
