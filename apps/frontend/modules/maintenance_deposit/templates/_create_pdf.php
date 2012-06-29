@@ -57,7 +57,7 @@
 						<?php endif ?>
 
 						<td class="label_item">
-							<?php echo $barcode ?>
+							<?php //echo $barcode ?>
 							<p class="label_item_code"><?php echo $code ?></p>
 							<p class="label_item_genus"><?php echo $genus ?></p>
 							<p class="label_item_species"><?php echo $species ?></p>
