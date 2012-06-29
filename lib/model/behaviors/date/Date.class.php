@@ -43,14 +43,14 @@ class Date extends Doctrine_Template {
 		$received = strtotime($value);
 		$interval = $now - $received;
 
-		if ( $interval < 60 ) {
+		if ($interval < 60) {
 			return 'A few seconds ago';
 		}
 
-		for ( $i=60; $i < 3600; $i+=60 ) {
+		for ($i=60; $i < 3600; $i+=60) {
 			if ( $interval <= $i ) {
 				$minutes = floor($interval / 60.0);
-				if ( $minutes <= 1 ) {
+				if ($minutes <= 1) {
 					return "$minutes minute ago";
 				}
 				else {
@@ -59,16 +59,16 @@ class Date extends Doctrine_Template {
 			}
 		}
 
-		if ( $interval <= 3600 ) {
+		if ($interval <= 3600) {
 			return 'Less than an hour ago';
 		}
 
-		if ( $interval <= 7200 ) {
+		if ($interval <= 7200) {
 			return 'About an hour ago';
 		}
 
-		if ( $interval < 86400 ) {
-			if ( date('d', $received) < date('d', $now) ) {
+		if ($interval < 86400) {
+			if (date('d', $received) < date('d', $now)) {
 				return $withTime ? 'Yesterday at '.date("H:i", $received) : 'Yesterday';
 			}
 			else {
@@ -76,7 +76,7 @@ class Date extends Doctrine_Template {
 			}
 		}
 
-		return $withTime ? date("M S, H:i", $received) : date("M S", $received);
+		return $withTime ? date("M jS, Y, H:i", $received) : date("M jS, Y", $received);
 	}
 
 }
