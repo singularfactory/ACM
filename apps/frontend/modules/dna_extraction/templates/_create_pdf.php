@@ -54,14 +54,13 @@
 						<tr class="label_items">
 					<?php endif ?>
 
-					<td class="label_item">
-						<?php echo $barcode ?>
-						<p class="label_item_code"><?php echo $date ?></p>
-						<p class="label_item_code"><?php echo $code ?></p>
-						<p class="label_item_class"><?php echo $concentration ?></p>
-						<p class="label_item_class">
-							<strong>260:280</strong>=<?php echo $ratio280 ?>&nbsp; / &nbsp;<strong>260:230</strong>=<?php echo $ratio230 ?>
-						</p>
+					<td class="label_item label-dna-extraction">
+						<?php //echo $barcode ?>
+						<p class="label-item-dna-code-cap"><?php echo $code ?></p>
+						<p class="label_item_dna_date"><?php echo $date ?></p>
+						<p class="label_item_dna_code"><?php echo $code ?></p>
+						<p class="label_item_dna_concentration"><?php echo $concentration ?></p>
+						<p class="label_item_dna_ratio"><strong>260:280</strong>=<?php echo $ratio280 ?>&nbsp;<strong>260:230</strong>=<?php echo $ratio230 ?></p>
 					</td>
 						
 					<?php $columns++ ?>

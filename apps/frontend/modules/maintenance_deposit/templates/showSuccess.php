@@ -34,7 +34,7 @@
 	<?php echo " - " . $maintenanceDepositClass = $maintenanceDeposit->getTaxonomicClass() ?>
 	<span class="species_name">
 		<?php echo $maintenanceDepositGenus = $maintenanceDeposit->getGenus() ?>
-		<?php echo $maintenanceDepositSpecies = $maintenanceDeposit->getSpecies() ?>
+		<?php echo $maintenanceDepositSpecies = $maintenanceDeposit->getGenusId() ? $maintenanceDeposit->getSpecies() : '' ?>
 	</span>
 	<?php endif ?>
 </span>

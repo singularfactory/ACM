@@ -24,61 +24,88 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
- * location actions.
+ * location actions
  *
  * @package ACM.Frontend
  * @subpackage location
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class locationActions extends MyActions {
-
+	/**
+	 * Shows a list of locations
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Location', array('init' => false));
+		$filters = $this->_processFilterConditions($request, 'location');
 
-		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = LocationTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				$query = $query
+					->addSelect('m.name as value')
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_locations")
+					->addSelect("COUNT(DISTINCT s.id) as n_samples")
+					->addSelect("COUNT(DISTINCT st.id) as n_strains")
+					->innerJoin("{$this->mainAlias()}.".sfInflector::camelize($this->groupBy)." m")
+					->leftJoin("{$this->mainAlias()}.Samples s")
+					->leftJoin('s.Strains st')
+					->groupBy("{$this->mainAlias()}.".sfInflector::foreign_key($this->groupBy));
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.Country c")
 				->leftJoin("{$this->mainAlias()}.Region r")
 				->leftJoin("{$this->mainAlias()}.Island i")
-				->leftJoin("{$this->mainAlias()}.Samples s")
 				->leftJoin("{$this->mainAlias()}.Category cat")
-				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
-				->orWhere("c.name LIKE ?", "%$text%")
-				->orWhere("r.name LIKE ?", "%$text%")
-				->orWhere("i.name LIKE ?", "%$text%")
-				->orWhere("cat.name LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%");
+				->where('1=1');
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
-		}
-		else {
+			foreach (array('country_id', 'region_id', 'island_id', 'category_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$model = sfInflector::camelize(str_replace('_id', '', $filter));
+					$table = $model === 'Category' ? 'LocationCategoryTable' : $model.'Table';
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
+
+			if (!empty($filters['name'])) {
+				$query = $query->andWhere("{$this->mainAlias()}.name LIKE ?", "%{$filters['name']}%");
+			}
+		} else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Country c")
 				->leftJoin("{$this->mainAlias()}.Region r")
 				->leftJoin("{$this->mainAlias()}.Island i")
 				->leftJoin("{$this->mainAlias()}.Samples s");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
 
-		$this->pager->setQuery($query);
-		$this->pager->init();
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('location.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new LocationForm();
+		$this->form = new LocationForm(array(), array('search' => true));
 	}
 
+	/**
+	 * Shows location details
+	 */
 	public function executeShow(sfWebRequest $request) {
 		$this->location = Doctrine_Core::getTable('Location')->find(array($request->getParameter('id')));
 
@@ -89,10 +116,9 @@ class locationActions extends MyActions {
 			'title' => $this->location->getName(),
 			'description' => "{$this->location->getRegion()->getName()}, {$this->location->getIsland()->getName()}",
 			'notes' => $this->location->getRemarks());
-		if ( $coordinates['latitude'] && $coordinates['longitude'] ) {
+		if ($coordinates['latitude'] && $coordinates['longitude']) {
 			$marker = $this->googleMap->getMarkerFromCoordinates($coordinates['latitude'], $coordinates['longitude'], $information);
-		}
-		else {
+		} else {
 			$marker = $this->googleMap->getMarkerFromAddress("{$information['title']}, {$information['description']}, {$this->location->getCountry()->getName()}", $information);
 		}
 
@@ -216,5 +242,4 @@ class locationActions extends MyActions {
 			$this->getUser()->setFlash('notice', 'The information on this location has some errors you need to fix: '.$flashMessage, false);
 		}
 	}
-
 }

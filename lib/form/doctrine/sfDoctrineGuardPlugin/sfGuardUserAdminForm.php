@@ -57,6 +57,7 @@ class sfGuardUserAdminForm extends BasesfGuardUserAdminForm {
 		$this->setValidator('token', new sfValidatorString(array('max_length' => 40, 'min_length' => 40, 'required' => false)));
 		$this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'checkTokenValue'))));
 
+		$this->widgetSchema->setLabel('username', 'Username');
 		$this->widgetSchema->setLabel('first_name', 'Name');
 		$this->widgetSchema->setLabel('last_name', 'Surname');
 		$this->widgetSchema->setLabel('email_address', 'Email');

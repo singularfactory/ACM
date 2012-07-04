@@ -73,7 +73,7 @@
 			<dd><span class="species_name"><?php echo $strainGenus ?></span></dd>
 			<dt>Species:</dt>
 			<dd><span class="species_name"><?php echo $strainSpecies ?></span></dd>
-			<dt>Isolators:</dt>
+			<dt>Applications:</dt>
 			<dd><?php echo $nbPotentialUsages ?>	</dd>
 		</dl>
 	</div>

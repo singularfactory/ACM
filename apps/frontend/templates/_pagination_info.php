@@ -25,26 +25,32 @@
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<?php $url = "@{$model}_pagination?" ?>
-<?php if ( $text = $sf_user->getAttribute('search.criteria') ): ?>
-<?php $url = "@{$model}_search_pagination?" ?>
-<?php endif ?>
+<?php
+if (in_array($model, array('location', 'sample', 'strain', 'dna_extraction', 'patent_deposit', 'maintenance_deposit'))) {
+	$url = "@module_pagination?module=$model&";
+} else {
+	$url = "@{$model}_pagination?";
+	if ($text = $sf_user->getAttribute('search.criteria')) {
+		$url = "@{$model}_search_pagination?";
+	}
+}
+?>
 
 <?php $url_parameters = array() ?>
 
-<?php if ( isset($sort_column) & !empty($sort_column) ): ?>
+<?php if (isset($sort_column) & !empty($sort_column)): ?>
 <?php $url_parameters['sort_column'] = $sort_column ?>
 <?php endif ?>
 
-<?php if ( isset($sort_direction) & !empty($sort_direction) ): ?>
+<?php if (isset($sort_direction) & !empty($sort_direction)): ?>
 <?php $url_parameters['sort_direction'] = ($sort_direction === 'asc') ? 'desc' : 'asc' ?>
 <?php endif ?>
 
-<?php if ( $text = $sf_user->getAttribute('search.criteria') ): ?>
+<?php if ($text = $sf_user->getAttribute('search.criteria')): ?>
 <?php $url_parameters['criteria'] = urlencode($text) ?>
 <?php endif ?>
 
-<?php foreach ( $url_parameters as $parameter => $value ): ?>
+<?php foreach ($url_parameters as $parameter => $value): ?>
 <?php $url .= "$parameter=$value&" ?>
 <?php endforeach ?>
 
@@ -67,9 +73,9 @@
 
 	<?php if (!isset($warning)) $warning = true ?>
 	<span id="pagination_cancelation">
-	<?php echo link_to(
-		'Show all records',
-		empty($url_parameters['criteria']) ? "@module_full_index?module=$model" : "@module_full_index_search?module=$model&criteria=".$url_parameters['criteria'],
-		array('confirm' => ($warning == true)?'Displaying all results may take some time depending on the number of results. Do you want to continue?':false)) ?>
+		<?php echo link_to(
+			'Show all records',
+			empty($url_parameters['criteria']) ? "@module_full_index?module=$model" : "@module_full_index_search?module=$model&criteria=".$url_parameters['criteria'],
+			array('confirm' => ($warning == true)?'Displaying all results may take some time depending on the number of results. Do you want to continue?':false)) ?>
 	</span>
 </div>

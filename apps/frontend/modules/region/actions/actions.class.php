@@ -47,7 +47,7 @@ class regionActions extends sfActions {
 	public function executeFindIslands(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			$results = Doctrine_Core::getTable('Island')->getIslands($request->getParameter('region'));
-			$islands = array();
+			$islands = array(0 => '');
 			foreach ($results as $island) {
 				$islands[] = array('id' => $island->getId(), 'name' => $island->getName());
 			}

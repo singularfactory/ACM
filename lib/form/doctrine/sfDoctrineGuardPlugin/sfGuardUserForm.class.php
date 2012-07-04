@@ -64,6 +64,7 @@ class sfGuardUserForm extends PluginsfGuardUserForm {
 
 		$this->useFields(array('first_name', 'last_name', 'email_address', 'username', 'password', 'password_again', 'avatar', 'token', 'notify_new_order', 'notify_ready_order'));
 
+		$this->widgetSchema->setLabel('username', 'Username');
 		$this->widgetSchema->setLabel('first_name', 'Name');
 		$this->widgetSchema->setLabel('last_name', 'Surname');
 		$this->widgetSchema->setLabel('email_address', 'Email');

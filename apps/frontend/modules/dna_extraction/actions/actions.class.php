@@ -35,32 +35,89 @@ class dna_extractionActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'DnaExtraction', array('init' => false, 'sort_column' => 'Strain.code'));
+		$filters = $this->_processFilterConditions($request, 'dna_extraction');
 
-		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = DnaExtractionTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				if (in_array($this->groupBy, array('concentration', 'aliquots', '260_280_ratio', '260_230_ratio'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$recursive = false;
+				}
+				else {
+					$relatedAlias = sfInflector::camelize($this->groupBy);
+					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+					$recursive = true;
+				}
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_dna_extractions")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				if ($recursive) {
+					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+					if ($this->groupBy === 'strain') {
+						$query = $query->addSelect('m.code as value');
+						$query = $query->orderBy('s.code');
+					} else {
+						$query = $query->addSelect('m.id as value');
+					}
+				} else {
+					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.Strain s")
 				->leftJoin("{$this->mainAlias()}.ExtractionKit c")
 				->leftJoin("{$this->mainAlias()}.Pcr p")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp")
-				->where("{$this->mainAlias()}.concentration = ?", $text)
-				->orWhere("{$this->mainAlias()}.extraction_date LIKE ?", "%$text%")
-				->orWhere('c.name LIKE ?', "%$text%")
-				->orWhere('tc.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Parse search term to catch extraction codes
-			if ( preg_match('/([Bb][Ee][Aa])?(\d{1,4})[Bb]?/', $text, $matches) ) {
-				$query = $query->orWhere("s.code = ?", (int)$matches[2]);
+			foreach (array('extraction_kit_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
 			}
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
-		}
-		else {
+			if (!empty($filters['aliquots'])) {
+				$this->filters['Aliquots'] = $filters['aliquots'];
+				$query = $query->andWhere("{$this->mainAlias()}.aliquots = ?", $filters['aliquots']);
+			}
+
+			if (!empty($filters['concentration'])) {
+				$this->filters['Concentration'] = $filters['concentration'];
+				$query = $query->andWhere("{$this->mainAlias()}.concentration = ?", $filters['concentration']);
+			}
+
+			if (!empty($filters['260_280_ratio'])) {
+				$this->filters['260:280 ration'] = $filters['260_280_ratio'];
+				$query = $query->andWhere("{$this->mainAlias()}.260_280_ratio = ?", $filters['260_280_ratio']);
+			}
+
+			if (!empty($filters['260_230_ratio'])) {
+				$this->filters['260:230 ration'] = $filters['260_230_ratio'];
+				$query = $query->andWhere("{$this->mainAlias()}.260_230_ratio = ?", $filters['260_230_ratio']);
+			}
+
+			if (!empty($filters['strain_id'])) {
+				$this->filters['BEA code'] = $filters['strain_id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $filters['strain_id'], $matches);
+				$query = $query->andWhere("{$this->mainAlias()}.strain_id = ?", $matches[1]);
+			}
+		} else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain s")
 				->leftJoin("{$this->mainAlias()}.ExtractionKit k")
@@ -68,25 +125,24 @@ class dna_extractionActions extends MyActions {
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
 
-		// Simplify ORDER BY aliquots to yes/no values
-		if ( $sort_column = $request->getParameter('sort_column') ) {
-			if ( $sort_column === 'aliquots' ) {
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			if ($request->getParameter('sort_column') === 'aliquots') {
 				$query = $query->orderBy(sprintf('%s.aliquots>0 %s, s.code ASC', $this->mainAlias, $this->sortDirection));
 			}
+			$this->results = $query->execute();
 		}
-
-		$this->pager->setQuery($query);
-		$this->pager->init();
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('dna_extraction.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new DnaExtractionForm();
+		$this->form = new DnaExtractionForm(array(), array('search' => true));
 	}
 
 	public function executeShow(sfWebRequest $request) {

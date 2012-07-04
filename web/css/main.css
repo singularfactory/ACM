@@ -246,6 +246,50 @@ div.http_error a {
 #header_menu_services li a { -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px; min-width: 150px; }
 .header_menu_item:hover #header_menu_services { display: block; }
 
+
+/**
+ * FILTER OPTIONS
+ */
+div.filter-options {
+	font-size: 11px;
+	margin: 0em;
+	padding: 0em;
+	display: none;
+}
+
+div.filter-options-fields div {
+	margin: 0em 1em 1em 0em;
+	padding: 0em;
+	display: inline-block;
+}
+
+div.filter-options-fields input[type=text] {
+	width: 100px !important;
+}
+div.filter-options-fields select {
+	min-width: 180px;
+}
+div.filter-options-fields #location_country_id, div.filter-options-fields #location_region_id, div.filter-options-fields #location_island_id {
+	min-width: 220px;
+}
+div.filter-options-fields input[type=submit] {
+	clear:both;
+	font-size: 11px;
+}
+div.filter-options-fields label, div.filter-options-fields option {
+	font-size: 1em;
+}
+
+div.filter-conditions-actions {
+	margin-top: 1em;
+}
+
+a.clear-filter-conditions {
+	display: inline;
+	font-size: 8pt;
+}
+
+
 /**
 * MAIN CONTENT
 */
@@ -318,6 +362,11 @@ div.http_error a {
 #main_header #main_header_action_label a:visited,
 #main_header #main_header_action_label a:hover {
 	background: url(../images/label.png) no-repeat 0 center;
+}
+#main_header #main_header_action_search a:link,
+#main_header #main_header_action_search a:visited,
+#main_header #main_header_action_search a:hover {
+	background: url(../images/search.png) no-repeat 0 center;
 }
 
 

@@ -20,24 +20,32 @@
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
  * @package       ACM.Frontend
- * @since         1.0
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
 ?>
-<?php slot('main_header') ?>
-<span>Report results for <?php echo ( $subject === 'dna_extraction' ) ? 'DNA extraction' : sfInflector::humanize($subject) ?></span>
-<div id="main_header_action_back" class="main_header_action">
-	<?php echo link_to('Create another report', "@report") ?>
+<?php if ($groupBy || count($filters)): ?>
+<div id="filter-conditions">
+	<span>Active filters:</span>
+	<dl>
+		<?php foreach ($filters as $key => $value): ?>
+		<dt><?php echo sfInflector::humanize(sfInflector::tableize(preg_replace('/^(\d+)_(\d+)_ratio$/', '$1:$2 ratio', $key))) ?>:</dt>
+		<dd><?php echo $value ?></dd>
+		<?php endforeach ?>
+		<?php if ($groupBy): ?>
+		<?php $groupBy = preg_replace('/^is_/', '', $groupBy) ?>
+		<?php $groupBy = preg_replace('/^(\d+)_(\d+)_ratio$/', '$1:$2 ratio', $groupBy) ?>
+		<?php $groupBy = str_replace('_', ' ', $groupBy) ?>
+		<dt>Grouped by:</dt>
+		<dd><?php echo ucfirst($groupBy) ?></dd>
+		<?php endif ?>
+	</dl>
+	<div class="filter-conditions-actions">
+		<?php echo link_to('Clear results', "@$module", array('class' => 'clear-filter-conditions')) ?>
+		<?php if (!$groupBy): ?>
+		<?php echo link_to('Export as CSV', '@module_export_search?module='.$module, array('class' => 'clear-filter-conditions')) ?>
+		<?php endif ?>
+	</div>
 </div>
-<?php end_slot() ?>
-
-<?php include_partial('report_conditions', array('modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
-
-<?php if ( count($results) ): ?>
-	<?php if ( in_array($subject, array('location', 'sample', 'strain', 'dna_extraction')) ): ?>
-	<?php include_partial("{$subject}_table", array('results' => $results, 'modelToGroupBy' => $modelToGroupBy, 'filters' => $filters)) ?>
-	<?php endif ?>
-<?php else: ?>
-	<p>There are no results to show.</p>
-<?php endif; ?>
+<?php endif ?>

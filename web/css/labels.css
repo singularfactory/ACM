@@ -43,3 +43,42 @@ p.label_item_transfer_interval {
 img {
 	margin-left: 0px;
 }
+
+td.label-dna-extraction {
+	width: 37mm;
+	height: 12.7mm;
+	font-size: 10px;
+	margin: 0em;
+	padding: 0em;
+	position: relative;
+	padding-bottom: 1em !important;
+	padding-right: 1em !important;
+}
+
+p.label-item-dna-code-cap {
+	border: 0em;
+	padding: 0em;
+	margin: 0em;
+	float: right;
+	-moz-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg) ;
+	-o-transform: rotate(90deg) ;
+	transform: rotate(90deg);
+	white-space:nowrap;
+	writing-mode: tb-rl;
+	margin-top: 1.7em;
+	margin-right: -1.9em;
+	font-size: 0.9em;
+}
+
+p.label_item_dna_date {
+	font-size: 0.9em;
+}
+p.label_item_dna_code {
+	font-weight: bold;
+}
+p.label_item_dna_concentration {
+}
+p.label_item_dna_ratio {
+	font-size: 0.8em;
+}

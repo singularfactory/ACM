@@ -39,15 +39,7 @@
 class Location extends BaseLocation {
 
 	public function getNbSamples() {
-		if ( $samples = $this->getSamples() ) {
-			return count($samples);
-		}
-		else {
-			return Doctrine_Query::create()
-				->from('Sample s')
-				->where('s.location_id = ?', $this->getId())
-				->count();
-		}
+		return $this->getSamples()->count();
 	}
 
 	public function getNbPictures() {
@@ -77,10 +69,10 @@ class Location extends BaseLocation {
 	public function getFormattedGPSCoordinates() {
 		$coordinates = $this->getGPSCoordinates();
 
-		if ( $coordinates['latitude'] === null || $coordinates['longitude'] === null ) {
+		if ($coordinates['latitude'] === null || $coordinates['longitude'] === null) {
 			return sfConfig::get('app_no_data_message');
 		}
-		elseif ( $coordinates['latitude'] === '' || $coordinates['longitude'] === '' ) {
+		elseif ($coordinates['latitude'] === '' || $coordinates['longitude'] === '') {
 			return sfConfig::get('app_no_data_message');
 		}
 
@@ -89,7 +81,7 @@ class Location extends BaseLocation {
 
 	public function getFormattedCategory() {
 		$category = $this->getCategory();
-		if ( $category->exists() ) {
+		if ($category->exists()) {
 			return $category->getName();
 		}
 		return sfConfig::get('app_no_data_message');

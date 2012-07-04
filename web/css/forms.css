@@ -296,7 +296,7 @@ li.ui-menu-item { text-align: left; font-size: 11px; }
  */
 div.report_inline_where { float:left; }
 #report_subject_form div.clear { margin: 0px; padding: 0px; }
-#report_location_country_search, #report_location_region_search, #report_location_island_search, #report_maintenance_strain_search { width: 200px; margin-right: 13px; }
+#report_maintenance_strain_search { width: 200px; margin-right: 13px; }
 #report_sample_environment select, #report_sample_habitat select, #report_sample_radiation select,
 #report_dna_extraction_extraction_kit select, #report_dna_extraction_concentration input, #report_dna_extraction_aliquots input,
 #report_dna_extraction_260_280_ratio input, #report_dna_extraction_260_230_ratio input, #report_sample_location_details input { width: 170px; margin-right: 13px; }

@@ -532,41 +532,41 @@ class apiActions extends GreenhouseAPI {
 	}
 
 	public function executeStoreCatalog(sfWebRequest $request) {
-		if ( !$this->validateRequestMethod($request, sfRequest::GET) ) {
+		if (!$this->validateRequestMethod($request, sfRequest::GET)) {
 			return $this->requestExitStatus(self::InvalidRequestMethod, 'This resource only admits GET requests');
 		}
 
-		if ( !$this->validateToken($request->getParameter('token')) ) {
+		if (!$this->validateToken($request->getParameter('token'))) {
 			return $this->requestExitStatus(self::InvalidToken);
 		}
 
 		// Get referenced models
 		$habitats = array();
-		foreach ( HabitatTable::getInstance()->createQuery('h')->select('DISTINCT h.*')->innerJoin('h.Samples')->execute() as $habitat ) {
+		foreach (HabitatTable::getInstance()->createQuery('h')->select('DISTINCT h.id, h.name')->innerJoin('h.Samples')->execute() as $habitat) {
 			$habitats[$habitat->getId()] = $habitat->getName();
 		}
 		unset($habitat);
 
 		$countries = array();
-		foreach ( CountryTable::getInstance()->createQuery('c')->select('DISTINCT c.*')->innerJoin('c.Locations')->execute() as $country ) {
+		foreach (CountryTable::getInstance()->createQuery('c')->select('DISTINCT c.id, c.name')->innerJoin('c.Locations')->execute() as $country) {
 			$countries[$country->getId()] = $country->getName();
 		}
 		unset($country);
 
 		$regions = array();
-		foreach ( RegionTable::getInstance()->createQuery('r')->select('DISTINCT r.*')->innerJoin('r.Locations')->execute() as $region ) {
+		foreach (RegionTable::getInstance()->createQuery('r')->select('DISTINCT r.id, r.name')->innerJoin('r.Locations')->execute() as $region) {
 			$regions[$region->getId()] = $region->getName();
 		}
 		unset($region);
 
 		$islands = array();
-		foreach ( IslandTable::getInstance()->createQuery('i')->select('DISTINCT i.*')->innerJoin('i.Locations')->execute() as $island ) {
+		foreach (IslandTable::getInstance()->createQuery('i')->select('DISTINCT i.id, i.name')->innerJoin('i.Locations')->execute() as $island) {
 			$islands[$island->getId()] = sprintf('%s Island', $island->getName());
 		}
 		unset($island);
 
 		$locations = array();
-		foreach ( LocationTable::getInstance()->createQuery('l')->select('DISTINCT l.*')->innerJoin('l.Samples')->execute() as $location ) {
+		foreach (LocationTable::getInstance()->createQuery('l')->select('DISTINCT l.id, l.country_id, l.region_id, l.island_id, l.name')->innerJoin('l.Samples')->execute() as $location) {
 			$id = $location->getId();
 			$country = $countries[$location->getCountryId()];
 			$region = sprintf(', %s', $regions[$location->getRegionId()]);
@@ -580,7 +580,7 @@ class apiActions extends GreenhouseAPI {
 
 		// Get culture media
 		$catalog['culture_medium'] = array();
-		foreach ( CultureMediumTable::getInstance()->findByIsPublic(1) as $medium ) {
+		foreach (CultureMediumTable::getInstance()->findByIsPublic(1) as $medium) {
 			$catalog['culture_medium'][$medium->getId()] = array(
 				'id' => $medium->getCode(),
 				'name' => $medium->getName(),
@@ -591,14 +591,14 @@ class apiActions extends GreenhouseAPI {
 
 		// Get isolators
 		$catalog['isolators'] = array();
-		foreach ( IsolatorTable::getInstance()->findAll() as $isolator ) {
+		foreach (IsolatorTable::getInstance()->findAll() as $isolator) {
 			$catalog['isolators'][$isolator->getId()] = "$isolator";
 		}
 		unset($isolator);
 
 		// Get maintenance status
 		$catalog['maintenance_status'] = array();
-		foreach ( MaintenanceStatusTable::getInstance()->findAll() as $status ) {
+		foreach (MaintenanceStatusTable::getInstance()->findAll() as $status) {
 			$catalog['maintenance_status'][$status->getId()] = $status->getName();
 		}
 		unset($status);

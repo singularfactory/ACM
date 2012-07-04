@@ -40,12 +40,12 @@
 <form action="<?php echo url_for('@login') ?>" method="post">
 	<?php echo $form->renderHiddenFields() ?>
 	<div id="username" class="input">
-		<?php echo $form['username']->renderLabel() ?>
-		<?php echo $form['username']; ?>
+		<label for="signin_username">Username</label>
+		<?php echo $form['username'] ?>
 	</div>
 	<div id="password" class="input">
-		<?php echo $form['password']->renderLabel() ?>
-		<?php echo $form['password']; ?>
+		<label for="signin_username">Password</label>
+		<?php echo $form['password'] ?>
 	</div>
 	<div class="submit">
 		<input type="submit" value="Sign in">

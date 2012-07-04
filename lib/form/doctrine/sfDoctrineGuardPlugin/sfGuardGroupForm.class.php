@@ -36,6 +36,6 @@
  */
 class sfGuardGroupForm extends PluginsfGuardGroupForm {
   public function configure() {
-	unset($this['users_list']);
+		unset($this['users_list']);
   }
 }

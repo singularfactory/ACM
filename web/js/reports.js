@@ -25,9 +25,6 @@
  */
 
 var searchBoxHelp = new Array();
-searchBoxHelp['country'] = 'Type a country name...';
-searchBoxHelp['region'] = 'Type a region name...';
-searchBoxHelp['island'] = 'Type an island name...';
 searchBoxHelp['strain'] = 'Type a strain code...';
 
 function parseSearchBoxTarget (htmlInput) {
@@ -45,20 +42,14 @@ $(document).ready(function(){
 		var url = $(this).parents('form').attr('action').replace('generate', $('#report_subject #subject').val());
 		var subjectForm = $('#report_subject_form');
 
-		// Load subform using AJAX
-		// $.get(url, function(html){
-		// 	subjectForm.empty();
-		// 	subjectForm.html(html);
-		// });
-		
 		// Redirect the whole page
 		location.href = url;
 	});
-	
+
 	// Handle search boxes
 	$('input.report_search_box').each(function(){
 		var name = parseSearchBoxTarget($(this));
-		
+
 		// Control whether to initially display the help text and default styles
 		if ( ! $(this).val().length ) {
 			$(this).val(searchBoxHelp[name])
@@ -67,7 +58,7 @@ $(document).ready(function(){
 			$(this).css("color", "black");
 			$(this).css("font-size", "12px");
 		}
-		
+
 		// Remove default help text when input gains focus
 		$(this).focus(function(){
 			if ( $(this).val() == searchBoxHelp[name] ) {
@@ -76,7 +67,7 @@ $(document).ready(function(){
 				$(this).css("font-size", "12px");
 			}
 		});
-		
+
 		// Assigns default help text when input loses focus
 		$(this).blur(function(){
 			if( $(this).val() == '' ) {
@@ -85,12 +76,12 @@ $(document).ready(function(){
 				$(this).css("font-size", "11px");
 			}
 		});
-		
+
 		// Assigns autocomplete plugin
 		var input = $(this);
 		var url = $(this).next('a').attr('href');
 		var subject = parseSearchBoxSubject(input);
-		
+
 		$(this).autocomplete({
 			minLength: 2,
 			source: function(term, add) {
@@ -102,45 +93,45 @@ $(document).ready(function(){
 				return false;
 			},
 		});
-		
+
 	});
-	
+
 	// Clear report form on demand
 	$('#report_clear_values_link').click(function(event){
 		event.preventDefault();
 		var form = $(this).closest('form');
-		
+
 		form.find('input[type=text]').each(function(){
 			var name = parseSearchBoxTarget($(this));
-			
+
 			if ( name !== 'country' && name !== 'region' && name !== 'island' && name !== 'strain' ) {
 				$(this).val('');
 			}
 		});
-		
+
 		form.find('select').each(function(){
 			var name = parseSearchBoxTarget($(this));
-			
+
 			if ( name !== 'subject' ) {
 				$(this).val(0);
 			}
 		});
 	});
-	
+
 	$('#add_strain').click(function (event){
 		event.preventDefault();
-		
+
 		var options = $('#maintenance_strain_id').attr('options');
 		options[options.length] = new Option($('#report_maintenance_strain_search').val(), $('#maintenance_strain').val());
 	})
-	
+
 	$('#remove_strain').click(function (event){
 		event.preventDefault();
 		$('#maintenance_strain_id option:selected').each(function(index, element){
 			$("#maintenance_strain_id option[value='"+$(this).val()+"']").remove();
 		});
 	})
-	
+
 	$('#maintenance_strain_id').closest('form').submit(function(){
 		$('#maintenance_strain_id option').attr("selected","selected");
 	});

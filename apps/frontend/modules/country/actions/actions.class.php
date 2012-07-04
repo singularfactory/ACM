@@ -24,16 +24,12 @@
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-?>
-<?php
 
 /**
- * country actions.
+ * country actions
  *
  * @package ACM.Frontend
  * @subpackage country
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class countryActions extends sfActions {
 	/**
@@ -47,7 +43,7 @@ class countryActions extends sfActions {
 	public function executeFindRegions(sfWebRequest $request) {
 		if ( $request->isXmlHttpRequest() ) {
 			$results = Doctrine_Core::getTable('Region')->getRegions($request->getParameter('country'));
-			$regions = array();
+			$regions = array(0 => '');
 			foreach ($results as $region) {
 				$regions[] = array('id' => $region->getId(), 'name' => $region->getName());
 			}

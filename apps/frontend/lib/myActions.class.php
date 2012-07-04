@@ -58,6 +58,29 @@ class MyActions extends sfActions {
 	protected $relatedAlias = 'sf_related_alias';
 
 	/**
+	 * _processFilterConditions
+	 *
+	 * @param sfWebRequest $request
+	 * @param $module
+	 * @return array
+	 */
+	protected function _processFilterConditions(sfWebRequest $request, $module) {
+		$this->groupBy = '';
+		$this->filters = array();
+		$filters = array();
+		if ($request->isMethod(sfRequest::POST)) {
+			$filters = $request->getPostParameters();
+			$filters = $filters[$module];
+			$this->getUser()->setAttribute("$module.index_filters", $filters);
+		} elseif ($request->hasParameter('page') || $request->hasParameter('all')) {
+			$filters = 	$this->getUser()->getAttribute("$module.index_filters");
+		} else {
+			$this->getUser()->setAttribute("$module.index_filters", null);
+		}
+		return $filters;
+	}
+
+	/**
 	 * buildPagination
 	 *
 	 * @param sfWebRequest $request Request made from page
@@ -105,16 +128,15 @@ class MyActions extends sfActions {
 
 		$pager->setPage($request->getParameter('page', 1));
 
-		if ( $this->paginationOptions['init'] ) {
+		if ($this->paginationOptions['init']) {
 			$pager->init();
 		}
 
 		// Set results limit
-		if ( $request->hasParameter('all') ) {
+		if ($request->hasParameter('all')) {
 			$pager->setMaxPerPage(Doctrine::getTable($table)->count());
 			$this->allResults = true;
-		}
-		else {
+		} else {
 			$this->allResults = false;
 		}
 
@@ -137,6 +159,161 @@ class MyActions extends sfActions {
 	 */
 	protected function relatedAlias() {
 		return $this->relatedAlias;
+	}
+
+	/**
+	 * Executes an application defined process prior to execution of this sfAction object.
+	 */
+	public function preExecute() {
+		$action = $this->getActionName();
+		if ($action !== 'index' && $action !== 'exportIndexAsCsv') {
+			$module = $this->getModuleName();
+			$this->getUser()->setAttribute("$module.index_filters", null);
+		}
+	}
+
+	public function executeExportIndexAsCsv(sfWebRequest $request) {
+		$module = $this->getModuleName();
+		$filters = $this->getUser()->getAttribute("$module.index_filters");
+
+		$csv = new Excel();
+		$query = call_user_func(array(sprintf('%sTable', sfInflector::camelize($module)), 'getInstance'));
+		$query = $query->createQuery('m')->select("m.*")->where('1=1');
+
+		switch ($module) {
+			case 'location':
+				$csv->setHeader(array('Name', 'Country', 'Region', 'Island', 'Samples', 'Strains'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'name') {
+							$query = $query->andWhere("m.$filter LIKE ?", "%$value%");
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+				break;
+
+			case 'sample':
+				$csv->setHeader(array('Code', 'Location', 'Collectors', 'Date', 'Strains'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'location_details') {
+							$query = $query->andWhere("m.$filter LIKE ?", "%$value%");
+						} elseif ($filter === 'id') {
+							preg_match('/^(\d{1,4}).*$/', $value, $matches);
+							$query = $query->andWhere("m.$filter = ?", $matches[1]);
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+				break;
+
+			case 'strain':
+				$csv->setHeader(array('Code', 'Name', 'Sample', 'Has DNA', 'Is public?', 'Supervisor'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'id') {
+							preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $value, $matches);
+							$query = $query->andWhere("m.code = ?", $matches[1]);
+						} elseif ($filter === 'maintenance_status_id' || $filter === 'culture_medium_id') {
+							$intermediateModel = ($filter == 'culture_medium_id') ? 'CultureMedia' : 'MaintenanceStatus';
+							$query = $query->andWhere("m.Strain$intermediateModel.$filter = ?", $value);
+						} elseif (in_array($filter, array('is_epitype', 'is_axenic', 'deceased', 'is_public'))) {
+							if ($value >= 0) {
+								$query = $query->andWhere("m.$filter = ?", $value - 1);
+							}
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+				break;
+
+			case 'dna_extraction':
+				$csv->setHeader(array('Number', 'Class', 'Name', 'Extraction date', 'Extraction kit', 'Concentration', 'DNA bank', 'PCR', 'Has sequences?'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'strain_id') {
+							preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $value, $matches);
+							$query = $query->andWhere("m.$filter = ?", $matches[1]);
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+				break;
+
+			case 'patent_deposit':
+			case 'maintenance_deposit':
+				$csv->setHeader(array('Code', 'Depositor', 'Deposition date', 'Taxonomy'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'id') {
+							preg_match('/^[Bb]?[Ee]?[Aa]?\s*[dDMm]?\s*(\d{2})_(\d{2}).*$/', $value, $matches);
+							if (array_key_exists(2, $matches)) {
+								$query = $query->andWhere("m.deposition_date >= ?", sprintf('%s-01-01 00:00:00', $matches[2]));
+								$query = $query->andWhere("m.deposition_date <= ?", sprintf('%s-12-31 00:00:00', $matches[2]));
+							}
+							if (array_key_exists(1, $matches)) {
+								$query = $query->andWhere("m.yearly_count = ?", $matches[1]);
+							}
+						} elseif (in_array($filter, array('is_epitype', 'is_axenic'))) {
+							if ($value >= 0) {
+								$query = $query->andWhere("m.$filter = ?", $value - 1);
+							}
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+				break;
+		}
+
+		$data = array();
+		foreach ($query->execute() as $row) {
+			switch ($module) {
+				case 'location':
+					$data[] = array($row->getName(), $row->getCountry(), $row->getRegion(), $row->getIsland(), $row->getNbSamples(), $row->getNbStrains());
+					break;
+				case 'sample':
+					$data[] = array($row->getCode(), $row->getLocationNameAndDetails(), $row->getFormattedCollectors(), $row->getFormattedCollectionDate(), $row->getNbStrains());
+					break;
+				case 'strain':
+					$data[] = array(
+						$row->getFullCode(),
+						sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
+						$row->getFormattedSampleCode(), $row->getFormattedHasDna(), $row->getFormattedIsPublic(), $row->getFormattedSupervisorWithInitials(),
+					);
+					break;
+				case 'dna_extraction':
+					$strain = $row->getStrain();
+					$data[] = array(
+						$row->getCode(), $strain->getTaxonomicClass(),
+						sprintf('%s %s', $strain->getGenus(), $strain->getSpecies() ? $strain->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
+						$row->getFormattedExtractionDate(), $row->getExtractionKit()->getName(), $row->getFormattedConcentration(), $row->getFormattedAliquots(),
+						$row->getNbPcr(), $row->getFormattedHasDnaSequence(),
+					);
+					break;
+				case 'patent_deposit':
+					$data[] = array(
+						$row->getCode(), $row->getDepositor(), $row->getDepositionDate(),
+						sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
+					);
+					break;
+				case 'maintenance_deposit':
+					$data[] = array(
+						$row->getCode(), $row->getDepositor(), $row->getDepositionDate(),
+						$row->getIsBlend() ? 'blend' : sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
+					);
+					break;
+			}
+		}
+
+		$csv->setData($data);
+		$csv->startDownload($module);
+		return sfView::NONE;
 	}
 
 	/**

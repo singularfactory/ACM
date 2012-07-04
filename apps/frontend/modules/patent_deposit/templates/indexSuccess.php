@@ -29,16 +29,21 @@
 
 <?php slot('main_header') ?>
 	<span>All patent deposits</span>
-	<?php include_partial('global/search_box_header_action', array('route' => '@patent_deposit_search?criteria=')) ?>
+	<?php include_partial('global/search_box_header_action') ?>
 	<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@patent_deposit_create_label')) ?>
 	<?php include_partial('global/new_header_action', array('message' => 'Add a new patent_deposit', 'route' => '@patent_deposit_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'patent_deposit', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'patent_deposit')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="patent_deposit_list">
 	<tbody>
 		<tr>
-			<?php if ( $sortDirection === 'asc' ) $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
+			<?php if ($sortDirection === 'asc') $sortDirection = 'desc'; else $sortDirection = 'asc' ?>
 			<th>Code</th>
 			<th><?php echo link_to('Depositor', '@patent_deposit?sort_column=Depositor.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Deposition date', '@patent_deposit?sort_column=deposition_date&sort_direction='.$sortDirection) ?></th>
@@ -46,7 +51,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $patentDeposit): ?>
+		<?php foreach ($results as $patentDeposit): ?>
 		<tr>
 			<?php $url = url_for('@patent_deposit_show?id='.$patentDeposit->getId()) ?>
 			<td class="patent_deposit_depositor_code"><?php echo link_to($patentDeposit->getCode(), $url) ?></td>
@@ -58,7 +63,6 @@
 				</span>
 			</td>
 
-
 			<td class="actions">
 				<a href="<?php echo $url ?>">
 					<?php echo link_to('Edit', '@patent_deposit_edit?id='.$patentDeposit->getId()) ?>
@@ -66,7 +70,7 @@
 				</a>
 			</td>
 		</tr>
-		<?php endforeach; ?>
+		<?php endforeach ?>
 	</tbody>
 </table>
 

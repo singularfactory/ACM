@@ -15,26 +15,34 @@ region_find_islands:
   requirements: { region: .* } # Search pattern is optional, by default all results are shown
 
 ###
+# Module's filter options for lists
+###
+module_search:
+  url:  :module/search
+  param: { module: location, action: index }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)" }
+
+module_pagination:
+  url:  :module/page/:page
+  param:  { module: location, action: index, page: 1 }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)", page: \d+ }
+
+module_export_search:
+  url:  :module/search/export
+  param:  { module: location, action: exportIndexAsCsv }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)" }
+
+###
 # Location model related routes
 ###
 location:
   class:   sfDoctrineRouteCollection
   options: { model: Location }
 
-location_search:
-  url:          location/search/:criteria
-  param:        { module: location, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
 location_pagination:
   url:          location/page/:page
   param:        { module: location, action: index, page: 1 }
   requirements: { page: \d+ }
-
-location_search_pagination:
-  url:          location/search/:criteria/page/:page
-  param:        { module: location, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 ###
 # Sample model related routes
@@ -43,25 +51,10 @@ sample:
   class:   sfDoctrineRouteCollection
   options: { model: Sample }
 
-sample_search:
-  url:          sample/search/:criteria
-  param:        { module: sample, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
 sample_find_locations:
   url:    sample/findLocations/:term
   param:  { module: sample, action: findLocations }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
-sample_pagination:
-  url:          sample/page/:page
-  param:        { module: sample, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-sample_search_pagination:
-  url:          sample/search/:criteria/page/:page
-  param:        { module: sample, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 sample_create_label:
   url:          sample/create_label/:id
@@ -74,11 +67,6 @@ sample_create_label:
 strain:
   class:   sfDoctrineRouteCollection
   options: { model: Strain }
-
-strain_search:
-  url:          strain/search/:criteria
-  param:        { module: strain, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
 strain_search_deceased:
   url:          strain/search/deceased
@@ -93,16 +81,6 @@ strain_find_clone:
   url:    strain/findClone/:term
   param:  { module: strain, action: findClone }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
-strain_pagination:
-  url:          strain/page/:page
-  param:        { module: strain, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-strain_search_pagination:
-  url:          strain/search/:criteria/page/:page
-  param:        { module: strain, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 strain_new_related_model_form:
   url:          strain/new_related_model/:related_model
@@ -158,25 +136,10 @@ dna_extraction:
   class:   sfDoctrineRouteCollection
   options: { model: DnaExtraction }
 
-dna_extraction_search:
-  url:          dna_extraction/search/:criteria
-  param:        { module: dna_extraction, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
 dna_extraction_find_strains:
   url:          dna_extraction/findStrains/:term
   param:        { module: dna_extraction, action: findStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
-dna_extraction_pagination:
-  url:          dna_extraction/page/:page
-  param:        { module: dna_extraction, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-dna_extraction_search_pagination:
-  url:          dna_extraction/search/:criteria/page/:page
-  param:        { module: dna_extraction, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 dna_extraction_create_label:
   url:          dna_extraction/create_label/:id
@@ -375,21 +338,6 @@ patent_deposit_find_locations:
   param:  { module: patent_deposit, action: findLocations }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
 
-patent_deposit_search:
-  url:          patent_deposit/search/:criteria
-  param:        { module: patent_deposit, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
-patent_deposit_pagination:
-  url:          patent_deposit/page/:page
-  param:        { module: patent_deposit, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-patent_deposit_search_pagination:
-  url:          patent_deposit/search/:criteria/page/:page
-  param:        { module: patent_deposit, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
-
 patent_deposit_create_label:
   url:          patent_deposit/create_label
   param:        { module: patent_deposit, action: createLabel }
@@ -411,21 +359,6 @@ maintenance_deposit_find_locations:
   url:    maintenance_deposit/findLocations/:term
   param:  { module: maintenance_deposit, action: findLocations }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
-maintenance_deposit_search:
-  url:          maintenance_deposit/search/:criteria
-  param:        { module: maintenance_deposit, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
-maintenance_deposit_pagination:
-  url:          maintenance_deposit/page/:page
-  param:        { module: maintenance_deposit, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-maintenance_deposit_search_pagination:
-  url:          maintenance_deposit/search/:criteria/page/:page
-  param:        { module: maintenance_deposit, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 maintenance_deposit_create_label:
   url:          maintenance_deposit/create_label
@@ -736,23 +669,8 @@ report_generate:
 
 report:
   url:          /report/:subject
-  param:        { module: report, action: configure, subject: location }
-  requirements: { sf_method: [get], requirement: "(location)" }
-
-report_find_countries:
-  url:          /report/findCountries/:country
-  param:        { module: report, action: findCountries }
-  requirements: { sf_method: get, country: "[^/]+" }
-
-report_find_regions:
-  url:          /report/findRegions/:region
-  param:        { module: report, action: findRegions }
-  requirements: { sf_method: get, region: "[^/]+" }
-
-report_find_islands:
-  url:          /report/findIslands/:island
-  param:        { module: report, action: findIslands }
-  requirements: { sf_method: get, island: "[^/]+" }
+  param:        { module: report, action: configure, subject: maintenance }
+  requirements: { sf_method: [get], requirement: "(maintenance)" }
 
 report_find_strains:
   url:          /report/findStrains/:term

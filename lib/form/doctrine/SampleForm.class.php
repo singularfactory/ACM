@@ -35,12 +35,53 @@
  * @since 1.0
  */
 class SampleForm extends BaseSampleForm {
+	public static $sampleGroupByChoices = array(
+		0 => '',
+		'environment' => 'Environment',
+		'habitat' => 'Habitat',
+		'radiation' => 'Radiation',
+		'ph' => 'ph',
+		'conductivity' => 'Conductivity',
+		'temperature' => 'Temperature',
+		'salinity' => 'Salinity',
+		'altitude' => 'Altitude',
+		'location' => 'Location',
+	);
+
 	/**
 	 * Configure Sample form
 	 *
 	 * @return void
 	 */
 	public function configure() {
+		// Specific configuration for searching
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$sampleGroupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$sampleGroupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->getWidget('environment_id')->setOption('add_empty', true);
+			$this->getWidget('habitat_id')->setOption('add_empty', true);
+			$this->getWidget('radiation_id')->setOption('add_empty', true);
+
+			$this->setWidget('is_extremophile', new sfWidgetFormChoice(array(
+				'choices' => self::$booleanChoices,
+			)));
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+				'environment_id' => 'Limited to environment',
+				'habitat_id' => 'Limited to habitat',
+				'radiation_id' => 'Limited to radiation',
+				'is_extremophile' => 'Is extremophile?',
+				'location_details' => 'Location details',
+			));
+
+			return;
+		}
+
 		// Configure collection date format
 		$years = range(1990, date('Y'));
 		$this->setWidget('collection_date', new sfWidgetFormDate(array('format' => '%year%-%month%-%day%', 'years' => array_combine($years, $years))));

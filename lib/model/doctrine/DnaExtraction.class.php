@@ -60,7 +60,7 @@ class DnaExtraction extends BaseDnaExtraction {
 	}
 
 	public function getAliquots() {
-		if ( $aliquots = $this->_get('aliquots') ) {
+		if ($aliquots = $this->_get('aliquots')) {
 			return $aliquots;
 		}
 		return 0;
@@ -127,7 +127,7 @@ class DnaExtraction extends BaseDnaExtraction {
 	}
 
 	public function getFormattedArrivalDate() {
-		if ( $arrivalDate = $this->_get('arrival_date') ) {
+		if ($arrivalDate = $this->_get('arrival_date')) {
 			return $this->formatFriendlyDate($arrivalDate, false);
 		}
 

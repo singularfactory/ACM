@@ -27,11 +27,16 @@
 ?>
 <?php slot('main_header') ?>
 <span>All locations</span>
-<?php include_partial('global/search_box_header_action', array('route' => '@location_search?criteria=')) ?>
+<?php include_partial('global/search_box_header_action') ?>
 <?php include_partial('global/new_header_action', array('message' => 'Add a new location', 'route' => '@location_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'location', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'location')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="location_list">
 	<tbody>
 		<tr>
@@ -41,10 +46,11 @@
 			<th><?php echo link_to('Region', '@location?sort_column=Region.name&sort_direction='.$sortDirection) ?></th>
 			<th><?php echo link_to('Island', '@location?sort_column=Island.name&sort_direction='.$sortDirection) ?></th>
 			<th class="object_count">Samples</th>
+			<th class="object_count">Strains</th>
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $location): ?>
+		<?php foreach ($results as $location): ?>
 		<?php $locationId = $location->getId() ?>
 		<tr>
 			<?php $url = url_for('@location_show?id='.$locationId) ?>
@@ -53,6 +59,7 @@
 			<td class="region_name"><?php echo link_to($location->getRegion(), $url) ?></td>
 			<td class="island_name"><?php echo link_to(($location->getIslandId())?$location->getIsland():'-', $url) ?></td>
 			<td class="object_count"><?php echo link_to($location->getNbSamples(), $url) ?></td>
+			<td class="object_count"><?php echo link_to($location->getNbStrains(), $url) ?></td>
 
 			<td class="actions">
 				<?php echo link_to('Edit', '@location_edit?id='.$locationId) ?>

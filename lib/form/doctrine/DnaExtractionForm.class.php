@@ -29,14 +29,58 @@
 
 
 /**
- * DnaExtraction form.
+ * DnaExtraction form
  *
  * @package ACM.Lib.Form
- * @since 1.0
+ * @version 1.2
  */
 class DnaExtractionForm extends BaseDnaExtractionForm {
+	protected static $dnaExtractionGroupByChoices = array(
+		0 => '',
+		'extraction_kit' => 'Extraction kit',
+		'concentration' => 'Concentration',
+		'aliquots' => 'Number of aliquots',
+		'260_280_ratio' => '260:280 DNA quality ratio',
+		'260_230_ratio' => '260:230 DNA quality ratio',
+		'strain' => 'Strain',
+	);
 
+	/**
+	 * Configure DnaExtraction form
+	 *
+	 * @return void
+	 */
 	public function configure() {
+		// Skip the whole configuration if this a search form
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$dnaExtractionGroupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$dnaExtractionGroupByChoices), 'required' => false)));
+
+			$this->setWidget('strain_id', new sfWidgetFormInputText());
+			$this->setValidator('strain_id', new sfValidatorString(array('required' => false)));
+
+			$this->getWidget('extraction_kit_id')->setOption('add_empty', true);
+			$this->setValidator('extraction_kit_id', new sfValidatorDoctrineChoice(array('model' => 'ExtractionKit', 'required' => false)));
+
+			$this->getWidget('aliquots')->setAttribute('value', null);
+
+			$this->setValidator('aliquots', new sfValidatorString(array('max_length' => 40, 'required' => false)));
+			$this->setValidator('concentration', new sfValidatorString(array('max_length' => 40, 'required' => false)));
+			$this->setValidator('260_280_ratio', new sfValidatorString(array('max_length' => 40, 'required' => false)));
+			$this->setValidator('260_230_ratio', new sfValidatorString(array('max_length' => 40, 'required' => false)));
+
+			$this->widgetSchema->setLabels(array(
+				'strain_id' => 'BEA code',
+				'extraction_kit_id' => 'Limited to kit',
+				'aliquots' => 'Aliquots',
+				'concentration' => 'Concentration',
+				'260_280_ratio' => '260:280 ratio',
+				'260_230_ratio' => '260:230 ratio',
+			));
+
+			return;
+		}
+
 		// Configure strain code
 		$this->setWidget('strain_id', new sfWidgetFormInputHidden(array('default' => (int)StrainTable::getInstance()->getDefaultStrainId())));
 
@@ -78,5 +122,5 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		$this->widgetSchema->setHelp('260_280_ratio', 'Decimal value for quality ratio, e.g. 1.75');
 		$this->widgetSchema->setHelp('260_230_ratio', 'Decimal value for quality ratio, e.g. 1.75');
 		$this->widgetSchema->setHelp('is_public', 'Whether the DNA should be shown in public catalog or not');
-  }
+	}
 }

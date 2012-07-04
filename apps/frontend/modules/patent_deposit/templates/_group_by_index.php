@@ -1,7 +1,5 @@
 <?php
 /**
- * PatentDepositLabelForm class
- *
  * acm : Algae Culture Management (https://github.com/singularfactory/ACM)
  * Copyright 2012, Singular Factory <info@singularfactory.com>
  *
@@ -21,40 +19,23 @@
  * along with ACM.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright     Copyright 2012, Singular Factory <info@singularfactory.com>
- * @package       ACM.Lib.Form
- * @since         1.0
+ * @package       ACM.Frontend
+ * @since         1.2
  * @link          https://github.com/singularfactory/ACM
  * @license       GPLv3 License (http://www.gnu.org/licenses/gpl.txt)
  */
-
-/**
- * StrainLabel form
- *
- * @package ACM.Lib.Form
- * @since 1.0
- */
-class PatentDepositLabelForm extends LabelForm {
-	/**
-	 * Configures form for strain labels
-	 *
-	 * @return void
-	 */
-	public function configure() {
-		parent::configure();
-		$this->widgetSchema->setLabels(array(
-			'supervisor_id' => 'Supervisor',
-			'transfer_interval' => 'Transfer interval',
-			'genus_id' => 'Genus',
-			'is_axenic' => 'Is axenic?',
-			'culture_medium_id' => 'Culture medium',
-		));
-		$this->setup();
-	}
-
-	/**
-	 * Returns the name of form associated model
-	 */
-	public function getModelName() {
-		return 'PatentDeposit';
-	}
-}
+?>
+<table id="report_results_list">
+	<tbody>
+		<tr>
+			<th><?php echo sfInflector::camelize($groupBy) ?></th>
+			<th class="object_count">Deposits</th>
+		</tr>
+		<?php foreach ($results as $result): ?>
+		<tr>
+			<td><?php echo $result->value ?></td>
+			<td class="object_count"><?php echo $result->n_patent_deposits ?></td>
+		</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>
