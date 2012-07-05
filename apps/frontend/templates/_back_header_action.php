@@ -30,23 +30,21 @@
 	$pageNumber = null;
 	$url = $module;
 
-	if ( $text = $sf_user->getAttribute('search.criteria') ) {
+	if ($text = $sf_user->getAttribute('search.criteria')) {
 		$searchCriteria = "?criteria=$text";
 		$url = "{$module}_search";
 	}
 
-	if ( $page = $sf_user->getAttribute("$module.index_page") ) {
+	if ($page = $sf_user->getAttribute("$module.index_page")) {
 		$pageNumber = "page=$page";
 		if ( !$searchCriteria ) {
-			$pageNumber = "?$pageNumber";
-			$url = "{$module}_pagination";
-		}
-		else {
+			$pageNumber = "&$pageNumber";
+			$url = "module_pagination?module=$module";
+		} elseif (!in_array($model, array('location', 'sample', 'strain', 'dna_extraction', 'patent_deposit', 'maintenance_deposit'))) {
 			$pageNumber = "&$pageNumber";
 			$url = "{$module}_search_pagination";
 		}
 	}
-
 ?>
 
 <div id="main_header_action_back" class="main_header_action">
