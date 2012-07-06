@@ -47,7 +47,7 @@ class strainActions extends MyActions {
 				$query = StrainTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
 				$this->groupBy = $filters['group_by'];
 
-				if (in_array($this->groupBy, array('transfer_interval', 'is_epitype', 'is_axenic'))) {
+				if (in_array($this->groupBy, array('transfer_interval', 'is_epitype', 'is_axenic', 'deceased', 'is_public'))) {
 					$relatedAlias = $this->groupBy;
 					$relatedForeignKey = $this->groupBy;
 					$recursive = false;
@@ -65,7 +65,11 @@ class strainActions extends MyActions {
 
 				if ($recursive) {
 					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
-					$query = $query->addSelect('m.name as value');
+					if (in_array($this->groupBy, array('sample'))) {
+						$query = $query->addSelect('m.id as value');
+					} else {
+						$query = $query->addSelect('m.name as value');
+					}
 				} else {
 					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
 				}

@@ -35,7 +35,7 @@
 		</tr>
 		<?php foreach ($results as $result): ?>
 		<tr>
-			<td><?php echo $result->value ?></td>
+			<td><?php echo ($groupBy == 'sample') ? $result->getSample()->getCode() : $result->value ?></td>
 			<td class="object_count"><?php echo $result->n_strains ?></td>
 			<td class="object_count"><?php echo $result->n_dna_extractions ?></td>
 		</tr>

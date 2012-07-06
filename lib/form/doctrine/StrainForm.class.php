@@ -41,7 +41,7 @@ class StrainForm extends BaseStrainForm {
 		'genus' => 'Genus',
 		'species' => 'Species',
 		'authority' => 'Authority',
-		'maintenance_status' => 'Maintenance status',
+		'container' => 'Container',
 		'culture_medium' => 'Culture medium',
 		'transfer_interval' => 'Transfer interval',
 		'is_epitype' => 'Is epitype',
