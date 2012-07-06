@@ -79,6 +79,8 @@ class StrainForm extends BaseStrainForm {
 			$this->setValidator('maintenance_status_id', new sfValidatorDoctrineChoice(array('model' => 'MaintenanceStatus', 'required' => false)));
 			$this->setWidget('culture_medium_id', new sfWidgetFormDoctrineChoice(array('model' => 'CultureMedium', 'add_empty' => true)));
 			$this->setValidator('culture_medium_id', new sfValidatorDoctrineChoice(array('model' => 'CultureMedium', 'required' => false)));
+			$this->setWidget('property_id', new sfWidgetFormDoctrineChoice(array('model' => 'StrainProperty', 'add_empty' => true)));
+			$this->setValidator('property_id', new sfValidatorDoctrineChoice(array('model' => 'StrainProperty', 'required' => false)));
 
 			$this->widgetSchema->setLabels(array(
 				'id' => 'Code',
@@ -88,6 +90,7 @@ class StrainForm extends BaseStrainForm {
 				'authority_id' => 'Limited to authority',
 				'maintenance_status_id' => 'Limited to maintenance status',
 				'culture_medium_id' => 'Limited to culture medium',
+				'property_id' => 'Limited to property',
 			));
 
 			return;

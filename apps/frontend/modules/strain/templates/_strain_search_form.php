@@ -53,6 +53,10 @@
 	<?php echo $form['culture_medium_id']->renderLabel() ?>
 	<?php echo $form['culture_medium_id'] ?>
 </div>
+<div id="property">
+	<?php echo $form['property_id']->renderLabel() ?>
+	<?php echo $form['property_id'] ?>
+</div>
 <div id="transfer_interval">
 	<?php echo $form['transfer_interval']->renderLabel() ?>
 	<?php echo $form['transfer_interval'] ?>

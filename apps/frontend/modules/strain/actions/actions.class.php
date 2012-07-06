@@ -95,12 +95,27 @@ class strainActions extends MyActions {
 				}
 			}
 
-			foreach (array('maintenance_status_id', 'culture_medium_id') as $filter) {
+			foreach (array('maintenance_status_id', 'culture_medium_id', 'property_id') as $filter) {
 				if (!empty($filters[$filter])) {
-					$intermediateModel = ($filter == 'culture_medium_id') ? 'CultureMedia' : 'MaintenanceStatus';
+					$intermediateModel = '';
+					switch ($filter) {
+						case 'culture_medium_id':
+							$intermediateModel = 'CultureMedia';
+							break;
+						case 'maintenance_status_id':
+							$intermediateModel = 'MaintenanceStatus';
+							break;
+						case 'property_id':
+							$intermediateModel = 'Properties';
+							break;
+					}
 					$query = $query->andWhere("{$this->mainAlias()}.Strain$intermediateModel.{$filter} = ?", $filters[$filter]);
 
-					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					if ($filter === 'property_id') {
+						$table = 'StrainPropertyTable';
+					} else {
+						$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					}
 					$table = call_user_func(array($table, 'getInstance'));
 					$this->filters[$filter] = $table->find($filters[$filter])->getName();
 				}
