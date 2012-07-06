@@ -25,8 +25,9 @@
  */
 
 $(document).ready(function(){
-	$('a.display-filter-options').click(function(event){
-		event.preventDefault();
-		$('div.filter-options').toggle();
-	});
+  $('a.display-filter-options').click(function(event){
+    event.preventDefault();
+    $('div.filter-options').toggle();
+    $('div.filter-options input[type=text]:first').focus();
+  });
 });
