@@ -690,7 +690,7 @@ potential_usage_search:
   param:        { module: potential_usage, action: index }
   requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
 
-potentail_usage_pagination:
+potential_usage_pagination:
   url:          potential_usage/page/:page
   param:        { module: potential_usage, action: index, page: 1 }
   requirements: { page: \d+ }
@@ -706,13 +706,13 @@ potential_usage_search_pagination:
 module_full_index:
   url:          /:module/all
   param:        { module: strain, action: index, all: true }
-  requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary" }
+  requirements: { module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary|potential_usage" }
 
 module_full_index_search:
   url:          /:module/all/search/:criteria
   param:        { module: strain, action: index, all: true }
   requirements:
-    module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary|external_strain"
+    module: "location|sample|strain|culture_medium|dna_extraction|project|patent_deposit|maintenance_deposit|isolation|purchase_order|cryopreservation|identification|glossary|external_strain|potential_usage"
     criteria:  "[^/]*" # Search pattern is optional, by default all results are shown
 
 homepage:
