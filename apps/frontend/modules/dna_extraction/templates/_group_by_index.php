@@ -34,7 +34,17 @@
 		</tr>
 		<?php foreach ($results as $record): ?>
 		<tr>
-			<td><?php echo ($groupBy == 'strain') ? $record->getStrain()->getFullCode() : $record->value ?></td>
+			<td>
+				<?php
+				if ($groupBy == 'strain') {
+					echo $record->getStrain()->getFullCode();
+				} elseif ($groupBy == 'extraction_kit') {
+					echo $record->getExtractionKit()->getName();
+				} else {
+					echo $record->value;
+				}
+				?>
+			</td>
 			<td class="object_count"><?php echo $record->n_dna_extractions ?></td>
 		</tr>
 		<?php endforeach ?>

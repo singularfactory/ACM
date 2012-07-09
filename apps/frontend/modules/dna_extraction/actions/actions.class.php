@@ -76,15 +76,23 @@ class dna_extractionActions extends MyActions {
 			$query = $query
 				->leftJoin("{$this->mainAlias()}.Strain s")
 				->leftJoin("{$this->mainAlias()}.ExtractionKit c")
-				->leftJoin("{$this->mainAlias()}.Pcr p")
 				->leftJoin("s.TaxonomicClass tc")
 				->leftJoin("s.Genus g")
 				->leftJoin("s.Species sp")
 				->where('1=1');
 
-			foreach (array('extraction_kit_id') as $filter) {
+			if (!empty($filters['strain_id'])) {
+				$this->filters['BEA code'] = $filters['strain_id'];
+				preg_match('/^\s*[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?\s*_?(\d*).*$/', $filters['strain_id'], $matches);
+				if (isset($matches[1])) {
+					$id = ltrim($matches[1], '0');
+					$query = $query->andWhere("s.code = ?", $id);
+				}
+			}
+
+			foreach (array('taxonomic_class_id', 'genus_id') as $filter) {
 				if (!empty($filters[$filter])) {
-					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+					$query = $query->andWhere("s.$filter = ?", $filters[$filter]);
 
 					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
 					$table = call_user_func(array($table, 'getInstance'));
@@ -92,31 +100,47 @@ class dna_extractionActions extends MyActions {
 				}
 			}
 
-			if (!empty($filters['aliquots'])) {
-				$this->filters['Aliquots'] = $filters['aliquots'];
-				$query = $query->andWhere("{$this->mainAlias()}.aliquots = ?", $filters['aliquots']);
+			if (!empty($filters['aliquots']) && $filters['aliquots'] > 0) {
+				if ($filters['aliquots'] == 1) {
+					$this->filters['Aliquots'] = 'no';
+					$query = $query->andWhere("({$this->mainAlias()}.aliquots = 0 OR {$this->mainAlias()}.aliquots IS NULL)");
+				} else {
+					$this->filters['Aliquots'] = 'yes';
+					$query = $query->andWhere("{$this->mainAlias()}.aliquots > 0");
+				}
 			}
 
-			if (!empty($filters['concentration'])) {
-				$this->filters['Concentration'] = $filters['concentration'];
-				$query = $query->andWhere("{$this->mainAlias()}.concentration = ?", $filters['concentration']);
+			switch ($filters['pcr']) {
+			case 0:
+			default:
+				$query = $query->leftJoin("{$this->mainAlias()}.Pcr p");
+				break;
+			case 1:
+				$this->filters['PCR'] = 'no';
+				$query = $query->leftJoin("{$this->mainAlias()}.Pcr p")->andWhere('p.id IS NULL');
+				break;
+			case 2:
+				$this->filters['PCR'] = 'yes';
+				$query = $query->innerJoin("{$this->mainAlias()}.Pcr p");
+				break;
 			}
 
-			if (!empty($filters['260_280_ratio'])) {
-				$this->filters['260:280 ration'] = $filters['260_280_ratio'];
-				$query = $query->andWhere("{$this->mainAlias()}.260_280_ratio = ?", $filters['260_280_ratio']);
+			switch ($filters['dna_sequence']) {
+			case 0:
+			default:
+				$query = $query->leftJoin("p.Sequence seq");
+				break;
+			case 1:
+				$this->filters['DNA sequence'] = 'no';
+				$query = $query->leftJoin("p.Sequence seq")->andWhere('seq.id IS NULL');
+				break;
+			case 2:
+				$this->filters['DNA sequence'] = 'yes';
+				$query = $query->innerJoin("p.Sequence seq");
+				break;
 			}
 
-			if (!empty($filters['260_230_ratio'])) {
-				$this->filters['260:230 ration'] = $filters['260_230_ratio'];
-				$query = $query->andWhere("{$this->mainAlias()}.260_230_ratio = ?", $filters['260_230_ratio']);
-			}
-
-			if (!empty($filters['strain_id'])) {
-				$this->filters['BEA code'] = $filters['strain_id'];
-				preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $filters['strain_id'], $matches);
-				$query = $query->andWhere("{$this->mainAlias()}.strain_id = ?", $matches[1]);
-			}
+			$query = $query->distinct();
 		} else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strain s")

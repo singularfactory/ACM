@@ -35,7 +35,7 @@
  * @version 1.2
  */
 class DnaExtractionForm extends BaseDnaExtractionForm {
-	protected static $dnaExtractionGroupByChoices = array(
+	protected static $groupByChoices = array(
 		0 => '',
 		'extraction_kit' => 'Extraction kit',
 		'concentration' => 'Concentration',
@@ -53,29 +53,28 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 	public function configure() {
 		// Skip the whole configuration if this a search form
 		if ($this->getOption('search')) {
-			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$dnaExtractionGroupByChoices)));
-			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$dnaExtractionGroupByChoices), 'required' => false)));
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
 
 			$this->setWidget('strain_id', new sfWidgetFormInputText());
 			$this->setValidator('strain_id', new sfValidatorString(array('required' => false)));
 
-			$this->getWidget('extraction_kit_id')->setOption('add_empty', true);
-			$this->setValidator('extraction_kit_id', new sfValidatorDoctrineChoice(array('model' => 'ExtractionKit', 'required' => false)));
+			$this->setWidget('taxonomic_class_id', new sfWidgetFormDoctrineChoice(array('model' => 'TaxonomicClass', 'add_empty' => true)));
+			$this->setValidator('taxonomic_class_id', new sfValidatorDoctrineChoice(array('model' => 'TaxonomicClass', 'required' => false)));
+			$this->setWidget('genus_id', new sfWidgetFormDoctrineChoice(array('model' => 'Genus', 'add_empty' => true)));
+			$this->setValidator('genus_id', new sfValidatorDoctrineChoice(array('model' => 'Genus', 'required' => false)));
 
-			$this->getWidget('aliquots')->setAttribute('value', null);
-
-			$this->setValidator('aliquots', new sfValidatorString(array('max_length' => 40, 'required' => false)));
-			$this->setValidator('concentration', new sfValidatorString(array('max_length' => 40, 'required' => false)));
-			$this->setValidator('260_280_ratio', new sfValidatorString(array('max_length' => 40, 'required' => false)));
-			$this->setValidator('260_230_ratio', new sfValidatorString(array('max_length' => 40, 'required' => false)));
+			$this->setWidget('aliquots', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+			$this->setWidget('pcr', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+			$this->setWidget('dna_sequence', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
 
 			$this->widgetSchema->setLabels(array(
 				'strain_id' => 'BEA code',
-				'extraction_kit_id' => 'Limited to kit',
-				'aliquots' => 'Aliquots',
-				'concentration' => 'Concentration',
-				'260_280_ratio' => '260:280 ratio',
-				'260_230_ratio' => '260:230 ratio',
+				'taxonomic_class_id' => 'Limited to taxonomic class',
+				'genus_id' => 'Limited to genus',
+				'aliquots' => 'Has aliquots',
+				'pcr' => 'PCR tests',
+				'dna_sequence' => 'DNA sequences',
 			));
 
 			return;
