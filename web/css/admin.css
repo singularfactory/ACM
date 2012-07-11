@@ -256,3 +256,8 @@ form { margin: 0; padding: 0; }
 #sf_admin_container div.sf_admin_form_field_Steps table table tr { border-bottom: 1px solid #DDD; }
 #sf_admin_container div.sf_admin_form_field_Steps td p.input_help { display: none; }
 #sf_admin_container div.sf_admin_form_field_Steps tr:hover{ background: #ffffff; }
+
+
+#sf_admin_container div.sf_admin_form_row.sf_admin_form_field_strains_list {
+	display: none;
+}

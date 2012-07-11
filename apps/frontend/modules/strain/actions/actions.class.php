@@ -348,6 +348,7 @@ class strainActions extends MyActions {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::PUT));
 		$this->forward404Unless($strain = StrainTable::getInstance()->find(array($request->getParameter('id'))), sprintf('Object strain does not exist (%s).', $request->getParameter('id')));
 		$this->form = new StrainForm($strain);
+		$this->sampleCode = $strain->getSample()->getCode();
 
 		$this->processForm($request, $this->form);
 
@@ -413,12 +414,16 @@ class strainActions extends MyActions {
 
 			$nValidTests = count($validTests);
 			if ( $nValidTests == 0 ) {
-				//unset($taintedValues['new_AxenityTests']);
 				$taintedValues['new_AxenityTests'] = array();
 			}
 			else if ( $nValidTests > 0 && $nValidTests < count($taintedValues['new_AxenityTests']) ) {
 				$taintedValues['new_AxenityTests'] = $validTests;
 			}
+		}
+
+		// Unset pictures if values are empty
+		if (!isset($taintedValues['new_Pictures'])) {
+			$taintedValues['new_Pictures'] = array();
 		}
 
 		// Bind input fields with files uploaded
@@ -427,7 +432,7 @@ class strainActions extends MyActions {
 		// Count files uploaded in form
 		$uploadedFiles = $request->getFiles();
 		$nbValidFiles = 0;
-		if ( $uploadedFiles['strain']['new_Pictures'] ) {
+		if (isset($uploadedFiles['strain']['new_Pictures'])) {
 			foreach ( $uploadedFiles['strain']['new_Pictures'] as $file ) {
 				if ( !empty($file['filename']['name']) ) {
 					$nbValidFiles += 1;
@@ -437,8 +442,8 @@ class strainActions extends MyActions {
 		$nbFiles = $form->getObject()->getNbPictures() + $nbValidFiles;
 
 		// Validate form
+		$message = null;
 		if ($form->isValid() && $nbFiles <= sfConfig::get('app_max_strain_pictures')) {
-			$message = null;
 			$url = null;
 			$isNew = $form->getObject()->isNew();
 

@@ -25,8 +25,7 @@ generator:
         sort: ~
       filter:
         display: [name]
-      form:
-        display: [name, is_public]
-      edit:    ~
+      form:  ~
+      edit:  ~
       new:
         title: Add a new property
