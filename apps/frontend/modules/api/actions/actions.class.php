@@ -734,8 +734,10 @@ class apiActions extends GreenhouseAPI {
 			$record['usage_targets'] = array_unique($record['usage_targets']);
 
 			// Get properties of this strain
-			foreach ( $strain->getProperties() as $property ) {
-				$record['properties'][] = $property->getId();
+			foreach ($strain->getProperties() as $property) {
+				if ($property->getIsPublic()) {
+					$record['properties'][] = $property->getId();
+				}
 			}
 
 			$catalog['strain'][$strain->getId()] = $record;
