@@ -35,8 +35,29 @@
  * @since 1.0
  */
 class CultureMediumForm extends BaseCultureMediumForm {
+	public static $groupByChoices = array(
+		0 => '',
+		'is_public' => 'Is public',
+	);
 
 	public function configure() {
+		// Skip the whole configuration if this a search form
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->setWidget('is_public', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+			));
+
+			return;
+		}
+
 		$this->setWidget('description', new sfWidgetFormInputFile());
 		$this->setValidator('description', new sfValidatorFile(array(
 			'max_size' => sfConfig::get('app_max_document_size'),
@@ -44,13 +65,13 @@ class CultureMediumForm extends BaseCultureMediumForm {
 			'path' => sfConfig::get('sf_upload_dir').sfConfig::get('app_culture_media_dir'),
 			'required' => false,
 			'validated_file_class' => 'myDocument',
-			),
-			array(
-				'invalid' => 'Invalid file',
-				'required' => 'Select a file to upload',
-				'mime_types' => 'The file must be a supported type',
-			)
-		));
+		),
+		array(
+			'invalid' => 'Invalid file',
+			'required' => 'Select a file to upload',
+			'mime_types' => 'The file must be a supported type',
+		)
+	));
 
 		$this->widgetSchema->setHelp('name', 'Name of this culture medium');
 		$this->widgetSchema->setHelp('description', 'Enclosed document with the details of this culture medium');

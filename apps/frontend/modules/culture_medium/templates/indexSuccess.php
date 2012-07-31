@@ -29,11 +29,16 @@
 
 <?php slot('main_header') ?>
 <span>All culture media</span>
-<?php include_partial('global/search_box_header_action', array('route' => '@culture_medium_search?criteria=')) ?>
+<?php include_partial('global/search_box_header_action') ?>
 <?php include_partial('global/new_header_action', array('message' => 'Add a new culture medium', 'route' => '@culture_medium_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'culture_medium', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'culture_medium')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="culture_medium_list">
 	<tbody>
 		<tr>
@@ -47,7 +52,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $cultureMedium): ?>
+		<?php foreach ($results as $cultureMedium): ?>
 		<tr>
 			<?php $url = url_for('@culture_medium_show?id='.$cultureMedium->getId()) ?>
 			<td class="culture_medium_code"><?php echo link_to($cultureMedium->getCode(), $url) ?></td>

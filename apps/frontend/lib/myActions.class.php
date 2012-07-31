@@ -269,6 +269,25 @@ class MyActions extends sfActions {
 					}
 				}
 				break;
+
+			case 'culture_medium':
+				$csv->setHeader(array('Code', 'Name', 'Link', 'Is public?', 'Strains'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'id') {
+							preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*\-?\s*[cC]?\s*[mM]?\s*$/', $value, $matches);
+							$query = $query->andWhere("m.id = ?", $matches[1]);
+						} elseif (in_array($filter, array('is_public'))) {
+							if ($value >= 0) {
+								$query = $query->andWhere("m.$filter = ?", $value - 1);
+							}
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+
+				break;
 		}
 
 		$data = array();
@@ -307,6 +326,10 @@ class MyActions extends sfActions {
 						$row->getCode(), $row->getDepositor(), $row->getDepositionDate(),
 						$row->getIsBlend() ? 'blend' : sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
 					);
+					break;
+				case 'culture_medium':
+					$csv->setHeader(array('Code', 'Name', 'Link', 'Is public?', 'Strains'));
+					$data[] = array($row->getCode(), $row->getName(), $row->getLink(), $row->getFormattedIsPublic(),$row->getNbStrains());
 					break;
 			}
 		}

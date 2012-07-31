@@ -20,17 +20,17 @@ region_find_islands:
 module_search:
   url:  :module/search
   param: { module: location, action: index }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium)" }
 
 module_pagination:
   url:  :module/page/:page
   param:  { module: location, action: index, page: 1 }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)", page: \d+ }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium)", page: \d+ }
 
 module_export_search:
   url:  :module/search/export
   param:  { module: location, action: exportIndexAsCsv }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium)" }
 
 ###
 # Location model related routes
@@ -113,21 +113,6 @@ strain_create_label_get_field:
 culture_medium:
   class:   sfDoctrineRouteCollection
   options: { model: CultureMedium }
-
-culture_medium_search:
-  url:          culture_medium/search/:criteria
-  param:        { module: culture_medium, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
-culture_medium_pagination:
-  url:          culture_medium/page/:page
-  param:        { module: culture_medium, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-culture_medium_search_pagination:
-  url:          culture_medium/search/:criteria/page/:page
-  param:        { module: culture_medium, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 ###
 # DnaExtraction model related routes

@@ -26,43 +26,74 @@
  */
 
 /**
- * culture_medium actions.
+ * culture_medium actions
  *
  * @package ACM.Frontend
  * @subpackage culture_medium
+ * @version 1.2
  */
 class culture_mediumActions extends MyActions {
-
+	/**
+	 * Index action
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'CultureMedium', array('init' => false, 'sort_column' => 'id'));
+		$filters = $this->_processFilterConditions($request, 'culture_medium');
 
-		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.Strains s")
-				->where("{$this->mainAlias()}.name LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.description LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.link LIKE ?", "%$text%");
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = CultureMediumTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
+				if (in_array($this->groupBy, array('is_public'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_culture_media")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey")
+					->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query->leftJoin("{$this->mainAlias()}.Strains s");
+			if (!empty($filters['is_public']) && $filters['is_public'] > 0) {
+				$this->filters['Public'] = ($filters['is_public'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_public = ?", ($filters['is_public'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['name'])) {
+				$this->filters['Name'] = $filters['name'];
+				$query = $query->andWhere("{$this->mainAlias()}.name LIKE ?", sprintf('%%%s%%', $filters['name']));
+			}
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*\-?\s*[cC]?\s*[mM]?\s*$/', $filters['id'], $matches);
+				$query = $query->andWhere("{$this->mainAlias()}.id = ?", $matches[1]);
+			}
 		}
 		else {
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.Strains s");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
 
-		$this->pager->setQuery($query);
-		$this->pager->init();
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('culture_medium.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new CultureMediumForm();
+		$this->form = new CultureMediumForm(array(), array('search' => true));
 	}
 
 	public function executeShow(sfWebRequest $request) {
