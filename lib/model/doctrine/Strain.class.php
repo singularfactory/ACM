@@ -426,6 +426,11 @@ class Strain extends BaseStrain {
 			$query = $query->andWhere('s.species_id IS NULL');
 		}
 
-		return $query->fetchOne()->getPotentialUsages();
+		$taxonomy = $query->fetchOne();
+		if ($taxonomy) {
+			return $taxonomy->getPotentialUsages();
+		} else {
+			return array();
+		}
 	}
 }

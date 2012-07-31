@@ -727,8 +727,8 @@ class apiActions extends GreenhouseAPI {
 
 			// Get potential applications of this strain
 			foreach ($strain->getPotentialUsages() as $potentialUsage) {
-				$record['usage_areas'][] = $potentialUsage->getStrainUsage()->getUsageArea()->getId();
-				$record['usage_targets'][] = $potentialUsage->getStrainUsage()->getUsageTarget()->getId();
+				$record['usage_areas'][] = $potentialUsage->getUsageArea()->getId();
+				$record['usage_targets'][] = $potentialUsage->getUsageTarget()->getId();
 			}
 			$record['usage_areas'] = array_unique($record['usage_areas']);
 			$record['usage_targets'] = array_unique($record['usage_targets']);
