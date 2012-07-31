@@ -68,13 +68,15 @@ abstract class BaseUsageAreaUsageTargets extends sfDoctrineRecord
              'local' => 'usage_area_id',
              'foreign' => 'id',
              'onDelete' => 'cascade',
-             'onUpdate' => 'cascade'));
+             'onUpdate' => 'cascade',
+             'orderBy' => 'name'));
 
         $this->hasOne('UsageTarget', array(
              'local' => 'usage_target_id',
              'foreign' => 'id',
              'onDelete' => 'cascade',
-             'onUpdate' => 'cascade'));
+             'onUpdate' => 'cascade',
+             'orderBy' => 'name'));
 
         $this->hasMany('StrainTaxonomy as StrainTaxonomies', array(
              'refClass' => 'PotentialUsages',

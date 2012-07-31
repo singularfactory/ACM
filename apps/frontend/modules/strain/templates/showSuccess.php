@@ -268,14 +268,13 @@
 			<h2>Potential applications</h2>
 			<table>
 				<tr>
-					<th class="usage_target_name">Area</th>
 					<th class="usage_target_name">Application</th>
+					<th class="usage_target_name">Area</th>
 				</tr>
 				<?php foreach ($strain->getPotentialUsages() as $potentialUsage): ?>
-					<?php $url = '@potential_usage_show?id='.$potentialUsage->getStrainTaxonomy()->getId() ?>
 					<tr>
-						<td class="usage_target_name"><?php echo link_to($potentialUsage->getStrainUsage()->getUsageArea()->getName(), $url) ?></td>
-						<td class="usage_target_name"><?php echo link_to($potentialUsage->getStrainUsage()->getUsageTarget()->getName(), $url) ?></td>
+						<td class="usage_target_name"><?php echo $potentialUsage->getUsageTarget()->getName() ?></td>
+						<td class="usage_target_name"><?php echo $potentialUsage->getUsageArea()->getName() ?></td>
 					</tr>
 				<?php endforeach ?>
 			</table>

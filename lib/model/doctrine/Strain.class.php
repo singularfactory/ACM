@@ -107,12 +107,18 @@ class Strain extends BaseStrain {
 	}
 
 	public function getNbPotentialUsages() {
-		return PotentialUsagesTable::getInstance()->createQuery('p')
-			->leftJoin('p.StrainTaxonomy t')
-			->where('t.taxonomic_class_id = ?', $this->getTaxonomicClassId())
-			->andWhere('t.genus_id = ?', $this->getGenusId())
-			->andWhere('t.species_id = ?', $this->getSpeciesId())
-			->count();
+		$query = StrainTaxonomyTable::getInstance()->createQuery('s')
+			->distinct()
+			->where('s.taxonomic_class_id = ?', $this->getTaxonomicClassId())
+			->andWhere('s.genus_id = ?', $this->getGenusId());
+
+		$species = $this->getSpeciesId();
+		if ($species != null) {
+			$query = $query->andWhere('s.species_id = ?', $this->getSpeciesId());
+		} else {
+			$query = $query->andWhere('s.species_id IS NULL');
+		}
+		return $query->count();
 	}
 
 	public function getNbIsolations() {
@@ -409,11 +415,17 @@ class Strain extends BaseStrain {
 	}
 
 	public function getPotentialUsages() {
-		return PotentialUsagesTable::getInstance()->createQuery('p')
-			->leftJoin('p.StrainTaxonomy t')
-			->where('t.taxonomic_class_id = ?', $this->getTaxonomicClassId())
-			->where('t.genus_id = ?', $this->getGenusId())
-			->where('t.species_id = ?', $this->getSpeciesId())
-			->execute();
+		$query = StrainTaxonomyTable::getInstance()->createQuery('s')
+			->where('s.taxonomic_class_id = ?', $this->getTaxonomicClassId())
+			->where('s.genus_id = ?', $this->getGenusId());
+
+		$species = $this->getSpeciesId();
+		if ($species != null) {
+			$query = $query->andWhere('s.species_id = ?', $this->getSpeciesId());
+		} else {
+			$query = $query->andWhere('s.species_id IS NULL');
+		}
+
+		return $query->fetchOne()->getPotentialUsages();
 	}
 }

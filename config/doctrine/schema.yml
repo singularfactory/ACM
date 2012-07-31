@@ -1221,8 +1221,8 @@ UsageAreaUsageTargets:
     usage_area_id:  { type: integer, notnull: true }
     usage_target_id:  { type: integer, notnull: true }
   relations:
-    UsageArea:  { onDelete: cascade, onUpdate: cascade }
-    UsageTarget:  { onDelete: cascade, onUpdate: cascade }
+    UsageArea:  { onDelete: cascade, onUpdate: cascade, orderBy: name }
+    UsageTarget:  { onDelete: cascade, onUpdate: cascade, orderBy: name }
     StrainTaxonomies: { foreignAlias: StrainTaxonomies, class: StrainTaxonomy, local: usage_id, foreign: strain_taxonomy_id, refClass: PotentialUsages }
   indexes:
     unique_usage:  { fields: [usage_area_id, usage_target_id], type: unique }
