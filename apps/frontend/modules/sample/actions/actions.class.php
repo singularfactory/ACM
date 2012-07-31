@@ -98,7 +98,7 @@ class sampleActions extends MyActions {
 
 			if (!empty($filters['location_details'])) {
 				$this->filters['Location details'] = $filters['location_details'];
-				$query = $query->andWhere("{$this->mainAlias()}.locations_details LIKE ?", "%{$filters['location_details']}%");
+				$query = $query->andWhere("{$this->mainAlias()}.location_details LIKE ?", "%{$filters['location_details']}%");
 			}
 
 			if (!empty($filters['id'])) {
