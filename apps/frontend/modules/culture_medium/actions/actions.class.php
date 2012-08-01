@@ -59,7 +59,7 @@ class culture_mediumActions extends MyActions {
 				$query = $this->pager->getQuery();
 			}
 
-			$query = $query->leftJoin("{$this->mainAlias()}.Strains s");
+			$query = $query->leftJoin("{$this->mainAlias()}.Strains s")->where('1=1');
 			if (!empty($filters['is_public']) && $filters['is_public'] > 0) {
 				$this->filters['Public'] = ($filters['is_public'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.is_public = ?", ($filters['is_public'] == 1) ? 0 : 1);

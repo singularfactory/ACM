@@ -970,7 +970,9 @@ $(document).ready(function(){
 
 	// Change the Cryopreservation form on demand
 	$("#cryopreservation_subject").change(function(){
-		location.href = $('a.cryopreservation_subject_url').attr('href') + $(this).attr('value');
+		if (!$(this).parent('div').hasClass('search')) {
+			location.href = $('a.cryopreservation_subject_url').attr('href') + $(this).attr('value');
+		}
 	});
 
 

@@ -32,13 +32,45 @@
  * @subpackage cryopreservation
  */
 class cryopreservationActions extends MyActions {
+	/**
+	 * Index action
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Cryopreservation', array('init' => false, 'sort_column' => 'id'));
+		$filters = $this->_processFilterConditions($request, 'cryopreservation');
 
-		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = CryopreservationTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				if (in_array($this->groupBy, array('subject'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$recursive = false;
+				} else {
+					$relatedAlias = sfInflector::camelize($this->groupBy);
+					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+					$recursive = true;
+				}
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_cryopreservations")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				if ($recursive) {
+					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+					$query = $query->addSelect('m.name as value');
+				} else {
+					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.Strain st")
 				->leftJoin("{$this->mainAlias()}.ExternalStrain est")
 				->leftJoin("{$this->mainAlias()}.Sample sa")
@@ -51,35 +83,44 @@ class cryopreservationActions extends MyActions {
 				->leftJoin("est.TaxonomicClass etc")
 				->leftJoin("est.Genus eg")
 				->leftJoin("est.Species esp")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.remarks LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.cryopreservation_date LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.revival_date LIKE ?", "%$text%")
-				->orWhere('tc.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('etc.name LIKE ?', "%$text%")
-				->orWhere('eg.name LIKE ?', "%$text%")
-				->orWhere('esp.name LIKE ?', "%$text%")
-				->orWhere('st.id LIKE ?', "%$text%")
-				->orWhere('sa.id LIKE ?', "%$text%")
-				->orWhere('cm.name LIKE ?', "%$text%");
+				->leftJoin("pd.TaxonomicClass ptc")
+				->leftJoin("pd.Genus pg")
+				->leftJoin("pd.Species psp")
+				->leftJoin("md.TaxonomicClass mtc")
+				->leftJoin("md.Genus mg")
+				->leftJoin("md.Species msp")
+				->where('1=1');
 
-			// Parse search term to catch strain codes
-			if ( preg_match('/([Bb][Ee][Aa])?\s*(\d{1,4})\s*[Bb]?/', $text, $matches) ) {
-				$query = $query->orWhere("st.code = ?", (int)$matches[2]);
-			}
-			else {
-				$query = $query->orWhere("st.code LIKE ?", "%$text%");
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("st.$filter = ? OR est.$filter = ? OR pd.$filter = ? OR md.$filter = ?", array_fill(0, 4, $filters[$filter]));
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
 			}
 
-			// Parse search term to catch sample codes
-			if ( preg_match('/0*(\d+)(\w{1,3})_?(\w{1,3})?(\w{1,3}|00)?(\d{2,6})?/', $text, $matches) ) {
-				$query = $query->orWhere("sa.id = ?", (int)$matches[1]);
+			foreach (array('cryopreservation_method_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
 			}
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
+			if (!empty($filters['subject'])) {
+				$this->filters['Subject'] = $filters['subject'];
+				$query = $query->andWhere("{$this->mainAlias()}.subject LIKE ?", sprintf('%%%s%%', $filters['subject']));
+			}
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $filters['id'], $matches);
+				$query = $query->andWhere("(st.code = ? OR est.$filter = ? OR pd.$filter = ? OR md.$filter = ?)", $filters[$filter], $filters[$filter], $filters[$filter], $filters[$filter]);
+			}
 		}
 		else {
 			$query = $this->pager->getQuery()
@@ -93,18 +134,28 @@ class cryopreservationActions extends MyActions {
 				->leftJoin("st.Species sp")
 				->leftJoin("est.TaxonomicClass etc")
 				->leftJoin("est.Genus eg")
-				->leftJoin("est.Species esp");
-
-			$this->getUser()->setAttribute('search.criteria', null);
+				->leftJoin("est.Species esp")
+				->leftJoin("pd.TaxonomicClass ptc")
+				->leftJoin("pd.Genus pg")
+				->leftJoin("pd.Species psp")
+				->leftJoin("md.TaxonomicClass mtc")
+				->leftJoin("md.Genus mg")
+				->leftJoin("md.Species msp");
 		}
-		$this->pager->setQuery($query);
-		$this->pager->init();
+
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('cryopreservation.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new CryopreservationForm();
+		$this->form = new CryopreservationForm(array(), array('search' => true));
 	}
 
 	public function executeShow(sfWebRequest $request) {

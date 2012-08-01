@@ -286,7 +286,20 @@ class MyActions extends sfActions {
 						}
 					}
 				}
+				break;
 
+			case 'cryopreservation':
+				$csv->setHeader(array('Code', 'Subject', 'Class', 'Genus', 'Date', 'Method'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'id') {
+							preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*\-?\s*[cC]?\s*[mM]?\s*$/', $value, $matches);
+							$query = $query->andWhere("m.id = ?", $matches[1]);
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
 				break;
 		}
 
@@ -328,8 +341,46 @@ class MyActions extends sfActions {
 					);
 					break;
 				case 'culture_medium':
-					$csv->setHeader(array('Code', 'Name', 'Link', 'Is public?', 'Strains'));
-					$data[] = array($row->getCode(), $row->getName(), $row->getLink(), $row->getFormattedIsPublic(),$row->getNbStrains());
+					$data[] = array($row->getCode(), $row->getName(), $row->getLink(), $row->getFormattedIsPublic(), $row->getNbStrains());
+					break;
+				case 'cryopreservation':
+					$code = '' ;
+					$taxonomicClass = sfConfig::get('app_no_data_message') ;
+					$genusAndSpecies = sfConfig::get('app_no_data_message') ;
+					$subject = $row->getSubject() ;
+
+					if ($row->getSubject() == 'sample') {
+						$code = $row->getSample()->getCode() ;
+					}
+					elseif ($row->getSubject() == 'strain') {
+						$strain = $row->getStrain() ;
+						$code = $strain->getFullCode() ;
+						$taxonomicClass = $strain->getTaxonomicClass() ;
+						$genusAndSpecies = $strain->getGenusAndSpecies() ;
+					}
+					elseif ($row->getSubject() == 'external_strain') {
+						$subject = 'research_collection' ;
+						$externalStrain = $row->getExternalStrain() ;
+						$code = $externalStrain->getFullCode() ;
+						$taxonomicClass = $externalStrain->getTaxonomicClass() ;
+						$genusAndSpecies = $externalStrain->getGenusAndSpecies() ;
+					}
+					elseif ($row->getSubject() == 'patent_deposit') {
+						$subject = 'patent_deposit' ;
+						$patentDeposit = $row->getPatentDeposit() ;
+						$code = $patentDeposit->getCode() ;
+						$taxonomicClass = $patentDeposit->getTaxonomicClass() ;
+						$genusAndSpecies = $patentDeposit->getGenusAndSpecies() ;
+					}
+					elseif ($row->getSubject() == 'maintenance_deposit') {
+						$subject = 'maintenance_deposit' ;
+						$maintenanceDeposit = $row->getMaintenanceDeposit() ;
+						$code = $maintenanceDeposit->getCode() ;
+						$taxonomicClass = $maintenanceDeposit->getTaxonomicClass() ;
+						$genusAndSpecies = $maintenanceDeposit->getGenusAndSpecies() ;
+					}
+
+					$data[] = array($code, $subject, $taxonomicClass, $genusAndSpecies, $row->getCryopreservationDate(), $row->getCryopreservationMethod()->getName());
 					break;
 			}
 		}

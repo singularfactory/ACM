@@ -35,7 +35,57 @@
  * @since 1.0
  */
 class CryopreservationForm extends BaseCryopreservationForm {
+	public static $groupByChoices = array(
+		0 => '',
+		'subject' => 'Subject',
+		'cryopreservation_method' => 'Cryopreservation method',
+	);
+
+	public static $subjectChoices = array(
+		'sample' => 'sample',
+		'strain' => 'strain',
+		'external_strain' => 'research collection',
+		'patent_deposit' => 'patent deposit',
+		'maintenance_deposit' => 'maintenance deposit',
+	);
+
+	/**
+	 * Configure Cryopreservation form
+	 *
+	 * @return void
+	 */
 	public function configure(){
+		// Skip the whole configuration if this a search form
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->setWidget('taxonomic_class_id', new sfWidgetFormDoctrineChoice(array('model' => 'TaxonomicClass', 'add_empty' => true)));
+			$this->setValidator('taxonomic_class_id', new sfValidatorDoctrineChoice(array('model' => 'TaxonomicClass', 'required' => false)));
+			$this->setWidget('genus_id', new sfWidgetFormDoctrineChoice(array('model' => 'Genus', 'add_empty' => true)));
+			$this->setValidator('genus_id', new sfValidatorDoctrineChoice(array('model' => 'Genus', 'required' => false)));
+			$this->setWidget('species_id', new sfWidgetFormDoctrineChoice(array('model' => 'Species', 'add_empty' => true)));
+			$this->setValidator('species_id', new sfValidatorDoctrineChoice(array('model' => 'Species', 'required' => false)));
+
+			$this->getWidget('cryopreservation_method_id')->setOption('add_empty', true);
+
+			$subjectChoices = array(0 => '') + self::$subjectChoices;
+			$this->setWidget('subject', new sfWidgetFormChoice(array('choices' => $subjectChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys($subjectChoices), 'required' => false)));
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+				'taxonomic_class_id' => 'Limited to class',
+				'genus_id' => 'Limited to genus',
+				'species_id' => 'Limited to species',
+				'cryopreservation_method_id' => 'Limited to method',
+			));
+
+			return;
+		}
 		// Configure search boxes
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => SampleTable::getInstance()->getDefaultSampleId())));
 		$this->setWidget('strain_id', new sfWidgetFormInputHidden(array('default' => StrainTable::getInstance()->getDefaultStrainId())));
@@ -43,13 +93,7 @@ class CryopreservationForm extends BaseCryopreservationForm {
 		$this->setWidget('patent_deposit_id', new sfWidgetFormInputHidden(array('default' => PatentDepositTable::getInstance()->getDefaultPatentDepositId())));
 		$this->setWidget('maintenance_deposit_id', new sfWidgetFormInputHidden(array('default' => MaintenanceDepositTable::getInstance()->getDefaultMaintenanceDepositId())));
 
-		$this->setWidget('subject', new sfWidgetFormChoice(array('choices' => array(
-			'sample' => 'sample',
-			'strain' => 'strain',
-			'external_strain' => 'research collection',
-			'patent_deposit' => 'patent deposit',
-			'maintenance_deposit' => 'maintenance deposit',
-		))));
+		$this->setWidget('subject', new sfWidgetFormChoice(array('choices' => self::$subjectChoices)));
 
 		// Configure date format
 		$lastYear = date('Y');
@@ -81,61 +125,61 @@ class CryopreservationForm extends BaseCryopreservationForm {
 
 	public function cleanFieldsByCryopreservationSubject($validator, $values) {
 		switch( $values['subject'] ) {
-			case 'strain':
-				$values['sample_id'] = null;
-				$values['external_strain_id'] = null;
-				$values['maintenance_deposit_id'] = null;
-				$values['patent_deposit_id'] = null;
-				if ( empty($values['strain_id']) ) {
-					$error = new sfValidatorError($validator, 'You must choose a strain before registering this cryopreservation');
-					throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
-				}
-				break;
+		case 'strain':
+			$values['sample_id'] = null;
+			$values['external_strain_id'] = null;
+			$values['maintenance_deposit_id'] = null;
+			$values['patent_deposit_id'] = null;
+			if ( empty($values['strain_id']) ) {
+				$error = new sfValidatorError($validator, 'You must choose a strain before registering this cryopreservation');
+				throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
+			}
+			break;
 
-			case 'external_strain':
-				$values['sample_id'] = null;
-				$values['strain_id'] = null;
-				$values['maintenance_deposit_id'] = null;
-				$values['patent_deposit_id'] = null;
-				if ( empty($values['external_strain_id']) ) {
-					$error = new sfValidatorError($validator, 'You must choose a strain from research collection before registering this cryopreservation');
-					throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
-				}
-				break;
+		case 'external_strain':
+			$values['sample_id'] = null;
+			$values['strain_id'] = null;
+			$values['maintenance_deposit_id'] = null;
+			$values['patent_deposit_id'] = null;
+			if ( empty($values['external_strain_id']) ) {
+				$error = new sfValidatorError($validator, 'You must choose a strain from research collection before registering this cryopreservation');
+				throw new sfValidatorErrorSchema($validator, array('strain_id' => $error));
+			}
+			break;
 
-			case 'sample':
-			default:
-				$values['strain_id'] = null;
-				$values['external_strain_id'] = null;
-				$values['maintenance_deposit_id'] = null;
-				$values['patent_deposit_id'] = null;
-				if ( empty($values['sample_id']) ) {
-					$error = new sfValidatorError($validator, 'You must choose a sample before registering this cryopreservation');
-					throw new sfValidatorErrorSchema($validator, array('sample_id' => $error));
-				}
-				break;
+		case 'sample':
+		default:
+			$values['strain_id'] = null;
+			$values['external_strain_id'] = null;
+			$values['maintenance_deposit_id'] = null;
+			$values['patent_deposit_id'] = null;
+			if ( empty($values['sample_id']) ) {
+				$error = new sfValidatorError($validator, 'You must choose a sample before registering this cryopreservation');
+				throw new sfValidatorErrorSchema($validator, array('sample_id' => $error));
+			}
+			break;
 
-			case 'patent_deposit':
-				$values['strain_id'] = null;
-				$values['sample_id'] = null;
-				$values['external_strain_id'] = null;
-				$values['maintenance_deposit_id'] = null;
-				if (empty($values['patent_deposit_id'])) {
-					$error = new sfValidatorError($validator, 'You must choose a patent deposit before registering this cryopreservation');
-					throw new sfValidatorErrorSchema($validator, array('patent_deposit_id' => $error));
-				}
-				break;
+		case 'patent_deposit':
+			$values['strain_id'] = null;
+			$values['sample_id'] = null;
+			$values['external_strain_id'] = null;
+			$values['maintenance_deposit_id'] = null;
+			if (empty($values['patent_deposit_id'])) {
+				$error = new sfValidatorError($validator, 'You must choose a patent deposit before registering this cryopreservation');
+				throw new sfValidatorErrorSchema($validator, array('patent_deposit_id' => $error));
+			}
+			break;
 
-			case 'maintenance_deposit':
-				$values['strain_id'] = null;
-				$values['sample_id'] = null;
-				$values['external_strain_id'] = null;
-				$values['patent_deposit_id'] = null;
-				if (empty($values['maintenance_deposit_id'])) {
-					$error = new sfValidatorError($validator, 'You must choose a maintenance deposit before registering this cryopreservation');
-					throw new sfValidatorErrorSchema($validator, array('maintenance_deposit_id' => $error));
-				}
-				break;
+		case 'maintenance_deposit':
+			$values['strain_id'] = null;
+			$values['sample_id'] = null;
+			$values['external_strain_id'] = null;
+			$values['patent_deposit_id'] = null;
+			if (empty($values['maintenance_deposit_id'])) {
+				$error = new sfValidatorError($validator, 'You must choose a maintenance deposit before registering this cryopreservation');
+				throw new sfValidatorErrorSchema($validator, array('maintenance_deposit_id' => $error));
+			}
+			break;
 		}
 
 		return $values;

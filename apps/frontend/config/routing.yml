@@ -20,17 +20,17 @@ region_find_islands:
 module_search:
   url:  :module/search
   param: { module: location, action: index }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation)" }
 
 module_pagination:
   url:  :module/page/:page
   param:  { module: location, action: index, page: 1 }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium)", page: \d+ }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation)", page: \d+ }
 
 module_export_search:
   url:  :module/search/export
   param:  { module: location, action: exportIndexAsCsv }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation)" }
 
 ###
 # Location model related routes
@@ -455,11 +455,6 @@ cryopreservation:
   class:   sfDoctrineRouteCollection
   options: { model: Project }
 
-cryopreservation_search:
-  url:          cryopreservation/search/:criteria
-  param:        { module: cryopreservation, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
 cryopreservation_filter_by_subject_new:
   url:          cryopreservation/new/:subject
   param:        { module: cryopreservation, action: new, subject: sample }
@@ -479,16 +474,6 @@ cryopreservation_find_strains:
   url:          cryopreservation/findStrains/:term
   param:        { module: cryopreservation, action: findStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
-cryopreservation_pagination:
-  url:          cryopreservation/page/:page
-  param:        { module: cryopreservation, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-cryopreservation_search_pagination:
-  url:          cryopreservation/search/:criteria/page/:page
-  param:        { module: cryopreservation, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 cryopreservation_find_external_strains:
   url:          cryopreservation/findExternalStrains/:term
