@@ -613,7 +613,15 @@ class apiActions extends GreenhouseAPI {
 		// Get usage targets
 		$catalog['usage_targets'] = array();
 		foreach (UsageTargetTable::getInstance()->findAll() as $target) {
-			$catalog['usage_targets'][$target->getId()] = $target->getName();
+			$areas = array();
+			foreach (UsageAreaUsageTargetsTable::getInstance()->findByUsageTargetId($target->getId())->toArray() as $area) {
+				$areas[] = $area['usage_area_id'];
+			}
+
+			$catalog['usage_targets'][$target->getId()] = array(
+				'name' => $target->getName(),
+				'areas' => $areas,
+			);
 		}
 		unset($target);
 
