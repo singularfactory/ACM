@@ -35,9 +35,57 @@
  * @since 1.0
  */
 class ExternalStrainForm extends BaseExternalStrainForm {
+	public static $groupByChoices = array(
+		0 => '',
+		'taxonomic_class' => 'Taxonomic class',
+		'genus' => 'Genus',
+		'species' => 'Species',
+		'authority' => 'Authority',
+		'container' => 'Container',
+		'culture_medium' => 'Culture medium',
+		'transfer_interval' => 'Transfer interval',
+		'is_epitype' => 'Is epitype',
+		'is_axenic' => 'Is axenic',
+		'sample' => 'Sample',
+	);
+
+	/**
+	 * Configure ExternalStrain form
+	 *
+	 * @return void
+	 */
 	public function configure() {
 		// Skip the whole configuration if this a search form
-		if ( $this->getOption('search') ) {
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->getWidget('taxonomic_class_id')->setOption('add_empty', true);
+			$this->getWidget('genus_id')->setOption('add_empty', true);
+			$this->getWidget('species_id')->setOption('add_empty', true);
+			$this->getWidget('authority_id')->setOption('add_empty', true);
+
+			$this->setWidget('is_epitype', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+			$this->setWidget('is_axenic', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
+
+			$this->setWidget('maintenance_status_id', new sfWidgetFormDoctrineChoice(array('model' => 'MaintenanceStatus', 'add_empty' => true)));
+			$this->setValidator('maintenance_status_id', new sfValidatorDoctrineChoice(array('model' => 'MaintenanceStatus', 'required' => false)));
+			$this->setWidget('culture_medium_id', new sfWidgetFormDoctrineChoice(array('model' => 'CultureMedium', 'add_empty' => true)));
+			$this->setValidator('culture_medium_id', new sfValidatorDoctrineChoice(array('model' => 'CultureMedium', 'required' => false)));
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+				'taxonomic_class_id' => 'Limited to class',
+				'genus_id' => 'Limited to genus',
+				'species_id' => 'Limited to species',
+				'authority_id' => 'Limited to authority',
+				'maintenance_status_id' => 'Limited to maintenance status',
+				'culture_medium_id' => 'Limited to culture medium',
+			));
+
 			return;
 		}
 

@@ -26,48 +26,136 @@
  */
 
 /**
- * external_strain actions.
+ * external_strain actions
  *
  * @package ACM.Frontend
  * @subpackage external_strain
- * @author     Eliezer Talon <elitalon@inventiaplus.com>
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @version 1.2
  */
 class external_strainActions extends MyActions {
+	/**
+	 * Index action
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'ExternalStrain', array('init' => false, 'sort_column' => 'id'));
+		$filters = $this->_processFilterConditions($request, 'external_strain');
 
+		$query = null;
 		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = ExternalStrainTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				if (in_array($this->groupBy, array('transfer_interval', 'is_epitype', 'is_axenic'))) {
+					$relatedAlias = $this->groupBy;
+					$relatedForeignKey = $this->groupBy;
+					$recursive = false;
+				} else {
+					$relatedAlias = sfInflector::camelize($this->groupBy);
+					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+					$recursive = true;
+				}
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_strains")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				if ($recursive) {
+					$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+					if (in_array($this->groupBy, array('sample'))) {
+						$query = $query->addSelect('m.id as value');
+					} else {
+						$query = $query->addSelect('m.name as value');
+					}
+				} else {
+					$query = $query->addSelect("{$this->mainAlias()}.$relatedAlias as value");
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("sa.Location loc")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species s")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere('tc.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('s.name LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id', 'authority_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
+
+			foreach (array('maintenance_status_id', 'culture_medium_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$intermediateModel = '';
+					switch ($filter) {
+					case 'culture_medium_id':
+						$intermediateModel = 'CultureMedia';
+						break;
+					case 'maintenance_status_id':
+						$intermediateModel = 'MaintenanceStatus';
+						break;
+					}
+					$query = $query->andWhere("{$this->mainAlias()}.ExternalStrain$intermediateModel.{$filter} = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
+
+			if (!empty($filters['is_epitype']) && $filters['is_epitype'] > 0) {
+				$this->filters['Epitype'] = ($filters['is_epitype'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_epitype = ?", ($filters['is_epitype'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['is_axenic']) && $filters['is_axenic'] > 0) {
+				$this->filters['Axenic'] = ($filters['is_axenic'] == 1) ? 'no' : 'yes';
+				$query = $query->andWhere("{$this->mainAlias()}.is_axenic = ?", ($filters['is_axenic'] == 1) ? 0 : 1);
+			}
+
+			if (!empty($filters['transfer_interval'])) {
+				$this->filters['Transfer interval'] = $filters['transfer_interval'];
+				$query = $query->andWhere("{$this->mainAlias()}.transfer_interval = ?", $filters['transfer_interval']);
+			}
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Rr]?\s*[Cc]?\s*(\d{1,4})\s*[Bb]?.*$/', $filters['id'], $matches);
+				$query = $query->andWhere("{$this->mainAlias()}.id = ?", $matches[1]);
+			}
 		}
 		else {
 			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.TaxonomicClass tc")
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("sa.Location loc")
+				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species s");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
-		$this->pager->setQuery($query);
-		$this->pager->init();
+
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('external_strain.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new ExternalStrainForm();
+		$this->form = new ExternalStrainForm(array(), array('search' => true));
 	}
 
 	/**
@@ -173,7 +261,7 @@ class external_strainActions extends MyActions {
 					$url = '@external_strain_show?id='.$externalStrain->getId();
 				}
 				else {
-					$message = 'Deposit created successfully';
+					$message = 'Strain created successfully';
 					$url = '@external_strain_show?id='.$externalStrain->getId();
 				}
 			}

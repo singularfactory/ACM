@@ -29,12 +29,17 @@
 
 <?php slot('main_header') ?>
 	<span>All strains</span>
-	<?php include_partial('global/search_box_header_action', array('route' => '@external_strain_search?criteria=')) ?>
+	<?php include_partial('global/search_box_header_action') ?>
 	<?php include_partial('global/label_header_action', array('message' => 'Create labels', 'route' => '@external_strain_create_label')) ?>
 	<?php include_partial('global/new_header_action', array('message' => 'Add a new strain', 'route' => '@external_strain_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'external_strain', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'external_strain')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="external_strain_list">
 	<tbody>
 		<tr>
@@ -45,7 +50,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $externalStrain): ?>
+		<?php foreach ($results as $externalStrain): ?>
 		<tr>
 			<?php $url = url_for('@external_strain_show?id='.$externalStrain->getId()) ?>
 			<td class="strain_code"><?php echo link_to($externalStrain->getFullCode(), $url) ?></td>

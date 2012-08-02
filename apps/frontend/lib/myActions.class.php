@@ -301,6 +301,28 @@ class MyActions extends sfActions {
 					}
 				}
 				break;
+
+			case 'external_strain':
+				$csv->setHeader(array('Code', 'Name', 'Supervisor'));
+				foreach ($filters as $filter => $value) {
+					if ($filter !== 'group_by' && !empty($value)) {
+						if ($filter === 'id') {
+							preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Rr]?\s*[Cc]?\s*(\d{1,4})\s*[Bb]?.*$/', $value, $matches);
+							$query = $query->andWhere("m.code = ?", $matches[1]);
+						} elseif ($filter === 'maintenance_status_id' || $filter === 'culture_medium_id') {
+							$intermediateModel = ($filter == 'culture_medium_id') ? 'CultureMedia' : 'MaintenanceStatus';
+							$query = $query->andWhere("m.ExternalStrain$intermediateModel.$filter = ?", $value);
+						} elseif (in_array($filter, array('is_epitype', 'is_axenic'))) {
+							if ($value >= 0) {
+								$query = $query->andWhere("m.$filter = ?", $value - 1);
+							}
+						} else {
+							$query = $query->andWhere("m.$filter = ?", $value);
+						}
+					}
+				}
+				break;
+
 		}
 
 		$data = array();
@@ -309,9 +331,11 @@ class MyActions extends sfActions {
 				case 'location':
 					$data[] = array($row->getName(), $row->getCountry(), $row->getRegion(), $row->getIsland(), $row->getNbSamples(), $row->getNbStrains());
 					break;
+
 				case 'sample':
 					$data[] = array($row->getCode(), $row->getLocationNameAndDetails(), $row->getFormattedCollectors(), $row->getFormattedCollectionDate(), $row->getNbStrains());
 					break;
+
 				case 'strain':
 					$data[] = array(
 						$row->getFullCode(),
@@ -319,6 +343,7 @@ class MyActions extends sfActions {
 						$row->getFormattedSampleCode(), $row->getFormattedHasDna(), $row->getFormattedIsPublic(), $row->getFormattedSupervisorWithInitials(),
 					);
 					break;
+
 				case 'dna_extraction':
 					$strain = $row->getStrain();
 					$data[] = array(
@@ -328,21 +353,25 @@ class MyActions extends sfActions {
 						$row->getNbPcr(), $row->getFormattedHasDnaSequence(),
 					);
 					break;
+
 				case 'patent_deposit':
 					$data[] = array(
 						$row->getCode(), $row->getDepositor(), $row->getDepositionDate(),
 						sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
 					);
 					break;
+
 				case 'maintenance_deposit':
 					$data[] = array(
 						$row->getCode(), $row->getDepositor(), $row->getDepositionDate(),
 						$row->getIsBlend() ? 'blend' : sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
 					);
 					break;
+
 				case 'culture_medium':
 					$data[] = array($row->getCode(), $row->getName(), $row->getLink(), $row->getFormattedIsPublic(), $row->getNbStrains());
 					break;
+
 				case 'cryopreservation':
 					$code = '' ;
 					$taxonomicClass = sfConfig::get('app_no_data_message') ;
@@ -379,8 +408,15 @@ class MyActions extends sfActions {
 						$taxonomicClass = $maintenanceDeposit->getTaxonomicClass() ;
 						$genusAndSpecies = $maintenanceDeposit->getGenusAndSpecies() ;
 					}
-
 					$data[] = array($code, $subject, $taxonomicClass, $genusAndSpecies, $row->getCryopreservationDate(), $row->getCryopreservationMethod()->getName());
+					break;
+
+				case 'external_strain':
+					$data[] = array(
+						$row->getFullCode(),
+						sprintf('%s %s %s', $row->getTaxonomicClass(), $row->getGenus(), $row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name')),
+						$row->getFormattedSupervisorWithInitials(),
+					);
 					break;
 			}
 		}

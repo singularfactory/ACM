@@ -536,7 +536,7 @@ $(document).ready(function(){
 	}
 
 	$("#external_strain_sample_search").autocomplete({
-		minLength: 3,
+		minLength: 2,
 		source: function(term, add) {
 			var url = $('a.external_strain_sample_numbers_url').attr('href') + $("#external_strain_sample_search").val();
 			$.getJSON(url, function(data){ add(data); });
