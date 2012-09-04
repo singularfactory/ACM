@@ -26,7 +26,7 @@
  */
 ?>
 <?php
-if (in_array($model, array('location', 'sample', 'strain', 'dna_extraction', 'patent_deposit', 'maintenance_deposit', 'culture_medium', 'cryopreservation', 'external_strain'))) {
+if (in_array($model, array('location', 'sample', 'strain', 'dna_extraction', 'patent_deposit', 'maintenance_deposit', 'culture_medium', 'cryopreservation', 'external_strain', 'project'))) {
 	$url = "@module_pagination?module=$model&";
 } else {
 	$url = "@{$model}_pagination?";

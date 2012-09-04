@@ -20,17 +20,17 @@ region_find_islands:
 module_search:
   url:  :module/search
   param: { module: location, action: index }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project)" }
 
 module_pagination:
   url:  :module/page/:page
   param:  { module: location, action: index, page: 1 }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain)", page: \d+ }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project)", page: \d+ }
 
 module_export_search:
   url:  :module/search/export
   param:  { module: location, action: exportIndexAsCsv }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project)" }
 
 ###
 # Location model related routes
@@ -272,11 +272,6 @@ project:
   class:   sfDoctrineRouteCollection
   options: { model: Project }
 
-project_search:
-  url:          project/search/:criteria
-  param:        { module: project, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
 project_filter_by_subject_new:
   url:          project/new/:subject
   param:        { module: project, action: new, subject: sample }
@@ -301,15 +296,6 @@ project_find_external_strains:
   url:          project/findExternalStrains/:term
   param:        { module: project, action: findExternalStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-project_pagination:
-  url:          project/page/:page
-  param:        { module: project, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-project_search_pagination:
-  url:          project/search/:criteria/page/:page
-  param:        { module: project, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 ###
 # PatentDeposit model related routes

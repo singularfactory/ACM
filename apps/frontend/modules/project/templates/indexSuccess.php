@@ -29,11 +29,16 @@
 
 <?php slot('main_header') ?>
 <span>All projects</span>
-	<?php include_partial('global/search_box_header_action', array('route' => '@project_search?criteria=')) ?>
+	<?php include_partial('global/search_box_header_action') ?>
 	<?php include_partial('global/new_header_action', array('message' => 'Add a new project', 'route' => '@project_new')) ?>
 <?php end_slot() ?>
 
-<?php if ( $pager->count() ): ?>
+<?php include_partial('global/filter_options', array('module' => 'project', 'form' => $form)) ?>
+<?php include_partial('global/filter_conditions', array('groupBy' => $groupBy, 'filters' => $filters, 'module' => 'project')) ?>
+
+<?php if (!empty($groupBy)): ?>
+<?php include_partial('group_by_index', array('results' => $results, 'groupBy' => $groupBy)) ?>
+<?php elseif (count($results)): ?>
 <table id="project_list">
 	<tbody>
 		<tr>
@@ -49,7 +54,7 @@
 			<th></th>
 		</tr>
 
-		<?php foreach ($pager->getResults() as $project): ?>
+		<?php foreach ($results as $project): ?>
 		<tr>
 			<?php $url = url_for('@project_show?id='.$project->getId()) ?>
 
