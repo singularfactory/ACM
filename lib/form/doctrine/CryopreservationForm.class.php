@@ -74,7 +74,7 @@ class CryopreservationForm extends BaseCryopreservationForm {
 
 			$subjectChoices = array(0 => '') + self::$subjectChoices;
 			$this->setWidget('subject', new sfWidgetFormChoice(array('choices' => $subjectChoices)));
-			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys($subjectChoices), 'required' => false)));
+			$this->setValidator('subject', new sfValidatorChoice(array('choices' => array_keys($subjectChoices), 'required' => false)));
 
 			$this->widgetSchema->setLabels(array(
 				'id' => 'Code',

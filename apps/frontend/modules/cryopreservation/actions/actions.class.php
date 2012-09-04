@@ -119,7 +119,7 @@ class cryopreservationActions extends MyActions {
 			if (!empty($filters['id'])) {
 				$this->filters['Code'] = $filters['id'];
 				preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $filters['id'], $matches);
-				$query = $query->andWhere("(st.code = ? OR est.$filter = ? OR pd.$filter = ? OR md.$filter = ?)", $filters[$filter], $filters[$filter], $filters[$filter], $filters[$filter]);
+				$query = $query->andWhere("(st.code = ? OR est.id = ? OR pd.id = ? OR md.id = ?)", array($filters[$filter], $filters[$filter], $filters[$filter], $filters[$filter]));
 			}
 		}
 		else {
