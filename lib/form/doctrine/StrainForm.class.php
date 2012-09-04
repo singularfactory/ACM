@@ -103,10 +103,14 @@ class StrainForm extends BaseStrainForm {
 
 		if (ContainerTable::getInstance()->count() == 0) {
 			unset($this['container_id']);
+		} else {
+			$this->widgetSchema->setLabel('container_id', 'Best container');
 		}
 
 		if (CultureMediumTable::getInstance()->count() == 0) {
 			unset($this['culture_medium_id']);
+		} else {
+			$this->widgetSchema->setLabel('culture_medium_id', 'Best culture medium');
 		}
 
 		// Configure sample code
@@ -229,8 +233,6 @@ class StrainForm extends BaseStrainForm {
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 		$this->widgetSchema->setLabel('taxonomic_order_id', 'Order');
 		$this->widgetSchema->setLabel('culture_media_list', 'Culture media');
-		$this->widgetSchema->setLabel('culture_medium_id', 'Best culture medium');
-		$this->widgetSchema->setLabel('container_id', 'Best container');
 		$this->widgetSchema->setLabel('transfer_interval', 'Transfer interval (weeks)');
 		$this->widgetSchema->setLabel('isolators_list', 'Isolators');
 		$this->widgetSchema->setLabel('containers_list', 'Available containers');
