@@ -218,6 +218,7 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
 	padding-botton: 0em;
 }
 
+div.long_label input[type=text] { min-width: 150px; }
 
 /**
  * POTENTIAL USAGES

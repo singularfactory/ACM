@@ -32,34 +32,97 @@
  * @subpackage identification
  */
 class identificationActions extends MyActions {
+	/**
+	 * Index action
+	 */
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Identification', array('init' => false, 'sort_column' => 'identification_date'));
+		$filters = $this->_processFilterConditions($request, 'identification');
 
 		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
-				->leftJoin("{$this->mainAlias()}.Sample sa")
-				->where("{$this->mainAlias()}.identification_date LIKE ?", "%$text%")
-				->orWhere('sa.id LIKE ?', "%$text%");
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = IdentificationTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
+				$relatedAlias = sfInflector::camelize($this->groupBy);
+				$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_identifications")
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey");
+
+				$query = $query->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+				if ($this->groupBy == 'petitioner') {
+					$query = $query->addSelect('CONCAT(m.name, \' \', m.surname) as value');
+				} else {
+					$query = $query->addSelect('m.id as value');
+				}
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
+				->leftJoin("{$this->mainAlias()}.Sample sa")
+				->leftJoin("{$this->mainAlias()}.Petitioner pe")
+				->where('1=1');
+
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				preg_match('/^[Bb]?[Ee]?[Aa]?\s*[iI]?[dD]?(\d{1,4})_?(\d{1,2})?.*$/', $filters['id'], $matches);
+				if (isset($matches[2])) {
+					$query = $query->andWhere("({$this->mainAlias()}.yearly_count = ? AND {$this->mainAlias()}.identification_date BETWEEN ? AND ?)", array($matches[1], "{$matches[2]}-01-01", "{$matches[2]}-12-31"));
+				} else {
+					$query = $query->andWhere("{$this->mainAlias()}.yearly_count = ?", $matches[1]);
+				}
+			}
+
+			if (!empty($filters['sample_id'])) {
+				$this->filters['Sample'] = $filters['sample_id'];
+				preg_match('/^(\d{1,4}).*$/', $filters['sample_id'], $matches);
+				$query = $query->andWhere("{$this->mainAlias()}.sample_id = ?", $matches[1]);
+			}
+
+			foreach (array('petitioner_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					if ($filter === 'petitioner_id') {
+						$table = 'PetitionersTable';
+					}
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
+
+			foreach (array('microscopy_identification', 'molecular_identification') as $filter) {
+				if (!empty($filters[$filter])) {
+					$this->filters[$filter] = $filters[$filter];
+					$query = $query->andWhere("{$this->mainAlias()}.$filter LIKE ?", "%{$filters[$filter]}%");
+				}
+			}
 		}
 		else {
 			$query = $this->pager->getQuery()
+				->leftJoin("{$this->mainAlias()}.Petitioner pe")
 				->leftJoin("{$this->mainAlias()}.Sample sa");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
-		$this->pager->setQuery($query);
-		$this->pager->init();
+
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('identification.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new IdentificationForm();
+		$this->form = new IdentificationForm(array(), array('search' => true));
 	}
 
 	public function executeShow(sfWebRequest $request) {

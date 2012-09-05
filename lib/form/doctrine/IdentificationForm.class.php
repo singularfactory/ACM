@@ -29,13 +29,52 @@
 
 
 /**
- * Identification form.
+ * Identification form
  *
  * @package ACM.Lib.Form
  * @since 1.0
  */
 class IdentificationForm extends BaseIdentificationForm {
+	public static $groupByChoices = array(
+		0 => '',
+		'petitioner' => 'Petitioner',
+		'sample' => 'Sample',
+	);
+
+	/**
+	 * Configure Identification form
+	 *
+	 * @return void
+	 */
 	public function configure() {
+		// Skip the whole configuration if this a search form
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->setWidget('sample_id', new sfWidgetFormInputText());
+			$this->setValidator('sample_id', new sfValidatorString(array('required' => false)));
+
+			$this->getWidget('petitioner_id')->setOption('add_empty', true);
+
+			$this->setWidget('microscopy_identification', new sfWidgetFormInputText());
+			$this->setValidator('microscopy_identification', new sfValidatorString(array('required' => false)));
+
+			$this->setWidget('molecular_identification', new sfWidgetFormInputText());
+			$this->setValidator('molecular_identification', new sfValidatorString(array('required' => false)));
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+				'petitioner_id' => 'Petitioner',
+				'sample_id' => 'Sample',
+			));
+
+			return;
+		}
+
 		// Configure sample search box
 		$this->setWidget('sample_id', new sfWidgetFormInputHidden(array('default' => SampleTable::getInstance()->getDefaultSampleId())));
 

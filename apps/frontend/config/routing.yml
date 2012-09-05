@@ -20,17 +20,17 @@ region_find_islands:
 module_search:
   url:  :module/search
   param: { module: location, action: index }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification)" }
 
 module_pagination:
   url:  :module/page/:page
   param:  { module: location, action: index, page: 1 }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project)", page: \d+ }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification)", page: \d+ }
 
 module_export_search:
   url:  :module/search/export
   param:  { module: location, action: exportIndexAsCsv }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification)" }
 
 ###
 # Location model related routes
@@ -477,21 +477,6 @@ identification_find_samples:
   url:    identification/findSamples/:term
   param:  { module: identification, action: findSamples }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-
-identification_search:
-  url:          identification/search/:criteria
-  param:        { module: identification, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
-identification_pagination:
-  url:          identification/page/:page
-  param:        { module: identification, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-identification_search_pagination:
-  url:          identification/search/:criteria/page/:page
-  param:        { module: identification, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 identification_create_label:
   url:          identification/create_label/:id

@@ -336,6 +336,27 @@ class MyActions extends sfActions {
 				}
 			}
 			break;
+
+		case 'identification':
+			$csv->setHeader(array('Code', 'Date', 'Sample', 'Petitioner', 'Microscopy identification', 'Molecular identification'));
+			foreach ($filters as $filter => $value) {
+				if ($filter !== 'group_by' && !empty($value)) {
+					if ($filter === 'id') {
+						preg_match('/^[Bb]?[Ee]?[Aa]?\s*[iI]?[dD]?(\d{1,4})_?(\d{1,2})?.*$/', $value, $matches);
+						if (isset($matches[2])) {
+							$query = $query->andWhere("(m.yearly_count = ? AND m.identification_date BETWEEN ? AND ?)", array($matches[1], "{$matches[2]}-01-01", "{$matches[2]}-12-31"));
+						} else {
+							$query = $query->andWhere("m.yearly_count = ?", $matches[1]);
+						}
+					} elseif ($filter === 'sample_id') {
+						preg_match('/^(\d{1,4}).*$/', $value, $matches);
+						$query = $query->andWhere("m.sample_id = ?", $matches[1]);
+					} else {
+						$query = $query->andWhere("m.$filter = ?", $value);
+					}
+				}
+			}
+			break;
 		}
 
 		$data = array();
@@ -455,6 +476,12 @@ class MyActions extends sfActions {
 					$genusAndSpecies = $externalStrain->getGenus();
 				}
 				$data[] = array($code, $subject, $row->getProjectName()->getName(), $taxonomicClass, $genusAndSpecies, $row->getInoculationDate(), $row->getPetitioner(), $row->getDeliveryDate());
+				break;
+
+			case 'identification':
+				$data[] = array(
+					$row->getCode(), $row->getIdentificationDate(), $row->getSample()->getCode(), $row->getPetitioner(), $row->getMicroscopyIdentification(), $row->getMolecularIdentification(),
+				);
 				break;
 			}
 		}
