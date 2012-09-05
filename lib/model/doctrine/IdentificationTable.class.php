@@ -60,7 +60,7 @@ class IdentificationTable extends Doctrine_Table {
 		$identifications = $this->createQuery('p')
 			->where('p.identification_date >= ?', $minDate)
 			->andWhere('p.identification_date <= ?', $maxDate)
-			->orderBy('i.identification_date DESC, i.yearly_count DESC')
+			->orderBy('p.identification_date DESC, p.yearly_count DESC')
 			->limit(1)
 			->execute();
 
