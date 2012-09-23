@@ -77,6 +77,10 @@
 	<?php echo $form['deceased']->renderLabel() ?>
 	<?php echo $form['deceased'] ?>
 </div>
+<div id="supervisor">
+	<?php echo $form['supervisor_id']->renderLabel() ?>
+	<?php echo $form['supervisor_id'] ?>
+</div>
 <div id="group_by">
 	<?php echo $form['group_by']->renderLabel() ?>
 	<?php echo $form['group_by'] ?>

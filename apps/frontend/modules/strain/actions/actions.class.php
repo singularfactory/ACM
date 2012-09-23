@@ -85,11 +85,11 @@ class strainActions extends MyActions {
 				->leftJoin("{$this->mainAlias()}.Supervisor su")
 				->where('1=1');
 
-			foreach (array('taxonomic_class_id', 'genus_id', 'species_id', 'authority_id') as $filter) {
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id', 'authority_id', 'supervisor_id') as $filter) {
 				if (!empty($filters[$filter])) {
 					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
 
-					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = ($filter === 'supervisor_id') ? 'sfGuardUserTable' : sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
 					$table = call_user_func(array($table, 'getInstance'));
 					$this->filters[$filter] = $table->find($filters[$filter])->getName();
 				}
@@ -157,7 +157,8 @@ class strainActions extends MyActions {
 				->leftJoin("sa.Location loc")
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
-				->leftJoin("{$this->mainAlias()}.Species sp");
+				->leftJoin("{$this->mainAlias()}.Species sp")
+				->leftJoin("{$this->mainAlias()}.Supervisor su");
 		}
 
 		if (empty($filters['group_by'])) {

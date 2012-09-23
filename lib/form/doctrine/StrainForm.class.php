@@ -41,6 +41,7 @@ class StrainForm extends BaseStrainForm {
 		'genus' => 'Genus',
 		'species' => 'Species',
 		'authority' => 'Authority',
+		'supervisor' => 'Supervisor',
 		'container' => 'Container',
 		'culture_medium' => 'Culture medium',
 		'transfer_interval' => 'Transfer interval',
@@ -69,6 +70,13 @@ class StrainForm extends BaseStrainForm {
 			$this->getWidget('genus_id')->setOption('add_empty', true);
 			$this->getWidget('species_id')->setOption('add_empty', true);
 			$this->getWidget('authority_id')->setOption('add_empty', true);
+			$this->setWidget('supervisor_id', new sfWidgetFormDoctrineChoice(array(
+				'model' => $this->getRelatedModelName('Supervisor'),
+				'method' => 'getFullNameWithInitials',
+				'query' => StrainTable::getInstance()->availableSupervisorsQuery(),
+				'order_by' => array('first_name', 'asc'),
+				'add_empty' => true,
+			)));
 
 			$this->setWidget('is_epitype', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
 			$this->setWidget('is_axenic', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
@@ -91,6 +99,7 @@ class StrainForm extends BaseStrainForm {
 				'maintenance_status_id' => 'Limited to maintenance status',
 				'culture_medium_id' => 'Limited to culture medium',
 				'property_id' => 'Limited to property',
+				'supervisor_id' => 'Limited to supervisor',
 			));
 
 			return;
