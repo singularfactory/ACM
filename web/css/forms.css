@@ -220,6 +220,8 @@ div.identification_thumbnail, #sample_picture { margin-bottom: 0 ! important; pa
 
 div.long_label input[type=text] { min-width: 150px; }
 
+div.location-filter input[type=text] { min-width: 150px; }
+
 /**
  * POTENTIAL USAGES
  */

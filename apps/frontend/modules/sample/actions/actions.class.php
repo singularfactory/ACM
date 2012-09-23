@@ -50,8 +50,7 @@ class sampleActions extends MyActions {
 					$relatedAlias = $this->groupBy;
 					$relatedForeignKey = $this->groupBy;
 					$recursive = false;
-				}
-				else {
+				} else {
 					$relatedAlias = sfInflector::camelize($this->groupBy);
 					$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
 					$recursive = true;
@@ -91,6 +90,11 @@ class sampleActions extends MyActions {
 				}
 			}
 
+			if (!empty($filters['location_id'])) {
+				$this->filters['Location'] = $filters['location_id'];
+				$query = $query->andWhere("l.name LIKE ?", "%{$filters['location_id']}%");
+			}
+
 			if (!empty($filters['is_extremophile'])) {
 				$this->filters['Extremophile'] = ($filters['is_extremophile'] == 1) ? 'no' : 'yes';
 				$query = $query->andWhere("{$this->mainAlias()}.is_extremophile = ?", ($filters['is_extremophile'] == 1) ? 0 : 1);
@@ -99,6 +103,11 @@ class sampleActions extends MyActions {
 			if (!empty($filters['location_details'])) {
 				$this->filters['Location details'] = $filters['location_details'];
 				$query = $query->andWhere("{$this->mainAlias()}.location_details LIKE ?", "%{$filters['location_details']}%");
+			}
+
+			if (!empty($filters['notebook_code'])) {
+				$this->filters['Notebook code'] = $filters['notebook_code'];
+				$query = $query->andWhere("{$this->mainAlias()}.notebook_code = ?", $filters['notebook_code']);
 			}
 
 			if (!empty($filters['id'])) {

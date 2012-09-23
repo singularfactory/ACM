@@ -70,6 +70,9 @@ class SampleForm extends BaseSampleForm {
 				'choices' => self::$booleanChoices,
 			)));
 
+			$this->setWidget('location_id', new sfWidgetFormInputText());
+			$this->setValidator('location_id', new sfValidatorString(array('required' => false)));
+
 			$this->widgetSchema->setLabels(array(
 				'id' => 'Code',
 				'environment_id' => 'Limited to environment',

@@ -29,6 +29,10 @@
 	<?php echo $form['id']->renderLabel() ?>
 	<?php echo $form['id'] ?>
 </div>
+<div id="notebook_code">
+	<?php echo $form['notebook_code']->renderLabel() ?>
+	<?php echo $form['notebook_code'] ?>
+</div>
 <div id="environment">
 	<?php echo $form['environment_id']->renderLabel() ?>
 	<?php echo $form['environment_id'] ?>
@@ -44,6 +48,10 @@
 <div id="is_extremophile">
 	<?php echo $form['is_extremophile']->renderLabel() ?>
 	<?php echo $form['is_extremophile'] ?>
+</div>
+<div id="location_id" class="location-filter">
+	<?php echo $form['location_id']->renderLabel() ?>
+	<?php echo $form['location_id'] ?>
 </div>
 <div id="location_details">
 	<?php echo $form['location_details']->renderLabel() ?>
