@@ -39,31 +39,58 @@ class potential_usageActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'StrainTaxonomy', array('init' => false, 'sort_column' => 'TaxonomicClass.name'));
+		$filters = $this->_processFilterConditions($request, 'strain_taxonomy');
 
-		// Deal with search criteria
-		if ($text = $request->getParameter('criteria')) {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = StrainTaxonomyTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				$relatedAlias = sfInflector::camelize($this->groupBy);
+				$relatedForeignKey = sfInflector::foreign_key($this->groupBy);
+				$recursive = true;
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_potential_applications")
+					->addSelect('m.name as value')
+					->groupBy("{$this->mainAlias()}.$relatedForeignKey")
+					->innerJoin("{$this->mainAlias()}.$relatedAlias m");
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp")
-				->orWhere('c.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("{$this->mainAlias()}.$filter = ?", $filters[$filter]);
+
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
 		}
 		else {
-			$this->getUser()->setAttribute('search.criteria', null);
-
 			$query = $this->pager->getQuery()
 				->leftJoin("{$this->mainAlias()}.TaxonomicClass c")
 				->leftJoin("{$this->mainAlias()}.Genus g")
 				->leftJoin("{$this->mainAlias()}.Species sp");
 		}
 
-		$this->pager->setQuery($query);
-		$this->pager->init();
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
+
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('potential_usage.index_page', $request->getParameter('page'));

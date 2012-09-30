@@ -36,9 +36,34 @@
  * @version    1.2
  */
 class StrainTaxonomyForm extends BaseStrainTaxonomyForm {
+	public static $groupByChoices = array(
+		0 => '',
+		'taxonomic_class' => 'Taxonomic class',
+		'genus' => 'Genus',
+		'species' => 'Species',
+	);
+
+	/**
+	 * Configure Strain form
+	 *
+	 * @return void
+	 */
 	public function configure() {
 		// Skip the whole configuration if this a search form
 		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
+
+			$this->getWidget('taxonomic_class_id')->setOption('add_empty', true);
+			$this->getWidget('genus_id')->setOption('add_empty', true);
+			$this->getWidget('species_id')->setOption('add_empty', true);
+
+			$this->widgetSchema->setLabels(array(
+				'taxonomic_class_id' => 'Limited to class',
+				'genus_id' => 'Limited to genus',
+				'species_id' => 'Limited to species',
+			));
+
 			return;
 		}
 
@@ -46,7 +71,7 @@ class StrainTaxonomyForm extends BaseStrainTaxonomyForm {
 		$this['taxonomic_class_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['genus_id']->getWidget()->setOption('order_by', array('name', 'asc'));
 		$this['species_id']->getWidget()->setOption('order_by', array('name', 'asc'));
-		
+
 		// Configure labels
 		$this->widgetSchema->setLabel('taxonomic_class_id', 'Class');
 

@@ -174,10 +174,18 @@ class MyActions extends sfActions {
 
 	public function executeExportIndexAsCsv(sfWebRequest $request) {
 		$module = $this->getModuleName();
+
 		$filters = $this->getUser()->getAttribute("$module.index_filters");
+		if ($module === 'potential_usage') {
+			$filters = $this->getUser()->getAttribute("strain_taxonomy.index_filters");
+		}
 
 		$csv = new Excel();
-		$query = call_user_func(array(sprintf('%sTable', sfInflector::camelize($module)), 'getInstance'));
+		$table = sprintf('%sTable', sfInflector::camelize($module));
+		if ($module === 'potential_usage') {
+			$table = 'StrainTaxonomyTable';
+		}
+		$query = call_user_func(array($table, 'getInstance'));
 		$query = $query->createQuery('m')->select("m.*")->where('1=1');
 
 		switch ($module) {
@@ -357,6 +365,16 @@ class MyActions extends sfActions {
 				}
 			}
 			break;
+
+		case 'potential_usage':
+			$csv->setHeader(array('Class', 'Genus', 'Species', 'Potential applications'));
+			foreach ($filters as $filter => $value) {
+				if ($filter !== 'group_by' && !empty($value)) {
+					$query = $query->andWhere("m.$filter = ?", $value);
+				}
+			}
+			break;
+
 		}
 
 		$data = array();
@@ -481,6 +499,15 @@ class MyActions extends sfActions {
 			case 'identification':
 				$data[] = array(
 					$row->getCode(), $row->getIdentificationDate(), $row->getSample()->getCode(), $row->getPetitioner(), $row->getMicroscopyIdentification(), $row->getMolecularIdentification(),
+				);
+				break;
+
+			case 'potential_usage':
+				$data[] = array(
+					$row->getTaxonomicClass(),
+					$row->getGenus(),
+					$row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name'),
+					$row->getPotentialUsages()->count(),
 				);
 				break;
 			}

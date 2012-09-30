@@ -20,17 +20,17 @@ region_find_islands:
 module_search:
   url:  :module/search
   param: { module: location, action: index }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage)" }
 
 module_pagination:
   url:  :module/page/:page
   param:  { module: location, action: index, page: 1 }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification)", page: \d+ }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage)", page: \d+ }
 
 module_export_search:
   url:  :module/search/export
   param:  { module: location, action: exportIndexAsCsv }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage)" }
 
 ###
 # Location model related routes
@@ -610,21 +610,6 @@ report_find_strains:
 potential_usage:
   class:   sfDoctrineRouteCollection
   options: { model: StrainTaxonomy }
-
-potential_usage_search:
-  url:          potential_usage/search/:criteria
-  param:        { module: potential_usage, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
-potential_usage_pagination:
-  url:          potential_usage/page/:page
-  param:        { module: potential_usage, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-potential_usage_search_pagination:
-  url:          potential_usage/search/:criteria/page/:page
-  param:        { module: potential_usage, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 ###
 # Default rules
