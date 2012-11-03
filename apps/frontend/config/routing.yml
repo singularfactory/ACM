@@ -20,17 +20,17 @@ region_find_islands:
 module_search:
   url:  :module/search
   param: { module: location, action: index }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage|isolation)" }
 
 module_pagination:
   url:  :module/page/:page
   param:  { module: location, action: index, page: 1 }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage)", page: \d+ }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage|isolation)", page: \d+ }
 
 module_export_search:
   url:  :module/search/export
   param:  { module: location, action: exportIndexAsCsv }
-  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage)" }
+  requirements: { module: "(location|sample|strain|dna_extraction|patent_deposit|maintenance_deposit|culture_medium|cryopreservation|external_strain|project|identification|potential_usage|isolation)" }
 
 ###
 # Location model related routes
@@ -399,20 +399,6 @@ isolation_find_external_strains:
   url:          isolation/findExternalStrains/:term
   param:        { module: isolation, action: findExternalStrains }
   requirements: { term: .* }  # Search pattern is optional, by default all results are shown
-isolation_search:
-  url:          isolation/search/:criteria
-  param:        { module: isolation, action: index }
-  requirements: { criteria: "[^/]*" }  # Search pattern is optional, by default all results are shown
-
-isolation_pagination:
-  url:          isolation/page/:page
-  param:        { module: isolation, action: index, page: 1 }
-  requirements: { page: \d+ }
-
-isolation_search_pagination:
-  url:          isolation/search/:criteria/page/:page
-  param:        { module: isolation, action: index, page: 1 }
-  requirements: { criteria: "[^/]+", page: \d+ }
 
 isolation_create_label:
   url:          isolation/create_label/:id

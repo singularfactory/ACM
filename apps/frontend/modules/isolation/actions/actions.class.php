@@ -35,10 +35,24 @@ class isolationActions extends MyActions {
 	public function executeIndex(sfWebRequest $request) {
 		// Initiate the pager with default parameters but delay pagination until search criteria has been added
 		$this->pager = $this->buildPagination($request, 'Isolation', array('init' => false, 'sort_column' => 'reception_date'));
+		$filters = $this->_processFilterConditions($request, 'isolation');
 
 		// Deal with search criteria
-		if ( $text = $request->getParameter('criteria') ) {
-			$query = $this->pager->getQuery()
+		$query = null;
+		if (count($filters)) {
+			if (!empty($filters['group_by'])) {
+				$query = IsolationTable::getInstance()->createQuery($this->mainAlias())->select("{$this->mainAlias()}.*");
+				$this->groupBy = $filters['group_by'];
+
+				$query = $query
+					->addSelect("COUNT(DISTINCT {$this->mainAlias()}.id) as n_isolations")
+					->addSelect("{$this->mainAlias()}.isolation_subject as value")
+					->groupBy("{$this->mainAlias()}.isolation_subject");
+			} else {
+				$query = $this->pager->getQuery();
+			}
+
+			$query = $query
 				->leftJoin("{$this->mainAlias()}.Strain st")
 				->leftJoin("{$this->mainAlias()}.ExternalStrain est")
 				->leftJoin("{$this->mainAlias()}.Sample sa")
@@ -48,21 +62,49 @@ class isolationActions extends MyActions {
 				->leftJoin("est.TaxonomicClass etc")
 				->leftJoin("est.Genus eg")
 				->leftJoin("est.Species esp")
-				->where("{$this->mainAlias()}.id LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.external_code LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.reception_date LIKE ?", "%$text%")
-				->orWhere("{$this->mainAlias()}.delivery_date LIKE ?", "%$text%")
-				->orWhere('tc.name LIKE ?', "%$text%")
-				->orWhere('g.name LIKE ?', "%$text%")
-				->orWhere('sp.name LIKE ?', "%$text%")
-				->orWhere('etc.name LIKE ?', "%$text%")
-				->orWhere('eg.name LIKE ?', "%$text%")
-				->orWhere('esp.name LIKE ?', "%$text%")
-				->orWhere('st.id LIKE ?', "%$text%")
-				->orWhere('sa.id LIKE ?', "%$text%");
+				->where('1=1');
 
-			// Keep track of search terms for pagination
-			$this->getUser()->setAttribute('search.criteria', $text);
+			if (!empty($filters['id'])) {
+				$this->filters['Code'] = $filters['id'];
+				if (preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Ii]?[Ss]?(\d{1,2})_?(\d{1,2})\s*$/', $filters['id'], $matches)) {
+					$query = $query->andWhere("({$this->mainAlias()}.yearly_count = ? AND YEAR({$this->mainAlias()}.reception_date) = ?)", $matches[1], $matches[2]);
+				}
+			}
+
+			if (!empty($filters['related_code'])) {
+				$this->filters['Related code'] = $filters['related_code'];
+				// Sample
+				if (preg_match('/^(\d{1,4}).*$/', $filters['related_code'], $matches)) {
+					$query = $query->orWhere("sa.id = ?", $matches[1]);
+				}
+
+				// Strain
+				if (preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Ii]?[Ss]?(\d{1,2})_?(\d{1,2})\s*$/', $filters['related_code'], $matches)) {
+					$query = $query->orWhere("st.code = ?", $matches[1]);
+				}
+
+				// Research collection
+				if (preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Rr]?\s*[Cc]?\s*(\d{1,4})\s*[Bb]?.*$/', $filters['related_code'], $matches)) {
+					$query = $query->orWhere("est.id = ?", $matches[1]);
+				}
+
+				// External code
+				$query = $query->orWhere("{$this->mainAlias()}.external_code = ?", $filters['related_code']);
+			}
+
+			if (!empty($filters['isolation_subject'])) {
+				$this->filters['Material'] = $filters['isolation_subject'];
+				$query = $query->andWhere("{$this->mainAlias()}.isolation_subject = ?", $filters['isolation_subject']);
+			}
+
+			foreach (array('taxonomic_class_id', 'genus_id', 'species_id') as $filter) {
+				if (!empty($filters[$filter])) {
+					$query = $query->andWhere("(st.$filter = ? OR est.$filter = ?)", array_fill(0, 2, $filters[$filter]));
+					$table = sprintf('%sTable', sfInflector::camelize(str_replace('_id', '', $filter)));
+					$table = call_user_func(array($table, 'getInstance'));
+					$this->filters[$filter] = $table->find($filters[$filter])->getName();
+				}
+			}
 		}
 		else {
 			$query = $this->pager->getQuery()
@@ -78,17 +120,21 @@ class isolationActions extends MyActions {
 				->leftJoin("est.TaxonomicClass esttc")
 				->leftJoin("est.Genus estg")
 				->leftJoin("est.Species estsp");
-
-			$this->getUser()->setAttribute('search.criteria', null);
 		}
-		$this->pager->setQuery($query);
-		$this->pager->init();
+
+		if (empty($filters['group_by'])) {
+			$this->pager->setQuery($query);
+			$this->pager->init();
+			$this->results = $this->pager->getResults();
+		} else {
+			$this->results = $query->execute();
+		}
 
 		// Keep track of the last page used in list
 		$this->getUser()->setAttribute('isolation.index_page', $request->getParameter('page'));
 
 		// Add a form to filter results
-		$this->form = new IsolationForm();
+		$this->form = new IsolationForm(array(), array('search' => true));
 	}
 
 	public function executeShow(sfWebRequest $request) {

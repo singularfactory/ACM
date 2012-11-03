@@ -959,7 +959,7 @@ $(document).ready(function(){
 
 
 	// Change the Isolation form on demand
-	$("#isolation_isolation_subject").change(function(){
+	$("div#isolation_subject #isolation_isolation_subject").change(function(){
 		location.href = $('a.isolation_isolation_subject_url').attr('href') + $(this).attr('value');
 	});
 

@@ -29,18 +29,66 @@
 
 
 /**
- * Isolation form.
+ * Isolation form
  *
  * @package ACM.Lib.Form
  * @since 1.0
  */
 class IsolationForm extends BaseIsolationForm {
+	public static $groupByChoices = array(
+		0 => '',
+		'isolation_subject' => 'Material',
+	);
+
+	/**
+	 * Configure Isolation form
+	 *
+	 * @return void
+	 */
 	public function configure() {
 		// Configure date formats
 		for ($i=1990; $i <= date('Y'); $i++) { $years[$i] = $i; }
 		$this->setWidget('reception_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 		$this->setWidget('isolation_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years)));
 		$this->setWidget('delivery_date', new sfWidgetFormDate(array('format' => '%year% %month% %day%', 'years' => $years), array('class' => 'noauto')));
+
+		// Configure a custom post validator to manage changes in isolation_subject
+    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'cleanFieldsByIsolationSubject'))));
+
+		// Skip the whole configuration if this a search form
+		if ($this->getOption('search')) {
+			$this->setWidget('group_by', new sfWidgetFormChoice(array('choices' => self::$groupByChoices)));
+			$this->setValidator('group_by', new sfValidatorChoice(array('choices' => array_keys(self::$groupByChoices), 'required' => false)));
+
+			$this->setWidget('id', new sfWidgetFormInputText());
+			$this->setValidator('id', new sfValidatorString(array('required' => false)));
+
+			$this->setWidget('isolation_subject', new sfWidgetFormChoice(array('choices' => array(
+				0 => '',
+				'sample' => 'sample',
+				'strain' => 'strain',
+				'external' => 'external',
+				'external_strain' => 'research collection',
+			))));
+			$this->setValidator('isolation_subject', new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external', 3 => 'external_strain'), 'required' => false)));
+
+			$this->setWidget('related_code', new sfWidgetFormInputText());
+			$this->setValidator('related_code', new sfValidatorString(array('required' => false)));
+
+			$this->getWidget('taxonomic_class_id')->setOption('add_empty', true);
+			$this->getWidget('genus_id')->setOption('add_empty', true);
+			$this->getWidget('species_id')->setOption('add_empty', true);
+
+			$this->widgetSchema->setLabels(array(
+				'id' => 'Code',
+				'taxonomic_class_id' => 'Limited to class',
+				'genus_id' => 'Limited to genus',
+				'species_id' => 'Limited to species',
+				'isolation_subject' => 'Isolation material',
+			));
+
+			return;
+		}
 
 		// Configure search boxes
 		$this->setWidget('location_id', new sfWidgetFormInputHidden(array('default' => LocationTable::getInstance()->getDefaultLocationId())));
@@ -61,10 +109,7 @@ class IsolationForm extends BaseIsolationForm {
 		$this->setWidget('culture_media_list', new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'CultureMedium', 'method' => 'getName')));
 
 		// Configure subject validator
-		$this->setValidator('subject', new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external', 3 => 'external_strain'), 'required' => false)));
-
-		// Configure a custom post validator to manage changes in isolation_subject
-    $this->validatorSchema->setPostValidator( new sfValidatorCallback(array('callback' => array($this, 'cleanFieldsByIsolationSubject'))));
+		$this->setValidator('isolation_subject', new sfValidatorChoice(array('choices' => array(0 => 'sample', 1 => 'strain', 2 => 'external', 3 => 'external_strain'), 'required' => false)));
 
 		// Configure labels
 		$this->widgetSchema->setLabel('isolation_subject', 'Isolation material');

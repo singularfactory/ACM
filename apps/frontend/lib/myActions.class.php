@@ -375,6 +375,47 @@ class MyActions extends sfActions {
 			}
 			break;
 
+		case 'isolation':
+			$csv->setHeader(array('Code', 'Material', 'Related code', 'Class', 'Name', 'Reception date', 'Delivery date'));
+			foreach ($filters as $filter => $value) {
+				if ($filter !== 'group_by' && !empty($value)) {
+					if ($filter === 'id') {
+						if (preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Ii]?[Ss]?(\d{1,2})_?(\d{1,2})\s*$/', $value, $matches)) {
+							$query = $query->andWhere("({$this->mainAlias()}.yearly_count = ? AND YEAR({$this->mainAlias()}.reception_date) = ?)", $matches[1], $matches[2]);
+						}
+					}
+
+					if ($filter === 'related_code') {
+						// Sample
+						if (preg_match('/^(\d{1,4}).*$/', $value, $matches)) {
+							$query = $query->orWhere("m.Sample.id = ?", $matches[1]);
+						}
+
+						// Strain
+						if (preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Ii]?[Ss]?(\d{1,2})_?(\d{1,2})\s*$/', $value, $matches)) {
+							$query = $query->orWhere("m.Strain.code = ?", $matches[1]);
+						}
+
+						// Research collection
+						if (preg_match('/^[Bb]?[Ee]?[Aa]?\s*[Rr]?\s*[Cc]?\s*(\d{1,4})\s*[Bb]?.*$/', $value, $matches)) {
+							$query = $query->orWhere("m.ExternalStrain.id = ?", $matches[1]);
+						}
+
+						// External code
+						$query = $query->orWhere("m.external_code = ?", $value);
+					}
+
+					if ($filter === 'isolation_subject') {
+						$query = $query->andWhere("m.isolation_subject = ?", $value);
+					}
+
+					if (in_array($filter, array('taxonomic_class_id', 'genus_id', 'species_id'))) {
+						$query = $query->andWhere("(m.Strain.$filter = ? OR m.ExternalStrain.$filter = ?)", array_fill(0, 2, $value));
+					}
+				}
+			}
+			break;
+
 		}
 
 		$data = array();
@@ -509,6 +550,29 @@ class MyActions extends sfActions {
 					$row->getSpecies() ? $row->getSpecies()->getName() : sfConfig::get('app_unknown_species_name'),
 					$row->getPotentialUsages()->count(),
 				);
+				break;
+
+			case 'isolation':
+				$code = $row->getCode();
+				$externalCode = $row->getExternalCode();
+				$taxonomicClass = $row->getFormattedTaxonomicClass();
+				$genusAndSpecies = $row->getGenusAndSpecies();
+				$subject = $row->getIsolationSubject();
+
+			 if ($sample = $row->getSample()) {
+				 $externalCode = $sample->getCode();
+			 } elseif ($strain = $row->getStrain()) {
+				 $externalCode = $strain->getFullCode();
+				 $taxonomicClass = $strain->getTaxonomicClass();
+				 $genusAndSpecies = $strain->getGenusAndSpecies();
+			 } elseif ($externalStrain = $row->getExternalStrain()) {
+				 $subject = 'research_collection';
+				 $externalCode = $externalStrain->getFullCode();
+				 $taxonomicClass = $externalStrain->getTaxonomicClass();
+				 $genusAndSpecies = $externalStrain->getGenusAndSpecies();
+			 }
+
+				$data[] = array($code, sfInflector::humanize($subject), $externalCode, $taxonomicClass, $genusAndSpecies, $row->getReceptionDate(), $row->getDeliveryDate());
 				break;
 			}
 		}
