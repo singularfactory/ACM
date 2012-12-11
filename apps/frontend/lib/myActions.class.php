@@ -241,14 +241,60 @@ class MyActions extends sfActions {
 
 		case 'dna_extraction':
 			$csv->setHeader(array('Number', 'Class', 'Name', 'Extraction date', 'Extraction kit', 'Concentration', 'DNA bank', 'PCR', 'Has sequences?'));
+			$query = $query
+				->leftJoin("m.Strain s")
+				->leftJoin("m.ExtractionKit c")
+				->leftJoin("s.TaxonomicClass tc")
+				->leftJoin("s.Genus g")
+				->leftJoin("s.Species sp")
+				->where('1=1');
+
 			foreach ($filters as $filter => $value) {
 				if ($filter !== 'group_by' && !empty($value)) {
+
 					if ($filter === 'strain_id') {
-						preg_match('/^[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?.*$/', $value, $matches);
-						$query = $query->andWhere("m.$filter = ?", $matches[1]);
-					} else {
-						$query = $query->andWhere("m.$filter = ?", $value);
+						preg_match('/^\s*[Bb]?[Ee]?[Aa]?\s*(\d{1,4})\s*[bB]?\s*_?(\d*).*$/', $value, $matches);
+						if (isset($matches[1])) {
+							$id = ltrim($matches[1], '0');
+							$query = $query->andWhere("m.$filter = ?", $id);
+						}
+					} else if ($filter === 'taxonomic_class_id' || $filter === 'genus_id') {
+						$query = $query->andWhere("s.$filter = ?", $value);
+					} else if ($filter === 'aliquots') {
+						$query = $query->andWhere("s.$filter = ?", $value);
+						if ($value == 1) {
+							$query = $query->andWhere("(m.aliquots = 0 OR m.aliquots IS NULL)");
+						} else {
+							$query = $query->andWhere("m.aliquots > 0");
+						}
+					} else if ($filter === 'pcr') {
+						switch ($value) {
+						case 0:
+						default:
+							$query = $query->leftJoin("m.Pcr p");
+							break;
+						case 1:
+							$query = $query->leftJoin("m.Pcr p")->andWhere('p.id IS NULL');
+							break;
+						case 2:
+							$query = $query->innerJoin("m.Pcr p");
+							break;
+						}
+					} else if ($filter === 'dna_sequence') {
+						switch ($value) {
+						case 0:
+						default:
+							$query = $query->leftJoin("p.Sequence seq");
+							break;
+						case 1:
+							$query = $query->leftJoin("p.Sequence seq")->andWhere('seq.id IS NULL');
+							break;
+						case 2:
+							$query = $query->innerJoin("p.Sequence seq");
+							break;
+						}
 					}
+					$query = $query->distinct();
 				}
 			}
 			break;
