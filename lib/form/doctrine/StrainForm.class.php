@@ -78,6 +78,11 @@ class StrainForm extends BaseStrainForm {
 				'add_empty' => true,
 			)));
 
+			$this['taxonomic_class_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+			$this['genus_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+			$this['species_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+			$this['authority_id']->getWidget()->setOption('order_by', array('name', 'asc'));
+
 			$this->setWidget('is_epitype', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
 			$this->setWidget('is_axenic', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
 			$this->setWidget('deceased', new sfWidgetFormChoice(array('choices' => self::$booleanChoices)));
