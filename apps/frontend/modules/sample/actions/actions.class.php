@@ -107,7 +107,7 @@ class sampleActions extends MyActions {
 
 			if (!empty($filters['notebook_code'])) {
 				$this->filters['Notebook code'] = $filters['notebook_code'];
-				$query = $query->andWhere("{$this->mainAlias()}.notebook_code = ?", $filters['notebook_code']);
+				$query = $query->andWhere("{$this->mainAlias()}.notebook_code LIKE ?", "%{$filters['notebook_code']}%");
 			}
 
 			if (!empty($filters['id'])) {
