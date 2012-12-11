@@ -89,7 +89,8 @@ th.aliquots, td.aliquots { width: 60px; }
 th.sequence_availability, td.sequence_availability, td.strain_code, td.culture_medium_code, th.band, td.band, td.project_strain_code, td.cryopreservation_strain_code { width: 100px; }
 td.date { width: 100px; }
 td.extraction_kit, td.isolation_date, td.isolation_subject, td.project_subject, td.cryopreservation_subject { width: 125px; }
-td.dna_extraction_code, td.sample_code { width: 140px; }
+td.sample_code { width: 140px; }
+td.dna_extraction_code { width: 90px; }
 td.microscopy_identification, td.molecular_identification { width: 200px; }
 td.isolation_code, td.project_code, td.cryopreservation_code { width: 150px; }
 td.petitioner_name, th.petitioner_name td.collector_name, td.isolator_name, th.concentration, td.concentration, td.supervisor { width: 150px; }
