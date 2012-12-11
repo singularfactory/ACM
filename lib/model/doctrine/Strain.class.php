@@ -136,7 +136,15 @@ class Strain extends BaseStrain {
 	}
 
 	public function hasDna() {
-		if ( $this->getAliquots() > 0 ) {
+		$aliquots = $this->getPublicAliquots();
+		$code = $this->_get('code');
+
+		$descendants = Doctrine_Query::create()->from('Strain s')->where('s.code = ?', $code)->execute();
+		foreach ($descendants as $descendant) {
+			$aliquots += $descendant->getAliquots();
+		}
+
+		if ($aliquots > 0) {
 			return true;
 		}
 		return false;
