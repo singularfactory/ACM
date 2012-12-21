@@ -368,6 +368,11 @@ a.clear-filter-conditions {
 #main_header #main_header_action_search a:hover {
 	background: url(../images/search.png) no-repeat 0 center;
 }
+#main_header #main_header_action_import a:link,
+#main_header #main_header_action_import a:visited,
+#main_header #main_header_action_import a:hover {
+	background: url(../images/import.png) no-repeat 0 center;
+}
 
 
 #main_header #search_box { margin: -3px 0px 0px 5px; padding: 0px; }

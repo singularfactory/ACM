@@ -263,6 +263,57 @@ class strainActions extends MyActions {
 	}
 
 	/**
+	 * Import strains from CSV file
+	 */
+	public function executeImportFromCSV(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+	
+		$this->form = new StrainImportForm();
+		if ($request->isMethod(sfRequest::POST)) {
+			$taintedValues = $request->getParameter($this->form->getName());
+			$this->form->bind($taintedValues, $request->getFiles($this->form->getName()));
+
+			$uploadedFiles = $request->getFiles();
+			$error = false;
+			if (isset($uploadedFiles)) {
+				if (($handle = fopen($uploadedFiles['filename']['tmp_name'], "r")) !== false) {
+					$line = 1;
+					while (($data = fgetcsv($handle, 0, ";", '"')) !== false) {
+						$fields = count($data);
+						if ($fields < 1) {
+							$error = sprintf('Changes could not be applied. The number of fields in line %d is less than %d', $line, 1);
+							break;
+						}
+						for ($i = 0; $i < $fields; ++$i) {
+							$field = $data[$i];
+						}
+						echo '<br />';
+						++$line;
+					}
+					fclose($handle);
+
+					if ($data === NULL) {
+						$error = sprintf('Changes could not be applied. There is a syntax error in line %d', $line);
+					} else {
+						throw new sfStopException();
+					}
+				} else {
+					$error = sprintf('The file could not be read. Try it again or contact the administrator if the error persists.');
+				}
+			} else {
+				$error = 'You have not upload any file or the file provided is not valid';
+			}
+
+			if ($error !== false) {
+				$this->getUser()->setFlash('notice', $error, false);
+			} else {
+				$this->getUser()->setFlash('notice', 'Strains information uploaded and applied');
+				$this->redirect('@strain');
+			}
+		}
+	}
+
+	/**
 	 * New action
 	 */
 	public function executeNew(sfWebRequest $request) {
