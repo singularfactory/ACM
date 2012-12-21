@@ -47,7 +47,11 @@ class StrainImportForm extends BaseFormDoctrine {
 			'required' => false,
 		)));
 		$this->widgetSchema->setLabel('filename', 'CSV file');
-		$this->widgetSchema->setHelp('filename', 'Each column MUST be separated using a semicolon (;) and wrapped in double quotes (")');
+		$this->widgetSchema->setHelp('filename',
+			'<span style="display: block; margin: 0.5em 0 0 0; line-height: 0.1em">&nbsp;</span>
+			- Each column MUST be separated using a semicolon (;) and wrapped in double quotes (")<br />
+			- A column may have multiple values separated by a comma (,)<br />
+		');
 
 		$this->setup();
 	}
