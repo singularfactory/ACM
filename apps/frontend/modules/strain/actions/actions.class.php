@@ -99,15 +99,15 @@ class strainActions extends MyActions {
 				if (!empty($filters[$filter])) {
 					$intermediateModel = '';
 					switch ($filter) {
-						case 'culture_medium_id':
-							$intermediateModel = 'CultureMedia';
-							break;
-						case 'maintenance_status_id':
-							$intermediateModel = 'MaintenanceStatus';
-							break;
-						case 'property_id':
-							$intermediateModel = 'Properties';
-							break;
+					case 'culture_medium_id':
+						$intermediateModel = 'CultureMedia';
+						break;
+					case 'maintenance_status_id':
+						$intermediateModel = 'MaintenanceStatus';
+						break;
+					case 'property_id':
+						$intermediateModel = 'Properties';
+						break;
 					}
 					$query = $query->andWhere("{$this->mainAlias()}.Strain$intermediateModel.{$filter} = ?", $filters[$filter]);
 
@@ -267,7 +267,7 @@ class strainActions extends MyActions {
 	 */
 	public function executeImportFromCSV(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
-	
+
 		$this->form = new StrainImportForm();
 		if ($request->isMethod(sfRequest::POST)) {
 			$taintedValues = $request->getParameter($this->form->getName());
@@ -277,25 +277,407 @@ class strainActions extends MyActions {
 			$error = false;
 			if (isset($uploadedFiles)) {
 				if (($handle = fopen($uploadedFiles['filename']['tmp_name'], "r")) !== false) {
-					$line = 1;
+					$strains = array();
+					$nRequiredFields = 26;
+					$strainTable = StrainTable::getInstance();
+
+					$line = 0;
 					while (($data = fgetcsv($handle, 0, ";", '"')) !== false) {
-						$fields = count($data);
-						if ($fields < 1) {
-							$error = sprintf('Changes could not be applied. The number of fields in line %d is less than %d', $line, 1);
+						++$line;
+						if (count($data) < $nRequiredFields) {
+							$error = sprintf('Changes could not be applied. The number of fields in line %d is less than %d', $line, $nRequiredFields);
 							break;
 						}
-						for ($i = 0; $i < $fields; ++$i) {
-							$field = $data[$i];
+
+						$strain = null;
+						$field = 0;
+						foreach ($data as $value) {
+							$error = false;
+							++$field;
+
+							$value = trim($value);
+							if (strlen($value) === 0) {
+								continue;
+							}
+
+							// Strain code
+							if ($field == 1) {
+								if (preg_match("/^[Bb][Ee][Aa]\s*(\d+)\s*(\/\d+)?\s*([Bb])?$/", $value, $matches)) {
+									$code = (isset($matches[1]) ? $matches[1] : '');
+									$clone = (isset($matches[2]) ? ltrim($matches[2], '/') : null);
+									$axenic = (isset($matches[3]) ? false : true);
+
+									if ($clone !== null) {
+										$strain = $strainTable->findOneByCodeAndCloneNumber($code, $clone);
+									} else {
+										$strain = $strainTable->findOneByCode($code);
+									}
+
+									if ($strain == null) {
+										$strain = new Strain();
+										$strain->setCode($code);
+									}
+
+									$strain->setCloneNumber($clone);
+									$strain->setIsAxenic($axenic);
+									continue;
+								} else {
+									$error = "Malformed BEA code";
+									break;
+								}
+							}
+
+							// Sample code
+							if ($field == 2) {
+								if (preg_match("/^(\d+)\s*([A-Za-z]+)\s*(\w{3}|_\w\w)\s*(00|[A-Za-z]{2,3})\s*(\d{2})(\d{2})(\d{2})$/", $value, $matches)) {
+									$id = (isset($matches[1]) ? $matches[1] : '');
+									$sampleTable = SampleTable::getInstance();
+									$sample = $sampleTable->findOneById($id);
+									if ($sample != null && $strain != null) {
+										$strain->setSampleId($sample->getId());
+									}
+									continue;
+								} else {
+									$error = "Malformed sample code";
+									break;
+								}
+							}
+
+							// Kingdom
+							if ($field == 3) {
+								$kingdom = KingdomTable::getInstance()->findOneByName($value);
+								if ($kingdom != null && $strain != null) {
+									$strain->setKingdomId($kingdom->getId());
+								}
+								continue;
+							}
+
+							// Subkingdom
+							if ($field == 4) {
+								$subkingdom = SubkingdomTable::getInstance()->findOneByName($value);
+								if ($subkingdom != null && $strain != null) {
+									$strain->setSubkingdomId($subkingdom->getId());
+								}
+								continue;
+							}
+
+							// Phylum
+							if ($field == 5) {
+								$phylum = PhylumTable::getInstance()->findOneByName($value);
+								if ($phylum != null && $strain != null) {
+									$strain->setPhylumId($phylum->getId());
+								}
+								continue;
+							}
+
+							// Taxonomic class
+							if ($field == 6) {
+								$taxonomicClass = TaxonomicClassTable::getInstance()->findOneByName($value);
+								if ($taxonomicClass != null && $strain != null) {
+									$strain->setTaxonomicClassId($taxonomicClass->getId());
+								}
+								continue;
+							}
+
+							// Taxonomic order
+							if ($field == 7) {
+								$taxonomicOrder = TaxonomicOrderTable::getInstance()->findOneByName($value);
+								if ($taxonomicOrder != null && $strain != null) {
+									$strain->setTaxonomicOrderId($taxonomicOrder->getId());
+								}
+								continue;
+							}
+
+							// Family
+							if ($field == 8) {
+								$family = FamilyTable::getInstance()->findOneByName($value);
+								if ($family != null && $strain != null) {
+									$strain->setFamilyId($family->getId());
+								}
+								continue;
+							}
+
+							// Genus
+							if ($field == 9) {
+								$genus = GenusTable::getInstance()->findOneByName($value);
+								if ($genus != null && $strain != null) {
+									$strain->setGenusId($genus->getId());
+								}
+								continue;
+							}
+
+							// Species
+							if ($field == 10) {
+								$species = SpeciesTable::getInstance()->findOneByName($value);
+								if ($species != null && $strain != null) {
+									$strain->setSpeciesId($species->getId());
+								}
+								continue;
+							}
+
+							// Authority
+							if ($field == 11) {
+								$authority = AuthorityTable::getInstance()->findOneByName($value);
+								if ($authority != null && $strain != null) {
+									$strain->setAuthorityId($authority->getId());
+								}
+								continue;
+							}
+
+							// Epitype
+							if ($field == 12) {
+								if (preg_match("/^(0|1)$/", $value)) {
+									$epitype = strcmp($value, 0) !== 0;
+									if ($strain != null) {
+										$strain->setIsEpitype($epitype);
+									}
+									continue;
+								} else {
+									$error = sprintf("Invalid epitype value (%s). Must be 0 or 1", $value);
+									break;
+								}
+							}
+
+							// Isolators
+							if ($field == 13) {
+								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
+									array_shift($matches);
+
+									$isolators = new Doctrine_Collection('StrainIsolators');
+									foreach ($matches as $match) {
+										if (strlen($match) == 0) {
+											continue;
+										}
+										$isolator = IsolatorTable::getInstance()->createQuery('i')
+											->where("CONCAT(i.name, ' ', i.surname) LIKE ?", sprintf("%%%s%%", rtrim(trim($match), ',')))
+											->fetchOne();
+										$relationshipExists = StrainIsolatorsTable::getInstance()->findOneByStrainIdAndIsolatorId($strain->getId(), $isolator->getId());
+										if ($isolator != null && !$relationshipExists) {
+											$isolators->add($isolator);
+										}
+									}
+									if ($strain != null && count($isolators) > 0) {
+										$strain->setIsolators($isolators);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed isolators list (%s)", $value);
+									break;
+								}
+							}
+
+							// Isolation date
+							if ($field == 14) {
+								if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $value, $matches)) {
+									if ($strain != null) {
+										$strain->setIsolationDate($value);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed isolation date (%s)", $value);
+									break;
+								}
+							}
+
+							// Identifier
+							if ($field == 15) {
+								$identifier = IdentifierTable::getInstance()->createQuery('i')
+									->where("CONCAT(i.name, ' ', i.surname) LIKE ?", sprintf('%%%s%%', $value))
+									->fetchOne();
+								if ($identifier != null && $strain != null) {
+									$strain->setIdentifierId($identifier->getId());
+								}
+								continue;
+							}
+
+							// Depositor
+							if ($field == 16) {
+								$depositor = DepositorTable::getInstance()->createQuery('d')
+									->where("CONCAT(d.name, ' ', d.surname) LIKE ?", sprintf('%%%s%%', $value))
+									->fetchOne();
+								if ($depositor != null && $strain != null) {
+									$strain->setDepositorId($depositor->getId());
+								}
+								continue;
+							}
+
+							// Maintenance statuses
+							if ($field == 17) {
+								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
+									array_shift($matches);
+
+									$maintenanceStatuses = new Doctrine_Collection('StrainMaintenanceStatus');
+									foreach ($matches as $match) {
+										if (strlen($match) == 0) {
+											continue;
+										}
+										$maintenanceStatus = MaintenanceStatusTable::getInstance()->findOneByName(rtrim(trim($match), ','));
+										$relationshipExists = StrainMaintenanceStatusTable::getInstance()->findOneByStrainIdAndMaintenanceStatusId($strain->getId(), $maintenanceStatus->getId());
+										if ($maintenanceStatus != null && !$relationshipExists) {
+											$maintenanceStatuses->add($maintenanceStatus);
+										}
+									}
+									if ($strain != null && count($maintenanceStatuses) > 0) {
+										$strain->setMaintenanceStatus($maintenanceStatuses);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed maintenance statuses list (%s)", $value);
+									break;
+								}
+							}
+
+							// Culture medium
+							if ($field == 18) {
+								$cultureMedium = CultureMediumTable::getInstance()->findOneByName($value);
+								if ($cultureMedium != null && $strain != null) {
+									$strain->setCultureMediumId($cultureMedium->getId());
+								}
+								continue;
+							}
+
+							// Culture media
+							if ($field == 19) {
+								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
+									array_shift($matches);
+
+									$cultureMedia = new Doctrine_Collection('StrainCultureMedia');
+									foreach ($matches as $match) {
+										if (strlen($match) == 0) {
+											continue;
+										}
+										$cultureMedium = CultureMediumTable::getInstance()->findOneByName(rtrim(trim($match), ','));
+										$relationshipExists = StrainCultureMediaTable::getInstance()->findOneByStrainIdAndCultureMediumId($strain->getId(), $cultureMedium->getId());
+										if ($cultureMedium != null && !$relationshipExists) {
+											$cultureMedia->add($cultureMedium);
+										}
+									}
+									if ($strain != null && count($cultureMedia) > 0) {
+										$strain->setCultureMedia($cultureMedia);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed culture media list (%s)", $value);
+									break;
+								}
+							}
+
+							// Container
+							if ($field == 20) {
+								$container = ContainerTable::getInstance()->findOneByName($value);
+								if ($container != null && $strain != null) {
+									$strain->setContainerId($container->getId());
+								}
+								continue;
+							}
+
+							// Containers
+							if ($field == 21) {
+								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
+									array_shift($matches);
+
+									$containers = new Doctrine_Collection('StrainContainers');
+									foreach ($matches as $match) {
+										if (strlen($match) == 0) {
+											continue;
+										}
+										$container = ContainerTable::getInstance()->findOneByName(rtrim(trim($match), ','));
+										$relationshipExists = StrainContainersTable::getInstance()->findOneByStrainIdAndContainerId($strain->getId(), $container->getId());
+										if ($container != null && !$relationshipExists) {
+											$containers->add($container);
+										}
+									}
+									if ($strain != null && count($containers) > 0) {
+										$strain->setContainers($containers);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed containers list (%s)", $value);
+									break;
+								}
+							}
+
+							// Transfer interval
+							if ($field == 22) {
+								if ($strain != null) {
+									$strain->setTransferInterval($value);
+								}
+								continue;
+							}
+
+							// Supervisor
+							if ($field == 23) {
+								$supervisor = sfGuardUserTable::getInstance()->createQuery('u')
+									->where("CONCAT(u.first_name, ' ', u.last_name) LIKE ?", sprintf('%%%s%%', $value))
+									->fetchOne();
+								if ($supervisor != null && $strain != null) {
+									$strain->setSupervisorId($supervisor->getId());
+								}
+								continue;
+							}
+
+							// Temperature
+							if ($field == 24) {
+								if (is_numeric($value)) {
+									if ($strain != null) {
+										$strain->setTemperature($value);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed temperature value (%s)", $value);
+									break;
+								}
+							}
+
+							// Photoperiod
+							if ($field == 24) {
+								if (is_numeric($value)) {
+									if ($strain != null) {
+										$strain->setPhoperiod($value);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed photoperiod value (%s)", $value);
+									break;
+								}
+							}
+
+							// Irradiation
+							if ($field == 24) {
+								if (is_numeric($value)) {
+									if ($strain != null) {
+										$strain->setIrradiation($value);
+									}
+									continue;
+								} else {
+									$error = sprintf("Malformed irradiation value (%s)", $value);
+									break;
+								}
+							}
 						}
-						echo '<br />';
-						++$line;
+
+						if ($strain != null) {
+							$strains[] = $strain;
+						}
 					}
 					fclose($handle);
 
 					if ($data === NULL) {
-						$error = sprintf('Changes could not be applied. There is a syntax error in line %d', $line);
+						$error = sprintf('Changes could not be applied. Line %d could not be read', $line);
+					} else if ($error !== false) {
+						$error = sprintf('Changes could not be applied. There is a syntax error in line %d, column %d: %s', $line - 1, $field, $error);
 					} else {
-						throw new sfStopException();
+						$dbConnection = Doctrine_Manager::connection();
+						try {
+							$dbConnection->beginTransaction();
+							foreach ($strains as $strain) {
+								$strain->save();
+							}
+							$dbConnection->commit();
+						} catch (Exception $e) {
+							$dbConnection->rollback();
+							$error = $e->getMessage();
+						}
 					}
 				} else {
 					$error = sprintf('The file could not be read. Try it again or contact the administrator if the error persists.');
