@@ -347,3 +347,28 @@ span.gps_coordinates_separator { padding: 0px; margin: 0px; font-size: 16px; ver
  */
 #culture_medium_amount, #strain_amount, #label_transfer_interval input { float:left; width: 40px; }
 #culture_medium_amount_buttons, #strain_amount_buttons, #transfer_interval_buttons { padding:0; float: right; margin-left: 3px; }
+
+/**
+ * STRAIN CSV IMPORT
+ */
+div.strain-import-help {
+	width: 45%;
+	float: left;
+	display: inline-block;
+}
+
+div.strain-import-form {
+	width: 50%;
+	float: right;
+	display: inline-block;
+}
+
+h3.strain-import-help-header {
+	margin: 0em;
+	margin-left: 1em;
+	display: inline;
+}
+
+ol.strain-import-help-guide, ul.strain-import-help-guide {
+	font-size: 0.9em;
+}
