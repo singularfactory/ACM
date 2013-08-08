@@ -27,14 +27,13 @@
 ?>
 <?php
 class sfCustomValidatedFile extends sfValidatedFile {
-
 	public function save($file = null, $fileMode = 0660, $create = true, $dirMode = 0770) {
 		// Let the parent class save the file and do what it normally does
 		$filename = parent::save($file, $fileMode, $create, $dirMode);
 
 		// Create the thumbnail if the file was successfully saved
 		$pngPictureFilename = $filename;
-		if ( $this->isSaved() ) {
+		if ($this->isSaved()) {
 			// Add support for alternative installation of ImageMagick binaries
 			$PATH=getenv('PATH');
 			putenv("PATH=$PATH:/opt/local/bin");
@@ -42,7 +41,7 @@ class sfCustomValidatedFile extends sfValidatedFile {
 			// Create thumbnails directory if not exists
 			$path = $this->getPath();
 			$thumbnailsDirectory = $path.sfConfig::get('app_thumbnails_dir');
-			if ( !is_dir($thumbnailsDirectory) ) {
+			if (!is_dir($thumbnailsDirectory)) {
 				mkdir($thumbnailsDirectory, 0770);
 			}
 
@@ -53,22 +52,16 @@ class sfCustomValidatedFile extends sfValidatedFile {
 			$thumbnail->save("$thumbnailsDirectory/$thumbnailFilename", 'image/png');
 
 			// Create a PNG version of the picture
-			$pngPicture = new Imagick("$path/$filename");
-			$pngPicture->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
-			$pngPicture->setImageResolution(sfConfig::get('app_picture_resolution'), sfConfig::get('app_picture_resolution'));
-
+			$pngPicture = new sfThumbnail(null, null, true, true, sfConfig::get('app_picture_resolution'), 'sfImageMagickAdapter');
+			$pngPicture->loadFile("$path/$filename");
 			$pngPictureFilename = preg_replace('/\.[\w\-]+$/', sfConfig::get('app_picture_extension'), $filename);
-			if ( !$pngPicture->writeImage("$path/$pngPictureFilename") ) {
-				$pngPictureFilename = $filename;
+			$pngPicture->save("$path/$pngPictureFilename");
+
+			// Delete the uploaded file
+			$extensionRegexp = sprintf('/%s$/', sfConfig::get('app_picture_extension'));
+			if (!preg_match($extensionRegexp, $filename)) {
+				unlink("$path/$filename");
 			}
-			else {
-				// Delete the uploaded file
-				if ( !preg_match('/\.png$/', $filename) ) {
-					unlink("$path/$filename");
-				}
-			}
-			$pngPicture->clear();
-			$pngPicture->destroy();
 		}
 
 		// Return the saved file as normal

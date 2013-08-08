@@ -777,30 +777,24 @@ class MyActions extends sfActions {
 	 */
 	public function saveBase64EncodedPicture($data = '', $path = '/images') {
 		// Create the picture and save it
-		$pngPicture = new Imagick();
-		if ( !$pngPicture->readImageBlob(base64_decode($data)) ) {
+		$pngPicture = new sfThumbnail(null, null, true, true, sfConfig::get('app_picture_resolution'), 'sfImageMagickAdapter');
+		if (!$pngPicture->loadData(base64_decode($data))) {
 			throw Exception("The picture could not be decoded");
 		}
-
-		$pngPicture->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
-		$pngPicture->setResolution(sfConfig::get('app_picture_resolution'), sfConfig::get('app_picture_resolution'));
-
 		$filename = sha1(substr($data, 0, 40).rand(11111, 99999)).'.png';
-		if ( !$pngPicture->writeImage("$path/$filename") ) {
-			throw Exception("The picture could not be saved to the filesystem");
-		}
+		$pngPicture->save("$path/$filename");
 
 		// Create the thumbnail by resizing the image
 		try {
 			$thumbnailsDirectory = $path.sfConfig::get('app_thumbnails_dir');
-			if ( !is_dir($thumbnailsDirectory) ) {
+			if (!is_dir($thumbnailsDirectory)) {
 				mkdir($thumbnailsDirectory, 0770);
 			}
 
-			$pngPicture->thumbnailImage(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true);
-			if ( !$pngPicture->writeImage("$thumbnailsDirectory/$filename") ) {
-				throw Exception("The picture could not be saved to the filesystem");
-			}
+			$thumbnail = new sfThumbnail(sfConfig::get('app_max_thumbnail_size'), sfConfig::get('app_max_thumbnail_size'), true, true, 300, 'sfImageMagickAdapter');
+			$thumbnail->loadData(base64_decode($data));
+			$thumbnailFilename = preg_replace('/\.[\w\-]+$/', sfConfig::get('app_thumbnail_extension'), $filename);
+			$thumbnail->save("$thumbnailsDirectory/$filename", 'image/png');
 		}
 		catch (Exception $e) {
 			unlink("$path/$filename");
