@@ -774,21 +774,14 @@ class apiActions extends GreenhouseAPI {
 			return null;
 		}
 
-		// Choose the picture
+		// Load the picture
 		$filename = sprintf('%s/%s', sfConfig::get('sf_upload_dir').sfConfig::get('app_strain_pictures_dir'), $picture->getFilename());
+		$thumbnail = new sfThumbnail(150, 150, true, true, sfConfig::get('app_picture_resolution'), 'sfImageMagickAdapter');
+		$thumbnail->loadFile($filename);
 
-		// Create a temporary thumbnail
-		$thumbnail = new Imagick($filename);
-		$thumbnail->setImageUnits(imagick::RESOLUTION_PIXELSPERINCH);
-		$thumbnail->setResolution(300, 300);
-		$thumbnail->thumbnailImage(150, 0);
-
-		$image = $thumbnail->getImageBlob();
-		$thumbnail->clear();
-		$thumbnail->destroy();
-
+		// Generates a temporary thumbnail
 		header('Content-type: image/png');
-		echo $image;
+		echo $thumbnail->toString();
 		exit();
 	}
 
