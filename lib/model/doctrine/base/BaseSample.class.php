@@ -118,9 +118,9 @@ abstract class BaseSample extends sfDoctrineRecord
              'primary' => true,
              'autoincrement' => true,
              ));
-        $this->hasColumn('notebook_code', 'string', 40, array(
+        $this->hasColumn('notebook_code', 'string', 255, array(
              'type' => 'string',
-             'length' => 40,
+             'length' => 255,
              ));
         $this->hasColumn('location_id', 'integer', null, array(
              'type' => 'integer',

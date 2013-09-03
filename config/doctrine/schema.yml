@@ -170,7 +170,7 @@ MicroscopicPicture:
 Sample:
   columns:
     id:  { type: integer, primary: true, autoincrement: true }
-    notebook_code:  { type: string(40) }
+    notebook_code:  { type: string(255) }
     location_id:  { type: integer, notnull: true }
     location_details:  { type: string(80) }
     latitude:  { type: string(12), fixed: true }
