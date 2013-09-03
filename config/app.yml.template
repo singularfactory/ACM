@@ -32,7 +32,7 @@ all:
     sample_pictures_dir:              /sample_pictures
     temperature_unit:                 ºC
     conductivity_unit:                ms
-    salinity_unit:                    ppm
+    salinity_unit:                    ppt
     altitude_unit:                    m
     max_sample_field_pictures:        3
     max_sample_detailed_pictures:     3
