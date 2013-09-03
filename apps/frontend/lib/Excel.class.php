@@ -36,7 +36,7 @@ class Excel {
 	/**
 	 * Default field separator
 	 */
-	const CSV_SEPARATOR = ';';
+	const CSV_SEPARATOR = ',';
 
 	/**
 	 * Default end of line
