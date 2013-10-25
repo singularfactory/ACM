@@ -288,7 +288,7 @@
 			<dd><?php echo $strain->getFullCode() ?></dd>
 			<dt>Is axenic:</dt>
 			<dd><?php echo $strain->getFormattedIsAxenic() ?></dd>
-			<br />
+			<br />                     
 
 			<dt>Sample:</dt>
 			<dd><?php echo  ($strain->getSample() != '') ? link_to($strain->getFormattedSampleCode(), "@sample_show?id={$strain->getSample()->getId()}") : sfConfig::get('app_no_data_message') ?></dd>
@@ -318,7 +318,7 @@
 			<dd><?php echo $strain->getArticleDescription() ?></dd>
 			<dt>Worldwide distribution:</dt>
 			<dd><?php echo $strain->getDistribution() ?></dd>
-			<dt>Is epitype:</dt>
+			<dt>Type species:</dt>
 			<dd><?php echo $strain->getFormattedIsEpitype() ?></dd>
 			<br />
 

@@ -226,7 +226,7 @@
 				<?php echo $form['distribution'] ?>
 			</div>
 			<div id="epitype" class="checkbox">
-				<?php echo $form['is_epitype']->renderLabel() ?>
+				<label for="strain_is_epitype">Type species</label>
 				<?php echo $form['is_epitype'] ?>
 			</div>
 		</div>

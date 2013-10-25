@@ -278,19 +278,41 @@ class strainActions extends MyActions {
 			if (isset($uploadedFiles)) {
 				if (($handle = fopen($uploadedFiles['filename']['tmp_name'], "r")) !== false) {
 					$strains = array();
-					$nRequiredFields = 26;
+					$nRequiredFields = 24;
 					$strainTable = StrainTable::getInstance();
-
+                                        $this->results = null;
 					$line = 0;
+                                        $posInitColumn=0;
+                                        $arrayTitles= array();
+                                        if(($data = fgetcsv($handle, 0, ";", '"')) !== false){
+                                          
+                                            foreach ($data as $key =>$value){
+                                                if($value=='#BEA_CODE' && $key!= 0){
+                                                    $data[$key] = $data[0];
+                                                    $data[0] ='#BEA_CODE';
+                                                    $posInitColumn = $key;
+                                                }
+                                            }
+                                                                                       
+                                            foreach ($data as $key =>$value) 
+                                                $arrayTitles [$value] = $key+1;
+                                        }                                        
+                                        ++$line;
 					while (($data = fgetcsv($handle, 0, ";", '"')) !== false) {
 						++$line;
 						if (count($data) < $nRequiredFields) {
 							$error = sprintf('Changes could not be applied. The number of fields in line %d is less than %d', $line, $nRequiredFields);
 							break;
 						}
-
+                          
 						$strain = null;
 						$field = 0;
+                                                $valInitcolumn = $data[$posInitColumn];
+                                                if($posInitColumn != 0){
+                                                    $data[$posInitColumn] = $data[0];
+                                                    $data[0] = $valInitcolumn;
+                                                }
+                                               
 						foreach ($data as $value) {
 							$error = false;
 							++$field;
@@ -301,18 +323,19 @@ class strainActions extends MyActions {
 							}
 
 							// Strain code
-							if ($field == 1) {
+							if ($field == $arrayTitles['#BEA_CODE']) {
 								if (preg_match("/^[Bb][Ee][Aa]\s*(\d+)\s*(\/\d+)?\s*([Bb])?$/", $value, $matches)) {
 									$code = (isset($matches[1]) ? $matches[1] : '');
 									$clone = (isset($matches[2]) ? ltrim($matches[2], '/') : null);
 									$axenic = (isset($matches[3]) ? false : true);
 
-									if ($clone !== null) {
-										$strain = $strainTable->findOneByCodeAndCloneNumber($code, $clone);
+									if ($clone !== null && $clone !== '') {
+										$strain = $strainTable->findOneByCodeAndCloneNumber($code, $clone);                                                                                
 									} else {
 										$strain = $strainTable->findOneByCode($code);
+                                                                                 
 									}
-
+                                                                       
 									if ($strain == null) {
 										$strain = new Strain();
 										$strain->setCode($code);
@@ -322,110 +345,148 @@ class strainActions extends MyActions {
 									$strain->setIsAxenic($axenic);
 									continue;
 								} else {
-									$error = "Malformed BEA code";
+									$error = "Malformed BEA code in line $line column #BEA_CODE";
 									break;
 								}
 							}
 
-							// Sample code
-							if ($field == 2) {
+//							// Sample code
+							if ($field == $arrayTitles['SAMPLE_CODE_ACM']) {
 								if (preg_match("/^(\d+)\s*([A-Za-z]+)\s*(\w{3}|_\w\w)\s*(00|[A-Za-z]{2,3})\s*(\d{2})(\d{2})(\d{2})$/", $value, $matches)) {
 									$id = (isset($matches[1]) ? $matches[1] : '');
-									$sampleTable = SampleTable::getInstance();
-									$sample = $sampleTable->findOneById($id);
-									if ($sample != null && $strain != null) {
+									$sampleTable = SampleTable::getInstance();                                                                        
+									$sample = $sampleTable->findOneById(intval($id));
+                                                                        if($sample == null ){
+                                                                            $error = "Sample code no exists in line $line column SAMPLE_CODE_ACM";
+                                                                            break;
+                                                                        }elseif ($sample != null && $strain != null) {
 										$strain->setSampleId($sample->getId());
 									}
 									continue;
 								} else {
-									$error = "Malformed sample code";
+									$error = "Malformed sample code in line $line column SAMPLE_CODE_ACM";
 									break;
 								}
 							}
-
-							// Kingdom
-							if ($field == 3) {
-								$kingdom = KingdomTable::getInstance()->findOneByName($value);
-								if ($kingdom != null && $strain != null) {
-									$strain->setKingdomId($kingdom->getId());
-								}
+//
+//							// Kingdom
+//							if ($field == 3) {
+//								$kingdom = KingdomTable::getInstance()->findOneByName($value);
+//								if ($kingdom != null && $strain != null) {
+//									$strain->setKingdomId($kingdom->getId());
+//								}
+//								continue;
+//							}
+//
+//							// Subkingdom
+//							if ($field == 4) {
+//								$subkingdom = SubkingdomTable::getInstance()->findOneByName($value);
+//								if ($subkingdom != null && $strain != null) {
+//									$strain->setSubkingdomId($subkingdom->getId());
+//								}
+//								continue;
+//							}
+//
+//							// Phylum
+//							if ($field == 5) {
+//								$phylum = PhylumTable::getInstance()->findOneByName($value);
+//								if ($phylum != null && $strain != null) {
+//									$strain->setPhylumId($phylum->getId());
+//								}
+//								continue;
+//							}
+//
+//							// Taxonomic class
+							if ($field == $arrayTitles['TAX_CURRENT_CLASS']) {
+                                                                if($value != 'sp.'){
+                                                                    $taxonomicClass = TaxonomicClassTable::getInstance()->findOneByName($value);
+                                                                    if($taxonomicClass == null && $value!= ''){
+                                                                          $taxonomicClass = new TaxonomicClass();
+                                                                          $taxonomicClass->setName(utf8_encode($value));                                                   
+                                                                          $taxonomicClass->save();
+                                                                    }
+                                                                    if ($taxonomicClass != null && $strain != null) {
+                                                                          $strain->setTaxonomicClassId($taxonomicClass->getId());
+                                                                    }
+                                                                }elseif($strain != null ){
+                                                                    $strain->setTaxonomicClassId(null);
+                                                                }  
 								continue;
 							}
-
-							// Subkingdom
-							if ($field == 4) {
-								$subkingdom = SubkingdomTable::getInstance()->findOneByName($value);
-								if ($subkingdom != null && $strain != null) {
-									$strain->setSubkingdomId($subkingdom->getId());
-								}
-								continue;
-							}
-
-							// Phylum
-							if ($field == 5) {
-								$phylum = PhylumTable::getInstance()->findOneByName($value);
-								if ($phylum != null && $strain != null) {
-									$strain->setPhylumId($phylum->getId());
-								}
-								continue;
-							}
-
-							// Taxonomic class
-							if ($field == 6) {
-								$taxonomicClass = TaxonomicClassTable::getInstance()->findOneByName($value);
-								if ($taxonomicClass != null && $strain != null) {
-									$strain->setTaxonomicClassId($taxonomicClass->getId());
-								}
-								continue;
-							}
-
-							// Taxonomic order
-							if ($field == 7) {
-								$taxonomicOrder = TaxonomicOrderTable::getInstance()->findOneByName($value);
-								if ($taxonomicOrder != null && $strain != null) {
-									$strain->setTaxonomicOrderId($taxonomicOrder->getId());
-								}
-								continue;
-							}
-
-							// Family
-							if ($field == 8) {
-								$family = FamilyTable::getInstance()->findOneByName($value);
-								if ($family != null && $strain != null) {
-									$strain->setFamilyId($family->getId());
-								}
-								continue;
-							}
-
-							// Genus
-							if ($field == 9) {
-								$genus = GenusTable::getInstance()->findOneByName($value);
-								if ($genus != null && $strain != null) {
-									$strain->setGenusId($genus->getId());
-								}
+//
+//							// Taxonomic order
+//							if ($field == 7) {
+//								$taxonomicOrder = TaxonomicOrderTable::getInstance()->findOneByName($value);
+//								if ($taxonomicOrder != null && $strain != null) {
+//									$strain->setTaxonomicOrderId($taxonomicOrder->getId());
+//								}
+//								continue;
+//							}
+//
+//							// Family
+//							if ($field == 8) {
+//								$family = FamilyTable::getInstance()->findOneByName($value);
+//								if ($family != null && $strain != null) {
+//									$strain->setFamilyId($family->getId());
+//								}
+//								continue;
+//							}
+//
+//							// Genus
+							if ($field == $arrayTitles['TAX_CURRENT_GENUS']) {
+                                                                if($value != 'sp.'){
+                                                                    $genus = GenusTable::getInstance()->findOneByName($value);
+                                                                    if($genus == null && $value!= ''){
+                                                                          $genus = new Genus();
+                                                                          $genus->setName(utf8_encode($value));                                                   
+                                                                          $genus->save();
+                                                                    }
+                                                                    if ($genus != null && $strain != null) {
+                                                                          $strain->setGenusId($genus->getId());
+                                                                    }
+                                                                }elseif($strain != null ){
+                                                                    $strain->setGenusId(null);
+                                                                }    
 								continue;
 							}
 
 							// Species
-							if ($field == 10) {
-								$species = SpeciesTable::getInstance()->findOneByName($value);
-								if ($species != null && $strain != null) {
-									$strain->setSpeciesId($species->getId());
-								}
+							if ($field == $arrayTitles['TAX_CURRENT_SPECIES']) {
+                                                                if($value != 'sp.'){
+                                                                    $species = SpeciesTable::getInstance()->findOneByName($value);
+                                                                    if($species == null && $value!= ''){
+                                                                          $species = new Species();
+                                                                          $species->setName(utf8_encode($value));                                                   
+                                                                          $species->save();
+                                                                    }
+                                                                    if ($species != null && $strain != null) {
+                                                                         $strain->setSpeciesId($species->getId());
+                                                                    }
+                                                                }elseif($strain != null ){
+                                                                    $strain->setSpeciesId(null);
+                                                                }    
 								continue;
 							}
 
 							// Authority
-							if ($field == 11) {
-								$authority = AuthorityTable::getInstance()->findOneByName($value);
+							if ($field == $arrayTitles['STRAIN_TAX_AUTHORITY']) {
+								$authority = AuthorityTable::getInstance()->findOneByName(utf8_encode($value));
+                                                              
+                                                                if($authority == null && $value!= ''){
+//                                                                      $authority = new Authority();
+//                                                                      $authority->setName(utf8_encode($value));                                                   
+//                                                                      $authority->save();
+                                                                        $error = "Authority not found in line $line column STRAIN_TAX_AUTHORITY";
+                                                                        break; 
+                                                                }
 								if ($authority != null && $strain != null) {
-									$strain->setAuthorityId($authority->getId());
+								      $strain->setAuthorityId($authority->getId());
 								}
 								continue;
 							}
 
 							// Epitype
-							if ($field == 12) {
+							if ($field == $arrayTitles['STRAIN_TYPE_STRAIN']) {
 								if (preg_match("/^(0|1)$/", $value)) {
 									$epitype = strcmp($value, 0) !== 0;
 									if ($strain != null) {
@@ -433,90 +494,157 @@ class strainActions extends MyActions {
 									}
 									continue;
 								} else {
-									$error = sprintf("Invalid epitype value (%s). Must be 0 or 1", $value);
+                                                                        $error = "Invalid epitype value. Must be 0 or 1 in line $line column STRAIN_TYPE_STRAIN";
 									break;
 								}
 							}
 
 							// Isolators
-							if ($field == 13) {
-								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
-									array_shift($matches);
-
+							if ($field == $arrayTitles['SAMPLE_ISOLATOR']) {
+								        $matches = explode("&", $value);
 									$isolators = new Doctrine_Collection('StrainIsolators');
-									foreach ($matches as $match) {
+                                                                        $relationshipExists=false;
+                                                                        $hasErrors=false;
+                                                                        if($strain->getId() != null){
+                                                                            StrainIsolatorsTable::getInstance()->createQuery('q')->delete('StrainIsolators i')->whereIn('i.strain_id', $strain->getId())->execute();
+                                                                        }    
+									foreach ($matches as $match) {                                                                           
 										if (strlen($match) == 0) {
 											continue;
 										}
+                                                                                                                                                              
 										$isolator = IsolatorTable::getInstance()->createQuery('i')
-											->where("CONCAT(i.name, ' ', i.surname) LIKE ?", sprintf("%%%s%%", rtrim(trim($match), ',')))
-											->fetchOne();
-										$relationshipExists = StrainIsolatorsTable::getInstance()->findOneByStrainIdAndIsolatorId($strain->getId(), $isolator->getId());
+                                                                                    ->where("CONCAT(TRIM(i.name), ' ', TRIM(i.surname)) LIKE ?", sprintf("%%%s%%",utf8_encode(rtrim(trim($match), '&')) ))
+                                                                                    ->fetchOne();
+                                                                               
+                                                                                if($isolator != null && $strain->getId()!= null){
+                                                                                    $relationshipExists = StrainIsolatorsTable::getInstance()->findOneByStrainIdAndIsolatorId($strain->getId(), $isolator->getId());
+                                                                                }
+                                                                                if($isolator == null && $match!= ''){
+                                                                                    $hasErrors = true;
+                                                                                    break;                                                                                                                                                                          
+                                                                                }                                                                               
 										if ($isolator != null && !$relationshipExists) {
 											$isolators->add($isolator);
 										}
 									}
+                                                                        if($hasErrors){
+                                                                            $error = "Isolator not found in line $line column SAMPLE_ISOLATOR";
+                                                                            break;
+                                                                        }
 									if ($strain != null && count($isolators) > 0) {
 										$strain->setIsolators($isolators);
 									}
 									continue;
-								} else {
-									$error = sprintf("Malformed isolators list (%s)", $value);
-									break;
-								}
+								
 							}
 
 							// Isolation date
-							if ($field == 14) {
-								if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $value, $matches)) {
-									if ($strain != null) {
-										$strain->setIsolationDate($value);
+							if ($field == $arrayTitles['SAMPLE_ISOLATION_DATE']) {
+                                                           
+								if ($value!= '') {
+                                                                        $value = str_replace( array("\\", "¨", "º", "~","#", "@", "|", "!", "\"",
+                                                                                               "·", "$", "%", "&","(", ")", "?", "'", "¡",
+                                                                                               "¿", "[", "^", "`", "]","+", "}", "{", "¨", "´",
+                                                                                               ">", "< ", ";", ",", ":",".", " "),'', $value);
+                                                                        $value = str_replace( "-",'/', $value);
+                                                                        $value = explode("/",$value);
+                                                                        
+                                                                        if(count($value)==2){
+                                                                            $value[2] = $value[1];
+                                                                            $value[1] = $value[0];
+                                                                            $value[0] = '01';
+                                                                        }
+                                                                        if(count($value)==1){
+                                                                            $value[2] = $value[0];
+                                                                            $value[1] = '01';
+                                                                            $value[0] = '01';
+                                                                        }    
+                                                                      
+									if ($strain != null && count($value) == 3) {
+										$strain->setIsolationDate($value[2].'-'.$value[1].'-'.$value[0]);
 									}
 									continue;
-								} else {
-									$error = sprintf("Malformed isolation date (%s)", $value);
-									break;
-								}
+								} 
 							}
 
-							// Identifier
-							if ($field == 15) {
-								$identifier = IdentifierTable::getInstance()->createQuery('i')
-									->where("CONCAT(i.name, ' ', i.surname) LIKE ?", sprintf('%%%s%%', $value))
-									->fetchOne();
-								if ($identifier != null && $strain != null) {
-									$strain->setIdentifierId($identifier->getId());
-								}
-								continue;
-							}
-
+//							// Identifier
+//							if ($field == 15) {
+//								$identifier = IdentifierTable::getInstance()->createQuery('i')
+//									->where("CONCAT(i.name, ' ', i.surname) LIKE ?", sprintf('%%%s%%', $value))
+//									->fetchOne();
+//								if ($identifier != null && $strain != null) {
+//									$strain->setIdentifierId($identifier->getId());
+//								}
+//								continue;
+//							}
+//
 							// Depositor
-							if ($field == 16) {
-								$depositor = DepositorTable::getInstance()->createQuery('d')
-									->where("CONCAT(d.name, ' ', d.surname) LIKE ?", sprintf('%%%s%%', $value))
-									->fetchOne();
-								if ($depositor != null && $strain != null) {
-									$strain->setDepositorId($depositor->getId());
+							if ($field == $arrayTitles['STRAIN_DEPOSITOR']) {
+                                                                if($value != ''){
+                                                                    $depositor = DepositorTable::getInstance()->createQuery('d')
+                                                                            ->where("CONCAT(TRIM(d.name), ' ', TRIM(d.surname)) LIKE ?", sprintf('%%%s%%', utf8_encode(trim($value))))
+                                                                            ->fetchOne();
+                                                                    
+                                                                    if($depositor == null){
+                                                                            $error = "Depositor not found in line $line column STRAIN_DEPOSITOR";
+                                                                            break;
+//                                                                          $depositor = new Depositor();
+//                                                                          $depositor->setName(utf8_encode($dataname[0]));                                                   
+//                                                                          $depositor->setSurname(utf8_encode($dataname[1]));                                                   
+//                                                                          $depositor->save();
+                                                                    }
+                                                                    if ($depositor != null && $strain != null) {
+                                                                            $strain->setDepositorId($depositor->getId());
+                                                                    }
+                                                                }
+								continue;
+							}
+                                                        // Remarks
+							if ($field == $arrayTitles['STRAIN_REMARKS']) {	
+                                                                if ($strain != null) {
+									$strain->setRemarks(utf8_encode(trim($value)));
 								}
 								continue;
+								
 							}
 
 							// Maintenance statuses
-							if ($field == 17) {
-								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
-									array_shift($matches);
-
+							if ($field == $arrayTitles['CRYO_AUTO_CALC']) {
+								if (preg_match("/^([^&]+&)*([^&]+)$/", $value, $matches)) {
+									$matches = explode("&", $value);
 									$maintenanceStatuses = new Doctrine_Collection('StrainMaintenanceStatus');
+                                                                        $hasErrors = false;
+                                                                        if($strain->getId() != null){
+                                                                            MaintenanceStatusTable::getInstance()->createQuery('q')->delete('StrainMaintenanceStatus sm')->whereIn('sm.strain_id', $strain->getId())->execute();
+                                                                        }    
 									foreach ($matches as $match) {
 										if (strlen($match) == 0) {
 											continue;
 										}
-										$maintenanceStatus = MaintenanceStatusTable::getInstance()->findOneByName(rtrim(trim($match), ','));
-										$relationshipExists = StrainMaintenanceStatusTable::getInstance()->findOneByStrainIdAndMaintenanceStatusId($strain->getId(), $maintenanceStatus->getId());
-										if ($maintenanceStatus != null && !$relationshipExists) {
+                                                                                
+                                                                                if(rtrim(trim($match), '&') == 1)
+                                                                                    $name = 'Cryopreserved';
+                                                                                else
+                                                                                    $name = 'Liquid';
+                                                                                
+										$maintenanceStatus = MaintenanceStatusTable::getInstance()->findOneByName($name);
+                                                                                if($maintenanceStatus == null){
+                                                                                    $hasErrors = true;
+                                                                                    break;
+                                                                                }
+                                                                                    
+                                                                                if($maintenanceStatus != null && $strain->getId() != null){
+                                                                                   $relationshipExists = StrainMaintenanceStatusTable::getInstance()->findOneByStrainIdAndMaintenanceStatusId($strain->getId(), $maintenanceStatus->getId());
+										}
+                                                                                if ($maintenanceStatus != null && !$relationshipExists) {
 											$maintenanceStatuses->add($maintenanceStatus);
 										}
 									}
+                                                                        if($hasErrors){
+                                                                            $error = "StrainMaintenanceStatus not found in line $line column CRYO_AUTO_CALC";
+                                                                            break;
+                                                                        }
 									if ($strain != null && count($maintenanceStatuses) > 0) {
 										$strain->setMaintenanceStatus($maintenanceStatuses);
 									}
@@ -528,144 +656,281 @@ class strainActions extends MyActions {
 							}
 
 							// Culture medium
-							if ($field == 18) {
-								$cultureMedium = CultureMediumTable::getInstance()->findOneByName($value);
-								if ($cultureMedium != null && $strain != null) {
-									$strain->setCultureMediumId($cultureMedium->getId());
-								}
+							if ($field == $arrayTitles['STRAIN_CULTURE_MEDIUM_1']) {
+								if($value != ''){
+                                                                    $cultureMedium = CultureMediumTable::getInstance()->findOneByName(utf8_encode(trim($value)));
+                                                                    if($cultureMedium == null){
+                                                                        $error = "culture_medium not found in line $line column STRAIN_CULTURE_MEDIUM_1";
+                                                                        break;
+                                                                    }elseif ($cultureMedium != null && $strain != null) {
+                                                                            $strain->setCultureMediumId($cultureMedium->getId());
+                                                                    }
+                                                                }
 								continue;
 							}
 
 							// Culture media
-							if ($field == 19) {
-								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
-									array_shift($matches);
-
-									$cultureMedia = new Doctrine_Collection('StrainCultureMedia');
-									foreach ($matches as $match) {
-										if (strlen($match) == 0) {
-											continue;
-										}
-										$cultureMedium = CultureMediumTable::getInstance()->findOneByName(rtrim(trim($match), ','));
-										$relationshipExists = StrainCultureMediaTable::getInstance()->findOneByStrainIdAndCultureMediumId($strain->getId(), $cultureMedium->getId());
-										if ($cultureMedium != null && !$relationshipExists) {
-											$cultureMedia->add($cultureMedium);
-										}
-									}
-									if ($strain != null && count($cultureMedia) > 0) {
-										$strain->setCultureMedia($cultureMedia);
-									}
-									continue;
-								} else {
-									$error = sprintf("Malformed culture media list (%s)", $value);
-									break;
-								}
+							if ($field == $arrayTitles['STRAIN_CULTURE_MEDIUM_2']) {
+                                                          
+								$matches = explode("&", utf8_encode($value));
+                                                                $cultureMedia = new Doctrine_Collection('StrainCultureMedia');
+                                                                $relationshipExists = false;
+                                                                $hasErrors = false;
+                                                                if($strain->getId() != null){
+                                                                            CultureMediumTable::getInstance()->createQuery('q')->delete('StrainCultureMedia sm')->whereIn('sm.strain_id', $strain->getId())->execute();
+                                                                }            
+                                                                foreach ($matches as $match) {
+                                                                        if (strlen($match) == 0) {
+                                                                                continue;
+                                                                        }
+                                                                        $cultureMedium = CultureMediumTable::getInstance()->findOneByName(rtrim(trim($match), '&'));
+                                                                        if($cultureMedium == null){
+                                                                            $hasErrors = true;
+                                                                            break;
+                                                                        }
+                                                                        if($cultureMedium != null && $strain->getId() != null){
+                                                                            $relationshipExists = StrainCultureMediaTable::getInstance()->findOneByStrainIdAndCultureMediumId($strain->getId(), $cultureMedium->getId());
+                                                                        }
+                                                                        if ($cultureMedium != null && !$relationshipExists) {
+                                                                                $cultureMedia->add($cultureMedium);
+                                                                        }
+                                                                }
+                                                                if($hasErrors){
+                                                                        $error = "CultureMedium not found in line $line column STRAIN_CULTURE_MEDIUM_2";
+                                                                        break;
+                                                                }
+                                                                if ($strain != null && count($cultureMedia) > 0) {
+                                                                        $strain->setCultureMedia($cultureMedia);
+                                                                }
+                                                                continue;
+								
 							}
-
-							// Container
-							if ($field == 20) {
-								$container = ContainerTable::getInstance()->findOneByName($value);
-								if ($container != null && $strain != null) {
-									$strain->setContainerId($container->getId());
-								}
-								continue;
-							}
-
+//
+//							
 							// Containers
-							if ($field == 21) {
-								if (preg_match("/^([^,]+,)*([^,]+)$/", $value, $matches)) {
-									array_shift($matches);
-
+							if ($field == $arrayTitles['STRAIN_CULTURE_CONTAINER']) {
+								if (preg_match("/^([^&]+&)*([^&]+)$/", $value, $matches)) {
+									$matches = explode("&", $value);
+									$relationshipExists=false;
 									$containers = new Doctrine_Collection('StrainContainers');
+                                                                        $hasErrors = false;
+                                                                        if($strain->getId() != null){
+                                                                            ContainerTable::getInstance()->createQuery('q')->delete('StrainContainers sc')->whereIn('sc.strain_id', $strain->getId())->execute();
+                                                                        }
+                                                                        $cont_containers= 0;
 									foreach ($matches as $match) {
 										if (strlen($match) == 0) {
 											continue;
 										}
-										$container = ContainerTable::getInstance()->findOneByName(rtrim(trim($match), ','));
-										$relationshipExists = StrainContainersTable::getInstance()->findOneByStrainIdAndContainerId($strain->getId(), $container->getId());
+                                                                              
+                                                                                switch (strtoupper(rtrim(trim($match), '&'))) {
+                                                                                    case 'EF':
+                                                                                       $name = 'E-flask';
+                                                                                    break;
+                                                                                    case 'TC':
+                                                                                       $name = 'Tissue culture';
+                                                                                    break;
+                                                                                    case 'PT':
+                                                                                       $name = 'Plastic tube';
+                                                                                    break;
+                                                                                    case 'GT':
+                                                                                       $name = 'Glass tube';
+                                                                                    break;
+                                                                                    case 'PD':
+                                                                                       $name = 'Petri dish 30';
+                                                                                    break;
+                                                                                    default:
+                                                                                       $name = '';    
+                                                                                     break;
+                                                                                }
+										$container = ContainerTable::getInstance()->findOneByName($name);
+                                                                               
+                                                                                if($container == null){
+                                                                                    $hasErrors = true;
+                                                                                    break;
+                                                                                }
+                                                                                if($container != null && $strain->getId()!= null )
+                                                                                    $relationshipExists = StrainContainersTable::getInstance()->findOneByStrainIdAndContainerId($strain->getId(), $container->getId());
 										if ($container != null && !$relationshipExists) {
-											$containers->add($container);
+										    $containers->add($container);
 										}
+                                                                                // el primero se almacena en el strain
+                                                                                if($cont_containers == 0){
+                                                                                    if ($container != null && $strain != null) {
+                        								$strain->setContainerId($container->getId());
+                        							    }
+                                                                                }
+                                                                                $cont_containers++;
 									}
+                                                                        if($hasErrors){
+                                                                            $error = "Container not found in line $line column STRAIN_CULTURE_CONTAINER";
+                                                                            break;
+                                                                        }
 									if ($strain != null && count($containers) > 0) {
 										$strain->setContainers($containers);
 									}
 									continue;
 								} else {
-									$error = sprintf("Malformed containers list (%s)", $value);
+									$error = "Malformed containers list in line $line column STRAIN_PUBLIC";
 									break;
 								}
 							}
-
+//
 							// Transfer interval
-							if ($field == 22) {
+							if ($field == $arrayTitles['STRAIN_TRANSFER_INTERVAL_1']) {
 								if ($strain != null) {
 									$strain->setTransferInterval($value);
 								}
 								continue;
 							}
-
+                                                        // Is public
+							if ($field == $arrayTitles['STRAIN_PUBLIC']) {
+								if (preg_match("/^(0|1)$/", $value)) {
+									$public = strcmp($value, 0) !== 0;
+									if ($strain != null) {
+										$strain->setIsPublic($public);
+									}
+									continue;
+								} else {
+                                                                        $error = "Invalid public value . Must be 0 or 1 in line $line column STRAIN_PUBLIC";
+									break;
+								}
+							}
+                                                        // Deceased
+							if ($field == $arrayTitles['STRAIN_STATUS']) {
+								if ($strain != null && $value !='') {
+                                                                    if(in_array($value,array('Dead','Lost','Removed')))
+									$strain->setDeceased(1);
+                                                                    else
+                                                                        $strain->setDeceased(0);
+								}
+								continue;
+							}
+                                                        //observation
+                                                        if ($field == $arrayTitles['SAMPLE_OLD_CODE_SAMPLING']) {
+								if ($strain != null && $value !='' ) {
+									$strain->setObservation(utf8_encode(trim($value)));
+								}
+								continue;
+							}
+                                                        // web notes
+                                                        if ($field == $arrayTitles['STRAIN_NOTES_FOR_THE_WEB']) {
+								if ($strain != null && $value !='') {
+									$strain->setWebNotes (utf8_encode(trim($value)));
+								}
+								continue;
+							}
+                                                        //relatives
+                                                        if ($field == $arrayTitles['STRAIN_RELATIVES']) {
+                                                            $relative=null;
+                                                            if($strain->getId()!= null){
+                                                                $relative = StrainRelativeTable::getInstance()->createQuery('d')
+                                                                        ->where("d.strain_id = ?",$strain->getId())
+                                                                        ->fetchOne();                                                                                     
+                                                            } 
+                                                            
+                                                            if ($relative == null) {
+                                                                $relative = new StrainRelative();
+                                                                $relative->setName(utf8_encode(trim($value)));                                                   
+                                                                $relative->setStrain($strain);                                                   
+                                                                $relative->save();                                                               
+                                                            }else{
+                                                                $relative->setName($value);  
+                                                            }
+                                                            continue;
+                                                        }
+                                                        //citations
+                                                        if ($field == $arrayTitles['STRAIN_REFERENCES']) {
+                                                            if ($strain != null && $value !='') {
+                                                                $strain->setCitations(trim($value));
+                                                            }
+                                                            continue;
+                                                        }
+                                                        
 							// Supervisor
-							if ($field == 23) {
+							if ($field == $arrayTitles['STRAIN_SUPERVISOR']) {
 								$supervisor = sfGuardUserTable::getInstance()->createQuery('u')
-									->where("CONCAT(u.first_name, ' ', u.last_name) LIKE ?", sprintf('%%%s%%', $value))
+									->where("CONCAT(u.first_name, ' ', u.last_name) LIKE ?", sprintf('%%%s%%',  utf8_encode(trim($value))))
 									->fetchOne();
+                                                                if($supervisor == null){
+                                                                     $error = "supervisor not found in line $line column STRAIN_SUPERVISOR";
+								     break;
+                                                                }
 								if ($supervisor != null && $strain != null) {
 									$strain->setSupervisorId($supervisor->getId());
 								}
 								continue;
 							}
-
-							// Temperature
-							if ($field == 24) {
-								if (is_numeric($value)) {
-									if ($strain != null) {
-										$strain->setTemperature($value);
-									}
-									continue;
-								} else {
-									$error = sprintf("Malformed temperature value (%s)", $value);
-									break;
-								}
-							}
-
-							// Photoperiod
-							if ($field == 24) {
-								if (is_numeric($value)) {
-									if ($strain != null) {
-										$strain->setPhoperiod($value);
-									}
-									continue;
-								} else {
-									$error = sprintf("Malformed photoperiod value (%s)", $value);
-									break;
-								}
-							}
-
-							// Irradiation
-							if ($field == 24) {
-								if (is_numeric($value)) {
-									if ($strain != null) {
-										$strain->setIrradiation($value);
-									}
-									continue;
-								} else {
-									$error = sprintf("Malformed irradiation value (%s)", $value);
-									break;
-								}
-							}
+                                                        
+                                                        //MOL_ ID
+//                                                      if ($field == $arrayTitles['TAX_MOLTAX_SEEN']) {
+//                                                            if (preg_match("/^(0|1)$/", $value)) {
+//									$public = strcmp($value, 0) !== 0;
+//									if ($strain != null&& $value !='') {
+//										$strain->setMolId(trim($value));
+//									}
+//									continue;
+//							    } else {
+//                                                                        $error = "Invalid mol_id value . Must be 0 or 1 in line $line column TAX_MOLTAX_SEEN";
+//									break;
+//							    }
+//                                                            continue;
+//                                                      }
+//
+//							// Temperature
+//							if ($field == 24) {
+//								if (is_numeric($value)) {
+//									if ($strain != null) {
+//										$strain->setTemperature($value);
+//									}
+//									continue;
+//								} else {
+//									$error = sprintf("Malformed temperature value (%s)", $value);
+//									break;
+//								}
+//							}
+//
+//							// Photoperiod
+//							if ($field == 24) {
+//								if (is_numeric($value)) {
+//									if ($strain != null) {
+//										$strain->setPhoperiod($value);
+//									}
+//									continue;
+//								} else {
+//									$error = sprintf("Malformed photoperiod value (%s)", $value);
+//									break;
+//								}
+//							}
+//
+//							// Irradiation
+//							if ($field == 24) {
+//								if (is_numeric($value)) {
+//									if ($strain != null) {
+//										$strain->setIrradiation($value);
+//									}
+//									continue;
+//								} else {
+//									$error = sprintf("Malformed irradiation value (%s)", $value);
+//									break;
+//								}
+//							}
 						}
 
 						if ($strain != null) {
 							$strains[] = $strain;
 						}
+						if ($error != null) {
+							$errors[] = $error;
+						}
+                                              
 					}
 					fclose($handle);
 
 					if ($data === NULL) {
 						$error = sprintf('Changes could not be applied. Line %d could not be read', $line);
-					} else if ($error !== false) {
-						$error = sprintf('Changes could not be applied. There is a syntax error in line %d, column %d: %s', $line - 1, $field, $error);
+					} else if (isset($errors) && count($errors)>=1) {
+						$error = sprintf('Changes could not be applied.');
 					} else {
 						$dbConnection = Doctrine_Manager::connection();
 						try {
@@ -688,9 +953,14 @@ class strainActions extends MyActions {
 
 			if ($error !== false) {
 				$this->getUser()->setFlash('notice', $error, false);
+                                if(!isset($errors)) $errors = null;
+                                $this->results = $errors;
+                                $this->error = true;
 			} else {
 				$this->getUser()->setFlash('notice', 'Strains information uploaded and applied');
-				$this->redirect('@strain');
+                                $this->results = $strains;
+                                 $this->error = false;
+				//$this->redirect('@strain');
 			}
 		}
 	}
