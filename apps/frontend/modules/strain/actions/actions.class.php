@@ -340,8 +340,9 @@ class strainActions extends MyActions {
 										$strain = new Strain();
 										$strain->setCode($code);
 									}
-
-									$strain->setCloneNumber($clone);
+                                                                        if ($clone !== null && $clone !== ''){   
+                                                                            $strain->setCloneNumber($clone);
+                                                                        }
 									$strain->setIsAxenic($axenic);
 									continue;
 								} else {
@@ -364,7 +365,7 @@ class strainActions extends MyActions {
 									}
 									continue;
 								} else {
-									$error = "Malformed sample code in line $line column SAMPLE_CODE_ACM";
+									$error = "Malformed sample code in line $line column SAMPLE_CODE_ACM value:".$value;
 									break;
 								}
 							}
@@ -402,7 +403,7 @@ class strainActions extends MyActions {
                                                                     $taxonomicClass = TaxonomicClassTable::getInstance()->findOneByName($value);
                                                                     if($taxonomicClass == null && $value!= ''){
                                                                           $taxonomicClass = new TaxonomicClass();
-                                                                          $taxonomicClass->setName(utf8_encode($value));                                                   
+                                                                          $taxonomicClass->setName(trim($value));                                                   
                                                                           $taxonomicClass->save();
                                                                     }
                                                                     if ($taxonomicClass != null && $strain != null) {
@@ -438,7 +439,7 @@ class strainActions extends MyActions {
                                                                     $genus = GenusTable::getInstance()->findOneByName($value);
                                                                     if($genus == null && $value!= ''){
                                                                           $genus = new Genus();
-                                                                          $genus->setName(utf8_encode($value));                                                   
+                                                                          $genus->setName(trim($value));                                                   
                                                                           $genus->save();
                                                                     }
                                                                     if ($genus != null && $strain != null) {
@@ -456,7 +457,7 @@ class strainActions extends MyActions {
                                                                     $species = SpeciesTable::getInstance()->findOneByName($value);
                                                                     if($species == null && $value!= ''){
                                                                           $species = new Species();
-                                                                          $species->setName(utf8_encode($value));                                                   
+                                                                          $species->setName(trim($value));                                                   
                                                                           $species->save();
                                                                     }
                                                                     if ($species != null && $strain != null) {
@@ -470,13 +471,10 @@ class strainActions extends MyActions {
 
 							// Authority
 							if ($field == $arrayTitles['STRAIN_TAX_AUTHORITY']) {
-								$authority = AuthorityTable::getInstance()->findOneByName(utf8_encode($value));
+								$authority = AuthorityTable::getInstance()->findOneByName(trim($value));
                                                               
                                                                 if($authority == null && $value!= ''){
-//                                                                      $authority = new Authority();
-//                                                                      $authority->setName(utf8_encode($value));                                                   
-//                                                                      $authority->save();
-                                                                        $error = "Authority not found in line $line column STRAIN_TAX_AUTHORITY";
+//                                                                      $error = "Authority not found in line $line column STRAIN_TAX_AUTHORITY";
                                                                         break; 
                                                                 }
 								if ($authority != null && $strain != null) {
@@ -514,9 +512,9 @@ class strainActions extends MyActions {
 										}
                                                                                                                                                               
 										$isolator = IsolatorTable::getInstance()->createQuery('i')
-                                                                                    ->where("CONCAT(TRIM(i.name), ' ', TRIM(i.surname)) LIKE ?", sprintf("%%%s%%",utf8_encode(rtrim(trim($match), '&')) ))
+                                                                                    ->where("CONCAT(TRIM(i.name), ' ', TRIM(i.surname)) LIKE ?", sprintf("%%%s%%",rtrim(trim(preg_replace('/[ ]+/',' ',$match)), '&')))
                                                                                     ->fetchOne();
-                                                                               
+                                                                                                                                                              
                                                                                 if($isolator != null && $strain->getId()!= null){
                                                                                     $relationshipExists = StrainIsolatorsTable::getInstance()->findOneByStrainIdAndIsolatorId($strain->getId(), $isolator->getId());
                                                                                 }
@@ -529,7 +527,7 @@ class strainActions extends MyActions {
 										}
 									}
                                                                         if($hasErrors){
-                                                                            $error = "Isolator not found in line $line column SAMPLE_ISOLATOR";
+                                                                            $error = "Isolator not found in line $line column SAMPLE_ISOLATOR name:".$match;
                                                                             break;
                                                                         }
 									if ($strain != null && count($isolators) > 0) {
@@ -543,9 +541,9 @@ class strainActions extends MyActions {
 							if ($field == $arrayTitles['SAMPLE_ISOLATION_DATE']) {
                                                            
 								if ($value!= '') {
-                                                                        $value = str_replace( array("\\", "¨", "º", "~","#", "@", "|", "!", "\"",
-                                                                                               "·", "$", "%", "&","(", ")", "?", "'", "¡",
-                                                                                               "¿", "[", "^", "`", "]","+", "}", "{", "¨", "´",
+                                                                        $value = str_replace( array("\\", "Â¨", "Âº", "~","#", "@", "|", "!", "\"",
+                                                                                               "Â·", "$", "%", "&","(", ")", "?", "'", "Â¡",
+                                                                                               "Â¿", "[", "^", "`", "]","+", "}", "{", "Â¨", "Â´",
                                                                                                ">", "< ", ";", ",", ":",".", " "),'', $value);
                                                                         $value = str_replace( "-",'/', $value);
                                                                         $value = explode("/",$value);
@@ -583,16 +581,13 @@ class strainActions extends MyActions {
 							if ($field == $arrayTitles['STRAIN_DEPOSITOR']) {
                                                                 if($value != ''){
                                                                     $depositor = DepositorTable::getInstance()->createQuery('d')
-                                                                            ->where("CONCAT(TRIM(d.name), ' ', TRIM(d.surname)) LIKE ?", sprintf('%%%s%%', utf8_encode(trim($value))))
+                                                                            ->where("CONCAT(TRIM(d.name), ' ', TRIM(d.surname)) LIKE ?", sprintf('%%%s%%', trim($value)))
                                                                             ->fetchOne();
                                                                     
                                                                     if($depositor == null){
-                                                                            $error = "Depositor not found in line $line column STRAIN_DEPOSITOR";
+                                                                            $error = "Depositor not found in line $line column STRAIN_DEPOSITOR value:".$value;
                                                                             break;
-//                                                                          $depositor = new Depositor();
-//                                                                          $depositor->setName(utf8_encode($dataname[0]));                                                   
-//                                                                          $depositor->setSurname(utf8_encode($dataname[1]));                                                   
-//                                                                          $depositor->save();
+//                                                                         
                                                                     }
                                                                     if ($depositor != null && $strain != null) {
                                                                             $strain->setDepositorId($depositor->getId());
@@ -603,7 +598,7 @@ class strainActions extends MyActions {
                                                         // Remarks
 							if ($field == $arrayTitles['STRAIN_REMARKS']) {	
                                                                 if ($strain != null) {
-									$strain->setRemarks(utf8_encode(trim($value)));
+									$strain->setRemarks(trim($value));
 								}
 								continue;
 								
@@ -658,9 +653,9 @@ class strainActions extends MyActions {
 							// Culture medium
 							if ($field == $arrayTitles['STRAIN_CULTURE_MEDIUM_1']) {
 								if($value != ''){
-                                                                    $cultureMedium = CultureMediumTable::getInstance()->findOneByName(utf8_encode(trim($value)));
+                                                                    $cultureMedium = CultureMediumTable::getInstance()->findOneByName(trim($value));
                                                                     if($cultureMedium == null){
-                                                                        $error = "culture_medium not found in line $line column STRAIN_CULTURE_MEDIUM_1";
+                                                                        $error = "culture_medium not found in line $line column STRAIN_CULTURE_MEDIUM_1 value:".$value;
                                                                         break;
                                                                     }elseif ($cultureMedium != null && $strain != null) {
                                                                             $strain->setCultureMediumId($cultureMedium->getId());
@@ -672,7 +667,7 @@ class strainActions extends MyActions {
 							// Culture media
 							if ($field == $arrayTitles['STRAIN_CULTURE_MEDIUM_2']) {
                                                           
-								$matches = explode("&", utf8_encode($value));
+								$matches = explode("&", $value);
                                                                 $cultureMedia = new Doctrine_Collection('StrainCultureMedia');
                                                                 $relationshipExists = false;
                                                                 $hasErrors = false;
@@ -696,7 +691,7 @@ class strainActions extends MyActions {
                                                                         }
                                                                 }
                                                                 if($hasErrors){
-                                                                        $error = "CultureMedium not found in line $line column STRAIN_CULTURE_MEDIUM_2";
+                                                                        $error = "CultureMedium not found in line $line column STRAIN_CULTURE_MEDIUM_2 value:".$value;
                                                                         break;
                                                                 }
                                                                 if ($strain != null && count($cultureMedia) > 0) {
@@ -763,7 +758,7 @@ class strainActions extends MyActions {
                                                                                 $cont_containers++;
 									}
                                                                         if($hasErrors){
-                                                                            $error = "Container not found in line $line column STRAIN_CULTURE_CONTAINER";
+                                                                            $error = "Container not found in line $line column STRAIN_CULTURE_CONTAINER name:".$value;
                                                                             break;
                                                                         }
 									if ($strain != null && count($containers) > 0) {
@@ -809,14 +804,14 @@ class strainActions extends MyActions {
                                                         //observation
                                                         if ($field == $arrayTitles['SAMPLE_OLD_CODE_SAMPLING']) {
 								if ($strain != null && $value !='' ) {
-									$strain->setObservation(utf8_encode(trim($value)));
+									$strain->setObservation(trim($value));
 								}
 								continue;
 							}
                                                         // web notes
                                                         if ($field == $arrayTitles['STRAIN_NOTES_FOR_THE_WEB']) {
 								if ($strain != null && $value !='') {
-									$strain->setWebNotes (utf8_encode(trim($value)));
+									$strain->setWebNotes (trim($value));
 								}
 								continue;
 							}
@@ -831,7 +826,7 @@ class strainActions extends MyActions {
                                                             
                                                             if ($relative == null) {
                                                                 $relative = new StrainRelative();
-                                                                $relative->setName(utf8_encode(trim($value)));                                                   
+                                                                $relative->setName(trim($value));                                                   
                                                                 $relative->setStrain($strain);                                                   
                                                                 $relative->save();                                                               
                                                             }else{
@@ -850,7 +845,7 @@ class strainActions extends MyActions {
 							// Supervisor
 							if ($field == $arrayTitles['STRAIN_SUPERVISOR']) {
 								$supervisor = sfGuardUserTable::getInstance()->createQuery('u')
-									->where("CONCAT(u.first_name, ' ', u.last_name) LIKE ?", sprintf('%%%s%%',  utf8_encode(trim($value))))
+									->where("CONCAT(u.first_name, ' ', u.last_name) LIKE ?", sprintf('%%%s%%', trim($value)))
 									->fetchOne();
                                                                 if($supervisor == null){
                                                                      $error = "supervisor not found in line $line column STRAIN_SUPERVISOR";
@@ -923,7 +918,6 @@ class strainActions extends MyActions {
 						if ($error != null) {
 							$errors[] = $error;
 						}
-                                              
 					}
 					fclose($handle);
 
