@@ -353,8 +353,7 @@ class strainActions extends MyActions {
 
 //							// Sample code
 							if ($field == $arrayTitles['SAMPLE_CODE_ACM']) {
-								if (preg_match("/^(\d+)\s*([A-Za-z]+)\s*(\w{3}|_\w\w)\s*(00|[A-Za-z]{2,3})\s*(\d{2})(\d{2})(\d{2})$/", $value, $matches)) {
-									$id = (isset($matches[1]) ? $matches[1] : '');
+									$id = substr($value, 0, 4);
 									$sampleTable = SampleTable::getInstance();                                                                        
 									$sample = $sampleTable->findOneById(intval($id));
                                                                         if($sample == null ){
@@ -364,10 +363,7 @@ class strainActions extends MyActions {
 										$strain->setSampleId($sample->getId());
 									}
 									continue;
-								} else {
-									$error = "Malformed sample code in line $line column SAMPLE_CODE_ACM value:".$value;
-									break;
-								}
+								
 							}
 //
 //							// Kingdom
