@@ -318,7 +318,7 @@ class strainActions extends MyActions {
 							++$field;
 
 							$value = trim($value);
-							if (strlen($value) === 0) {
+							if (strlen($value) === 0 && $field != $arrayTitles['STRAIN_TAX_AUTHORITY']) {
 								continue;
 							}
 
