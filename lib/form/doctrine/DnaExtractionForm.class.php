@@ -39,6 +39,7 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		0 => '',
 		'extraction_kit' => 'Extraction kit',
 		'concentration' => 'Concentration',
+		'preservation' => 'Preservation',
 		'aliquots' => 'Number of aliquots',
 		'260_280_ratio' => '260:280 DNA quality ratio',
 		'260_230_ratio' => '260:230 DNA quality ratio',
@@ -111,6 +112,7 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		$this->widgetSchema->setLabel('concentration', 'Genomic DNA concentration');
 		$this->widgetSchema->setLabel('260_280_ratio', '260:280 DNA quality ratio');
 		$this->widgetSchema->setLabel('260_230_ratio', '260:230 DNA quality ratio');
+		$this->widgetSchema->setLabel('preservation', 'Preservation');
 
 		// Configure help messages
 		$this->widgetSchema->setHelp('arrival_date', 'Year, month and day');
@@ -121,5 +123,6 @@ class DnaExtractionForm extends BaseDnaExtractionForm {
 		$this->widgetSchema->setHelp('260_280_ratio', 'Decimal value for quality ratio, e.g. 1.75');
 		$this->widgetSchema->setHelp('260_230_ratio', 'Decimal value for quality ratio, e.g. 1.75');
 		$this->widgetSchema->setHelp('is_public', 'Whether the DNA should be shown in public catalog or not');
+		$this->widgetSchema->setHelp('preservation', 'Decimal value for quality ratio, e.g. 1.75');
 	}
 }

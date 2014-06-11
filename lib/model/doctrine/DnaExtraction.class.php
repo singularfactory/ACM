@@ -79,6 +79,13 @@ class DnaExtraction extends BaseDnaExtraction {
 		}
 		return sfConfig::get('app_no_data_message');
 	}
+        
+	public function getFormattedPreservation() {
+		if ( $preservation = $this->_get('preservation') ) {
+			return $preservation;
+		}
+		return sfConfig::get('app_no_data_message');
+	}
 
 	public function getFormattedIsPublic() {
 		if ( $this->_get('is_public') == 0 ) {

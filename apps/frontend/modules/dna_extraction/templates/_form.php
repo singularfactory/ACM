@@ -79,6 +79,13 @@
 			<?php echo $form['260_230_ratio']->renderHelp() ?>
 			<?php echo $form['260_230_ratio'] ?>
 		</div>
+                 
+                <div id="preservation">
+			<?php echo $form['preservation']->renderLabel() ?>
+			<?php echo $form['preservation']->renderError() ?>
+			<?php echo $form['preservation']->renderHelp() ?>
+			<?php echo $form['preservation'] ?>
+		</div> 
 	</div>
 
 	<div id="right_side_form">
