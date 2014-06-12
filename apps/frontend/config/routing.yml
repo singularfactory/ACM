@@ -111,7 +111,7 @@ strain_import:
   url:          strain/import
   param:        { module: strain, action: importFromCSV }
   requirements: { sf_method: [get, post] }
-
+  
 
 ###
 # CultureMedium model related routes
@@ -136,6 +136,11 @@ dna_extraction_create_label:
   url:          dna_extraction/create_label/:id
   param:        { module: dna_extraction, action: createLabel }
   requirements: { sf_method: [get, post], id: "[^/]+" }
+
+dna_import:
+  url:          dna/import
+  param:        { module: dna_extraction, action: importFromCSV }
+  requirements: { sf_method: [get, post] }  
 
 ###
 # Pcr model related routes

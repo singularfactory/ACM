@@ -31,6 +31,7 @@
 <span>All DNA extractions</span>
 	<?php include_partial('global/search_box_header_action') ?>
 	<?php include_partial('global/new_header_action', array('message' => 'Add a new extraction', 'route' => '@dna_extraction_new')) ?>
+        <?php include_partial('global/import_header_action', array('message' => 'Import data', 'route' => '@dna_import')) ?>
 <?php end_slot() ?>
 
 <?php include_partial('global/filter_options', array('module' => 'dna_extraction', 'form' => $form)) ?>

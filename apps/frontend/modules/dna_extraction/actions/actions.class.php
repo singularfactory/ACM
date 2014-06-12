@@ -306,4 +306,181 @@ class dna_extractionActions extends MyActions {
 			$this->dnaExtraction = $dnaExtraction;
 		}
 	}
+        
+        /**
+	 * Import strains from CSV file
+	 */
+        public function executeImportFromCSV(sfWebRequest $request) {
+
+        $this->forward404Unless($request->isMethod(sfRequest::POST) || $request->isMethod(sfRequest::GET));
+        $this->form = new DnaImportForm();
+        if ($request->isMethod(sfRequest::POST)) {
+            
+            $taintedValues = $request->getParameter($this->form->getName());
+            $this->form->bind($taintedValues, $request->getFiles($this->form->getName()));
+            $uploadedFiles = $request->getFiles();
+            $error = false;
+            
+            if (($handle = fopen($uploadedFiles['filename']['tmp_name'], "r")) !== false) {
+                $dnas = array();
+                $line = 0;
+                $strainTable = StrainTable::getInstance();
+                $this->results = null;
+                $arrayTitles = array();
+                if(($data = fgetcsv($handle, 0, ";", '"')) !== false) {
+                    
+                    if(strtoupper($data[0]) != 'BEA_CODE'){
+                        $error = sprintf('Changes could not be applied. the first column must be BEA_CODE' );
+                        break;
+                    }
+                    foreach ($data as $key =>$value){
+                        $arrayTitles[$key] = strtoupper($value);
+                    }
+                }
+               
+                // BEGIN PROCESING LINES
+                while (($data = fgetcsv($handle, 0, ";", '"')) !== false) {
+                    ++$line;
+                    if (count($data) < 8) {
+                        $error = sprintf('Changes could not be applied. The number of fields in line %d is less than %d', $line, 8);
+                        break;
+                    }
+                    $dnaExtraction = null;
+                    $field = -1;
+                    foreach ($data as $value) {
+                        $error = false;
+                        $value = trim($value);
+                        
+                        $field++;  
+                       
+                        // Strain code
+                        if ($arrayTitles[$field] == 'BEA_CODE') {
+                            $value = str_replace('_','', $value);
+                            if (preg_match("/^[Bb][Ee][Aa]\s*(\d+)\s*(\/\d+)?\s*([Bb])?$/", $value, $matches)) {
+                                $code = (isset($matches[1]) ? $matches[1] : '');
+                                $clone = (isset($matches[2]) ? ltrim($matches[2], '/') : null);
+                                $axenic = (isset($matches[3]) ? false : true);
+
+                                if ($clone !== null && $clone !== '') {
+                                    $strain = $strainTable->findOneByCodeAndCloneNumber($code, $clone);
+                                } else {
+                                    $strain = $strainTable->findOneByCode($code);
+                                }
+                                
+                                if($strain == '' || $strain == null){
+                                    $error = "Not found Strain in line $line column BEA_CODE";
+                                    break;
+                                }
+                                
+                                //CREATE NEW OBJECT ROW
+                                $dnaExtraction = new DnaExtraction();
+                                $dnaExtraction->setIsPublic(false);
+                                
+                                
+                                $dnaExtraction->setStrainId($strain->id);
+                                
+                            }else{
+                                $error = "Malformed BEA code in line $line column BEA_CODE value : ".$value;
+		                break;
+                            }
+                            
+                            continue;
+                        }    
+                        if ($arrayTitles[$field] == 'EXTRACTION_DATE') {
+                            if ($value != '') {
+                                $value = str_replace("-", '/', $value);
+                                $value = explode("/", $value);
+                                $dnaExtraction->setExtractionDate($value[2] . '-' . $value[1] . '-' . $value[0]);
+                            }
+                            continue;
+                        }
+                        if ($arrayTitles[$field] == 'EXTRACTION METHOD') {
+                            if ($value != '') {
+                                $ek = ExtractionKitTable::getInstance()->findOneByName($value);
+                                if ($ek == null) {
+                                    $ek = new ExtractionKit();
+                                    $ek->setName($value);
+                                    $ek->save();
+                                }
+                                $dnaExtraction->setExtractionKitId($ek->id);
+                            } else {
+                                $error = "Not found EXTRACTION METHOD  in line $line column EXTRACTION METHOD";
+                                break;
+                            }
+                            continue;
+                        }
+                        if ($arrayTitles[$field] == 'DNA CONCENTRATION') {
+                            if($value != '') {
+                                $dnaExtraction->setConcentration(str_replace(',', '.', $value));
+                            }
+                            continue;
+                        }
+                        if ($arrayTitles[$field] == '260_280') {
+                            if($value != '') {
+                                $dnaExtraction->set260_280Ratio (str_replace(',', '.', $value));
+                            }
+                            continue;
+                        }
+                        if ($arrayTitles[$field] == '260_230') {
+                            if($value != '') {
+                                $dnaExtraction->set260_230Ratio(str_replace(',', '.', $value));
+                            }
+                            continue;
+                        }
+                        if ($arrayTitles[$field] == 'PRESERVATION') {
+                            if($value != '' && is_numeric($value)) {
+                                $dnaExtraction->setPreservation(str_replace(',', '.', $value));
+                            }
+                            continue;
+                        }
+                        if ($arrayTitles[$field] == 'SEQUENCE') {}
+                        
+                    }
+                    
+                    if ($dnaExtraction != null) {
+                        $dnas[] = $dnaExtraction;
+                    }
+                    if ($error != null) {
+                        $errors[] = $error;
+                    }
+                    
+                }
+                 
+                //APPLY CHANGES IN BD
+                fclose($handle);
+                if ($data === NULL) {
+                    $error = sprintf('Changes could not be applied. Line %d could not be read', $line);
+                } else if (isset($errors) && count($errors) >= 1) {
+                    $error = sprintf('Changes could not be applied.');
+                } else {
+                    $dbConnection = Doctrine_Manager::connection();
+                    try {
+                        $dbConnection->beginTransaction();
+                        foreach ($dnas as $dnaExtraction) {
+                            $dnaExtraction->save();
+                        }
+                        $dbConnection->commit();
+                    } catch (Exception $e) {
+                        $dbConnection->rollback();
+                        $error = $e->getMessage();
+                    }
+                }
+                
+            } else {
+                $error = sprintf('The file could not be read.');
+            }
+
+            if ($error !== false) {
+                $this->getUser()->setFlash('notice', $error, false);
+                if (!isset($errors)) $errors = null;
+                $this->results = $errors;
+                $this->error = true;
+            } else {
+                $this->getUser()->setFlash('notice', 'DNA information uploaded and applied');
+                $this->results = $dnas;
+                $this->error = false;
+            }
+        }
+    }
+
 }
