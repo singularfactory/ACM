@@ -643,6 +643,8 @@ class apiActions extends GreenhouseAPI {
 				'concentration' => $extraction->getConcentration(),
 				'260_280_ratio' => $extraction->getFormatted260280Ratio(),
 				'260_230_ratio' => $extraction->getFormatted260230Ratio(),
+				'preservation' => $extraction->getFormattedPreservation(),
+				'dna_sequence' => $extraction->hasDnaSequence(),
 			);
 		}
 		unset($extraction);
@@ -671,6 +673,10 @@ class apiActions extends GreenhouseAPI {
 				$location = $sample->getLocationId() ? $locations[$sample->getLocationId()] : null;
 				$habitat = $sample->getHabitatId() ? $habitats[$sample->getHabitatId()] : null;
 				$location_details = $sample->getLocationDetails();
+				$coordinates = $sample->getFormattedGPSCoordinates() ? $sample->getFormattedGPSCoordinates() : null;
+				$environment = $sample->getFormattedEnvironment() ? $sample->getFormattedEnvironment() : null;
+				$collector = $sample->getFormattedCollectors() ? $sample->getFormattedCollectors() : null;
+                                
 			}
 
 			$record = array(
@@ -682,6 +688,9 @@ class apiActions extends GreenhouseAPI {
 				'relatives' => array(),
 				'location' => $location,
 				'location_details' => $location_details,
+				'coordinates' => $coordinates,
+				'environment' => $environment,
+				'collector' => $collector,
 				'habitat' => $habitat,
 				'is_epitype' => $strain->getIsEpitype(),
 				'is_axenic' => $strain->getIsAxenic(),

@@ -41,7 +41,7 @@ abstract class BaseDnaExtractionForm extends BaseFormDoctrine
       'extraction_kit_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('ExtractionKit'))),
       'concentration'     => new sfValidatorNumber(array('required' => false)),
       '260_280_ratio'     => new sfValidatorNumber(array('required' => false)),
-      'preservation'      => new sfValidatorNumber(array('required' => false)),
+      'preservation'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       '260_230_ratio'     => new sfValidatorNumber(array('required' => false)),
       'aliquots'          => new sfValidatorInteger(array('required' => false)),
       'genbank_link'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),

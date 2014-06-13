@@ -37,7 +37,7 @@ abstract class BaseDnaExtractionFormFilter extends BaseFormFilterDoctrine
       'extraction_kit_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => $this->getRelatedModelName('ExtractionKit'), 'column' => 'id')),
       'concentration'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       '260_280_ratio'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'preservation'      => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
+      'preservation'      => new sfValidatorPass(array('required' => false)),
       '260_230_ratio'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'aliquots'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'genbank_link'      => new sfValidatorPass(array('required' => false)),

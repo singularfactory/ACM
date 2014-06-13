@@ -592,7 +592,7 @@ DnaExtraction:
     extraction_date:  { type: date }
     extraction_kit_id:  { type: integer, notnull: true }
     concentration:  { type: decimal }
-    preservation:  { type: decimal }
+    preservation:  { type: string(10) }
     260_280_ratio:  { type: decimal }
     260_230_ratio:  { type: decimal }
     aliquots:  { type: integer }
