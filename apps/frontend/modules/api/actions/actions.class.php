@@ -676,6 +676,14 @@ class apiActions extends GreenhouseAPI {
 				$coordinates = $sample->getFormattedGPSCoordinates() ? $sample->getFormattedGPSCoordinates() : null;
 				$environment = $sample->getFormattedEnvironment() ? $sample->getFormattedEnvironment() : null;
 				$collector = $sample->getFormattedCollectors() ? $sample->getFormattedCollectors() : null;
+                                $collector_date = $sample->getCollectionDate() ? $sample->getCollectionDate() : null;
+                                $related_sample = array();
+                                foreach ($sample->getStrains() as $strain_rel){
+                                    if($strain_rel->getId() != $strain->getId()){
+                                        $related_sample[$strain_rel->getId()] = $strain_rel->getFullCode();
+                                    }
+                                }
+                                $related_sample = (count($related_sample)>0) ? $related_sample : null;
                                 
 			}
 
@@ -691,6 +699,8 @@ class apiActions extends GreenhouseAPI {
 				'coordinates' => $coordinates,
 				'environment' => $environment,
 				'collector' => $collector,
+				'collector_date' => $collector_date,
+				'related_sample' => $related_sample,
 				'habitat' => $habitat,
 				'is_epitype' => $strain->getIsEpitype(),
 				'is_axenic' => $strain->getIsAxenic(),
