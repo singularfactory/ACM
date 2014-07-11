@@ -86,6 +86,11 @@
 			<?php echo $form['preservation']->renderHelp() ?>
 			<?php echo $form['preservation'] ?>
 		</div> 
+            
+                <div id="genes">
+			<?php echo $form['genes']->renderLabel() ?>
+			<?php echo $form['genes'] ?>
+		</div> 
 	</div>
 
 	<div id="right_side_form">

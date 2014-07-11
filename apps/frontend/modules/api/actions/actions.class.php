@@ -644,7 +644,7 @@ class apiActions extends GreenhouseAPI {
 				'260_280_ratio' => $extraction->getFormatted260280Ratio(),
 				'260_230_ratio' => $extraction->getFormatted260230Ratio(),
 				'preservation' => $extraction->getFormattedPreservation(),
-				'dna_sequence' => $extraction->hasDnaSequence(),
+				'genes' => $extraction->getGenes(),
 			);
 		}
 		unset($extraction);

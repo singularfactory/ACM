@@ -156,4 +156,11 @@ class DnaExtraction extends BaseDnaExtraction {
 			->andWhere('pcr.can_be_sequenced = ?', 1)
 			->count() > 0;
 	}
+        
+        public function getGenes() {
+		if ($genes = $this->_get('genes')) {
+			return $genes;
+		}
+		return "-";
+	}
 }

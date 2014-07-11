@@ -31,6 +31,7 @@
  * @method decimal             get260280Ratio()       Returns the current record's "260_280_ratio" value
  * @method decimal             get260230Ratio()       Returns the current record's "260_230_ratio" value
  * @method decimal             getPreservation()      Returns the current record's "Preservation" value
+ * @method string              getGenes()             Returns the current record's "Genes" value
  * @method integer             getAliquots()          Returns the current record's "aliquots" value
  * @method string              getGenbankLink()       Returns the current record's "genbank_link" value
  * @method string              getRemarks()           Returns the current record's "remarks" value
@@ -45,6 +46,7 @@
  * @method DnaExtraction       setExtractionKitId()   Sets the current record's "extraction_kit_id" value
  * @method DnaExtraction       setConcentration()     Sets the current record's "concentration" value
  * @method DnaExtraction       setPreservation()      Sets the current record's "preservation" value
+ * @method DnaExtraction       setGenes()             Sets the current record's "genes" value
  * @method DnaExtraction       set260280Ratio()       Sets the current record's "260_280_ratio" value
  * @method DnaExtraction       set260230Ratio()       Sets the current record's "260_230_ratio" value
  * @method DnaExtraction       setAliquots()          Sets the current record's "aliquots" value
@@ -100,6 +102,10 @@ abstract class BaseDnaExtraction extends sfDoctrineRecord
              ));
         $this->hasColumn('preservation', 'decimal', null, array(
              'type' => 'decimal',
+             ));
+        $this->hasColumn('genes', 'string', 20, array(
+             'type' => 'string',
+             'length' => 255,
              ));
         $this->hasColumn('aliquots', 'integer', null, array(
              'type' => 'integer',

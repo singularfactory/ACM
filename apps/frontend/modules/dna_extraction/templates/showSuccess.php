@@ -73,6 +73,8 @@
 			<dd><?php echo $dnaExtraction->getFormattedGenbankLink() ?></dd>
 			<dt>Remarks:</dt>
 			<dd><?php echo $dnaExtraction->getRemarks() ?></dd>
+			<dt>Genes:</dt>
+			<dd><?php echo $dnaExtraction->getGenes() ?></dd>
 		</dl>
 	</div>
 

@@ -25,6 +25,7 @@ abstract class BaseDnaExtractionForm extends BaseFormDoctrine
       '260_280_ratio'     => new sfWidgetFormInputText(),
       '260_230_ratio'     => new sfWidgetFormInputText(),
       'preservation'     => new sfWidgetFormInputText(),
+      'genes'             => new sfWidgetFormInputText(),
       'aliquots'          => new sfWidgetFormInputText(),
       'genbank_link'      => new sfWidgetFormInputText(),
       'remarks'           => new sfWidgetFormTextarea(),
@@ -46,6 +47,7 @@ abstract class BaseDnaExtractionForm extends BaseFormDoctrine
       'aliquots'          => new sfValidatorInteger(array('required' => false)),
       'genbank_link'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'remarks'           => new sfValidatorString(array('required' => false)),
+      'genes'           => new sfValidatorString(array('required' => false)),
       'created_at'        => new sfValidatorDateTime(),
       'updated_at'        => new sfValidatorDateTime(),
     ));

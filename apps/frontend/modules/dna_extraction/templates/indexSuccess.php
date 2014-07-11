@@ -30,8 +30,7 @@
 <?php slot('main_header') ?>
 <span>All DNA extractions</span>
 	<?php include_partial('global/search_box_header_action') ?>
-	<?php include_partial('global/new_header_action', array('message' => 'Add a new extraction', 'route' => '@dna_extraction_new')) ?>
-        <?php include_partial('global/import_header_action', array('message' => 'Import data', 'route' => '@dna_import')) ?>
+	<?php include_partial('global/import_header_action', array('message' => 'Import data', 'route' => '@dna_import')) ?>
 <?php end_slot() ?>
 
 <?php include_partial('global/filter_options', array('module' => 'dna_extraction', 'form' => $form)) ?>
@@ -53,8 +52,7 @@
 			<th><?php echo link_to('Extraction kit', '@dna_extraction?sort_column=ExtractionKit.name&sort_direction='.$sortDirection.$allResults) ?></th>
 			<th><?php echo link_to('Concentration ('.sfConfig::get('app_concentration_unit').')', '@dna_extraction?sort_column=concentration&sort_direction='.$sortDirection.$allResults) ?></th>
 			<th class="dna_availability"><?php echo link_to('DNA bank', '@dna_extraction?sort_column=aliquots&sort_direction='.$sortDirection.$allResults)?></th>
-			<th class="object_count">PCR</th>
-			<th class="sequence_availability">Has sequence?</th>
+			<th class="object_count">Genes</th>
 			<th></th>
 		</tr>
 
@@ -92,9 +90,8 @@
 			<td class="extraction_kit"><?php echo link_to($dnaExtraction->getExtractionKit()->getName(), $url) ?></td>
 			<td class="concentration"><?php echo link_to($dnaExtraction->getFormattedConcentration(), $url) ?></td>
 			<td class="aliquots"><?php echo link_to($dnaExtraction->getFormattedAliquots(), $url) ?></td>
-			<td class="object_count"><?php echo link_to($dnaExtraction->getNbPcr(), $url) ?></td>
-			<td class="sequence_availability"><?php echo link_to($dnaExtraction->getFormattedHasDnaSequence(), $url) ?></td>
-
+			<td class="object_count"><?php echo link_to($dnaExtraction->getGenes(), $url) ?></td>
+			
 			<td class="actions">
 				<a href="<?php echo $url ?>">
 					<?php echo link_to('Edit', '@dna_extraction_edit?id='.$dnaExtraction->getId()) ?>
