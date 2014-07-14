@@ -68,11 +68,11 @@
 			<li>The first line must contain the headers.</li>
 			<li>No matter the order of the columns or if you have a number greater than the minimum.</li>
 			<li>Each column MUST be separated using a semicolon (;) and wrapped in double quotes (").</li>
-			<li>Extraction_date format DD/MM/YYYY</li>
+			<li>Extraction_date format MM/DD/YYYY</li>
 		</ul>
 		<h3 class="strain-import-help-header">Minimum columns allowed</h3>
 		<ul class="strain-import-help-guide">
-			<li>BEA_Code</li>
+			<li>MOL_CODE</li>
 			<li>Extraction_date</li>
 			<li>Extraction Method</li>
 			<li>DNA Concentration</li>

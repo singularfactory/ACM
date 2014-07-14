@@ -325,13 +325,13 @@ class dna_extractionActions extends MyActions {
                 $dnas = array();
                 $line = 0;
                 $strainTable = StrainTable::getInstance();
+                $dnaExtractionTable = DnaExtractionTable::getInstance();
                 $this->results = null;
                 $arrayTitles = array();
                 if(($data = fgetcsv($handle, 0, ";", '"')) !== false) {
-                    
-                    if(strtoupper($data[0]) != 'BEA_CODE'){
-                        $error = sprintf('Changes could not be applied. the first column must be BEA_CODE' );
-                        break;
+                  
+                    if(strtoupper($data[0]) != 'MOL_CODE'){
+                        die('Changes could not be applied. the first column must be MOL_CODE');
                     }
                     foreach ($data as $key =>$value){
                         $arrayTitles[$key] = strtoupper($value);
@@ -354,33 +354,40 @@ class dna_extractionActions extends MyActions {
                         $field++;  
                        
                         // Strain code
-                        if ($arrayTitles[$field] == 'BEA_CODE') {
+                        if ($arrayTitles[$field] == 'MOL_CODE') {
                             $value = str_replace('_','', $value);
                             if (preg_match("/^[Bb][Ee][Aa]\s*(\d+)\s*(\/\d+)?\s*([Bb])?$/", $value, $matches)) {
                                 $code = (isset($matches[1]) ? $matches[1] : '');
-                                $clone = (isset($matches[2]) ? ltrim($matches[2], '/') : null);
-                                $axenic = (isset($matches[3]) ? false : true);
-
+				$clone = (isset($matches[2]) ? ltrim($matches[2], '/') : null);
+				$axenic = (isset($matches[3]) ? false : true);
                                 if ($clone !== null && $clone !== '') {
                                     $strain = $strainTable->findOneByCodeAndCloneNumber($code, $clone);
                                 } else {
                                     $strain = $strainTable->findOneByCode($code);
                                 }
-                                
+                               
+                              
                                 if($strain == '' || $strain == null){
-                                    $error = "Not found Strain in line $line column BEA_CODE";
+                                    $error = "Not found Strain in line $line column MOL_CODE";
                                     break;
                                 }
+                               
+                                $dnaExtraction = $dnaExtractionTable->findOneByStrainId($strain->id);
+                              
                                 
-                                //CREATE NEW OBJECT ROW
-                                $dnaExtraction = new DnaExtraction();
-                                $dnaExtraction->setIsPublic(false);
-                                
-                                
-                                $dnaExtraction->setStrainId($strain->id);
+                                if ($dnaExtraction == null) {
+                                    //CREATE NEW OBJECT ROW
+                                    $dnaExtraction = new DnaExtraction();
+                                    $dnaExtraction->setStrainId($strain->id);
+                                    
+                                }
+                                if($strain->is_public)
+                                    $dnaExtraction->is_public = true;
+                                else
+                                    $dnaExtraction->is_public = false; 
                                 
                             }else{
-                                $error = "Malformed BEA code in line $line column BEA_CODE value : ".$value;
+                                $error = "Malformed BEA code in line $line column MOL_CODE value : ".$value;
 		                break;
                             }
                             
@@ -390,7 +397,8 @@ class dna_extractionActions extends MyActions {
                             if ($value != '') {
                                 $value = str_replace("-", '/', $value);
                                 $value = explode("/", $value);
-                                $dnaExtraction->setExtractionDate($value[2] . '-' . $value[1] . '-' . $value[0]);
+                                $dnaExtraction->extraction_date = $value[2] . '-' . $value[0] . '-' . $value[1];
+                                $dnaExtraction->arrival_date = $value[2] . '-' . $value[0] . '-' . $value[1];
                             }
                             continue;
                         }
@@ -402,7 +410,7 @@ class dna_extractionActions extends MyActions {
                                     $ek->setName($value);
                                     $ek->save();
                                 }
-                                $dnaExtraction->setExtractionKitId($ek->id);
+                                $dnaExtraction->extraction_kit_id = $ek->id;
                             } else {
                                 $error = "Not found EXTRACTION METHOD  in line $line column EXTRACTION METHOD";
                                 break;
@@ -417,7 +425,8 @@ class dna_extractionActions extends MyActions {
                         }
                         if ($arrayTitles[$field] == '260_280') {
                             if($value != '') {
-                                $dnaExtraction->set260_280Ratio (str_replace(',', '.', $value));
+                                
+                                $dnaExtraction->set260_280Ratio(str_replace(',', '.', $value));
                             }
                             continue;
                         }
@@ -433,7 +442,13 @@ class dna_extractionActions extends MyActions {
                             }
                             continue;
                         }
-                        if ($arrayTitles[$field] == 'SEQUENCE') {}
+                        if ($arrayTitles[$field] == 'GENES') {
+                             if($value != '') {
+                                $dnaExtraction->setGenes(trim($value));
+                            }
+                            continue;
+                        }
+                        
                         
                     }
                     
@@ -456,8 +471,8 @@ class dna_extractionActions extends MyActions {
                     $dbConnection = Doctrine_Manager::connection();
                     try {
                         $dbConnection->beginTransaction();
-                        foreach ($dnas as $dnaExtraction) {
-                            $dnaExtraction->save();
+                        foreach ($dnas as $dnaExtractionRow) {
+                            $dnaExtractionRow->save();
                         }
                         $dbConnection->commit();
                     } catch (Exception $e) {

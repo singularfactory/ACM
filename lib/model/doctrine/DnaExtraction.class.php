@@ -36,7 +36,7 @@
  */
 class DnaExtraction extends BaseDnaExtraction {
 	public function getCode() {
-		return sprintf('%s_%s', $this->getStrain()->getFullCode(), date('Ymd', strtotime($this->getArrivalDate())));
+		return $this->getStrain()->getFullCode()."DNA";
 	}
 
 	public function getNbPcr() {
