@@ -467,10 +467,16 @@ class strainActions extends MyActions {
 
 							// Authority
 							if ($field == $arrayTitles['STRAIN_TAX_AUTHORITY']) {
-								$authority = AuthorityTable::getInstance()->findOneByName(trim($value));
+								$authority = AuthorityTable::getInstance()->createQuery('i')
+                                                                                    ->where("TRIM(name) LIKE ?", trim($value))
+                                                                                    ->fetchOne();
                                                               
-                                                                if($authority == null && $value!= ''){
-//                                                                      $error = "Authority not found in line $line column STRAIN_TAX_AUTHORITY";
+                                                                if(trim($value) == '' && ($strain->authority_id == '' ||$strain->authority_id == null )){
+                                                                    $error = "Authority EMPTY in line $line column STRAIN_TAX_AUTHORITY";
+                                                                    break; 
+                                                                }
+                                                                if($authority == null){
+                                                                     $error = "Authority not found in line $line column STRAIN_TAX_AUTHORITY";
                                                                         break; 
                                                                 }
 								if ($authority != null && $strain != null) {
