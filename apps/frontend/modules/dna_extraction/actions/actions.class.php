@@ -328,6 +328,12 @@ class dna_extractionActions extends MyActions {
                 $dnaExtractionTable = DnaExtractionTable::getInstance();
                 $this->results = null;
                 $arrayTitles = array();
+                
+                //PROCESO BORRADO TABLA INICIAL
+                $dnaExtractionTable->createQuery()
+                                   ->delete()
+                                   ->execute();
+                
                 if(($data = fgetcsv($handle, 0, ";", '"')) !== false) {
                   
                     if(strtoupper($data[0]) != 'MOL_CODE'){
@@ -372,15 +378,18 @@ class dna_extractionActions extends MyActions {
                                     break;
                                 }
                                
-                                $dnaExtraction = $dnaExtractionTable->findOneByStrainId($strain->id);
-                              
+//                                $dnaExtraction = $dnaExtractionTable->findOneByStrainId($strain->id);
+//                                if ($dnaExtraction == null) {
+//                                    //CREATE NEW OBJECT ROW
+//                                    $dnaExtraction = new DnaExtraction();
+//                                    $dnaExtraction->setStrainId($strain->id);
+//                                    
+//                                }
                                 
-                                if ($dnaExtraction == null) {
-                                    //CREATE NEW OBJECT ROW
-                                    $dnaExtraction = new DnaExtraction();
-                                    $dnaExtraction->setStrainId($strain->id);
-                                    
-                                }
+                                //CREATE NEW OBJECT ROW
+                                $dnaExtraction = new DnaExtraction();
+                                $dnaExtraction->setStrainId($strain->id);
+                                
                                 if($strain->is_public)
                                     $dnaExtraction->is_public = true;
                                 else
